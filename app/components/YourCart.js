@@ -1,0 +1,165 @@
+import React, { Component } from 'react'
+import { TouchableOpacity, View, Text, Image, StyleSheet} from 'react-native'
+import { Container, Content, Card, CardItem, Body, Icon, Button, Item, Radio,  } from 'native-base'
+import Navigation from '../particles/Navbar'
+
+import image from '../assets/sephora.jpg'
+
+const YourCart = (props) => (
+    <Container style={styles.Container}>
+       <Navigation 
+          navbarTitle="YourCart"
+          navbarIcon="arrow-back"
+       />
+       <Content>
+         <View style={styles.body}>
+           <Text style={styles.title}>Products</Text>
+           <View style={styles.Card}>
+              <View style={styles.contentCard}>
+                <Image source={image} style={styles.image}/>
+                <View style={styles.wrapLeft}>
+                  <Text style={styles.txtHeader}>Benefit Cosmetics</Text>
+                  <Text style={styles.txtDetail}>Face Primer Mini</Text>
+                  <Text style={styles.txtBlank}></Text>
+                  <Text style={styles.txtDetail}>Quantity: <Text style={styles.txtpcs}>1 pcs</Text></Text>
+                </View>
+                <View style={styles.wrapRight}>
+                  <Text style={styles.txtHeader}>Rp 20,000</Text>
+                  <TouchableOpacity>
+                    <Text style={styles.txtAction}>Edit Quantity</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Text style={styles.txtAction}>Remove</Text>
+                  </TouchableOpacity>
+                </View>
+               </View>
+           </View>
+           <View style={styles.Card}>
+              <View style={styles.contentCard}>
+                <Image source={image} style={styles.image}/>
+                <View style={styles.wrapLeft}>
+                  <Text style={styles.txtHeader}>Benefit Cosmetics</Text>
+                  <Text style={styles.txtDetail}>Face Primer Mini</Text>
+                  <Text style={styles.txtBlank}></Text>
+                  <Text style={styles.txtDetail}>Quantity: <Text style={styles.txtpcs}>1 pcs</Text></Text>
+                </View>
+                <View style={styles.wrapRight}>
+                  <Text style={styles.txtHeader}>Rp 20,000</Text>
+                  <TouchableOpacity>
+                    <Text style={styles.txtAction}>Edit Quantity</Text>
+                  </TouchableOpacity>
+                  <TouchableOpacity>
+                    <Text style={styles.txtAction}>Remove</Text>
+                  </TouchableOpacity>
+                </View>
+               </View>
+           </View>
+           
+           <Button style={styles.btnAdd}>
+             <Icon name="add"/><Text style={styles.txtAdd}>Add More Product</Text>
+           </Button>
+         </View>
+         <View style={styles.border}>
+           <View style={styles.body}>
+            <Text style={styles.title}>Shipping Options</Text>
+             <View style={styles.Card}>
+              <View style={styles.contentCard}>
+               <View style={styles.wrapLeft}>
+                <Text style={styles.txtHeader}>Alfan Hibban</Text>
+                <Text>+63 813 3567 1179</Text>
+                <Text>Jl. Danau Ranau IV G1C5 Sawojajar Malang</Text>
+               </View>
+               <View style={styles.wrapRight}>
+                <TouchableOpacity><Text style={styles.txtAction}>Edit Address</Text></TouchableOpacity>
+               </View>
+              </View>
+             </View>
+             <View style={{flexDirection:'row'}}>
+              <Radio/>
+              <View>
+                <Text>JNE</Text>
+                <Text>Barang akan sampai 2 -3 hari</Text>
+              </View>
+              <Text>RP 15,000</Text>
+             </View>
+           </View>
+         </View>
+       </Content>
+     </Container> 
+  )
+
+  const styles = StyleSheet.create({
+    Container:{
+      backgroundColor:'#fff'
+    },
+    title:{
+      fontSize:16,
+      fontWeight:'bold',
+      marginBottom:5
+    },
+    body:{
+      marginHorizontal:20,
+      marginTop:10,
+    },
+    border:{
+      borderTopWidth:1,
+      borderBottomWidth:1,
+      borderColor:'#e2e2e2'
+    },
+    Card:{
+      borderRadius:1,
+      borderColor:'#E2E2E2',
+      borderWidth:1,
+      marginBottom:5
+    },
+    contentCard:{
+      margin:10,
+      flexDirection:'row',
+      flex:1,
+    },
+    image:{
+      width:75,
+      height:75,
+      marginRight:10
+    },
+    wrapLeft:{
+      flex:1,
+    },
+    wrapRight:{
+      alignItems:'flex-end'
+    },
+    txtHeader:{
+      fontSize:16,
+      fontWeight:'bold',
+    },
+    txtDetail:{
+      fontSize:14,
+    },
+    txtBlank:{
+      marginVertical:5
+    },
+    txtAction:{
+      fontSize:14,
+      color:'#d11e48',
+      marginBottom:5
+    },
+    txtpcs:{
+      fontSize:14,
+      fontWeight:'bold'
+    },
+    btnAdd:{
+      borderRadius:5,
+      alignSelf:'center',
+      backgroundColor:'#AEAEAE',
+      margin:5,
+      marginBottom:15
+    },
+    txtAdd:{
+      fontSize:14,
+      paddingRight:10,
+      color:'#fff',
+      fontWeight:'bold'
+    },
+  })
+
+export default YourCart
