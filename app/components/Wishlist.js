@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { View, Text, FlatList, StyleSheet } from 'react-native'
 import { Container } from 'native-base'
 import Navbar from '../particles/Navbar'

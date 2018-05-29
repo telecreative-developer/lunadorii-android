@@ -1,4 +1,4 @@
-import React,{ Component } from 'react'
+import React from 'react'
 import { View, Image, Text, Dimensions, StyleSheet } from 'react-native'
 import imageSkinCare from '../assets/images/icon/skincare.png'
 
