@@ -9,11 +9,11 @@ import EditAddressContainer from './app/containers/EditAddressContainer'
 
 const App = StackNavigator(
   { 
-    EditAddressContainer: { screen: EditAddressContainer },
     HomeContainer: { screen: HomeContainer },
     ProfileContainer: { screen: ProfileContainer },
     PaymentsContainer: { screen: PaymentsContainer },
-    ChangePasswordContainer: { screen: ChangePasswordContainer }
+    ChangePasswordContainer: { screen: ChangePasswordContainer },
+    EditAddressContainer: { screen: EditAddressContainer }
   },{
     headerMode:'none'
   }
