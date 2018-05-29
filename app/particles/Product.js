@@ -15,15 +15,17 @@ const Product = (props) => (
     <View style={styles.viewContent}>
       <Text style={styles.txtTitle}>{props.title}</Text>
       <Text style={styles.txtCategories}>{props.categories}</Text>
-      <Rating
-        type='custom'
-        ratingCount={5}
-        startingValue={props.star}
-        imageSize={12}
-        ratingColor="#000"
-        ratingBackgroundColor="#ccc"
-      />
-      <Text style={styles.txtPrice}>Rp. {props.price}</Text>
+      <View style={{marginTop: 10}}>
+        <Rating
+          type='custom'
+          ratingCount={5}
+          startingValue={props.star}
+          imageSize={12}
+          ratingColor="#000"
+          ratingBackgroundColor="#ccc"
+        />
+        <Text style={styles.txtPrice}>Rp. {props.price}</Text>
+      </View>
     </View>
   </View>
 )
@@ -38,13 +40,17 @@ const styles = StyleSheet.create({
     padding: 10
   },
   ImageBackground:{
-    width: width / 2.3, 
+    width: ( width - 50 ) / 2, 
     height: 100, 
     padding: 20
   },
   txtCategories:{
     fontSize: 14, 
     maxWidth: width / 2.8
+  },
+  txtTitle:{
+    fontWeight: 'bold',
+    fontSize: 16
   },
   txtPrice:{
     fontWeight: 'bold', 

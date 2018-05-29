@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, View, Text, Image, Dimensions, FlatList } from 'react-native'
-import { Container, Header, Tabs, Tab, TabHeading, Icon, Content } from 'native-base'
-import PropTypes from 'prop-types'
-import Navbar from '../particles/Navbar'
+import { Container, Tabs, Tab, TabHeading, Icon, Content } from 'native-base'
+import NavbarHome from '../particles/NavbarHome'
 import Carousel from 'react-native-looped-carousel'
 import imageCover from '../assets/images/cover/cover.jpg'
 import imageSkinCare from '../assets/images/icon/skincare.png'
@@ -14,10 +13,7 @@ import imageMore from '../assets/images/icon/more.png'
 const { width, height } = Dimensions.get('window')
 const Home = (props) => (
   <Container style={styles.tabHeading}>
-    <Navbar 
-    navbarTitle="Home"
-    navbarIcon="arrow-back"
-    />
+    <NavbarHome /> 
     <Tabs locked={true} style={{height: 1000}} tabBarUnderlineStyle= {{ backgroundColor: '#f65857' }}>
       <Tab heading={ <TabHeading  style={styles.tabHeading} ><Text style={styles.txtHeading}>New Arrivals</Text></TabHeading>}>
         <Content>
@@ -39,53 +35,53 @@ const Home = (props) => (
               <Image source={imageCover} style={styles.imageAds}/>
             </View>
           </Carousel>
-          <View style={styles.viewWrapper}>
-            <Text style={styles.txtCategories}>Category</Text>
-            <View style={styles.viewWrapperCategories}>
-              <View style={styles.flexOnly2}>
-                <View style={styles.viewCategories}>
-                  <Image source={imageSkinCare} style={styles.imageCategories}/>
+            <View>
+              <Text style={styles.txtCategories}>Category</Text>
+              <View style={styles.viewWrapperCategories}>
+                <View style={styles.flexOnly2}>
+                  <View style={styles.viewCategories}>
+                    <Image source={imageSkinCare} style={styles.imageCategories}/>
+                  </View>
+                  <Text style={styles.titleCategories}>Skincare</Text>
                 </View>
-                <Text style={styles.titleCategories}>Skincare</Text>
-              </View>
-              <View style={styles.flexOnly2}>
-                <View style={styles.viewCategories}>
-                  <Image source={imageMakeUp} style={styles.imageCategories}/>
+                <View style={styles.flexOnly2}>
+                  <View style={styles.viewCategories}>
+                    <Image source={imageMakeUp} style={styles.imageCategories}/>
+                  </View>
+                  <Text style={styles.titleCategories}>Makeup</Text>
                 </View>
-                <Text style={styles.titleCategories}>Makeup</Text>
-              </View>
-              <View style={styles.flexOnly2}>
-                <View style={styles.viewCategories}>
-                  <Image source={imageToolBrushes} style={styles.imageCategories}/>
+                <View style={styles.flexOnly2}>
+                  <View style={styles.viewCategories}>
+                    <Image source={imageToolBrushes} style={styles.imageCategories}/>
+                  </View>
+                  <Text style={styles.titleCategories}>Tools & Brushes</Text>
                 </View>
-                <Text style={styles.titleCategories}>Tools & Brushes</Text>
-              </View>
-              <View style={styles.flexOnly2}>
-                <View style={styles.viewCategories}>
-                  <Image source={imageNails} style={styles.imageCategories}/>
+                <View style={styles.flexOnly2}>
+                  <View style={styles.viewCategories}>
+                    <Image source={imageNails} style={styles.imageCategories}/>
+                  </View>
+                  <Text style={styles.titleCategories}>Nails</Text>
                 </View>
-                <Text style={styles.titleCategories}>Nails</Text>
-              </View>
-              <View style={styles.flexOnly2}>
-                <View style={styles.viewCategories}>
-                  <Image source={imageMore} style={styles.imageCategories}/>
+                <View style={styles.flexOnly2}>
+                  <View style={styles.viewCategories}>
+                    <Image source={imageMore} style={styles.imageCategories}/>
+                  </View>
+                  <Text style={styles.titleCategories}>More</Text>
                 </View>
-                <Text style={styles.titleCategories}>More</Text>
               </View>
             </View>
-            <View style={styles.viewFlatCategory}>
-              <Text style={styles.txtHeadCategories}>Category</Text>
+            <View style={styles.viewBrand}>
+              <Text style={styles.txtBrand}>Brand</Text>
               <FlatList 
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
                 data={props.dataBrand}
                 renderItem={props.renderBrand}
                 keyExtractor={(item, index) => JSON.stringify(index)}
-                style={styles.flatList}
               />
             </View>
             <View style={styles.viewArrivals}>
-            <Text style={styles.txtArrivals}>More New Arrivals</Text>
+              <Text style={styles.txtArrivals}>More New Arrivals</Text>
               <FlatList
                 numColumns={2}
                 data={props.dataProduct}
@@ -93,11 +89,28 @@ const Home = (props) => (
                 keyExtractor={(item, index) => JSON.stringify(index)}
               />
             </View>
-          </View>
         </Content>
       </Tab>
       <Tab heading={ <TabHeading style={styles.tabHeading}><Text style={styles.txtHeading}>Best Sellers</Text></TabHeading>}>
-        <Text>Tampan</Text>
+        <Content>
+          <View style={{paddingLeft: 20, paddingTop: 20, paddingBottom: 20}}>
+            <FlatList 
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              data={props.dataRecommend}
+              renderItem={props.renderRecommend}
+              keyExtractor={(item, index) => JSON.stringify(index)}
+            />
+          </View>
+          <View style={{paddingLeft: 20}}>
+            <FlatList 
+              numColumns={2}
+              data={props.dataCategories}
+              renderItem={props.renderCategories}
+              keyExtractor={(item, index) => JSON.stringify(index)}
+            />
+          </View>
+        </Content>
       </Tab>
     </Tabs>
   </Container>
@@ -108,16 +121,18 @@ const styles = StyleSheet.create({
     width: '100%', 
     height: 200
   },
-  viewFlatCategory:{
+  viewBrand:{
     paddingTop: 5, 
-    paddingBottom: 5
+    paddingBottom: 5,
+    paddingLeft: 20
   },
   txtHeading:{
     color: '#000'
   },
-  txtHeadCategories:{
+  txtBrand:{
     fontWeight: 'bold', 
-    fontSize: 16
+    fontSize: 16,
+    paddingBottom: 10
   },
   txtArrivals:{
     fontWeight: 'bold', 
@@ -129,27 +144,27 @@ const styles = StyleSheet.create({
   },
   txtCategories:{
     fontWeight: 'bold', 
-    fontSize: 16
+    fontSize: 16,
+    paddingLeft: 20,
+    paddingTop: 10
   },
   flexOnly2:{
     flex: 0.25
   },
   viewArrivals:{
+    paddingLeft: 20,
     marginTop: 10
   },
   viewWrapperCategories:{
     flexDirection: 'row', 
     paddingTop: 10
   },
-  viewWrapper:{
-    padding: 20
-  },
   viewCategories:{
     borderWidth: 1, 
     borderColor: '#e2e2e2', 
-    height: 55, 
-    width: 55, 
-    borderRadius: 55 / 2, 
+    height: 60, 
+    width: 60, 
+    borderRadius: 60 / 2, 
     alignSelf: 'center'
   },
   imageCategories:{

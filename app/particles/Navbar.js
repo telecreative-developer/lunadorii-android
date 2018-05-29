@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Text } from 'react-native'
 import { Header, Left, Button, Icon, Body, Right } from 'native-base'
-import PropTypes from 'prop-types'
 
 const Navbar = (props) => (
   <Header style={{backgroundColor: 'transparent'}} hasTabs>
