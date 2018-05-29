@@ -74,14 +74,31 @@ const YourCart = (props) => (
                </View>
               </View>
              </View>
-             <View style={{flexDirection:'row'}}>
+             <View style={styles.contentBottom}>
               <Radio/>
-              <View>
-                <Text>JNE</Text>
-                <Text>Barang akan sampai 2 -3 hari</Text>
+              <View style={styles.wrapKurir}>
+                <Text style={styles.txtkurir}>JNE</Text>
+                <Text style={styles.txtdetilkurir}>Barang akan sampai 2 -3 hari</Text>
               </View>
-              <Text>RP 15,000</Text>
+              <Text style={styles.txtpcs}>RP 15,000</Text>
              </View>
+             <View style={styles.contentBottom}>
+              <Radio/>
+              <View style={styles.wrapKurir}>
+                <Text style={styles.txtkurir}>YES</Text>
+                <Text style={styles.txtdetilkurir}>Barang akan sampai 1 hari</Text>
+              </View>
+              <Text style={styles.txtpcs}>RP 15,000</Text>
+             </View>
+             <View style={styles.contentBottom}>
+              <Radio/>
+              <View style={styles.wrapKurir}>
+                <Text style={styles.txtkurir}>Express</Text>
+                <Text style={styles.txtdetilkurir}>Barang akan sampai 2 -3 hari</Text>
+              </View>
+              <Text style={styles.txtpcs}>RP 15,000</Text>
+             </View>
+             
            </View>
          </View>
        </Content>
@@ -160,6 +177,21 @@ const YourCart = (props) => (
       color:'#fff',
       fontWeight:'bold'
     },
+    contentBottom:{
+      flexDirection:'row',
+      margin:10
+    },
+    wrapKurir:{
+      flex:1
+    },
+    txtkurir:{
+      fontSize:16,
+      marginLeft:5
+    },
+    txtdetilkurir:{
+      fontSize:12,
+      marginLeft:5
+    }
   })
 
 export default YourCart

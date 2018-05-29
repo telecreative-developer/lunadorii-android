@@ -10,8 +10,7 @@ const dataRecentOrders = [
     status: 'Packing',
     date: '20 Mei',
     time: '12:00 AM',
-    total:'250.000',
-    key: 1
+    total:'250.000'
   },
   {
     image: 'https://i5.walmartimages.ca/images/Large/1c0/_en/999999-00770103148748_a1c0_en.jpg?odnBound=460',
@@ -19,8 +18,7 @@ const dataRecentOrders = [
     status: 'Non - Packing',
     date: '20 Mei',
     time: '12:00 AM',
-    total:'250.000',
-    key: 2
+    total:'250.000'
   },
   {
     image: 'https://image.afcdn.com/expertclub/20150420/279261_w300h300.jpg',
@@ -28,8 +26,7 @@ const dataRecentOrders = [
     status: 'Packing',
     date: '20 Mei',
     time: '12:00 AM',
-    total:'250.000',
-    key: 3
+    total:'250.000'
   },
 ]
 
@@ -38,7 +35,7 @@ export default class ProfileContainer extends Component {
     return (
       <Profile
       dataRecentOrders={dataRecentOrders}
-      renderRecentOrders={({item}) => (
+      renderRecentOrders={({item, key}) => (
         <RecentOrders image={item.image} categories={item.categories} status={item.status} total={item.total} date={item.date} time={item.time}/>
       )}
       />
