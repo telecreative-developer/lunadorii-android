@@ -3,7 +3,7 @@ import { Text } from 'react-native'
 import { Header, Left, Button, Icon, Body, Right } from 'native-base'
 
 const Navbar = (props) => (
-  <Header style={{backgroundColor: 'transparent'}} hasTabs>
+  <Header style={{backgroundColor: 'transparent', height: 45}} hasTabs>
     <Left>
       <Button transparent>
         <Icon name={props.navbarIcon} style={{color: '#000'}}/>
