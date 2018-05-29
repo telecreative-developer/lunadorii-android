@@ -7,9 +7,11 @@ import PaymentsContainer from './app/containers/PaymentsContainer'
 import ChangePasswordContainer from './app/containers/ChangePasswordContainer'
 import EditAddressContainer from './app/containers/EditAddressContainer'
 import NotificationsContainer from './app/containers/NotificationsContainer'
+import WishlistContainer from './app/containers/WishlistContainer'
 
 const App = StackNavigator(
   { 
+    WishlistContainer: { screen: WishlistContainer },
     HomeContainer: { screen: HomeContainer },
     ProfileContainer: { screen: ProfileContainer },
     PaymentsContainer: { screen: PaymentsContainer },

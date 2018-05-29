@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, Image, Dimensions, FlatList } from 'react-native'
+import { StyleSheet, View, Text, Image, Dimensions, FlatList, StatusBar } from 'react-native'
 import { Container, Tabs, Tab, TabHeading, Icon, Content } from 'native-base'
 import NavbarHome from '../particles/NavbarHome'
 import Carousel from 'react-native-looped-carousel'
@@ -14,6 +14,10 @@ const { width, height } = Dimensions.get('window')
 const Home = (props) => (
   <Container style={styles.tabHeading}>
     <NavbarHome /> 
+    <StatusBar
+     backgroundColor="#f65857"
+     barStyle="light-content"
+   />
     <Tabs locked={true} style={{height: 1000}} tabBarUnderlineStyle= {{ backgroundColor: '#f65857' }}>
       <Tab heading={ <TabHeading  style={styles.tabHeading} ><Text style={styles.txtHeading}>New Arrivals</Text></TabHeading>}>
         <Content>
