@@ -6,6 +6,7 @@ import ProfileContainer from './app/containers/ProfileContainer'
 import PaymentsContainer from './app/containers/PaymentsContainer'
 import ChangePasswordContainer from './app/containers/ChangePasswordContainer'
 import EditAddressContainer from './app/containers/EditAddressContainer'
+import NotificationsContainer from './app/containers/NotificationsContainer'
 
 const App = StackNavigator(
   { 
@@ -13,7 +14,8 @@ const App = StackNavigator(
     ProfileContainer: { screen: ProfileContainer },
     PaymentsContainer: { screen: PaymentsContainer },
     ChangePasswordContainer: { screen: ChangePasswordContainer },
-    EditAddressContainer: { screen: EditAddressContainer }
+    EditAddressContainer: { screen: EditAddressContainer },
+    NotificationsContainer: { screen: NotificationsContainer },
   },{
     headerMode:'none'
   }
