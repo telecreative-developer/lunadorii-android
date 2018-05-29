@@ -10,12 +10,12 @@ import NotificationsContainer from './app/containers/NotificationsContainer'
 
 const App = StackNavigator(
   { 
-    NotificationsContainer: { screen: NotificationsContainer },
     HomeContainer: { screen: HomeContainer },
     ProfileContainer: { screen: ProfileContainer },
     PaymentsContainer: { screen: PaymentsContainer },
     ChangePasswordContainer: { screen: ChangePasswordContainer },
-    EditAddressContainer: { screen: EditAddressContainer }
+    EditAddressContainer: { screen: EditAddressContainer },
+    NotificationsContainer: { screen: NotificationsContainer },
   },{
     headerMode:'none'
   }
