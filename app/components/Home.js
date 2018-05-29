@@ -103,10 +103,20 @@ const Home = (props) => (
             />
           </View>
           <View style={{paddingLeft: 20}}>
+            <Text style={styles.txtArrivals}>More New Arrivals</Text>
             <FlatList 
               numColumns={2}
               data={props.dataCategories}
               renderItem={props.renderCategories}
+              keyExtractor={(item, index) => JSON.stringify(index)}
+            />
+          </View>
+          <View style={styles.viewArrivals}>
+            <Text style={styles.txtArrivals}>All Product</Text>
+            <FlatList
+              numColumns={2}
+              data={props.dataProduct}
+              renderItem={props.renderProduct}
               keyExtractor={(item, index) => JSON.stringify(index)}
             />
           </View>

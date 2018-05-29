@@ -72,27 +72,23 @@ const dataRecommend = [
 const dataCategories = [
   {
     image: 'https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg',
-    title: 'Benefiets Cosmetics',
-    categories: 'Benefiets Cosmetics, and others',
-    price: '120,000',
-    star: 3,
-    reviews: '2.0'
+    title: 'Nails',
+    total: '122'
   },
   {
     image: 'https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg',
-    title: 'Benefiets Cosmetics',
-    categories: 'Benefiets Cosmetics, and others',
-    price: '120,000',
-    star: 3,
-    reviews: '2.0'
+    title: 'Skincare',
+    total: '31'
   },
   {
     image: 'https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg',
-    title: 'Benefiets Cosmetics',
-    categories: 'Benefiets Cosmetics, and others',
-    price: '120,000',
-    star: 3,
-    reviews: '2.0'
+    title: 'Makeup',
+    total: '80'
+  },
+  {
+    image: 'https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg',
+    title: 'Tools & Brushes',
+    total: '20'
   },
 ]
 
@@ -124,7 +120,7 @@ class HomeContainer extends Component {
       )}
       dataCategories={dataCategories}
       renderCategories={({item}) => (
-        <BestCategories
+        <BestCategories image={item.image} title={item.title} total={item.total}
         />
       )}
       />
