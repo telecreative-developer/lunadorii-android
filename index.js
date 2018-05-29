@@ -3,12 +3,13 @@ import { AppRegistry } from 'react-native'
 import { StackNavigator }  from 'react-navigation'
 import HomeContainer from './app/containers/HomeContainer'
 import ProfileContainer from './app/containers/ProfileContainer'
+import ChangePasswordContainer from './app/containers/ChangePasswordContainer'
 
 const App = StackNavigator(
   { 
+    ChangePasswordContainer: { screen: ChangePasswordContainer },
     ProfileContainer: { screen: ProfileContainer },
     HomeContainer: { screen: HomeContainer },
-    
   },{
     headerMode:'none'
   })
