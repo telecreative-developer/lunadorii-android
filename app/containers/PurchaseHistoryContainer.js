@@ -74,6 +74,11 @@ const dataHistoryOrders = [
 ]
 
 export default class PurchaseHistoryContainer extends Component{
+
+  state = {
+    modalVisibleEditQuantity : false
+  }
+
   render(){
     return(
       <PurchaseHistory
