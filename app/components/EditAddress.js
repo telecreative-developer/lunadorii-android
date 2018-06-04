@@ -5,7 +5,7 @@ import Navbar from '../particles/Navbar'
 import { Container, Content, Input, Item, Label, Form, Button, Textarea } from 'native-base';
 
 const EditAddress = (props) => (
-  <Container>
+  <Container style={styles.container}>
     <Navbar
       navbarTitle="Edit Address"
       navbarIcon="close"/>
@@ -48,6 +48,9 @@ const EditAddress = (props) => (
 )
 
 const styles = StyleSheet.create({
+  container:{
+    backgroundColor: '#fff'
+  },
   form: {
     paddingRight: 15,
     paddingLeft: 15
