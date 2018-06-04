@@ -8,7 +8,8 @@ const YourShippingAddress = (props) => (
   <Container>
     <Navbar
       navbarTitle="Shipping Address"
-      navbarIcon="arrow-back"/>
+      navbarIcon="arrow-back"
+      actionIcon={props.goback}/>
     <Content>
       <View style={styles.viewShippingAddress}>
         <Text style={styles.txtShippingAddress}>Your Shipping Address</Text>

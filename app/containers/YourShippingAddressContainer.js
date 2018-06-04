@@ -5,7 +5,8 @@ export default class YourShippingAddressContainer extends Component{
 
   render(){
     return(
-      <YourShippingAddress/>
+      <YourShippingAddress
+        goback={() => this.props.navigation.goBack()}/>
     )
   }
 

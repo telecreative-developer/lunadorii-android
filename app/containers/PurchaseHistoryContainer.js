@@ -82,6 +82,7 @@ export default class PurchaseHistoryContainer extends Component{
   render(){
     return(
       <PurchaseHistory
+        goback={() => this.props.navigation.goBack()}
         dataRecentOrders={dataRecentOrders}
         renderRecentOrders={({item}) => (
           <RecentOrders 
@@ -92,7 +93,6 @@ export default class PurchaseHistoryContainer extends Component{
             time={item.time}
             image={item.image}/>
         )}
-
         dataHistoryOrders={dataHistoryOrders}
         renderHistoryOrders={({item}) => (
           <HistoryOrders

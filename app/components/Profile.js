@@ -1,12 +1,15 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, FlatList } from 'react-native'
+import { StyleSheet, View, Text, Image, FlatList, TouchableOpacity } from 'react-native'
 import { Container, Button, Icon, Content } from 'native-base'
 import SVGImage from 'react-native-svg-image'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import PropTypes from 'prop-types'
 import Navbar from '../particles/Navbar'
 import ImageCalendar from '../assets/images/icon/calendar.png'
-import { ModalEditProfile } from '../particles/Modal'
+import { 
+  ModalEditProfile,
+  
+} from '../particles/Modal'
 
 const Profile = (props) => (
   <Container style={styles.container}>
@@ -52,53 +55,65 @@ const Profile = (props) => (
       <View>
         <View style={styles.viewMenu}> 
           <View style={styles.viewBoxMenu}>
-            <View style={styles.viewSubBoxMenu}>
-              <Image source={ImageCalendar} style={styles.imageIcon}/>
-              <Text style={styles.txtMenu}>Purchase History</Text>
-            </View>
+            <TouchableOpacity onPress={props.navigateToPurchaseHistory}>
+              <View style={styles.viewSubBoxMenu}>              
+                  <Image source={ImageCalendar} style={styles.imageIcon}/>
+                  <Text style={styles.txtMenu}>Purchase History</Text>
+              </View>
+            </TouchableOpacity>
           </View>
           <View style={styles.viewBoxMenu}>
-            <View style={styles.viewSubBoxMenu}>
-              <Image source={ImageCalendar} style={styles.imageIcon}/>
-              <Text style={styles.txtMenu}>Purchase History</Text>
-            </View>
+            <TouchableOpacity onPress={props.navigateToWhishlist}>
+              <View style={styles.viewSubBoxMenu}>
+                <Image source={ImageCalendar} style={styles.imageIcon}/>
+                <Text style={styles.txtMenu}>Whishlist</Text>
+              </View>
+            </TouchableOpacity>
           </View>
           <View style={styles.viewBoxMenu}>
-            <View style={styles.viewSubBoxMenu}>
-              <Image source={ImageCalendar} style={styles.imageIcon}/>
-              <Text style={styles.txtMenu}>Purchase History</Text>
-            </View>
+            <TouchableOpacity onPress={props.navigateToCreditCard}>
+              <View style={styles.viewSubBoxMenu}>
+                <Image source={ImageCalendar} style={styles.imageIcon}/>
+                <Text style={styles.txtMenu}>Credit Card</Text>
+              </View>
+            </TouchableOpacity>
           </View>
           <View style={styles.viewBoxMenu}>
-            <View style={styles.viewSubBoxMenu}>
-              <Image source={ImageCalendar} style={styles.imageIcon}/>
-              <Text style={styles.txtMenu}>Purchase History</Text>
-            </View>
+            <TouchableOpacity onPress={props.navigateToReviews}> 
+              <View style={styles.viewSubBoxMenu}>
+                <Image source={ImageCalendar} style={styles.imageIcon}/>
+                <Text style={styles.txtMenu}>Your Reviews</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.viewMenu}> 
           <View style={styles.viewBoxMenu}>
+            <TouchableOpacity onPress={props.navigateToShippingAddree}>
+              <View style={styles.viewSubBoxMenu}>
+                <Image source={ImageCalendar} style={styles.imageIcon}/>
+                <Text style={styles.txtMenu}>Shipping Address</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.viewBoxMenu}>
+            <TouchableOpacity onPress={props.navigateToReports}>
+              <View style={styles.viewSubBoxMenu}>
+                <Image source={ImageCalendar} style={styles.imageIcon}/>
+                <Text style={styles.txtMenu}>Report</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
+          <View style={styles.viewBoxMenu}>
             <View style={styles.viewSubBoxMenu}>
               <Image source={ImageCalendar} style={styles.imageIcon}/>
-              <Text style={styles.txtMenu}>Purchase History</Text>
+              <Text style={styles.txtMenu}>Settings</Text>
             </View>
           </View>
           <View style={styles.viewBoxMenu}>
             <View style={styles.viewSubBoxMenu}>
               <Image source={ImageCalendar} style={styles.imageIcon}/>
-              <Text style={styles.txtMenu}>Purchase History</Text>
-            </View>
-          </View>
-          <View style={styles.viewBoxMenu}>
-            <View style={styles.viewSubBoxMenu}>
-              <Image source={ImageCalendar} style={styles.imageIcon}/>
-              <Text style={styles.txtMenu}>Purchase History</Text>
-            </View>
-          </View>
-          <View style={styles.viewBoxMenu}>
-            <View style={styles.viewSubBoxMenu}>
-              <Image source={ImageCalendar} style={styles.imageIcon}/>
-              <Text style={styles.txtMenu}>Purchase History</Text>
+              <Text style={styles.txtMenu}>Privacy Policy</Text>
             </View>
           </View>
         </View>

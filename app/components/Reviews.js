@@ -8,6 +8,7 @@ const Reviews = (props) => (
     <Navbar
     navbarTitle="Reviews"
     navbarIcon="arrow-back"
+    actionIcon={props.goback}
     />
     <Content>
       <View style={styles.viewReviews}>

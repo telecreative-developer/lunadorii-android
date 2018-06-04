@@ -55,6 +55,13 @@ export default class ProfileContainer extends Component {
         openModalEditProfile={() => this.openModalEditProfile()}
         closeModalEditProfile={() => this.closeModalEditProfile()}
         modalVisibleEditProfile={this.state.modalVisibleEditProfile}
+
+        navigateToPurchaseHistory={() => this.props.navigation.navigate("PurchaseHistoryContainer")}
+        navigateToWhishlist={() => this.props.navigation.navigate("WishlistContainer")}
+        navigateToCreditCard={() => this.props.navigation.navigate("CreditCardContainer")}
+        navigateToReviews={() => this.props.navigation.navigate("ReviewsContainer")}
+        navigateToShippingAddree={() => this.props.navigation.navigate("YourShippingAddressContainer")}
+        navigateToReports={() => this.props.navigation.navigate("ReportsContainer")}
       />
     )
   }

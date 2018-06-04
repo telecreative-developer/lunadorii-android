@@ -10,6 +10,7 @@ const Reports = (props) => (
     <Navbar
       navbarTitle="Reports"
       navbarIcon="arrow-back"
+      actionIcon={props.goback}
     />
     <ModalCategory 
       navbarTitle= "Selected Category"

@@ -9,6 +9,7 @@ const Wishlist = (props) => (
     <Navbar
     navbarIcon = "arrow-back"
     navbarTitle = "Wishlist"
+    actionIcon = {props.goback}
     />
     <Content>
       <View style={styles.viewArrivals}>

@@ -30,6 +30,7 @@ export default class WishlistContainer extends Component{
   render(){
     return(
       <Wishlist
+      goback={() => this.props.navigation.goBack()}
       dataProduct={dataProduct}
       renderProduct={({item}) => (
         <Product image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star}

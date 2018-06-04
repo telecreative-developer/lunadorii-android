@@ -12,12 +12,13 @@ import ReportsContainer from './app/containers/ReportsContainer'
 import SettingsContainer from './app/containers/SettingsContainer'
 import YourCartContainer from './app/containers/YourCartContainer'
 import YourShippingAddressContainer from './app/containers/YourShippingAddressContainer'
+import CreditCardContainer from './app/containers/CreditCardContainer'
 
 const App = StackNavigator(
   { 
+    ProfileContainer: { screen: ProfileContainer },
     YourShippingAddressContainer: { screen: YourShippingAddressContainer },
     YourCartContainer: { screen: YourCartContainer },
-    ProfileContainer: { screen: ProfileContainer },
     PurchaseHistoryContainer: { screen: PurchaseHistoryContainer },
     SettingsContainer: { screen: SettingsContainer },
     NotificationsContainer: { screen: NotificationsContainer },
@@ -27,7 +28,7 @@ const App = StackNavigator(
     ReportsContainer: { screen: ReportsContainer },
     ReviewsContainer: { screen: ReviewsContainer },
     PaymentsContainer: { screen: PaymentsContainer },
-    
+    CreditCardContainer: { screen: CreditCardContainer }
   },{
     headerMode:'none'
   }

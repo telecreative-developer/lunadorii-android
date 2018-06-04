@@ -21,6 +21,7 @@ export default class ReportsContainer extends Component{
         openModal = {() => this.openModal()}
         closeModal = {() => this.closeModal()}
         selectedKey = {this.state.selected1}
+        goback={() => this.props.navigation.goBack()}
       />
     )
   }
