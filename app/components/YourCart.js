@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { TouchableOpacity, View, Text, Image, StyleSheet} from 'react-native'
+import { TouchableOpacity, View, Text, Image, StyleSheet, FlatList} from 'react-native'
 import { Container, Content, Card, CardItem, Body, Icon, Button, Item, Radio,  } from 'native-base'
 import Navigation from '../particles/Navbar'
 import { ModalEditQuantity } from '../particles/Modal'
+import BenefitCosmetics from '../particles/BenefitCosmetics'
 
 import image from '../assets/sephora.jpg'
 
@@ -19,49 +20,12 @@ const YourCart = (props) => (
           actionIcon = {props.closeModalEditQuantity}
         />
        <Content>
-         <View style={styles.body}>
+        <View style={styles.body}>
            <Text style={styles.title}>Products</Text>
-           <View style={styles.Card}>
-              <View style={styles.contentCard}>
-                <Image source={image} style={styles.image}/>
-                <View style={styles.wrapLeft}>
-                  <Text style={styles.txtHeader}>Benefit Cosmetics</Text>
-                  <Text style={styles.txtDetail}>Face Primer Mini</Text>
-                  <Text style={styles.txtBlank}></Text>
-                  <Text style={styles.txtDetail}>Quantity: <Text style={styles.txtpcs}>1 pcs</Text></Text>
-                </View>
-                <View style={styles.wrapRight}>
-                  <Text style={styles.txtHeader}>Rp 20,000</Text>
-                  <TouchableOpacity onPress={props.openModalEditQuantity}>
-                    <Text style={styles.txtAction}>Edit Quantity</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Text style={styles.txtAction}>Remove</Text>
-                  </TouchableOpacity>
-                </View>
-               </View>
-           </View>
-           <View style={styles.Card}>
-              <View style={styles.contentCard}>
-                <Image source={image} style={styles.image}/>
-                <View style={styles.wrapLeft}>
-                  <Text style={styles.txtHeader}>Benefit Cosmetics</Text>
-                  <Text style={styles.txtDetail}>Face Primer Mini</Text>
-                  <Text style={styles.txtBlank}></Text>
-                  <Text style={styles.txtDetail}>Quantity: <Text style={styles.txtpcs}>1 pcs</Text></Text>
-                </View>
-                <View style={styles.wrapRight}>
-                  <Text style={styles.txtHeader}>Rp 20,000</Text>
-                  <TouchableOpacity onPress={props.openModalEditQuantity}>
-                    <Text style={styles.txtAction}>Edit Quantity</Text>
-                  </TouchableOpacity>
-                  <TouchableOpacity>
-                    <Text style={styles.txtAction}>Remove</Text>
-                  </TouchableOpacity>
-                </View>
-               </View>
-           </View>
-           
+           <FlatList
+            data={props.dataProducts}
+            renderItem={props.renderProducts}
+            keyExtractor={(item, index) => JSON.stringify(index)}/>
            <Button style={styles.btnAdd}>
              <Icon name="add"/><Text style={styles.txtAdd}>Add More Product</Text>
            </Button>
