@@ -30,6 +30,7 @@ export default class ReviewsContainer extends Component{
   render(){
     return(
       <Reviews
+      goback={() => this.props.navigation.goBack()}
       dataReviews={dataReviews}
       renderReviews={({item}) => (
         <ProductReviews image={item.image} title={item.title} star={item.star} date={item.date} review={item.review}

@@ -30,6 +30,7 @@ const styles = StyleSheet.create({
     borderColor: '#e2e2e2', 
     padding: 10, 
     marginLeft: 10,
+    marginBottom: 10
   },
   viewOnlyRow:{
     flexDirection: 'row'
