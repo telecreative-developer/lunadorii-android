@@ -122,6 +122,23 @@ export const ModalNotification = (props) => (
   </Modal>
 )
 
+export const ModalEditQuantity = (props) => (
+  <Modal
+    animationType="slide"
+    transparent={false}
+    visible={props.modalVisible}
+  >
+    <Navbar
+      navbarTitle={props.navbarTitle}
+      navbarIcon={props.navbarIcon}
+      actionIcon = {props.actionIcon}
+    />
+    <Content>
+      <Text>Edit Quantity Modal</Text>
+    </Content>
+  </Modal>
+)
+
 const styles = StyleSheet.create({
   content:{
     marginTop: 20
