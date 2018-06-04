@@ -1,25 +1,56 @@
-import React,{ Component } from 'react'
-import { View, Image, Text, Dimensions } from 'react-native'
-import imageCover from '../assets/images/cover/cover.jpg'
+import React from 'react'
+import { View, Image, Text, Dimensions, StyleSheet } from 'react-native'
 import imageSkinCare from '../assets/images/icon/skincare.png'
 
 const { width, height } = Dimensions.get('window')
 const BestCategories = (props) => (
   <View>
-    <View style={{borderWidth: 1, borderColor: '#e2e2e2', width: ( width - 50 ) / 2, marginRight: 10, marginBottom: 10, padding: 10 }}>
-      <View style={{flexDirection: 'row'}}>
-        <View style={{flex: 0.2}}>
-          <Image source={imageSkinCare} style={{width: 35, height: 35, alignSelf: 'center'}}/>
+    <View style={styles.viewCategories}>
+      <View style={styles.viewFlexRow}>
+        <View style={styles.viewFlex2}>
+          <Image source={imageSkinCare} style={styles.image}/>
         </View>
-        <View style={{flex: 0.8}}>
-          <View style={{marginLeft: 10}}>
-            <Text style={{fontWeight: 'bold', color: '#f65857'}}>Nails</Text>
-            <Text>38 Product</Text>
+        <View style={styles.viewFlex8}>
+          <View style={styles.viewWrapper}>
+            <Text style={styles.txtTitle}>{props.title}</Text>
+            <Text>{props.total} Product</Text>
           </View>
         </View>
       </View>
     </View>
   </View>
 )
+
+const styles = StyleSheet.create({
+  viewCategories:{
+    borderWidth: 1, 
+    borderColor: '#e2e2e2', 
+    width: ( width - 50 ) / 2, 
+    marginRight: 10, 
+    marginBottom: 10, 
+    padding: 10 
+  },
+  viewFlexRow:{
+    flexDirection: 'row'
+  },
+  viewFlex2:{
+    flex: 0.2
+  },
+  viewFlex8:{
+    flex: 0.8
+  },
+  image:{
+    width: 35, 
+    height: 35, 
+    alignSelf: 'center'
+  },
+  txtTitle:{
+    fontWeight: 'bold', 
+    color: '#f65857'
+  },
+  viewWrapper:{
+    marginLeft: 10
+  }
+})
 
 export default BestCategories

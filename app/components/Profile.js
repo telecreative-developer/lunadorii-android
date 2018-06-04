@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { StyleSheet, View, Text, Image, FlatList } from 'react-native'
 import { Container, Button, Icon, Content } from 'native-base'
 import SVGImage from 'react-native-svg-image'

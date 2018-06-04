@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { StyleSheet, View, Image, Text, Dimensions, TouchableOpacity, ImageBackground } from 'react-native'
 import { Button } from 'native-base'
 import { Rating } from 'react-native-ratings'

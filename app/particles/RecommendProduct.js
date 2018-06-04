@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import { Rating } from 'react-native-ratings' 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'

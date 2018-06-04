@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Image, StyleSheet } from 'react-native'
 import { Header, Left, Body, Right, Button } from 'native-base'
 import Feather from 'react-native-vector-icons/Feather'
