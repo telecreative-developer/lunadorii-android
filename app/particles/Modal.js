@@ -1,7 +1,8 @@
 import React from 'react'
-import { Modal, View, Text, StyleSheet } from 'react-native'
+import { Modal, View, Text, StyleSheet, Image } from 'react-native'
 import { Content, Radio, Button, Item, Input, CheckBox } from 'native-base'
 import Navbar from '../particles/Navbar'
+import BenefitCosmetics from '../particles/BenefitCosmetics'
 
 export const ModalCategory = (props) => (
   <Modal
@@ -133,9 +134,36 @@ export const ModalEditQuantity = (props) => (
       navbarIcon={props.navbarIcon}
       actionIcon = {props.actionIcon}
     />
-    <Content>
-      <Text>Edit Quantity Modal</Text>
+    <Content style={{ margin: 10 }}>
+      <View style={styles.Card}>
+        <View style={styles.contentCard}>
+          <Image source={{uri : 'https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg'}} style={styles.image}/>
+          <View style={styles.wrapLeft}>
+            <Text style={styles.txtHeader}>Benefit Cosmetics</Text>
+            <Text style={styles.txtDetail}>Face Primer Mini</Text>
+            <Text style={styles.txtBlank}></Text>
+            <Text style={styles.txtDetail}>Quantity: <Text style={styles.txtpcs}>1 pcs</Text></Text>
+          </View>
+          <View style={styles.wrapRight}>
+            <Text style={styles.txtHeader}>Rp 20,000</Text>
+          </View>
+        </View>
+      </View>
+      <View style={{flexDirection: 'row', justifyContent: 'space-evenly', flex: 1, paddingTop: 10}}>
+        <Button style={{width: 35, height: 35, borderRadius: 20, backgroundColor: '#ccc', alignItems: 'center', justifyContent: 'center', marginRight: 5}}>
+          <Text style={{fontSize: 16}}>-</Text>
+        </Button>
+        <Item regular style={{borderRadius: 10, width: 50, height: 35}}>
+          <Input value="1"/>
+        </Item>
+        <Button style={{width: 35, height: 35, borderRadius: 20, backgroundColor: '#ccc', alignItems: 'center', justifyContent: 'center', marginLeft: 5}}>
+          <Text style={{fontSize: 16}}>+</Text>
+        </Button>
+      </View>
     </Content>
+    <Button full style={styles.buttonSaveStyle}>
+      <Text style={styles.buttonSaveTextStyle}>Save</Text>
+    </Button>
   </Modal>
 )
 
@@ -184,5 +212,50 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     justifyContent: 'space-between',
     borderColor: "#fff"
+  },
+
+  Card:{
+    borderRadius:1,
+    borderColor:'#E2E2E2',
+    borderWidth:1,
+    marginBottom:5
+  },
+  contentCard:{
+    margin:10,
+    flexDirection:'row',
+    flex:1,
+  },
+  image:{
+    width:75,
+    height:75,
+    marginRight:10
+  },
+  wrapLeft:{
+    flex:1,
+  },
+  wrapRight:{
+    alignItems:'flex-end'
+  },
+  txtHeader:{
+    fontSize:16,
+    fontWeight:'bold',
+  },
+  txtDetail:{
+    fontSize:14,
+  },
+  txtBlank:{
+    marginVertical:5
+  },
+  txtpcs:{
+    fontSize:14,
+    fontWeight:'bold'
+  },
+  buttonSaveStyle:{
+    height: 50, 
+    backgroundColor: '#AEAEAE'
+  },
+  buttonSaveTextStyle:{
+    color: '#fff',
+    fontSize: 20
   }
 })
