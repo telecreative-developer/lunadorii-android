@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import YourCart from '../components/YourCart'
 import BenefitCosmetics from '../particles/BenefitCosmetics'
+import ShippingAddress from '../particles/ShippingAddress'
 
 const dataProducts = [
   {
@@ -21,6 +22,19 @@ const dataProducts = [
     price: '60,000',
     quantity: '3'
   },
+]
+
+const dataShippingAddress = [
+  {
+    name: 'Muhammad Isa Wijaya Kusuma',
+    numberPhone: '+62 89643951073',
+    address: 'Cipondoh Makmur Tangerang blok K 10 No.28'
+  },
+  {
+    name: 'Alfan Hibban Intiyas',
+    numberPhone: '+62 6969696969',
+    address: 'Malang Malang blok N 2 No.100'
+  }
 ]
 
 export default class YourCartContainer extends Component {
@@ -47,6 +61,14 @@ export default class YourCartContainer extends Component {
             image={item.image}
             price={item.price}
             quantity={item.quantity}/>
+        )}
+
+        dataShippingAddress={dataShippingAddress}
+        renderShippingAddress={({item}) => (
+          <ShippingAddress
+            name={item.name}
+            numberPhone={item.numberPhone}
+            address={item.address}/>
         )}
 
         openModalEditQuantity={() => this.openModalEditQuantity()}
