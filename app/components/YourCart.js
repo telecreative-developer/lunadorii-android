@@ -22,10 +22,12 @@ const YourCart = (props) => (
        <Content>
         <View style={styles.body}>
            <Text style={styles.title}>Products</Text>
+           
            <FlatList
             data={props.dataProducts}
             renderItem={props.renderProducts}
             keyExtractor={(item, index) => JSON.stringify(index)}/>
+
            <Button style={styles.btnAdd}>
              <Icon name="add"/><Text style={styles.txtAdd}>Add More Product</Text>
            </Button>
@@ -33,18 +35,12 @@ const YourCart = (props) => (
          <View style={styles.border}>
            <View style={styles.body}>
             <Text style={styles.title}>Shipping Options</Text>
-             <View style={styles.Card}>
-              <View style={styles.contentCard}>
-               <View style={styles.wrapLeft}>
-                <Text style={styles.txtHeader}>Alfan Hibban</Text>
-                <Text>+63 813 3567 1179</Text>
-                <Text>Jl. Danau Ranau IV G1C5 Sawojajar Malang</Text>
-               </View>
-               <View style={styles.wrapRight}>
-                <TouchableOpacity><Text style={styles.txtAction}>Edit Address</Text></TouchableOpacity>
-               </View>
-              </View>
-             </View>
+             
+             <FlatList
+              data={props.dataShippingAddress}
+              renderItem={props.renderShippingAddress}
+              keyExtractor={(item, index) => JSON.stringify(index)}/>
+
              <View style={styles.contentBottom}>
               <Radio/>
               <View style={styles.wrapKurir}>
