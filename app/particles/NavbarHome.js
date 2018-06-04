@@ -23,8 +23,8 @@ const NavbarHome = (props) =>(
 
 const styles = StyleSheet.create({
   image:{
-    width: 45, 
-    height: 45, 
+    width: 40, 
+    height: 40, 
     borderRadius: 45 / 2, 
     marginTop: 5
   },
