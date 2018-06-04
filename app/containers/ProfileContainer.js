@@ -31,13 +31,30 @@ const dataRecentOrders = [
 ]
 
 export default class ProfileContainer extends Component {
+
+  state = {
+    modalVisibleEditProfile: false
+  }
+
+  openModalEditProfile(){
+    this.setState({modalVisibleEditProfile: true})
+  }
+
+  closeModalEditProfile(){
+    this.setState({modalVisibleEditProfile: false})
+  }
+
   render() {
     return (
       <Profile
-      dataRecentOrders={dataRecentOrders}
-      renderRecentOrders={({item, key}) => (
-        <RecentOrders image={item.image} categories={item.categories} status={item.status} total={item.total} date={item.date} time={item.time}/>
-      )}
+        dataRecentOrders={dataRecentOrders}
+        renderRecentOrders={({item, key}) => (
+          <RecentOrders image={item.image} categories={item.categories} status={item.status} total={item.total} date={item.date} time={item.time}/>
+        )}
+
+        openModalEditProfile={() => this.openModalEditProfile()}
+        closeModalEditProfile={() => this.closeModalEditProfile()}
+        modalVisibleEditProfile={this.state.modalVisibleEditProfile}
       />
     )
   }

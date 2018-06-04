@@ -15,6 +15,7 @@ import YourCartContainer from './app/containers/YourCartContainer'
 
 const App = StackNavigator(
   { 
+    ProfileContainer: { screen: ProfileContainer },
     YourCartContainer: { screen: YourCartContainer },
     PurchaseHistoryContainer: { screen: PurchaseHistoryContainer },
     SettingsContainer: { screen: SettingsContainer },
@@ -25,7 +26,6 @@ const App = StackNavigator(
     ReportsContainer: { screen: ReportsContainer },
     ReviewsContainer: { screen: ReviewsContainer },
     EditAddressContainer: { screen: EditAddressContainer },
-    ProfileContainer: { screen: ProfileContainer },
     PaymentsContainer: { screen: PaymentsContainer },
     
   },{

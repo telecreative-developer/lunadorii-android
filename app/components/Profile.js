@@ -6,12 +6,19 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import PropTypes from 'prop-types'
 import Navbar from '../particles/Navbar'
 import ImageCalendar from '../assets/images/icon/calendar.png'
+import { ModalEditProfile } from '../particles/Modal'
 
 const Profile = (props) => (
   <Container style={styles.container}>
     <Navbar 
-    navbarTitle="Profile"
-    navbarIcon="arrow-back"
+      navbarTitle="Profile"
+      navbarIcon="arrow-back"
+    />
+    <ModalEditProfile
+      navbarTitle="Edit Profile"
+      navbarIcon="close"
+      modalVisible={props.modalVisibleEditProfile}
+      actionIcon={props.closeModalEditProfile}
     />
     <Content>
       <View style={styles.headerProfile}>
@@ -23,7 +30,9 @@ const Profile = (props) => (
             <View>
               <View style={styles.viewNameProfile}>
                 <Text style={styles.txtNameProfile}>Hello, Rendi Simamora</Text>
-                <Button style={styles.btnProfile}><Text style={styles.txtBtnProfile}><MaterialCommunityIcons name="pencil" size={15}/> Edit Profile</Text></Button>
+                <Button style={styles.btnProfile}><Text style={styles.txtBtnProfile} onPress={props.openModalEditProfile}>
+                  <MaterialCommunityIcons name="pencil" size={15}/> Edit Profile</Text>
+                </Button>
               </View>
             </View>
           </View>
