@@ -45,7 +45,7 @@ const styles = StyleSheet.create({
   txtBrand:{
     fontWeight: 'bold', 
     fontSize: 16,
-    paddingBottom: 10
+    padding: 10
   }
 })
 
