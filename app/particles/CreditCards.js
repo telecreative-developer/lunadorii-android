@@ -8,11 +8,11 @@ const CreditCards = (props) => (
         <Image source={require('../assets/images/icon/visa.png')} style={styles.image}/>
       </View>
       <View style={styles.wrapLeft}>
-        <Text style={styles.txtHeader}>{props.accountNumber}</Text>
-        <Text>EXP: {props.expiredDate}</Text>
+        <Text style={styles.txtHeader}>{props.cardNumber}</Text>
+        <Text>EXP: {props.validationDate}</Text>
       </View>
       <View style={styles.wrapRight}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={props.action}>
           <Text style={styles.txtAction}>Edit</Text>
         </TouchableOpacity>
       </View>
