@@ -40,40 +40,46 @@ const dataShippingAddress = [
 export default class YourCartContainer extends Component {
 
   state = {
-    modalVisibleEditQuantity: false
+    modalVisibleEditQuantity: false,
+    modalVisibleEditAddress: false
   }
 
-  openModalEditQuantity(){
-    this.setState({modalVisibleEditQuantity: true})
+  toggleModalEditQuantity() {
+    this.setState({ modalVisibleEditQuantity: !this.state.modalVisibleEditQuantity })
   }
 
-  closeModalEditQuantity(){
-    this.setState({modalVisibleEditQuantity: false})
+  toggleModalEditAddress() {
+    this.setState({ modalVisibleEditAddress: !this.state.modalVisibleEditAddress })
   }
 
   render() {
     return (
-      <YourCart 
+      <YourCart
         dataProducts={dataProducts}
-        renderProducts={({item}) => (
+        renderProducts={({ item }) => (
           <BenefitCosmetics
             title={item.item}
             image={item.image}
             price={item.price}
-            quantity={item.quantity}/>
+            quantity={item.quantity}
+            action={() => this.toggleModalEditQuantity()} />
         )}
 
         dataShippingAddress={dataShippingAddress}
-        renderShippingAddress={({item}) => (
+        renderShippingAddress={({ item }) => (
           <ShippingAddress
             name={item.name}
             numberPhone={item.numberPhone}
-            address={item.address}/>
+            address={item.address}
+            action={() => this.toggleModalEditAddress()} />
         )}
 
-        openModalEditQuantity={() => this.openModalEditQuantity()}
-        closeModalEditQuantity={() => this.closeModalEditQuantity()}
+        toggleModalEditQuantity={() => this.toggleModalEditQuantity()}
         modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
+
+        toggleModalEditAddress={() => this.toggleModalEditAddress()}
+        modalVisibleEditAddress={this.state.modalVisibleEditAddress}
+
         goback={() => this.props.navigation.goBack()}
       />
     );

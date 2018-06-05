@@ -1,26 +1,22 @@
 import React, { Component } from 'react'
 import Reports from '../components/Reports'
 
-export default class ReportsContainer extends Component{
+export default class ReportsContainer extends Component {
+
   state = {
-    modalVisible: false,
-  };
-
-  openModal() {
-    this.setState({modalVisible: true});
-  }
-  
-  closeModal(){
-    this.setState({modalVisible: false});
+    modalVisibleCategory: false
   }
 
-  render(){
-    return(
+  toggleModalCategory() {
+    this.setState({ modalVisibleCategory: !this.state.modalVisibleCategory })
+  }
+
+  render() {
+    return (
       <Reports
-        modalVisible = {this.state.modalVisible}
-        openModal = {() => this.openModal()}
-        closeModal = {() => this.closeModal()}
-        selectedKey = {this.state.selected1}
+        modalVisibleCategory={this.state.modalVisibleCategory}
+        toggleModalCategory={() => this.toggleModalCategory()}
+        selectedKey={this.state.selected1}
         goback={() => this.props.navigation.goBack()}
       />
     )
