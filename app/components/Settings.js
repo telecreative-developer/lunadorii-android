@@ -12,6 +12,7 @@ const Settings = (props) => (
     <Navbar
       navbarTitle="Settings"
       navbarIcon="arrow-back"
+      actionIcon={props.goback}
     />
     <ChangePasswordModal
       navbarTitle= "Change Password"

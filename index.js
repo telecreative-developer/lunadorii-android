@@ -12,16 +12,18 @@ import SettingsContainer from './app/containers/SettingsContainer'
 import YourCartContainer from './app/containers/YourCartContainer'
 import YourShippingAddressContainer from './app/containers/YourShippingAddressContainer'
 import CreditCardContainer from './app/containers/CreditCardContainer'
+import PrivacyPolicyContainer from './app/containers/PrivacyPolicyContainer'
 
 const App = StackNavigator(
   { 
-    ProfileContainer: { screen: ProfileContainer },
+    HomeContainer: { screen: HomeContainer },
     SettingsContainer: { screen: SettingsContainer },
+    ProfileContainer: { screen: ProfileContainer },
     YourShippingAddressContainer: { screen: YourShippingAddressContainer },
     YourCartContainer: { screen: YourCartContainer },
     PurchaseHistoryContainer: { screen: PurchaseHistoryContainer },
 
-    HomeContainer: { screen: HomeContainer },
+    PrivacyPolicyContainer: { screen: PrivacyPolicyContainer },
     WishlistContainer: { screen: WishlistContainer },
     ReportsContainer: { screen: ReportsContainer },
     ReviewsContainer: { screen: ReviewsContainer },

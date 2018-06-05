@@ -74,6 +74,7 @@ export default class YourCartContainer extends Component {
         openModalEditQuantity={() => this.openModalEditQuantity()}
         closeModalEditQuantity={() => this.closeModalEditQuantity()}
         modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
+        goback={() => this.props.navigation.goBack()}
       />
     );
   }
