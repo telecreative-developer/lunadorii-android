@@ -40,7 +40,7 @@ export const ModalChangePassword = (props) => (
       navbarIcon={props.navbarIcon}
       actionIcon = {props.actionIcon}
     />
-    <Content style={styles.content}>  
+    <Content style={styles.content}>
       <View style={styles.viewInputPassword}>
         <Text style={styles.txtLabel}>Old Password</Text>
         <Item regular style={styles.item}>

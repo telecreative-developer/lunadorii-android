@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, TouchableOpacity } from 'react-native'
+import { StyleSheet, TouchableOpacity, FlatList } from 'react-native'
 import { Container, Content, Text, View, Button, Icon } from 'native-base'
 import Navbar from '../particles/Navbar'
 import ShippingAddress from '../particles/ShippingAddress'
+import EditAddressModal from '../modals/EditAddressModal'
 
 const YourShippingAddress = (props) => (
   <Container>
@@ -10,13 +11,19 @@ const YourShippingAddress = (props) => (
       navbarTitle="Shipping Address"
       navbarIcon="arrow-back"
       actionIcon={props.goback}/>
+    <EditAddressModal
+      navbarTitle= "Edit Addresss"
+      navbarIcon="close"
+      modalVisible={props.modalVisibleEditAddress}
+      actionIcon={props.toggleModalEditAddress}/>
     <Content>
       <View style={styles.viewShippingAddress}>
         <Text style={styles.txtShippingAddress}>Your Shipping Address</Text>
-        <ShippingAddress
-          name="Fuadit Muhammad"
-          numberPhone="+62 821 3620 4407"
-          address="Jl.Pegangsaan Dua No.20, Apaterment Gading Nias D 9 NU. Kelapa Gading Jakarta Utara"/>
+        <FlatList
+          data={props.dataShippingAddress}
+          renderItem={props.renderShippingAddress}
+          keyExtractor={(item, index) => JSON.stringify(index)}
+        />
       </View>
       <Button style={styles.btnAddAddress}>
         <Icon name="add"/><Text style={styles.txtAddAddress}>Add Another Address</Text>

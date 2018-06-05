@@ -1,10 +1,11 @@
 import React from 'react'
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
 import { Container, Content } from 'native-base'
-import { ModalChangePassword, ModalNotification } from '../particles/Modal'
 import Navbar from '../particles/Navbar'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import ChangePasswordModal from '../modals/ChangePasswordModal'
+import NotificationsModal from '../modals/NotificationsModal'
 
 const Settings = (props) => (
   <Container style={styles.container}>
@@ -12,15 +13,20 @@ const Settings = (props) => (
       navbarTitle="Settings"
       navbarIcon="arrow-back"
     />
-    <ModalChangePassword 
+    <ChangePasswordModal
       navbarTitle= "Change Password"
       navbarIcon="close"
-      modalVisible={props.modalVisiblePassword}
-      actionIcon = {props.closeModalPassword}
+      modalVisible={props.modalVisibleChangePassword}
+      actionIcon = {props.toggleModalChangePassword}
     />
-    
+    <NotificationsModal
+      navbarTitle="Notifications"
+      navbarIcon="close"
+      modalVisible={props.modalVisibleNotifications}
+      actionIcon={props.toggleModalNotifications}
+    />
     <Content>
-      <TouchableOpacity style={styles.touchablePassword} onPress={props.openModalPassword}>
+      <TouchableOpacity style={styles.touchablePassword} onPress={props.toggleModalChangePassword}>
         <View style={styles.flexOnly9}>
           <View style={styles.viewPaddingLeft}>
             <Text style={styles.txtLabel}>Change Password</Text>
@@ -30,7 +36,7 @@ const Settings = (props) => (
           <FontAwesome name="chevron-right" style={styles.iconChange}/>
         </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.touchableNotif}>
+      <TouchableOpacity style={styles.touchableNotif} onPress={props.toggleModalNotifications}>
         <View style={styles.viewPaddingLeft}>
           <Text style={styles.txtLabel}>Notifications</Text>
           <View style={{flexDirection: 'row'}}>

@@ -6,10 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import PropTypes from 'prop-types'
 import Navbar from '../particles/Navbar'
 import ImageCalendar from '../assets/images/icon/calendar.png'
-import { 
-  ModalEditProfile,
-  
-} from '../particles/Modal'
+import EditProfileModal from '../modals/EditProfileModal'
 
 const Profile = (props) => (
   <Container style={styles.container}>
@@ -17,11 +14,11 @@ const Profile = (props) => (
       navbarTitle="Profile"
       navbarIcon="arrow-back"
     />
-    <ModalEditProfile
+    <EditProfileModal
       navbarTitle="Edit Profile"
       navbarIcon="close"
       modalVisible={props.modalVisibleEditProfile}
-      actionIcon={props.closeModalEditProfile}
+      actionIcon={props.toggleModalEditProfile}
     />
     <Content>
       <View style={styles.headerProfile}>
@@ -33,7 +30,7 @@ const Profile = (props) => (
             <View>
               <View style={styles.viewNameProfile}>
                 <Text style={styles.txtNameProfile}>Hello, Rendi Simamora</Text>
-                <Button style={styles.btnProfile}><Text style={styles.txtBtnProfile} onPress={props.openModalEditProfile}>
+                <Button style={styles.btnProfile}><Text style={styles.txtBtnProfile} onPress={props.toggleModalEditProfile}>
                   <MaterialCommunityIcons name="pencil" size={15}/> Edit Profile</Text>
                 </Button>
               </View>
@@ -89,7 +86,7 @@ const Profile = (props) => (
         </View>
         <View style={styles.viewMenu}> 
           <View style={styles.viewBoxMenu}>
-            <TouchableOpacity onPress={props.navigateToShippingAddree}>
+            <TouchableOpacity onPress={props.navigateToShippingAddress}>
               <View style={styles.viewSubBoxMenu}>
                 <Image source={ImageCalendar} style={styles.imageIcon}/>
                 <Text style={styles.txtMenu}>Shipping Address</Text>
