@@ -4,6 +4,8 @@ import { Container, Button, Icon, Content, Radio } from 'native-base'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import Navbar from '../particles/Navbar'
+import EditCreditCardModal from '../modals/EditCreditCardModal'
+import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
 
 const Payments = (props) => (
   <Container style={styles.container}>
@@ -11,6 +13,18 @@ const Payments = (props) => (
       navbarTitle="Payment"
       navbarIcon="arrow-back"
       actionIcon={props.goback}
+    />
+    <EditCreditCardModal
+      navbarTitle="Edit Credit Card"
+      navbarIcon="close"
+      modalVisible={props.modalVisibleEditCreditCard}
+      actionIcon={props.toggleModalEditCreditCard}
+    />
+    <WaitingForPaymentModal
+      navbarTitle="Waiting for payment"
+      navbarIcon="close"
+      modalVisible={props.modalVisibleWaitingForPayment}
+      actionIcon={props.toggleModalWaitingForPayment}
     />
     <Content style={styles.container}>
       <View style={styles.textWrapper}>
@@ -64,7 +78,7 @@ const Payments = (props) => (
           <Text style={styles.footerTotalInfo}>Termasuk PPN, jika berlaku.</Text>
         </View>
         <View style={styles.footerButton}>
-          <TouchableOpacity onPress={props.navigateToPayments}>
+          <TouchableOpacity onPress={props.toggleModalWaitingForPayment}>
             <View style={styles.footerButtonStyling}>
               <FontAwesome name="money" size={20} color="#fff" />
               <Text style={styles.footerButtonTextStyling}>Pay Now</Text>
