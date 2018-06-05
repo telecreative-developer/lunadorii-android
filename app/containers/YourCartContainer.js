@@ -74,6 +74,8 @@ export default class YourCartContainer extends Component {
             action={() => this.toggleModalEditAddress()} />
         )}
 
+        navigateToPayments={() => this.props.navigation.navigate("PaymentsContainer")}
+
         toggleModalEditQuantity={() => this.toggleModalEditQuantity()}
         modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
 

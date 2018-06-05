@@ -17,29 +17,29 @@ const dataCreditCards = [
   },
 ]
 
-export default class CreditCardContainer extends Component{
+export default class CreditCardContainer extends Component {
 
   state = {
     modalVisibleEditCreditCard: false
   }
 
-  toggleModalEditCreditCard(){
-    this.setState({modalVisibleEditCreditCard: !this.state.modalVisibleEditCreditCard})
+  toggleModalEditCreditCard() {
+    this.setState({ modalVisibleEditCreditCard: !this.state.modalVisibleEditCreditCard })
   }
 
-  render(){
-    return(
+  render() {
+    return (
       <CreditCard
         goback={() => this.props.navigation.goBack()}
         modalVisibleEditCreditCard={this.state.modalVisibleEditCreditCard}
         toggleModalEditCreditCard={() => this.toggleModalEditCreditCard()}
-        
+
         dataCreditCards={dataCreditCards}
-        renderCreditCards={({item}) => (
+        renderCreditCards={({ item }) => (
           <CreditCards
             cardNumber={item.cardNumber}
             validationDate={item.validationDate}
-            action={() => this.toggleModalEditCreditCard()}/>
+            action={() => this.toggleModalEditCreditCard()} />
         )}
       />
     )

@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
 import { TouchableOpacity, View, Text, Image, StyleSheet, FlatList } from 'react-native'
-import { Container, Content, Card, CardItem, Body, Icon, Button, Item, Radio, } from 'native-base'
+import { Container, Content, Card, CardItem, Body, Icon, Button, Item, Radio, Footer, } from 'native-base'
 import Navigation from '../particles/Navbar'
 import BenefitCosmetics from '../particles/BenefitCosmetics'
 import EditQuantityModal from '../modals/EditQuantityModal'
 import EditAddressModal from '../modals/EditAddressModal'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 
 import image from '../assets/sephora.jpg'
 
@@ -77,6 +78,23 @@ const YourCart = (props) => (
         </View>
       </View>
     </Content>
+    <View style={styles.footer}>
+      <View style={styles.footerWrapper}>
+        <View style={styles.footerInfo}>
+          <Text style={styles.footerTotalText}>Total</Text>
+          <Text style={styles.footerTotalPriceText}>Rp 420,000</Text>
+          <Text style={styles.footerTotalInfo}>Termasuk PPN, jika berlaku.</Text>
+        </View>
+        <View style={styles.footerButton}>
+          <TouchableOpacity onPress={props.navigateToPayments}>
+            <View style={styles.footerButtonStyling}>
+              <FontAwesome name="money" size={20} color="#fff" />
+              <Text style={styles.footerButtonTextStyling}>Go to Payment</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
   </Container>
 )
 
@@ -166,6 +184,48 @@ const styles = StyleSheet.create({
   txtdetilkurir: {
     fontSize: 12,
     marginLeft: 5
+  },
+  footer: {
+    justifyContent: 'flex-start',
+    backgroundColor: '#fff',
+    height: 75
+  },
+  footerWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  footerInfo: {
+    padding: 5
+  },
+  footerButton: {
+    justifyContent: 'center',
+    paddingRight: 10,
+    paddingTop: 5
+  },
+  footerButtonStyling: {
+    borderRadius: 5,
+    height: 40,
+    width: 130,
+    backgroundColor: '#2ecc71',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: 10,
+    paddingLeft: 10
+  },
+  footerButtonTextStyling: {
+    fontWeight: 'bold',
+    color: '#fff'
+  },
+  footerTotalText: {
+    fontSize: 16
+  },
+  footerTotalPriceText: {
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+  footerTotalInfo: {
+    fontSize: 16
   }
 })
 
