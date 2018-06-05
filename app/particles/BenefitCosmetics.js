@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native'
-import { ModalEditQuantity } from '../particles/Modal'
 
 const BenefitCosmetics = (props) => (
   <View style={styles.Card}>
