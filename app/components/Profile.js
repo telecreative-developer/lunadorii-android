@@ -13,6 +13,7 @@ const Profile = (props) => (
     <Navbar 
       navbarTitle="Profile"
       navbarIcon="arrow-back"
+      actionIcon={props.goback}
     />
     <EditProfileModal
       navbarTitle="Edit Profile"
@@ -102,16 +103,20 @@ const Profile = (props) => (
             </TouchableOpacity>
           </View>
           <View style={styles.viewBoxMenu}>
-            <View style={styles.viewSubBoxMenu}>
-              <Image source={ImageCalendar} style={styles.imageIcon}/>
-              <Text style={styles.txtMenu}>Settings</Text>
-            </View>
+            <TouchableOpacity onPress={props.navigateToSettings}>
+              <View style={styles.viewSubBoxMenu}>
+                <Image source={ImageCalendar} style={styles.imageIcon}/>
+                <Text style={styles.txtMenu}>Settings</Text>
+              </View>
+            </TouchableOpacity>
           </View>
           <View style={styles.viewBoxMenu}>
-            <View style={styles.viewSubBoxMenu}>
-              <Image source={ImageCalendar} style={styles.imageIcon}/>
-              <Text style={styles.txtMenu}>Privacy Policy</Text>
-            </View>
+            <TouchableOpacity onPress={props.navigateToPrivacyPolicy}>
+              <View style={styles.viewSubBoxMenu}>
+                <Image source={ImageCalendar} style={styles.imageIcon}/>
+                <Text style={styles.txtMenu}>Privacy Policy</Text>
+              </View>
+            </TouchableOpacity>
           </View>
         </View>
       </View>

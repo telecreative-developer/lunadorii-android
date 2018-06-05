@@ -57,6 +57,9 @@ export default class ProfileContainer extends Component {
         navigateToReviews={() => this.props.navigation.navigate("ReviewsContainer")}
         navigateToShippingAddress={() => this.props.navigation.navigate("YourShippingAddressContainer")}
         navigateToReports={() => this.props.navigation.navigate("ReportsContainer")}
+        navigateToSettings={() => this.props.navigation.navigate("SettingsContainer")}
+        navigateToPrivacyPolicy={() => this.props.navigation.navigate("PrivacyPolicyContainer")}
+        goback={() => this.props.navigation.goBack()}
       />
     )
   }

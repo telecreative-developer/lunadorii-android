@@ -23,6 +23,7 @@ export default class SettingsContainer extends Component{
 
         modalVisibleNotifications={this.state.modalVisibleNotifications}
         toggleModalNotifications={() => this.toggleModalNotifications()}
+        goback={() => this.props.navigation.goBack()}
       />
     )
   }

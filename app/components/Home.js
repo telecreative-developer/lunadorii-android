@@ -13,7 +13,10 @@ import imageMore from '../assets/images/icon/more.png'
 const { width, height } = Dimensions.get('window')
 const Home = (props) => (
   <Container style={styles.tabHeading}>
-    <NavbarHome /> 
+    <NavbarHome 
+      searchIconAction={() => alert('Search')}
+      cartIconAction={props.navigateToYourCart}
+      photoProfileAction={props.navigateToProfile}/> 
     <StatusBar
      backgroundColor="#f65857"
      barStyle="light-content"

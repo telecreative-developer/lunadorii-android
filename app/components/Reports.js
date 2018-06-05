@@ -53,10 +53,12 @@ const styles = StyleSheet.create({
     fontSize: 16
   },
   item:{
-    marginTop: 10
+    marginTop: 10,
+    borderRadius: 5
   },
   textarea:{
-    marginTop: 10
+    marginTop: 10,
+    borderRadius: 5
   }
 })
 

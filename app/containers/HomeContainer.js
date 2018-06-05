@@ -103,26 +103,28 @@ class HomeContainer extends Component {
   render() {
     return (
       <Home
-      size={this.state.size}
-      dataBrand={dataBrand}
-      renderBrand={({item}) => (
-        <Brand image={item.image} />
-      )}
-      dataProduct={dataProduct}
-      renderProduct={({item}) => (
-        <Product image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star}
-        />
-      )}
-      dataRecommend={dataRecommend}
-      renderRecommend={({item}) => (
-        <RecommendProduct image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star} reviews={item.reviews}
-        />
-      )}
-      dataCategories={dataCategories}
-      renderCategories={({item}) => (
-        <BestCategories image={item.image} title={item.title} total={item.total}
-        />
-      )}
+        size={this.state.size}
+        dataBrand={dataBrand}
+        renderBrand={({item}) => (
+          <Brand image={item.image} />
+        )}
+        dataProduct={dataProduct}
+        renderProduct={({item}) => (
+          <Product image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star}
+          />
+        )}
+        dataRecommend={dataRecommend}
+        renderRecommend={({item}) => (
+          <RecommendProduct image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star} reviews={item.reviews}
+          />
+        )}
+        dataCategories={dataCategories}
+        renderCategories={({item}) => (
+          <BestCategories image={item.image} title={item.title} total={item.total}
+          />
+        )}
+        navigateToYourCart={() => this.props.navigation.navigate("YourCartContainer")}
+        navigateToProfile={() => this.props.navigation.navigate('ProfileContainer')}
       />
     )
   }
