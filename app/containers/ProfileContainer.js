@@ -36,12 +36,8 @@ export default class ProfileContainer extends Component {
     modalVisibleEditProfile: false
   }
 
-  openModalEditProfile(){
-    this.setState({modalVisibleEditProfile: true})
-  }
-
-  closeModalEditProfile(){
-    this.setState({modalVisibleEditProfile: false})
+  toggleModalEditProfile(){
+    this.setState({modalVisibleEditProfile: !this.state.modalVisibleEditProfile})
   }
 
   render() {
@@ -52,15 +48,14 @@ export default class ProfileContainer extends Component {
           <RecentOrders image={item.image} categories={item.categories} status={item.status} total={item.total} date={item.date} time={item.time}/>
         )}
 
-        openModalEditProfile={() => this.openModalEditProfile()}
-        closeModalEditProfile={() => this.closeModalEditProfile()}
+        toggleModalEditProfile={() => this.toggleModalEditProfile()}
         modalVisibleEditProfile={this.state.modalVisibleEditProfile}
 
         navigateToPurchaseHistory={() => this.props.navigation.navigate("PurchaseHistoryContainer")}
         navigateToWhishlist={() => this.props.navigation.navigate("WishlistContainer")}
         navigateToCreditCard={() => this.props.navigation.navigate("CreditCardContainer")}
         navigateToReviews={() => this.props.navigation.navigate("ReviewsContainer")}
-        navigateToShippingAddree={() => this.props.navigation.navigate("YourShippingAddressContainer")}
+        navigateToShippingAddress={() => this.props.navigation.navigate("YourShippingAddressContainer")}
         navigateToReports={() => this.props.navigation.navigate("ReportsContainer")}
       />
     )

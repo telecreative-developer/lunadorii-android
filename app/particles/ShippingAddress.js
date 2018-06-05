@@ -10,7 +10,7 @@ const ShippingAddress = (props) => (
         <Text>{props.address}</Text>
       </View>
       <View style={styles.wrapRight}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={props.action}>
           <Text style={styles.txtAction}>Edit Address</Text>
         </TouchableOpacity>
       </View>
