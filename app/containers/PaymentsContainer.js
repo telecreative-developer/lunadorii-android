@@ -18,6 +18,20 @@ const dataCreditCards = [
 ]
 
 export default class PaymentsContainer extends Component {
+
+  state = {
+    modalVisibleEditCreditCard: false,
+    modalVisibleWaitingForPayment: false
+  }
+
+  toggleModalEditCreditCard() {
+    this.setState({ modalVisibleEditCreditCard: !this.state.modalVisibleEditCreditCard })
+  }
+
+  toggleModalWaitingForPayment() {
+    this.setState({ modalVisibleWaitingForPayment: !this.state.modalVisibleWaitingForPayment })
+  }
+
   render() {
     return (
       <Payments
@@ -28,8 +42,14 @@ export default class PaymentsContainer extends Component {
             validationDate={item.validationDate}
             action={() => this.toggleModalEditCreditCard()} />
         )}
+        modalVisibleEditCreditCard={this.state.modalVisibleEditCreditCard}
+        toggleModalEditCreditCard={() => this.toggleModalEditCreditCard()}
 
-        goback={() => this.props.navigation.goBack()} />
+        modalVisibleWaitingForPayment={this.state.modalVisibleWaitingForPayment}
+        toggleModalWaitingForPayment={() => this.toggleModalWaitingForPayment()}
+
+        goback={() => this.props.navigation.goBack()}
+      />
     )
   }
 }
