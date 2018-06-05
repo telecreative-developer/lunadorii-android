@@ -2,13 +2,20 @@ import React from 'react'
 import { View, Text, FlatList, StyleSheet } from 'react-native'
 import { Container, Content } from 'native-base'
 import Navbar from '../particles/Navbar'
+import EditReviewsModal from '../modals/EditReviewsModal'
 
 const Reviews = (props) => (
   <Container style={styles.container}>
     <Navbar
-    navbarTitle="Reviews"
-    navbarIcon="arrow-back"
-    actionIcon={props.goback}
+      navbarTitle="Reviews"
+      navbarIcon="arrow-back"
+      actionIcon={props.goback}
+    />
+    <EditReviewsModal
+      navbarTitle="Edit Reviews"
+      navbarIcon="close"
+      modalVisible={props.modalVisibleEditReviews}
+      actionIcon={props.toggleModalEditReviews}
     />
     <Content>
       <View style={styles.viewReviews}>

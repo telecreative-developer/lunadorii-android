@@ -27,13 +27,30 @@ const dataReviews = [
 ]
 
 export default class ReviewsContainer extends Component{
+
+  state = {
+    modalVisibleEditReviews: false
+  }
+
+  toggleModalEditReviews(){
+    this.setState({modalVisibleEditReviews: !this.state.modalVisibleEditReviews})
+  }
+
   render(){
     return(
       <Reviews
       goback={() => this.props.navigation.goBack()}
+      modalVisibleEditReviews={this.state.modalVisibleEditReviews}
+      toggleModalEditReviews={() => this.toggleModalEditReviews()}
       dataReviews={dataReviews}
       renderReviews={({item}) => (
-        <ProductReviews image={item.image} title={item.title} star={item.star} date={item.date} review={item.review}
+        <ProductReviews 
+          image={item.image} 
+          title={item.title} 
+          star={item.star} 
+          date={item.date} 
+          review={item.review}
+          action={() => this.toggleModalEditReviews()}
         />
       )}
       />

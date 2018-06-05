@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import { Rating } from 'react-native-ratings'
 
-const ProductReviews = (props) =>(
+const ProductReviewed = (props) =>(
   <View style={styles.viewReviews}>
     <View style={styles.viewRow}>
       <View style={styles.flexOnly2}>
@@ -13,39 +13,22 @@ const ProductReviews = (props) =>(
           <View style={styles.flexOnly8}>
             <Text style={styles.txtTitle}>{props.title}</Text>
           </View>
-          <View style={styles.flexOnly2}>
-            <TouchableOpacity onPress={props.action}>
-              <Text style={styles.txtEdit}>Edit</Text>
-            </TouchableOpacity>
-          </View>
         </View> 
-        <View style={styles.viewRating}>
-          <Rating
-            type='custom'
-            ratingCount={5}
-            startingValue={props.star}
-            imageSize={12}
-            ratingColor="#000"
-            ratingBackgroundColor="#ccc"
-            style={styles.rating}
-          />
-          <Text style={styles.txtReview}>{props.review}</Text>
-          <Text note style={styles.txtDate}>Edited {props.date}</Text>
+        <View style={styles.viewPrice}>
+          <Text style={styles.txtPrice}>Rp {props.price}</Text>
         </View>
       </View>
     </View>
   </View> 
 ) 
 
+export default ProductReviewed
+
 const styles = StyleSheet.create({
   viewRow:{
     flexDirection: 'row'
   },
-  txtDate:{
-    fontSize: 12, 
-    alignSelf: 'flex-end'
-  },
-  txtReview:{
+  txtPrice:{
     marginTop: 5
   },
   rating:{
@@ -78,10 +61,8 @@ const styles = StyleSheet.create({
     fontSize: 16, 
     paddingTop: 10
   },
-  viewRating:{
+  viewPrice:{
     paddingRight: 10, 
     paddingBottom: 10
   }
 })
-
-export default ProductReviews
