@@ -1,6 +1,6 @@
-import React, {Component} from 'react'
+import React, { Component } from 'react'
 import { AppRegistry } from 'react-native'
-import { StackNavigator }  from 'react-navigation'
+import { StackNavigator } from 'react-navigation'
 import HomeContainer from './app/containers/HomeContainer'
 import ProfileContainer from './app/containers/ProfileContainer'
 import PaymentsContainer from './app/containers/PaymentsContainer'
@@ -15,7 +15,7 @@ import CreditCardContainer from './app/containers/CreditCardContainer'
 import PrivacyPolicyContainer from './app/containers/PrivacyPolicyContainer'
 
 const App = StackNavigator(
-  { 
+  {
     HomeContainer: { screen: HomeContainer },
     SettingsContainer: { screen: SettingsContainer },
     ProfileContainer: { screen: ProfileContainer },
@@ -29,8 +29,8 @@ const App = StackNavigator(
     ReviewsContainer: { screen: ReviewsContainer },
     PaymentsContainer: { screen: PaymentsContainer },
     CreditCardContainer: { screen: CreditCardContainer }
-  },{
-    headerMode:'none'
+  }, {
+    headerMode: 'none'
   }
 )
 

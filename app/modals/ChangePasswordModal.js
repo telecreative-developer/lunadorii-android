@@ -12,7 +12,7 @@ const ChangePasswordModal = (props) => (
     <Navbar
       navbarTitle={props.navbarTitle}
       navbarIcon={props.navbarIcon}
-      actionIcon = {props.actionIcon}
+      actionIcon={props.actionIcon}
     />
     <Content style={styles.container}>
       <View style={styles.viewInputPassword}>
@@ -39,28 +39,28 @@ const ChangePasswordModal = (props) => (
 export default ChangePasswordModal
 
 const styles = StyleSheet.create({
-  container:{
-    marginTop:20,
+  container: {
+    marginTop: 20,
     backgroundColor: '#fff'
   },
-  viewInputPassword:{
-    paddingLeft: 20, 
+  viewInputPassword: {
+    paddingLeft: 20,
     paddingRight: 20
   },
-  txtLabel:{
-    fontSize: 16, 
-    fontWeight: 'bold', 
+  txtLabel: {
+    fontSize: 16,
+    fontWeight: 'bold',
     paddingBottom: 10
   },
-  item:{
+  item: {
     marginBottom: 10,
     borderRadius: 5
   },
-  btnSend:{
+  btnSend: {
     backgroundColor: '#D50039'
   },
-  txtBtnSend:{
-    color: "#fff", 
+  txtBtnSend: {
+    color: "#fff",
     fontSize: 16
   }
 })
