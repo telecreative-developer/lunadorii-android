@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, FlatList, StyleSheet } from 'react-native'
+import { View, Text, FlatList, StyleSheet, StatusBar } from 'react-native'
 import { Container, Content } from 'native-base'
 import Navbar from '../particles/Navbar'
 import EditReviewsModal from '../modals/EditReviewsModal'
@@ -17,10 +17,14 @@ const Reviews = (props) => (
       modalVisible={props.modalVisibleEditReviews}
       actionIcon={props.toggleModalEditReviews}
     />
+    <StatusBar
+      backgroundColor="#f65857"
+      barStyle="light-content"
+    />
     <Content>
       <View style={styles.viewReviews}>
         <Text style={styles.txtReviews}>Your Reviews</Text>
-        <FlatList 
+        <FlatList
           data={props.dataReviews}
           renderItem={props.renderReviews}
           keyExtractor={(item, index) => JSON.stringify(index)}
@@ -31,16 +35,16 @@ const Reviews = (props) => (
 )
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     backgroundColor: '#fff'
   },
-  viewReviews:{
+  viewReviews: {
     marginLeft: 20,
-    marginRight: 20, 
+    marginRight: 20,
     marginTop: 20
   },
-  txtReviews:{
-    fontWeight: 'bold', 
+  txtReviews: {
+    fontWeight: 'bold',
     fontSize: 16
   }
 })

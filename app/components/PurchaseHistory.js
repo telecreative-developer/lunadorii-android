@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, FlatList } from 'react-native'
+import { StyleSheet, View, Text, FlatList, StatusBar } from 'react-native'
 import PropTypes from 'prop-types'
 import Navbar from '../particles/Navbar'
 import { Container, Content, CheckBox, Item, Title, Subtitle, Button } from 'native-base';
@@ -9,7 +9,11 @@ const PurchaseHistory = (props) => (
     <Navbar
       navbarTitle="Purchase History"
       navbarIcon="arrow-back"
-      actionIcon={props.goback}/>
+      actionIcon={props.goback} />
+    <StatusBar
+      backgroundColor="#f65857"
+      barStyle="light-content"
+    />
     <Content>
       <View style={styles.viewBrand}>
         <Text style={styles.txtBrand}>Recent Orders</Text>
@@ -34,20 +38,20 @@ const PurchaseHistory = (props) => (
 )
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     backgroundColor: '#fff'
   },
-  viewBrand:{
-    paddingTop: 5, 
+  viewBrand: {
+    paddingTop: 5,
     paddingBottom: 5,
     paddingLeft: 5
   },
-  viewBrandHistory:{
+  viewBrandHistory: {
     paddingLeft: 5,
     padding: 10
   },
-  txtBrand:{
-    fontWeight: 'bold', 
+  txtBrand: {
+    fontWeight: 'bold',
     fontSize: 16,
     padding: 10
   }

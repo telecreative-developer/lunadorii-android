@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { StyleSheet, FlatList } from 'react-native'
-import { Container, Content, Text, View, Button, Icon, StatusBar } from 'native-base'
+import { StyleSheet, FlatList, StatusBar } from 'react-native'
+import { Container, Content, Text, View, Button, Icon } from 'native-base'
 import Navbar from '../particles/Navbar'
 import CreditCards from '../particles/CreditCards'
 import EditCreditCardModal from '../modals/EditCreditCardModal'
@@ -16,6 +16,10 @@ const CreditCard = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleEditCreditCard}
       actionIcon={props.toggleModalEditCreditCard} />
+    <StatusBar
+      backgroundColor="#f65857"
+      barStyle="light-content"
+    />
     <Content style={{ padding: 10 }}>
       <View style={styles.viewBrand}>
         <Text style={styles.txtLabel}>Your Credit Card</Text>
@@ -30,6 +34,8 @@ const CreditCard = (props) => (
     </Content>
   </Container>
 )
+
+export default CreditCard
 
 const styles = StyleSheet.create({
   container: {
@@ -59,5 +65,3 @@ const styles = StyleSheet.create({
     fontWeight: 'bold'
   }
 })
-
-export default CreditCard
