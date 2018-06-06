@@ -2,7 +2,12 @@ import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Container, Content, Icon, Button, Radio } from 'native-base'
 import Navbar from '../particles/Navbar'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 const image = require('../assets/images/icon/clock.png')
+const bankIcon = require('../assets/images/icon/bank.png')
+const atmIcon = require('../assets/images/icon/atm.png')
+const deliveryIcon = require('../assets/images/icon/delivery.png')
+const emailIcon = require('../assets/images/icon/email.png')
 
 const WaitingForPaymentModal = (props) => (
   <Modal
@@ -24,12 +29,79 @@ const WaitingForPaymentModal = (props) => (
         </View>
       </View>
       <View style={styles.paymentInformation2}>
-        <Text style={{ paddingTop: 20, fontSize: 16 }}>Kode bayar akan berakhir pada</Text>
-        <Text style={{ paddingTop: 10, fontSize: 32 }}>23 : 52 : 31</Text>
-        <Text style={{ paddingTop: 20, fontSize: 16 }}>Mohon menyelesaikan pembayaran sebelum</Text>
-        <Text style={{ paddingBottom: 20, fontSize: 16 }}>8:21 PM 27 Mei 2018</Text>
+        <View style={styles.paymentInformation2Wrapper}>
+          <Text style={styles.paymentInformation2title}>Kode bayar akan berakhir pada</Text>
+          <Text style={styles.paymentInformation2timeout}>23 : 52 : 31</Text>
+          <Text style={styles.paymentInformation2warning1}>Mohon menyelesaikan pembayaran sebelum</Text>
+          <Text style={styles.paymentInformation2warning2}>8:21 PM 27 Mei 2018</Text>
+        </View>
+        <View style={styles.Card}>
+          <View style={styles.contentCard}>
+            <View style={styles.viewFlex3}>
+              <Image source={require('../assets/images/icon/visa.png')} style={styles.image} />
+            </View>
+            <View style={styles.wrapLeft}>
+              <Text style={styles.paymentCardInformationTitle}>Code pembayaran BCA</Text>
+              <Text style={styles.paymentCardIformationPaymentCode}>390521106000426</Text>
+            </View>
+          </View>
+          <View style={styles.contentCard2}>
+            <Text style={styles.paymentCardInformationTotalLabel}>Total:</Text>
+            <Text style={styles.paymentCardInformationGrandTotal}>Rp 420,000</Text>
+          </View>
+        </View>
+        <View style={styles.paymentGuideSparator}>
+          <Text style={styles.paymentGuideTitle}>Panduan Pembayaran</Text>
+        </View>
+        <TouchableOpacity style={styles.touchableGuidePayment1}>
+          <View style={{ paddingLeft: 20 }}>
+            <Image source={atmIcon} style={{ width: 30, height: 30 }} />
+          </View>
+          <View style={styles.flexOnly9}>
+            <View style={styles.viewPaddingLeft}>
+              <Text style={styles.txtLabel}>ATM</Text>
+            </View>
+          </View>
+          <View style={styles.flexOnly1}>
+            <FontAwesome name="chevron-down" style={styles.iconDrop} />
+          </View>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.touchableGuidePayment1}>
+          <View style={{ paddingLeft: 20 }}>
+            <Image source={bankIcon} style={{ width: 30, height: 30 }} />
+          </View>
+          <View style={styles.flexOnly9}>
+            <View style={styles.viewPaddingLeft}>
+              <Text style={styles.txtLabel}>Internet Banking (App & Web)</Text>
+            </View>
+          </View>
+          <View style={styles.flexOnly1}>
+            <FontAwesome name="chevron-down" style={styles.iconDrop} />
+          </View>
+        </TouchableOpacity>
       </View>
-      <View>
+      <View style={styles.paymentGuideSparator}>
+        <Text style={styles.paymentGuideTitle}>More Information</Text>
+      </View>
+      <View style={styles.moreInformationItems}>
+        <View style={styles.viewFlex3}>
+          <Image source={emailIcon} style={{ width: 30, height: 30, margin: 10 }} />
+        </View>
+        <View style={styles.wrapLeft}>
+          <Text style={styles.paymentCardInformationTitle}>
+            Kami telah mengirimkan email konfirmasi ke <Text style={{ fontWeight: 'bold' }}>muhammadfuaditrockz@gmail.com</Text> dengan detail pesanan.
+          </Text>
+        </View>
+      </View>
+      <View style={styles.moreInformationItems}>
+        <View style={styles.viewFlex3}>
+          <Image source={deliveryIcon} style={{ width: 30, height: 30, margin: 10 }} />
+        </View>
+        <View style={styles.wrapLeft}>
+          <Text style={styles.paymentCardInformationTitle}>
+            Pesan anda akan dikirimkan pada <Text style={{ fontWeight: 'bold' }}>Kamis 31 Mei</Text>.
+          </Text>
+        </View>
       </View>
     </Content>
     <Button full style={styles.btnSend}>
@@ -43,6 +115,69 @@ export default WaitingForPaymentModal
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
+    paddingBottom: 20,
+    marginBottom: 20
+  },
+  Card: {
+    marginLeft: 5,
+    marginRight: 5,
+    borderRadius: 1,
+    borderColor: '#E2E2E2',
+    borderWidth: 1,
+    marginBottom: 5
+  },
+  contentCard: {
+    margin: 10,
+    flexDirection: 'row',
+    flex: 1,
+  },
+  contentCard2: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  flexOnly9: {
+    marginTop: 5,
+    flex: 0.9
+  },
+  flexOnly1: {
+    flex: 0.1
+  },
+  viewPaddingLeft: {
+    paddingLeft: 20
+  },
+  txtLabel: {
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  viewFlex3: {
+    flex: 0.3
+  },
+  wrapLeft: {
+    marginTop: 5,
+    flex: 1,
+  },
+  iconDrop: {
+    marginTop: 5,
+    fontSize: 16,
+    paddingRight: 10,
+    top: 3
+  },
+  touchableGuidePayment1: {
+    flexDirection: 'row',
+    borderTopWidth: 1,
+    borderColor: '#e2e2e2',
+    paddingTop: 15,
+    paddingBottom: 15
+  },
+  moreInformationItems: {
+    margin: 5,
+    flexDirection: 'row',
+    flex: 1,
+  },
+  image: {
+    marginLeft: 5,
+    width: 50,
+    height: 50
   },
   textInfo1: {
     paddingTop: 10,
@@ -69,11 +204,53 @@ const styles = StyleSheet.create({
     paddingTop: 10
   },
   paymentInformation2: {
-    justifyContent: 'center',
-    alignItems: 'center',
     borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: '#e2e2e2'
+  },
+  paymentInformation2Wrapper: {
+    justifyContent: 'center',
+    alignItems: 'center'
+  },
+  paymentInformation2title: {
+    paddingTop: 20,
+    fontSize: 16
+  },
+  paymentInformation2timeout: {
+    paddingTop: 10,
+    fontSize: 32
+  },
+  paymentInformation2warning1: {
+    paddingTop: 20,
+    fontSize: 16
+  },
+  paymentInformation2warning2: {
+    paddingBottom: 20,
+    fontSize: 16
+  },
+  paymentCardInformationTitle: {
+    fontSize: 16
+  },
+  paymentCardIformationPaymentCode: {
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  paymentCardInformationTotalLabel: {
+    margin: 15,
+    fontSize: 16
+  },
+  paymentCardInformationGrandTotal: {
+    margin: 15,
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  paymentGuideSparator: {
+    margin: 10
+  },
+  paymentGuideTitle: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginBottom: 5
   },
   imageFrame: {
     marginTop: 10,
