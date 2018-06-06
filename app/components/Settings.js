@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-native'
 import { Container, Content } from 'native-base'
 import Navbar from '../particles/Navbar'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -15,16 +15,20 @@ const Settings = (props) => (
       actionIcon={props.goback}
     />
     <ChangePasswordModal
-      navbarTitle= "Change Password"
+      navbarTitle="Change Password"
       navbarIcon="close"
       modalVisible={props.modalVisibleChangePassword}
-      actionIcon = {props.toggleModalChangePassword}
+      actionIcon={props.toggleModalChangePassword}
     />
     <NotificationsModal
       navbarTitle="Notifications"
       navbarIcon="close"
       modalVisible={props.modalVisibleNotifications}
       actionIcon={props.toggleModalNotifications}
+    />
+    <StatusBar
+      backgroundColor="#f65857"
+      barStyle="light-content"
     />
     <Content>
       <TouchableOpacity style={styles.touchablePassword} onPress={props.toggleModalChangePassword}>
@@ -34,18 +38,18 @@ const Settings = (props) => (
           </View>
         </View>
         <View style={styles.flexOnly1}>
-          <FontAwesome name="chevron-right" style={styles.iconChange}/>
+          <FontAwesome name="chevron-right" style={styles.iconChange} />
         </View>
       </TouchableOpacity>
       <TouchableOpacity style={styles.touchableNotif} onPress={props.toggleModalNotifications}>
         <View style={styles.viewPaddingLeft}>
           <Text style={styles.txtLabel}>Notifications</Text>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <View style={styles.flexOnly9}>
               <Text note>Get Interesting messages and offers</Text>
             </View>
             <View style={styles.flexOnly1}>
-              <FontAwesome name="chevron-right" style={styles.iconNotif}/>
+              <FontAwesome name="chevron-right" style={styles.iconNotif} />
             </View>
           </View>
         </View>
@@ -53,12 +57,12 @@ const Settings = (props) => (
       <TouchableOpacity style={styles.touchableLogout}>
         <View style={styles.viewPaddingLeft}>
           <Text style={styles.txtLabel}>Logout</Text>
-          <View style={{flexDirection: 'row'}}>
+          <View style={{ flexDirection: 'row' }}>
             <View style={styles.flexOnly9}>
               <Text note>rendisimamora7127@gmail.com</Text>
             </View>
             <View style={styles.flexOnly1}>
-              <MaterialCommunityIcons name="logout" style={styles.iconLogout}/>
+              <MaterialCommunityIcons name="logout" style={styles.iconLogout} />
             </View>
           </View>
         </View>
@@ -68,60 +72,60 @@ const Settings = (props) => (
 )
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     backgroundColor: '#fff'
   },
-  flexOnly9:{
+  flexOnly9: {
     flex: 0.9
   },
-  flexOnly1:{
+  flexOnly1: {
     flex: 0.1
   },
-  viewPaddingLeft:{
+  viewPaddingLeft: {
     paddingLeft: 20
   },
-  touchablePassword:{
-    flexDirection: 'row', 
-    marginTop: 20, 
-    borderTopWidth: 1, 
-    borderColor: '#e2e2e2', 
-    paddingTop: 15, 
+  touchablePassword: {
+    flexDirection: 'row',
+    marginTop: 20,
+    borderTopWidth: 1,
+    borderColor: '#e2e2e2',
+    paddingTop: 15,
     paddingBottom: 5
   },
-  touchableNotif:{
-    marginTop: 10, 
-    borderTopWidth: 1, 
-    borderColor: '#e2e2e2', 
+  touchableNotif: {
+    marginTop: 10,
+    borderTopWidth: 1,
+    borderColor: '#e2e2e2',
     paddingTop: 10
   },
-  touchableLogout:{
-    marginTop: 10, 
-    borderTopWidth: 1, 
-    borderBottomWidth: 1, 
-    borderColor: '#e2e2e2', 
-    paddingTop: 10, 
+  touchableLogout: {
+    marginTop: 10,
+    borderTopWidth: 1,
+    borderBottomWidth: 1,
+    borderColor: '#e2e2e2',
+    paddingTop: 10,
     paddingBottom: 10
   },
-  txtLabel:{
-    fontSize: 16, 
+  txtLabel: {
+    fontSize: 16,
     fontWeight: 'bold'
   },
-  iconChange:{
-    fontSize: 16, 
-    alignSelf: 'flex-end', 
-    paddingRight: 20, 
+  iconChange: {
+    fontSize: 16,
+    alignSelf: 'flex-end',
+    paddingRight: 20,
     top: 5
   },
-  iconNotif:{
-    fontSize: 16, 
-    alignSelf: 'flex-end', 
-    paddingRight: 20, 
+  iconNotif: {
+    fontSize: 16,
+    alignSelf: 'flex-end',
+    paddingRight: 20,
     bottom: 5
   },
-  iconLogout:{
-    fontSize: 24, 
-    alignSelf: 'flex-end', 
-    paddingRight: 20, 
+  iconLogout: {
+    fontSize: 24,
+    alignSelf: 'flex-end',
+    paddingRight: 20,
     bottom: 10
   }
 })

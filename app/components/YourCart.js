@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { TouchableOpacity, View, Text, Image, StyleSheet, FlatList } from 'react-native'
+import { TouchableOpacity, View, Text, Image, StyleSheet, FlatList, StatusBar } from 'react-native'
 import { Container, Content, Card, CardItem, Body, Icon, Button, Item, Radio, Footer, } from 'native-base'
 import Navigation from '../particles/Navbar'
 import BenefitCosmetics from '../particles/BenefitCosmetics'
@@ -27,6 +27,10 @@ const YourCart = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleEditAddress}
       actionIcon={props.toggleModalEditAddress}
+    />
+    <StatusBar
+      backgroundColor="#f65857"
+      barStyle="light-content"
     />
     <Content>
       <View style={styles.body}>

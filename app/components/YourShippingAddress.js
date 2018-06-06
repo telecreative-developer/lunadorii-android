@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, TouchableOpacity, FlatList } from 'react-native'
+import { StyleSheet, TouchableOpacity, FlatList, StatusBar } from 'react-native'
 import { Container, Content, Text, View, Button, Icon } from 'native-base'
 import Navbar from '../particles/Navbar'
 import ShippingAddress from '../particles/ShippingAddress'
@@ -10,13 +10,17 @@ const YourShippingAddress = (props) => (
     <Navbar
       navbarTitle="Shipping Address"
       navbarIcon="arrow-back"
-      actionIcon={props.goback}/>
+      actionIcon={props.goback} />
     <EditAddressModal
-      navbarTitle= "Edit Addresss"
+      navbarTitle="Edit Addresss"
       navbarIcon="close"
       modalVisible={props.modalVisibleEditAddress}
-      actionIcon={props.toggleModalEditAddress}/>
-    <Content>
+      actionIcon={props.toggleModalEditAddress} />
+    <StatusBar
+      backgroundColor="#f65857"
+      barStyle="light-content"
+    />
+    <Content style={styles.container}>
       <View style={styles.viewShippingAddress}>
         <Text style={styles.txtShippingAddress}>Your Shipping Address</Text>
         <FlatList
@@ -26,36 +30,39 @@ const YourShippingAddress = (props) => (
         />
       </View>
       <Button style={styles.btnAddAddress}>
-        <Icon name="add"/><Text style={styles.txtAddAddress}>Add Another Address</Text>
+        <Icon name="add" /><Text style={styles.txtAddAddress}>Add Another Address</Text>
       </Button>
     </Content>
   </Container>
 )
 
 const styles = StyleSheet.create({
-  viewShippingAddress:{
-    paddingTop: 5, 
+  container: {
+    backgroundColor: '#fff'
+  },
+  viewShippingAddress: {
+    paddingTop: 5,
     paddingBottom: 5,
     paddingLeft: 10,
     paddingRight: 10
   },
-  txtShippingAddress:{
-    fontWeight: 'bold', 
+  txtShippingAddress: {
+    fontWeight: 'bold',
     fontSize: 16,
     padding: 10
   },
-  btnAddAddress:{
-    borderRadius:5,
-    alignSelf:'center',
-    backgroundColor:'#AEAEAE',
-    margin:5,
-    marginBottom:15
+  btnAddAddress: {
+    borderRadius: 5,
+    alignSelf: 'center',
+    backgroundColor: '#AEAEAE',
+    margin: 5,
+    marginBottom: 15
   },
-  txtAddAddress:{
-    fontSize:14,
-    paddingRight:10,
-    color:'#fff',
-    fontWeight:'bold'
+  txtAddAddress: {
+    fontSize: 14,
+    paddingRight: 10,
+    color: '#fff',
+    fontWeight: 'bold'
   }
 })
 

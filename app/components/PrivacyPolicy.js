@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, FlatList } from 'react-native'
+import { StyleSheet, FlatList, StatusBar } from 'react-native'
 import { Container, Content, Text, View } from 'native-base'
 import Navbar from '../particles/Navbar'
 
@@ -8,7 +8,11 @@ const PrivacyPolici = (props) => (
     <Navbar
       navbarTitle="Privacy & Policy"
       navbarIcon="arrow-back"
-      actionIcon={props.goback}/>
+      actionIcon={props.goback} />
+    <StatusBar
+      backgroundColor="#f65857"
+      barStyle="light-content"
+    />
     <Content style={styles.container}>
       <View style={styles.textContentWrapper}>
         <Text style={styles.bigText}>Personal Data collected for the following</Text>
@@ -30,7 +34,7 @@ const PrivacyPolici = (props) => (
       <View style={styles.textContentWrapper}>
         <Text style={styles.textTitle}>Commercial affiliation</Text>
         <Text>
-          Data transfer to countries that guarantee European standards, Data transfer 
+          Data transfer to countries that guarantee European standards, Data transfer
           abroad based on standard contractual clauses and Data transfer from the EU and
           /or Switzerland to the U.S based on Privacy Shield Personal Data: various types of Data
         </Text>
@@ -42,17 +46,17 @@ const PrivacyPolici = (props) => (
 export default PrivacyPolici
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     backgroundColor: '#fff'
   },
-  textContentWrapper:{
+  textContentWrapper: {
     padding: 10
   },
-  bigText:{
-    fontWeight: 'bold', 
+  bigText: {
+    fontWeight: 'bold',
     fontSize: 20
   },
-  textTitle:{
+  textTitle: {
     fontWeight: 'bold'
   }
 })

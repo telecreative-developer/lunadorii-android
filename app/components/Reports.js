@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet } from 'react-native'
+import { View, Text, StyleSheet, StatusBar } from 'react-native'
 import { Container, Content, Button, Item, Input, Textarea } from 'native-base'
 import Navbar from '../particles/Navbar'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -18,6 +18,10 @@ const Reports = (props) => (
       actionIcon={props.actionIcon}
       modalVisible={props.modalVisibleCategory}
       actionIcon={props.toggleModalCategory}
+    />
+    <StatusBar
+      backgroundColor="#f65857"
+      barStyle="light-content"
     />
     <Content>
       <View style={{ padding: 20 }}>
