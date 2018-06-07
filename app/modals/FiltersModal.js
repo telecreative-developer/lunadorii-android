@@ -45,11 +45,11 @@ const FiltersModal = (props) => (
       </Item>
       <Text style={styles.txtLabel}>Price</Text>
       <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-        <Item regular style={{ width: 130, height: 40, marginBottom: 10, borderRadius: 5 }}>
+        <Item regular style={styles.inputMin}>
           <Input placeholder='Min' placeholderTextColor="#ccc" />
         </Item>
-        <Text style={{ fontSize: 36, color: '#ccc', alignSelf: 'center', paddingBottom: 15 }}>-</Text>
-        <Item regular style={{ width: 130, height: 40, marginBottom: 10, borderRadius: 5 }}>
+        <Text style={styles.sparator}>-</Text>
+        <Item regular style={styles.inputMax}>
           <Input placeholder='Max' placeholderTextColor="#ccc" />
         </Item>
       </View>
@@ -66,6 +66,24 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     padding: 10
+  },
+  sparator: {
+    fontSize: 36,
+    color: '#ccc',
+    alignSelf: 'center',
+    paddingBottom: 15
+  },
+  inputMin: {
+    width: 130,
+    height: 40,
+    marginBottom: 10,
+    borderRadius: 5
+  },
+  inputMax: {
+    width: 130,
+    height: 40,
+    marginBottom: 10,
+    borderRadius: 5
   },
   mediumButton: {
     height: 30,
