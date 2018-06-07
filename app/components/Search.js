@@ -15,13 +15,13 @@ const Search = (props) => (
       barStyle="light-content"
     />
     <Content style={styles.container}>
-      <Item regular style={{ borderRadius: 5 }}>
+      <Item regular style={styles.items}>
         <Input />
-        <Feather name="search" style={{ fontSize: 26, paddingRight: 10 }} />
+        <Feather name="search" style={styles.searchIcon} />
       </Item>
-      <View style={{ justifyContent: 'center', alignItems: 'center', paddingTop: 10 }}>
+      <View style={styles.moreFilters}>
         <TouchableOpacity onPress={() => alert("Filter modal appears")}>
-          <Text style={{ fontSize: 16, fontWeight: 'bold', color: '#F7009A' }}>More Filters</Text>
+          <Text style={styles.moreFiltersText}>More Filters</Text>
         </TouchableOpacity>
       </View>
     </Content>
@@ -34,5 +34,22 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     padding: 10
+  },
+  items: {
+    borderRadius: 5
+  },
+  searchIcon: {
+    fontSize: 26,
+    paddingRight: 10
+  },
+  moreFilters: {
+    justifyContent: 'center',
+    alignItems: 'center',
+    paddingTop: 10
+  },
+  moreFiltersText: {
+    fontSize: 16,
+    fontWeight: 'bold',
+    color: '#F7009A'
   }
 })
