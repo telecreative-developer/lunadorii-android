@@ -22,7 +22,7 @@ const Search = (props) => (
     />
     <Content style={styles.container}>
       <Item regular style={styles.items}>
-        <Input />
+        <Input placeholder="Search product, brand name, etc.," placeholderTextColor="#ccc" />
         <Feather name="search" style={styles.searchIcon} />
       </Item>
       <View style={styles.moreFilters}>
