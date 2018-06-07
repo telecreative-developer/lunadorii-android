@@ -105,26 +105,27 @@ class HomeContainer extends Component {
       <Home
         size={this.state.size}
         dataBrand={dataBrand}
-        renderBrand={({item}) => (
+        renderBrand={({ item }) => (
           <Brand image={item.image} />
         )}
         dataProduct={dataProduct}
-        renderProduct={({item}) => (
+        renderProduct={({ item }) => (
           <Product image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star}
           />
         )}
         dataRecommend={dataRecommend}
-        renderRecommend={({item}) => (
+        renderRecommend={({ item }) => (
           <RecommendProduct image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star} reviews={item.reviews}
           />
         )}
         dataCategories={dataCategories}
-        renderCategories={({item}) => (
+        renderCategories={({ item }) => (
           <BestCategories image={item.image} title={item.title} total={item.total}
           />
         )}
         navigateToYourCart={() => this.props.navigation.navigate("YourCartContainer")}
         navigateToProfile={() => this.props.navigation.navigate('ProfileContainer')}
+        navigateToSearch={() => this.props.navigation.navigate("SearchContainer")}
       />
     )
   }
