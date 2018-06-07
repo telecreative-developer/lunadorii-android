@@ -14,7 +14,7 @@ const { width, height } = Dimensions.get('window')
 const Home = (props) => (
   <Container style={styles.tabHeading}>
     <NavbarHome
-      searchIconAction={() => alert('Search')}
+      searchIconAction={props.navigateToSearch}
       cartIconAction={props.navigateToYourCart}
       photoProfileAction={props.navigateToProfile} />
     <StatusBar

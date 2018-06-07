@@ -13,6 +13,7 @@ import YourCartContainer from './app/containers/YourCartContainer'
 import YourShippingAddressContainer from './app/containers/YourShippingAddressContainer'
 import CreditCardContainer from './app/containers/CreditCardContainer'
 import PrivacyPolicyContainer from './app/containers/PrivacyPolicyContainer'
+import SearchContainer from './app/containers/SearchContainer'
 
 const App = StackNavigator(
   {
@@ -23,6 +24,7 @@ const App = StackNavigator(
     YourCartContainer: { screen: YourCartContainer },
     PurchaseHistoryContainer: { screen: PurchaseHistoryContainer },
 
+    SearchContainer: { screen: SearchContainer },
     PrivacyPolicyContainer: { screen: PrivacyPolicyContainer },
     WishlistContainer: { screen: WishlistContainer },
     ReportsContainer: { screen: ReportsContainer },
