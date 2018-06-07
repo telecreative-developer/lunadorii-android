@@ -1,9 +1,10 @@
 import React from 'react'
-import { Text } from 'react-native'
+import { Text, Dimensions } from 'react-native'
 import { Header, Left, Button, Icon, Body, Right } from 'native-base'
+const width = Dimensions.get('window').width;
 
 const Navbar = (props) => (
-  <Header style={{ backgroundColor: 'transparent', height: 45 }}>
+  <Header style={{ backgroundColor: 'transparent', height: 45, width: width }}>
     <Left>
       <Button transparent onPress={props.actionIcon}>
         <Icon name={props.navbarIcon} style={{ color: '#000' }} />

@@ -9,12 +9,10 @@ const EditQuantityModal = (props) => (
     transparent={false}
     visible={props.modalVisible}
     onRequestClose={props.actionIcon}>
-
     <Navbar
       navbarTitle="Edit Quantity"
       navbarIcon="close"
       actionIcon={props.actionIcon} />
-
     <Content style={styles.container}>
       <View style={styles.Card}>
         <View style={styles.contentCard}>
@@ -30,16 +28,24 @@ const EditQuantityModal = (props) => (
           </View>
         </View>
       </View>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', flex: 1, paddingTop: 10 }}>
-        <Button style={{ width: 35, height: 35, borderRadius: 20, backgroundColor: '#ccc', alignItems: 'center', justifyContent: 'center', marginRight: 5 }}>
-          <Text style={{ fontSize: 16 }}>-</Text>
-        </Button>
-        <Item regular style={{ borderRadius: 10, width: 50, height: 35 }}>
+      <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', paddingTop: 10 }}>
+        <View style={{ justifyContent: 'flex-end' }}>
+          <TouchableOpacity onPress={() => alert("Minus")}>
+            <View style={styles.minusButton}>
+              <Text style={styles.buttonFontSize}>-</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+        <Item regular style={styles.amountTextInput}>
           <Input value="1" />
         </Item>
-        <Button style={{ width: 35, height: 35, borderRadius: 20, backgroundColor: '#ccc', alignItems: 'center', justifyContent: 'center', marginLeft: 5 }}>
-          <Text style={{ fontSize: 16 }}>+</Text>
-        </Button>
+        <View style={{ justifyContent: 'flex-end' }}>
+          <TouchableOpacity onPress={() => alert("Pluss")}>
+            <View style={styles.plussButton}>
+              <Text style={styles.buttonFontSize}>+</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
       </View>
     </Content>
     <Button full style={styles.buttonSaveStyle}>
@@ -54,6 +60,34 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     margin: 10
+  },
+  amountTextInput: {
+    borderRadius: 10,
+    width: 50,
+    height: 35,
+    justifyContent: 'center',
+    alignSelf: 'center'
+  },
+  minusButton: {
+    width: 35,
+    height: 35,
+    borderRadius: 20,
+    backgroundColor: '#ccc',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginLeft: 80
+  },
+  plussButton: {
+    width: 35,
+    height: 35,
+    borderRadius: 20,
+    backgroundColor: '#ccc',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: 80
+  },
+  buttonFontSize: {
+    fontSize: 26
   },
   wrapLeft: {
     flex: 1,
