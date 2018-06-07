@@ -3,6 +3,7 @@ import { StyleSheet, StatusBar, TouchableOpacity } from 'react-native'
 import { Container, Content, View, Text, Icon, Item, Input } from 'native-base'
 import Feather from 'react-native-vector-icons/Feather'
 import Navbar from '../particles/Navbar'
+import FiltersModal from '../modals/FiltersModal'
 
 const Search = (props) => (
   <Container style={{ backgroundColor: '#fff' }}>
@@ -10,6 +11,11 @@ const Search = (props) => (
       navbarTitle="Search"
       navbarIcon="arrow-back"
       actionIcon={props.goback} />
+    <FiltersModal
+      navbarTitle="Filters"
+      navbarIcon="close"
+      modalVisible={props.modalVisibleFilters}
+      actionIcon={props.toggleModalFilters} />
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content"
@@ -20,7 +26,7 @@ const Search = (props) => (
         <Feather name="search" style={styles.searchIcon} />
       </Item>
       <View style={styles.moreFilters}>
-        <TouchableOpacity onPress={() => alert("Filter modal appears")}>
+        <TouchableOpacity onPress={props.toggleModalFilters}>
           <Text style={styles.moreFiltersText}>More Filters</Text>
         </TouchableOpacity>
       </View>
