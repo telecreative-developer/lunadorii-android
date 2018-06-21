@@ -5,6 +5,36 @@ import Product from '../particles/Product'
 import Brand from '../particles/Brand'
 import RecommendProduct from '../particles/RecommendProduct'
 import BestCategories from '../particles/BestCategories'
+import Categories from '../particles/Categories'
+
+import imageSkinCare from '../assets/images/icon/skincare.png'
+import imageMakeUp from '../assets/images/icon/makeup.png'
+import imageNails from '../assets/images/icon/nails.png'
+import imageToolBrushes from '../assets/images/icon/tools-brushes.png'
+import imageMore from '../assets/images/icon/more.png'
+
+const categories = [
+  {
+    title: 'Skincare',
+    icon: imageSkinCare
+  },
+  {
+    title: 'Makeup',
+    icon: imageMakeUp
+  },
+  {
+    title: 'Nails',
+    icon: imageNails
+  },
+  {
+    title: 'Tool & Brushes',
+    icon: imageToolBrushes
+  },
+  {
+    title: 'More',
+    icon: imageMore
+  },
+]
 
 const dataBrand = [
   {
@@ -193,6 +223,12 @@ class HomeContainer extends Component {
         renderBrand={({ item }) => (
           <Brand image={item.image} />
         )}
+
+        dataCategoriesButton={categories}
+        renderCategoriesButton={({ item }) => (
+          <Categories title={item.title} icon={item.icon} />
+        )}
+
         dataProduct={dataProduct}
         renderProduct={({ item }) => (
           <Product image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star} action={() => this.props.navigation.navigate("ProductShowContainer", { data: dataProduct[item.index] })}
