@@ -43,7 +43,7 @@ const dataProduct = [
     image: 'http://www.forgotteninvasion.com/wp-content/uploads/2017/12/1200x800_0_0_1200_800_be71c6e15ae8c6f7bfd6e935b0ab5fcc3c2f98d3.jpg',
     title: 'Benefiets Cosmetics',
     categories: 'Benefiets Cosmetics, and others',
-    price: '520,000',
+    price: '520,009',
     star: 4
   },
 ]
@@ -69,7 +69,7 @@ const dataRecommend = [
     image: 'http://www.forgotteninvasion.com/wp-content/uploads/2017/12/1200x800_0_0_1200_800_be71c6e15ae8c6f7bfd6e935b0ab5fcc3c2f98d3.jpg',
     title: 'Benefiets Cosmetics',
     categories: 'Benefiets Cosmetics, and others',
-    price: '520,000',
+    price: '520,001',
     reviews: '3.6'
   },
 ]
@@ -123,16 +123,16 @@ class HomeContainer extends Component {
         renderBrand={({ item }) => (
           <Brand image={item.logo_url} />
         )}
-         dataProduct={this.props.product}
--        renderProduct={({ item }) => (
--          <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate}
--          />
--        )}
--        dataRecommend={this.props.product}
--        renderRecommend={({ item }) => (
--          <RecommendProduct image={item.thumbnails.thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate} reviews={item.reviews}
--          />
--        )}
+        dataProduct={this.props.product}
+        renderProduct={({ item }) => (
+          <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate}
+          />
+        )}
+        dataRecommend={this.props.product}
+        renderRecommend={({ item }) => (
+          <RecommendProduct image={item.thumbnails.thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate} reviews={item.reviews}
+          />
+        )}
         dataCategories={dataCategories}
         renderCategories={({ item }) => (
           <BestCategories image={item.image} title={item.title} total={item.total}
