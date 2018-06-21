@@ -6,6 +6,11 @@ import Brand from '../particles/Brand'
 import RecommendProduct from '../particles/RecommendProduct'
 import BestCategories from '../particles/BestCategories'
 
+
+import {connect} from 'react-redux'
+import { fetchCategoryProduct } from '../actions/categoryproduct'
+import { fetchBrandsProduct } from '../actions/brandsproduct'
+
 const dataBrand = [
   {
     image: 'http://logok.org/wp-content/uploads/2014/07/Olay-Logo-Black.png',
@@ -185,13 +190,21 @@ class HomeContainer extends Component {
       size: { width, height },
     };
   }
+
+  async componentDidMount() {
+    await this.props.fetchCategoryProduct('123')
+    await this.props.fetchBrandsProduct('123')
+    
+  }
+
   render() {
     return (
       <Home
         size={this.state.size}
-        dataBrand={dataBrand}
+       
+        dataBrand={this.props.brandsproduct}
         renderBrand={({ item }) => (
-          <Brand image={item.image} />
+          <Brand image={item.logo_url} />
         )}
         dataProduct={dataProduct}
         renderProduct={({ item }) => (
@@ -216,5 +229,23 @@ class HomeContainer extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) =>{
+  return{
 
-export default HomeContainer
+    fetchCategoryProduct: (accessToken) => dispatch(fetchCategoryProduct(accessToken)),
+    fetchBrandsProduct: (accessToken) => dispatch(fetchBrandsProduct(accessToken)),
+    
+  }
+}
+
+const mapStateToProps = (state) => {
+  return{
+    loading: state.loading,
+    success: state.success,
+    failed: state.failed,
+    categoryproduct: state.categoryproduct,
+    brandsproduct: state.brandsproduct
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer)
