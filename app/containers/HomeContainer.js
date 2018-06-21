@@ -10,6 +10,7 @@ import BestCategories from '../particles/BestCategories'
 import {connect} from 'react-redux'
 import { fetchCategoryProduct } from '../actions/categoryproduct'
 import { fetchBrandsProduct } from '../actions/brandsproduct'
+import { fetchProduct } from '../actions/product'
 
 const dataBrand = [
   {
@@ -194,6 +195,7 @@ class HomeContainer extends Component {
   async componentDidMount() {
     await this.props.fetchCategoryProduct('123')
     await this.props.fetchBrandsProduct('123')
+    await this.props.fetchProduct('123')
     
   }
 
@@ -206,6 +208,7 @@ class HomeContainer extends Component {
         renderBrand={({ item }) => (
           <Brand image={item.logo_url} />
         )}
+<<<<<<< HEAD
         dataProduct={dataProduct}
         renderProduct={({ item }) => (
           <Product image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star} action={() => this.props.navigation.navigate("ProductShowContainer", { data: dataProduct[item.index] })}
@@ -216,6 +219,18 @@ class HomeContainer extends Component {
           <RecommendProduct image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star} reviews={item.reviews}
           />
         )}
+=======
+         dataProduct={this.props.product}
+-        renderProduct={({ item }) => (
+-          <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate}
+-          />
+-        )}
+-        dataRecommend={this.props.product}
+-        renderRecommend={({ item }) => (
+-          <RecommendProduct image={item.thumbnails.thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate} reviews={item.reviews}
+-          />
+-        )}
+>>>>>>> 2881681d5293c259d6fa255b9b95a1fcae377eca
         dataCategories={dataCategories}
         renderCategories={({ item }) => (
           <BestCategories image={item.image} title={item.title} total={item.total}
@@ -234,7 +249,8 @@ const mapDispatchToProps = (dispatch) =>{
 
     fetchCategoryProduct: (accessToken) => dispatch(fetchCategoryProduct(accessToken)),
     fetchBrandsProduct: (accessToken) => dispatch(fetchBrandsProduct(accessToken)),
-    
+    fetchProduct: (accessToken) => dispatch(fetchProduct(accessToken)),
+
   }
 }
 
@@ -244,7 +260,8 @@ const mapStateToProps = (state) => {
     success: state.success,
     failed: state.failed,
     categoryproduct: state.categoryproduct,
-    brandsproduct: state.brandsproduct
+    brandsproduct: state.brandsproduct,
+    product: state.product,
   }
 }
 
