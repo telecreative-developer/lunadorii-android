@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Container, Content, Icon, Button, Radio } from 'native-base'
-import Navbar from '../particles/Navbar'
+import NavbarModal from '../particles/NavbarModal'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 const image = require('../assets/images/icon/clock.png')
 const bankIcon = require('../assets/images/icon/bank.png')
 const atmIcon = require('../assets/images/icon/atm.png')
-const deliveryIcon = require('../assets/images/icon/delivery.png')
+const deliveryIcon = require('../assets/images/icon/shipped.png')
 const emailIcon = require('../assets/images/icon/email.png')
 
 const WaitingForPaymentModal = (props) => (
@@ -15,7 +15,7 @@ const WaitingForPaymentModal = (props) => (
     transparent={false}
     visible={props.modalVisible}
     onRequestClose={props.actionIcon}>
-    <Navbar
+    <NavbarModal
       navbarTitle={props.navbarTitle}
       navbarIcon={props.navbarIcon}
       actionIcon={props.actionIcon}
@@ -54,8 +54,8 @@ const WaitingForPaymentModal = (props) => (
           <Text style={styles.paymentGuideTitle}>Panduan Pembayaran</Text>
         </View>
         <TouchableOpacity style={styles.touchableGuidePayment1}>
-          <View style={{ paddingLeft: 20 }}>
-            <Image source={atmIcon} style={{ width: 30, height: 30 }} />
+          <View style={styles.paddingLeft20}>
+            <Image source={atmIcon} style={styles.iconSize} />
           </View>
           <View style={styles.flexOnly9}>
             <View style={styles.viewPaddingLeft}>
@@ -67,8 +67,8 @@ const WaitingForPaymentModal = (props) => (
           </View>
         </TouchableOpacity>
         <TouchableOpacity style={styles.touchableGuidePayment1}>
-          <View style={{ paddingLeft: 20 }}>
-            <Image source={bankIcon} style={{ width: 30, height: 30 }} />
+          <View style={styles.paddingLeft20}>
+            <Image source={bankIcon} style={styles.iconSize} />
           </View>
           <View style={styles.flexOnly9}>
             <View style={styles.viewPaddingLeft}>
@@ -85,26 +85,26 @@ const WaitingForPaymentModal = (props) => (
       </View>
       <View style={styles.moreInformationItems}>
         <View style={styles.viewFlex3}>
-          <Image source={emailIcon} style={{ width: 30, height: 30, margin: 10 }} />
+          <Image source={emailIcon} style={styles.iconInformations} />
         </View>
         <View style={styles.wrapLeft}>
           <Text style={styles.paymentCardInformationTitle}>
-            Kami telah mengirimkan email konfirmasi ke <Text style={{ fontWeight: 'bold' }}>muhammadfuaditrockz@gmail.com</Text> dengan detail pesanan.
+            Kami telah mengirimkan email konfirmasi ke <Text style={styles.boldFont}>muhammadfuaditrockz@gmail.com</Text> dengan detail pesanan.
           </Text>
         </View>
       </View>
       <View style={styles.moreInformationItems}>
         <View style={styles.viewFlex3}>
-          <Image source={deliveryIcon} style={{ width: 30, height: 30, margin: 10 }} />
+          <Image source={deliveryIcon} style={styles.iconInformations} />
         </View>
         <View style={styles.wrapLeft}>
           <Text style={styles.paymentCardInformationTitle}>
-            Pesan anda akan dikirimkan pada <Text style={{ fontWeight: 'bold' }}>Kamis 31 Mei</Text>.
+            Pesan anda akan dikirimkan pada <Text style={styles.boldFont}>Kamis 31 Mei</Text>.
           </Text>
         </View>
       </View>
     </Content>
-    <Button full style={styles.btnSend}>
+    <Button full style={styles.btnSend} onPress={props.backToHome}>
       <Text style={styles.txtBtnSend}>Back to Home</Text>
     </Button>
   </Modal>
@@ -139,11 +139,18 @@ const styles = StyleSheet.create({
     marginTop: 5,
     flex: 0.9
   },
+  iconSize: {
+    width: 30,
+    height: 30
+  },
   flexOnly1: {
     flex: 0.1
   },
   viewPaddingLeft: {
     paddingLeft: 20
+  },
+  boldFont: {
+    fontWeight: 'bold'
   },
   txtLabel: {
     fontSize: 16,
@@ -151,6 +158,9 @@ const styles = StyleSheet.create({
   },
   viewFlex3: {
     flex: 0.3
+  },
+  paddingLeft20: {
+    paddingLeft: 20
   },
   wrapLeft: {
     marginTop: 5,
@@ -161,6 +171,11 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingRight: 10,
     top: 3
+  },
+  iconInformations: {
+    width: 30,
+    height: 30,
+    margin: 10
   },
   touchableGuidePayment1: {
     flexDirection: 'row',
@@ -260,10 +275,11 @@ const styles = StyleSheet.create({
     alignSelf: 'center'
   },
   btnSend: {
-    backgroundColor: '#D50039'
+    height: 50,
+    backgroundColor: '#d11e48'
   },
   txtBtnSend: {
     color: "#fff",
-    fontSize: 16
+    fontSize: 18
   },
 })

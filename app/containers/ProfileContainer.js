@@ -10,7 +10,7 @@ const dataRecentOrders = [
     status: 'Packing',
     date: '20 Mei',
     time: '12:00 AM',
-    total:'250.000'
+    total: '250.000'
   },
   {
     image: 'https://i5.walmartimages.ca/images/Large/1c0/_en/999999-00770103148748_a1c0_en.jpg?odnBound=460',
@@ -18,7 +18,7 @@ const dataRecentOrders = [
     status: 'Non - Packing',
     date: '20 Mei',
     time: '12:00 AM',
-    total:'250.000'
+    total: '250.000'
   },
   {
     image: 'https://image.afcdn.com/expertclub/20150420/279261_w300h300.jpg',
@@ -26,30 +26,53 @@ const dataRecentOrders = [
     status: 'Packing',
     date: '20 Mei',
     time: '12:00 AM',
-    total:'250.000'
+    total: '250.000'
   },
 ]
 
 export default class ProfileContainer extends Component {
 
   state = {
-    modalVisibleEditProfile: false
+    modalVisibleEditProfile: false,
+    imageProfile: 'https://avatars0.githubusercontent.com/u/38149346?s=400&u=7db8195dd7b4436cbf6d0575915ca6b198d116cc&v=4',
+    firstName: 'Muhammad Isa Wijaya',
+    lastName: 'Kusuma',
+    email: 'hyperspace018@gmail.com',
+    birthDate: '17/11/1999'
   }
 
-  toggleModalEditProfile(){
-    this.setState({modalVisibleEditProfile: !this.state.modalVisibleEditProfile})
+  toggleModalEditProfile() {
+    this.setState({ modalVisibleEditProfile: !this.state.modalVisibleEditProfile })
+  }
+
+  handleSaveEditProfile() {
+    this.props.navigation.goBack()
+    alert("Profile Saved")
   }
 
   render() {
     return (
       <Profile
         dataRecentOrders={dataRecentOrders}
-        renderRecentOrders={({item, key}) => (
-          <RecentOrders image={item.image} categories={item.categories} status={item.status} total={item.total} date={item.date} time={item.time}/>
+        renderRecentOrders={({ item, key }) => (
+          <RecentOrders
+            image={item.image}
+            categories={item.categories}
+            status={item.status}
+            total={item.total}
+            date={item.date}
+            time={item.time} />
         )}
 
         toggleModalEditProfile={() => this.toggleModalEditProfile()}
         modalVisibleEditProfile={this.state.modalVisibleEditProfile}
+
+        profile={this.state}
+        onChangeFirstName={(firstName) => this.setState({ firstName })}
+        onChangeLastName={(lastName) => this.setState({ lastName })}
+        onChangeEmail={(email) => this.setState({ email })}
+        onChangeBirthDate={(birthDate) => this.setState({ birthDate })}
+        handleSaveEditProfile={() => this.handleSaveEditProfile()}
 
         navigateToPurchaseHistory={() => this.props.navigation.navigate("PurchaseHistoryContainer")}
         navigateToWhishlist={() => this.props.navigation.navigate("WishlistContainer")}

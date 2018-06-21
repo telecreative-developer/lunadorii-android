@@ -19,31 +19,31 @@ const ShippingAddress = (props) => (
 )
 
 const styles = StyleSheet.create({
-  Card:{
-    borderRadius:1,
-    borderColor:'#E2E2E2',
-    borderWidth:1,
-    marginBottom:5
+  Card: {
+    borderRadius: 1,
+    borderColor: '#E2E2E2',
+    borderWidth: 1,
+    marginBottom: 5
   },
-  contentCard:{
-    margin:10,
-    flexDirection:'row',
-    flex:1,
+  contentCard: {
+    margin: 10,
+    flexDirection: 'row',
+    flex: 1,
   },
-  wrapLeft:{
-    flex:1,
+  wrapLeft: {
+    flex: 1,
   },
-  wrapRight:{
-    alignItems:'flex-end'
+  wrapRight: {
+    alignItems: 'flex-end'
   },
-  txtHeader:{
-    fontSize:16,
-    fontWeight:'bold',
+  txtHeader: {
+    fontSize: 16,
+    fontWeight: 'bold',
   },
-  txtAction:{
-    fontSize:14,
-    color:'#d11e48',
-    marginBottom:5
+  txtAction: {
+    fontSize: 14,
+    color: '#d11e48',
+    marginBottom: 5
   }
 })
 

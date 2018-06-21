@@ -4,7 +4,7 @@ import { Container, Content, Text, View } from 'native-base'
 import Navbar from '../particles/Navbar'
 
 const PrivacyPolici = (props) => (
-  <Container>
+  <Container style={styles.container}>
     <Navbar
       navbarTitle="Privacy & Policy"
       navbarIcon="arrow-back"

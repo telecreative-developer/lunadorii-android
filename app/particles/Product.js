@@ -7,26 +7,28 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 const { width, height } = Dimensions.get('window')
 const Product = (props) => (
   <View style={styles.viewProduct}>
-    <ImageBackground source={{ uri: props.image }} style={styles.ImageBackground}>
-      <TouchableOpacity style={styles.touchableOpacity}>
-        <Text style={styles.txtAddCart}><MaterialCommunityIcons name="cart" /> Add to Cart</Text>
-      </TouchableOpacity>
-    </ImageBackground>
-    <View style={styles.viewContent}>
-      <Text style={styles.txtTitle}>{props.title}</Text>
-      <Text style={styles.txtCategories}>{props.categories}</Text>
-      <View style={{ marginTop: 10 }}>
-        <Rating
-          type='custom'
-          ratingCount={5}
-          startingValue={props.star}
-          imageSize={12}
-          ratingColor="#000"
-          ratingBackgroundColor="#ccc"
-        />
-        <Text style={styles.txtPrice}>Rp. {props.price}</Text>
+    <TouchableOpacity onPress={props.action}>
+      <ImageBackground source={{ uri: props.image }} style={styles.ImageBackground}>
+        <TouchableOpacity style={styles.touchableOpacity}>
+          <Text style={styles.txtAddCart}><MaterialCommunityIcons name="cart" /> Add to Cart</Text>
+        </TouchableOpacity>
+      </ImageBackground>
+      <View style={styles.viewContent}>
+        <Text style={styles.txtTitle}>{props.title}</Text>
+        <Text style={styles.txtCategories}>{props.categories}</Text>
+        <View style={{ marginTop: 10 }}>
+          <Rating
+            type='custom'
+            ratingCount={5}
+            startingValue={props.star}
+            imageSize={12}
+            ratingColor="#000"
+            ratingBackgroundColor="#ccc"
+          />
+          <Text style={styles.txtPrice}>Rp. {props.price}</Text>
+        </View>
       </View>
-    </View>
+    </TouchableOpacity>
   </View>
 )
 const styles = StyleSheet.create({

@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { Container, Content, Item, Input, Icon, Label, Button } from 'native-base'
-import Navbar from '../particles/Navbar'
+import { Container, Content, Item, Input, Icon, Label, Button, Tabs } from 'native-base'
+import NavbarModal from '../particles/NavbarModal'
 
 const ChangePasswordModal = (props) => (
   <Modal
@@ -9,7 +9,7 @@ const ChangePasswordModal = (props) => (
     transparent={false}
     visible={props.modalVisible}
     onRequestClose={props.actionIcon}>
-    <Navbar
+    <NavbarModal
       navbarTitle={props.navbarTitle}
       navbarIcon={props.navbarIcon}
       actionIcon={props.actionIcon}
@@ -18,19 +18,19 @@ const ChangePasswordModal = (props) => (
       <View style={styles.viewInputPassword}>
         <Text style={styles.txtLabel}>Old Password</Text>
         <Item regular style={styles.item}>
-          <Input placeholder='Enter Current Password' placeholderTextColor="#ccc" />
+          <Input placeholder='Enter Current Password' secureTextEntry placeholderTextColor="#ccc" onChangeText={props.onChangeCurrentPassword} />
         </Item>
         <Text style={styles.txtLabel}>New Password</Text>
         <Item regular style={styles.item}>
-          <Input placeholder='Enter New Password' placeholderTextColor="#ccc" />
+          <Input placeholder='Enter New Password' secureTextEntry placeholderTextColor="#ccc" onChangeText={props.onChangeNewPassword} />
         </Item>
         <Text style={styles.txtLabel}>Confirm Password</Text>
         <Item regular style={styles.item}>
-          <Input placeholder='Enter New Password' placeholderTextColor="#ccc" />
+          <Input placeholder='Enter New Password' secureTextEntry placeholderTextColor="#ccc" onChangeText={props.onChangeConfirmPassword} />
         </Item>
       </View>
     </Content>
-    <Button full style={styles.btnSend}>
+    <Button full style={styles.btnSend} onPress={props.handleChangePassword}>
       <Text style={styles.txtBtnSend}>Change Password</Text>
     </Button>
   </Modal>
@@ -40,12 +40,12 @@ export default ChangePasswordModal
 
 const styles = StyleSheet.create({
   container: {
-    marginTop: 20,
+    marginTop: 10,
     backgroundColor: '#fff'
   },
   viewInputPassword: {
-    paddingLeft: 20,
-    paddingRight: 20
+    paddingLeft: 10,
+    paddingRight: 10
   },
   txtLabel: {
     fontSize: 16,
@@ -54,13 +54,14 @@ const styles = StyleSheet.create({
   },
   item: {
     marginBottom: 10,
-    borderRadius: 5
+    borderRadius: 5,
+    height: 40
   },
   btnSend: {
-    backgroundColor: '#D50039'
+    backgroundColor: '#d11e48'
   },
   txtBtnSend: {
     color: "#fff",
-    fontSize: 16
+    fontSize: 18
   }
 })

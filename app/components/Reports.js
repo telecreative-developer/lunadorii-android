@@ -24,7 +24,7 @@ const Reports = (props) => (
       barStyle="light-content"
     />
     <Content>
-      <View style={{ padding: 20 }}>
+      <View style={styles.padding}>
         <Text style={styles.label}>Input your report below here</Text>
         <Item regular onPress={props.toggleModalCategory} style={styles.item}>
           <Input placeholder='Problem Category' placeholderTextColor="#ccc" placeholderTextSize={12} disabled />
@@ -49,16 +49,21 @@ const styles = StyleSheet.create({
     fontSize: 16,
     paddingRight: 10
   },
+  padding: {
+    padding: 10,
+    paddingTop: 15
+  },
   btnSend: {
-    backgroundColor: '#f65857'
+    backgroundColor: '#d11e48'
   },
   txtSend: {
     color: "#fff",
-    fontSize: 16
+    fontSize: 18
   },
   item: {
     marginTop: 10,
-    borderRadius: 5
+    borderRadius: 5,
+    height: 40
   },
   textarea: {
     marginTop: 10,

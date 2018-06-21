@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Container, Content, Item, Input, Icon, Label, Form, Button } from 'native-base'
-import Navbar from '../particles/Navbar'
+import NavbarModal from '../particles/NavbarModal'
 
 const FiltersModal = (props) => (
   <Modal
@@ -9,7 +9,7 @@ const FiltersModal = (props) => (
     transparent={false}
     visible={props.modalVisible}
     onRequestClose={props.actionIcon}>
-    <Navbar
+    <NavbarModal
       navbarTitle="Filters"
       navbarIcon="close"
       actionIcon={props.actionIcon} />
@@ -18,8 +18,8 @@ const FiltersModal = (props) => (
       <Item regular style={styles.item}>
         <Input placeholder='Select category below' placeholderTextColor="#ccc" />
       </Item>
-      <View style={{ justifyContent: 'flex-start' }}>
-        <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+      <View style={styles.flexStart}>
+        <View style={styles.buttonWrapper}>
           <Button bordered danger style={styles.mediumButton}>
             <Text style={styles.buttonText}>Makeup</Text>
           </Button>
@@ -30,7 +30,7 @@ const FiltersModal = (props) => (
             <Text style={styles.buttonText}>Skincare</Text>
           </Button>
         </View>
-        <View style={{ flexDirection: 'row', justifyContent: 'flex-start' }}>
+        <View style={styles.buttonWrapper}>
           <Button bordered danger style={styles.largeButton}>
             <Text style={styles.buttonText}>Tools & Brushes</Text>
           </Button>
@@ -44,7 +44,7 @@ const FiltersModal = (props) => (
         <Input placeholder='Select brand' placeholderTextColor="#ccc" />
       </Item>
       <Text style={styles.txtLabel}>Price</Text>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+      <View style={styles.inputWrapper}>
         <Item regular style={styles.inputMin}>
           <Input placeholder='Min' placeholderTextColor="#ccc" />
         </Item>
@@ -85,6 +85,10 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     borderRadius: 5
   },
+  inputWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
   mediumButton: {
     height: 30,
     width: 80,
@@ -92,6 +96,13 @@ const styles = StyleSheet.create({
     borderColor: '#F7009A',
     borderRadius: 5,
     margin: 5
+  },
+  flexStart: {
+    justifyContent: 'flex-start'
+  },
+  buttonWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'flex-start'
   },
   largeButton: {
     height: 30,
@@ -111,14 +122,15 @@ const styles = StyleSheet.create({
   },
   item: {
     marginBottom: 10,
-    borderRadius: 5
+    borderRadius: 5,
+    height: 40
   },
   buttonSaveStyleEditProfile: {
     height: 50,
-    backgroundColor: '#D50039'
+    backgroundColor: '#d11e48'
   },
   buttonSaveTextStyleEditProfile: {
     color: '#fff',
-    fontSize: 20
+    fontSize: 18
   }
 })

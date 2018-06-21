@@ -20,7 +20,7 @@ const CreditCard = (props) => (
       backgroundColor="#f65857"
       barStyle="light-content"
     />
-    <Content style={{ padding: 10 }}>
+    <Content style={styles.content}>
       <View style={styles.viewBrand}>
         <Text style={styles.txtLabel}>Your Credit Card</Text>
         <FlatList
@@ -40,6 +40,9 @@ export default CreditCard
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff'
+  },
+  content: {
+    padding: 10
   },
   txtLabel: {
     fontWeight: 'bold',

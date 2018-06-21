@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Container, Content, Item, Icon, Button, Form, Textarea } from 'native-base'
-import Navbar from '../particles/Navbar'
+import NavbarModal from '../particles/NavbarModal'
 import { Rating } from 'react-native-ratings'
 import ProductReviewed from '../particles/ProductReviewed'
 
@@ -11,15 +11,15 @@ const EditReviewsModal = (props) => (
     transparent={false}
     visible={props.modalVisible}
     onRequestClose={props.actionIcon}>
-    <Navbar
+    <NavbarModal
       navbarTitle="Edit Reviews"
       navbarIcon="close"
-      actionIcon = {props.actionIcon}/>
+      actionIcon={props.actionIcon} />
     <Content style={styles.container}>
       <ProductReviewed
         image="https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg"
         title="Sabrina Lipgloss"
-        price="120,000"/>
+        price="120,000" />
       <Rating
         type='custom'
         ratingCount={5}
@@ -27,9 +27,9 @@ const EditReviewsModal = (props) => (
         imageSize={30}
         ratingColor="#000"
         ratingBackgroundColor="#ccc"
-        style={styles.rating}/>
+        style={styles.rating} />
       <Item regular style={styles.itemsTextarea}>
-        <Textarea placeholder="Type your reviews here" placeholderTextColor="#CDCDCD" style={styles.textareaStyle}/>
+        <Textarea placeholder="Type your reviews here" placeholderTextColor="#CDCDCD" style={styles.textareaStyle} />
       </Item>
     </Content>
     <Button full style={styles.buttonSaveStyleEditProfile}>
@@ -41,28 +41,28 @@ const EditReviewsModal = (props) => (
 export default EditReviewsModal
 
 const styles = StyleSheet.create({
-  container:{
+  container: {
     backgroundColor: '#fff',
     padding: 10
   },
-  rating:{
+  rating: {
     marginTop: 30,
     alignSelf: 'center'
   },
-  buttonSaveStyleEditProfile:{
-    height: 50, 
-    backgroundColor: '#D50039'
+  buttonSaveStyleEditProfile: {
+    height: 50,
+    backgroundColor: '#d11e48'
   },
-  buttonSaveTextStyleEditProfile:{
+  buttonSaveTextStyleEditProfile: {
     color: '#fff',
-    fontSize: 20
+    fontSize: 18
   },
-  itemsTextarea:{
+  itemsTextarea: {
     marginTop: 15,
-    borderRadius: 5, 
+    borderRadius: 5,
     height: 100
   },
-  textareaStyle:{
+  textareaStyle: {
     height: 100,
     width: 300
   }

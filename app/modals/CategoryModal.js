@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Container, Content, Icon, Button, Radio } from 'native-base'
-import Navbar from '../particles/Navbar'
+import NavbarModal from '../particles/NavbarModal'
 
 const CategoryModal = (props) => (
   <Modal
@@ -9,7 +9,7 @@ const CategoryModal = (props) => (
     transparent={false}
     visible={props.modalVisible}
     onRequestClose={props.actionIcon}>
-    <Navbar
+    <NavbarModal
       navbarTitle={props.navbarTitle}
       navbarIcon={props.navbarIcon}
       actionIcon={props.actionIcon}
@@ -56,10 +56,11 @@ const styles = StyleSheet.create({
     paddingRight: 20
   },
   btnSend: {
-    backgroundColor: '#D50039'
+    height: 50,
+    backgroundColor: '#d11e48'
   },
   txtBtnSend: {
     color: "#fff",
-    fontSize: 16
+    fontSize: 18
   },
 })
