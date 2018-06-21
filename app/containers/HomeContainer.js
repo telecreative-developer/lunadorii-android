@@ -10,6 +10,7 @@ import BestCategories from '../particles/BestCategories'
 import {connect} from 'react-redux'
 import { fetchCategoryProduct } from '../actions/categoryproduct'
 import { fetchBrandsProduct } from '../actions/brandsproduct'
+import { fetchProduct } from '../actions/product'
 
 const dataBrand = [
   {
@@ -42,7 +43,7 @@ const dataProduct = [
     image: 'http://www.forgotteninvasion.com/wp-content/uploads/2017/12/1200x800_0_0_1200_800_be71c6e15ae8c6f7bfd6e935b0ab5fcc3c2f98d3.jpg',
     title: 'Benefiets Cosmetics',
     categories: 'Benefiets Cosmetics, and others',
-    price: '520,000',
+    price: '520,009',
     star: 4
   },
 ]
@@ -68,7 +69,7 @@ const dataRecommend = [
     image: 'http://www.forgotteninvasion.com/wp-content/uploads/2017/12/1200x800_0_0_1200_800_be71c6e15ae8c6f7bfd6e935b0ab5fcc3c2f98d3.jpg',
     title: 'Benefiets Cosmetics',
     categories: 'Benefiets Cosmetics, and others',
-    price: '520,000',
+    price: '520,001',
     reviews: '3.6'
   },
 ]
@@ -109,6 +110,7 @@ class HomeContainer extends Component {
   async componentDidMount() {
     await this.props.fetchCategoryProduct('123')
     await this.props.fetchBrandsProduct('123')
+    await this.props.fetchProduct('123')
     
   }
 
@@ -121,14 +123,14 @@ class HomeContainer extends Component {
         renderBrand={({ item }) => (
           <Brand image={item.logo_url} />
         )}
-        dataProduct={dataProduct}
+        dataProduct={this.props.product}
         renderProduct={({ item }) => (
-          <Product image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star}
+          <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate}
           />
         )}
-        dataRecommend={dataRecommend}
+        dataRecommend={this.props.product}
         renderRecommend={({ item }) => (
-          <RecommendProduct image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star} reviews={item.reviews}
+          <RecommendProduct image={item.thumbnails.thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate} reviews={item.reviews}
           />
         )}
         dataCategories={dataCategories}
@@ -149,7 +151,8 @@ const mapDispatchToProps = (dispatch) =>{
 
     fetchCategoryProduct: (accessToken) => dispatch(fetchCategoryProduct(accessToken)),
     fetchBrandsProduct: (accessToken) => dispatch(fetchBrandsProduct(accessToken)),
-    
+    fetchProduct: (accessToken) => dispatch(fetchProduct(accessToken)),
+
   }
 }
 
@@ -159,7 +162,8 @@ const mapStateToProps = (state) => {
     success: state.success,
     failed: state.failed,
     categoryproduct: state.categoryproduct,
-    brandsproduct: state.brandsproduct
+    brandsproduct: state.brandsproduct,
+    product: state.product,
   }
 }
 
