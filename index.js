@@ -1,40 +1,21 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { AppRegistry } from 'react-native'
-import { StackNavigator } from 'react-navigation'
-import HomeContainer from './app/containers/HomeContainer'
-import ProfileContainer from './app/containers/ProfileContainer'
-import PaymentsContainer from './app/containers/PaymentsContainer'
-import PurchaseHistoryContainer from './app/containers/PurchaseHistoryContainer'
-import WishlistContainer from './app/containers/WishlistContainer'
-import ReviewsContainer from './app/containers/ReviewsContainer'
-import ReportsContainer from './app/containers/ReportsContainer'
-import SettingsContainer from './app/containers/SettingsContainer'
-import YourCartContainer from './app/containers/YourCartContainer'
-import YourShippingAddressContainer from './app/containers/YourShippingAddressContainer'
-import CreditCardContainer from './app/containers/CreditCardContainer'
-import PrivacyPolicyContainer from './app/containers/PrivacyPolicyContainer'
-import SearchContainer from './app/containers/SearchContainer'
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+import Reactotron from 'reactotron-react-native'
+import rootReducers from './app/reducers'
+import AppNavigator from './AppNavigator'
+import './ReactotronConfig.js'
 
-const App = StackNavigator(
-  {
-    HomeContainer: { screen: HomeContainer },
-    SettingsContainer: { screen: SettingsContainer },
-    ProfileContainer: { screen: ProfileContainer },
-    YourShippingAddressContainer: { screen: YourShippingAddressContainer },
-    YourCartContainer: { screen: YourCartContainer },
-    PurchaseHistoryContainer: { screen: PurchaseHistoryContainer },
+const store = Reactotron.createStore(rootReducers, applyMiddleware(thunk))
 
-    SearchContainer: { screen: SearchContainer },
-    PrivacyPolicyContainer: { screen: PrivacyPolicyContainer },
-    WishlistContainer: { screen: WishlistContainer },
-    ReportsContainer: { screen: ReportsContainer },
-    ReviewsContainer: { screen: ReviewsContainer },
-    PaymentsContainer: { screen: PaymentsContainer },
-    CreditCardContainer: { screen: CreditCardContainer }
-  }, {
-    headerMode: 'none'
-  }
+const App = () => (
+	<Provider store={store}>
+		<AppNavigator />
+	</Provider>
 )
 
 console.disableYellowBox = true
-AppRegistry.registerComponent('lunadorii', () => App);
+AppRegistry.registerComponent("lunadorii", () => App);
+
