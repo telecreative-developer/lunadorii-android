@@ -123,16 +123,6 @@ class HomeContainer extends Component {
         renderBrand={({ item }) => (
           <Brand image={item.logo_url} />
         )}
-        dataProduct={this.props.product}
-        renderProduct={({ item }) => (
-          <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate}
-          />
-        )}
-        dataRecommend={this.props.product}
-        renderRecommend={({ item }) => (
-          <RecommendProduct image={item.thumbnails.thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate} reviews={item.reviews}
-          />
-        )}
         dataCategories={dataCategories}
         renderCategories={({ item }) => (
           <BestCategories image={item.image} title={item.title} total={item.total}
