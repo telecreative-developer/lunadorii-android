@@ -42,12 +42,6 @@ import { fetchCategoryProduct } from '../actions/categoryproduct'
 import { fetchBrandsProduct } from '../actions/brandsproduct'
 import { fetchProduct } from '../actions/product'
 
-
-import {connect} from 'react-redux'
-import { fetchCategoryProduct } from '../actions/categoryproduct'
-import { fetchBrandsProduct } from '../actions/brandsproduct'
-import { fetchProduct } from '../actions/product'
-
 const dataBrand = [
   {
     image: 'http://logok.org/wp-content/uploads/2014/07/Olay-Logo-Black.png',
