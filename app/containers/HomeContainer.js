@@ -120,52 +120,10 @@ const dataProduct = [
   {
     index: 2,
     image: 'http://www.forgotteninvasion.com/wp-content/uploads/2017/12/1200x800_0_0_1200_800_be71c6e15ae8c6f7bfd6e935b0ab5fcc3c2f98d3.jpg',
-    title: 'Paket Makeup',
-    categories: 'Makeup',
-    price: '250000',
-    star: 4,
-    descriptions: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum. Nulla et velit at quam elementum sodales. Donec iaculis, urnavel lobortis auctor, nisl elit viverra quam, eget imperdiet metus lacus quis nisl.",
-    productDetails: "Makup sangat berkualitas",
-    guide: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum.",
-    reviews: [
-      {
-        user: 'Verina Ressa',
-        reviews: 'Makeup nya murah namun berkualitas',
-        date: '9',
-        rating: 4
-      },
-      {
-        user: 'Adinda Merlin',
-        reviews: 'Ihh suka banget sama packing nya, rapih banget',
-        date: '10',
-        rating: 5
-      },
-    ]
-  },
-  {
-    index: 2,
-    image: 'http://www.forgotteninvasion.com/wp-content/uploads/2017/12/1200x800_0_0_1200_800_be71c6e15ae8c6f7bfd6e935b0ab5fcc3c2f98d3.jpg',
-    title: 'Paket Makeup',
-    categories: 'Makeup',
-    price: '250000',
-    star: 4,
-    descriptions: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum. Nulla et velit at quam elementum sodales. Donec iaculis, urnavel lobortis auctor, nisl elit viverra quam, eget imperdiet metus lacus quis nisl.",
-    productDetails: "Makup sangat berkualitas",
-    guide: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum.",
-    reviews: [
-      {
-        user: 'Verina Ressa',
-        reviews: 'Makeup nya murah namun berkualitas',
-        date: '9',
-        rating: 4
-      },
-      {
-        user: 'Adinda Merlin',
-        reviews: 'Ihh suka banget sama packing nya, rapih banget',
-        date: '10',
-        rating: 5
-      },
-    ]
+    title: 'Benefiets Cosmetics',
+    categories: 'Benefiets Cosmetics, and others',
+    price: '520,009',
+    star: 4
   },
 ]
 
@@ -190,7 +148,7 @@ const dataRecommend = [
     image: 'http://www.forgotteninvasion.com/wp-content/uploads/2017/12/1200x800_0_0_1200_800_be71c6e15ae8c6f7bfd6e935b0ab5fcc3c2f98d3.jpg',
     title: 'Benefiets Cosmetics',
     categories: 'Benefiets Cosmetics, and others',
-    price: '520000',
+    price: '520,001',
     reviews: '3.6'
   },
 ]
@@ -261,7 +219,7 @@ class HomeContainer extends Component {
           <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate}
           />
         )}
-
+        
         dataCategories={dataCategories}
         renderCategories={({ item }) => (
           <BestCategories image={item.image} title={item.title} total={item.total}
