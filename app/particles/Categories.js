@@ -4,7 +4,7 @@ import { View, Text } from 'native-base'
 
 const Categories = (props) => (
   <View style={styles.flexOnly2}>
-    <TouchableOpacity onPress={() => alert("Skincare")}>
+    <TouchableOpacity onPress={() => alert(props.title)}>
       <View style={styles.viewCategories}>
         <Image source={props.icon} style={styles.imageCategories} />
       </View>

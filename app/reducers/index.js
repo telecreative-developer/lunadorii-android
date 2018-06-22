@@ -4,6 +4,7 @@ import { loading, success, failed } from "./processor";
 import { categoryproduct } from "./categoryproduct";
 import { brandsproduct } from "./brandsproduct"
 import { product } from "./product"
+import { banners } from "./banners"
 // import { sessionPersistance } from "./login";
 
 const rootReducers = combineReducers({
@@ -12,7 +13,8 @@ const rootReducers = combineReducers({
   failed,
   categoryproduct,
   brandsproduct,
-  product
+  product,
+  banners
 //   sessionPersistance
 });
 
