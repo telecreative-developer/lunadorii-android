@@ -1,6 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Image, Text, Dimensions, TouchableOpacity, ImageBackground } from 'react-native'
-import { Button } from 'native-base'
+import { StyleSheet, View, Text, Dimensions, TouchableOpacity, ImageBackground } from 'react-native'
 import { Rating } from 'react-native-ratings'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 

@@ -13,6 +13,12 @@ import imageNails from '../assets/images/icon/nails.png'
 import imageToolBrushes from '../assets/images/icon/tools-brushes.png'
 import imageMore from '../assets/images/icon/more.png'
 
+import { connect } from 'react-redux'
+import { fetchCategoryProduct } from '../actions/categoryproduct'
+import { fetchBrandsProduct } from '../actions/brandsproduct'
+import { fetchProduct } from '../actions/product'
+import { fetchBanners } from '../actions/banners'
+
 const categories = [
   {
     title: 'Skincare',
@@ -35,11 +41,6 @@ const categories = [
     icon: imageMore
   },
 ]
-
-import { connect } from 'react-redux'
-import { fetchCategoryProduct } from '../actions/categoryproduct'
-import { fetchBrandsProduct } from '../actions/brandsproduct'
-import { fetchProduct } from '../actions/product'
 
 const dataBrand = [
   {
@@ -183,6 +184,7 @@ class HomeContainer extends Component {
     await this.props.fetchCategoryProduct('123')
     await this.props.fetchBrandsProduct('123')
     await this.props.fetchProduct('123')
+    await this.props.fetchBanners('123')
     
   }
 
@@ -196,14 +198,14 @@ class HomeContainer extends Component {
           <Brand image={item.logo_url} />
         )}
 
-        dataCategoriesButton={categories}
+        dataCategoriesButton={this.props.categoryproduct}
         renderCategoriesButton={({ item }) => (
-          <Categories title={item.title} icon={item.icon} />
+          <Categories title={item.category} icon={item.icon} />
         )}
 
-        dataRecommend={dataRecommend}
+        dataRecommend={this.props.product}
         renderRecommend={({ item }) => (
-          <RecommendProduct image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star} reviews={item.reviews}
+          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate}
           />
         )}
 
@@ -212,7 +214,7 @@ class HomeContainer extends Component {
           <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate}
           />
         )}
-        
+
         dataCategories={dataCategories}
         renderCategories={({ item }) => (
           <BestCategories image={item.image} title={item.title} total={item.total}
@@ -233,6 +235,7 @@ const mapDispatchToProps = (dispatch) =>{
     fetchCategoryProduct: (accessToken) => dispatch(fetchCategoryProduct(accessToken)),
     fetchBrandsProduct: (accessToken) => dispatch(fetchBrandsProduct(accessToken)),
     fetchProduct: (accessToken) => dispatch(fetchProduct(accessToken)),
+    fetchBanners: (accessToken) => dispatch(fetchBanners(accessToken)),
 
   }
 }
@@ -245,6 +248,7 @@ const mapStateToProps = (state) => {
     categoryproduct: state.categoryproduct,
     brandsproduct: state.brandsproduct,
     product: state.product,
+    banners: state.banners
   }
 }
 
