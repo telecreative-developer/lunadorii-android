@@ -5,6 +5,7 @@ import Navbar from '../particles/Navbar'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import ChangePasswordModal from '../modals/ChangePasswordModal'
+import ChangeEmailModal from '../modals/ChangeEmailModal'
 import NotificationsModal from '../modals/NotificationsModal'
 
 const Settings = (props) => (
@@ -25,6 +26,16 @@ const Settings = (props) => (
       onChangeConfirmPassword={props.onChangeConfirmPassword}
       handleChangePassword={props.handleChangePassword}
     />
+    <ChangeEmailModal
+      navbarTitle="Change Email"
+      navbarIcon="close"
+      modalVisible={props.modalVisibleChangeEmail}
+      actionIcon={props.toggleModalChangeEmail}
+
+      onChangeNewEmail={props.onChangeNewEmail}
+      onChangeConfirmEmail={props.onChangeConfirmEmail}
+      handleChangeEmail={props.handleChangeEmail}
+    />
     <NotificationsModal
       navbarTitle="Notifications"
       navbarIcon="close"
@@ -40,6 +51,16 @@ const Settings = (props) => (
         <View style={styles.flexOnly9}>
           <View style={styles.viewPaddingLeft}>
             <Text style={styles.txtLabel}>Change Password</Text>
+          </View>
+        </View>
+        <View style={styles.flexOnly1}>
+          <FontAwesome name="chevron-right" style={styles.iconChange} />
+        </View>
+      </TouchableOpacity>
+      <TouchableOpacity style={styles.touchableEmail} onPress={props.toggleModalChangeEmail}>
+        <View style={styles.flexOnly9}>
+          <View style={styles.viewPaddingLeft}>
+            <Text style={styles.txtLabel}>Change Email</Text>
           </View>
         </View>
         <View style={styles.flexOnly1}>
@@ -94,8 +115,15 @@ const styles = StyleSheet.create({
     marginTop: 20,
     borderTopWidth: 1,
     borderColor: '#e2e2e2',
+    paddingTop: 15
+  },
+  touchableEmail: {
+    flexDirection: 'row',
+    marginTop: 20,
+    borderTopWidth: 1,
+    borderColor: '#e2e2e2',
     paddingTop: 15,
-    paddingBottom: 5
+    paddingBottom: 10
   },
   touchableNotif: {
     marginTop: 10,
