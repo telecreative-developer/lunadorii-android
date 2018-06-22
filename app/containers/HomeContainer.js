@@ -42,6 +42,12 @@ import { fetchCategoryProduct } from '../actions/categoryproduct'
 import { fetchBrandsProduct } from '../actions/brandsproduct'
 import { fetchProduct } from '../actions/product'
 
+
+import {connect} from 'react-redux'
+import { fetchCategoryProduct } from '../actions/categoryproduct'
+import { fetchBrandsProduct } from '../actions/brandsproduct'
+import { fetchProduct } from '../actions/product'
+
 const dataBrand = [
   {
     image: 'http://logok.org/wp-content/uploads/2014/07/Olay-Logo-Black.png',
@@ -226,14 +232,14 @@ class HomeContainer extends Component {
     await this.props.fetchCategoryProduct('123')
     await this.props.fetchBrandsProduct('123')
     await this.props.fetchProduct('123')
-
+    
   }
 
   render() {
     return (
       <Home
         size={this.state.size}
-
+       
         dataBrand={this.props.brandsproduct}
         renderBrand={({ item }) => (
           <Brand image={item.logo_url} />
@@ -270,8 +276,8 @@ class HomeContainer extends Component {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
+const mapDispatchToProps = (dispatch) =>{
+  return{
 
     fetchCategoryProduct: (accessToken) => dispatch(fetchCategoryProduct(accessToken)),
     fetchBrandsProduct: (accessToken) => dispatch(fetchBrandsProduct(accessToken)),
@@ -281,7 +287,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 const mapStateToProps = (state) => {
-  return {
+  return{
     loading: state.loading,
     success: state.success,
     failed: state.failed,
