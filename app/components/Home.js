@@ -2,10 +2,14 @@ import React from 'react'
 import { StyleSheet, View, Text, Image, Dimensions, FlatList, StatusBar, TouchableOpacity } from 'react-native'
 import { Container, Tabs, Tab, TabHeading, Icon, Content } from 'native-base'
 import NavbarHome from '../particles/NavbarHome'
-import Carousel from 'react-native-looped-carousel'
+// import Carousel from 'react-native-looped-carousel'
+import Carousel from 'react-native-banner-carousel'
 import imageCover from '../assets/images/cover/cover.jpg'
 
-const { width, height } = Dimensions.get('window')
+const { height } = Dimensions.get('window')
+
+const bannerWidth = Dimensions.get('window').width
+
 const Home = (props) => (
   <Container style={styles.tabHeading}>
     <NavbarHome
@@ -19,7 +23,7 @@ const Home = (props) => (
     <Tabs locked={true} style={styles.tabHeight} tabBarUnderlineStyle={styles.tabBarUnderlineStyle}>
       <Tab heading={<TabHeading style={styles.tabHeading} ><Text style={styles.txtHeading}>New Arrivals</Text></TabHeading>}>
         <Content>
-          <Carousel
+          {/* <Carousel
             delay={4000}
             style={styles.imageAds}
             autoplay
@@ -27,15 +31,19 @@ const Home = (props) => (
             bulletStyle={styles.carouselBulletStyle}
             // onAnimateNextPage={(p) => console.log(p)}
           >
-            <View style={[props.size]}>
-              <Image source={imageCover} style={styles.imageAds} />
-            </View>
-            <View style={[props.size]}>
-              <Image source={{ uri: "https://i1.wp.com/3.bp.blogspot.com/-0z5ul05Ic6c/Vn6eCJJwuRI/AAAAAAAAMpY/PaTwKnYMsqI/s1600/produk%2Bkecantikan%2Bephyra%2Bskin%2Bbar.jpg?w=1140&ssl=1" }} style={styles.imageAds} />
-            </View>
-            <View style={[props.size]}>
-              <Image source={imageCover} style={styles.imageAds} />
-            </View>
+          <View>
+            {props.dataBanners.map((data) => {
+              console.log('home banners: ', data)
+              return (
+                <View style={[props.size]}>
+                  <Image source={{ uri: data.thumbnail_url }} style={styles.imageAds}/>
+                </View>
+              )
+            })}
+          </View>
+          </Carousel> */}
+          <Carousel autoplay={true} autoplayTimeout={2000} loop={true} index={0} pageSize={bannerWidth}>
+            {props.banners}
           </Carousel>
           <View>
             <Text style={styles.txtCategories}>Category</Text>
