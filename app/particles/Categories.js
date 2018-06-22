@@ -6,7 +6,7 @@ const Categories = (props) => (
   <View style={styles.flexOnly2}>
     <TouchableOpacity onPress={() => alert(props.title)}>
       <View style={styles.viewCategories}>
-        <Image source={props.icon} style={styles.imageCategories} />
+        <Image source={{uri: props.icon}} style={styles.imageCategories} />
       </View>
     </TouchableOpacity>
     <Text style={styles.titleCategories}>{props.title}</Text>
