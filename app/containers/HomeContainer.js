@@ -195,6 +195,21 @@ class HomeContainer extends Component {
       <Home
         size={this.state.size}
        
+        dataBanners={[
+          {
+            image: 'https://i1.wp.com/3.bp.blogspot.com/-0z5ul05Ic6c/Vn6eCJJwuRI/AAAAAAAAMpY/PaTwKnYMsqI/s1600/produk%2Bkecantikan%2Bephyra%2Bskin%2Bbar.jpg?w=1140&ssl=1'
+          },
+          {
+            image: 'https://i1.wp.com/3.bp.blogspot.com/-0z5ul05Ic6c/Vn6eCJJwuRI/AAAAAAAAMpY/PaTwKnYMsqI/s1600/produk%2Bkecantikan%2Bephyra%2Bskin%2Bbar.jpg?w=1140&ssl=1'
+          },
+          {
+            image: 'https://i1.wp.com/3.bp.blogspot.com/-0z5ul05Ic6c/Vn6eCJJwuRI/AAAAAAAAMpY/PaTwKnYMsqI/s1600/produk%2Bkecantikan%2Bephyra%2Bskin%2Bbar.jpg?w=1140&ssl=1'
+          },
+          {
+            image: 'https://i1.wp.com/3.bp.blogspot.com/-0z5ul05Ic6c/Vn6eCJJwuRI/AAAAAAAAMpY/PaTwKnYMsqI/s1600/produk%2Bkecantikan%2Bephyra%2Bskin%2Bbar.jpg?w=1140&ssl=1'
+          }
+        ]}
+
         dataBrand={this.props.brandsproduct}
         renderBrand={({ item }) => (
           <Brand image={item.logo_url} />
@@ -214,7 +229,7 @@ class HomeContainer extends Component {
 
         dataProduct={this.props.product}
         renderProduct={({ item }) => (
-          <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate}
+          <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: dataProduct[item.index] })}
           />
         )}
 
