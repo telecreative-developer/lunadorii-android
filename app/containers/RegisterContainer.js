@@ -4,7 +4,8 @@ import Register from '../components/Register'
 export default class RegisterContainer extends Component {
   render() {
     return (
-      <Register />
+      <Register 
+        navigateToLogin={() => this.props.navigation.navigate("LoginContainer")}/>
     )
   }
 }

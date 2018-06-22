@@ -37,7 +37,6 @@ export default class ProfileContainer extends Component {
     imageProfile: 'https://avatars0.githubusercontent.com/u/38149346?s=400&u=7db8195dd7b4436cbf6d0575915ca6b198d116cc&v=4',
     firstName: 'Muhammad Isa Wijaya',
     lastName: 'Kusuma',
-    email: 'hyperspace018@gmail.com',
     birthDate: '17/11/1999'
   }
 
@@ -70,7 +69,6 @@ export default class ProfileContainer extends Component {
         profile={this.state}
         onChangeFirstName={(firstName) => this.setState({ firstName })}
         onChangeLastName={(lastName) => this.setState({ lastName })}
-        onChangeEmail={(email) => this.setState({ email })}
         onChangeBirthDate={(birthDate) => this.setState({ birthDate })}
         handleSaveEditProfile={() => this.handleSaveEditProfile()}
 

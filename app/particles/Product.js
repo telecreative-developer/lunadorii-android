@@ -74,7 +74,7 @@ const styles = StyleSheet.create({
     height: 30,
     backgroundColor: 'rgba(202, 202, 202, 0.73)',
     marginRight: 5,
-    width: 100,
+    width: 110,
     left: 20,
     bottom: 15,
     alignSelf: 'flex-end',

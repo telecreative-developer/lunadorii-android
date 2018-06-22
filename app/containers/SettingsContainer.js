@@ -4,7 +4,11 @@ import Settings from '../components/Settings'
 export default class SettingsContainer extends Component {
   state = {
     modalVisibleChangePassword: false,
+    modalVisibleChangeEmail: false,
     modalVisibleNotifications: false,
+
+    newEmail:"",
+    confirmEmail:"",
 
     password: "123",
     currentPassword: "",
@@ -18,6 +22,14 @@ export default class SettingsContainer extends Component {
 
   toggleModalNotifications() {
     this.setState({ modalVisibleNotifications: !this.state.modalVisibleNotifications })
+  }
+
+  toggleModalChangeEmail(){
+    this.setState({ modalVisibleChangeEmail: !this.state.modalVisibleChangeEmail })
+  }
+
+  handleChangeEmail(){
+    alert("Email changed")
   }
 
   handleChangePassword() {
@@ -39,8 +51,15 @@ export default class SettingsContainer extends Component {
         modalVisibleChangePassword={this.state.modalVisibleChangePassword}
         toggleModalChangePassword={() => this.toggleModalChangePassword()}
 
+        modalVisibleChangeEmail={this.state.modalVisibleChangeEmail}
+        toggleModalChangeEmail={() => this.toggleModalChangeEmail()}
+
         modalVisibleNotifications={this.state.modalVisibleNotifications}
         toggleModalNotifications={() => this.toggleModalNotifications()}
+
+        onChangeNewEmail={(newEmail) => this.setState({newEmail})}
+        onChangeConfirmEmail={(confirmEmail) => this.setState({confirmEmail})}
+        handleChangeEmail={() => this.handleChangeEmail()}
 
         onChangeCurrentPassword={(currentPassword) => this.setState({ currentPassword })}
         onChangeNewPassword={(newPassword) => this.setState({ newPassword })}
