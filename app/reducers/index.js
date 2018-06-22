@@ -5,6 +5,7 @@ import { categoryproduct } from "./categoryproduct";
 import { brandsproduct } from "./brandsproduct"
 import { product } from "./product"
 import { banners } from "./banners"
+import { productsubcategories } from "./productsubcategories"
 // import { sessionPersistance } from "./login";
 
 const rootReducers = combineReducers({
@@ -14,7 +15,8 @@ const rootReducers = combineReducers({
   categoryproduct,
   brandsproduct,
   product,
-  banners
+  banners,
+  productsubcategories
 //   sessionPersistance
 });
 

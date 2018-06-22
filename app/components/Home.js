@@ -25,7 +25,7 @@ const Home = (props) => (
             autoplay
             bullets
             bulletStyle={styles.carouselBulletStyle}
-            onAnimateNextPage={(p) => console.log(p)}
+            // onAnimateNextPage={(p) => console.log(p)}
           >
             {props.dataBanners.map((data) => {
               return (

@@ -18,6 +18,7 @@ import { fetchCategoryProduct } from '../actions/categoryproduct'
 import { fetchBrandsProduct } from '../actions/brandsproduct'
 import { fetchProduct } from '../actions/product'
 import { fetchBanners } from '../actions/banners'
+import { fetchProductSubcategories } from '../actions/productsubcategories'
 
 const categories = [
   {
@@ -185,6 +186,8 @@ class HomeContainer extends Component {
     await this.props.fetchBrandsProduct('123')
     await this.props.fetchProduct('123')
     await this.props.fetchBanners('123')
+    await this.props.fetchProductSubcategories('123')
+
   }
 
   render() {
@@ -214,7 +217,8 @@ class HomeContainer extends Component {
 
         dataCategoriesButton={this.props.categoryproduct}
         renderCategoriesButton={({ item }) => (
-          <Categories title={item.category} icon={item.icon} />
+          
+          <Categories title={item.category} icon={item.subcategories[0].thumbnail} />
         )}
 
         dataRecommend={this.props.product}
@@ -229,9 +233,9 @@ class HomeContainer extends Component {
           />
         )}
 
-        dataCategories={dataCategories}
+        dataCategories={this.props.productsubcategories}
         renderCategories={({ item }) => (
-          <BestCategories image={item.image} title={item.title} total={item.total}
+          <BestCategories image={item.thumbnail_url} title={item.subcategory} total={item.products.length}
           />
         )}
 
@@ -250,7 +254,8 @@ const mapDispatchToProps = (dispatch) =>{
     fetchBrandsProduct: (accessToken) => dispatch(fetchBrandsProduct(accessToken)),
     fetchProduct: (accessToken) => dispatch(fetchProduct(accessToken)),
     fetchBanners: (accessToken) => dispatch(fetchBanners(accessToken)),
-
+    fetchProductSubcategories: (accessToken) => dispatch(fetchProductSubcategories(accessToken)),
+    
   }
 }
 
@@ -262,7 +267,8 @@ const mapStateToProps = (state) => {
     categoryproduct: state.categoryproduct,
     brandsproduct: state.brandsproduct,
     product: state.product,
-    banners: state.banners
+    banners: state.banners,
+    productsubcategories: state.productsubcategories
   }
 }
 
