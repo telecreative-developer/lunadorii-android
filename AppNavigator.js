@@ -19,8 +19,8 @@ import RegisterContainer from './app/containers/RegisterContainer'
 
 const AppNavigator = StackNavigator(
   {
-    RegisterContainer: { screen: RegisterContainer },
     HomeContainer: { screen: HomeContainer },
+    RegisterContainer: { screen: RegisterContainer },
     SplashScreenContainer: { screen: SplashScreenContainer },
     SettingsContainer: { screen: SettingsContainer },
     ProfileContainer: { screen: ProfileContainer },

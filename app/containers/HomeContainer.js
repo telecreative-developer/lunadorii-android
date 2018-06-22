@@ -36,14 +36,7 @@ const categories = [
   },
 ]
 
-
 import { connect } from 'react-redux'
-import { fetchCategoryProduct } from '../actions/categoryproduct'
-import { fetchBrandsProduct } from '../actions/brandsproduct'
-import { fetchProduct } from '../actions/product'
-
-
-import {connect} from 'react-redux'
 import { fetchCategoryProduct } from '../actions/categoryproduct'
 import { fetchBrandsProduct } from '../actions/brandsproduct'
 import { fetchProduct } from '../actions/product'

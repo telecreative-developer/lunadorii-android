@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
 import Profile from '../components/Profile'
 import RecentOrders from '../particles/RecentOrders'
+import {connect} from 'react-redux'
+import { fetchSingleUser } from '../actions/getSingleUser'
 
 
 const dataRecentOrders = [
@@ -30,7 +32,7 @@ const dataRecentOrders = [
   },
 ]
 
-export default class ProfileContainer extends Component {
+class ProfileContainer extends Component {
 
   state = {
     modalVisibleEditProfile: false,
@@ -50,7 +52,12 @@ export default class ProfileContainer extends Component {
     alert("Profile Saved")
   }
 
+  componentDidMount(){
+    this.props.fetchSingleUser(6, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6InVzZXIiLCJpYXQiOjE1Mjk2MzkzNTAsImV4cCI6MTUzMDI0NDE1MCwiaXNzIjoiaHR0cHM6Ly9naXRodWIuY29tL2tldmluaGVybWF3YW4iLCJzdWIiOiJsdW5hZG9yaWkifQ.JeuK6pwMDokmtIEyJJClG8FSWo0kL2gMs_bC9PIX1BE')
+  }
+
   render() {
+    console.log(this.props.getsingleuser)
     return (
       <Profile
         dataRecentOrders={dataRecentOrders}
@@ -67,7 +74,7 @@ export default class ProfileContainer extends Component {
         toggleModalEditProfile={() => this.toggleModalEditProfile()}
         modalVisibleEditProfile={this.state.modalVisibleEditProfile}
 
-        profile={this.state}
+        profile={this.props.getsingleuser}
         onChangeFirstName={(firstName) => this.setState({ firstName })}
         onChangeLastName={(lastName) => this.setState({ lastName })}
         onChangeEmail={(email) => this.setState({ email })}
@@ -87,3 +94,20 @@ export default class ProfileContainer extends Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    fetchSingleUser: (id, accessToken) => dispatch(fetchSingleUser(id, accessToken)),
+  }
+}
+
+const mapStateToProps = (state) => {
+  return{
+    loading: state.loading,
+    success: state.success,
+    failed: state.failed,
+    getsingleuser: state.getsingleuser,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer)

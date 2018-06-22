@@ -27,11 +27,11 @@ const EditProfileModal = (props) => (
       <Form>
         <Label style={styles.labels}>First Name</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.firstName} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeFirstName} />
+          <Input value={props.first_name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeFirstName} />
         </Item>
         <Label style={styles.labels}>Last Name</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.lastName} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeLastName} />
+          <Input value={props.last_name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeLastName} />
         </Item>
         <Label style={styles.labels}>Email</Label>
         <Item regular style={styles.items}>
