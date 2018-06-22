@@ -1,7 +1,11 @@
 import React, { Component } from 'react'
+import {connect} from 'react-redux'
+import { fetchSingleUser } from '../actions/getSingleUser'
+import { editPassword } from '../actions/editprofile'
+
 import Settings from '../components/Settings'
 
-export default class SettingsContainer extends Component {
+class SettingsContainer extends Component {
   state = {
     modalVisibleChangePassword: false,
     modalVisibleChangeEmail: false,
@@ -15,6 +19,10 @@ export default class SettingsContainer extends Component {
     newPassword: "",
     confirmPassword: ""
   };
+
+  componentDidMount(){
+    this.props.fetchSingleUser(6, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6InVzZXIiLCJpYXQiOjE1Mjk2NTUyODMsImV4cCI6MTUzMDI2MDA4MywiaXNzIjoiaHR0cHM6Ly9naXRodWIuY29tL2tldmluaGVybWF3YW4iLCJzdWIiOiJsdW5hZG9yaWkifQ.DIQ6yH4qU_8oUAo7263CYkDklsCer2I2WLbaF_xHzAs')
+  }
 
   toggleModalChangePassword() {
     this.setState({ modalVisibleChangePassword: !this.state.modalVisibleChangePassword })
@@ -33,16 +41,15 @@ export default class SettingsContainer extends Component {
   }
 
   handleChangePassword() {
-    if (this.state.currentPassword !== this.state.password) {
-      alert("Previous password doesn't same")
-    } else {
+    
       if (this.state.newPassword !== this.state.confirmPassword) {
         alert("New password wasn't comfirmed")
       } else {
+        this.props.editPassword(6, this.state.currentPassword, this.state.newPassword, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6InVzZXIiLCJpYXQiOjE1Mjk2NTUyODMsImV4cCI6MTUzMDI2MDA4MywiaXNzIjoiaHR0cHM6Ly9naXRodWIuY29tL2tldmluaGVybWF3YW4iLCJzdWIiOiJsdW5hZG9yaWkifQ.DIQ6yH4qU_8oUAo7263CYkDklsCer2I2WLbaF_xHzAs')
         alert("Successfully change password")
         this.setState({ password: this.state.confirmPassword })
       }
-    }
+    
   }
 
   render() {
@@ -71,3 +78,21 @@ export default class SettingsContainer extends Component {
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    fetchSingleUser: (id, accessToken) => dispatch(fetchSingleUser(id, accessToken)),
+    editPassword: (id, oldPass, newPass, accessToken) => dispatch(editPassword(id, oldPass, newPass, accessToken))
+  }
+}
+
+const mapStateToProps = (state) => {
+  return{
+    loading: state.loading,
+    success: state.success,
+    failed: state.failed,
+    getsingleuser: state.getsingleuser,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsContainer)
