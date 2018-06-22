@@ -25,7 +25,7 @@ const Home = (props) => (
             autoplay
             bullets
             bulletStyle={styles.carouselBulletStyle}
-            onAnimateNextPage={(p) => console.log(p)}
+            // onAnimateNextPage={(p) => console.log(p)}
           >
             <View style={[props.size]}>
               <Image source={imageCover} style={styles.imageAds} />

@@ -15,7 +15,7 @@ export const fetchCategoryProduct = (accessToken) => {
 				}
 			})
 			const data = await response.json()
-			console.log('datacategory: ', data.data)
+			console.log('datacategory: ', data.data[0].subcategories)
 			await dispatch(receiveCategoryProduct(data.data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_CATEGORY_PRODUCT'))
       		await dispatch(setLoading(false, 'LOADING_FETCH_CATEGORY_PRODUCT'))
