@@ -14,10 +14,14 @@ import YourShippingAddressContainer from './app/containers/YourShippingAddressCo
 import CreditCardContainer from './app/containers/CreditCardContainer'
 import PrivacyPolicyContainer from './app/containers/PrivacyPolicyContainer'
 import SearchContainer from './app/containers/SearchContainer'
+import SplashScreenContainer from './app/containers/SplashScreenContainer'
+import RegisterContainer from './app/containers/RegisterContainer'
 
 const AppNavigator = StackNavigator(
   {
+    RegisterContainer: { screen: RegisterContainer },
     HomeContainer: { screen: HomeContainer },
+    SplashScreenContainer: { screen: SplashScreenContainer },
     SettingsContainer: { screen: SettingsContainer },
     ProfileContainer: { screen: ProfileContainer },
     YourShippingAddressContainer: { screen: YourShippingAddressContainer },

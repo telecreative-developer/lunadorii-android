@@ -36,6 +36,12 @@ const categories = [
   },
 ]
 
+
+import { connect } from 'react-redux'
+import { fetchCategoryProduct } from '../actions/categoryproduct'
+import { fetchBrandsProduct } from '../actions/brandsproduct'
+import { fetchProduct } from '../actions/product'
+
 const dataBrand = [
   {
     image: 'http://logok.org/wp-content/uploads/2014/07/Olay-Logo-Black.png',
@@ -215,13 +221,22 @@ class HomeContainer extends Component {
       size: { width, height },
     };
   }
+
+  async componentDidMount() {
+    await this.props.fetchCategoryProduct('123')
+    await this.props.fetchBrandsProduct('123')
+    await this.props.fetchProduct('123')
+
+  }
+
   render() {
     return (
       <Home
         size={this.state.size}
-        dataBrand={dataBrand}
+
+        dataBrand={this.props.brandsproduct}
         renderBrand={({ item }) => (
-          <Brand image={item.image} />
+          <Brand image={item.logo_url} />
         )}
 
         dataCategoriesButton={categories}
@@ -229,21 +244,24 @@ class HomeContainer extends Component {
           <Categories title={item.title} icon={item.icon} />
         )}
 
-        dataProduct={dataProduct}
-        renderProduct={({ item }) => (
-          <Product image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star} action={() => this.props.navigation.navigate("ProductShowContainer", { data: dataProduct[item.index] })}
-          />
-        )}
         dataRecommend={dataRecommend}
         renderRecommend={({ item }) => (
           <RecommendProduct image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star} reviews={item.reviews}
           />
         )}
+
+        dataProduct={this.props.product}
+        renderProduct={({ item }) => (
+          <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate}
+          />
+        )}
+
         dataCategories={dataCategories}
         renderCategories={({ item }) => (
           <BestCategories image={item.image} title={item.title} total={item.total}
           />
         )}
+
         navigateToYourCart={() => this.props.navigation.navigate("YourCartContainer")}
         navigateToProfile={() => this.props.navigation.navigate('ProfileContainer')}
         navigateToSearch={() => this.props.navigation.navigate("SearchContainer")}
@@ -252,5 +270,25 @@ class HomeContainer extends Component {
   }
 }
 
+const mapDispatchToProps = (dispatch) => {
+  return {
 
-export default HomeContainer
+    fetchCategoryProduct: (accessToken) => dispatch(fetchCategoryProduct(accessToken)),
+    fetchBrandsProduct: (accessToken) => dispatch(fetchBrandsProduct(accessToken)),
+    fetchProduct: (accessToken) => dispatch(fetchProduct(accessToken)),
+
+  }
+}
+
+const mapStateToProps = (state) => {
+  return {
+    loading: state.loading,
+    success: state.success,
+    failed: state.failed,
+    categoryproduct: state.categoryproduct,
+    brandsproduct: state.brandsproduct,
+    product: state.product,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(HomeContainer)

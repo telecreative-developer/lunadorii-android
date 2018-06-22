@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, FlatList, TouchableOpacity, StatusBar } from 'react-native'
+import { StyleSheet, View, Text, FlatList, TouchableOpacity, StatusBar } from 'react-native'
 import { Container, Button, Icon, Content, Radio } from 'native-base'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
