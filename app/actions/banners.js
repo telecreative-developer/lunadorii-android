@@ -15,6 +15,7 @@ export const fetchBanners = (accessToken) => {
 			})
 			const data = await response.json()
 			await dispatch(receiveBanners(data.data))
+			console.log('banners: ', data.data)
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_BANNERS'))
       		await dispatch(setLoading(false, 'LOADING_FETCH_BANNERS'))
 		} catch (e) {

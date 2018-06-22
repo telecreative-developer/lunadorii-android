@@ -194,6 +194,8 @@ class HomeContainer extends Component {
     return (
       <Home
         size={this.state.size}
+
+        dataBanners={this.props.banners}
        
         dataBrand={this.props.brandsproduct}
         renderBrand={({ item }) => (
@@ -203,7 +205,7 @@ class HomeContainer extends Component {
         dataCategoriesButton={this.props.categoryproduct}
         renderCategoriesButton={({ item }) => (
           
-          <Categories title={item.category} icon={item.subcategories[0].thumbnail} />
+          <Categories title={item.category} icon={item.subcategories[0].thumbnail_url} />
         )}
 
         dataRecommend={this.props.product}
