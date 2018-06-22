@@ -31,8 +31,10 @@ export default class ProductShowContainer extends Component {
 
   componentDidMount() {
     const data = this.props.navigation.state.params.data
+    console.log('data: ', data)
     this.setState({ data })
   }
+
 
   state = {
     data: {}
@@ -42,12 +44,12 @@ export default class ProductShowContainer extends Component {
     return (
       <ProductShow
         image={this.state.data.image}
-        title={this.state.data.title}
+        title={this.state.data.product}
         categories={this.state.data.categories}
         price={this.state.data.price}
-        star={this.state.data.star}
-        descriptions={this.state.data.descriptions}
-        productDetails={this.state.data.productDetails}
+        star={this.state.data.product_rate}
+        descriptions={this.state.data.description}
+        productDetails={this.state.data.detail}
         guide={this.state.data.guide}
 
         dateRelatedProducts={dateRelatedProducts}
@@ -60,9 +62,9 @@ export default class ProductShowContainer extends Component {
         renderCommentAndRating={({ item }) => (
           <CommentAndRating
             user={item.user}
-            reviews={item.reviews}
+            reviews={item.comment}
             date={item.date}
-            rating={item.rating} />
+            rating={item.review_rate} />
         )}
         goback={() => this.props.navigation.goBack()} />
     )
