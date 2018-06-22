@@ -203,9 +203,9 @@ class HomeContainer extends Component {
           <Categories title={item.category} icon={item.icon} />
         )}
 
-        dataRecommend={dataRecommend}
+        dataRecommend={this.props.product}
         renderRecommend={({ item }) => (
-          <RecommendProduct image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star} reviews={item.reviews}
+          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate}
           />
         )}
 
