@@ -16,10 +16,12 @@ import PrivacyPolicyContainer from './app/containers/PrivacyPolicyContainer'
 import SearchContainer from './app/containers/SearchContainer'
 import SplashScreenContainer from './app/containers/SplashScreenContainer'
 import RegisterContainer from './app/containers/RegisterContainer'
+import LoginContainer from './app/containers/LoginContainer'
+import ProductShowContainer from './app/containers/ProductShowContainer'
 
 const AppNavigator = StackNavigator(
-  {
-    RegisterContainer: { screen: RegisterContainer },
+  {    
+    LoginContainer: { screen: LoginContainer },
     HomeContainer: { screen: HomeContainer },
     SplashScreenContainer: { screen: SplashScreenContainer },
     SettingsContainer: { screen: SettingsContainer },
@@ -27,7 +29,8 @@ const AppNavigator = StackNavigator(
     YourShippingAddressContainer: { screen: YourShippingAddressContainer },
     YourCartContainer: { screen: YourCartContainer },
     PurchaseHistoryContainer: { screen: PurchaseHistoryContainer },
-
+    ProductShowContainer: { screen: ProductShowContainer},
+    RegisterContainer: { screen: RegisterContainer },
     SearchContainer: { screen: SearchContainer },
     PrivacyPolicyContainer: { screen: PrivacyPolicyContainer },
     WishlistContainer: { screen: WishlistContainer },
@@ -36,6 +39,7 @@ const AppNavigator = StackNavigator(
     PaymentsContainer: { screen: PaymentsContainer },
     CreditCardContainer: { screen: CreditCardContainer }
   }, {
+    // initialRouteName: 'LoginContainer',
     headerMode: 'none'
   }
 )

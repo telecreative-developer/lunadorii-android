@@ -1,6 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Image, Text, Dimensions, TouchableOpacity, ImageBackground } from 'react-native'
-import { Button } from 'native-base'
+import { StyleSheet, View, Text, Dimensions, TouchableOpacity, ImageBackground } from 'react-native'
 import { Rating } from 'react-native-ratings'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
@@ -64,17 +63,18 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     bottom: 5,
     color: '#000',
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    fontSize: 10
   },
   txtPrice: {
     fontWeight: 'bold',
     alignSelf: 'flex-end'
   },
   touchableOpacity: {
-    height: 30,
+    height: 25,
     backgroundColor: 'rgba(202, 202, 202, 0.73)',
     marginRight: 5,
-    width: 100,
+    width: 90,
     left: 20,
     bottom: 15,
     alignSelf: 'flex-end',

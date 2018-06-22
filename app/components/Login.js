@@ -2,9 +2,9 @@ import React from 'react'
 import { StyleSheet, View, Image, TouchableOpacity, Text, StatusBar } from 'react-native'
 import { Container, Content, Icon, Button, Footer, Form, Label, Item, Input } from 'native-base'
 import PropTypes from 'prop-types'
-import { register } from '../actions/register';
+import { login } from '../actions/login'
 
-const Register = (props) => (
+const Login = (props) => (
   <Container style={styles.backgroundColorWhite}>
     <StatusBar
       backgroundColor="#f65857"
@@ -16,30 +16,12 @@ const Register = (props) => (
         </View>
         <View>
           <Form>
-            <Label style={styles.txtLabel}>First name</Label>
-            <Item regular style={styles.item}>
-              <Input 
-                placeholder="Your first name" 
-                placeholderTextColor="#ccc"
-                value={props.first_name}
-                onChangeText={props.onChangeFirstName}
-              />
-            </Item>
-            <Label style={styles.txtLabel}>Last name</Label>
-            <Item regular style={styles.item}>
-              <Input 
-                placeholder="Your last name" 
-                placeholderTextColor="#ccc" 
-                value={props.last_name}
-                onChangeText={props.onChangeLastName}
-              />
-            </Item>
             <Label style={styles.txtLabel}>Email</Label>
             <Item regular style={styles.item}>
               <Input 
                 placeholder="You email address" 
-                placeholderTextColor="#ccc" 
-                value={props.email}
+                placeholderTextColor="#ccc"
+                value={props.valueEmail}
                 onChangeText={props.onChangeEmail}
               />
             </Item>
@@ -49,16 +31,18 @@ const Register = (props) => (
                 placeholder="Password" 
                 placeholderTextColor="#ccc" 
                 secureTextEntry 
-                value={props.password}
+                value={props.valuePassword}
                 onChangeText={props.onChangePassword}
               />
             </Item>
           </Form>
-          {props.renderButton}
-          <View style={{ flexDirection: 'row', justifyContent: 'center' }}>
-            <Text style={{ alignSelf: 'center' }}>Doesn't have account?</Text>
-            <TouchableOpacity style={{ alignSelf: 'center' }}>
-              <Text style={{ color: '#d11e48' }}> Register Now</Text>
+          <View style={styles.registerButtonWrapper}>
+            {props.renderButtons}
+          </View>
+          <View style={styles.informationWrapper}>
+            <Text style={styles.alignSelfCenter}>Doesn't have account?</Text>
+            <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToRegister}>
+              <Text style={styles.registerNowColor}> Register Now</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -67,19 +51,15 @@ const Register = (props) => (
   </Container>
 )
 
-register.propTypes = {
-  first_name: PropTypes.string,
-  last_name: PropTypes.string,
-  email: PropTypes.string,
-  password: PropTypes,
-
+Login.propTypes = {
+  valueEmail: PropTypes.string,
+  valuePassword: PropTypes.string,
   onChangeEmail: PropTypes.func,
-  onChangeFirstName: PropTypes.func,
-  onChangeLastName: PropTypes.func,
-  onChangePassword: PropTypes.func
+  onChangePassword: PropTypes.func,
+  navigateToRegister: PropTypes.func
 }
 
-export default register
+export default Login
 
 const styles = StyleSheet.create({
   logoImage: {

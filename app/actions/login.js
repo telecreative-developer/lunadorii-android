@@ -1,7 +1,7 @@
 import { AsyncStorage } from 'react-native'
 import { setLoading, setFailed, setSuccess } from './processor'
 import { SAVE_SESSION_PERSISTANCE } from '../constants'
-import { API_SERVER_USER } from '../env'
+import { API_SERVER_USER, API_SERVER_AUTH } from '../env'
 
 export const login = (email, password) => {
 	return async dispatch => {
@@ -15,12 +15,12 @@ export const login = (email, password) => {
 				},
 				body: JSON.stringify({email, password})
 			})
-			const data = await response.json()
-			if (data.code === 401 && data.name === 'error') {
+            const data = await response.json()
+			if (data.status === 400 && data.name === 'error') {
 				await dispatch(setFailed(true, 'FAILED_PROCESS_LOGIN', data.message))
 				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 			} else {
-				await dispatch(fetchUserWithEmail(email, password, data.tokens.accessToken, data.tokens.users_id, data.tokens.avatar_url, data.tokens.first_name))
+				await dispatch(fetchUserWithEmail(data.email, data.password, data.accessToken, data.id))
 				await dispatch(setSuccess(true, 'SUCCESS_PROCESS_LOGIN'))
 				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 			}
@@ -28,6 +28,31 @@ export const login = (email, password) => {
 			dispatch(setFailed(true, 'FAILED_PROCESS_LOGIN', e))
 			dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 			dispatch(setFailed(false, 'FAILED_PROCESS_LOGIN'))
+		}
+	}
+}
+
+export const fetchUserWithEmail = (email, password, accessToken, users_id) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_FETCH_USER_WITH_EMAIL'))
+		try {
+			const response = await fetch(`${API_SERVER_AUTH}/api/v1/user/${users_id}`, {
+				method: 'GET',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+					Authorization: accessToken
+				}
+			})
+            const data = await response.json()
+            console.log('ini data session' , data.data)
+			await dispatch(saveSession(data.data[0]))
+			await dispatch(saveSessionPersistance({...data.data[0], accessToken	}))
+			await dispatch(setSuccess(true, 'SUCCESS_FETCH_USER_WITH_EMAIL'))
+      		await dispatch(setLoading(false, 'LOADING_FETCH_USER_WITH_EMAIL'))
+		} catch (e) {
+			dispatch(setFailed(true, 'FAILED_FETCH_USER_WITH_EMAIL', e))
+			dispatch(setLoading(false, 'LOADING_FETCH_USER_WITH_EMAIL'))
 		}
 	}
 }

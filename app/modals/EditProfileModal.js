@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { Container, Content, Item, Input, Icon, Label, Form, Button } from 'native-base'
+import { Content, Item, Input, Icon, Label, Form, Button } from 'native-base'
+import DatePicker from 'react-native-datepicker'
 import NavbarModal from '../particles/NavbarModal'
 
 const EditProfileModal = (props) => (
@@ -33,13 +34,33 @@ const EditProfileModal = (props) => (
         <Item regular style={styles.items}>
           <Input placeholder={props.lastName} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeLastName} />
         </Item>
-        <Label style={styles.labels}>Email</Label>
-        <Item regular style={styles.items}>
-          <Input placeholder={props.email} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeEmail} />
-        </Item>
         <Label style={styles.labels}>Birth Date</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.birthDate} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeBirthDate} />
+          <DatePicker
+            style={{ width: 100, borderWidth: 0}}
+            date={props.birthDate}
+            mode="date"
+            placeholder="Birth Date"
+            format="YYYY/MM/DD"
+            minDate="1960-01-01"
+            maxDate="2018-12-30"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                width: 0,
+                height: 0
+              },
+              dateInput: {
+                borderWidth: 0
+              },
+              placeholderText: {
+                color: "#CDCDCD",
+                fontSize: 12
+              }
+            }}
+            onDateChange={props.onChangeBirthDate}
+          />
         </Item>
       </Form>
     </Content>
