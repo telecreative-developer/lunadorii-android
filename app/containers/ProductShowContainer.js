@@ -63,7 +63,7 @@ export default class ProductShowContainer extends Component {
           <CommentAndRating
             user={item.user}
             reviews={item.comment}
-            date={item.date}
+            date={item.updated_at}
             rating={item.review_rate} />
         )}
         goback={() => this.props.navigation.goBack()} />
