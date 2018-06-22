@@ -5,6 +5,42 @@ import Product from '../particles/Product'
 import Brand from '../particles/Brand'
 import RecommendProduct from '../particles/RecommendProduct'
 import BestCategories from '../particles/BestCategories'
+import Categories from '../particles/Categories'
+
+import imageSkinCare from '../assets/images/icon/skincare.png'
+import imageMakeUp from '../assets/images/icon/makeup.png'
+import imageNails from '../assets/images/icon/nails.png'
+import imageToolBrushes from '../assets/images/icon/tools-brushes.png'
+import imageMore from '../assets/images/icon/more.png'
+
+const categories = [
+  {
+    title: 'Skincare',
+    icon: imageSkinCare
+  },
+  {
+    title: 'Makeup',
+    icon: imageMakeUp
+  },
+  {
+    title: 'Nails',
+    icon: imageNails
+  },
+  {
+    title: 'Tool & Brushes',
+    icon: imageToolBrushes
+  },
+  {
+    title: 'More',
+    icon: imageMore
+  },
+]
+
+
+import { connect } from 'react-redux'
+import { fetchCategoryProduct } from '../actions/categoryproduct'
+import { fetchBrandsProduct } from '../actions/brandsproduct'
+import { fetchProduct } from '../actions/product'
 
 
 import {connect} from 'react-redux'
@@ -84,52 +120,10 @@ const dataProduct = [
   {
     index: 2,
     image: 'http://www.forgotteninvasion.com/wp-content/uploads/2017/12/1200x800_0_0_1200_800_be71c6e15ae8c6f7bfd6e935b0ab5fcc3c2f98d3.jpg',
-    title: 'Paket Makeup',
-    categories: 'Makeup',
-    price: '250000',
-    star: 4,
-    descriptions: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum. Nulla et velit at quam elementum sodales. Donec iaculis, urnavel lobortis auctor, nisl elit viverra quam, eget imperdiet metus lacus quis nisl.",
-    productDetails: "Makup sangat berkualitas",
-    guide: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum.",
-    reviews: [
-      {
-        user: 'Verina Ressa',
-        reviews: 'Makeup nya murah namun berkualitas',
-        date: '9',
-        rating: 4
-      },
-      {
-        user: 'Adinda Merlin',
-        reviews: 'Ihh suka banget sama packing nya, rapih banget',
-        date: '10',
-        rating: 5
-      },
-    ]
-  },
-  {
-    index: 2,
-    image: 'http://www.forgotteninvasion.com/wp-content/uploads/2017/12/1200x800_0_0_1200_800_be71c6e15ae8c6f7bfd6e935b0ab5fcc3c2f98d3.jpg',
-    title: 'Paket Makeup',
-    categories: 'Makeup',
-    price: '250000',
-    star: 4,
-    descriptions: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum. Nulla et velit at quam elementum sodales. Donec iaculis, urnavel lobortis auctor, nisl elit viverra quam, eget imperdiet metus lacus quis nisl.",
-    productDetails: "Makup sangat berkualitas",
-    guide: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum.",
-    reviews: [
-      {
-        user: 'Verina Ressa',
-        reviews: 'Makeup nya murah namun berkualitas',
-        date: '9',
-        rating: 4
-      },
-      {
-        user: 'Adinda Merlin',
-        reviews: 'Ihh suka banget sama packing nya, rapih banget',
-        date: '10',
-        rating: 5
-      },
-    ]
+    title: 'Benefiets Cosmetics',
+    categories: 'Benefiets Cosmetics, and others',
+    price: '520,009',
+    star: 4
   },
 ]
 
@@ -154,7 +148,7 @@ const dataRecommend = [
     image: 'http://www.forgotteninvasion.com/wp-content/uploads/2017/12/1200x800_0_0_1200_800_be71c6e15ae8c6f7bfd6e935b0ab5fcc3c2f98d3.jpg',
     title: 'Benefiets Cosmetics',
     categories: 'Benefiets Cosmetics, and others',
-    price: '520000',
+    price: '520,001',
     reviews: '3.6'
   },
 ]
@@ -208,34 +202,30 @@ class HomeContainer extends Component {
         renderBrand={({ item }) => (
           <Brand image={item.logo_url} />
         )}
-<<<<<<< HEAD
-        dataProduct={dataProduct}
-        renderProduct={({ item }) => (
-          <Product image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star} action={() => this.props.navigation.navigate("ProductShowContainer", { data: dataProduct[item.index] })}
-          />
+
+        dataCategoriesButton={categories}
+        renderCategoriesButton={({ item }) => (
+          <Categories title={item.title} icon={item.icon} />
         )}
+
         dataRecommend={dataRecommend}
         renderRecommend={({ item }) => (
           <RecommendProduct image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star} reviews={item.reviews}
           />
         )}
-=======
-         dataProduct={this.props.product}
--        renderProduct={({ item }) => (
--          <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate}
--          />
--        )}
--        dataRecommend={this.props.product}
--        renderRecommend={({ item }) => (
--          <RecommendProduct image={item.thumbnails.thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate} reviews={item.reviews}
--          />
--        )}
->>>>>>> 2881681d5293c259d6fa255b9b95a1fcae377eca
+
+        dataProduct={this.props.product}
+        renderProduct={({ item }) => (
+          <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate}
+          />
+        )}
+        
         dataCategories={dataCategories}
         renderCategories={({ item }) => (
           <BestCategories image={item.image} title={item.title} total={item.total}
           />
         )}
+
         navigateToYourCart={() => this.props.navigation.navigate("YourCartContainer")}
         navigateToProfile={() => this.props.navigation.navigate('ProfileContainer')}
         navigateToSearch={() => this.props.navigation.navigate("SearchContainer")}
