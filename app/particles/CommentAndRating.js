@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import { Rating } from 'react-native-ratings'
 import { StyleSheet } from 'react-native'
 import { View, Text } from 'native-base'
+import moment from 'moment'
 
 const CommentAndRating = (props) => (
   <View style={styles.reviewsWrapper}>
     <Text>{props.reviews}</Text>
     <View style={styles.reviewsSpesifyWrapper}>
-      <Text style={styles.reviewerName}>{props.user} - {props.date} min ago</Text>
+      <Text style={styles.reviewerName}>{props.user} - {moment(props.date).startOf('day').fromNow()}</Text>
       <Rating
         type='custom'
         ratingCount={5}
