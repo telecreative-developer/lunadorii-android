@@ -40,7 +40,7 @@ const AppNavigator = StackNavigator(
     PaymentsContainer: { screen: PaymentsContainer },
     CreditCardContainer: { screen: CreditCardContainer }
   }, {
-    // initialRouteName: 'LoginContainer',
+    initialRouteName: 'LoginContainer',
     headerMode: 'none'
   }
 )

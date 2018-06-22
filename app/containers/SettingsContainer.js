@@ -5,7 +5,7 @@ import { editPassword } from '../actions/editprofile'
 
 import Settings from '../components/Settings'
 
-export default class SettingsContainer extends Component {
+class SettingsContainer extends Component {
   state = {
     modalVisibleChangePassword: false,
     modalVisibleChangeEmail: false,
@@ -95,4 +95,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(ProfileContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(SettingsContainer)
