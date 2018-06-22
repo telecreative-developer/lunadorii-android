@@ -3,7 +3,7 @@ import { StyleSheet, View, Image, TouchableOpacity, Text, StatusBar } from 'reac
 import { Container, Content, Icon, Button, Footer, Form, Label, Item, Input } from 'native-base'
 import PropTypes from 'prop-types'
 
-const Register = (props) => (
+const Login = (props) => (
   <Container style={styles.backgroundColorWhite}>
     <StatusBar
       backgroundColor="#f65857"
@@ -15,14 +15,6 @@ const Register = (props) => (
         </View>
         <View>
           <Form>
-            <Label style={styles.txtLabel}>First name</Label>
-            <Item regular style={styles.item}>
-              <Input placeholder="Your first name" placeholderTextColor="#ccc" />
-            </Item>
-            <Label style={styles.txtLabel}>Last name</Label>
-            <Item regular style={styles.item}>
-              <Input placeholder="Your last name" placeholderTextColor="#ccc" />
-            </Item>
             <Label style={styles.txtLabel}>Email</Label>
             <Item regular style={styles.item}>
               <Input placeholder="You email address" placeholderTextColor="#ccc" />
@@ -34,13 +26,13 @@ const Register = (props) => (
           </Form>
           <View style={styles.registerButtonWrapper}>
             <Button full style={styles.registerButtonStyle}>
-              <Text style={styles.registerTextButton}>Register</Text>
+              <Text style={styles.registerTextButton}>Login</Text>
             </Button>
           </View>
           <View style={styles.informationWrapper}>
-            <Text style={styles.alignSelfCenter}>Already have account?</Text>
-            <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToLogin}>
-              <Text style={styles.registerNowColor}> Login Now</Text>
+            <Text style={styles.alignSelfCenter}>Doesn't have account?</Text>
+            <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToRegister}>
+              <Text style={styles.registerNowColor}> Register Now</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -49,7 +41,7 @@ const Register = (props) => (
   </Container>
 )
 
-export default Register
+export default Login
 
 const styles = StyleSheet.create({
   logoImage: {

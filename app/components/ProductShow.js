@@ -31,7 +31,7 @@ const ProductShow = (props) => (
         <View style={styles.firstGroupWrapper2}>
           <TouchableOpacity>
             <View style={styles.firstGroupButtonShare}>
-              <Entypo name="share" style={styles.firstGroupButtonIcon} />
+              <Entypo name="heart-outlined" style={styles.firstGroupButtonIcon} />
             </View>
           </TouchableOpacity>
         </View>

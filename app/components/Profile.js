@@ -31,12 +31,10 @@ const Profile = (props) => (
       imageProfile={props.profile.imageProfile}
       firstName={props.profile.firstName}
       lastName={props.profile.lastName}
-      email={props.profile.email}
       birthDate={props.profile.birthDate}
 
       onChangeFirstName={props.onChangeFirstName}
       onChangeLastName={props.onChangeLastName}
-      onChangeEmail={props.onChangeEmail}
       onChangeBirthDate={props.onChangeBirthDate}
       handleSaveEditProfile={props.handleSaveEditProfile}
     />
