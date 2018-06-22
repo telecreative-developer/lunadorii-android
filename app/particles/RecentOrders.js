@@ -5,7 +5,7 @@ const RecentOrders = (props) => (
   <View style={styles.viewBox}>
     <View style={styles.viewOnlyRow}>
       <View style={styles.viewFlex3}>
-        <Image source={{uri: props.image}} style={styles.image}/>
+        <Image source={{ uri: props.image }} style={styles.image} />
       </View>
       <View style={styles.viewFlex7}>
         <View style={styles.viewOnlyColumn}>
@@ -25,38 +25,38 @@ const RecentOrders = (props) => (
   </View>
 )
 const styles = StyleSheet.create({
-  viewBox:{
-    borderWidth: 1, 
-    borderColor: '#e2e2e2', 
-    padding: 10, 
-    marginLeft: 10, 
+  viewBox: {
+    borderWidth: 1,
+    borderColor: '#e2e2e2',
+    padding: 10,
+    marginLeft: 10,
     width: 280
   },
-  viewOnlyRow:{
+  viewOnlyRow: {
     flexDirection: 'row'
   },
-  viewOnlyColumn:{
+  viewOnlyColumn: {
     flexDirection: 'column'
   },
-  viewFlex3:{
+  viewFlex3: {
     flex: 0.3
   },
-  viewFlex7:{
+  viewFlex7: {
     flex: 0.7
   },
-  txtBold:{
+  txtBold: {
     fontWeight: 'bold'
   },
-  txtTitle:{
-    fontWeight: 'bold', 
+  txtTitle: {
+    fontWeight: 'bold',
     fontSize: 16
   },
-  image:{
-    width: 70, 
+  image: {
+    width: 70,
     height: 70
   },
-  viewFooter:{
-    flexDirection: 'row', 
+  viewFooter: {
+    flexDirection: 'row',
     justifyContent: 'space-between'
   },
 })

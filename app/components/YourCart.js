@@ -2,12 +2,9 @@ import React, { Component } from 'react'
 import { TouchableOpacity, View, Text, Image, StyleSheet, FlatList, StatusBar } from 'react-native'
 import { Container, Content, Card, CardItem, Body, Icon, Button, Item, Radio, Footer, } from 'native-base'
 import Navigation from '../particles/Navbar'
-import BenefitCosmetics from '../particles/BenefitCosmetics'
 import EditQuantityModal from '../modals/EditQuantityModal'
 import EditAddressModal from '../modals/EditAddressModal'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-
-import image from '../assets/sephora.jpg'
 
 const YourCart = (props) => (
   <Container style={styles.Container}>
@@ -21,12 +18,35 @@ const YourCart = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleEditQuantity}
       actionIcon={props.toggleModalEditQuantity}
+
+      image={props.singleDataQuantity.image}
+      title={props.singleDataQuantity.title}
+      categories={props.singleDataQuantity.categories}
+      quantity={props.singleDataQuantity.quantity}
+      price={props.singleDataQuantity.price}
+      onUpdate={props.onUpdateDataQuantity}
     />
     <EditAddressModal
       navbarTitle="Edit Quantity"
       navbarIcon="close"
       modalVisible={props.modalVisibleEditAddress}
       actionIcon={props.toggleModalEditAddress}
+
+      name={props.singleDataShippingAddress.name}
+      address={props.singleDataShippingAddress.address}
+      province={props.singleDataShippingAddress.province}
+      city={props.singleDataShippingAddress.city}
+      regency={props.singleDataShippingAddress.regency}
+      district={props.singleDataShippingAddress.district}
+      numberPhone={props.singleDataShippingAddress.numberPhone}
+      onChangeName={props.onChangeName}
+      onChangeAddress={props.onChangeAddress}
+      onChangeProvince={props.onChangeProvince}
+      onChangeCity={props.onChangeCity}
+      onChangeRegency={props.onChangeRegency}
+      onChangeDistrict={props.onChangeDistrict}
+      onChangeNumberPhone={props.onChangeNumberPhone}
+      handleSaveDataShippingAddress={props.handleSaveDataShippingAddress}
     />
     <StatusBar
       backgroundColor="#f65857"
@@ -37,11 +57,11 @@ const YourCart = (props) => (
         <Text style={styles.title}>Products</Text>
 
         <FlatList
-          data={props.dataProducts}
+          data={props.dataOnCart}
           renderItem={props.renderProducts}
           keyExtractor={(item, index) => JSON.stringify(index)} />
 
-        <Button style={styles.btnAdd}>
+        <Button style={styles.btnAdd} onPress={props.navigateToSearch}>
           <Icon name="add" /><Text style={styles.txtAdd}>Add More Product</Text>
         </Button>
       </View>

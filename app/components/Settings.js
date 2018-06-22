@@ -19,6 +19,11 @@ const Settings = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleChangePassword}
       actionIcon={props.toggleModalChangePassword}
+
+      onChangeCurrentPassword={props.onChangeCurrentPassword}
+      onChangeNewPassword={props.onChangeNewPassword}
+      onChangeConfirmPassword={props.onChangeConfirmPassword}
+      handleChangePassword={props.handleChangePassword}
     />
     <NotificationsModal
       navbarTitle="Notifications"

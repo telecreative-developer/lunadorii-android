@@ -17,7 +17,7 @@ const Wishlist = (props) => (
     />
     <Content>
       <View style={styles.viewArrivals}>
-        <Text style={{ fontWeight: 'bold', fontSize: 16, marginBottom: 10 }}>Your Wishlist</Text>
+        <Text style={styles.yourWhisListTextTitle}>Your Wishlist</Text>
         <FlatList
           numColumns={2}
           data={props.dataProduct}
@@ -36,6 +36,11 @@ const styles = StyleSheet.create({
   viewArrivals: {
     paddingLeft: 20,
     paddingTop: 20
+  },
+  yourWhisListTextTitle: {
+    fontWeight: 'bold',
+    fontSize: 16,
+    marginBottom: 10
   }
 })
 

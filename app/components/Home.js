@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, Dimensions, FlatList, StatusBar } from 'react-native'
+import { StyleSheet, View, Text, Image, Dimensions, FlatList, StatusBar, TouchableOpacity } from 'react-native'
 import { Container, Tabs, Tab, TabHeading, Icon, Content } from 'native-base'
 import NavbarHome from '../particles/NavbarHome'
 import Carousel from 'react-native-looped-carousel'
@@ -21,7 +21,7 @@ const Home = (props) => (
       backgroundColor="#f65857"
       barStyle="light-content"
     />
-    <Tabs locked={true} style={{ height: 1000 }} tabBarUnderlineStyle={{ backgroundColor: '#f65857' }}>
+    <Tabs locked={true} style={styles.tabHeight} tabBarUnderlineStyle={styles.tabBarUnderlineStyle}>
       <Tab heading={<TabHeading style={styles.tabHeading} ><Text style={styles.txtHeading}>New Arrivals</Text></TabHeading>}>
         <Content>
           <Carousel
@@ -29,7 +29,7 @@ const Home = (props) => (
             style={styles.imageAds}
             autoplay
             bullets
-            bulletStyle={{ backgroundColor: '#494949', borderColor: '#494949' }}
+            bulletStyle={styles.carouselBulletStyle}
             onAnimateNextPage={(p) => console.log(p)}
           >
             <View style={[props.size]}>
@@ -46,33 +46,43 @@ const Home = (props) => (
             <Text style={styles.txtCategories}>Category</Text>
             <View style={styles.viewWrapperCategories}>
               <View style={styles.flexOnly2}>
-                <View style={styles.viewCategories}>
-                  <Image source={imageSkinCare} style={styles.imageCategories} />
-                </View>
+                <TouchableOpacity onPress={() => alert("Skincare")}>
+                  <View style={styles.viewCategories}>
+                    <Image source={imageSkinCare} style={styles.imageCategories} />
+                  </View>
+                </TouchableOpacity>
                 <Text style={styles.titleCategories}>Skincare</Text>
               </View>
               <View style={styles.flexOnly2}>
-                <View style={styles.viewCategories}>
-                  <Image source={imageMakeUp} style={styles.imageCategories} />
-                </View>
+                <TouchableOpacity onPress={() => alert("Makeup")}>
+                  <View style={styles.viewCategories}>
+                    <Image source={imageMakeUp} style={styles.imageCategories} />
+                  </View>
+                </TouchableOpacity>
                 <Text style={styles.titleCategories}>Makeup</Text>
               </View>
               <View style={styles.flexOnly2}>
-                <View style={styles.viewCategories}>
-                  <Image source={imageToolBrushes} style={styles.imageCategories} />
-                </View>
+                <TouchableOpacity onPress={() => alert("Tools & Brushes")}>
+                  <View style={styles.viewCategories}>
+                    <Image source={imageToolBrushes} style={styles.imageCategories} />
+                  </View>
+                </TouchableOpacity>
                 <Text style={styles.titleCategories}>Tools & Brushes</Text>
               </View>
               <View style={styles.flexOnly2}>
-                <View style={styles.viewCategories}>
-                  <Image source={imageNails} style={styles.imageCategories} />
-                </View>
+                <TouchableOpacity onPress={() => alert("Nails")}>
+                  <View style={styles.viewCategories}>
+                    <Image source={imageNails} style={styles.imageCategories} />
+                  </View>
+                </TouchableOpacity>
                 <Text style={styles.titleCategories}>Nails</Text>
               </View>
               <View style={styles.flexOnly2}>
-                <View style={styles.viewCategories}>
-                  <Image source={imageMore} style={styles.imageCategories} />
-                </View>
+                <TouchableOpacity onPress={() => alert("More")}>
+                  <View style={styles.viewCategories}>
+                    <Image source={imageMore} style={styles.imageCategories} />
+                  </View>
+                </TouchableOpacity>
                 <Text style={styles.titleCategories}>More</Text>
               </View>
             </View>
@@ -100,7 +110,7 @@ const Home = (props) => (
       </Tab>
       <Tab heading={<TabHeading style={styles.tabHeading}><Text style={styles.txtHeading}>Best Sellers</Text></TabHeading>}>
         <Content>
-          <View style={{ paddingLeft: 20, paddingTop: 20, paddingBottom: 20 }}>
+          <View style={styles.recommededProductWrapper}>
             <FlatList
               horizontal={true}
               showsHorizontalScrollIndicator={false}
@@ -109,7 +119,7 @@ const Home = (props) => (
               keyExtractor={(item, index) => JSON.stringify(index)}
             />
           </View>
-          <View style={{ paddingLeft: 20 }}>
+          <View style={styles.moreNewArrivalsWrapper}>
             <Text style={styles.txtArrivals}>More New Arrivals</Text>
             <FlatList
               numColumns={2}
@@ -142,6 +152,24 @@ const styles = StyleSheet.create({
     paddingTop: 5,
     paddingBottom: 5,
     paddingLeft: 20
+  },
+  tabHeight: {
+    height: 1000
+  },
+  moreNewArrivalsWrapper: {
+    paddingLeft: 20
+  },
+  tabBarUnderlineStyle: {
+    backgroundColor: '#f65857'
+  },
+  recommededProductWrapper: {
+    paddingLeft: 20,
+    paddingTop: 20,
+    paddingBottom: 20
+  },
+  carouselBulletStyle: {
+    backgroundColor: '#494949',
+    borderColor: '#494949'
   },
   txtHeading: {
     color: '#000'

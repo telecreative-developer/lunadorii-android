@@ -6,7 +6,7 @@ import ShippingAddress from '../particles/ShippingAddress'
 import EditAddressModal from '../modals/EditAddressModal'
 
 const YourShippingAddress = (props) => (
-  <Container>
+  <Container style={styles.container}>
     <Navbar
       navbarTitle="Shipping Address"
       navbarIcon="arrow-back"

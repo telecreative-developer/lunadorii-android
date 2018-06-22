@@ -48,6 +48,7 @@ export default class PaymentsContainer extends Component {
         modalVisibleWaitingForPayment={this.state.modalVisibleWaitingForPayment}
         toggleModalWaitingForPayment={() => this.toggleModalWaitingForPayment()}
 
+        backToHome={() => this.props.navigation.navigate('HomeContainer')}
         goback={() => this.props.navigation.goBack()}
       />
     )

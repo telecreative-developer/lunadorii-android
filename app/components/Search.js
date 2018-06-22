@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { StyleSheet, StatusBar, TouchableOpacity } from 'react-native'
-import { Container, Content, View, Text, Icon, Item, Input } from 'native-base'
+import { StyleSheet, StatusBar, TouchableOpacity, Text, FlatList } from 'react-native'
+import { Container, Content, View, Icon, Item, Input } from 'native-base'
 import Feather from 'react-native-vector-icons/Feather'
 import Navbar from '../particles/Navbar'
 import FiltersModal from '../modals/FiltersModal'
+import ResultNotFound from '../particles/ResultNotFound'
 
 const Search = (props) => (
   <Container style={{ backgroundColor: '#fff' }}>
@@ -22,13 +23,34 @@ const Search = (props) => (
     />
     <Content style={styles.container}>
       <Item regular style={styles.items}>
-        <Input placeholder="Search product, brand name, etc.," placeholderTextColor="#ccc" />
+        <Input placeholder="Search product, brand name, etc.," placeholderTextColor="#ccc" onChangeText={props.onChangeSearchTitle} />
         <Feather name="search" style={styles.searchIcon} />
       </Item>
       <View style={styles.moreFilters}>
         <TouchableOpacity onPress={props.toggleModalFilters}>
           <Text style={styles.moreFiltersText}>More Filters</Text>
         </TouchableOpacity>
+      </View>
+      <View style={{ paddingLeft: 5, paddingTop: 15 }}>
+        {
+          props.searchTitle.length == 0 || props.searchTitle === "lipstick" ?
+            props.searchTitle.length == 0 ?
+              <View />
+              :
+              <View>
+                <Text style={{ fontSize: 16, fontWeight: 'bold', paddingBottom: 5 }}>Result by filter</Text>
+                <View>
+                  <FlatList
+                    numColumns={2}
+                    data={props.dateRelatedProducts}
+                    renderItem={props.renderRelatedProducts}
+                    keyExtractor={(item, index) => JSON.stringify(index)}
+                  />
+                </View>
+              </View>
+            :
+            <ResultNotFound amount={props.amount} searchTitle={props.searchTitle} />
+        }
       </View>
     </Content>
   </Container>
@@ -42,7 +64,8 @@ const styles = StyleSheet.create({
     padding: 10
   },
   items: {
-    borderRadius: 5
+    borderRadius: 5,
+    height: 40
   },
   searchIcon: {
     fontSize: 26,

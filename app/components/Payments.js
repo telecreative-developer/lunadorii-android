@@ -25,6 +25,7 @@ const Payments = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleWaitingForPayment}
       actionIcon={props.toggleModalWaitingForPayment}
+      backToHome={props.backToHome}
     />
     <StatusBar
       backgroundColor="#f65857"
@@ -33,9 +34,9 @@ const Payments = (props) => (
     <Content style={styles.container}>
       <View style={styles.textWrapper}>
         <Text style={styles.textTitle}>Credit Card</Text>
-        <Text style={{ fontSize: 16 }}>Please, click credit card if you wanna pay with credit card</Text>
+        <Text style={styles.fontSize16}>Please, click credit card if you wanna pay with credit card</Text>
       </View>
-      <View style={{ padding: 10 }}>
+      <View style={styles.padding10}>
         <FlatList
           data={props.dataCreditCards}
           renderItem={props.renderCreditCards}
@@ -97,6 +98,12 @@ const Payments = (props) => (
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
+  },
+  fontSize16: {
+    fontSize: 16
+  },
+  padding10: {
+    padding: 10
   },
   textWrapper: {
     padding: 10

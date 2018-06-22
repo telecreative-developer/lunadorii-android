@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Container, Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
-import Navbar from '../particles/Navbar'
+import NavbarModal from '../particles/NavbarModal'
 
 const EditQuantityModal = (props) => (
   <Modal
@@ -9,27 +9,27 @@ const EditQuantityModal = (props) => (
     transparent={false}
     visible={props.modalVisible}
     onRequestClose={props.actionIcon}>
-    <Navbar
+    <NavbarModal
       navbarTitle="Edit Quantity"
       navbarIcon="close"
       actionIcon={props.actionIcon} />
     <Content style={styles.container}>
       <View style={styles.Card}>
         <View style={styles.contentCard}>
-          <Image source={{ uri: 'https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg' }} style={styles.image} />
+          <Image source={{ uri: props.image }} style={styles.image} />
           <View style={styles.wrapLeft}>
-            <Text style={styles.txtHeader}>Benefit Cosmetics</Text>
-            <Text style={styles.txtDetail}>Face Primer Mini</Text>
+            <Text style={styles.txtHeader}>{props.title}</Text>
+            <Text style={styles.txtDetail}>{props.categories}</Text>
             <Text style={styles.txtBlank}></Text>
-            <Text style={styles.txtDetail}>Quantity: <Text style={styles.txtpcs}>1 pcs</Text></Text>
+            <Text style={styles.txtDetail}>Quantity: <Text style={styles.txtpcs}>{props.quantity} pcs</Text></Text>
           </View>
           <View style={styles.wrapRight}>
-            <Text style={styles.txtHeader}>Rp 20,000</Text>
+            <Text style={styles.txtHeader}>Rp {props.price * props.quantity}</Text>
           </View>
         </View>
       </View>
-      <View style={{ flexDirection: 'row', justifyContent: 'space-evenly', paddingTop: 10 }}>
-        <View style={{ justifyContent: 'flex-end' }}>
+      <View style={styles.quantityAmountControl}>
+        <View style={styles.flexEnd}>
           <TouchableOpacity onPress={() => alert("Minus")}>
             <View style={styles.minusButton}>
               <Text style={styles.buttonFontSize}>-</Text>
@@ -37,9 +37,9 @@ const EditQuantityModal = (props) => (
           </TouchableOpacity>
         </View>
         <Item regular style={styles.amountTextInput}>
-          <Input value="1" />
+          <Input value={String(props.quantity)} />
         </Item>
-        <View style={{ justifyContent: 'flex-end' }}>
+        <View style={styles.flexEnd}>
           <TouchableOpacity onPress={() => alert("Pluss")}>
             <View style={styles.plussButton}>
               <Text style={styles.buttonFontSize}>+</Text>
@@ -48,7 +48,7 @@ const EditQuantityModal = (props) => (
         </View>
       </View>
     </Content>
-    <Button full style={styles.buttonSaveStyle}>
+    <Button full style={styles.buttonSaveStyle} onPress={props.onUpdate}>
       <Text style={styles.buttonSaveTextStyle}>Update</Text>
     </Button>
   </Modal>
@@ -67,6 +67,14 @@ const styles = StyleSheet.create({
     height: 35,
     justifyContent: 'center',
     alignSelf: 'center'
+  },
+  quantityAmountControl: {
+    flexDirection: 'row',
+    justifyContent: 'space-evenly',
+    paddingTop: 10
+  },
+  flexEnd: {
+    justifyContent: 'flex-end'
   },
   minusButton: {
     width: 35,
@@ -127,10 +135,10 @@ const styles = StyleSheet.create({
   },
   buttonSaveStyle: {
     height: 50,
-    backgroundColor: '#D50039'
+    backgroundColor: '#d11e48'
   },
   buttonSaveTextStyle: {
     color: '#fff',
-    fontSize: 20
+    fontSize: 18
   }
 })

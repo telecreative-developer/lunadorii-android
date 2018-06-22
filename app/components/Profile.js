@@ -1,11 +1,18 @@
 import React from 'react'
 import { StyleSheet, View, Text, Image, FlatList, TouchableOpacity, StatusBar } from 'react-native'
-import { Container, Button, Icon, Content } from 'native-base'
+import { Container, Button, Icon, Content, Tabs, Tab } from 'native-base'
 import SVGImage from 'react-native-svg-image'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import PropTypes from 'prop-types'
 import Navbar from '../particles/Navbar'
-import ImageCalendar from '../assets/images/icon/calendar.png'
+import ImagePurchaseHistory from '../assets/images/icon/purchase-history.png'
+import ImageWhislist from '../assets/images/icon/whislist.png'
+import ImageCreditCard from '../assets/images/icon/credit-card.png'
+import ImageYourReviews from '../assets/images/icon/your-reviews.png'
+import ImageShippingAddress from '../assets/images/icon/shipping-address.png'
+import ImageReport from '../assets/images/icon/report.png'
+import ImageSettings from '../assets/images/icon/settings.png'
+import ImagePrivacyPolicy from '../assets/images/icon/privacy-policy.png'
 import EditProfileModal from '../modals/EditProfileModal'
 
 const Profile = (props) => (
@@ -20,6 +27,18 @@ const Profile = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleEditProfile}
       actionIcon={props.toggleModalEditProfile}
+
+      imageProfile={props.profile.imageProfile}
+      firstName={props.profile.firstName}
+      lastName={props.profile.lastName}
+      email={props.profile.email}
+      birthDate={props.profile.birthDate}
+
+      onChangeFirstName={props.onChangeFirstName}
+      onChangeLastName={props.onChangeLastName}
+      onChangeEmail={props.onChangeEmail}
+      onChangeBirthDate={props.onChangeBirthDate}
+      handleSaveEditProfile={props.handleSaveEditProfile}
     />
     <StatusBar
       backgroundColor="#f65857"
@@ -30,11 +49,11 @@ const Profile = (props) => (
         <View style={styles.subHeaderProfile}>
           <View style={styles.flexDirectionRow}>
             <View>
-              <Image source={{ uri: "https://telecreativenow.com/images/team/Rendi.png" }} style={styles.imageProfile} />
+              <Image source={{ uri: props.profile.imageProfile }} style={styles.imageProfile} />
             </View>
             <View>
               <View style={styles.viewNameProfile}>
-                <Text style={styles.txtNameProfile}>Hello, Rendi Simamora</Text>
+                <Text style={styles.txtNameProfile}>Hello, {props.profile.firstName}</Text>
                 <Button style={styles.btnProfile}><Text style={styles.txtBtnProfile} onPress={props.toggleModalEditProfile}>
                   <MaterialCommunityIcons name="pencil" size={15} /> Edit Profile</Text>
                 </Button>
@@ -51,15 +70,15 @@ const Profile = (props) => (
           data={props.dataRecentOrders}
           renderItem={props.renderRecentOrders}
           keyExtractor={(item, index) => JSON.stringify(index)}
-          style={styles.flatList}
         />
       </View>
       <View>
+        <Text style={styles.txtMenuTitle}>Menu</Text>
         <View style={styles.viewMenu}>
           <View style={styles.viewBoxMenu}>
             <TouchableOpacity onPress={props.navigateToPurchaseHistory}>
               <View style={styles.viewSubBoxMenu}>
-                <Image source={ImageCalendar} style={styles.imageIcon} />
+                <Image source={ImagePurchaseHistory} style={styles.imageIcon} />
                 <Text style={styles.txtMenu}>Purchase History</Text>
               </View>
             </TouchableOpacity>
@@ -67,7 +86,7 @@ const Profile = (props) => (
           <View style={styles.viewBoxMenu}>
             <TouchableOpacity onPress={props.navigateToWhishlist}>
               <View style={styles.viewSubBoxMenu}>
-                <Image source={ImageCalendar} style={styles.imageIcon} />
+                <Image source={ImageWhislist} style={styles.imageIcon} />
                 <Text style={styles.txtMenu}>Whishlist</Text>
               </View>
             </TouchableOpacity>
@@ -75,7 +94,7 @@ const Profile = (props) => (
           <View style={styles.viewBoxMenu}>
             <TouchableOpacity onPress={props.navigateToCreditCard}>
               <View style={styles.viewSubBoxMenu}>
-                <Image source={ImageCalendar} style={styles.imageIcon} />
+                <Image source={ImageCreditCard} style={styles.imageIcon} />
                 <Text style={styles.txtMenu}>Credit Card</Text>
               </View>
             </TouchableOpacity>
@@ -83,7 +102,7 @@ const Profile = (props) => (
           <View style={styles.viewBoxMenu}>
             <TouchableOpacity onPress={props.navigateToReviews}>
               <View style={styles.viewSubBoxMenu}>
-                <Image source={ImageCalendar} style={styles.imageIcon} />
+                <Image source={ImageYourReviews} style={styles.imageIcon} />
                 <Text style={styles.txtMenu}>Your Reviews</Text>
               </View>
             </TouchableOpacity>
@@ -93,7 +112,7 @@ const Profile = (props) => (
           <View style={styles.viewBoxMenu}>
             <TouchableOpacity onPress={props.navigateToShippingAddress}>
               <View style={styles.viewSubBoxMenu}>
-                <Image source={ImageCalendar} style={styles.imageIcon} />
+                <Image source={ImageShippingAddress} style={styles.imageIcon} />
                 <Text style={styles.txtMenu}>Shipping Address</Text>
               </View>
             </TouchableOpacity>
@@ -101,7 +120,7 @@ const Profile = (props) => (
           <View style={styles.viewBoxMenu}>
             <TouchableOpacity onPress={props.navigateToReports}>
               <View style={styles.viewSubBoxMenu}>
-                <Image source={ImageCalendar} style={styles.imageIcon} />
+                <Image source={ImageReport} style={styles.imageIcon} />
                 <Text style={styles.txtMenu}>Report</Text>
               </View>
             </TouchableOpacity>
@@ -109,7 +128,7 @@ const Profile = (props) => (
           <View style={styles.viewBoxMenu}>
             <TouchableOpacity onPress={props.navigateToSettings}>
               <View style={styles.viewSubBoxMenu}>
-                <Image source={ImageCalendar} style={styles.imageIcon} />
+                <Image source={ImageSettings} style={styles.imageIcon} />
                 <Text style={styles.txtMenu}>Settings</Text>
               </View>
             </TouchableOpacity>
@@ -117,7 +136,7 @@ const Profile = (props) => (
           <View style={styles.viewBoxMenu}>
             <TouchableOpacity onPress={props.navigateToPrivacyPolicy}>
               <View style={styles.viewSubBoxMenu}>
-                <Image source={ImageCalendar} style={styles.imageIcon} />
+                <Image source={ImagePrivacyPolicy} style={styles.imageIcon} />
                 <Text style={styles.txtMenu}>Privacy Policy</Text>
               </View>
             </TouchableOpacity>
@@ -158,8 +177,8 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
   imageProfile: {
-    width: 80,
-    height: 80,
+    width: 70,
+    height: 70,
     borderRadius: 40
   },
   flexDirectionRow: {
@@ -167,8 +186,8 @@ const styles = StyleSheet.create({
   },
   viewMenu: {
     flexDirection: 'row',
-    paddingLeft: 15,
-    paddingRight: 15
+    paddingLeft: 5,
+    paddingRight: 5
   },
   viewBoxMenu: {
     flex: 0.25,
@@ -181,8 +200,8 @@ const styles = StyleSheet.create({
     padding: 10
   },
   imageIcon: {
-    width: 30,
-    height: 30
+    width: 35,
+    height: 35
   },
   txtMenu: {
     textAlign: 'center',
@@ -191,11 +210,17 @@ const styles = StyleSheet.create({
   },
   viewRecent: {
     paddingLeft: 10,
-    paddingRight: 20,
+    paddingRight: 10,
     paddingBottom: 20,
     paddingTop: 20
   },
   txtRecent: {
+    fontWeight: 'bold',
+    paddingLeft: 0,
+    paddingBottom: 10,
+    fontSize: 16
+  },
+  txtMenuTitle: {
     fontWeight: 'bold',
     paddingLeft: 10,
     paddingBottom: 10,
