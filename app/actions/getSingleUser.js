@@ -17,7 +17,7 @@ export const fetchSingleUser = (id, accessToken) => {
 			})
 			const data = await response.json()
 			console.log('fetch single user: ', data)
-			await dispatch(receiveSingleUser(data.data))
+			await dispatch(receiveSingleUser(data.data[0]))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_SINGLE_USER'))
       		await dispatch(setLoading(false, 'LOADING_FETCH_SINGLE_USER'))
 		} catch (e) {

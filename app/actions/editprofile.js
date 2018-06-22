@@ -1,7 +1,7 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { API_SERVER_USER } from '../env'
 
-export const editName = (id, data, accessToken) => {
+export const editName = (id, first_name, last_name, accessToken) => {
 	return async dispatch => {
 		console.log('accestoken: ', accessToken)
 		await dispatch(setLoading(true, 'LOADING_EDIT_NAME'))
@@ -14,8 +14,8 @@ export const editName = (id, data, accessToken) => {
                     Authorization: accessToken
                 },
                 body: JSON.stringify({
-                    first_name: data.first_name,
-                    last_name: data.last_name
+                    first_name,
+                    last_name
                 })
 			})
 			const data = await response.json()
@@ -58,7 +58,7 @@ export const editEmail = (id, data, accessToken) => {
 	}
 }
 
-export const editPassword = (id, data, accessToken) => {
+export const editPassword = (id, old_password, new_password, accessToken) => {
 	return async dispatch => {
 		console.log('accestoken: ', accessToken)
 		await dispatch(setLoading(true, 'LOADING_EDIT_PASSWORD'))
@@ -71,8 +71,8 @@ export const editPassword = (id, data, accessToken) => {
                     Authorization: accessToken
                 },
                 body: JSON.stringify({
-                    old_password: data.old_password,
-                    new_password: data.new_password
+                    old_password,
+                    new_password
                 })
 			})
 			const data = await response.json()

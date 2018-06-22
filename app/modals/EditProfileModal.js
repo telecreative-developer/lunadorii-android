@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { Content, Item, Input, Icon, Label, Form, Button } from 'native-base'
-import DatePicker from 'react-native-datepicker'
+import { Container, Content, Item, Input, Icon, Label, Form, Button } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 
 const EditProfileModal = (props) => (
@@ -28,39 +27,15 @@ const EditProfileModal = (props) => (
       <Form>
         <Label style={styles.labels}>First Name</Label>
         <Item regular style={styles.items}>
-          <Input value={props.first_name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeFirstName} />
+          <Input value={props.firstName} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeFirstName} />
         </Item>
         <Label style={styles.labels}>Last Name</Label>
         <Item regular style={styles.items}>
-          <Input value={props.last_name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeLastName} />
+          <Input value={props.lastName} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeLastName} />
         </Item>
         <Label style={styles.labels}>Birth Date</Label>
         <Item regular style={styles.items}>
-          <DatePicker
-            style={{ width: 100, borderWidth: 0}}
-            date={props.birthDate}
-            mode="date"
-            placeholder="Birth Date"
-            format="YYYY/MM/DD"
-            minDate="1960-01-01"
-            maxDate="2018-12-30"
-            confirmBtnText="Confirm"
-            cancelBtnText="Cancel"
-            customStyles={{
-              dateIcon: {
-                width: 0,
-                height: 0
-              },
-              dateInput: {
-                borderWidth: 0
-              },
-              placeholderText: {
-                color: "#CDCDCD",
-                fontSize: 12
-              }
-            }}
-            onDateChange={props.onChangeBirthDate}
-          />
+          <Input placeholder={props.birthDate} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeBirthDate} />
         </Item>
       </Form>
     </Content>

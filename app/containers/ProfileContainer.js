@@ -3,7 +3,7 @@ import Profile from '../components/Profile'
 import RecentOrders from '../particles/RecentOrders'
 import {connect} from 'react-redux'
 import { fetchSingleUser } from '../actions/getSingleUser'
-
+import { editName } from '../actions/editprofile'
 
 const dataRecentOrders = [
   {
@@ -39,6 +39,7 @@ class ProfileContainer extends Component {
     imageProfile: 'https://avatars0.githubusercontent.com/u/38149346?s=400&u=7db8195dd7b4436cbf6d0575915ca6b198d116cc&v=4',
     firstName: 'Muhammad Isa Wijaya',
     lastName: 'Kusuma',
+    email: 'hyperspace018@gmail.com',
     birthDate: '17/11/1999'
   }
 
@@ -47,16 +48,22 @@ class ProfileContainer extends Component {
   }
 
   handleSaveEditProfile() {
+    this.props.editName(6, this.state.firstName, this.state.lastName, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6InVzZXIiLCJpYXQiOjE1Mjk2NTUyODMsImV4cCI6MTUzMDI2MDA4MywiaXNzIjoiaHR0cHM6Ly9naXRodWIuY29tL2tldmluaGVybWF3YW4iLCJzdWIiOiJsdW5hZG9yaWkifQ.DIQ6yH4qU_8oUAo7263CYkDklsCer2I2WLbaF_xHzAs')
     this.props.navigation.goBack()
     alert("Profile Saved")
   }
 
-  componentDidMount(){
-    this.props.fetchSingleUser(6, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6InVzZXIiLCJpYXQiOjE1Mjk2MzkzNTAsImV4cCI6MTUzMDI0NDE1MCwiaXNzIjoiaHR0cHM6Ly9naXRodWIuY29tL2tldmluaGVybWF3YW4iLCJzdWIiOiJsdW5hZG9yaWkifQ.JeuK6pwMDokmtIEyJJClG8FSWo0kL2gMs_bC9PIX1BE')
+  async componentDidMount(){
+    await this.props.fetchSingleUser(6, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6InVzZXIiLCJpYXQiOjE1Mjk2NTUyODMsImV4cCI6MTUzMDI2MDA4MywiaXNzIjoiaHR0cHM6Ly9naXRodWIuY29tL2tldmluaGVybWF3YW4iLCJzdWIiOiJsdW5hZG9yaWkifQ.DIQ6yH4qU_8oUAo7263CYkDklsCer2I2WLbaF_xHzAs')
+    await this.setState({
+      firstName: this.props.getsingleuser.first_name,
+      lastName : this.props.getsingleuser.last_name,      
+    })
   }
 
   render() {
-    console.log(this.props.getsingleuser)
+    console.log('state',this.state.firstName)
+    console.log('prop', this.props.getsingleuser.first_name)
     return (
       <Profile
         dataRecentOrders={dataRecentOrders}
@@ -73,7 +80,7 @@ class ProfileContainer extends Component {
         toggleModalEditProfile={() => this.toggleModalEditProfile()}
         modalVisibleEditProfile={this.state.modalVisibleEditProfile}
 
-        profile={this.props.getsingleuser}
+        profile={this.state}
         onChangeFirstName={(firstName) => this.setState({ firstName })}
         onChangeLastName={(lastName) => this.setState({ lastName })}
         onChangeBirthDate={(birthDate) => this.setState({ birthDate })}
@@ -96,6 +103,7 @@ class ProfileContainer extends Component {
 const mapDispatchToProps = (dispatch) =>{
   return{
     fetchSingleUser: (id, accessToken) => dispatch(fetchSingleUser(id, accessToken)),
+    editName: (id, firstName, lastName, accessToken) => dispatch(editName(id, firstName, lastName, accessToken))
   }
 }
 
