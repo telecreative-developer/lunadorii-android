@@ -2,6 +2,7 @@ import React from 'react'
 import { StyleSheet, View, Image, TouchableOpacity, Text, StatusBar } from 'react-native'
 import { Container, Content, Icon, Button, Footer, Form, Label, Item, Input } from 'native-base'
 import PropTypes from 'prop-types'
+import { login } from '../actions/login'
 
 const Login = (props) => (
   <Container style={styles.backgroundColorWhite}>
@@ -16,11 +17,21 @@ const Login = (props) => (
         <View>
           <Form>
             <Item regular style={styles.item}>
-              <Input placeholder="Email Address" placeholderTextColor="#ccc" style={{marginLeft: 5}}/>
+              <Input 
+                placeholder="You email address" 
+                placeholderTextColor="#ccc"
+                value={props.valueEmail}
+                onChangeText={props.onChangeEmail}
+              />
             </Item>
             <Item regular style={styles.item}>
-              <Input placeholder="Password" placeholderTextColor="#ccc" secureTextEntry={props.passwordFieldVisibility} style={{marginLeft: 5}}/>
-              <Icon type="Entypo" name={props.passwordFieldVisibility ? "eye-with-line" : "eye"} onPress={props.togglePasswordFieldVisibility} style={{color: '#ccc', fontSize: 18, marginRight: 5}}/>
+              <Input 
+                placeholder="Password" 
+                placeholderTextColor="#ccc" 
+                secureTextEntry 
+                value={props.valuePassword}
+                onChangeText={props.onChangePassword}
+              />
             </Item>
             <View style={{marginBottom: 30}}>
               <TouchableOpacity>
@@ -29,9 +40,7 @@ const Login = (props) => (
             </View>
           </Form>
           <View style={styles.registerButtonWrapper}>
-            <Button full style={styles.registerButtonStyle}>
-              <Text style={styles.registerTextButton}>Login</Text>
-            </Button>
+            {props.renderButtons}
           </View>
         </View>
       </View>
@@ -53,6 +62,14 @@ const Login = (props) => (
     </Content>
   </Container>
 )
+
+Login.propTypes = {
+  valueEmail: PropTypes.string,
+  valuePassword: PropTypes.string,
+  onChangeEmail: PropTypes.func,
+  onChangePassword: PropTypes.func,
+  navigateToRegister: PropTypes.func
+}
 
 export default Login
 
