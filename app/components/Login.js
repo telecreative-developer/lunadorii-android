@@ -16,7 +16,6 @@ const Login = (props) => (
         </View>
         <View>
           <Form>
-            <Label style={styles.txtLabel}>Email</Label>
             <Item regular style={styles.item}>
               <Input 
                 placeholder="You email address" 
@@ -25,7 +24,6 @@ const Login = (props) => (
                 onChangeText={props.onChangeEmail}
               />
             </Item>
-            <Label style={styles.txtLabel}>Password</Label>
             <Item regular style={styles.item}>
               <Input 
                 placeholder="Password" 
@@ -35,17 +33,31 @@ const Login = (props) => (
                 onChangeText={props.onChangePassword}
               />
             </Item>
+            <View style={{marginBottom: 30}}>
+              <TouchableOpacity>
+                <Text style={{alignSelf: 'flex-end', color:'#d11e48'}}>Forget Password?</Text>
+              </TouchableOpacity>
+            </View>
           </Form>
           <View style={styles.registerButtonWrapper}>
             {props.renderButtons}
           </View>
-          <View style={styles.informationWrapper}>
-            <Text style={styles.alignSelfCenter}>Doesn't have account?</Text>
-            <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToRegister}>
-              <Text style={styles.registerNowColor}> Register Now</Text>
+        </View>
+      </View>
+      <View style={{paddingBottom: 10, paddingTop: 45, paddingLeft: 45, paddingRight: 45}}>
+        <View style={{borderTopColor: "#979797", borderTopWidth: 1.2, borderBottomColor: "#979797", borderBottomWidth: 1.2}}>
+          <View style={styles.informationWrapper1}>
+            <TouchableOpacity style={styles.alignSelfCenter1} onPress={props.navigateToRegister}>
+              <Icon type="Entypo" name="facebook" style={{color:"#3B5998"}}/><Text style={{color:"#3B5998"}}>Log in With Facebook</Text>
             </TouchableOpacity>
           </View>
         </View>
+      </View>
+      <View style={styles.informationWrapper2}>
+        <Text style={styles.alignSelfCenter}>Don't have account?</Text>
+        <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToRegister}>
+          <Text style={styles.registerNowColor}> Sign Up</Text>
+        </TouchableOpacity>
       </View>
     </Content>
   </Container>
@@ -63,15 +75,16 @@ export default Login
 
 const styles = StyleSheet.create({
   logoImage: {
-    marginTop: 20,
-    marginBottom: 50,
+    marginTop: 60,
+    marginBottom: 40,
     height: 70,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
   },
   wrapper:{
-    padding: 20
+    paddingLeft: 45,
+    paddingRight: 45
   },
   logoSize:{
     width: 250, 
@@ -82,19 +95,34 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
   registerButtonStyle:{
-    borderRadius: 5, 
+    height: 50,
+    borderRadius: 10, 
     backgroundColor: '#d11e48'
   },
   registerTextButton:{
     color: '#fff', 
     fontSize: 18 
   },
-  informationWrapper:{
+  informationWrapper2:{
+    marginBottom: 15,
     flexDirection: 'row', 
     justifyContent: 'center'
   },
+  informationWrapper1:{
+    marginTop: 40,
+    marginBottom: 30,
+  },
+  alignSelfCenter1:{
+    marginLeft: 40,
+    marginRight: 40,
+    alignItems: 'center',
+    flexDirection: 'row', 
+    justifyContent: 'space-evenly'
+  },
   alignSelfCenter:{
-    alignSelf: 'center'
+    alignItems: 'center',
+    flexDirection: 'row', 
+    justifyContent: 'space-evenly'
   },
   registerNowColor:{
     color: '#d11e48'
@@ -108,8 +136,10 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
   item: {
-    marginBottom: 10,
-    borderRadius: 5,
-    height: 40
+    borderColor: '#979797',
+    backgroundColor: '#f6f6f6',
+    marginBottom: 20,
+    borderRadius: 10,
+    height: 50
   },
 })

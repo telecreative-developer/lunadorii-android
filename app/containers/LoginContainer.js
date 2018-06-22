@@ -16,8 +16,13 @@ class LoginContainer extends Component {
 
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      passwordFieldVisibility: true,
     }
+  }
+
+  togglePasswordFieldVisibility(){
+    this.setState({passwordFieldVisibility: !this.state.passwordFieldVisibility})
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -105,7 +110,9 @@ class LoginContainer extends Component {
         valuePassword={this.state.password}
         onChangeEmail={(email) => this.setState({email})}
         onChangePassword={(password) => this.setState({password})}
-        renderButtons={this.renderButtons()}  
+        renderButtons={this.renderButtons()}
+        passwordFieldVisibility={this.state.passwordFieldVisibility}
+        togglePasswordFieldVisibility={() => this.togglePasswordFieldVisibility()} 
       />
     )
   }

@@ -23,6 +23,7 @@ const AppNavigator = StackNavigator(
   {    
     LoginContainer: { screen: LoginContainer },
     HomeContainer: { screen: HomeContainer },
+    RegisterContainer: { screen: RegisterContainer },
     SplashScreenContainer: { screen: SplashScreenContainer },
     SettingsContainer: { screen: SettingsContainer },
     ProfileContainer: { screen: ProfileContainer },
