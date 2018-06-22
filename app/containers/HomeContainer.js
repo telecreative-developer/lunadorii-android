@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, View, Text, Image } from 'react-native'
+import { Dimensions, View, Text, Image, StyleSheet } from 'react-native'
 import Home from '../components/Home'
 import Product from '../particles/Product'
 import Brand from '../particles/Brand'
@@ -20,159 +20,12 @@ import { fetchProduct } from '../actions/product'
 import { fetchBanners } from '../actions/banners'
 import { fetchProductSubcategories } from '../actions/productsubcategories'
 
-const categories = [
-  {
-    title: 'Skincare',
-    icon: imageSkinCare
-  },
-  {
-    title: 'Makeup',
-    icon: imageMakeUp
-  },
-  {
-    title: 'Nails',
-    icon: imageNails
-  },
-  {
-    title: 'Tool & Brushes',
-    icon: imageToolBrushes
-  },
-  {
-    title: 'More',
-    icon: imageMore
-  },
-]
-
-const dataBrand = [
-  {
-    image: 'http://logok.org/wp-content/uploads/2014/07/Olay-Logo-Black.png',
-  },
-  {
-    image: 'http://www.freelarge-images.com/wp-content/uploads/2014/11/Givenchy_logo-3.png',
-  },
-  {
-    image: 'http://www.logomarket.de/images/P/Susanne_004.jpg',
-  },
-]
-
-const dataProduct = [
-  {
-    index: 0,
-    image: 'https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg',
-    title: 'Paket tools',
-    categories: 'Tools & Brushes',
-    price: '150000',
-    star: 3,
-    descriptions: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum. Nulla et velit at quam elementum sodales. Donec iaculis, urnavel lobortis auctor, nisl elit viverra quam, eget imperdiet metus lacus quis nisl.",
-    productDetails: "Tools & Brushes sangat berkualitas",
-    guide: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum.",
-    reviews: [
-      {
-        user: 'Riska Octaviani',
-        reviews: 'Brush nya lembut saya suka',
-        date: '5',
-        rating: 4
-      },
-      {
-        user: 'Tri Adinda Lestari',
-        reviews: 'Gak rugi beli product ini :D',
-        date: '2',
-        rating: 4
-      },
-      {
-        user: 'Rina Lee',
-        reviews: 'Pesanan lama sampai :(',
-        date: '5',
-        rating: 3
-      },
-    ]
-  },
-  {
-    index: 1,
-    image: 'https://www.wanista.com/wp-content/uploads/2013/10/Modbox-Product-Line-Up2.png',
-    title: 'Paket Modbox',
-    categories: 'Skincare',
-    price: '1200000',
-    star: 5,
-    descriptions: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum. Nulla et velit at quam elementum sodales. Donec iaculis, urnavel lobortis auctor, nisl elit viverra quam, eget imperdiet metus lacus quis nisl.",
-    productDetails: "Skincare sangat berkualitas",
-    guide: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum.",
-    reviews: [
-      {
-        user: 'Lena Margaretha',
-        reviews: 'Skincare nya nyaman untuk wajah',
-        date: '1',
-        rating: 5
-      },
-      {
-        user: 'Regina Sari',
-        reviews: 'Baru pertama kali saya beli di sini, Ternyata bagus',
-        date: '6',
-        rating: 4
-      },
-    ]
-  },
-  {
-    index: 2,
-    image: 'http://www.forgotteninvasion.com/wp-content/uploads/2017/12/1200x800_0_0_1200_800_be71c6e15ae8c6f7bfd6e935b0ab5fcc3c2f98d3.jpg',
-    title: 'Benefiets Cosmetics',
-    categories: 'Benefiets Cosmetics, and others',
-    price: '520,009',
-    star: 4
-  },
-]
-
-const dataRecommend = [
-  {
-    image: 'https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg',
-    title: 'Benefiets Cosmetics',
-    categories: 'Benefiets Cosmetics, and others',
-    price: '120000',
-    star: 3,
-    reviews: '2.0'
-  },
-  {
-    image: 'https://www.wanista.com/wp-content/uploads/2013/10/Modbox-Product-Line-Up2.png',
-    title: 'Benefiets Cosmetics',
-    categories: 'Benefiets Cosmetics, and others',
-    price: '1200000',
-    star: 5,
-    reviews: '4.8'
-  },
-  {
-    image: 'http://www.forgotteninvasion.com/wp-content/uploads/2017/12/1200x800_0_0_1200_800_be71c6e15ae8c6f7bfd6e935b0ab5fcc3c2f98d3.jpg',
-    title: 'Benefiets Cosmetics',
-    categories: 'Benefiets Cosmetics, and others',
-    price: '520,001',
-    reviews: '3.6'
-  },
-]
-
-
-const dataCategories = [
-  {
-    image: 'https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg',
-    title: 'Nails',
-    total: '122'
-  },
-  {
-    image: 'https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg',
-    title: 'Skincare',
-    total: '31'
-  },
-  {
-    image: 'https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg',
-    title: 'Makeup',
-    total: '80'
-  },
-  {
-    image: 'https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg',
-    title: 'Tools & Brushes',
-    total: '20'
-  },
-]
 
 const { width, height } = Dimensions.get('window')
+
+const bannerWidth = Dimensions.get('window').width
+
+const bannerHeight = height / 2.8
 class HomeContainer extends Component {
   constructor(props) {
     super(props);
@@ -190,25 +43,21 @@ class HomeContainer extends Component {
 
   }
 
+  renderBanners(banner, index) {
+    return (
+      <View key={index} style={styles.banner}>
+        <Image style={styles.bannerImage} source={{ uri: banner.thumbnail_url }} />
+      </View>
+    )
+  }
+
   render() {
+    const { banners } = this.props
     return (
       <Home
         size={this.state.size}
-       
-        dataBanners={[
-          {
-            image: 'https://i1.wp.com/3.bp.blogspot.com/-0z5ul05Ic6c/Vn6eCJJwuRI/AAAAAAAAMpY/PaTwKnYMsqI/s1600/produk%2Bkecantikan%2Bephyra%2Bskin%2Bbar.jpg?w=1140&ssl=1'
-          },
-          {
-            image: 'https://i1.wp.com/3.bp.blogspot.com/-0z5ul05Ic6c/Vn6eCJJwuRI/AAAAAAAAMpY/PaTwKnYMsqI/s1600/produk%2Bkecantikan%2Bephyra%2Bskin%2Bbar.jpg?w=1140&ssl=1'
-          },
-          {
-            image: 'https://i1.wp.com/3.bp.blogspot.com/-0z5ul05Ic6c/Vn6eCJJwuRI/AAAAAAAAMpY/PaTwKnYMsqI/s1600/produk%2Bkecantikan%2Bephyra%2Bskin%2Bbar.jpg?w=1140&ssl=1'
-          },
-          {
-            image: 'https://i1.wp.com/3.bp.blogspot.com/-0z5ul05Ic6c/Vn6eCJJwuRI/AAAAAAAAMpY/PaTwKnYMsqI/s1600/produk%2Bkecantikan%2Bephyra%2Bskin%2Bbar.jpg?w=1140&ssl=1'
-          }
-        ]}
+
+        banners={banners.map((banner, index) => this.renderBanners(banner, index))}
 
         dataBrand={this.props.brandsproduct}
         renderBrand={({ item }) => (
@@ -218,7 +67,7 @@ class HomeContainer extends Component {
         dataCategoriesButton={this.props.categoryproduct}
         renderCategoriesButton={({ item }) => (
           
-          <Categories title={item.category} icon={item.subcategories[0].thumbnail} />
+          <Categories title={item.category} icon={item.subcategories[0].thumbnail_url} />
         )}
 
         dataRecommend={this.props.product}
@@ -246,6 +95,40 @@ class HomeContainer extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  banner: {
+    backgroundColor: '#000'
+  },
+  item: {
+    backgroundColor: '#fff',
+    borderRadius: 5,
+    alignItems: 'center',
+    justifyContent: 'center',
+    flex: 1,
+    margin: 5,
+    height: height / 6
+  },
+  itemText: {
+    fontSize: 10,
+    textAlign: 'center'
+  },
+  bannerImage: {
+    width: bannerWidth,
+    height: bannerHeight,
+    opacity: 0.6
+  },
+  menuBoxIcon: {
+    width: 50,
+    height: 50,
+    marginBottom: 10
+  },
+  icon: {
+    fontSize: 14,
+    color: '#2f2f4f',
+    marginRight: 0
+  }
+})
 
 const mapDispatchToProps = (dispatch) =>{
   return{
