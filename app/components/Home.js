@@ -4,11 +4,6 @@ import { Container, Tabs, Tab, TabHeading, Icon, Content } from 'native-base'
 import NavbarHome from '../particles/NavbarHome'
 import Carousel from 'react-native-looped-carousel'
 import imageCover from '../assets/images/cover/cover.jpg'
-import imageSkinCare from '../assets/images/icon/skincare.png'
-import imageMakeUp from '../assets/images/icon/makeup.png'
-import imageNails from '../assets/images/icon/nails.png'
-import imageToolBrushes from '../assets/images/icon/tools-brushes.png'
-import imageMore from '../assets/images/icon/more.png'
 
 const { width, height } = Dimensions.get('window')
 const Home = (props) => (
@@ -45,46 +40,10 @@ const Home = (props) => (
           <View>
             <Text style={styles.txtCategories}>Category</Text>
             <View style={styles.viewWrapperCategories}>
-              <View style={styles.flexOnly2}>
-                <TouchableOpacity onPress={() => alert("Skincare")}>
-                  <View style={styles.viewCategories}>
-                    <Image source={imageSkinCare} style={styles.imageCategories} />
-                  </View>
-                </TouchableOpacity>
-                <Text style={styles.titleCategories}>Skincare</Text>
-              </View>
-              <View style={styles.flexOnly2}>
-                <TouchableOpacity onPress={() => alert("Makeup")}>
-                  <View style={styles.viewCategories}>
-                    <Image source={imageMakeUp} style={styles.imageCategories} />
-                  </View>
-                </TouchableOpacity>
-                <Text style={styles.titleCategories}>Makeup</Text>
-              </View>
-              <View style={styles.flexOnly2}>
-                <TouchableOpacity onPress={() => alert("Tools & Brushes")}>
-                  <View style={styles.viewCategories}>
-                    <Image source={imageToolBrushes} style={styles.imageCategories} />
-                  </View>
-                </TouchableOpacity>
-                <Text style={styles.titleCategories}>Tools & Brushes</Text>
-              </View>
-              <View style={styles.flexOnly2}>
-                <TouchableOpacity onPress={() => alert("Nails")}>
-                  <View style={styles.viewCategories}>
-                    <Image source={imageNails} style={styles.imageCategories} />
-                  </View>
-                </TouchableOpacity>
-                <Text style={styles.titleCategories}>Nails</Text>
-              </View>
-              <View style={styles.flexOnly2}>
-                <TouchableOpacity onPress={() => alert("More")}>
-                  <View style={styles.viewCategories}>
-                    <Image source={imageMore} style={styles.imageCategories} />
-                  </View>
-                </TouchableOpacity>
-                <Text style={styles.titleCategories}>More</Text>
-              </View>
+              <FlatList
+                numColumns={5}
+                data={props.dataCategoriesButton}
+                renderItem={props.renderCategoriesButton} />
             </View>
           </View>
           <View style={styles.viewBrand}>
@@ -193,9 +152,6 @@ const styles = StyleSheet.create({
     paddingLeft: 20,
     paddingTop: 10
   },
-  flexOnly2: {
-    flex: 0.25
-  },
   viewArrivals: {
     paddingLeft: 20,
     marginTop: 10
@@ -204,28 +160,6 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     paddingTop: 10
   },
-  viewCategories: {
-    borderWidth: 1,
-    borderColor: '#e2e2e2',
-    height: 60,
-    width: 60,
-    borderRadius: 60 / 2,
-    alignSelf: 'center'
-  },
-  imageCategories: {
-    width: 30,
-    height: 30,
-    alignSelf: 'center',
-    justifyContent: 'center',
-    marginTop: 10,
-    resizeMode: 'contain'
-  },
-  titleCategories: {
-    textAlign: 'center',
-    color: '#da4365',
-    fontSize: 12,
-    marginTop: 5
-  }
 })
 
 export default Home

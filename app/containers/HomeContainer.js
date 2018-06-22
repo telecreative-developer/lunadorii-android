@@ -5,6 +5,42 @@ import Product from '../particles/Product'
 import Brand from '../particles/Brand'
 import RecommendProduct from '../particles/RecommendProduct'
 import BestCategories from '../particles/BestCategories'
+import Categories from '../particles/Categories'
+
+import imageSkinCare from '../assets/images/icon/skincare.png'
+import imageMakeUp from '../assets/images/icon/makeup.png'
+import imageNails from '../assets/images/icon/nails.png'
+import imageToolBrushes from '../assets/images/icon/tools-brushes.png'
+import imageMore from '../assets/images/icon/more.png'
+
+const categories = [
+  {
+    title: 'Skincare',
+    icon: imageSkinCare
+  },
+  {
+    title: 'Makeup',
+    icon: imageMakeUp
+  },
+  {
+    title: 'Nails',
+    icon: imageNails
+  },
+  {
+    title: 'Tool & Brushes',
+    icon: imageToolBrushes
+  },
+  {
+    title: 'More',
+    icon: imageMore
+  },
+]
+
+
+import { connect } from 'react-redux'
+import { fetchCategoryProduct } from '../actions/categoryproduct'
+import { fetchBrandsProduct } from '../actions/brandsproduct'
+import { fetchProduct } from '../actions/product'
 
 
 import {connect} from 'react-redux'
@@ -167,10 +203,9 @@ class HomeContainer extends Component {
           <Brand image={item.logo_url} />
         )}
 
-        dataProduct={this.props.product}
-        renderProduct={({ item }) => (
-          <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate}
-          />
+        dataCategoriesButton={categories}
+        renderCategoriesButton={({ item }) => (
+          <Categories title={item.title} icon={item.icon} />
         )}
 
         dataRecommend={dataRecommend}
@@ -190,6 +225,7 @@ class HomeContainer extends Component {
           <BestCategories image={item.image} title={item.title} total={item.total}
           />
         )}
+
         navigateToYourCart={() => this.props.navigation.navigate("YourCartContainer")}
         navigateToProfile={() => this.props.navigation.navigate('ProfileContainer')}
         navigateToSearch={() => this.props.navigation.navigate("SearchContainer")}
