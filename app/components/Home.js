@@ -27,15 +27,13 @@ const Home = (props) => (
             bulletStyle={styles.carouselBulletStyle}
             // onAnimateNextPage={(p) => console.log(p)}
           >
-            <View style={[props.size]}>
-              <Image source={imageCover} style={styles.imageAds} />
-            </View>
-            <View style={[props.size]}>
-              <Image source={{ uri: "https://i1.wp.com/3.bp.blogspot.com/-0z5ul05Ic6c/Vn6eCJJwuRI/AAAAAAAAMpY/PaTwKnYMsqI/s1600/produk%2Bkecantikan%2Bephyra%2Bskin%2Bbar.jpg?w=1140&ssl=1" }} style={styles.imageAds} />
-            </View>
-            <View style={[props.size]}>
-              <Image source={imageCover} style={styles.imageAds} />
-            </View>
+            {props.dataBanners.map((data) => {
+              return (
+                <View>
+                  <Image source={{ uri: props.image }} style={styles.imageAds}/>
+                </View>
+              )
+            })}
           </Carousel>
           <View>
             <Text style={styles.txtCategories}>Category</Text>
