@@ -37,7 +37,7 @@ const AppNavigator = StackNavigator(
     YourCartContainer: { screen: YourCartContainer },
     PurchaseHistoryContainer: { screen: PurchaseHistoryContainer },
     ProductShowContainer: { screen: ProductShowContainer},
-    RegisterContainer: { screen: RegisterContainer },
+    // RegisterContainer: { screen: RegisterContainer },
     SearchContainer: { screen: SearchContainer },
     PrivacyPolicyContainer: { screen: PrivacyPolicyContainer },
     WishlistContainer: { screen: WishlistContainer },
