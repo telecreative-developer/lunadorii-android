@@ -7,20 +7,31 @@ import { connect } from 'react-redux'
 
 class ProductShowContainer extends Component {
 
+  constructor(){
+    super()
+    this.state = {
+      image: '',
+      data: {},
+      subcategories: ''
+    }
+  }
+
   componentDidMount() {
     const data = this.props.navigation.state.params.data
-    console.log('data: ', data.thumbnails)
+    console.log('dataimage: ', data.thumbnails)
     this.setState({ 
       data,
-      image: data.thumbnails[0].thumbnail_url
+      image: data.thumbnails[0].thumbnail_url,
+      subcategories: data.subcategories[0].subcategory      
     })
+    console.log('datacategories: ', data.subcategories[0].subcategory)
     this.props.fetchProduct('123')
   }
 
-
-  state = {
-    image: '',
-    data: {}
+  addqty(){
+    this.setState({
+      qty: this.state.qty + 1
+    })
   }
 
   render() {
@@ -28,12 +39,14 @@ class ProductShowContainer extends Component {
       <ProductShow
         image={this.state.image}
         title={this.state.data.product}
-        categories={this.state.data.categories}
+        categories={this.state.subcategories}
         price={this.state.data.price}
         star={this.state.data.product_rate}
         descriptions={this.state.data.description}
         productDetails={this.state.data.detail}
         guide={this.state.data.to_use}
+        qty={this.state.qty}
+        addqty={() => this.addqty()}
 
         dateRelatedProducts={this.props.product}
         renderRelatedProducts={({ item }) => (

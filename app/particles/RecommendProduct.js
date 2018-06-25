@@ -5,36 +5,38 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 const RecommendProduct = (props) => (
   <View style={styles.viewRecommend}>
-    <Image source={{uri: props.image}} style={styles.image}/> 
-    <View style={styles.viewWrapper}>
-      <Text style={styles.txtTitle}>{props.title}</Text>
-      <Text style={styles.txtCategories}>{props.categories}</Text>
-      <View style={styles.viewFlexRow}>
-        <View style={styles.viewRating}>
-          <Rating
-            type='custom'
-            ratingCount={5}
-            startingValue={props.star}
-            imageSize={12}
-            ratingColor="#000"
-            ratingBackgroundColor="#ccc"
-          />
+    <TouchableOpacity onPress={props.action}>
+      <Image source={{uri: props.image}} style={styles.image}/> 
+      <View style={styles.viewWrapper}>
+        <Text style={styles.txtTitle}>{props.title}</Text>
+        <Text style={styles.txtCategories}>{props.categories}</Text>
+        <View style={styles.viewFlexRow}>
+          <View style={styles.viewRating}>
+            <Rating
+              type='custom'
+              ratingCount={5}
+              startingValue={props.star}
+              imageSize={12}
+              ratingColor="#000"
+              ratingBackgroundColor="#ccc"
+            />
+          </View>
+          <View>
+            <Text style={styles.txtReviews}>{props.reviews} Reviews</Text>
+          </View>
         </View>
-        <View>
-          <Text style={styles.txtReviews}>{props.reviews} Reviews</Text>
+        <View style={styles.viewFooterProduct}>
+          <View>
+            <TouchableOpacity style={styles.touchableOpacity}>
+              <Text style={styles.txtCart}><MaterialCommunityIcons name='cart' /> Add to cart</Text>
+            </TouchableOpacity>
+          </View>
+          <View>
+            <Text style={styles.txtPrice}>Rp. {props.price}</Text>
+          </View>
         </View>
       </View>
-      <View style={styles.viewFooterProduct}>
-        <View>
-          <TouchableOpacity style={styles.touchableOpacity}>
-            <Text style={styles.txtCart}><MaterialCommunityIcons name='cart' /> Add to cart</Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <Text style={styles.txtPrice}>Rp. {props.price}</Text>
-        </View>
-      </View>
-    </View>
+     </TouchableOpacity>
   </View>
 )
 const styles = StyleSheet.create({
