@@ -1,4 +1,5 @@
 import { setLoading, setFailed, setSuccess } from './processor'
+import { RECEIVE_EDIT_PASSWORD } from '../constants'
 import { API_SERVER_USER } from '../env'
 
 export const editName = (id, first_name, last_name, accessToken) => {
@@ -77,6 +78,7 @@ export const editPassword = (id, old_password, new_password, accessToken) => {
 			})
 			const data = await response.json()
 			console.log('editPassword: ', data)
+			await dispatch(receiveResultPassword(data))
 			await dispatch(setSuccess(true, 'SUCCESS_EDIT_PASSWORD'))
       		await dispatch(setLoading(false, 'LOADING_EDIT_PASSWORD'))
 		} catch (e) {
@@ -84,5 +86,12 @@ export const editPassword = (id, old_password, new_password, accessToken) => {
 			dispatch(setFailed(true, 'FAILED_EDIT_PASSWORD', e))
 			dispatch(setLoading(false, 'LOADING_EDIT_PASSWORD'))
 		}
+	}
+}
+
+const receiveResultPassword = data => {
+	return{
+		type: RECEIVE_EDIT_PASSWORD,
+		payload: data
 	}
 }

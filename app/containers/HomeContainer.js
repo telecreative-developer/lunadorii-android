@@ -7,12 +7,6 @@ import RecommendProduct from '../particles/RecommendProduct'
 import BestCategories from '../particles/BestCategories'
 import Categories from '../particles/Categories'
 
-import imageSkinCare from '../assets/images/icon/skincare.png'
-import imageMakeUp from '../assets/images/icon/makeup.png'
-import imageNails from '../assets/images/icon/nails.png'
-import imageToolBrushes from '../assets/images/icon/tools-brushes.png'
-import imageMore from '../assets/images/icon/more.png'
-
 import { connect } from 'react-redux'
 import { fetchCategoryProduct } from '../actions/categoryproduct'
 import { fetchBrandsProduct } from '../actions/brandsproduct'
@@ -20,12 +14,11 @@ import { fetchProduct } from '../actions/product'
 import { fetchBanners } from '../actions/banners'
 import { fetchProductSubcategories } from '../actions/productsubcategories'
 
-
 const { width, height } = Dimensions.get('window')
 
 const bannerWidth = Dimensions.get('window').width
-
 const bannerHeight = height / 2.8
+
 class HomeContainer extends Component {
   constructor(props) {
     super(props);
@@ -35,6 +28,7 @@ class HomeContainer extends Component {
   }
 
   async componentDidMount() {
+    
     await this.props.fetchCategoryProduct('123')
     await this.props.fetchBrandsProduct('123')
     await this.props.fetchProduct('123')
@@ -67,18 +61,18 @@ class HomeContainer extends Component {
         dataCategoriesButton={this.props.categoryproduct}
         renderCategoriesButton={({ item }) => (
           
-          <Categories title={item.category} icon={item.subcategories[0].thumbnail_url} />
+          <Categories title={item.subcategory} icon={item.thumbnail_url} />
         )}
 
         dataRecommend={this.props.product}
         renderRecommend={({ item }) => (
-          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate}
+          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
           />
         )}
 
         dataProduct={this.props.product}
         renderProduct={({ item }) => (
-          <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+          <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
           />
         )}
 

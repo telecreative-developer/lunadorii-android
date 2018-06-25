@@ -37,8 +37,8 @@ class ProfileContainer extends Component {
   state = {
     modalVisibleEditProfile: false,
     imageProfile: 'https://avatars0.githubusercontent.com/u/38149346?s=400&u=7db8195dd7b4436cbf6d0575915ca6b198d116cc&v=4',
-    firstName: 'Muhammad Isa Wijaya',
-    lastName: 'Kusuma',
+    firstName: '',
+    lastName: '',
     email: 'hyperspace018@gmail.com',
     birthDate: '17/11/1999'
   }
