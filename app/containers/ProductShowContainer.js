@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import ProductShow from '../components/ProductShow'
-import Product from '../particles/Product'
+import RecommendProduct from '../particles/RecommendProduct'
 import CommentAndRating from '../particles/CommentAndRating'
 import { fetchProduct } from '../actions/product'
 import { connect } from 'react-redux'
@@ -73,7 +73,7 @@ class ProductShowContainer extends Component {
 
         dateRelatedProducts={this.props.product}
         renderRelatedProducts={({ item }) => (
-          <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate}
+          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories.subcategory} price={item.price} star={item.product_rate}
           />
         )}
 
