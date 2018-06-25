@@ -3,6 +3,7 @@ import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-na
 import { Container, Content, Item, Input, Icon, Label, Form, Button } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 
+
 const EditProfileModal = (props) => (
   <Modal
     animationType="slide"

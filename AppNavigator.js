@@ -18,12 +18,14 @@ import SplashScreenContainer from './app/containers/SplashScreenContainer'
 import RegisterContainer from './app/containers/RegisterContainer'
 import LoginContainer from './app/containers/LoginContainer'
 import ProductShowContainer from './app/containers/ProductShowContainer'
+import RegisterIdentifyContainer from './app/containers/RegisterIdentifyContainer'
 
 const AppNavigator = StackNavigator(
   {    
     LoginContainer: { screen: LoginContainer },
     HomeContainer: { screen: HomeContainer },
     RegisterContainer: { screen: RegisterContainer },
+    RegisterIdentifyContainer: { screen: RegisterIdentifyContainer },
     SplashScreenContainer: { screen: SplashScreenContainer },
     SettingsContainer: { screen: SettingsContainer },
     ProfileContainer: { screen: ProfileContainer },
