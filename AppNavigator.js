@@ -19,9 +19,11 @@ import RegisterContainer from './app/containers/RegisterContainer'
 import LoginContainer from './app/containers/LoginContainer'
 import ProductShowContainer from './app/containers/ProductShowContainer'
 import RegisterIdentifyContainer from './app/containers/RegisterIdentifyContainer'
+import AddPhotoProfileContainer from './app/containers/AddPhotoProfileContainer'
 
 const AppNavigator = StackNavigator(
   {    
+    AddPhotoProfileContainer: { screen: AddPhotoProfileContainer },
     HomeContainer: { screen: HomeContainer },
     LoginContainer: { screen: LoginContainer },
     RegisterContainer: { screen: RegisterContainer },
@@ -42,7 +44,7 @@ const AppNavigator = StackNavigator(
     PaymentsContainer: { screen: PaymentsContainer },
     CreditCardContainer: { screen: CreditCardContainer }
   }, {
-    initialRouteName: 'ProfileContainer',
+    initialRouteName: 'AddPhotoProfileContainer',
     headerMode: 'none'
   }
 )
