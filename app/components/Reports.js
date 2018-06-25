@@ -3,7 +3,6 @@ import { View, Text, StyleSheet, StatusBar } from 'react-native'
 import { Container, Content, Button, Item, Input, Textarea } from 'native-base'
 import Navbar from '../particles/Navbar'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import CategoryModal from '../modals/CategoryModal'
 
 const Reports = (props) => (
   <Container style={styles.container}>
@@ -12,13 +11,6 @@ const Reports = (props) => (
       navbarIcon="arrow-back"
       actionIcon={props.goback}
     />
-    <CategoryModal
-      navbarTitle="Selected Category"
-      navbarIcon="close"
-      actionIcon={props.actionIcon}
-      modalVisible={props.modalVisibleCategory}
-      actionIcon={props.toggleModalCategory}
-    />
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content"
@@ -26,22 +18,24 @@ const Reports = (props) => (
     <Content>
       <View style={styles.padding}>
         <Text style={styles.label}>Name</Text>
-        <Item regular style={styles.item} onPress={props.toggleModalCategory}>
-          <Input placeholder='Your name as reporter' placeholderTextColor="#ccc" placeholderTextSize={12} />
+        <Item regular style={styles.item}>
+          <Input placeholder='Your name as reporter' value={props.name} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeName}/>
         </Item>
         <Text style={styles.label}>Email</Text>
-        <Item regular style={styles.item} onPress={props.toggleModalCategory}>
-          <Input placeholder='Your email' placeholderTextColor="#ccc" placeholderTextSize={12} />
+        <Item regular style={styles.item}>
+          <Input placeholder='Your email' value={props.email} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeEmail}/>
         </Item>
         <Text style={styles.label}>Subject</Text>
-        <Item regular style={styles.item} onPress={props.toggleModalCategory}>
-          <Input placeholder='Subject' placeholderTextColor="#ccc" placeholderTextSize={12} />
+        <Item regular style={styles.item}>
+          <Input placeholder='Subject' value={props.subject} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeSubject}/>
         </Item>
         <Text style={styles.label}>Reports</Text>
-        <Textarea rowSpan={5} bordered placeholder="Write Here.." placeholderTextColor="#ccc" style={styles.textarea} />
+        <Textarea rowSpan={5} bordered placeholder="Write Here.." value={props.reports} placeholderTextColor="#ccc" style={styles.textarea} onChangeText={props.onChangeReports}/>
       </View>
     </Content>
-    <Button full style={styles.btnSend}><Text style={styles.txtSend}>Send Reports</Text></Button>
+    <Button full style={styles.btnSend} onPress={props.handleSendReport}>
+      <Text style={styles.txtSend}>Send Reports</Text>
+    </Button>
   </Container>
 )
 
