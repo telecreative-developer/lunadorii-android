@@ -40,15 +40,15 @@ class LoginContainer extends Component {
   componentWillUpdate(nextProps) {
     const { loading, success, failed, navigation } = nextProps
     if (
-      failed.condition === true &&
+      failed.condition === false &&
       failed.process_on === 'FAILED_PROCESS_LOGIN'
     ) {
       Alert.alert('Login gagal', 'Silahkan Cek Kembali Akun Anda!')
     } else if (
       loading.condition === false &&
-      loading.process_on === 'LOADING_PROCESS_LOGIN' &&
+      loading.process_on === 'LOADING_FETCH_USER_WITH_ID' &&
       success.condition === true &&
-      success.process_on === 'SUCCESS_PROCESS_LOGIN'
+      success.process_on === 'SUCCESS_FETCH_USER_WITH_ID'
     ) {
       navigation.navigate('HomeContainer')
     }
@@ -65,7 +65,6 @@ class LoginContainer extends Component {
     console.log('Ini isi session' , data)
     if(data !== null){
       try{
-        await this.props.login(data.email, data.password)
         this.props.navigation.navigate('HomeContainer')
       }catch(e){
         alert(e)
