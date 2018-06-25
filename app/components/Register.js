@@ -46,7 +46,7 @@ const Register = (props) => (
       </View>
       <View style={styles.informationWrapper2}>
         <Text style={styles.alignSelfCenter}>Already have account?</Text>
-        <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToRegister}>
+        <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToLogin}>
           <Text style={styles.registerNowColor}> Login</Text>
         </TouchableOpacity>
       </View>

@@ -38,7 +38,9 @@ const RegisterIdentify = (props) => (
                 placeholderTextColor="#ccc" 
                 value={props.password}
                 onChangeText={props.onChangePassword}
+                secureTextEntry={props.passwordFieldVisibility}
               />
+              <Icon type="Entypo" name={props.passwordFieldVisibility ? "eye-with-line" : "eye"} style={{fontSize: 18, color:'#ccc', marginRight: 5}} onPress={props.togglePasswordFieldVisibility}/>
             </Item>
           </Form>
           <View style={styles.formRegister}>
@@ -54,7 +56,7 @@ const RegisterIdentify = (props) => (
       </View>
       <View style={styles.informationWrapper2}>
         <Text style={styles.alignSelfCenter}>Already have account?</Text>
-        <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToRegister}>
+        <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToLogin}>
           <Text style={styles.registerNowColor}> Login</Text>
         </TouchableOpacity>
       </View>
