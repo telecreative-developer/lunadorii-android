@@ -3,7 +3,10 @@ import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
 import { Rating } from 'react-native-ratings' 
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
-const RecommendProduct = (props) => (
+
+const RecommendProduct = (props) => {
+  console.log('props recomend: ', props)
+  return(
   <View style={styles.viewRecommend}>
     <TouchableOpacity onPress={props.action}>
       <Image source={{uri: props.image}} style={styles.image}/> 
@@ -27,7 +30,7 @@ const RecommendProduct = (props) => (
         </View>
         <View style={styles.viewFooterProduct}>
           <View>
-            <TouchableOpacity style={styles.touchableOpacity}>
+            <TouchableOpacity style={styles.touchableOpacity}  onPress={() => alert('Sabar, addToCart "'+ props.title +'" onProgress')}>
               <Text style={styles.txtCart}><MaterialCommunityIcons name='cart' /> Add to cart</Text>
             </TouchableOpacity>
           </View>
@@ -38,7 +41,7 @@ const RecommendProduct = (props) => (
       </View>
      </TouchableOpacity>
   </View>
-)
+)}
 const styles = StyleSheet.create({
   viewFlexRow:{
     flexDirection: 'row',
