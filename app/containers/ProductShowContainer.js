@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { AsyncStorage } from 'react-native'
 import ProductShow from '../components/ProductShow'
 import RecommendProduct from '../particles/RecommendProduct'
 import CommentAndRating from '../particles/CommentAndRating'
@@ -57,14 +58,14 @@ class ProductShowContainer extends Component {
   }
 
   async AddWishlist(){
+    const dataProduct = this.props.navigation.state.params.data
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    console.log('wishlist' , data.id)
+    console.log('add wishlist' , data.id)
     await this.setState({
-      id:data.id,
-      accessToken: data.accessToken
+      product_id: dataProduct.product_id
     })
-    await this.props.fetchwishlist(this.state.accessToken, this.state.id)
+    await this.props.addWishlist(data.accessToken, data.id, this.state.product_id)
   }
 
   render() {
@@ -117,7 +118,7 @@ const mapDispatchToProps = (dispatch) =>{
   return{
 
     fetchProduct: (accessToken) => dispatch(fetchProduct(accessToken)),
-    addWishlist: (accessToken, idUser, idProduct) => dispatch(addWishlist(accessToken, idUser, idProduct))
+    addWishlist: (accessToken, id, idProduct) => dispatch(addWishlist(accessToken, id, idProduct))
   }
 }
 
