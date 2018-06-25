@@ -73,7 +73,15 @@ class ProductShowContainer extends Component {
 
         dateRelatedProducts={this.props.product}
         renderRelatedProducts={({ item }) => (
-          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => 
+            // this.props.navigation.navigate("ProductShowContainer", { data: item })
+            this.props.navigation.navigate({
+              routeName: 'ProductShowContainer',
+              params: { 
+                data: item,
+              },
+              key: 'Product' + this.state.title
+            })}
           />
         )}
 
