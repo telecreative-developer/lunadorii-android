@@ -1,21 +1,19 @@
 import React from 'react'
 import { AppRegistry } from 'react-native'
-import { StackNavigator }  from 'react-navigation'
-import HomeContainer from './app/containers/HomeContainer'
-import ProfileContainer from './app/containers/ProfileContainer'
-import PaymentsContainer from './app/containers/PaymentsContainer'
-import YourCartContainer from './app/containers/YourCartContainer';
+import { createStore, applyMiddleware } from 'redux'
+import { Provider } from 'react-redux'
+import thunk from 'redux-thunk'
+import Reactotron from 'reactotron-react-native'
+import rootReducers from './app/reducers'
+import AppNavigator from './AppNavigator'
+import './ReactotronConfig.js'
 
-const App = StackNavigator(
-  { 
-    YourCartContainer: { screen: YourCartContainer },
-    HomeContainer: { screen: HomeContainer },
-    ProfileContainer: { screen: ProfileContainer },
-    PaymentsContainer: { screen: PaymentsContainer },
-    
-  },{
-    headerMode:'none'
-  }
+const store = Reactotron.createStore(rootReducers, applyMiddleware(thunk))
+
+const App = () => (
+	<Provider store={store}>
+		<AppNavigator />
+	</Provider>
 )
 
 console.disableYellowBox = true

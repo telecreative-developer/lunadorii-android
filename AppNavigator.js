@@ -22,8 +22,8 @@ import ProductShowContainer from './app/containers/ProductShowContainer'
 const AppNavigator = StackNavigator(
   {    
     LoginContainer: { screen: LoginContainer },
-    HomeContainer: { screen: HomeContainer },
     RegisterContainer: { screen: RegisterContainer },
+    HomeContainer: { screen: HomeContainer },
     SplashScreenContainer: { screen: SplashScreenContainer },
     SettingsContainer: { screen: SettingsContainer },
     ProfileContainer: { screen: ProfileContainer },
