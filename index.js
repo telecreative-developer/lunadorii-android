@@ -6,7 +6,7 @@ import thunk from 'redux-thunk'
 import Reactotron from 'reactotron-react-native'
 import rootReducers from './app/reducers'
 import AppNavigator from './AppNavigator'
-import './ReactotronConfig.js'
+import './ReactotronConfig'
 
 const store = Reactotron.createStore(rootReducers, applyMiddleware(thunk))
 

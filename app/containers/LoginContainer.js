@@ -46,9 +46,9 @@ class LoginContainer extends Component {
       Alert.alert('Login gagal', 'Silahkan Cek Kembali Akun Anda!')
     } else if (
       loading.condition === false &&
-      loading.process_on === 'LOADING_FETCH_USER_WITH_id' &&
+      loading.process_on === 'LOADING_PROCESS_LOGIN' &&
       success.condition === true &&
-      success.process_on === 'SUCCESS_FETCH_USER_WITH_ID'
+      success.process_on === 'SUCCESS_PROCESS_LOGIN'
     ) {
       navigation.navigate('HomeContainer')
     }
