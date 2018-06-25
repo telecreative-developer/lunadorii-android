@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Container, Content, Item, Input, Icon, Label, Form, Button } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
-
+import DatePicker from 'react-native-datepicker'
 
 const EditProfileModal = (props) => (
   <Modal
@@ -36,7 +36,31 @@ const EditProfileModal = (props) => (
         </Item>
         <Label style={styles.labels}>Birth Date</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.birthDate} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeBirthDate} />
+          <DatePicker
+            style={{ width: 100, borderWidth: 0 }}
+            date={props.birthDate}
+            mode="date"
+            placeholder="Birth of Date"
+            format="YYYY-MM-DD"
+            minDate="1960-01-01"
+            maxDate="2018-12-30"
+            confirmBtnText="Confirm"
+            cancelBtnText="Cancel"
+            customStyles={{
+              dateIcon: {
+                width: 0,
+                height: 0
+              },
+              dateInput: {
+                borderWidth: 0
+              },
+              placeholderText: {
+                color: "#1E1E1E",
+                fontSize: 12
+              }
+            }}
+            onDateChange={props.onChangeBirthDate}
+          />
         </Item>
       </Form>
     </Content>

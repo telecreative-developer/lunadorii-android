@@ -22,8 +22,8 @@ import RegisterIdentifyContainer from './app/containers/RegisterIdentifyContaine
 
 const AppNavigator = StackNavigator(
   {    
-    LoginContainer: { screen: LoginContainer },
     HomeContainer: { screen: HomeContainer },
+    LoginContainer: { screen: LoginContainer },
     RegisterContainer: { screen: RegisterContainer },
     RegisterIdentifyContainer: { screen: RegisterIdentifyContainer },
     SplashScreenContainer: { screen: SplashScreenContainer },
@@ -42,7 +42,7 @@ const AppNavigator = StackNavigator(
     PaymentsContainer: { screen: PaymentsContainer },
     CreditCardContainer: { screen: CreditCardContainer }
   }, {
-    initialRouteName: 'LoginContainer',
+    initialRouteName: 'ProfileContainer',
     headerMode: 'none'
   }
 )
