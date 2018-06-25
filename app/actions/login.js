@@ -5,9 +5,10 @@ import { API_SERVER_USER, API_SERVER_AUTH } from '../env'
 
 export const login = (email, password) => {
 	return async dispatch => {
+		console.log('email: ', email, 'password: ', password)
 		await dispatch(setLoading(true, 'LOADING_PROCESS_LOGIN'))
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/auth/user`, {
+			const response = await fetch(`${API_SERVER_AUTH}/api/v1/auth/user`, {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',
@@ -25,9 +26,9 @@ export const login = (email, password) => {
 				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 			}
 		} catch (e) {
+			console.log('error login: ', e)
 			dispatch(setFailed(true, 'FAILED_PROCESS_LOGIN', e))
 			dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
-			dispatch(setFailed(false, 'FAILED_PROCESS_LOGIN'))
 		}
 	}
 }
@@ -36,7 +37,7 @@ export const fetchUserWithEmail = (email, password, accessToken, users_id) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_USER_WITH_EMAIL'))
 		try {
-			const response = await fetch(`${API_SERVER_AUTH}/api/v1/user/${users_id}`, {
+			const response = await fetch(`${API_SERVER_USER}/api/v1/user/${users_id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
@@ -51,6 +52,7 @@ export const fetchUserWithEmail = (email, password, accessToken, users_id) => {
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_USER_WITH_EMAIL'))
       		await dispatch(setLoading(false, 'LOADING_FETCH_USER_WITH_EMAIL'))
 		} catch (e) {
+			console.log('error fetchuser', JSON.stringify(e))
 			dispatch(setFailed(true, 'FAILED_FETCH_USER_WITH_EMAIL', e))
 			dispatch(setLoading(false, 'LOADING_FETCH_USER_WITH_EMAIL'))
 		}

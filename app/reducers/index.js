@@ -7,6 +7,7 @@ import { product } from "./product"
 import { banners } from "./banners"
 import { productsubcategories } from "./productsubcategories"
 import { getsingleuser } from "./getsingleuser"
+import { sessionPersistance } from "./login"
 // import { sessionPersistance } from "./login";
 
 const rootReducers = combineReducers({
@@ -18,7 +19,8 @@ const rootReducers = combineReducers({
   product,
   banners,
   productsubcategories,
-  getsingleuser
+  getsingleuser,
+  sessionPersistance
 //   sessionPersistance
 });
 
