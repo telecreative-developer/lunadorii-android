@@ -131,11 +131,11 @@ const ProductShow = (props) => (
               </View>
               <View style={styles.flexOnly33}>
                 <Item regular style={styles.amountTextInput}>
-                  <Input value="1" />
+                  <Input value={props.qty}/>
                 </Item>
               </View>
               <View style={styles.flexOnly33}>
-                <TouchableOpacity onPress={() => alert("Pluss")}>
+                <TouchableOpacity onPress={props.addqty}>
                   <View style={styles.plussButton}>
                     <Text style={styles.buttonFontSize}>+</Text>
                   </View>
