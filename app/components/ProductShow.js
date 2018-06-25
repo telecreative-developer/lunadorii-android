@@ -145,7 +145,7 @@ const ProductShow = (props) => (
           </View>
           <View style={styles.leftWrapper}>
             <View style={styles.flexDirectionCol}>
-              <Text style={styles.footerTotalPriceText}>Rp {new Intl.NumberFormat().format(props.totalPrice)}</Text>
+              <Text style={styles.footerTotalPriceText}>Rp {props.totalPrice}</Text>
               <TouchableOpacity>
                 <View style={styles.footerButtonStyling}>
                   <MaterialCommunityIcons name="cart" size={16} />
