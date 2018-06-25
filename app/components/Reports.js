@@ -25,11 +25,19 @@ const Reports = (props) => (
     />
     <Content>
       <View style={styles.padding}>
-        <Text style={styles.label}>Input your report below here</Text>
-        <Item regular onPress={props.toggleModalCategory} style={styles.item}>
-          <Input placeholder='Problem Category' placeholderTextColor="#ccc" placeholderTextSize={12} disabled />
-          <FontAwesome name='sort-down' style={styles.icon} />
+        <Text style={styles.label}>Name</Text>
+        <Item regular style={styles.item} onPress={props.toggleModalCategory}>
+          <Input placeholder='Your name as reporter' placeholderTextColor="#ccc" placeholderTextSize={12} />
         </Item>
+        <Text style={styles.label}>Email</Text>
+        <Item regular style={styles.item} onPress={props.toggleModalCategory}>
+          <Input placeholder='Your email' placeholderTextColor="#ccc" placeholderTextSize={12} />
+        </Item>
+        <Text style={styles.label}>Subject</Text>
+        <Item regular style={styles.item} onPress={props.toggleModalCategory}>
+          <Input placeholder='Subject' placeholderTextColor="#ccc" placeholderTextSize={12} />
+        </Item>
+        <Text style={styles.label}>Reports</Text>
         <Textarea rowSpan={5} bordered placeholder="Write Here.." placeholderTextColor="#ccc" style={styles.textarea} />
       </View>
     </Content>
@@ -42,6 +50,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   label: {
+    paddingTop: 10,
     fontWeight: 'bold',
     fontSize: 16
   },
@@ -50,8 +59,8 @@ const styles = StyleSheet.create({
     paddingRight: 10
   },
   padding: {
-    padding: 10,
-    paddingTop: 15
+    paddingLeft: 10,
+    paddingRight: 10
   },
   btnSend: {
     backgroundColor: '#d11e48'
