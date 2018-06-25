@@ -14,7 +14,7 @@ class SettingsContainer extends Component {
     newEmail:"",
     confirmEmail:"",
 
-    password: "123",
+    password: "",
     currentPassword: "",
     newPassword: "",
     confirmPassword: ""
@@ -40,19 +40,35 @@ class SettingsContainer extends Component {
     alert("Email changed")
   }
 
-  handleChangePassword() {
+  async handleChangePassword() {
     
-      if (this.state.newPassword !== this.state.confirmPassword) {
+      if (this.state.password == ""){
+        alert("your old password is empty")
+      }if (this.state.newPassword !== this.state.confirmPassword) {
         alert("New password wasn't comfirmed")
       } else {
+<<<<<<< HEAD
+<<<<<<< HEAD
         this.props.editPassword(6, this.state.currentPassword, this.state.newPassword, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6InVzZXIiLCJpYXQiOjE1Mjk2NTUyODMsImV4cCI6MTUzMDI2MDA4MywiaXNzIjoiaHR0cHM6Ly9naXRodWIuY29tL2tldmluaGVybWF3YW4iLCJzdWIiOiJsdW5hZG9yaWkifQ.DIQ6yH4qU_8oUAo7263CYkDklsCer2I2WLbaF_xHzAs')
         alert("Successfully change password")
         this.setState({ password: this.state.confirmPassword })
+=======
+=======
+>>>>>>> master
+        await this.props.editPassword(6, this.state.currentPassword, this.state.newPassword, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6InVzZXIiLCJpYXQiOjE1Mjk2NTUyODMsImV4cCI6MTUzMDI2MDA4MywiaXNzIjoiaHR0cHM6Ly9naXRodWIuY29tL2tldmluaGVybWF3YW4iLCJzdWIiOiJsdW5hZG9yaWkifQ.DIQ6yH4qU_8oUAo7263CYkDklsCer2I2WLbaF_xHzAs')
+        // await console.log("editpassword", this.props.editpassword)
+        await alert(this.props.editpassword.message)
+        await this.setState({ password: this.state.confirmPassword })
+<<<<<<< HEAD
+>>>>>>> 5723436451b3e66ebdca96791989efffb3b6287c
+=======
+>>>>>>> master
       }
     
   }
 
   render() {
+    console.log("editpassword", this.props.editpassword)
     return (
       <Settings
         modalVisibleChangePassword={this.state.modalVisibleChangePassword}
@@ -92,6 +108,7 @@ const mapStateToProps = (state) => {
     success: state.success,
     failed: state.failed,
     getsingleuser: state.getsingleuser,
+    editpassword: state.editpassword
   }
 }
 
