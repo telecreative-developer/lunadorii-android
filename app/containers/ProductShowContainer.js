@@ -20,14 +20,12 @@ class ProductShowContainer extends Component {
 
   componentDidMount() {
     const data = this.props.navigation.state.params.data
-    console.log('dataimage: ', data.thumbnails)
     this.setState({ 
       data,
       image: data.thumbnails[0].thumbnail_url,
       subcategories: data.subcategories[0].subcategory,
       totalPrice: data.price      
     })
-    console.log('datacategories: ', data.subcategories[0].subcategory)
     this.props.fetchProduct('123')
   }
 

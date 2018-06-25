@@ -85,7 +85,7 @@ const Settings = (props) => (
           <Text style={styles.txtLabel}>Logout</Text>
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.flexOnly9}>
-              <Text note>{props.userData.email}</Text>
+              <Text note>{props.userEmail}</Text>
             </View>
             <View style={styles.flexOnly1}>
               <MaterialCommunityIcons name="logout" style={styles.iconLogout} />
