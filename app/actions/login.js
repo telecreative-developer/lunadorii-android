@@ -48,7 +48,7 @@ export const fetchUserWithId = (email, password, accessToken, users_id) => {
 			})
             const data = await response.json()
             console.log('ini data session' , data.data)
-			await dispatch(saveSession(data.data[0]))
+			await dispatch(saveSession({...data.data[0], accessToken}))
 			await dispatch(saveSessionPersistance({...data.data[0], accessToken	}))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_USER_WITH_ID'))
       		await dispatch(setLoading(false, 'LOADING_FETCH_USER_WITH_ID'))

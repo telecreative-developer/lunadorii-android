@@ -26,7 +26,6 @@ const AppNavigator = StackNavigator(
     AddPhotoProfileContainer: { screen: AddPhotoProfileContainer },
     HomeContainer: { screen: HomeContainer },
     LoginContainer: { screen: LoginContainer },
-    RegisterContainer: { screen: RegisterContainer },
     RegisterIdentifyContainer: { screen: RegisterIdentifyContainer },
     SplashScreenContainer: { screen: SplashScreenContainer },
     SettingsContainer: { screen: SettingsContainer },
