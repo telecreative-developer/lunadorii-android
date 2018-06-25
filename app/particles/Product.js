@@ -8,7 +8,7 @@ const Product = (props) => (
   <View style={styles.viewProduct}>
     <TouchableOpacity onPress={props.action}>
       <ImageBackground source={{ uri: props.image }} style={styles.ImageBackground}>
-        <TouchableOpacity style={styles.touchableOpacity}>
+        <TouchableOpacity style={styles.touchableOpacity} onPress={() => alert('Sabar, addToCart "'+ props.title +'" onProgress')}>
           <Text style={styles.txtAddCart}><MaterialCommunityIcons name="cart" /> Add to Cart</Text>
         </TouchableOpacity>
       </ImageBackground>
