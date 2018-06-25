@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { fetchSingleUser } from '../actions/getSingleUser'
 import { editPassword, editEmail } from '../actions/editprofile'
-import { editPassword } from '../actions/editprofile'
 import {AsyncStorage} from 'react-native'
 
 import Settings from '../components/Settings'
