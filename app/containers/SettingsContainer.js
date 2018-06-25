@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { fetchSingleUser } from '../actions/getSingleUser'
-import { editPassword } from '../actions/editprofile'
+import { editPassword, editEmail } from '../actions/editprofile'
 
 import Settings from '../components/Settings'
 
@@ -36,8 +36,17 @@ class SettingsContainer extends Component {
     this.setState({ modalVisibleChangeEmail: !this.state.modalVisibleChangeEmail })
   }
 
-  handleChangeEmail(){
-    alert("Email changed")
+  async handleChangeEmail(){
+    if (this.state.newEmail == ""){
+      alert("email cannot empty")
+    }if (this.state.newEmail !== this.state.confirmEmail) {
+      alert("New Email wasn't comfirmed")
+    } else {
+      await this.props.editEmail(6, this.state.newEmail, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6InVzZXIiLCJpYXQiOjE1Mjk2NTUyODMsImV4cCI6MTUzMDI2MDA4MywiaXNzIjoiaHR0cHM6Ly9naXRodWIuY29tL2tldmluaGVybWF3YW4iLCJzdWIiOiJsdW5hZG9yaWkifQ.DIQ6yH4qU_8oUAo7263CYkDklsCer2I2WLbaF_xHzAs')
+      // await console.log("editpassword", this.props.editpassword)
+      await alert(this.props.editemail.message)
+      await this.setState({ newEmail: "", confirmEmail: "" })
+    }
   }
 
   async handleChangePassword() {
@@ -50,13 +59,12 @@ class SettingsContainer extends Component {
         await this.props.editPassword(6, this.state.currentPassword, this.state.newPassword, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6InVzZXIiLCJpYXQiOjE1Mjk2NTUyODMsImV4cCI6MTUzMDI2MDA4MywiaXNzIjoiaHR0cHM6Ly9naXRodWIuY29tL2tldmluaGVybWF3YW4iLCJzdWIiOiJsdW5hZG9yaWkifQ.DIQ6yH4qU_8oUAo7263CYkDklsCer2I2WLbaF_xHzAs')
         // await console.log("editpassword", this.props.editpassword)
         await alert(this.props.editpassword.message)
-        await this.setState({ password: this.state.confirmPassword })
+        await this.setState({ currentPassword: "", newPassword: "", confirmPassword: "" })
       }
     
   }
 
   render() {
-    console.log("editpassword", this.props.editpassword)
     return (
       <Settings
         modalVisibleChangePassword={this.state.modalVisibleChangePassword}
@@ -86,7 +94,8 @@ class SettingsContainer extends Component {
 const mapDispatchToProps = (dispatch) =>{
   return{
     fetchSingleUser: (id, accessToken) => dispatch(fetchSingleUser(id, accessToken)),
-    editPassword: (id, oldPass, newPass, accessToken) => dispatch(editPassword(id, oldPass, newPass, accessToken))
+    editPassword: (id, oldPass, newPass, accessToken) => dispatch(editPassword(id, oldPass, newPass, accessToken)),
+    editEmail: (id, email, accessToken) => dispatch(editEmail(id, email, accessToken))
   }
 }
 
@@ -96,7 +105,8 @@ const mapStateToProps = (state) => {
     success: state.success,
     failed: state.failed,
     getsingleuser: state.getsingleuser,
-    editpassword: state.editpassword
+    editpassword: state.editpassword,
+    editemail: state.editemail
   }
 }
 
