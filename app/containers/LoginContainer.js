@@ -83,7 +83,7 @@ class LoginContainer extends Component {
     const { loading } = this.props
 		if (!isEmpty(email) && !isEmpty(password)) {
 			return (
-        <Button full style={styles.buttonLoginActive}>
+        <Button full style={styles.buttonLoginActive} onPress={()=> this.handleValidationLogin()}>
           {loading.condition === true && loading.process_on === 'LOADING_PROCESS_LOGIN' ? (
             <Spinner color="#FFFFFF" />
           ) : (
