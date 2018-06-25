@@ -50,7 +50,7 @@ const RegisterIdentify = (props) => (
           </View>
         </View>
       </View>
-      <View style={{paddingBottom: 10, paddingTop: 100, paddingLeft: 45, paddingRight: 45}}>
+      <View style={{paddingBottom: 10, paddingTop: 90, paddingLeft: 45, paddingRight: 45}}>
         <View style={{ borderBottomColor: "#979797", borderBottomWidth: 1.2}}>
         </View>
       </View>
