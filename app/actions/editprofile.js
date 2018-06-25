@@ -1,5 +1,5 @@
 import { setLoading, setFailed, setSuccess } from './processor'
-import { RECEIVE_EDIT_PASSWORD } from '../constants'
+import { RECEIVE_EDIT_PASSWORD, RECEIVE_EDIT_EMAIL } from '../constants'
 import { API_SERVER_USER } from '../env'
 
 export const editName = (id, first_name, last_name, accessToken) => {
@@ -31,7 +31,7 @@ export const editName = (id, first_name, last_name, accessToken) => {
 	}
 }
 
-export const editEmail = (id, data, accessToken) => {
+export const editEmail = (id, email, accessToken) => {
 	return async dispatch => {
 		console.log('accestoken: ', accessToken)
 		await dispatch(setLoading(true, 'LOADING_EDIT_EMAIL'))
@@ -44,11 +44,12 @@ export const editEmail = (id, data, accessToken) => {
                     Authorization: accessToken
                 },
                 body: JSON.stringify({
-                    email: data.email
+                    email
                 })
 			})
 			const data = await response.json()
 			console.log('editEmail: ', data)
+			await dispatch(receiveResultEmail(data))
 			await dispatch(setSuccess(true, 'SUCCESS_EDIT_EMAIL'))
       		await dispatch(setLoading(false, 'LOADING_EDIT_EMAIL'))
 		} catch (e) {
@@ -58,6 +59,14 @@ export const editEmail = (id, data, accessToken) => {
 		}
 	}
 }
+
+const receiveResultEmail = data => {
+	return{
+		type: RECEIVE_EDIT_EMAIL,
+		payload: data
+	}
+}
+
 
 export const editPassword = (id, old_password, new_password, accessToken) => {
 	return async dispatch => {

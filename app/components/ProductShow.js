@@ -123,7 +123,7 @@ const ProductShow = (props) => (
           <View style={styles.rightWrapper}>
             <View style={{ flexDirection: 'row' }}>
               <View style={styles.flexOnly33}>
-                <TouchableOpacity onPress={() => alert("Pluss")}>
+                <TouchableOpacity onPress={props.minQty}>
                   <View style={styles.minusButton}>
                     <Text style={styles.buttonFontSize}>-</Text>
                   </View>
@@ -131,11 +131,11 @@ const ProductShow = (props) => (
               </View>
               <View style={styles.flexOnly33}>
                 <Item regular style={styles.amountTextInput}>
-                  <Input value={props.qty}/>
+                  <Input value={`${props.qty}`} onChangeText={props.onChangeQty}/>
                 </Item>
-              </View>
+              </View> 
               <View style={styles.flexOnly33}>
-                <TouchableOpacity onPress={props.addqty}>
+                <TouchableOpacity onPress={props.addQty}>
                   <View style={styles.plussButton}>
                     <Text style={styles.buttonFontSize}>+</Text>
                   </View>
@@ -145,7 +145,7 @@ const ProductShow = (props) => (
           </View>
           <View style={styles.leftWrapper}>
             <View style={styles.flexDirectionCol}>
-              <Text style={styles.footerTotalPriceText}>Rp {props.price}</Text>
+              <Text style={styles.footerTotalPriceText}>Rp {props.totalPrice}</Text>
               <TouchableOpacity>
                 <View style={styles.footerButtonStyling}>
                   <MaterialCommunityIcons name="cart" size={16} />
