@@ -12,6 +12,7 @@ export default class RegisterContainer extends Component{
       <Register 
         email={this.state.email}
         onChangeEmail={(email) => this.setState({email})}
+        navigateToLogin={() => this.props.navigation.navigate('LoginContainer')}
         handleNext={() => this.props.navigation.navigate('RegisterIdentifyContainer', { email: this.state.email })}/>
     )
   }

@@ -46,12 +46,12 @@ export const addWishlist = (accessToken, idUser, idProduct) => {
 			const data = await response.json()
 			console.log('dataProducts: ', data.data)
 			await dispatch(receiveWishlist(data.data))
-			await dispatch(setSuccess(true, 'SUCCESS_FETCH_WISHLIST'))
-      		await dispatch(setLoading(false, 'LOADING_FETCH_WISHLIST'))
+			await dispatch(setSuccess(true, 'SUCCESS_ADD_WISHLIST'))
+      		await dispatch(setLoading(false, 'LOADING_ADD_WISHLIST'))
 		} catch (e) {
 			console.log('error action :' ,e )
-			dispatch(setFailed(true, 'FAILED_FETCH_WISHLIST', e))
-			dispatch(setLoading(false, 'LOADING_FETCH_WISHLIST'))
+			dispatch(setFailed(true, 'FAILED_ADD_WISHLIST', e))
+			dispatch(setLoading(false, 'LOADING_ADD_WISHLIST'))
 		}
 	}
 }

@@ -109,7 +109,8 @@ class LoginContainer extends Component {
     const { navigate } = this.props.navigation
     return (
       <Login 
-        // navigateToRegister={this.navigateToRegister()}
+        navigateToRegister={() => this.props.navigation.navigate("RegisterContainer")}
+        navigateToLoginTroubleshooting={() => this.props.navigation.navigate("LoginTroubleshootingContainer")}
         valueEmail={this.state.email}
         valuePassword={this.state.password}
         onChangeEmail={(email) => this.setState({email})}

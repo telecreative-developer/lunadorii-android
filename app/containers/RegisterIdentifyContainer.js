@@ -238,9 +238,22 @@ class RegisterIdentifyContainer extends Component {
     await alert(JSON.stringify(this.state.email))
   }
 
+  togglePasswordFieldVisibility(){
+    this.setState({passwordFieldVisibility: !this.state.passwordFieldVisibility})
+  }
+
   render(){
     return(
-      <RegisterIdentify/>
+      <RegisterIdentify
+        passwordFieldVisibility={this.state.passwordFieldVisibility}
+        togglePasswordFieldVisibility={() => this.togglePasswordFieldVisibility()}
+
+        navigateToLogin={() => this.props.navigation.navigate('LoginContainer')}
+        onChangeFirstName={(first_name)=>this.setState({first_name})}
+        onChangeLastName={(last_name)=> this.setState({last_name})}
+        onChangeEmail={(email)=> this.setState({email})}
+        onChangePassword={(password)=> this.setState({password})}
+      />
     )
   }
 }

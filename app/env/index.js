@@ -1,6 +1,5 @@
 // export const API_SERVER='http://fc68a8d2.ngrok.io/'
-export const API_SERVER_AUTH = 'http://6d2bb007.ngrok.io'
-export const API_SERVER_USER = 'http://5968e53e.ngrok.io'
-export const API_SERVER_PRODUCT='http://bb83b3b2.ngrok.io'
-export const API_SERVER_BANNERS='http://9db0cebd.ngrok.io'
-
+export const API_SERVER_AUTH = 'http://26d10a4c.ngrok.io'
+export const API_SERVER_USER = 'http://4f430a0f.ngrok.io'
+export const API_SERVER_PRODUCT='http://0c3e7109.ngrok.io'
+export const API_SERVER_BANNERS='http://7ca76209.ngrok.io'
