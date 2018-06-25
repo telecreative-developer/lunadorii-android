@@ -4,7 +4,6 @@ import { API_SERVER_PRODUCT } from '../env'
 
 export const fetchBrandsProduct = (accessToken) => {
 	return async dispatch => {
-		console.log('accestoken: ', accessToken)
 		await dispatch(setLoading(true, 'LOADING_FETCH_BRANDS_PRODUCT'))
 		try {
 			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/product-brands`, {
@@ -15,7 +14,6 @@ export const fetchBrandsProduct = (accessToken) => {
 				}
 			})
 			const data = await response.json()
-			console.log('dataBrands: ', data.data)
 			await dispatch(receiveBrandsProduct(data.data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_BRANDS_PRODUCT'))
       		await dispatch(setLoading(false, 'LOADING_FETCH_BRANDS_PRODUCT'))
