@@ -15,7 +15,7 @@ import CreditCardContainer from './app/containers/CreditCardContainer'
 import PrivacyPolicyContainer from './app/containers/PrivacyPolicyContainer'
 import SearchContainer from './app/containers/SearchContainer'
 import SplashScreenContainer from './app/containers/SplashScreenContainer'
-import RegisterContainer from './app/containers/RegisterContainer'
+// import RegisterContainer from './app/containers/RegisterContainer'
 import LoginContainer from './app/containers/LoginContainer'
 import ProductShowContainer from './app/containers/ProductShowContainer'
 import RegisterIdentifyContainer from './app/containers/RegisterIdentifyContainer'
@@ -34,7 +34,7 @@ const AppNavigator = StackNavigator(
     YourCartContainer: { screen: YourCartContainer },
     PurchaseHistoryContainer: { screen: PurchaseHistoryContainer },
     ProductShowContainer: { screen: ProductShowContainer},
-    RegisterContainer: { screen: RegisterContainer },
+    // RegisterContainer: { screen: RegisterContainer },
     SearchContainer: { screen: SearchContainer },
     PrivacyPolicyContainer: { screen: PrivacyPolicyContainer },
     WishlistContainer: { screen: WishlistContainer },
