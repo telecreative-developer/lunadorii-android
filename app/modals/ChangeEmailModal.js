@@ -18,11 +18,11 @@ const ChangeEmailModal = (props) => (
       <View style={styles.viewInputPassword}>
         <Text style={styles.txtLabel}>New Email</Text>
         <Item regular style={styles.item}>
-          <Input placeholder='Enter New Email' secureTextEntry placeholderTextColor="#ccc" onChangeText={props.onChangeNewEmail} />
+          <Input placeholder='Enter New Email' placeholderTextColor="#ccc" onChangeText={props.onChangeNewEmail} />
         </Item>
         <Text style={styles.txtLabel}>Comfirm Email</Text>
         <Item regular style={styles.item}>
-          <Input placeholder='Enter New Email' secureTextEntry placeholderTextColor="#ccc" onChangeText={props.onChangeConfirmEmail} />
+          <Input placeholder='Enter New Email' placeholderTextColor="#ccc" onChangeText={props.onChangeConfirmEmail} />
         </Item>
       </View>
     </Content>
