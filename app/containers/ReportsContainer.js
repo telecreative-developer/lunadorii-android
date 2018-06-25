@@ -4,19 +4,24 @@ import Reports from '../components/Reports'
 export default class ReportsContainer extends Component {
 
   state = {
-    modalVisibleCategory: false
-  }
-
-  toggleModalCategory() {
-    this.setState({ modalVisibleCategory: !this.state.modalVisibleCategory })
+    name: "",
+    email: "",
+    subject: "",
+    reports: "",    
   }
 
   render() {
     return (
       <Reports
-        modalVisibleCategory={this.state.modalVisibleCategory}
-        toggleModalCategory={() => this.toggleModalCategory()}
-        selectedKey={this.state.selected1}
+        name={this.state.name}
+        email={this.state.email}
+        subject={this.state.subject}
+        reports={this.state.reports}
+        onChangeName={(name) => this.setState({name})}
+        onChangeEmail={(email) => this.setState({email})}
+        onChangeSubject={(subject) => this.setState({subject})}
+        onChangeReports={(reports) => this.setState({reports})}
+        handleSendReport={() => alert(JSON.stringify(this.state))}
         goback={() => this.props.navigation.goBack()}
       />
     )

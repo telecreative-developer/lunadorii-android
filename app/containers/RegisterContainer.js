@@ -64,12 +64,12 @@ class RegisterContainer extends Component {
         return (
           <View style={styles.formRegister}>
             {loading.condition === true && loading.process_on === 'LOADING_REGISTER' ? (
-              <Button rounded center style={styles.buttonRegisterActive}>
+              <Button full style={styles.buttonRegisterActive}>
                 <Spinner color="#FFFFFF" />
               </Button>
               ) : (
-              <Button style={styles.buttonRegisterActive} onPress={() => this.handleValidationRegister()} rounded center>
-                <Text style={styles.buttonRegisterActiveText}>Sign Up</Text>
+              <Button full style={styles.buttonRegisterActive} onPress={() => this.handleValidationRegister()} rounded center>
+                <Text style={styles.buttonRegisterActiveText}>Next</Text>
               </Button>
               )}
           </View>
@@ -77,8 +77,8 @@ class RegisterContainer extends Component {
     } else {
       return (
         <View style={styles.formRegister}>
-          <Button style={styles.buttonRegisterInactive} rounded bordered>
-            <Text style={styles.buttonRegisterInactiveText}>Sign Up</Text>
+          <Button bordered full style={styles.buttonRegisterInactive}>
+            <Text style={styles.buttonRegisterInactiveText}>Register</Text>
           </Button>
         </View>
       )
@@ -123,6 +123,7 @@ class RegisterContainer extends Component {
         onChangeLastName={(last_name)=> this.setState({last_name})}
         onChangeEmail={(email)=> this.setState({email})}
         onChangePassword={(password)=> this.setState({password})}
+        handleNext={() => this.props.navigation.navigate("RegisterIdentifyContainer", { email : this.state.email })}
         renderButton={this.renderButton()}
       />
     )
@@ -140,41 +141,28 @@ const mapDispatchToProps = dispatch => ({
 })
 
 const styles = StyleSheet.create({
-  buttonRegisterActive: {
-    justifyContent: "center",
-    backgroundColor: "#F85959",
-    marginTop: 20,
-    margin: 10,
-    width: 135,
-    height: 40,
-    alignSelf: 'center'
+  formRegister:{
+    paddingTop: 5, 
+    paddingBottom: 10
   },
-  buttonRegisterActiveText: {
-    fontSize: 12,
-    fontWeight: "bold",
-    color:'#FFF',
-    alignSelf: 'center'
+  buttonRegisterActive:{
+    height: 50,
+    borderRadius: 10, 
+    backgroundColor: '#d11e48'
   },
-  buttonRegisterInactive: {
-    width: 135,
-    height: 40,
-    justifyContent: "center",
-    alignSelf: "center",
-    marginTop: 10,
-    marginBottom: 20,
-    borderColor: "#F85959",
-    backgroundColor: "#FFFFFF"
+  buttonRegisterActiveText:{
+    color: '#fff', 
+    fontSize: 18 
   },
-  buttonRegisterInactiveText: {
-    fontSize: 12,
-    color: "#F85959",
-    fontWeight: "bold",
-    alignSelf: 'center'
+  buttonRegisterInactive:{
+    height: 50,
+    borderRadius: 10, 
+    backgroundColor: '#fff',
+    borderColor:'#d11e48'
   },
-  formRegister: {
-    marginHorizontal: 30,
-    marginTop: 10,
-    justifyContent: 'center'
+  buttonRegisterInactiveText:{
+    color: '#d11e48', 
+    fontSize: 18 
   }
 })
 

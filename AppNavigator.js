@@ -18,12 +18,16 @@ import SplashScreenContainer from './app/containers/SplashScreenContainer'
 import RegisterContainer from './app/containers/RegisterContainer'
 import LoginContainer from './app/containers/LoginContainer'
 import ProductShowContainer from './app/containers/ProductShowContainer'
+import RegisterIdentifyContainer from './app/containers/RegisterIdentifyContainer'
+import AddPhotoProfileContainer from './app/containers/AddPhotoProfileContainer'
 
 const AppNavigator = StackNavigator(
   {    
+    AddPhotoProfileContainer: { screen: AddPhotoProfileContainer },
+    HomeContainer: { screen: HomeContainer },
     LoginContainer: { screen: LoginContainer },
     RegisterContainer: { screen: RegisterContainer },
-    HomeContainer: { screen: HomeContainer },
+    RegisterIdentifyContainer: { screen: RegisterIdentifyContainer },
     SplashScreenContainer: { screen: SplashScreenContainer },
     SettingsContainer: { screen: SettingsContainer },
     ProfileContainer: { screen: ProfileContainer },
@@ -40,7 +44,7 @@ const AppNavigator = StackNavigator(
     PaymentsContainer: { screen: PaymentsContainer },
     CreditCardContainer: { screen: CreditCardContainer }
   }, {
-    initialRouteName: 'LoginContainer',
+    initialRouteName: 'AddPhotoProfileContainer',
     headerMode: 'none'
   }
 )

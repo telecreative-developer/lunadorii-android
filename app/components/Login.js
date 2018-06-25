@@ -22,16 +22,19 @@ const Login = (props) => (
                 placeholderTextColor="#ccc"
                 value={props.valueEmail}
                 onChangeText={props.onChangeEmail}
+                style={{marginLeft: 5}}
               />
             </Item>
             <Item regular style={styles.item}>
               <Input 
                 placeholder="Password" 
                 placeholderTextColor="#ccc" 
-                secureTextEntry 
+                secureTextEntry={props.passwordFieldVisibility}
                 value={props.valuePassword}
                 onChangeText={props.onChangePassword}
+                style={{marginLeft: 5}}
               />
+              <Icon type="Entypo" name={props.passwordFieldVisibility ? "eye" : "eye-with-line"} style={{fontSize: 18, color:'#ccc', marginRight: 5}} onPress={props.togglePasswordFieldVisibility}/>
             </Item>
             <View style={{marginBottom: 30}}>
               <TouchableOpacity>
@@ -92,16 +95,8 @@ const styles = StyleSheet.create({
   },
   registerButtonWrapper:{
     paddingTop: 5, 
-    paddingBottom: 10
-  },
-  registerButtonStyle:{
-    height: 50,
-    borderRadius: 10, 
-    backgroundColor: '#d11e48'
-  },
-  registerTextButton:{
-    color: '#fff', 
-    fontSize: 18 
+    paddingBottom: 10,
+    alignItems: 'center'
   },
   informationWrapper2:{
     marginBottom: 15,
