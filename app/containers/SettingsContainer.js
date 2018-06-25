@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { fetchSingleUser } from '../actions/getSingleUser'
 import { editPassword, editEmail } from '../actions/editprofile'
-import { editPassword } from '../actions/editprofile'
 import {AsyncStorage} from 'react-native'
 
 import Settings from '../components/Settings'
@@ -45,7 +44,7 @@ class SettingsContainer extends Component {
       alert("New Email wasn't comfirmed")
     } else {
       await this.props.editEmail(6, this.state.newEmail, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6InVzZXIiLCJpYXQiOjE1Mjk2NTUyODMsImV4cCI6MTUzMDI2MDA4MywiaXNzIjoiaHR0cHM6Ly9naXRodWIuY29tL2tldmluaGVybWF3YW4iLCJzdWIiOiJsdW5hZG9yaWkifQ.DIQ6yH4qU_8oUAo7263CYkDklsCer2I2WLbaF_xHzAs')
-      // await console.log("editpassword", this.props.editpassword)
+      // await console.log("editemail", this.props.editemail)
       await alert(this.props.editemail.message)
       await this.setState({ newEmail: "", confirmEmail: "" })
     }
