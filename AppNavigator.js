@@ -44,7 +44,7 @@ const AppNavigator = StackNavigator(
     PaymentsContainer: { screen: PaymentsContainer },
     CreditCardContainer: { screen: CreditCardContainer }
   }, {
-    initialRouteName: 'AddPhotoProfileContainer',
+    initialRouteName: 'LoginContainer',
     headerMode: 'none'
   }
 )
