@@ -37,7 +37,7 @@ const Login = (props) => (
               <Icon type="Entypo" name={props.passwordFieldVisibility ? "eye" : "eye-with-line"} style={{fontSize: 18, color:'#ccc', marginRight: 5}} onPress={props.togglePasswordFieldVisibility}/>
             </Item>
             <View style={{marginBottom: 30}}>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={props.navigateToLoginTroubleshooting}>
                 <Text style={{alignSelf: 'flex-end', color:'#d11e48'}}>Forget Password?</Text>
               </TouchableOpacity>
             </View>

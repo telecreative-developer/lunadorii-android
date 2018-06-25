@@ -19,13 +19,13 @@ import RegisterContainer from './app/containers/RegisterContainer'
 import LoginContainer from './app/containers/LoginContainer'
 import ProductShowContainer from './app/containers/ProductShowContainer'
 import AddPhotoProfileContainer from './app/containers/AddPhotoProfileContainer'
-import LoginTroubleshooting from './app/containers/LoginTroubleshootingContainer'
+import LoginTroubleshootingContainer from './app/containers/LoginTroubleshootingContainer'
 import RegisterIdentifyContainer from './app/containers/RegisterIdentifyContainer'
 
 const AppNavigator = StackNavigator(
   {    
     RegisterIdentifyContainer: { screen: RegisterIdentifyContainer },
-    LoginTroubleshooting: { screen: LoginTroubleshooting },
+    LoginTroubleshootingContainer: { screen: LoginTroubleshootingContainer },
     AddPhotoProfileContainer: { screen: AddPhotoProfileContainer },
     HomeContainer: { screen: HomeContainer },
     LoginContainer: { screen: LoginContainer },
@@ -46,7 +46,7 @@ const AppNavigator = StackNavigator(
     PaymentsContainer: { screen: PaymentsContainer },
     CreditCardContainer: { screen: CreditCardContainer }
   }, {
-    initialRouteName: 'LoginContainer',
+    initialRouteName: 'LoginTroubleshootingContainer',
     headerMode: 'none'
   }
 )
