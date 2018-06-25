@@ -29,7 +29,7 @@ const ProductShow = (props) => (
           <Text style={styles.fistGroupSubtitle}>{props.categories}</Text>
         </View>
         <View style={styles.firstGroupWrapper2}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={props.AddWishlist}>
             <View style={styles.firstGroupButtonShare}>
               <Entypo name="heart-outlined" style={styles.firstGroupButtonIcon} />
             </View>

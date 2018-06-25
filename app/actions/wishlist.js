@@ -29,23 +29,26 @@ export const fetchwishlist = (accessToken, id) => {
 	}
 }
 
-export const addWishlist = (accessToken, idUser, idProduct) => {
-    console.log("wistlist action:" , accessToken , id)
+export const addWishlist = (accessToken, id, idProduct) => {
+    console.log("wistlist action:" , accessToken , id, idProduct)
 	return async dispatch => {
 		console.log('accestoken: ', accessToken)
 		await dispatch(setLoading(true, 'LOADING_ADD_WISHLIST'))
 		try {
-			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/wishlist/${id}`, {
-				method: 'GET',
+			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/wishlist/`, {
+				method: 'POST',
 				headers: {
 					Accept: 'application/json',
 					'Content-Type': 'application/json',
 					Authorization: accessToken
+				},
+				body:{
+					id:id,
+					product_id: idProduct
 				}
 			})
 			const data = await response.json()
 			console.log('dataProducts: ', data.data)
-			await dispatch(receiveWishlist(data.data))
 			await dispatch(setSuccess(true, 'SUCCESS_ADD_WISHLIST'))
       		await dispatch(setLoading(false, 'LOADING_ADD_WISHLIST'))
 		} catch (e) {
