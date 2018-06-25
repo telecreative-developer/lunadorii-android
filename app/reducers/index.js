@@ -9,7 +9,7 @@ import { productsubcategories } from "./productsubcategories"
 import { getsingleuser } from "./getsingleuser"
 import { sessionPersistance } from "./login"
 import { editpassword, editemail } from "./editprofile"
-import { wistlist } from "./wistlist"
+import { wishlist } from "./wishlist"
 // import { sessionPersistance } from "./login";
 
 const rootReducers = combineReducers({
@@ -25,7 +25,7 @@ const rootReducers = combineReducers({
   sessionPersistance,
   editpassword,
   editemail,
-  wistlist,
+  wishlist,
 //   sessionPersistance
 });
 

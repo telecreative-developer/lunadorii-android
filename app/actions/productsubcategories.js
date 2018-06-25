@@ -4,7 +4,6 @@ import { API_SERVER_PRODUCT } from '../env'
 
 export const fetchProductSubcategories = (accessToken) => {
 	return async dispatch => {
-		console.log('accestoken: ', accessToken)
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_SUBCATEGORIES'))
 		try {
 			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/product-subcategories?with_products=true`, {

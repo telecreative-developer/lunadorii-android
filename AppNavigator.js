@@ -15,18 +15,21 @@ import CreditCardContainer from './app/containers/CreditCardContainer'
 import PrivacyPolicyContainer from './app/containers/PrivacyPolicyContainer'
 import SearchContainer from './app/containers/SearchContainer'
 import SplashScreenContainer from './app/containers/SplashScreenContainer'
-// import RegisterContainer from './app/containers/RegisterContainer'
+import RegisterContainer from './app/containers/RegisterContainer'
 import LoginContainer from './app/containers/LoginContainer'
 import ProductShowContainer from './app/containers/ProductShowContainer'
-import RegisterIdentifyContainer from './app/containers/RegisterIdentifyContainer'
 import AddPhotoProfileContainer from './app/containers/AddPhotoProfileContainer'
+import LoginTroubleshooting from './app/containers/LoginTroubleshootingContainer'
+import RegisterIdentifyContainer from './app/containers/RegisterIdentifyContainer'
 
 const AppNavigator = StackNavigator(
   {    
+    RegisterIdentifyContainer: { screen: RegisterIdentifyContainer },
+    LoginTroubleshooting: { screen: LoginTroubleshooting },
     AddPhotoProfileContainer: { screen: AddPhotoProfileContainer },
     HomeContainer: { screen: HomeContainer },
     LoginContainer: { screen: LoginContainer },
-    RegisterIdentifyContainer: { screen: RegisterIdentifyContainer },
+    RegisterContainer: { screen: RegisterContainer },
     SplashScreenContainer: { screen: SplashScreenContainer },
     SettingsContainer: { screen: SettingsContainer },
     ProfileContainer: { screen: ProfileContainer },

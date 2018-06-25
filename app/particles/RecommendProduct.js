@@ -5,7 +5,6 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 
 
 const RecommendProduct = (props) => {
-  console.log('props recomend: ', props)
   return(
   <View style={styles.viewRecommend}>
     <TouchableOpacity onPress={props.action}>

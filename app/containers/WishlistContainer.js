@@ -1,42 +1,57 @@
 import React, { Component } from 'react'
+import {AsyncStorage} from 'react-native'
+import { connect } from 'react-redux'
+
 import Wishlist from '../components/Wishlist'
 import Product from '../particles/Product'
+import {fetchwishlist} from '../actions/wishlist'
 
-const dataProduct = [
-  {
-    image: 'https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg',
-    title: 'Benefiets Cosmetics',
-    categories: 'Benefiets Cosmetics, and others',
-    price: '120,000',
-    star: 3,
-  },
-  {
-    image: 'https://www.wanista.com/wp-content/uploads/2013/10/Modbox-Product-Line-Up2.png',
-    title: 'Benefiets Cosmetics',
-    categories: 'Benefiets Cosmetics, and others',
-    price: '1.200,000',
-    star: 5
-  },
-  {
-    image: 'http://www.forgotteninvasion.com/wp-content/uploads/2017/12/1200x800_0_0_1200_800_be71c6e15ae8c6f7bfd6e935b0ab5fcc3c2f98d3.jpg',
-    title: 'Benefiets Cosmetics',
-    categories: 'Benefiets Cosmetics, and others',
-    price: '520,000',
-    star: 4
-  },
-]
+class WishlistContainer extends Component{
 
-export default class WishlistContainer extends Component{
+  state={
+    wishlist: {},
+    id_user: 0,
+    accessToken:''
+  }
+
+  async componentDidMount(){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    console.log('wishlist' , data.id)
+    await this.setState({
+      id:data.id,
+      accessToken: data.accessToken
+    })
+    await this.props.fetchwishlist(this.state.accessToken, this.state.id)
+  }
+
   render(){
     return(
       <Wishlist
       goback={() => this.props.navigation.goBack()}
-      dataProduct={dataProduct}
+      dataProduct={this.props.wishlist}
       renderProduct={({item}) => (
-        <Product image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star}
-        />
-      )}
+         <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate}
+         />
+       )}
       />
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) => {
+  return{
+    fetchwishlist: (accessToken, id) => dispatch(fetchwishlist(accessToken, id))
+  }
+}
+
+const mapStateToProps = (state) => ({ 
+    loading: state.loading,
+    success: state.success,
+    failed: state.failed,
+    wishlist: state.wishlist,
+    sessionPersistance: state.sessionPersistance
+ });
+
+ 
+export default connect(mapStateToProps, mapDispatchToProps)(WishlistContainer)
