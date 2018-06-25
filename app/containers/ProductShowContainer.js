@@ -12,7 +12,9 @@ class ProductShowContainer extends Component {
     this.state = {
       image: '',
       data: {},
-      subcategories: ''
+      subcategories: '',
+      qty: 1, 
+      totalPrice: 0,
     }
   }
 
@@ -22,16 +24,33 @@ class ProductShowContainer extends Component {
     this.setState({ 
       data,
       image: data.thumbnails[0].thumbnail_url,
-      subcategories: data.subcategories[0].subcategory      
+      subcategories: data.subcategories[0].subcategory,
+      totalPrice: data.price      
     })
     console.log('datacategories: ', data.subcategories[0].subcategory)
     this.props.fetchProduct('123')
   }
 
-  addqty(){
-    this.setState({
+  async addQty(){
+    await this.setState({
       qty: this.state.qty + 1
     })
+    await this.setState({
+      totalPrice: this.state.totalPrice * this.state.qty
+    })
+  }
+
+  async minQty(){
+    if(this.state.qty <= 1){
+
+    }else {
+      await this.setState({
+        qty: this.state.qty - 1
+      })
+      await this.setState({
+        totalPrice: this.state.totalPrice * this.state.qty
+      })
+    }
   }
 
   render() {
@@ -46,7 +65,11 @@ class ProductShowContainer extends Component {
         productDetails={this.state.data.detail}
         guide={this.state.data.to_use}
         qty={this.state.qty}
-        addqty={() => this.addqty()}
+        totalPrice={this.state.totalPrice}
+
+        onChangeQty={(qty) => this.setState({ qty })}
+        addQty={() => this.addQty()}
+        minQty={() => this.minQty()}
 
         dateRelatedProducts={this.props.product}
         renderRelatedProducts={({ item }) => (
