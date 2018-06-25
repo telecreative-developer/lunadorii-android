@@ -4,6 +4,7 @@ import RecommendProduct from '../particles/RecommendProduct'
 import CommentAndRating from '../particles/CommentAndRating'
 import { fetchProduct } from '../actions/product'
 import { connect } from 'react-redux'
+import { fetchwishlist, addWishlist } from '../actions/wishlist';
 
 class ProductShowContainer extends Component {
 
@@ -15,11 +16,15 @@ class ProductShowContainer extends Component {
       subcategories: '',
       qty: 1, 
       totalPrice: 0,
+      idUser:0,
+      idProduct:0,
+      accessToken:''
     }
   }
 
   componentDidMount() {
     const data = this.props.navigation.state.params.data
+    console.log('Data Product Show :' , data)
     this.setState({ 
       data,
       image: data.thumbnails[0].thumbnail_url,
@@ -51,6 +56,17 @@ class ProductShowContainer extends Component {
     }
   }
 
+  async AddWishlist(){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    console.log('wishlist' , data.id)
+    await this.setState({
+      id:data.id,
+      accessToken: data.accessToken
+    })
+    await this.props.fetchwishlist(this.state.accessToken, this.state.id)
+  }
+
   render() {
     return (
       <ProductShow
@@ -68,6 +84,7 @@ class ProductShowContainer extends Component {
         onChangeQty={(qty) => this.setState({ qty })}
         addQty={() => this.addQty()}
         minQty={() => this.minQty()}
+        AddWishlist={()=> this.AddWishlist()}
 
         dateRelatedProducts={this.props.product}
         renderRelatedProducts={({ item }) => (
@@ -99,8 +116,8 @@ class ProductShowContainer extends Component {
 const mapDispatchToProps = (dispatch) =>{
   return{
 
-    fetchProduct: (accessToken) => dispatch(fetchProduct(accessToken))
-    
+    fetchProduct: (accessToken) => dispatch(fetchProduct(accessToken)),
+    addWishlist: (accessToken, idUser, idProduct) => dispatch(addWishlist(accessToken, idUser, idProduct))
   }
 }
 

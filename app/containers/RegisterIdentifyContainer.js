@@ -183,15 +183,53 @@
 
 import React, { Component } from 'react'
 import RegisterIdentify from '../components/RegisterIdentify'
+import { StyleSheet } from 'react-native'
+import { connect } from 'react-redux'
 
-export default class RegisterIdentifyContainer extends Component{
+import Register from '../components/Register'
+import { setNavigate } from '../actions/processor'
+import { register} from '../actions/register'
 
-  state={
-    passwordFieldVisibility: false,
-    email: '',
-    first_name: '',
-    last_name: '',
-    password: ''
+class RegisterIdentifyContainer extends Component {
+
+  constructor(){
+    super()
+
+    this.state = {
+      first_name:'',
+      last_name:'',
+      password:'',
+      email:''
+    }
+  }
+
+  shouldComponentUpdate(nextProps, nextState){
+    if(nextProps !== this.props){
+      return true
+    }
+
+    if(nextState !== this.state){
+      return true
+    }
+
+    return false
+  }
+
+  componentWillUpdate(nextProps){
+    const { loading, success, failed, navigation } = nextProps
+    if(
+      nextProps.success.condition === true && 
+      nextProps.success.process_on === 'SUCCESS_REGISTER'
+    ){
+      Alert.alert('Register Successfull!')
+    }
+
+    if(
+      nextProps.failed.condition === true && 
+      nextProps.failed.process_on === 'FAILED_REGISTER'
+    ) {
+      Alert.alert('Register Failed!', nextProps.failed.message)
+    }
   }
 
   async componentDidMount(){
@@ -219,3 +257,41 @@ export default class RegisterIdentifyContainer extends Component{
     )
   }
 }
+
+const mapStateToProps = state => ({
+  loading: state.loading,
+  success: state.success,
+  failed: state.failed
+})
+
+const mapDispatchToProps = dispatch => ({
+  register: (data) => dispatch(register(data))
+})
+
+const styles = StyleSheet.create({
+  formRegister:{
+    paddingTop: 5, 
+    paddingBottom: 10
+  },
+  buttonRegisterActive:{
+    height: 50,
+    borderRadius: 10, 
+    backgroundColor: '#d11e48'
+  },
+  buttonRegisterActiveText:{
+    color: '#fff', 
+    fontSize: 18 
+  },
+  buttonRegisterInactive:{
+    height: 50,
+    borderRadius: 10, 
+    backgroundColor: '#fff',
+    borderColor:'#d11e48'
+  },
+  buttonRegisterInactiveText:{
+    color: '#d11e48', 
+    fontSize: 18 
+  }
+})
+
+export default connect(mapStateToProps, mapDispatchToProps)(RegisterIdentifyContainer)

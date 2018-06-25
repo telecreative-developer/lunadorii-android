@@ -100,6 +100,11 @@ class LoginContainer extends Component {
 		}
   }
 
+  // navigateToRegister()
+  // {
+  //   this.props.navigation.navigate('RegisterContainer')
+  // }
+
   render() {
     const { navigate } = this.props.navigation
     return (
