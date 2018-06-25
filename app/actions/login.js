@@ -7,7 +7,7 @@ export const login = (email, password) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_PROCESS_LOGIN'))
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/auth/user`, {
+			const response = await fetch(`${API_SERVER_AUTH}/api/v1/auth/user`, {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',
@@ -38,7 +38,7 @@ export const fetchUserWithId = (email, password, accessToken, users_id) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_USER_WITH_ID'))
 		try {
-			const response = await fetch(`${API_SERVER_AUTH}/api/v1/user/${users_id}`, {
+			const response = await fetch(`${API_SERVER_USER}/api/v1/user/${users_id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
