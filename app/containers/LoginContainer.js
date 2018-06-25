@@ -75,8 +75,11 @@ class LoginContainer extends Component {
 
   handleValidationLogin() {
     const { email, password } = this.state
-      this.props.login(email, password)
-      console.log("email", email, "pasword", password)
+    if (!isEmail(email)) {
+			Alert.alert('Login Failed', 'Silahkan masukan alamat email yang valid')
+		} else {
+			this.props.login(email, password)
+		}
   }
 
   renderButtons() {
