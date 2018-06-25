@@ -34,7 +34,7 @@ const Register = (props) => (
             </Item>
           </Form>
           <View style={styles.formRegister}>
-            <Button full style={styles.buttonRegisterActive}>
+            <Button full style={styles.buttonRegisterActive} onPress={props.handleNext}>
               <Text style={styles.buttonRegisterActiveText}>Next</Text>
             </Button>
           </View>

@@ -43,7 +43,7 @@ const RegisterIdentify = (props) => (
           </Form>
           <View style={styles.formRegister}>
             <Button full style={styles.buttonRegisterActive}>
-              <Text style={styles.buttonRegisterActiveText}>Next</Text>
+              <Text style={styles.buttonRegisterActiveText}>Register</Text>
             </Button>
           </View>
         </View>

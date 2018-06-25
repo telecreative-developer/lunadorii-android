@@ -123,6 +123,7 @@ class RegisterContainer extends Component {
         onChangeLastName={(last_name)=> this.setState({last_name})}
         onChangeEmail={(email)=> this.setState({email})}
         onChangePassword={(password)=> this.setState({password})}
+        handleNext={() => this.props.navigation.navigate("RegisterIdentifyContainer", { email : this.state.email })}
         renderButton={this.renderButton()}
       />
     )
