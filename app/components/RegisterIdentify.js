@@ -20,7 +20,7 @@ const RegisterIdentify = (props) => (
               <Input 
                 placeholder="First Name" 
                 placeholderTextColor="#ccc" 
-                value={props.email}
+                value={props.first_name}
                 onChangeText={props.onChangeEmail}
               />
             </Item>
@@ -28,7 +28,7 @@ const RegisterIdentify = (props) => (
               <Input 
                 placeholder="Last Name" 
                 placeholderTextColor="#ccc" 
-                value={props.email}
+                value={props.last_name}
                 onChangeText={props.onChangeEmail}
               />
             </Item>
@@ -36,8 +36,8 @@ const RegisterIdentify = (props) => (
               <Input 
                 placeholder="Password" 
                 placeholderTextColor="#ccc" 
-                value={props.email}
-                onChangeText={props.onChangeEmail}
+                value={props.password}
+                onChangeText={props.onChangePassword}
               />
             </Item>
           </Form>
