@@ -50,12 +50,11 @@ export const fetchUserWithId = (email, password, accessToken, users_id) => {
             console.log('ini data session' , data.data)
 			await dispatch(saveSession(data.data[0]))
 			await dispatch(saveSessionPersistance({...data.data[0], accessToken	}))
-			await dispatch(setSuccess(true, 'SUCCESS_FETCH_USER_WITH_EMAIL'))
-      		await dispatch(setLoading(false, 'LOADING_FETCH_USER_WITH_EMAIL'))
+			await dispatch(setSuccess(true, 'SUCCESS_FETCH_USER_WITH_ID'))
+      		await dispatch(setLoading(false, 'LOADING_FETCH_USER_WITH_ID'))
 		} catch (e) {
-			console.log('error fetchuser', JSON.stringify(e))
-			dispatch(setFailed(true, 'FAILED_FETCH_USER_WITH_EMAIL', e))
-			dispatch(setLoading(false, 'LOADING_FETCH_USER_WITH_EMAIL'))
+			dispatch(setFailed(true, 'FAILED_FETCH_USER_WITH_ID', e))
+			dispatch(setLoading(false, 'LOADING_FETCH_USER_WITH_ID'))
 		}
 	}
 }

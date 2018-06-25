@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Alert, AsyncStorage, StyleSheet } from 'react-native'
+import { Alert, AsyncStorage, StyleSheet, Text } from 'react-native'
 import { isEmpty, isEmail } from 'validator'
 import { connect } from 'react-redux'
 import { NavigationActions } from 'react-navigation'
-import { Button, Spinner, Text } from 'native-base'
+import { Button, Spinner } from 'native-base'
 
 import Login from '../components/Login'
 import { login } from '../actions/login'
@@ -40,15 +40,15 @@ class LoginContainer extends Component {
   componentWillUpdate(nextProps) {
     const { loading, success, failed, navigation } = nextProps
     if (
-      failed.condition === true &&
+      failed.condition === false &&
       failed.process_on === 'FAILED_PROCESS_LOGIN'
     ) {
       Alert.alert('Login gagal', 'Silahkan Cek Kembali Akun Anda!')
     } else if (
       loading.condition === false &&
-      loading.process_on === 'LOADING_PROCESS_LOGIN' &&
+      loading.process_on === 'LOADING_FETCH_USER_WITH_ID' &&
       success.condition === true &&
-      success.process_on === 'SUCCESS_PROCESS_LOGIN'
+      success.process_on === 'SUCCESS_FETCH_USER_WITH_ID'
     ) {
       navigation.navigate('HomeContainer')
     }
@@ -65,7 +65,6 @@ class LoginContainer extends Component {
     console.log('Ini isi session' , data)
     if(data !== null){
       try{
-        await this.props.login(data.email, data.password)
         this.props.navigation.navigate('HomeContainer')
       }catch(e){
         alert(e)
@@ -75,11 +74,8 @@ class LoginContainer extends Component {
 
   handleValidationLogin() {
     const { email, password } = this.state
-    if (!isEmail(email)) {
-			Alert.alert('Login Failed', 'Silahkan masukan alamat email yang valid')
-		} else {
-			this.props.login(email, password)
-		}
+      this.props.login(email, password)
+      console.log("email", email, "pasword", password)
   }
 
   renderButtons() {
@@ -87,18 +83,18 @@ class LoginContainer extends Component {
     const { loading } = this.props
 		if (!isEmpty(email) && !isEmpty(password)) {
 			return (
-        <Button style={styles.buttonLoginActive} rounded onPress={() => this.handleValidationLogin()}>
+        <Button full style={styles.buttonLoginActive}>
           {loading.condition === true && loading.process_on === 'LOADING_PROCESS_LOGIN' ? (
             <Spinner color="#FFFFFF" />
           ) : (
-            <Text style={styles.buttonLoginActiveText}>Sign In</Text>
+            <Text style={styles.buttonLoginActiveText}>Login</Text>
           )}
         </Button>
 			)
 		} else {
 			return (
-				<Button rounded bordered style={styles.buttonLoginInactive}>
-					<Text style={styles.buttonLoginInactiveText}>Sign In</Text>
+				<Button bordered full style={styles.buttonLoginInactive}>
+					<Text style={styles.buttonLoginInactiveText}>Login</Text>
 				</Button>
 			)
 		}
@@ -122,35 +118,33 @@ class LoginContainer extends Component {
 }
 
 const styles = StyleSheet.create({
-  buttonLoginActive: {
-    backgroundColor: '#F85959',
-    width: 135,
-    height: 40,
-    justifyContent: 'center',
-    alignSelf: "center",
-    marginTop: 10,
-    marginBottom: 20,
+  buttonLoginActive:{
+    height: 50,
+    borderRadius: 10, 
+    backgroundColor: '#d11e48'
   },
-  buttonLoginActiveText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: '#FFF',
-    alignSelf: "center",
+  buttonLoginActiveText:{
+    color: '#fff', 
+    fontSize: 18 
+  },
+  buttonLoginActive:{
+    height: 50,
+    borderRadius: 10, 
+    backgroundColor: '#d11e48'
+  },
+  buttonLoginActiveText:{
+    color: '#fff', 
+    fontSize: 18 
   },
   buttonLoginInactive: {
-    width: 135,
-    height: 40,
-    justifyContent: "center",
-    alignSelf: "center",
-    marginTop: 10,
-    marginBottom: 20,
-    borderColor: "#F85959"
+    height: 50,
+    borderRadius: 10, 
+    backgroundColor: '#fff',
+    borderColor:'#d11e48'
   },
   buttonLoginInactiveText: {
-    alignSelf: "center",
-    fontSize: 12,
-    color: "#F85959",
-    fontWeight: "bold"
+    color: '#d11e48', 
+    fontSize: 18 
   }
 })
 

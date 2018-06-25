@@ -2,6 +2,8 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { fetchSingleUser } from '../actions/getSingleUser'
 import { editPassword, editEmail } from '../actions/editprofile'
+import { editPassword } from '../actions/editprofile'
+import {AsyncStorage} from 'react-native'
 
 import Settings from '../components/Settings'
 
@@ -49,6 +51,11 @@ class SettingsContainer extends Component {
     }
   }
 
+  handleLogout() {
+    AsyncStorage.removeItem('session')
+    this.props.navigation.navigate('LoginContainer')
+  }
+
   async handleChangePassword() {
     
       if (this.state.password == ""){
@@ -67,8 +74,11 @@ class SettingsContainer extends Component {
   render() {
     return (
       <Settings
+        userData={this.props.getsingleuser}
+
         modalVisibleChangePassword={this.state.modalVisibleChangePassword}
         toggleModalChangePassword={() => this.toggleModalChangePassword()}
+        actionLogout={()=> this.handleLogout()}
 
         modalVisibleChangeEmail={this.state.modalVisibleChangeEmail}
         toggleModalChangeEmail={() => this.toggleModalChangeEmail()}

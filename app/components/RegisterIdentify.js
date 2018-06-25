@@ -4,29 +4,37 @@ import { Container, Content, Icon, Button, Footer, Form, Label, Item, Input } fr
 import PropTypes from 'prop-types'
 import { register } from '../actions/register';
 
-const Register = (props) => (
+const RegisterIdentify = (props) => (
   <Container style={styles.backgroundColorWhite}>
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content" />
     <Content style={styles.backgroundColorWhite}>
-      <View style={styles.wrapper}>    
-        <View style={{
-          justifyContent: 'center',
-          alignItems: 'center',
-          backgroundColor: '#fff',
-          paddingTop: 50
-        }}>
-          <Image source={require('../assets/images/icon/LOGOLDCirclee.png')} style={{height: 90, width: 90}} />    
-        </View>
-        <View style={styles.logoImage}>
-          <Image source={require('../assets/images/icon/LogoLD.png')} style={styles.logoSize} />
+      <View style={styles.wrapper}>   
+        <View style={{alignItems: 'center', paddingTop: 35, paddingBottom: 100}}>
+          <Text style={{fontSize: 26}}>Name and Password</Text>
         </View>
         <View>
           <Form>
             <Item regular style={styles.item}>
               <Input 
-                placeholder="Email address" 
+                placeholder="First Name" 
+                placeholderTextColor="#ccc" 
+                value={props.email}
+                onChangeText={props.onChangeEmail}
+              />
+            </Item>
+            <Item regular style={styles.item}>
+              <Input 
+                placeholder="Last Name" 
+                placeholderTextColor="#ccc" 
+                value={props.email}
+                onChangeText={props.onChangeEmail}
+              />
+            </Item>
+            <Item regular style={styles.item}>
+              <Input 
+                placeholder="Password" 
                 placeholderTextColor="#ccc" 
                 value={props.email}
                 onChangeText={props.onChangeEmail}
@@ -34,8 +42,8 @@ const Register = (props) => (
             </Item>
           </Form>
           <View style={styles.formRegister}>
-            <Button full style={styles.buttonRegisterActive} onPress={props.handleNext}>
-              <Text style={styles.buttonRegisterActiveText}>Next</Text>
+            <Button full style={styles.buttonRegisterActive}>
+              <Text style={styles.buttonRegisterActiveText}>Register</Text>
             </Button>
           </View>
         </View>
@@ -66,7 +74,7 @@ register.propTypes = {
   onChangePassword: PropTypes.func
 }
 
-export default Register
+export default RegisterIdentify
 
 const styles = StyleSheet.create({
   logoImage: {
