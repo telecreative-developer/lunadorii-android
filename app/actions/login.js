@@ -7,7 +7,7 @@ export const login = (email, password) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_PROCESS_LOGIN'))
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/auth/user`, {
+			const response = await fetch(`${API_SERVER_AUTH}/api/v1/auth/user`, {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',
@@ -15,16 +15,18 @@ export const login = (email, password) => {
 				},
 				body: JSON.stringify({email, password})
 			})
-            const data = await response.json()
+			const data = await response.json()
+			console.log("data action:" , data)
 			if (data.status === 400 && data.name === 'error') {
 				await dispatch(setFailed(true, 'FAILED_PROCESS_LOGIN', data.message))
 				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 			} else {
-				await dispatch(fetchUserWithEmail(data.email, data.password, data.accessToken, data.id))
+				await dispatch(fetchUserWithId(data.email, data.password, data.accessToken, data.id))
 				await dispatch(setSuccess(true, 'SUCCESS_PROCESS_LOGIN'))
 				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 			}
 		} catch (e) {
+			 console.log('error: ', e)
 			dispatch(setFailed(true, 'FAILED_PROCESS_LOGIN', e))
 			dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 			dispatch(setFailed(false, 'FAILED_PROCESS_LOGIN'))
@@ -32,11 +34,11 @@ export const login = (email, password) => {
 	}
 }
 
-export const fetchUserWithEmail = (email, password, accessToken, users_id) => {
+export const fetchUserWithId = (email, password, accessToken, users_id) => {
 	return async dispatch => {
-		await dispatch(setLoading(true, 'LOADING_FETCH_USER_WITH_EMAIL'))
+		await dispatch(setLoading(true, 'LOADING_FETCH_USER_WITH_ID'))
 		try {
-			const response = await fetch(`${API_SERVER_AUTH}/api/v1/user/${users_id}`, {
+			const response = await fetch(`${API_SERVER_USER}/api/v1/user/${users_id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',

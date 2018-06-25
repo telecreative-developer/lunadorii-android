@@ -46,9 +46,9 @@ class LoginContainer extends Component {
       Alert.alert('Login gagal', 'Silahkan Cek Kembali Akun Anda!')
     } else if (
       loading.condition === false &&
-      loading.process_on === 'LOADING_FETCH_USER_WITH_EMAIL' &&
+      loading.process_on === 'LOADING_PROCESS_LOGIN' &&
       success.condition === true &&
-      success.process_on === 'SUCCESS_FETCH_USER_WITH_EMAIL'
+      success.process_on === 'SUCCESS_PROCESS_LOGIN'
     ) {
       navigation.navigate('HomeContainer')
     }
@@ -76,7 +76,7 @@ class LoginContainer extends Component {
   handleValidationLogin() {
     const { email, password } = this.state
       this.props.login(email, password)
-      this.props.navigation.navigate('HomeContainer')
+      console.log("email", email, "pasword", password)
   }
 
   renderButtons() {
