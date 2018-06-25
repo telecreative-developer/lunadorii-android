@@ -80,7 +80,7 @@ class ProductShowContainer extends Component {
               params: { 
                 data: item,
               },
-              key: 'Product' + this.state.title
+              key: Math.random () * 10000
             })}
           />
         )}
