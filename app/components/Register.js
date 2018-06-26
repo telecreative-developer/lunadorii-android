@@ -3,6 +3,8 @@ import { StyleSheet, View, Image, TouchableOpacity, Text, StatusBar } from 'reac
 import { Container, Content, Icon, Button, Footer, Form, Label, Item, Input } from 'native-base'
 import PropTypes from 'prop-types'
 import { register } from '../actions/register';
+import LunadoriiPortraitLogo from '../assets/images/icon/LogoLD.png'
+import LunadoriiCircleLogo from '../assets/images/icon/LOGOLDCirclee.png'
 
 const Register = (props) => (
   <Container style={styles.backgroundColorWhite}>
@@ -17,10 +19,10 @@ const Register = (props) => (
           backgroundColor: '#fff',
           paddingTop: 50
         }}>
-          <Image source={require('../assets/images/icon/LOGOLDCirclee.png')} style={{height: 90, width: 90}} />    
+          <Image source={LunadoriiCircleLogo} style={{height: 90, width: 90}} />    
         </View>
         <View style={styles.logoImage}>
-          <Image source={require('../assets/images/icon/LogoLD.png')} style={styles.logoSize} />
+          <Image source={LunadoriiPortraitLogo} style={styles.logoSize} />
         </View>
         <View>
           <Form>

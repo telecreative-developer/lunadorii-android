@@ -2,7 +2,7 @@ import React from 'react'
 import { StyleSheet, View, Image, TouchableOpacity, Text, StatusBar } from 'react-native'
 import { Container, Content, Icon, Button, Footer, Form, Label, Item, Input } from 'native-base'
 import PropTypes from 'prop-types'
-import { login } from '../actions/login'
+import LunadoriiPortraitLogo from '../assets/images/icon/LogoLD.png'
 
 const Login = (props) => (
   <Container style={styles.backgroundColorWhite}>
@@ -12,7 +12,7 @@ const Login = (props) => (
     <Content style={styles.backgroundColorWhite}>
       <View style={styles.wrapper}>
         <View style={styles.logoImage}>
-          <Image source={require('../assets/images/icon/LogoLD.png')} style={styles.logoSize} />
+          <Image source={LunadoriiPortraitLogo} style={styles.logoSize} />
         </View>
         <View>
           <Form>
