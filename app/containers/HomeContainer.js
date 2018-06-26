@@ -94,33 +94,10 @@ const styles = StyleSheet.create({
   banner: {
     backgroundColor: '#000'
   },
-  item: {
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    margin: 5,
-    height: height / 6
-  },
-  itemText: {
-    fontSize: 10,
-    textAlign: 'center'
-  },
   bannerImage: {
     width: bannerWidth,
     height: bannerHeight,
-    opacity: 0.6
-  },
-  menuBoxIcon: {
-    width: 50,
-    height: 50,
-    marginBottom: 10
-  },
-  icon: {
-    fontSize: 14,
-    color: '#2f2f4f',
-    marginRight: 0
+    opacity: 1
   }
 })
 
