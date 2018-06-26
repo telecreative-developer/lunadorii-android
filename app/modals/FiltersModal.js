@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { Container, Content, Item, Input, Icon, Label, Form, Button } from 'native-base'
+import { Modal, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { Content, Item, Input, Icon, Button } from 'native-base'
+import BrandChooserModal from '../modals/BrandChooserModal'
 import NavbarModal from '../particles/NavbarModal'
 
 const FiltersModal = (props) => (
@@ -13,6 +14,11 @@ const FiltersModal = (props) => (
       navbarTitle="Filters"
       navbarIcon="close"
       actionIcon={props.actionIcon} />
+    <BrandChooserModal
+      navbarTitle="Edit Profile"
+      navbarIcon="close"
+      modalVisible={props.modalVisibleBrandChooser}
+      actionIcon={props.toggleModalBrandChooser}/>
     <Content style={styles.container}>
       <Text style={styles.txtLabel}>Category</Text>
       <Item regular style={styles.item}>
@@ -40,8 +46,9 @@ const FiltersModal = (props) => (
         </View>
       </View>
       <Text style={styles.txtLabel}>Brands</Text>
-      <Item regular style={styles.item}>
-        <Input placeholder='Select brand' placeholderTextColor="#ccc" />
+      <Item regular style={styles.item} onPress={props.toggleModalBrandChooser}> 
+        <Input placeholder='Select brand' placeholderTextColor="#ccc" disabled/>
+        <Icon type='Entypo' name="chevron-small-down" style={{color: '#ccc'}}/>
       </Item>
       <Text style={styles.txtLabel}>Price</Text>
       <View style={styles.inputWrapper}>

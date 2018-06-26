@@ -15,9 +15,10 @@ const RecommendProduct = (props) => {
         <View style={styles.viewFlexRow}>
           <View style={styles.viewRating}>
             <Rating
-              type='custom'
+              type='star'
               ratingCount={5}
-              startingValue={props.star}
+              disable
+              defaultRating={props.star}
               imageSize={12}
               ratingColor="#000"
               ratingBackgroundColor="#ccc"
