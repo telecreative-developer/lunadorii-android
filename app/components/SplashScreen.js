@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Image, StyleSheet, StatusBar } from 'react-native'
-import { Container, Content, Text } from 'native-base'
+import { Container } from 'native-base'
+import LunadoriiPortraitLogo from '../assets/images/icon/PortraitLogo.png'
 
 const SplashScreen = (props) => (
   <Container>
@@ -9,7 +10,7 @@ const SplashScreen = (props) => (
       barStyle="light-content"
     />
     <View style={styles.style}>
-      <Image source={require('../assets/images/icon/LogoLD.png')} style={{ width: 250, height: 65 }} />
+      <Image source={LunadoriiPortraitLogo} style={{ width: 250, height: 65 }} />
     </View>
   </Container >
 )

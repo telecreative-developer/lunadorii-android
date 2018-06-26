@@ -3,14 +3,14 @@ import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-na
 import { Container, Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 
-const EditAddressModal = (props) => (
+const AddAddressModal = (props) => (
   <Modal
     animationType="slide"
     transparent={false}
     visible={props.modalVisible}
     onRequestClose={props.actionIcon}>
     <NavbarModal
-      navbarTitle="Edit Address"
+      navbarTitle="Add Address"
       navbarIcon="close"
       actionIcon={props.actionIcon} />
     <Content style={styles.container}>
@@ -45,13 +45,13 @@ const EditAddressModal = (props) => (
         </Item>
       </Form>
     </Content>
-    <Button full style={styles.buttonSaveStyle} onPress={props.handleUpdateShippingAddress}>
-      <Text style={styles.buttonSaveTextStyle}>Update</Text>
+    <Button full style={styles.buttonSaveStyle} onPress={props.handleSaveShippingAddress}>
+      <Text style={styles.buttonSaveTextStyle}>Save</Text>
     </Button>
   </Modal>
 )
 
-export default EditAddressModal
+export default AddAddressModal
 
 const styles = StyleSheet.create({
   container: {
