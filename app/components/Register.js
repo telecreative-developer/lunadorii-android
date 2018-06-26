@@ -3,8 +3,8 @@ import { StyleSheet, View, Image, TouchableOpacity, Text, StatusBar } from 'reac
 import { Container, Content, Icon, Button, Footer, Form, Label, Item, Input } from 'native-base'
 import PropTypes from 'prop-types'
 import { register } from '../actions/register';
-import LunadoriiPortraitLogo from '../assets/images/icon/LogoLD.png'
-import LunadoriiCircleLogo from '../assets/images/icon/LOGOLDCirclee.png'
+import LunadoriiPortraitLogo from '../assets/images/icon/PortraitLogo.png'
+import LunadoriiCircleLogo from '../assets/images/icon/CircleLogo.png'
 
 const Register = (props) => (
   <Container style={styles.backgroundColorWhite}>

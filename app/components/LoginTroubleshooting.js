@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, StatusBar, Text, Image, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Form, Item, Input, Icon } from 'native-base'
-import LunadoriiCircleLogo from '../assets/images/icon/LOGOLDCirclee.png'
+import LunadoriiCircleLogo from '../assets/images/icon/CircleLogo.png'
 
 const LoginTroubleshooting = (props) => (
   <Container style={styles.container}>
