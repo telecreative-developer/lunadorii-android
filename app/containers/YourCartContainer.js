@@ -5,7 +5,8 @@ export default class YourCartContainer extends Component {
 
   render() {
     return (
-      <YourCart />      
+      <YourCart 
+        goback={() => this.props.navigation.goBack()}/>
     );
   }
 }

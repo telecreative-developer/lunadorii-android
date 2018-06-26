@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { StyleSheet, TouchableOpacity, FlatList, StatusBar } from 'react-native'
 import { Container, Content, Text, View, Button, Icon } from 'native-base'
 import Navbar from '../particles/Navbar'
-import ShippingAddress from '../particles/ShippingAddress'
 import EditAddressModal from '../modals/EditAddressModal'
+import AddAddressModal from '../modals/AddAddressModal'
 
 const YourShippingAddress = (props) => (
   <Container style={styles.container}>
@@ -15,7 +15,14 @@ const YourShippingAddress = (props) => (
       navbarTitle="Edit Addresss"
       navbarIcon="close"
       modalVisible={props.modalVisibleEditAddress}
-      actionIcon={props.toggleModalEditAddress} />
+      actionIcon={props.toggleModalEditAddress} 
+      handleUpdateShippingAddress={props.handleUpdateShippingAddress}/>
+    <AddAddressModal
+      navbarTitle="Add Addresss"
+      navbarIcon="close"
+      modalVisible={props.modalVisibleAddAddress}
+      actionIcon={props.toggleModalAddAddress} 
+      handleSaveShippingAddress={props.handleSaveShippingAddress}/>
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content"
@@ -29,7 +36,7 @@ const YourShippingAddress = (props) => (
           keyExtractor={(item, index) => JSON.stringify(index)}
         />
       </View>
-      <Button style={styles.btnAddAddress}>
+      <Button style={styles.btnAddAddress} onPress={props.toggleModalAddAddress}>
         <Icon name="add" /><Text style={styles.txtAddAddress}>Add Another Address</Text>
       </Button>
     </Content>
