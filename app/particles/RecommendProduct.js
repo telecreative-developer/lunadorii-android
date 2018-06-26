@@ -15,7 +15,7 @@ const RecommendProduct = (props) => {
         <View style={styles.viewFlexRow}>
           <View style={styles.viewRating}>
             <Rating
-              type='custom'
+              type='star'
               ratingCount={5}
               startingValue={props.star}
               imageSize={12}
