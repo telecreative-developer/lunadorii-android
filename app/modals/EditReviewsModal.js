@@ -5,7 +5,9 @@ import NavbarModal from '../particles/NavbarModal'
 import { Rating } from 'react-native-ratings'
 import ProductReviewed from '../particles/ProductReviewed'
 
-const EditReviewsModal = (props) => (
+const EditReviewsModal = (props) => {
+  console.log('props edit: ', props.star)
+  return(
   <Modal
     animationType="slide"
     transparent={false}
@@ -17,26 +19,29 @@ const EditReviewsModal = (props) => (
       actionIcon={props.actionIcon} />
     <Content style={styles.container}>
       <ProductReviewed
-        image="https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg"
-        title="Sabrina Lipgloss"
-        price="120,000" />
+        image={props.image}
+        title={props.title}
+        price={props.price} />
       <Rating
         type='custom'
         ratingCount={5}
-        startingValue={3}
+        onFinishRating={props.star}
+        defaultValue={props.star}
+        startingValue={props.star}
         imageSize={30}
         ratingColor="#000"
         ratingBackgroundColor="#ccc"
-        style={styles.rating} />
+        style={styles.rating} 
+        />
       <Item regular style={styles.itemsTextarea}>
-        <Textarea placeholder="Type your reviews here" placeholderTextColor="#CDCDCD" style={styles.textareaStyle} />
+        <Textarea placeholder="Type your reviews here" placeholderTextColor="#CDCDCD" style={styles.textareaStyle} value={props.comment} onChangeText={props.onChangeComment}/>
       </Item>
     </Content>
-    <Button full style={styles.buttonSaveStyleEditProfile}>
+    <Button full style={styles.buttonSaveStyleEditProfile} onPress={props.updateRating}>
       <Text style={styles.buttonSaveTextStyleEditProfile}>Update</Text>
     </Button>
   </Modal>
-)
+)}
 
 export default EditReviewsModal
 

@@ -12,27 +12,36 @@ class ProductShowContainer extends Component {
   constructor(){
     super()
     this.state = {
+      modalVisibleImageView: false,
       image: '',
+      images:[],
       data: {},
       subcategories: '',
       qty: 1, 
       totalPrice: 0,
       idUser:0,
       idProduct:0,
-      accessToken:''
+      accessToken:'',
+      amountOfImage: 0
     }
   }
 
-  componentDidMount() {
+  toggleImageViewModal(){
+    this.setState({ modalVisibleImageView: !this.state.modalVisibleImageView })
+  }
+
+  async componentDidMount() {
     const data = this.props.navigation.state.params.data
     console.log('Data Product Show :' , data)
-    this.setState({ 
+    await this.setState({ 
       data,
       image: data.thumbnails[0].thumbnail_url,
+      images: data.thumbnails,
       subcategories: data.subcategories[0].subcategory,
-      totalPrice: data.price      
+      totalPrice: data.price,
+      amountOfImage: data.thumbnails.length   
     })
-    this.props.fetchProduct('123')
+    await this.props.fetchProduct('123')
   }
 
   async addQty(){
@@ -81,6 +90,7 @@ class ProductShowContainer extends Component {
         guide={this.state.data.to_use}
         qty={this.state.qty}
         totalPrice={this.state.totalPrice}
+        amountOfImage={this.state.amountOfImage}
 
         onChangeQty={(qty) => this.setState({ qty })}
         addQty={() => this.addQty()}
@@ -109,6 +119,12 @@ class ProductShowContainer extends Component {
             date={item.updated_at}
             rating={item.review_rate} />
         )}
+
+        modalVisibleImageView={this.state.modalVisibleImageView}
+        toggleImageViewModal={() => this.toggleImageViewModal()}
+        imageToView={this.state.image}
+        images={this.state.images}
+
         goback={() => this.props.navigation.goBack()} />
     )
   }

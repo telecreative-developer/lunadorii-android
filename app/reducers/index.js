@@ -10,7 +10,7 @@ import { getsingleuser } from "./getsingleuser"
 import { sessionPersistance } from "./login"
 import { editpassword, editemail } from "./editprofile"
 import { wishlist } from "./wishlist"
-// import { sessionPersistance } from "./login";
+import { userreview } from "./userreview"
 
 const rootReducers = combineReducers({
   loading,
@@ -27,7 +27,11 @@ const rootReducers = combineReducers({
   editpassword,
   editemail,
   wishlist,
+<<<<<<< HEAD
   
+=======
+  userreview
+>>>>>>> e0f0fdfdf8bc08af9dd4d990861abf27ce741ae6
 //   sessionPersistance
 });
 
