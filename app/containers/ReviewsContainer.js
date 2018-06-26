@@ -1,39 +1,63 @@
 import React, { Component } from 'react'
+import {AsyncStorage} from 'react-native'
 import Reviews from '../components/Reviews'
 import ProductReviews from '../particles/ProductReviews'
+import { connect } from 'react-redux'
+import { fetchUserReview, updateReview } from '../actions/userreview'
 
-const dataReviews = [
-  {
-    image: 'https://aws-dist.brta.in/2016-08/original_700/1200x800_0_0_1200_800_be71c6e15ae8c6f7bfd6e935b0ab5fcc3c2f98d3.jpg',
-    title: 'Pemutih wajah',
-    star: 5,
-    date: '21 Juni 2018',
-    review: "Keren banget produknya, jadi gak mau pindah ke tempat lain"
-  },
-  {
-    image: 'https://cdns.klimg.com/merdeka.com/i/w/news/2013/03/11/162175/670x335/cara-mengenali-produk-kecantikan-yang-039eco-friendly039.jpg',
-    title: 'Sabrina Skin Care',
-    star: 4,
-    date: '21 Juni 2018',
-    review: "Keren banget produknya, jadi gak mau pindah ke tempat lain"
-  },
-  {
-    image: 'https://i0.wp.com/www.tabitaonline.com/wp-content/uploads/2016/07/produk-kecantikan-tabita-skin-care.jpg?resize=600%2C539',
-    title: 'Produk Kecantikan Tabita Skin Care',
-    star: 5,
-    date: '28 Juni 2018',
-    review: "Keren banget produknya, jadi gak mau pindah ke tempat lain"
-  },
-]
-
-export default class ReviewsContainer extends Component{
+class ReviewsContainer extends Component{
 
   state = {
-    modalVisibleEditReviews: false
+    modalVisibleEditReviews: false,
+    id: 0,
+    image: '',
+    title: '',
+    price: 0,
+    star: 0,
+    comment: ''
   }
 
-  toggleModalEditReviews(){
+  closeModal(){
     this.setState({modalVisibleEditReviews: !this.state.modalVisibleEditReviews})
+  }
+
+  async toggleModalEditReviews(item){
+    await this.closeModal()
+    if(this.state.modalVisibleEditReviews){
+      await this.setState({
+        id: item.product_review_id,
+        image: item.product.thumbnails[0].thumbnail_url,
+        title: item.product.name,
+        price: item.product.price,
+        star: item.rate,
+        comment: item.comment
+      }) 
+    }else{
+      await this.setState({
+        id: 0,
+        image: '',
+        title: '',
+        price: 0,
+        star: 0,
+        comment: ''
+      })
+    }
+    console.log('clicked: ', item)
+  }
+
+  async componentDidMount(){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.fetchUserReview(data.id, data.accessToken)
+  }
+
+  async btnUpdateRating(){
+    alert('updated')
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.updateReview(this.state.id, this.state, data.accessToken)
+    await this.props.fetchUserReview(data.id, data.accessToken)
+    await this.closeModal()
   }
 
   render(){
@@ -42,18 +66,51 @@ export default class ReviewsContainer extends Component{
       goback={() => this.props.navigation.goBack()}
       modalVisibleEditReviews={this.state.modalVisibleEditReviews}
       toggleModalEditReviews={() => this.toggleModalEditReviews()}
-      dataReviews={dataReviews}
+      
+      image={this.state.image}
+      title={this.state.title}
+      price={this.state.price}
+      star={this.state.star}
+      comment={this.state.comment}
+      onChangeComment={(comment) => this.setState({ comment })}
+      updateRating={() => this.btnUpdateRating()}
+
+      dataReviews={this.props.userreview}
       renderReviews={({item}) => (
         <ProductReviews 
-          image={item.image} 
-          title={item.title} 
-          star={item.star} 
-          date={item.date} 
-          review={item.review}
-          action={() => this.toggleModalEditReviews()}
+          id={item.product_review_id}
+          image={item.product.thumbnails[0].thumbnail_url} 
+          title={item.product.name} 
+          star={item.rate} 
+          date={item.updated_at} 
+          review={item.comment}
+          action={() => this.toggleModalEditReviews(item)}
         />
       )}
       />
     )
   }
 }
+
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+
+    fetchUserReview: (id, accessToken) => dispatch(fetchUserReview(id, accessToken)),
+    updateReview: (id, items, accessToken) => dispatch(updateReview(id, items, accessToken))
+    
+  }
+}
+
+const mapStateToProps = (state) => {
+  return{
+    loading: state.loading,
+    success: state.success,
+    failed: state.failed,
+    userreview: state.userreview,
+    sessionPersistance: state.sessionPersistance,
+  }
+}
+
+
+export default connect(mapStateToProps, mapDispatchToProps)(ReviewsContainer)
