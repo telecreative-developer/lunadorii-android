@@ -183,8 +183,10 @@
 
 import React, { Component } from 'react'
 import RegisterIdentify from '../components/RegisterIdentify'
-import { StyleSheet } from 'react-native'
+import { StyleSheet, View, Text, Alert } from 'react-native'
+import { Button, Spinner} from 'native-base'
 import { connect } from 'react-redux'
+import { isEmpty } from 'validator'
 
 import Register from '../components/Register'
 import { setNavigate } from '../actions/processor'
@@ -234,25 +236,92 @@ class RegisterIdentifyContainer extends Component {
 
   async componentDidMount(){
     email = this.props.navigation.state.params
-    await this.setState({email})
-    await alert(JSON.stringify(this.state.email))
+    await this.setState({email: email.email})
+    console.log('isi Session' , this.state )
   }
 
   togglePasswordFieldVisibility(){
     this.setState({passwordFieldVisibility: !this.state.passwordFieldVisibility})
   }
 
+  renderButton(){
+        const { first_name, last_name, email, password } = this.state
+        const { loading } = this.props
+        // const regexEmail = /^[^@]+@(yahoo|gmail)\.(com|net)$/i
+    
+        if (!isEmpty( String(JSON.stringify(first_name)) ) &&
+            !isEmpty(String(JSON.stringify(last_name))) &&
+            !isEmpty(String(JSON.stringify(email))) &&
+            // regexEmail.test(email) === true &&
+            !isEmpty(String(JSON.stringify(password)))) {
+            return (
+              <View style={styles.formRegister}>
+                {loading.condition === true && loading.process_on === 'LOADING_REGISTER' ? (
+                  <Button full style={styles.buttonRegisterActive}>
+                    <Spinner color="#FFFFFF" />
+                  </Button>
+                  ) : (
+                  <Button full style={styles.buttonRegisterActive} onPress={() => this.handleValidationRegister()} rounded center>
+                    <Text style={styles.buttonRegisterActiveText}>Next</Text>
+                  </Button>
+                  )}
+              </View>
+            )
+        } else {
+          return (
+            <View style={styles.formRegister}>
+              <Button bordered full style={styles.buttonRegisterInactive}>
+                <Text style={styles.buttonRegisterInactiveText}>Register</Text>
+              </Button>
+            </View>
+          )
+        }
+      }
+
+    handleValidationRegister(nextProps){
+      const { email } = this.state
+      // if (!isEmail(String(JSON.stringify(email)))) {
+      //   console.log('Ini email', email)
+      //   Alert.alert('Register gagal', 'Silahkan masukan alamat email yang valid')
+      // } else {
+      //   this.props.register(this.state)
+      //   this.props.navigation.navigate('HomeContainer', {user: this.state})
+      //   this.setState({
+      //     first_name: '',
+      //     last_name: '',
+      //     email: '',
+      //     password: ''
+      //   })
+      // }
+      this.props.register(this.state)
+      this.props.navigation.navigate('LoginContainer', {user: this.state})
+      this.setState({
+        first_name: '',
+        last_name: '',
+        email: '',
+        password: ''
+      })
+    }
+
   render(){
+    const { first_name, last_name, email, password } = this.state
+
     return(
       <RegisterIdentify
         passwordFieldVisibility={this.state.passwordFieldVisibility}
         togglePasswordFieldVisibility={() => this.togglePasswordFieldVisibility()}
+
+        first_name={first_name}
+        last_name={last_name}
+        email={email}
+        password={password}
 
         navigateToLogin={() => this.props.navigation.navigate('LoginContainer')}
         onChangeFirstName={(first_name)=>this.setState({first_name})}
         onChangeLastName={(last_name)=> this.setState({last_name})}
         onChangeEmail={(email)=> this.setState({email})}
         onChangePassword={(password)=> this.setState({password})}
+        renderButton={this.renderButton()}
       />
     )
   }
