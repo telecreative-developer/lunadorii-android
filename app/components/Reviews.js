@@ -5,6 +5,7 @@ import Navbar from '../particles/Navbar'
 import EditReviewsModal from '../modals/EditReviewsModal'
 
 const Reviews = (props) => {
+  console.log('reviews: ', props)
   return(
   <Container style={styles.container}>
     <Navbar
@@ -23,7 +24,6 @@ const Reviews = (props) => {
       comment={props.comment}
       price={props.price}
       onChangeComment={props.onChangeComment}
-      updateRating={props.updateRating}
     />
     <StatusBar
       backgroundColor="#f65857"
