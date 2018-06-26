@@ -16,7 +16,9 @@ const Search = (props) => (
       navbarTitle="Filters"
       navbarIcon="close"
       modalVisible={props.modalVisibleFilters}
-      actionIcon={props.toggleModalFilters} />
+      actionIcon={props.toggleModalFilters} 
+      modalVisibleBrandChooser={props.modalVisibleBrandChooser}
+      toggleModalBrandChooser={props.toggleModalBrandChooser}/>
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content"

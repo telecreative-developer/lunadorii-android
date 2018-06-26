@@ -9,7 +9,9 @@ const Categories = (props) => (
         <Image source={{uri: props.icon}} style={styles.imageCategories} />
       </View>
     </TouchableOpacity>
-    <Text style={styles.titleCategories}>{props.title}</Text>
+    <View style={{width: 60}}>
+      <Text style={styles.titleCategories}>{props.title}</Text>
+    </View>
   </View>
 )
 
@@ -17,7 +19,9 @@ export default Categories
 
 const styles = StyleSheet.create({
   flexOnly2: {
-    flex: 0.25
+    flex: 0.25,
+    padding: 5,
+    alignItems: 'center'
   },
   viewCategories: {
     borderWidth: 1,

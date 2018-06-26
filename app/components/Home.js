@@ -4,7 +4,8 @@ import { Container, Tabs, Tab, TabHeading, Icon, Content } from 'native-base'
 import NavbarHome from '../particles/NavbarHome'
 // import Carousel from 'react-native-looped-carousel'
 import Carousel from 'react-native-banner-carousel'
-import imageCover from '../assets/images/cover/cover.jpg'
+// import imageCover from '../assets/images/cover/cover.jpg'
+import Categories from '../particles/Categories'
 
 const { height } = Dimensions.get('window')
 
@@ -49,7 +50,8 @@ const Home = (props) => (
             <Text style={styles.txtCategories}>Category</Text>
             <View style={styles.viewWrapperCategories}>
               <FlatList
-                numColumns={5}
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
                 data={props.dataCategoriesButton}
                 renderItem={props.renderCategoriesButton} />
             </View>
@@ -165,8 +167,9 @@ const styles = StyleSheet.create({
     marginTop: 10
   },
   viewWrapperCategories: {
-    flexDirection: 'row',
-    paddingTop: 10
+    marginTop: 5,
+    marginLeft: 10,
+    marginRight: 10,
   },
 })
 

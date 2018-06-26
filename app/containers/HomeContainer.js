@@ -24,7 +24,12 @@ class HomeContainer extends Component {
     super(props);
     this.state = {
       size: { width, height },
+      showMore: false
     };
+  }
+
+  toggleShowMore(){
+    this.setState({showMore: !this.state.showMore})
   }
 
   async componentDidMount() {
@@ -53,8 +58,7 @@ class HomeContainer extends Component {
 
         dataCategoriesButton={this.props.categoryproduct}
         renderCategoriesButton={({ item }) => (
-          
-          <Categories title={item.subcategory} icon={item.thumbnail_url} />
+          <Categories title={item.subcategory} icon={item.thumbnail_url}/>
         )}
 
         dataBrand={this.props.brandsproduct}
@@ -79,6 +83,9 @@ class HomeContainer extends Component {
           <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
           />
         )}
+
+        showMore={this.state.showMore}
+        toggleShowMore={() => this.toggleShowMore()}
 
         navigateToYourCart={() => this.props.navigation.navigate("YourCartContainer")}
         navigateToProfile={() => this.props.navigation.navigate('ProfileContainer')}

@@ -17,7 +17,7 @@ const Product = (props) => (
         <Text style={styles.txtCategories}>{props.categories}</Text>
         <View style={{ marginTop: 10 }}>
           <Rating
-            type='custom'
+            type='star'
             ratingCount={5}
             startingValue={props.star}
             imageSize={12}
