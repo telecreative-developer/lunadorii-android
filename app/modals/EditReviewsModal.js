@@ -6,7 +6,7 @@ import { Rating } from 'react-native-ratings'
 import ProductReviewed from '../particles/ProductReviewed'
 
 const EditReviewsModal = (props) => {
-  console.log('props edit: ', props)
+  console.log('props edit: ', props.star)
   return(
   <Modal
     animationType="slide"
@@ -25,6 +25,8 @@ const EditReviewsModal = (props) => {
       <Rating
         type='custom'
         ratingCount={5}
+        onFinishRating={props.star}
+        defaultValue={props.star}
         startingValue={props.star}
         imageSize={30}
         ratingColor="#000"

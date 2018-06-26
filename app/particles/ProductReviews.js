@@ -3,9 +3,7 @@ import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import { Rating } from 'react-native-ratings'
 import moment from 'moment'
 
-const ProductReviews = (props) => {
-  console.log('ProductReview: ', props)
-  return(
+const ProductReviews = (props) =>(
   <View style={styles.viewReviews}>
     <View style={styles.viewRow}>
       <View style={styles.flexOnly2}>
@@ -38,7 +36,7 @@ const ProductReviews = (props) => {
       </View>
     </View>
   </View> 
-) }
+) 
 
 const styles = StyleSheet.create({
   viewRow:{
