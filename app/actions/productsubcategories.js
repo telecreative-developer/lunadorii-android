@@ -2,7 +2,7 @@ import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_PRODUCT_SUBCATEGORIES } from '../constants'
 import { API_SERVER_PRODUCT } from '../env'
 
-export const fetchProductSubcategories = (accessToken) => {
+export const fetchProductSubcategories = () => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_SUBCATEGORIES'))
 		try {
