@@ -115,6 +115,7 @@ export default class SearchContainer extends Component {
 
   state = {
     modalVisibleFilters: false,
+    modalVisibleBrandChooser: false,
     searchTitle: ""
   }
 
@@ -122,11 +123,18 @@ export default class SearchContainer extends Component {
     this.setState({ modalVisibleFilters: !this.state.modalVisibleFilters })
   }
 
+  toggleModalBrandChooser(){
+    this.setState({ modalVisibleBrandChooser: !this.state.modalVisibleBrandChooser })
+  }
+
   render() {
     return (
       <Search
         modalVisibleFilters={this.state.modalVisibleFilters}
         toggleModalFilters={() => this.toggleModalFilters()}
+
+        modalVisibleBrandChooser={this.state.modalVisibleBrandChooser}
+        toggleModalBrandChooser={() => this.toggleModalBrandChooser()}
 
         dateRelatedProducts={dateRelatedProducts}
         renderRelatedProducts={({ item }) => (

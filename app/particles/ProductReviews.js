@@ -1,6 +1,7 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
 import { Rating } from 'react-native-ratings'
+import moment from 'moment'
 
 const ProductReviews = (props) =>(
   <View style={styles.viewReviews}>
@@ -30,7 +31,7 @@ const ProductReviews = (props) =>(
             style={styles.rating}
           />
           <Text style={styles.txtReview}>{props.review}</Text>
-          <Text note style={styles.txtDate}>Edited {props.date}</Text>
+          <Text note style={styles.txtDate}>Edited {moment(props.date).startOf('day').fromNow()}</Text>
         </View>
       </View>
     </View>

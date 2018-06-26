@@ -24,16 +24,21 @@ class HomeContainer extends Component {
     super(props);
     this.state = {
       size: { width, height },
+      showMore: false
     };
+  }
+
+  toggleShowMore(){
+    this.setState({showMore: !this.state.showMore})
   }
 
   async componentDidMount() {
     
-    await this.props.fetchCategoryProduct('123')
-    await this.props.fetchBrandsProduct('123')
-    await this.props.fetchProduct('123')
-    await this.props.fetchBanners('123')
-    await this.props.fetchProductSubcategories('123')
+    await this.props.fetchCategoryProduct()
+    await this.props.fetchBrandsProduct()
+    await this.props.fetchProduct()
+    await this.props.fetchBanners()
+    await this.props.fetchProductSubcategories()
 
   }
 
@@ -49,25 +54,16 @@ class HomeContainer extends Component {
     const { banners } = this.props
     return (
       <Home
-        size={this.state.size}
-
         banners={banners.map((banner, index) => this.renderBanners(banner, index))}
+
+        dataCategoriesButton={this.props.categoryproduct}
+        renderCategoriesButton={({ item }) => (
+          <Categories title={item.subcategory} icon={item.thumbnail_url}/>
+        )}
 
         dataBrand={this.props.brandsproduct}
         renderBrand={({ item }) => (
           <Brand image={item.logo_url} />
-        )}
-
-        dataCategoriesButton={this.props.categoryproduct}
-        renderCategoriesButton={({ item }) => (
-          
-          <Categories title={item.subcategory} icon={item.thumbnail_url} />
-        )}
-
-        dataRecommend={this.props.product}
-        renderRecommend={({ item }) => (
-          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
-          />
         )}
 
         dataProduct={this.props.product}
@@ -82,6 +78,15 @@ class HomeContainer extends Component {
           />
         )}
 
+        dataRecommend={this.props.product}
+        renderRecommend={({ item }) => (
+          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+          />
+        )}
+
+        showMore={this.state.showMore}
+        toggleShowMore={() => this.toggleShowMore()}
+
         navigateToYourCart={() => this.props.navigation.navigate("YourCartContainer")}
         navigateToProfile={() => this.props.navigation.navigate('ProfileContainer')}
         navigateToSearch={() => this.props.navigation.navigate("SearchContainer")}
@@ -94,44 +99,21 @@ const styles = StyleSheet.create({
   banner: {
     backgroundColor: '#000'
   },
-  item: {
-    backgroundColor: '#fff',
-    borderRadius: 5,
-    alignItems: 'center',
-    justifyContent: 'center',
-    flex: 1,
-    margin: 5,
-    height: height / 6
-  },
-  itemText: {
-    fontSize: 10,
-    textAlign: 'center'
-  },
   bannerImage: {
     width: bannerWidth,
     height: bannerHeight,
-    opacity: 0.6
-  },
-  menuBoxIcon: {
-    width: 50,
-    height: 50,
-    marginBottom: 10
-  },
-  icon: {
-    fontSize: 14,
-    color: '#2f2f4f',
-    marginRight: 0
+    opacity: 1
   }
 })
 
 const mapDispatchToProps = (dispatch) =>{
   return{
 
-    fetchCategoryProduct: (accessToken) => dispatch(fetchCategoryProduct(accessToken)),
-    fetchBrandsProduct: (accessToken) => dispatch(fetchBrandsProduct(accessToken)),
-    fetchProduct: (accessToken) => dispatch(fetchProduct(accessToken)),
-    fetchBanners: (accessToken) => dispatch(fetchBanners(accessToken)),
-    fetchProductSubcategories: (accessToken) => dispatch(fetchProductSubcategories(accessToken)),
+    fetchCategoryProduct: () => dispatch(fetchCategoryProduct()),
+    fetchBrandsProduct: () => dispatch(fetchBrandsProduct()),
+    fetchProduct: () => dispatch(fetchProduct()),
+    fetchBanners: () => dispatch(fetchBanners()),
+    fetchProductSubcategories: () => dispatch(fetchProductSubcategories()),
     
   }
 }

@@ -6,7 +6,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import PropTypes from 'prop-types'
 import Navbar from '../particles/Navbar'
 import ImagePurchaseHistory from '../assets/images/icon/purchase-history.png'
-import ImageWhislist from '../assets/images/icon/whislist.png'
+import ImageWhislist from '../assets/images/icon/wishlist.png'
 import ImageCreditCard from '../assets/images/icon/credit-card.png'
 import ImageYourReviews from '../assets/images/icon/your-reviews.png'
 import ImageShippingAddress from '../assets/images/icon/shipping-address.png'
@@ -85,7 +85,7 @@ const Profile = (props) => (
             <TouchableOpacity onPress={props.navigateToWhishlist}>
               <View style={styles.viewSubBoxMenu}>
                 <Image source={ImageWhislist} style={styles.imageIcon} />
-                <Text style={styles.txtMenu}>Whishlist</Text>
+                <Text style={styles.txtMenu}>Wishlist</Text>
               </View>
             </TouchableOpacity>
           </View>

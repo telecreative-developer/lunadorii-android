@@ -18,19 +18,38 @@ const dataShippingAddress = [
 export default class YourShippingAddressContainer extends Component{
 
   state = {
-    modalVisibleEditAddress: false
+    modalVisibleEditAddress: false,
+    modalVisibleAddAddress: false
   }
 
   toggleModalEditAddress(){
     this.setState({modalVisibleEditAddress: !this.state.modalVisibleEditAddress})
   }
 
+  toggleModalAddAddress(){
+    this.setState({modalVisibleAddAddress: !this.state.modalVisibleAddAddress})
+  }
+
+  handleSaveShippingAddress(){
+    alert("Handler for save shipping address")
+  }
+
+  handleUpdateShippingAddress(){
+    alert("Handler for update shipping address")
+  }
+
   render(){
     return(
       <YourShippingAddress
         goback={() => this.props.navigation.goBack()}
+
         modalVisibleEditAddress={this.state.modalVisibleEditAddress}
         toggleModalEditAddress={() => this.toggleModalEditAddress()}
+        handleUpdateShippingAddress={() => this.handleUpdateShippingAddress()}
+
+        modalVisibleAddAddress={this.state.modalVisibleAddAddress}
+        toggleModalAddAddress={() => this.toggleModalAddAddress()}
+        handleSaveShippingAddress={() => this.handleSaveShippingAddress()}
         
         dataShippingAddress={dataShippingAddress}
         renderShippingAddress={({item}) => (

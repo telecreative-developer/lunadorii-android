@@ -4,7 +4,9 @@ import { Container, Content } from 'native-base'
 import Navbar from '../particles/Navbar'
 import EditReviewsModal from '../modals/EditReviewsModal'
 
-const Reviews = (props) => (
+const Reviews = (props) => {
+  console.log('reviews: ', props)
+  return(
   <Container style={styles.container}>
     <Navbar
       navbarTitle="Reviews"
@@ -16,6 +18,12 @@ const Reviews = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleEditReviews}
       actionIcon={props.toggleModalEditReviews}
+      image={props.image}
+      title={props.title}
+      star={props.star}
+      comment={props.comment}
+      price={props.price}
+      onChangeComment={props.onChangeComment}
     />
     <StatusBar
       backgroundColor="#f65857"
@@ -32,7 +40,7 @@ const Reviews = (props) => (
       </View>
     </Content>
   </Container>
-)
+)}
 
 const styles = StyleSheet.create({
   container: {

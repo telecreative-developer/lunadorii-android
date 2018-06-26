@@ -2,7 +2,7 @@ import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_BANNERS } from '../constants'
 import { API_SERVER_BANNERS } from '../env'
 
-export const fetchBanners = (accessToken) => {
+export const fetchBanners = () => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_BANNERS'))
 		try {

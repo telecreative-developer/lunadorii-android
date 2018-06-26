@@ -3,7 +3,7 @@ import { Modal, View, Text, StyleSheet } from 'react-native'
 import { Content, Item, Input, Label, Button, Form, Textarea } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 
-const EditCreditCardModal = (props) => (
+const AddCreditCardModal = (props) => (
   <Modal
     animationType="slide"
     transparent={false}
@@ -11,7 +11,7 @@ const EditCreditCardModal = (props) => (
     onRequestClose={props.actionIcon}>
 
     <NavbarModal
-      navbarTitle="Edit Credit Card"
+      navbarTitle="Add Credit Card"
       navbarIcon="close"
       actionIcon={props.actionIcon} />
 
@@ -41,13 +41,13 @@ const EditCreditCardModal = (props) => (
         </Item>
       </Form>
     </Content>
-    <Button full style={styles.buttonSaveStyle} onPress={props.handleUpdateCreditCard}>
-      <Text style={styles.buttonSaveTextStyle}>Update</Text>
+    <Button full style={styles.buttonSaveStyle} onPress={props.handleSaveCreditCard}>
+      <Text style={styles.buttonSaveTextStyle}>Save</Text>
     </Button>
   </Modal>
 )
 
-export default EditCreditCardModal
+export default AddCreditCardModal
 
 const styles = StyleSheet.create({
   container: {

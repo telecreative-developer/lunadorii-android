@@ -20,19 +20,38 @@ const dataCreditCards = [
 export default class CreditCardContainer extends Component {
 
   state = {
-    modalVisibleEditCreditCard: false
+    modalVisibleEditCreditCard: false,
+    modalVisibleAddCreditCard: false,
   }
 
   toggleModalEditCreditCard() {
     this.setState({ modalVisibleEditCreditCard: !this.state.modalVisibleEditCreditCard })
   }
 
+  toggleModalAddCreditCard(){
+    this.setState({ modalVisibleAddCreditCard: !this.state.modalVisibleAddCreditCard})
+  }
+
+  handleUpdateCreditCard(){
+    alert("Handler for update credit card")
+  }
+
+  handleSaveCreditCard(){
+    alert("Handler for save credit card")
+  }
+
   render() {
     return (
       <CreditCard
         goback={() => this.props.navigation.goBack()}
+
         modalVisibleEditCreditCard={this.state.modalVisibleEditCreditCard}
         toggleModalEditCreditCard={() => this.toggleModalEditCreditCard()}
+        handleUpdateCreditCard={() => this.handleUpdateCreditCard()}
+
+        modalVisibleAddCreditCard={this.state.modalVisibleAddCreditCard}
+        toggleModalAddCreditCard={() => this.toggleModalAddCreditCard()}
+        handleSaveCreditCard={() => this.handleSaveCreditCard()}
 
         dataCreditCards={dataCreditCards}
         renderCreditCards={({ item }) => (

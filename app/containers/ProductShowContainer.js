@@ -12,7 +12,9 @@ class ProductShowContainer extends Component {
   constructor(){
     super()
     this.state = {
+      modalVisibleImageView: false,
       image: '',
+      images:[],
       data: {},
       wishlist:{},
       dataSession:{},
@@ -21,25 +23,28 @@ class ProductShowContainer extends Component {
       totalPrice: 0,
       idUser:0,
       idProduct:0,
-      accessToken:''
+      accessToken:'',
+      amountOfImage: 0
     }
+  }
+
+  toggleImageViewModal(){
+    this.setState({ modalVisibleImageView: !this.state.modalVisibleImageView })
   }
 
   async componentDidMount() {
     const data = this.props.navigation.state.params.data
-    const session = await AsyncStorage.getItem('session')
-    const dataSession = await JSON.parse(session)
-    console.log('Data Product Show :' , dataSession)
+    console.log('Data Product Show :' , data)
     await this.setState({ 
-      dataSession,
       data,
       accessToken:data.accessToken,
       image: data.thumbnails[0].thumbnail_url,
+      images: data.thumbnails,
       subcategories: data.subcategories[0].subcategory,
-      totalPrice: data.price      
+      totalPrice: data.price,
+      amountOfImage: data.thumbnails.length   
     })
     await this.props.fetchProduct('123')
-    await this.props.fetchwishlist(this.state.dataSession.accessToken, this.state.dataSession.id)
   }
 
   // validationWishlist(){
@@ -104,6 +109,7 @@ class ProductShowContainer extends Component {
         guide={this.state.data.to_use}
         qty={this.state.qty}
         totalPrice={this.state.totalPrice}
+        amountOfImage={this.state.amountOfImage}
 
         onChangeQty={(qty) => this.setState({ qty })}
         addQty={() => this.addQty()}
@@ -112,7 +118,7 @@ class ProductShowContainer extends Component {
 
         dateRelatedProducts={this.props.product}
         renderRelatedProducts={({ item }) => (
-          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => 
+          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate} action={() => 
             // this.props.navigation.navigate("ProductShowContainer", { data: item })
             this.props.navigation.navigate({
               routeName: 'ProductShowContainer',
@@ -132,6 +138,12 @@ class ProductShowContainer extends Component {
             date={item.updated_at}
             rating={item.review_rate} />
         )}
+
+        modalVisibleImageView={this.state.modalVisibleImageView}
+        toggleImageViewModal={() => this.toggleImageViewModal()}
+        imageToView={this.state.image}
+        images={this.state.images}
+
         goback={() => this.props.navigation.goBack()} />
     )
   }

@@ -8,8 +8,9 @@ import image from '../assets/sephora.jpg'
 const YourCart = (props) => (
     <Container style={styles.Container}>
        <Navigation 
-          navbarTitle="YourCart"
+          navbarTitle="Your Cart"
           navbarIcon="arrow-back"
+          actionIcon={props.goback}
        />
        <Content>
          <View style={styles.body}>
