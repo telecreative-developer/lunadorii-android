@@ -85,7 +85,7 @@ const Profile = (props) => (
             <TouchableOpacity onPress={props.navigateToWhishlist}>
               <View style={styles.viewSubBoxMenu}>
                 <Image source={ImageWhislist} style={styles.imageIcon} />
-                <Text style={styles.txtMenu}>Whishlist</Text>
+                <Text style={styles.txtMenu}>Wishlist</Text>
               </View>
             </TouchableOpacity>
           </View>
