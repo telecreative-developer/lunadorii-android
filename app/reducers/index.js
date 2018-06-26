@@ -27,11 +27,7 @@ const rootReducers = combineReducers({
   editpassword,
   editemail,
   wishlist,
-<<<<<<< HEAD
-  
-=======
   userreview
->>>>>>> e0f0fdfdf8bc08af9dd4d990861abf27ce741ae6
 //   sessionPersistance
 });
 
