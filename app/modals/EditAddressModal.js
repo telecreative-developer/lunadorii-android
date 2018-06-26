@@ -45,8 +45,8 @@ const EditAddressModal = (props) => (
         </Item>
       </Form>
     </Content>
-    <Button full style={styles.buttonSaveStyle} onPress={props.handleSaveDataShippingAddress}>
-      <Text style={styles.buttonSaveTextStyle}>Save</Text>
+    <Button full style={styles.buttonSaveStyle} onPress={props.handleUpdateShippingAddress}>
+      <Text style={styles.buttonSaveTextStyle}>Update</Text>
     </Button>
   </Modal>
 )
