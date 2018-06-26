@@ -21,7 +21,7 @@ const RegisterIdentify = (props) => (
                 placeholder="First Name" 
                 placeholderTextColor="#ccc" 
                 value={props.first_name}
-                onChangeText={props.onChangeEmail}
+                onChangeText={props.onChangeFirstName}
               />
             </Item>
             <Item regular style={styles.item}>
@@ -29,7 +29,7 @@ const RegisterIdentify = (props) => (
                 placeholder="Last Name" 
                 placeholderTextColor="#ccc" 
                 value={props.last_name}
-                onChangeText={props.onChangeEmail}
+                onChangeText={props.onChangeLastName}
               />
             </Item>
             <Item regular style={styles.item}>
@@ -43,11 +43,13 @@ const RegisterIdentify = (props) => (
               <Icon type="Entypo" name={props.passwordFieldVisibility ? "eye-with-line" : "eye"} style={{fontSize: 18, color:'#ccc', marginRight: 5}} onPress={props.togglePasswordFieldVisibility}/>
             </Item>
           </Form>
-          <View style={styles.formRegister}>
+          {/* <View style={styles.formRegister}>
             <Button full style={styles.buttonRegisterActive}>
               <Text style={styles.buttonRegisterActiveText}>Register</Text>
             </Button>
-          </View>
+            
+          </View> */}
+          {props.renderButton}
         </View>
       </View>
       <View style={{paddingBottom: 10, paddingTop: 90, paddingLeft: 45, paddingRight: 45}}>
