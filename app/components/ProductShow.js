@@ -6,23 +6,30 @@ import NavbarTransparent from '../particles/NavbarTransparent'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Entypo from 'react-native-vector-icons/Entypo'
+import ImageViewModal from '../modals/ImageViewModal'
 
 const ProductShow = (props) => (
   <Container>
     <Content style={styles.container}>
-      <ImageBackground source={{ uri: props.image }} style={styles.imageBackgroundStyle}>
-        <NavbarTransparent
-          navbarTitle=""
-          navbarIcon="arrow-back"
-          actionIcon={props.goback} />
-        <TouchableOpacity style={styles.touchableOpacity}>
-          <StatusBar
-            backgroundColor="#f65857"
-            barStyle="light-content"
-          />
-          <Text style={styles.textPhotos}><FontAwesome name="photo" style={styles.touchableOpacityButtonIcon} /> +3 Photos</Text>
-        </TouchableOpacity>
-      </ImageBackground>
+      <TouchableOpacity onPress={props.toggleImageViewModal}>
+        <ImageBackground source={{ uri: props.image }} style={styles.imageBackgroundStyle}>
+          <NavbarTransparent
+            navbarTitle=""
+            navbarIcon="arrow-back"
+            actionIcon={props.goback} />
+          <TouchableOpacity style={styles.touchableOpacity}>
+            <StatusBar
+              backgroundColor="#f65857"
+              barStyle="light-content"
+            />
+            <Text style={styles.textPhotos}><FontAwesome name="photo" style={styles.touchableOpacityButtonIcon} /> +{props.amountOfImage} Photos</Text>
+          </TouchableOpacity>
+        </ImageBackground>
+      </TouchableOpacity>
+      <ImageViewModal
+        modalVisible={props.modalVisibleImageView}
+        actionIcon={props.toggleImageViewModal}
+        image={props.imageToView}/>
       <View style={styles.firstGroup}>
         <View style={styles.firstGroupWrapper}>
           <Text style={styles.firstGroupTitle}>{props.title}</Text>
