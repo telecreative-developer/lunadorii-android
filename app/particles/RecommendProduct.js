@@ -17,7 +17,8 @@ const RecommendProduct = (props) => {
             <Rating
               type='star'
               ratingCount={5}
-              startingValue={props.star}
+              disable
+              defaultRating={props.star}
               imageSize={12}
               ratingColor="#000"
               ratingBackgroundColor="#ccc"
