@@ -49,14 +49,7 @@ class HomeContainer extends Component {
     const { banners } = this.props
     return (
       <Home
-        size={this.state.size}
-
         banners={banners.map((banner, index) => this.renderBanners(banner, index))}
-
-        dataBrand={this.props.brandsproduct}
-        renderBrand={({ item }) => (
-          <Brand image={item.logo_url} />
-        )}
 
         dataCategoriesButton={this.props.categoryproduct}
         renderCategoriesButton={({ item }) => (
@@ -64,10 +57,9 @@ class HomeContainer extends Component {
           <Categories title={item.subcategory} icon={item.thumbnail_url} />
         )}
 
-        dataRecommend={this.props.product}
-        renderRecommend={({ item }) => (
-          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
-          />
+        dataBrand={this.props.brandsproduct}
+        renderBrand={({ item }) => (
+          <Brand image={item.logo_url} />
         )}
 
         dataProduct={this.props.product}
@@ -79,6 +71,12 @@ class HomeContainer extends Component {
         dataCategories={this.props.productsubcategories}
         renderCategories={({ item }) => (
           <BestCategories image={item.thumbnail_url} title={item.subcategory} total={item.products.length}
+          />
+        )}
+
+        dataRecommend={this.props.product}
+        renderRecommend={({ item }) => (
+          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
           />
         )}
 

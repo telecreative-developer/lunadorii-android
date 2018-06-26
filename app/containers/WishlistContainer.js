@@ -17,12 +17,13 @@ class WishlistContainer extends Component{
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    console.log('wishlist' , data.id)
+    console.log('wishlist container' , data)
     await this.setState({
       id:data.id,
       accessToken: data.accessToken
     })
     await this.props.fetchwishlist(this.state.accessToken, this.state.id)
+    console.log('accesToken container: ', this.state.accessToken)
   }
 
   render(){
@@ -31,7 +32,7 @@ class WishlistContainer extends Component{
       goback={() => this.props.navigation.goBack()}
       dataProduct={this.props.wishlist}
       renderProduct={({item}) => (
-         <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate}
+         <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
          />
        )}
       />
