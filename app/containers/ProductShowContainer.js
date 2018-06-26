@@ -1,9 +1,11 @@
 import React, { Component } from 'react'
+import { AsyncStorage } from 'react-native'
 import ProductShow from '../components/ProductShow'
 import RecommendProduct from '../particles/RecommendProduct'
 import CommentAndRating from '../particles/CommentAndRating'
 import { fetchProduct } from '../actions/product'
 import { connect } from 'react-redux'
+import { fetchwishlist, addWishlist } from '../actions/wishlist';
 
 class ProductShowContainer extends Component {
 
@@ -15,11 +17,15 @@ class ProductShowContainer extends Component {
       subcategories: '',
       qty: 1, 
       totalPrice: 0,
+      idUser:0,
+      idProduct:0,
+      accessToken:''
     }
   }
 
   componentDidMount() {
     const data = this.props.navigation.state.params.data
+    console.log('Data Product Show :' , data)
     this.setState({ 
       data,
       image: data.thumbnails[0].thumbnail_url,
@@ -51,6 +57,17 @@ class ProductShowContainer extends Component {
     }
   }
 
+  async AddWishlist(){
+    const dataProduct = this.props.navigation.state.params.data
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    console.log('add wishlist' , data.id)
+    await this.setState({
+      product_id: dataProduct.product_id
+    })
+    await this.props.addWishlist(data.accessToken, data.id, this.state.product_id)
+  }
+
   render() {
     return (
       <ProductShow
@@ -68,6 +85,7 @@ class ProductShowContainer extends Component {
         onChangeQty={(qty) => this.setState({ qty })}
         addQty={() => this.addQty()}
         minQty={() => this.minQty()}
+        AddWishlist={()=> this.AddWishlist()}
 
         dateRelatedProducts={this.props.product}
         renderRelatedProducts={({ item }) => (
@@ -99,8 +117,8 @@ class ProductShowContainer extends Component {
 const mapDispatchToProps = (dispatch) =>{
   return{
 
-    fetchProduct: (accessToken) => dispatch(fetchProduct(accessToken))
-    
+    fetchProduct: (accessToken) => dispatch(fetchProduct(accessToken)),
+    addWishlist: (accessToken, id, idProduct) => dispatch(addWishlist(accessToken, id, idProduct))
   }
 }
 
