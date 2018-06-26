@@ -29,11 +29,11 @@ class HomeContainer extends Component {
 
   async componentDidMount() {
     
-    await this.props.fetchCategoryProduct('123')
-    await this.props.fetchBrandsProduct('123')
-    await this.props.fetchProduct('123')
-    await this.props.fetchBanners('123')
-    await this.props.fetchProductSubcategories('123')
+    await this.props.fetchCategoryProduct()
+    await this.props.fetchBrandsProduct()
+    await this.props.fetchProduct()
+    await this.props.fetchBanners()
+    await this.props.fetchProductSubcategories()
 
   }
 
@@ -127,11 +127,11 @@ const styles = StyleSheet.create({
 const mapDispatchToProps = (dispatch) =>{
   return{
 
-    fetchCategoryProduct: (accessToken) => dispatch(fetchCategoryProduct(accessToken)),
-    fetchBrandsProduct: (accessToken) => dispatch(fetchBrandsProduct(accessToken)),
-    fetchProduct: (accessToken) => dispatch(fetchProduct(accessToken)),
-    fetchBanners: (accessToken) => dispatch(fetchBanners(accessToken)),
-    fetchProductSubcategories: (accessToken) => dispatch(fetchProductSubcategories(accessToken)),
+    fetchCategoryProduct: () => dispatch(fetchCategoryProduct()),
+    fetchBrandsProduct: () => dispatch(fetchBrandsProduct()),
+    fetchProduct: () => dispatch(fetchProduct()),
+    fetchBanners: () => dispatch(fetchBanners()),
+    fetchProductSubcategories: () => dispatch(fetchProductSubcategories()),
     
   }
 }

@@ -2,7 +2,7 @@ import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_BRANDS_PRODUCT } from '../constants'
 import { API_SERVER_PRODUCT } from '../env'
 
-export const fetchBrandsProduct = (accessToken) => {
+export const fetchBrandsProduct = () => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_BRANDS_PRODUCT'))
 		try {
