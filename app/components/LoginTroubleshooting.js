@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, StatusBar, Text, Image, TouchableOpacity } from 'react-native'
 import { Container, Content, Button, Form, Item, Input, Icon } from 'native-base'
+import LunadoriiCircleLogo from '../assets/images/icon/CircleLogo.png'
 
 const LoginTroubleshooting = (props) => (
   <Container style={styles.container}>
@@ -12,7 +13,7 @@ const LoginTroubleshooting = (props) => (
       <View style={styles.wrapper}>
         <View>
           <View style={styles.logoImage}>
-            <Image source={require('../assets/images/icon/LOGOLDCirclee.png')} style={styles.logoSize} />
+            <Image source={LunadoriiCircleLogo} style={styles.logoSize} />
             <Text style={{padding: 10, color: '#000', fontSize: 16}}>Trouble logging in?</Text>
             <Text>Enter your username or email and we'll</Text>
             <Text>send you a link to get back into</Text>
