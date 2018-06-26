@@ -42,10 +42,10 @@ export const addWishlist = (accessToken, id, idProduct) => {
 					'Content-Type': 'application/json',
 					Authorization: accessToken
 				},
-				body:{
+				body:JSON.stringify({
 					id:id,
 					product_id: idProduct
-				}
+				})
 			})
 			const data = await response.json()
 			console.log('dataProducts: ', data.data)
