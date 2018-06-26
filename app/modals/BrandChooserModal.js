@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     padding: 10
   },
   buttonSelectStyleEditProfile: {
-    height: 50,
+    height: 50, 
     backgroundColor: '#d11e48'
   },
   buttonSelectTextStyleEditProfile: {
