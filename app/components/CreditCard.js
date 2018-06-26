@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { StyleSheet, FlatList, StatusBar } from 'react-native'
 import { Container, Content, Text, View, Button, Icon } from 'native-base'
 import Navbar from '../particles/Navbar'
-import CreditCards from '../particles/CreditCards'
 import EditCreditCardModal from '../modals/EditCreditCardModal'
+import AddCreditCardModal from '../modals/AddCreditCardModal'
 
 const CreditCard = (props) => (
   <Container style={styles.container}>
@@ -15,7 +15,14 @@ const CreditCard = (props) => (
       navbarTitle="Edit Credit Card"
       navbarIcon="close"
       modalVisible={props.modalVisibleEditCreditCard}
-      actionIcon={props.toggleModalEditCreditCard} />
+      actionIcon={props.toggleModalEditCreditCard} 
+      handleUpdateCreditCard={props.handleUpdateCreditCard}/>
+    <AddCreditCardModal
+      navbarTitle="Add Credit Card"
+      navbarIcon="close"
+      modalVisible={props.modalVisibleAddCreditCard}
+      actionIcon={props.toggleModalAddCreditCard} 
+      handleSaveCreditCard={props.handleSaveCreditCard}/>
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content"
@@ -28,7 +35,7 @@ const CreditCard = (props) => (
           renderItem={props.renderCreditCards}
           keyExtractor={(item, index) => JSON.stringify(index)} />
       </View>
-      <Button style={styles.btnAdd}>
+      <Button style={styles.btnAdd} onPress={props.toggleModalAddCreditCard}>
         <Icon name="add" /><Text style={styles.txtAdd}>Add Another Card</Text>
       </Button>
     </Content>
