@@ -5,14 +5,13 @@ import NavbarModal from '../particles/NavbarModal'
 import { Rating } from 'react-native-ratings'
 import ProductReviewed from '../particles/ProductReviewed'
 
-const EditReviewsModal = (props) => {
-  console.log('props edit: ', props.star)
-  return(
+const EditReviewsModal = (props) => (
   <Modal
     animationType="slide"
     transparent={false}
     visible={props.modalVisible}
     onRequestClose={props.actionIcon}>
+    {console.log('props edit: ', props.star)}
     <NavbarModal
       navbarTitle="Edit Reviews"
       navbarIcon="close"
@@ -25,7 +24,6 @@ const EditReviewsModal = (props) => {
       <Rating
         type='custom'
         ratingCount={5}
-        onFinishRating={props.star}
         defaultValue={props.star}
         startingValue={props.star}
         imageSize={30}
@@ -33,6 +31,9 @@ const EditReviewsModal = (props) => {
         ratingBackgroundColor="#ccc"
         style={styles.rating} 
         />
+        <View>
+          <Text>star: {props.star}</Text>
+        </View>
       <Item regular style={styles.itemsTextarea}>
         <Textarea placeholder="Type your reviews here" placeholderTextColor="#CDCDCD" style={styles.textareaStyle} value={props.comment} onChangeText={props.onChangeComment}/>
       </Item>
@@ -41,7 +42,7 @@ const EditReviewsModal = (props) => {
       <Text style={styles.buttonSaveTextStyleEditProfile}>Update</Text>
     </Button>
   </Modal>
-)}
+)
 
 export default EditReviewsModal
 

@@ -18,9 +18,9 @@ const BrandChooserModal = (props) => (
       navbarIcon="close"
       actionIcon={props.actionIcon} />
     <Content style={styles.container}>
-      <View style={}>
+      {/* <View style={}>
 
-      </View>
+      </View> */}
     </Content>
     <Button full style={styles.buttonSelectStyleEditProfile}>
       <Text style={styles.buttonSelectTextStyleEditProfile}>Select</Text>
