@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import Search from '../components/Search'
 import Product from '../particles/Product'
 
+import { connect } from 'react-redux'
+import { fetchSearchProduct } from '../actions/product'
+
 const dateRelatedProducts = [
   {
     index: 0,
@@ -111,11 +114,30 @@ const dateRelatedProducts = [
   },
 ]
 
-export default class SearchContainer extends Component {
+class SearchContainer extends Component {
 
   state = {
     modalVisibleFilters: false,
-    searchTitle: ""
+    searchTitle: "",
+    searchResult:[]
+  }
+
+  async handleSearch(){
+    await this.props.fetchSearchProduct(this.state.searchTitle)
+    await this.setState({searchResult: this.props.searchproduct})
+  }
+
+  handleCategory(){
+
+  }
+  handleBrand(){
+    
+  }
+  handleMinPrice(){
+    
+  }
+  handleMaxPrice(){
+    
   }
 
   toggleModalFilters() {
@@ -128,17 +150,40 @@ export default class SearchContainer extends Component {
         modalVisibleFilters={this.state.modalVisibleFilters}
         toggleModalFilters={() => this.toggleModalFilters()}
 
-        dateRelatedProducts={dateRelatedProducts}
+        dateRelatedProducts={this.props.searchproduct}
         renderRelatedProducts={({ item }) => (
-          <Product image={item.image} title={item.title} categories={item.categories} price={item.price} star={item.star} action={() => this.props.navigation.navigate("ProductShowContainer", { data: dateRelatedProducts[item.index] })}
+          <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
           />
         )}
 
         searchTitle={this.state.searchTitle}
-        amount={0}
+        amount={this.state.searchResult.length}
         onChangeSearchTitle={(searchTitle) => this.setState({ searchTitle })}
+        
+        handleSearch={()=>this.handleSearch()}
+        handleCategory={()=>this.handleCategory()}
+        handleBrand={()=>this.handleBrand()}
+        handleMinPrice={()=>this.handleMinPrice()}
+        handleMaxPrice={()=>this.handleMaxPrice()}
 
         goback={() => this.props.navigation.goBack()} />
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    fetchSearchProduct: (search) => dispatch(fetchSearchProduct(search)),
+  }
+}
+
+const mapStateToProps = (state) => {
+  return{
+    loading: state.loading,
+    success: state.success,
+    failed: state.failed,
+    searchproduct: state.searchproduct,
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchContainer)

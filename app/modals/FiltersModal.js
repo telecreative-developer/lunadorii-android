@@ -16,7 +16,7 @@ const FiltersModal = (props) => (
     <Content style={styles.container}>
       <Text style={styles.txtLabel}>Category</Text>
       <Item regular style={styles.item}>
-        <Input placeholder='Select category below' placeholderTextColor="#ccc" />
+        <Input placeholder='Select category below' placeholderTextColor="#ccc" onChangeText={props.handleCategory} />
       </Item>
       <View style={styles.flexStart}>
         <View style={styles.buttonWrapper}>
@@ -41,20 +41,20 @@ const FiltersModal = (props) => (
       </View>
       <Text style={styles.txtLabel}>Brands</Text>
       <Item regular style={styles.item}>
-        <Input placeholder='Select brand' placeholderTextColor="#ccc" />
+        <Input placeholder='Select brand' placeholderTextColor="#ccc" onChangeText={props.handleBrand} />
       </Item>
       <Text style={styles.txtLabel}>Price</Text>
       <View style={styles.inputWrapper}>
         <Item regular style={styles.inputMin}>
-          <Input placeholder='Min' placeholderTextColor="#ccc" />
+          <Input placeholder='Min' placeholderTextColor="#ccc" onChangeText={props.handleMinPrice} />
         </Item>
         <Text style={styles.sparator}>-</Text>
         <Item regular style={styles.inputMax}>
-          <Input placeholder='Max' placeholderTextColor="#ccc" />
+          <Input placeholder='Max' placeholderTextColor="#ccc" onChangeText={props.handleMaxPrice} />
         </Item>
       </View>
     </Content>
-    <Button full style={styles.buttonSaveStyleEditProfile}>
+    <Button full style={styles.buttonSaveStyleEditProfile} onPress={props.handleFilterSearch} >
       <Text style={styles.buttonSaveTextStyleEditProfile}>Search</Text>
     </Button>
   </Modal>
