@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Container, Content, Item, Icon, Button, Form, Textarea } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
-import { Rating } from 'react-native-ratings'
+import Stars from 'react-native-stars-rating'
 import ProductReviewed from '../particles/ProductReviewed'
 
 const EditReviewsModal = (props) => (
@@ -21,16 +21,15 @@ const EditReviewsModal = (props) => (
         image={props.image}
         title={props.title}
         price={props.price} />
-      <Rating
-        type='custom'
-        ratingCount={5}
-        defaultValue={props.star}
-        startingValue={props.star}
-        imageSize={30}
-        ratingColor="#000"
-        ratingBackgroundColor="#ccc"
-        style={styles.rating} 
-        />
+        <View style={{alignItems: 'center', padding: 10}}>
+          <Stars
+            isActive={true}
+            rateMax={5}
+            isHalfStarEnable={false}
+            rate={props.star}
+            size={18}
+          />
+        </View>
         <View>
           <Text>star: {props.star}</Text>
         </View>

@@ -74,7 +74,7 @@ export default Register
 const styles = StyleSheet.create({
   logoImage: {
     marginBottom: 90,
-    height: 70,
+    height: 75,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#fff',
