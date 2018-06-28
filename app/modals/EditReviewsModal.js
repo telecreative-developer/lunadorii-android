@@ -2,15 +2,12 @@ import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Container, Content, Item, Icon, Button, Form, Textarea } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
-import Stars from 'react-native-stars-rating'
+import StarRating from 'react-native-star-rating'
 import ProductReviewed from '../particles/ProductReviewed'
 
 const EditReviewsModal = (props) => {
-  state = {
-    star: 5
-  }
 
-  console.log('tipe data state star: ', typeof this.state.star)
+  console.log('tipe data state star: ')
   return(
   <Modal
     animationType="slide"
@@ -28,12 +25,11 @@ const EditReviewsModal = (props) => {
         title={props.title}
         price={props.price} />
         <View style={{alignItems: 'center', padding: 10}}>
-          <Stars
-            isActive={true}
-            rateMax={5}
-            isHalfStarEnable={false}
-            rate={props.star}
-            size={18}
+          <StarRating
+            disabled={false}
+            maxStars={5}
+            rating={props.star}
+            selectedStar={props.onChangeStar}
           />
         </View>
       <Item regular style={styles.itemsTextarea}>

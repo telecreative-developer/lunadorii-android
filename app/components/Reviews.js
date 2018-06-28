@@ -25,6 +25,7 @@ const Reviews = (props) => {
       price={props.price}
       onChangeComment={props.onChangeComment}
       updateRating={props.updateRating} 
+      onChangeStar={props.onChangeStar}
     />
     <StatusBar
       backgroundColor="#f65857"

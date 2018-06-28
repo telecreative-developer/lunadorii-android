@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import Stars from 'react-native-stars-rating'
+import StarRating from 'react-native-star-rating';
 import { StyleSheet } from 'react-native'
 import { View, Text } from 'native-base'
 import moment from 'moment'
@@ -9,13 +9,12 @@ const CommentAndRating = (props) => (
     <Text>{props.reviews}</Text>
     <View style={styles.reviewsSpesifyWrapper}>
       <Text style={styles.reviewerName}>{props.user} - {moment(props.date).startOf('day').fromNow()}</Text>
-      <Stars
-        isActive={false}
-        rateMax={5}
-        isHalfStarEnable={false}
-        rate={props.star}
-        size={12}
-      />
+      <StarRating
+            disabled={true}
+            maxStars={5}
+            rating={props.rating}
+            // selectedStar={props.onStarRatingPress}
+          />
     </View>
   </View>
 )

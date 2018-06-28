@@ -13,6 +13,7 @@ class ProductShowContainer extends Component {
     super()
     this.state = {
       modalVisibleImageView: false,
+      title: '',
       image: '',
       images:[],
       data: {},
@@ -24,7 +25,8 @@ class ProductShowContainer extends Component {
       idUser:0,
       idProduct:0,
       accessToken:'',
-      amountOfImage: 0
+      amountOfImage: 0,
+      starCount: 0
     }
   }
 
@@ -39,10 +41,12 @@ class ProductShowContainer extends Component {
       data,
       accessToken:data.accessToken,
       image: data.thumbnails[0].thumbnail_url,
+      title: data.product,
       images: data.thumbnails,
       subcategories: data.subcategories[0].subcategory,
       totalPrice: data.price,
-      amountOfImage: data.thumbnails.length   
+      amountOfImage: data.thumbnails.length,
+      starCount: data.product_rate
     })
     await this.props.fetchProduct('123')
   }
@@ -81,29 +85,39 @@ class ProductShowContainer extends Component {
     }
   }
 
-  async AddWishlist(){
-    const dataProduct = this.props.navigation.state.params.data
-    const session = await AsyncStorage.getItem('session')
-    const data = await JSON.parse(session)
-    console.log('add wishlist' , data.id)
-    await this.setState({
-      product_id: dataProduct.product_id
-    })
-    await this.props.addWishlist(data.accessToken, data.id, this.state.product_id)
+  // async AddWishlist(){
+  //   const dataProduct = this.props.navigation.state.params.data
+  //   const session = await AsyncStorage.getItem('session')
+  //   const data = await JSON.parse(session)
+  //   console.log('add wishlist' , data.id)
+  //   await this.setState({
+  //     product_id: dataProduct.product_id
+  //   })
+  //   await this.props.addWishlist(data.accessToken, data.id, this.state.product_id)
+  // }
+
+  capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
+
+  onStarRatingPress(rating) {
+    this.setState({
+      starCount: rating
+    });
   }
 
   render() {
-    {console.log('data wishlist :', this.validationWishlist())}
-    {console.log('isi state data : ' , this.state.data.product_id)}
-    {console.log('isi wishlist' , this.props.wishlist.filter(product_id == this.state.data.product_id))}
-    {console.log('isi datasession', this.state.dataSession.id)}
+    // {console.log('data wishlist :', this.validationWishlist())}
+    // {console.log('isi state data : ' , this.state.data.product_id)}
+    // {console.log('isi wishlist' , this.props.wishlist.filter(product_id == this.state.data.product_id))}
+    // {console.log('isi datasession', this.state.dataSession.id)}
     return (
       <ProductShow
         image={this.state.image}
-        title={this.state.data.product}
+        title={this.capitalize(this.state.title)}
         categories={this.state.subcategories}
         price={this.state.data.price}
-        star={this.state.data.product_rate}
+        star={this.state.starCount}
         descriptions={this.state.data.description}
         productDetails={this.state.data.detail}
         guide={this.state.data.to_use}
@@ -114,11 +128,11 @@ class ProductShowContainer extends Component {
         onChangeQty={(qty) => this.setState({ qty })}
         addQty={() => this.addQty()}
         minQty={() => this.minQty()}
-        AddWishlist={()=> this.AddWishlist()}
+        // AddWishlist={()=> this.AddWishlist()}
 
         dateRelatedProducts={this.props.product}
         renderRelatedProducts={({ item }) => (
-          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate} action={() => 
+          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={this.capitalize(item.product)} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate} action={() => 
             // this.props.navigation.navigate("ProductShowContainer", { data: item })
             this.props.navigation.navigate({
               routeName: 'ProductShowContainer',
