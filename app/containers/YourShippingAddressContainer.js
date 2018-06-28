@@ -20,7 +20,8 @@ class YourShippingAddressContainer extends Component{
       detail_address: '',
       province: '',
       city: '',
-      district: ''
+      district: '',
+      address_default: ''
     }
   }
 
@@ -38,16 +39,19 @@ class YourShippingAddressContainer extends Component{
         detail_address: item.detail_address,
         province: item.province,
         city: item.city,
-        district: item.district
+        district: item.district,
+        address_default: item.address_default
       }) 
     }else{
       await this.setState({
+        address_id: '',
         name: '',
         phone: '',
         detail_address: '',
         province: '',
         city: '',
-        district: ''
+        district: '',
+        address_default: ''
       })
     }
   }
