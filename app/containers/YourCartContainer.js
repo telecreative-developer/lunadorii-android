@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {AsyncStorage} from 'react-native'
 import YourCart from '../components/YourCart'
 import OnCart from '../particles/OnCart'
 import ShippingAddress from '../particles/ShippingAddress'
@@ -19,14 +20,9 @@ class YourCartContainer extends Component {
     return (
       <YourCart 
 
-        onCartProduct={[
-          {title:"Hello World", categories: "Dummy", quantity: 5, price:'10.000'},
-          {title:"Hello World", categories: "Dummy", quantity: 5, price:'10.000'},
-          {title:"Hello World", categories: "Dummy", quantity: 5, price:'10.000'},
-          {title:"Hello World", categories: "Dummy", quantity: 5, price:'10.000'},
-        ]}
+        onCartProduct={this.props.cartuser}
         renderOnCartProduct={({item}) => (
-          <OnCart title={item.title} categories={item.categories} quantity={item.quantity} price={item.price}/>
+          <OnCart title={item.product} categories={item.subcategories[0].subcategory} quantity={item.subtotal} price={item.price} image={item.thumbnails[0].thumbnail_url}/>
         )}
 
         onCartShippingAddress={[
