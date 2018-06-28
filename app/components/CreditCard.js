@@ -16,13 +16,33 @@ const CreditCard = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleEditCreditCard}
       actionIcon={props.toggleModalEditCreditCard} 
-      handleUpdateCreditCard={props.handleUpdateCreditCard}/>
+      handleUpdateCreditCard={props.handleUpdateCreditCard}
+      
+      cardNumber={props.cardNumber}
+      validationDate={props.validationDate}
+      cvv={props.cvv}
+      cardHolderName={props.cardHolderName}
+
+      onChangeCardNumber={props.onChangeCardNumber}
+      onChangeValidationDate={props.onChangeValidationDate}
+      onChangeCVV={props.onChangeCVV}
+      onChangeCardHolder={props.onChangeCardHolder}/>
     <AddCreditCardModal
       navbarTitle="Add Credit Card"
       navbarIcon="close"
       modalVisible={props.modalVisibleAddCreditCard}
       actionIcon={props.toggleModalAddCreditCard} 
-      handleSaveCreditCard={props.handleSaveCreditCard}/>
+      handleSaveCreditCard={props.handleSaveCreditCard}
+
+      cardNumber={props.cardNumber}
+      validationDate={props.validationDate}
+      cvv={props.cvv}
+      cardHolderName={props.cardHolderName}
+
+      onChangeCardNumber={props.onChangeCardNumber}
+      onChangeValidationDate={props.onChangeValidationDate}
+      onChangeCVV={props.onChangeCVV}
+      onChangeCardHolder={props.onChangeCardHolder}/>
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content"

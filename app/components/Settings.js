@@ -158,7 +158,7 @@ const styles = StyleSheet.create({
   iconLogout: {
     fontSize: 24,
     alignSelf: 'flex-end',
-    paddingRight: 20,
+    paddingRight: 10,
     bottom: 10
   }
 })
