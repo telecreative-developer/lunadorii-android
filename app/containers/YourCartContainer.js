@@ -7,6 +7,7 @@ import ShippingAddress from '../particles/ShippingAddress'
 
 import { connect } from 'react-redux'
 import { fetchCartUser } from '../actions/cart'
+import { fetchUserShipping } from '../actions/usershipping'
 
 class YourCartContainer extends Component {
 
@@ -14,6 +15,7 @@ class YourCartContainer extends Component {
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchCartUser(data.id, data.accessToken)
+    await this.props.fetchUserShipping(data.id, data.accessToken)
   }
 
   render() {
@@ -25,11 +27,12 @@ class YourCartContainer extends Component {
           <OnCart title={item.product} categories={item.subcategories[0].subcategory} quantity={item.subtotal} price={item.price} image={item.thumbnails[0].thumbnail_url}/>
         )}
 
-        onCartShippingAddress={[
-          {name: 'Muhammad Isa Wijaya Kusuma',numberPhone: '+62 896 4395 1073',address: 'Tangerang Cipondoh Makmur Blok K 10 No.28'},          {name: 'Alfan Hibban Intiyas',numberPhone: '+62 896 4395 1073',address: 'Tangerang Cipondoh Makmur Blok K 10 No.28'}
-        ]}
+        onCartShippingAddress={this.props.usershipping}
         renderOnCartShippingAddress={({item}) => (
-          <ShippingAddress name={item.name} numberPhone={item.numberPhone} address={item.address}/>
+          <ShippingAddress 
+          name={item.recepient}
+          numberPhone={item.phone}
+          detail_address={item.detail_address}/>
         )}
 
         navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
@@ -43,6 +46,7 @@ const mapDispatchToProps = (dispatch) =>{
   return{
 
     fetchCartUser: (id, accessToken) => dispatch(fetchCartUser(id, accessToken)),
+    fetchUserShipping: (id, accessToken) => dispatch(fetchUserShipping(id, accessToken)),
     
   }
 }
@@ -53,7 +57,8 @@ const mapStateToProps = (state) => {
     success: state.success,
     failed: state.failed,
     cartuser: state.cartuser,
-    sessionPersistance: state.sessionPersistance
+    sessionPersistance: state.sessionPersistance,
+    usershipping: state.usershipping
   }
 }
 
