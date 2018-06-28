@@ -6,7 +6,7 @@ export const fetchCartUser = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_CART_USER'))
 		try {
-			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/user-reviews/${id}`, {
+			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/cart/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
