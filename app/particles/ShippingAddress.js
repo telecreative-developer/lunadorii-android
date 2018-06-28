@@ -4,7 +4,7 @@ import { StyleSheet, TouchableOpacity, Text, View } from 'react-native'
 const ShippingAddress = (props) => (
   <View style={{
     borderRadius: 1,
-    borderColor: props.isDefault ? '#E2E2E2' : '#d11e48',
+    borderColor: props.address_default ? '#d11e48' : '#E2E2E2',
     borderWidth: 1,
     marginBottom: 5
   }}>
@@ -15,12 +15,13 @@ const ShippingAddress = (props) => (
         <Text>{props.detail_address}</Text>
       </View>
       <View style={styles.wrapRight}>
-        {props.isDefault ? (
+        {props.address_default ? (
+          <View/>
+        ) : (
           <TouchableOpacity onPress={props.actionSetAsDefault}>
             <Text style={styles.txtAction}>Set as Default</Text>
           </TouchableOpacity>
-        ) : (
-          <View/>
+          
         )}
         <TouchableOpacity onPress={props.actionEdit}>
           <Text style={styles.txtAction}>Edit Address</Text>
