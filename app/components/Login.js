@@ -1,8 +1,8 @@
 import React from 'react'
 import { StyleSheet, View, Image, TouchableOpacity, Text, StatusBar } from 'react-native'
-import { Container, Content, Icon, Button, Footer, Form, Label, Item, Input } from 'native-base'
+import { Container, Content, Icon, Form, Item, Input } from 'native-base'
 import PropTypes from 'prop-types'
-import LunadoriiPortraitLogo from '../assets/images/icon/PortraitLogo.png'
+import LunadoriiPortraitLogo from '../assets/images/icon/lunadorii-highres.png'
 
 const Login = (props) => (
   <Container style={styles.backgroundColorWhite}>

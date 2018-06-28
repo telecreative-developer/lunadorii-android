@@ -13,14 +13,16 @@ const RecommendProduct = (props) => {
         <Text style={styles.txtTitle}>{props.title}</Text>
         <Text style={styles.txtCategories}>{props.categories}</Text>
         <View style={styles.viewFlexRow}>
-          <View style={styles.viewRating}>
+          {/* <View style={styles.viewRating}>
+          
+          </View> */}
           <StarRating
             disabled={true}
             maxStars={5}
             rating={props.star}
+            starSize={12}
             // selectedStar={props.onStarRatingPress}
           />
-          </View>
           <View>
             <Text style={styles.txtReviews}>{props.reviews} Reviews</Text>
           </View>

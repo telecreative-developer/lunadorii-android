@@ -13,10 +13,10 @@ const OnCart = (props) => (
       </View>
       <View style={styles.wrapRight}>
         <Text style={styles.txtHeader}>Rp {props.price}</Text>
-        <TouchableOpacity onPress={props.action}>
+        <TouchableOpacity onPress={props.actionEdit}>
           <Text style={styles.txtAction}>Edit Quantity</Text>
         </TouchableOpacity>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={props.actionRemove}>
           <Text style={styles.txtAction}>Remove</Text>
         </TouchableOpacity>
       </View>

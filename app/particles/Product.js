@@ -20,7 +20,7 @@ const Product = (props) => (
             disabled={true}
             maxStars={5}
             rating={props.star}
-            // selectedStar={props.onStarRatingPress}
+            starSize={12}
           />
           <Text style={styles.txtPrice}>Rp. {props.price}</Text>
         </View>

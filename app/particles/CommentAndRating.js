@@ -10,11 +10,11 @@ const CommentAndRating = (props) => (
     <View style={styles.reviewsSpesifyWrapper}>
       <Text style={styles.reviewerName}>{props.user} - {moment(props.date).startOf('day').fromNow()}</Text>
       <StarRating
-            disabled={true}
-            maxStars={5}
-            rating={props.rating}
-            // selectedStar={props.onStarRatingPress}
-          />
+        disabled={true}
+        maxStars={5}
+        rating={props.rating}
+        // selectedStar={props.onStarRatingPress}
+      />
     </View>
   </View>
 )
