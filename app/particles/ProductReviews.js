@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import { Rating } from 'react-native-ratings'
+import StarRating from 'react-native-star-rating';
 import moment from 'moment'
 
 const ProductReviews = (props) =>(
@@ -21,14 +21,11 @@ const ProductReviews = (props) =>(
           </View>
         </View> 
         <View style={styles.viewRating}>
-          <Rating
-            type='custom'
-            ratingCount={5}
-            startingValue={props.star}
-            imageSize={12}
-            ratingColor="#000"
-            ratingBackgroundColor="#ccc"
-            style={styles.rating}
+          <StarRating
+            disabled={true}
+            maxStars={5}
+            rating={props.star}
+            // selectedStar={props.onStarRatingPress}
           />
           <Text style={styles.txtReview}>{props.review}</Text>
           <Text note style={styles.txtDate}>Edited {moment(props.date).startOf('day').fromNow()}</Text>

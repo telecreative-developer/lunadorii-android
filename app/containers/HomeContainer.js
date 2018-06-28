@@ -42,6 +42,10 @@ class HomeContainer extends Component {
 
   }
 
+  capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
+
   renderBanners(banner, index) {
     return (
       <View key={index} style={styles.banner}>
@@ -68,19 +72,19 @@ class HomeContainer extends Component {
 
         dataProduct={this.props.product}
         renderProduct={({ item }) => (
-          <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+          <Product image={item.thumbnails[0].thumbnail_url} title={this.capitalize(item.product)} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
           />
         )}
 
         dataCategories={this.props.productsubcategories}
         renderCategories={({ item }) => (
-          <BestCategories image={item.thumbnail_url} title={item.subcategory} total={item.products.length}
+          <BestCategories image={item.thumbnail_url} title={this.capitalize(item.subcategory)} total={item.products.length}
           />
         )}
 
         dataRecommend={this.props.product}
         renderRecommend={({ item }) => (
-          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={this.capitalize(item.product)} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
           />
         )}
 

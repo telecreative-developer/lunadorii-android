@@ -16,6 +16,8 @@
     "react-native-image-zoom-viewer": "^2.2.7",
     "react-native-looped-carousel": "^0.1.13",
     "react-native-ratings": "^5.3.0",
+    "react-native-star-rating": "^1.0.9",
+    "react-native-stars-rating": "^0.1.7",
     "react-native-svg-image": "^2.0.1",
     "react-native-vector-icons": "^4.6.0",
     "react-navigation": "^2.0.4",
