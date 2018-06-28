@@ -56,7 +56,6 @@ class LoginContainer extends Component {
 
   componentDidUpdate(prevProps) {
     const { failed, setFailed } = prevProps
-
   }
 
   async componentDidMount(){

@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 import { loading, success, failed } from "./processor";
 import { categoryproduct } from "./categoryproduct";
 import { brandsproduct } from "./brandsproduct"
-import { product } from "./product"
+import { product, searchproduct } from "./product"
 import { banners } from "./banners"
 import { productsubcategories } from "./productsubcategories"
 import { getsingleuser } from "./getsingleuser"
@@ -19,6 +19,7 @@ const rootReducers = combineReducers({
   categoryproduct,
   brandsproduct,
   product,
+  searchproduct,
   banners,
   productsubcategories,
   getsingleuser,

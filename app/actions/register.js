@@ -1,4 +1,4 @@
-import { API_SERVER_AUTH } from '../env'
+import { API_SERVER_AUTH, API_SERVER_USER } from '../env'
 import { setLoading, setFailed, setSuccess } from './processor'
 
 const toLower = str => {
@@ -10,7 +10,7 @@ export const register = item => {
     await dispatch(setLoading(true, 'LOADING_REGISTER'))
     console.log(item)
     try {
-      const response = await fetch(`${API_SERVER_AUTH}/api/v1/user/register`, {
+      const response = await fetch(`${API_SERVER_USER}/api/v1/user/register`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -49,4 +49,34 @@ export const register = item => {
       await dispatch(setLoading(false, 'LOADING_REGISTER'))
     }
   }
+}
+
+export const checkEmail = (email) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_PROCESS_CHECK_EMAIL'))
+		try {
+			const response = await fetch(`${API_SERVER_USER}/api/v1/user/check-email`, {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({email})
+			})
+			const data = await response.json()
+			console.log("data action:" , data)
+			if (data.status === 409 && data.name === 'error') {
+        await dispatch(setFailed(true, 'FAILED_PROCESS_CHECK_EMAIL', data.message))
+        await dispatch(setFailed(false, 'FAILED_PROCESS_CHECK_EMAIL'))
+				await dispatch(setLoading(false, 'LOADING_PROCESS_CHECK_EMAIL'))
+			} else {
+				await dispatch(setSuccess(true, 'SUCCESS_PROCESS_CHECK_EMAIL'))
+				await dispatch(setLoading(false, 'LOADING_PROCESS_CHECK_EMAIL'))
+			}
+		} catch (e) {
+			 console.log('error: ', e)
+			dispatch(setFailed(true, 'FAILED_PROCESS_CHECK_EMAIL', e))
+			dispatch(setLoading(false, 'LOADING_PROCESS_CHECK_EMAIL'))
+		}
+	}
 }

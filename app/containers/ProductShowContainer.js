@@ -16,6 +16,8 @@ class ProductShowContainer extends Component {
       image: '',
       images:[],
       data: {},
+      wishlist:{},
+      dataSession:{},
       subcategories: '',
       qty: 1, 
       totalPrice: 0,
@@ -35,6 +37,7 @@ class ProductShowContainer extends Component {
     console.log('Data Product Show :' , data)
     await this.setState({ 
       data,
+      accessToken:data.accessToken,
       image: data.thumbnails[0].thumbnail_url,
       images: data.thumbnails,
       subcategories: data.subcategories[0].subcategory,
@@ -43,6 +46,18 @@ class ProductShowContainer extends Component {
     })
     await this.props.fetchProduct('123')
   }
+
+  // validationWishlist(){
+  //   this.props.wishlist.map(wishlist => (
+  //     wishlist.product_id == this.state.data.product_id ? (
+  //       return true
+  //     ) 
+  //     :
+  //     (
+  //       return false
+  //     )
+  //   ))
+  // }
 
   async addQty(){
     await this.setState({
@@ -78,6 +93,10 @@ class ProductShowContainer extends Component {
   }
 
   render() {
+    {console.log('data wishlist :', this.validationWishlist())}
+    {console.log('isi state data : ' , this.state.data.product_id)}
+    {console.log('isi wishlist' , this.props.wishlist.filter(product_id == this.state.data.product_id))}
+    {console.log('isi datasession', this.state.dataSession.id)}
     return (
       <ProductShow
         image={this.state.image}
@@ -133,7 +152,8 @@ const mapDispatchToProps = (dispatch) =>{
   return{
 
     fetchProduct: (accessToken) => dispatch(fetchProduct(accessToken)),
-    addWishlist: (accessToken, id, idProduct) => dispatch(addWishlist(accessToken, id, idProduct))
+    addWishlist: (accessToken, id, idProduct) => dispatch(addWishlist(accessToken, id, idProduct)),
+    fetchwishlist:(accessToken, id) => dispatch(fetchwishlist(accessToken, id))
   }
 }
 
@@ -142,7 +162,8 @@ const mapStateToProps = (state) => {
     loading: state.loading,
     success: state.success,
     failed: state.failed,
-    product: state.product
+    product: state.product,
+    wishlist: state.wishlist
   }
 }
 
