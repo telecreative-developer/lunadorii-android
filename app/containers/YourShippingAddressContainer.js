@@ -104,7 +104,7 @@ class YourShippingAddressContainer extends Component{
         onChangeDistrict={(district) => this.setState({ district })}
 
         handlerUpdateShipping={() => this.btnUpdateShipping()}
-        
+
         dataShippingAddress={this.props.usershipping}
         renderShippingAddress={({item}) => (
           <ShippingAddress
