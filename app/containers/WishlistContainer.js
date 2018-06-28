@@ -32,6 +32,10 @@ class WishlistContainer extends Component{
     }
   }
 
+  capitalize(string) {
+    return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
+  }
+
   render(){
     if(this.state.isEmpty){
       return(
@@ -44,7 +48,7 @@ class WishlistContainer extends Component{
         <Wishlist
           dataProduct={this.props.wishlist}
           renderProduct={({item}) => (
-            <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+            <Product image={item.thumbnails[0].thumbnail_url} title={this.capitalize(item.product)} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
             />
           )}
           goback={() => this.props.navigation.goBack()}
