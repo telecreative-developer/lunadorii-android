@@ -19,7 +19,7 @@ const AddCreditCardModal = (props) => (
       <Form style={styles.form}>
         <Label style={styles.labels}>Card Number</Label>
         <Item regular style={styles.items}>
-          <Input placeholder="**** **** **** 4532" placeholderTextColor="#CDCDCD" maxLength={14} keyboardType={'numeric'} onChangeText={props.onChangeCardNumber} value={props.cardNumber}/>
+          <Input placeholder="**** **** **** 4532" placeholderTextColor="#CDCDCD" maxLength={19} keyboardType={'numeric'} onChangeText={props.onChangeCardNumber} value={props.cardNumber}/>
         </Item>
         <View style={styles.wrapper}>
           <View style={styles.flexDirectionCol}>
