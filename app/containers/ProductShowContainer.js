@@ -13,6 +13,7 @@ class ProductShowContainer extends Component {
     super()
     this.state = {
       modalVisibleImageView: false,
+      title: '',
       image: '',
       images:[],
       data: {},
@@ -40,6 +41,7 @@ class ProductShowContainer extends Component {
       data,
       accessToken:data.accessToken,
       image: data.thumbnails[0].thumbnail_url,
+      title: data.product,
       images: data.thumbnails,
       subcategories: data.subcategories[0].subcategory,
       totalPrice: data.price,
@@ -112,7 +114,7 @@ class ProductShowContainer extends Component {
     return (
       <ProductShow
         image={this.state.image}
-        title={this.state.data.product}
+        title={this.capitalize(this.state.title)}
         categories={this.state.subcategories}
         price={this.state.data.price}
         star={this.state.starCount}

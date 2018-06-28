@@ -50,7 +50,7 @@ const ProductShow = (props) => (
             rating={props.star}
             // selectedStar={props.onStarRatingPress}
           />
-        <Text style={styles.reviewsLabel}>{props.star}.0 reviews</Text>
+        <Text style={styles.reviewsLabel}>{props.star} reviews</Text>
       </View>
       <View style={styles.borderedSparator}>
         <View style={styles.borderedSparatorFirst}>
@@ -81,7 +81,7 @@ const ProductShow = (props) => (
           <View style={styles.ratingCard}>
             <View style={styles.ratingCardContentWrapper}>
               <Text style={styles.ratingReviewsText}>
-                <Text style={styles.ratingAmountReviewsText}>{props.star}.0</Text> reviews
+                <Text style={styles.ratingAmountReviewsText}>{props.star}</Text> reviews
               </Text>
               <StarRating
             disabled={true}

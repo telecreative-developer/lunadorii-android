@@ -66,6 +66,10 @@ class ReviewsContainer extends Component{
     });
   }
 
+  capitalize(string) {
+    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+  }
+
   render(){
     return(
       <Reviews
@@ -74,7 +78,7 @@ class ReviewsContainer extends Component{
       toggleModalEditReviews={() => this.toggleModalEditReviews()}
       
       image={this.state.image}
-      title={this.state.title}
+      title={this.capitalize(this.state.title)}
       price={this.state.price}
       star={this.state.star}
       comment={this.state.comment}
@@ -87,7 +91,7 @@ class ReviewsContainer extends Component{
         <ProductReviews 
           id={item.product_review_id}
           image={item.product.thumbnails[0].thumbnail_url} 
-          title={item.product.name} 
+          title={this.capitalize(item.product.name)} 
           star={item.rate} 
           date={item.updated_at} 
           review={item.comment}
