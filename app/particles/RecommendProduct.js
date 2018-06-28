@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
-import Stars from 'react-native-stars-rating'
+import StarRating from 'react-native-star-rating'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
@@ -14,13 +14,12 @@ const RecommendProduct = (props) => {
         <Text style={styles.txtCategories}>{props.categories}</Text>
         <View style={styles.viewFlexRow}>
           <View style={styles.viewRating}>
-            <Stars
-              isActive={false}
-              rateMax={5}
-              isHalfStarEnable={false}
-              rate={props.star}
-              size={12}
-            />
+          <StarRating
+            disabled={true}
+            maxStars={5}
+            rating={props.star}
+            // selectedStar={props.onStarRatingPress}
+          />
           </View>
           <View>
             <Text style={styles.txtReviews}>{props.reviews} Reviews</Text>

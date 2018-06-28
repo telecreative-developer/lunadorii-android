@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, FlatList, ImageBackground, TouchableOpacity, StatusBar } from 'react-native'
 import { Container, Content, Text, View, Button, Icon, Item, Input } from 'native-base'
-import Stars from 'react-native-stars-rating'
+import StarRating from 'react-native-star-rating';
 import NavbarTransparent from '../particles/NavbarTransparent'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -44,13 +44,12 @@ const ProductShow = (props) => (
         </View>
       </View>
       <View style={styles.secondGroup}>
-        <Stars
-          isActive={false}
-          rateMax={5}
-          isHalfStarEnable={false}
-          rate={props.star}
-          size={12}
-        />
+          <StarRating
+            disabled={true}
+            maxStars={5}
+            rating={props.star}
+            // selectedStar={props.onStarRatingPress}
+          />
         <Text style={styles.reviewsLabel}>{props.star}.0 reviews</Text>
       </View>
       <View style={styles.borderedSparator}>
@@ -84,14 +83,12 @@ const ProductShow = (props) => (
               <Text style={styles.ratingReviewsText}>
                 <Text style={styles.ratingAmountReviewsText}>{props.star}.0</Text> reviews
               </Text>
-              <Rating
-                type='custom'
-                ratingCount={5}
-                startingValue={props.star}
-                imageSize={16}
-                ratingColor="#000"
-                ratingBackgroundColor="#ccc"
-                style={styles.rating1} />
+              <StarRating
+            disabled={true}
+            maxStars={5}
+            rating={props.star}
+            // selectedStar={props.onStarRatingPress}
+          />
             </View>
           </View>
           <View>
