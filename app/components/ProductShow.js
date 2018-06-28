@@ -29,7 +29,7 @@ const ProductShow = (props) => (
       <ImageViewModal
         modalVisible={props.modalVisibleImageView}
         actionIcon={props.toggleImageViewModal}
-        image={props.imageToView}/>
+        images={props.images}/>
       <View style={styles.firstGroup}>
         <View style={styles.firstGroupWrapper}>
           <Text style={styles.firstGroupTitle}>{props.title}</Text>

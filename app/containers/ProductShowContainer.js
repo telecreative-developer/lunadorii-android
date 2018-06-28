@@ -122,7 +122,6 @@ class ProductShowContainer extends Component {
 
         modalVisibleImageView={this.state.modalVisibleImageView}
         toggleImageViewModal={() => this.toggleImageViewModal()}
-        imageToView={this.state.image}
         images={this.state.images}
 
         goback={() => this.props.navigation.goBack()} />
