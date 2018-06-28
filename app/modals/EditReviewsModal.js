@@ -5,7 +5,13 @@ import NavbarModal from '../particles/NavbarModal'
 import Stars from 'react-native-stars-rating'
 import ProductReviewed from '../particles/ProductReviewed'
 
-const EditReviewsModal = (props) => (
+const EditReviewsModal = (props) => {
+  state = {
+    star: 5
+  }
+
+  console.log('tipe data state star: ', typeof this.state.star)
+  return(
   <Modal
     animationType="slide"
     transparent={false}
@@ -30,9 +36,6 @@ const EditReviewsModal = (props) => (
             size={18}
           />
         </View>
-        <View>
-          <Text>star: {props.star}</Text>
-        </View>
       <Item regular style={styles.itemsTextarea}>
         <Textarea placeholder="Type your reviews here" placeholderTextColor="#CDCDCD" style={styles.textareaStyle} value={props.comment} onChangeText={props.onChangeComment}/>
       </Item>
@@ -41,7 +44,7 @@ const EditReviewsModal = (props) => (
       <Text style={styles.buttonSaveTextStyleEditProfile}>Update</Text>
     </Button>
   </Modal>
-)
+)}
 
 export default EditReviewsModal
 
