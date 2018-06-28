@@ -20,7 +20,7 @@ const YourCart = (props) => (
           data={props.onCartProduct}
           renderItem={props.renderOnCartProduct}
         />
-        <Button style={styles.btnAdd}>
+        <Button style={styles.btnAdd} onPress={props.navigateToHome}>
           <Icon name="add"/><Text style={styles.txtAdd}>Add More Product</Text>
         </Button>
       </View>
