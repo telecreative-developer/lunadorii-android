@@ -11,6 +11,8 @@ import { sessionPersistance } from "./login"
 import { editpassword, editemail } from "./editprofile"
 import { wishlist } from "./wishlist"
 import { userreview } from "./userreview"
+import { cartuser } from "./cart"
+import { usershipping } from "./usershipping"
 
 const rootReducers = combineReducers({
   loading,
@@ -27,7 +29,9 @@ const rootReducers = combineReducers({
   editpassword,
   editemail,
   wishlist,
-  userreview
+  userreview,
+  cartuser,
+  usershipping
 //   sessionPersistance
 });
 
