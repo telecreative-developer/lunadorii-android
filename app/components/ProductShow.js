@@ -44,13 +44,18 @@ const ProductShow = (props) => (
         </View>
       </View>
       <View style={styles.secondGroup}>
-          <StarRating
-            disabled={true}
-            maxStars={5}
-            rating={props.star}
-            // selectedStar={props.onStarRatingPress}
-          />
-        <Text style={styles.reviewsLabel}>{props.star} reviews</Text>
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <View style={{flexDirection: 'row'}}>
+            <StarRating
+              disabled={true}
+              maxStars={5}
+              rating={props.star}
+              starSize={14}
+              // selectedStar={props.onStarRatingPress}
+            />
+          </View>
+          <Text style={styles.reviewsLabel}>{props.star} reviews</Text>
+        </View>
       </View>
       <View style={styles.borderedSparator}>
         <View style={styles.borderedSparatorFirst}>
@@ -83,12 +88,15 @@ const ProductShow = (props) => (
               <Text style={styles.ratingReviewsText}>
                 <Text style={styles.ratingAmountReviewsText}>{props.star}</Text> reviews
               </Text>
-              <StarRating
-            disabled={true}
-            maxStars={5}
-            rating={props.star}
-            // selectedStar={props.onStarRatingPress}
-          />
+              <View style={{flexDirection: 'row'}}>
+                <StarRating
+                  disabled={true}
+                  maxStars={5}
+                  rating={props.star}
+                  starSize={14}
+                  // selectedStar={props.onStarRatingPress}
+                />
+              </View>
             </View>
           </View>
           <View>
@@ -203,7 +211,8 @@ const styles = StyleSheet.create({
     borderColor: '#ccc'
   },
   firstGroupButtonIcon: {
-    fontSize: 24
+    fontSize: 24,
+    color: '#d11e48'
   },
   secondGroup: {
     flexDirection: 'row',
@@ -303,6 +312,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   reviewsLabel: {
+    justifyContent: 'center',
     paddingLeft: 10,
     color: '#F7009A'
   },
