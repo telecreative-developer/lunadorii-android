@@ -32,7 +32,7 @@ const YourShippingAddress = (props) => (
       onChangeDistrict={props.onChangeDistrict}
 
       updateShipping={props.handlerUpdateShipping}
-      />
+    />
     <AddAddressModal
       navbarTitle="Add Addresss"
       navbarIcon="close"
