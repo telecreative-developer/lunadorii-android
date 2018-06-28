@@ -21,12 +21,15 @@ const ProductReviews = (props) =>(
           </View>
         </View> 
         <View style={styles.viewRating}>
-          <StarRating
-            disabled={true}
-            maxStars={5}
-            rating={props.star}
-            // selectedStar={props.onStarRatingPress}
-          />
+          <View style={{flexDirection:'row', paddingTop: 5}}>
+            <StarRating
+              disabled={true}
+              maxStars={5}
+              rating={props.star}
+              starSize={12}
+              // selectedStar={props.onStarRatingPress}
+            />
+          </View>
           <Text style={styles.txtReview}>{props.review}</Text>
           <Text note style={styles.txtDate}>Edited {moment(props.date).startOf('day').fromNow()}</Text>
         </View>
