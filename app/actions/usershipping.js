@@ -25,12 +25,12 @@ export const fetchUserShipping = (id, accessToken) => {
 	}
 }
 
-export const updateReview = (id, items, accessToken) => {
+export const updateShipping = (id, items, accessToken) => {
 	return async dispatch => {
-		console.log('accestoken: ', accessToken)
-		await dispatch(setLoading(true, 'LOADING_UPDATE_REVIEW'))
+		await dispatch(setLoading(true, 'LOADING_UPDATE_SHIPPING'))
+		console.log('items action: ', items)
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/user-review/${id}`, {
+			const response = await fetch(`${API_SERVER_USER}api/v1/user-address/${id}`, {
 				method: 'PUT',
 				headers: {
 					Accept: 'application/json',
@@ -38,16 +38,21 @@ export const updateReview = (id, items, accessToken) => {
                     Authorization: accessToken
                 },
                 body: JSON.stringify({
-					comment: items.comment,
-					rate: items.star
+					name: item.recepient,
+					phone: items.phone,
+					detail_address: items.detail_address,
+					province: items.province,
+					city: items.city,
+					district: items.district,
+					postal_code: 14250
                 })
 			})
 			const data = await response.json()
-			await dispatch(setSuccess(true, 'SUCCESS_UPDATE_REVIEW'))
-      		await dispatch(setLoading(false, 'LOADING_UPDATE_REVIEW'))
+			await dispatch(setSuccess(true, 'SUCCESS_UPDATE_SHIPPING'))
+      		await dispatch(setLoading(false, 'LOADING_UPDATE_SHIPPING'))
 		} catch (e) {
-			dispatch(setFailed(true, 'FAILED_UPDATE_REVIEW', e))
-			dispatch(setLoading(false, 'LOADING_UPDATE_REVIEW'))
+			dispatch(setFailed(true, 'FAILED_UPDATE_SHIPPING', e))
+			dispatch(setLoading(false, 'LOADING_UPDATE_SHIPPING'))
 		}
 	}
 }
