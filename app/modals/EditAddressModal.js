@@ -37,7 +37,7 @@ const EditAddressModal = (props) => (
         </Item>
         <Label style={styles.labels}>No Telp</Label>
         <Item regular style={styles.items}>
-          <Input value={props.phone} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeNumberPhone} />
+          <Input value={props.phone} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeNumberPhone} keyboardType={'numeric'}/>
         </Item>
       </Form>
     </Content>

@@ -30,7 +30,7 @@ export default class CreditCardContainer extends Component {
 
   cardNumberFormatter(cardNumber){
     let formattedCardNumber = cardNumber.split(' ').join(' ')
-    if(formattedCardNumber.length > 0 && formattedCardNumber.length == 12){
+    if(formattedCardNumber.length > 0 && formattedCardNumber.length == 16){
       formattedCardNumber = formattedCardNumber.match(new RegExp('.{1,4}', 'g')).join(' ')
       return formattedCardNumber
     }
