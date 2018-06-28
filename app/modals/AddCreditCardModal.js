@@ -19,25 +19,25 @@ const AddCreditCardModal = (props) => (
       <Form style={styles.form}>
         <Label style={styles.labels}>Card Number</Label>
         <Item regular style={styles.items}>
-          <Input placeholder="**** **** **** 4532" placeholderTextColor="#CDCDCD" />
+          <Input placeholder="**** **** **** 4532" placeholderTextColor="#CDCDCD" maxLength={14} keyboardType={'numeric'} onChangeText={props.onChangeCardNumber} value={props.cardNumber}/>
         </Item>
         <View style={styles.wrapper}>
           <View style={styles.flexDirectionCol}>
             <Label style={styles.labels}>Validation Date</Label>
             <Item regular style={styles.centeredItems}>
-              <Input placeholder="MM/YY" placeholderTextColor="#CDCDCD" />
+              <Input placeholder="MM/YY" placeholderTextColor="#CDCDCD" maxLength={5} onChangeText={props.onChangeValidationDate} value={props.validationDate} keyboardType={'numeric'}/>
             </Item>
           </View>
           <View style={styles.flexDirectionCol}>
             <Label style={styles.labels}>CVV</Label>
             <Item regular style={styles.centeredItems}>
-              <Input placeholder="3 digits" placeholderTextColor="#CDCDCD" />
+              <Input placeholder="3 digits" placeholderTextColor="#CDCDCD" maxLength={3} onChangeText={props.onChangeCVV} keyboardType={'numeric'}/>
             </Item>
           </View>
         </View>
         <Label style={styles.labels}>Cardholder Name</Label>
         <Item regular style={styles.items}>
-          <Input placeholder="Your name" placeholderTextColor="#CDCDCD" />
+          <Input placeholder="Your name" placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCardHolder}/>
         </Item>
       </Form>
     </Content>
