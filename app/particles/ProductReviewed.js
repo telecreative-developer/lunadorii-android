@@ -1,6 +1,5 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
-import { Rating } from 'react-native-ratings'
+import { View, Text, Image, StyleSheet } from 'react-native'
 
 const ProductReviewed = (props) =>(
   <View style={styles.viewReviews}>

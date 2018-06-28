@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, FlatList, ImageBackground, TouchableOpacity, StatusBar } from 'react-native'
 import { Container, Content, Text, View, Button, Icon, Item, Input } from 'native-base'
-import { Rating } from 'react-native-ratings'
+import Stars from 'react-native-stars-rating'
 import NavbarTransparent from '../particles/NavbarTransparent'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -44,14 +44,13 @@ const ProductShow = (props) => (
         </View>
       </View>
       <View style={styles.secondGroup}>
-        <Rating
-          type='custom'
-          ratingCount={5}
-          startingValue={props.star}
-          imageSize={16}
-          ratingColor="#000"
-          ratingBackgroundColor="#ccc"
-          style={styles.rating} />
+        <Stars
+          isActive={false}
+          rateMax={5}
+          isHalfStarEnable={false}
+          rate={props.star}
+          size={12}
+        />
         <Text style={styles.reviewsLabel}>{props.star}.0 reviews</Text>
       </View>
       <View style={styles.borderedSparator}>

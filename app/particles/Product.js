@@ -1,6 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Text, Dimensions, TouchableOpacity, ImageBackground } from 'react-native'
-import { Rating } from 'react-native-ratings'
+import Stars from 'react-native-stars-rating'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 const { width, height } = Dimensions.get('window')
@@ -16,13 +16,12 @@ const Product = (props) => (
         <Text style={styles.txtTitle}>{props.title}</Text>
         <Text style={styles.txtCategories}>{props.categories}</Text>
         <View style={{ marginTop: 10 }}>
-          <Rating
-            type='star'
-            ratingCount={5}
-            startingValue={props.star}
-            imageSize={12}
-            ratingColor="#000"
-            ratingBackgroundColor="#ccc"
+          <Stars
+            isActive={false}
+            rateMax={5}
+            isHalfStarEnable={false}
+            rate={props.star}
+            size={12}
           />
           <Text style={styles.txtPrice}>Rp. {props.price}</Text>
         </View>
