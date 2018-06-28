@@ -60,6 +60,12 @@ class ReviewsContainer extends Component{
     await this.closeModal()
   }
 
+  async onStarRatingPress(star) {
+    await this.setState({
+      star: star
+    });
+  }
+
   render(){
     return(
       <Reviews
@@ -73,6 +79,7 @@ class ReviewsContainer extends Component{
       star={this.state.star}
       comment={this.state.comment}
       onChangeComment={(comment) => this.setState({ comment })}
+      onChangeStar={(star) => this.onStarRatingPress(star)}
       updateRating={() => this.btnUpdateRating()}
 
       dataReviews={this.props.userreview}
