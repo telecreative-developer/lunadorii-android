@@ -120,8 +120,7 @@ class SearchContainer extends Component {
     modalVisibleFilters: false,
     searchTitle: "",
     searchResult:[],
-    modalVisibleBrandChooser: false,
-    searchTitle: ""
+    modalVisibleBrandChooser: false
   }
 
   async handleSearch(){
@@ -160,7 +159,6 @@ class SearchContainer extends Component {
         modalVisibleBrandChooser={this.state.modalVisibleBrandChooser}
         toggleModalBrandChooser={() => this.toggleModalBrandChooser()}
 
-        dateRelatedProducts={dateRelatedProducts}
         renderRelatedProducts={({ item }) => (
           <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
           />

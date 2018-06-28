@@ -93,10 +93,10 @@ class ProductShowContainer extends Component {
   }
 
   render() {
-    {console.log('data wishlist :', this.validationWishlist())}
-    {console.log('isi state data : ' , this.state.data.product_id)}
-    {console.log('isi wishlist' , this.props.wishlist.filter(product_id == this.state.data.product_id))}
-    {console.log('isi datasession', this.state.dataSession.id)}
+    // {console.log('data wishlist :', this.validationWishlist())}
+    // {console.log('isi state data : ' , this.state.data.product_id)}
+    // {console.log('isi wishlist' , this.props.wishlist.filter(product_id == this.state.data.product_id))}
+    // {console.log('isi datasession', this.state.dataSession.id)}
     return (
       <ProductShow
         image={this.state.image}
