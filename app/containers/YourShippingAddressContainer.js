@@ -3,9 +3,8 @@ import {AsyncStorage} from 'react-native'
 import YourShippingAddress from '../components/YourShippingAddress'
 import ShippingAddress from '../particles/ShippingAddress'
 
-
 import { connect } from 'react-redux'
-import { fetchUserShipping } from '../actions/usershipping'
+import { fetchUserShipping, updateShipping } from '../actions/usershipping'
 
 
 class YourShippingAddressContainer extends Component{
@@ -15,6 +14,7 @@ class YourShippingAddressContainer extends Component{
     this.state = {
       modalVisibleEditAddress: false,
       modalVisibleAddAddress: false,
+      address_id: 0,
       name: '',
       phone: '',
       detail_address: '',
@@ -32,6 +32,7 @@ class YourShippingAddressContainer extends Component{
     await this.closeModal()
     if(this.state.modalVisibleEditAddress){
       await this.setState({
+        address_id: item.user_address_id,
         name: item.recepient,
         phone: item.phone,
         detail_address: item.detail_address,
@@ -59,8 +60,14 @@ class YourShippingAddressContainer extends Component{
     alert("Handler for save shipping address")
   }
 
-  handleUpdateShippingAddress(){
-    alert("Handler for update shipping address")
+  async btnUpdateShipping(){
+    alert('updated')
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.updateShipping(this.state.address_id, this.state, data.accessToken)
+    await this.props.fetchUserShipping(data.id, data.accessToken)
+    await this.toggleModalEditAddress()
+    console.log('clicked: ', this.state.address_id)
   }
 
   async componentDidMount() {
@@ -77,7 +84,6 @@ class YourShippingAddressContainer extends Component{
 
         modalVisibleEditAddress={this.state.modalVisibleEditAddress}
         toggleModalEditAddress={() => this.toggleModalEditAddress()}
-        handleUpdateShippingAddress={() => this.handleUpdateShippingAddress()}
 
         modalVisibleAddAddress={this.state.modalVisibleAddAddress}
         toggleModalAddAddress={() => this.toggleModalAddAddress()}
@@ -96,6 +102,8 @@ class YourShippingAddressContainer extends Component{
         onChangeProvince={(province) => this.setState({ province })}
         onChangeCity={(city) => this.setState({ city })}
         onChangeDistrict={(district) => this.setState({ district })}
+
+        handlerUpdateShipping={() => this.btnUpdateShipping()}
         
         dataShippingAddress={this.props.usershipping}
         renderShippingAddress={({item}) => (
@@ -103,7 +111,7 @@ class YourShippingAddressContainer extends Component{
             name={item.recepient}
             numberPhone={item.phone}
             detail_address={item.detail_address}
-            action={() => this.toggleModalEditAddress(item)}/>
+            actionEdit={() => this.toggleModalEditAddress(item)}/>
         )}
       />
     )
@@ -116,7 +124,8 @@ const mapDispatchToProps = (dispatch) =>{
   return{
 
     fetchUserShipping: (id, accessToken) => dispatch(fetchUserShipping(id, accessToken)),
-    
+    updateShipping: (id, items, accessToken) => dispatch(updateShipping(id, items, accessToken)),
+
   }
 }
 

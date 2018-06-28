@@ -16,7 +16,6 @@ const YourShippingAddress = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleEditAddress}
       actionIcon={props.toggleModalEditAddress} 
-      handleUpdateShippingAddress={props.handleUpdateShippingAddress}
       
       name={props.name}
       phone={props.phone}
@@ -31,6 +30,8 @@ const YourShippingAddress = (props) => (
       onChangeProvince={props.onChangeProvince}
       onChangeCity={props.onChangeCity}
       onChangeDistrict={props.onChangeDistrict}
+
+      updateShipping={props.handlerUpdateShipping}
       />
     <AddAddressModal
       navbarTitle="Add Addresss"
