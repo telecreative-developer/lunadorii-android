@@ -43,7 +43,7 @@ class HomeContainer extends Component {
   }
 
   capitalize(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
   }
 
   renderBanners(banner, index) {
