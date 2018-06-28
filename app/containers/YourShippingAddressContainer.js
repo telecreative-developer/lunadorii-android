@@ -1,29 +1,54 @@
 import React, { Component } from 'react'
+import {AsyncStorage} from 'react-native'
 import YourShippingAddress from '../components/YourShippingAddress'
 import ShippingAddress from '../particles/ShippingAddress'
 
-const dataShippingAddress = [
-  {
-    name: 'Muhammad Isa Wijaya Kusuma',
-    numberPhone: '+62 896 4395 1073',
-    address: 'Tangerang Cipondoh Makmur Blok K 10 No.28',
-  },
-  {
-    name: 'Alfan Hibban Intiyas',
-    numberPhone: '+62 896 4395 1073',
-    address: 'Tangerang Cipondoh Makmur Blok K 10 No.28',
+
+import { connect } from 'react-redux'
+import { fetchUserShipping } from '../actions/usershipping'
+
+
+class YourShippingAddressContainer extends Component{
+
+  constructor(){
+    super()
+    this.state = {
+      modalVisibleEditAddress: false,
+      modalVisibleAddAddress: false,
+      name: '',
+      phone: '',
+      detail_address: '',
+      province: '',
+      city: '',
+      district: ''
+    }
   }
-]
 
-export default class YourShippingAddressContainer extends Component{
-
-  state = {
-    modalVisibleEditAddress: false,
-    modalVisibleAddAddress: false
-  }
-
-  toggleModalEditAddress(){
+  closeModal(){
     this.setState({modalVisibleEditAddress: !this.state.modalVisibleEditAddress})
+  }
+
+  async toggleModalEditAddress(item){
+    await this.closeModal()
+    if(this.state.modalVisibleEditAddress){
+      await this.setState({
+        name: item.recepient,
+        phone: item.phone,
+        detail_address: item.detail_address,
+        province: item.province,
+        city: item.city,
+        district: item.district
+      }) 
+    }else{
+      await this.setState({
+        name: '',
+        phone: '',
+        detail_address: '',
+        province: '',
+        city: '',
+        district: ''
+      })
+    }
   }
 
   toggleModalAddAddress(){
@@ -38,6 +63,13 @@ export default class YourShippingAddressContainer extends Component{
     alert("Handler for update shipping address")
   }
 
+  async componentDidMount() {
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.fetchUserShipping(data.id, data.accessToken)
+
+  }
+
   render(){
     return(
       <YourShippingAddress
@@ -50,17 +82,51 @@ export default class YourShippingAddressContainer extends Component{
         modalVisibleAddAddress={this.state.modalVisibleAddAddress}
         toggleModalAddAddress={() => this.toggleModalAddAddress()}
         handleSaveShippingAddress={() => this.handleSaveShippingAddress()}
+
+        name={this.state.name}
+        phone={this.state.phone}
+        detail_address={this.state.detail_address}
+        province={this.state.province}
+        city={this.state.city}
+        district={this.state.district}
+
+        onChangeName={(name) => this.setState({ name })}
+        onChangePhone={(phone) => this.setState({ phone })}
+        onChangeAddress={(detail_address) => this.setState({ detail_address })}
+        onChangeProvince={(province) => this.setState({ province })}
+        onChangeCity={(city) => this.setState({ city })}
+        onChangeDistrict={(district) => this.setState({ district })}
         
-        dataShippingAddress={dataShippingAddress}
+        dataShippingAddress={this.props.usershipping}
         renderShippingAddress={({item}) => (
           <ShippingAddress
-            name={item.name}
-            numberPhone={item.numberPhone}
-            address={item.address}
-            action={() => this.toggleModalEditAddress()}/>
+            name={item.recepient}
+            numberPhone={item.phone}
+            detail_address={item.detail_address}
+            action={() => this.toggleModalEditAddress(item)}/>
         )}
       />
     )
   }
 
 }
+
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+
+    fetchUserShipping: (id, accessToken) => dispatch(fetchUserShipping(id, accessToken)),
+    
+  }
+}
+
+const mapStateToProps = (state) => {
+  return{
+    loading: state.loading,
+    success: state.success,
+    failed: state.failed,
+    usershipping: state.usershipping
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(YourShippingAddressContainer)
