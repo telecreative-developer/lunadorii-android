@@ -7,7 +7,7 @@ const ShippingAddress = (props) => (
       <View style={styles.wrapLeft}>
         <Text style={styles.txtHeader}>{props.name}</Text>
         <Text>{props.numberPhone}</Text>
-        <Text>{props.address}</Text>
+        <Text>{props.detail_address}</Text>
       </View>
       <View style={styles.wrapRight}>
         <TouchableOpacity onPress={props.action}>

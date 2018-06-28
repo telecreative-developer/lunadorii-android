@@ -17,31 +17,27 @@ const EditAddressModal = (props) => (
       <Form style={styles.form}>
         <Label style={styles.labels}>Name</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeName} />
+          <Input value={props.name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeName} />
         </Item>
         <Label style={styles.labels}>Alamat</Label>
         <Item regular style={styles.itemsTextarea}>
-          <Textarea placeholder={props.address} placeholderTextColor="#CDCDCD" style={styles.textareaStyle} onChangeText={props.onChangeAddress} />
+          <Textarea value={props.detail_address} placeholderTextColor="#CDCDCD" style={styles.textareaStyle} onChangeText={props.onChangeAddress} />
         </Item>
         <Label style={styles.labels}>Provinsi</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.province} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeProvince} />
+          <Input value={props.province} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeProvince} />
         </Item>
         <Label style={styles.labels}>Kota/Kabupaten</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.city} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCity} />
+          <Input value={props.city} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCity} />
         </Item>
         <Label style={styles.labels}>Kecamatan</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.regency} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeRegency} />
-        </Item>
-        <Label style={styles.labels}>Kelurahan</Label>
-        <Item regular style={styles.items}>
-          <Input placeholder={props.district} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeDistrict} />
+          <Input value={props.district} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeRegency} />
         </Item>
         <Label style={styles.labels}>No Telp</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.numberPhone} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeNumberPhone} />
+          <Input value={props.phone} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeNumberPhone} />
         </Item>
       </Form>
     </Content>

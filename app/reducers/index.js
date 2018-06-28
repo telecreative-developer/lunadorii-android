@@ -12,6 +12,7 @@ import { editpassword, editemail } from "./editprofile"
 import { wishlist } from "./wishlist"
 import { userreview } from "./userreview"
 import { cartuser } from "./cart"
+import { usershipping } from "./usershipping"
 
 const rootReducers = combineReducers({
   loading,
@@ -29,7 +30,8 @@ const rootReducers = combineReducers({
   editemail,
   wishlist,
   userreview,
-  cartuser
+  cartuser,
+  usershipping
 //   sessionPersistance
 });
 
