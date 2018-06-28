@@ -21,7 +21,7 @@ class YourShippingAddressContainer extends Component{
       province: '',
       city: '',
       district: '',
-      address_default: ''
+      address_default: false
     }
   }
 
@@ -81,6 +81,12 @@ class YourShippingAddressContainer extends Component{
 
   }
 
+  onChangeDefault(){
+    this.setState({
+      address_default: !this.state.address_default
+    })
+  }
+
   render(){
     return(
       <YourShippingAddress
@@ -99,6 +105,7 @@ class YourShippingAddressContainer extends Component{
         province={this.state.province}
         city={this.state.city}
         district={this.state.district}
+        address_default={this.state.address_default}
 
         onChangeName={(name) => this.setState({ name })}
         onChangePhone={(phone) => this.setState({ phone })}
@@ -106,6 +113,7 @@ class YourShippingAddressContainer extends Component{
         onChangeProvince={(province) => this.setState({ province })}
         onChangeCity={(city) => this.setState({ city })}
         onChangeDistrict={(district) => this.setState({ district })}
+        onChangeDefault={() => this.onChangeDefault()}
 
         handlerUpdateShipping={() => this.btnUpdateShipping()}
         
@@ -115,6 +123,7 @@ class YourShippingAddressContainer extends Component{
             name={item.recepient}
             numberPhone={item.phone}
             detail_address={item.detail_address}
+            address_default={item.address_default}
             actionEdit={() => this.toggleModalEditAddress(item)}/>
         )}
       />
