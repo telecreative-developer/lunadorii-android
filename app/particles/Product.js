@@ -9,19 +9,21 @@ const Product = (props) => (
     <TouchableOpacity onPress={props.action}>
       <ImageBackground source={{ uri: props.image }} style={styles.ImageBackground}>
         <TouchableOpacity style={styles.touchableOpacity} onPress={() => alert('Sabar, addToCart "'+ props.title +'" onProgress')}>
-          <Text style={styles.txtAddCart}><MaterialCommunityIcons name="cart" /> Add to Cart</Text>
+          <Text style={styles.txtAddCart}><MaterialCommunityIcons name="cart" size={12}/> Add to Cart</Text>
         </TouchableOpacity>
       </ImageBackground>
       <View style={styles.viewContent}>
         <Text style={styles.txtTitle}>{props.title}</Text>
         <Text style={styles.txtCategories}>{props.categories}</Text>
-        <View style={{ marginTop: 10 }}>
+        <View style={{flexDirection: 'row', paddingTop: 5}}>
           <StarRating
             disabled={true}
             maxStars={5}
             rating={props.star}
             starSize={12}
           />
+        </View>
+        <View style={{ marginTop: 10 }}>
           <Text style={styles.txtPrice}>Rp. {props.price}</Text>
         </View>
       </View>
@@ -62,7 +64,7 @@ const styles = StyleSheet.create({
     bottom: 5,
     color: '#000',
     fontWeight: 'bold',
-    fontSize: 10
+    fontSize: 12
   },
   txtPrice: {
     fontWeight: 'bold',
@@ -76,6 +78,7 @@ const styles = StyleSheet.create({
     left: 20,
     bottom: 15,
     alignSelf: 'flex-end',
+    alignItems: 'center',
     borderRadius: 8
   }
 })

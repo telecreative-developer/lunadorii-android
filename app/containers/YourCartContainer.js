@@ -32,6 +32,7 @@ class YourCartContainer extends Component {
           <ShippingAddress name={item.name} numberPhone={item.numberPhone} address={item.address}/>
         )}
 
+        navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
         goback={() => this.props.navigation.goBack()}/>
     );
   }
