@@ -16,10 +16,9 @@ const ImageViewModal = (props) => (
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content"
-    />
+    />           
     <View style={styles.style}>
-      <Image source={{ uri: props.image }} style={{resizeMode: 'contain', height: '100%', width: '100%'}}/>
-      {/* <ImageViewer imageUrls={[{ url: props.image }]} renderIndicator={(curentIndex) => null} /> */}
+      <ImageViewer imageUrls={props.images} />
     </View>
   </Modal>
 )
