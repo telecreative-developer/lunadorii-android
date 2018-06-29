@@ -4,7 +4,7 @@ import YourShippingAddress from '../components/YourShippingAddress'
 import ShippingAddress from '../particles/ShippingAddress'
 
 import { connect } from 'react-redux'
-import { fetchUserShipping, updateShipping } from '../actions/usershipping'
+import { fetchUserShipping, updateShipping, updateSetdefault } from '../actions/usershipping'
 
 
 class YourShippingAddressContainer extends Component{
@@ -81,10 +81,16 @@ class YourShippingAddressContainer extends Component{
 
   }
 
-  onChangeDefault(){
-    this.setState({
-      address_default: !this.state.address_default
+  async onChangeDefault(item){
+    await this.setState({
+      address_id: item.user_address_id,
+      address_default: true
     })
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.updateSetdefault(this.state.address_id, data.accessToken)
+    await this.props.fetchUserShipping(data.id, data.accessToken)
+    console.log('clicked onchange: ', this.state.address_default)
   }
 
   render(){
@@ -113,7 +119,6 @@ class YourShippingAddressContainer extends Component{
         onChangeProvince={(province) => this.setState({ province })}
         onChangeCity={(city) => this.setState({ city })}
         onChangeDistrict={(district) => this.setState({ district })}
-        onChangeDefault={() => this.onChangeDefault()}
 
         handlerUpdateShipping={() => this.btnUpdateShipping()}
 
@@ -124,7 +129,8 @@ class YourShippingAddressContainer extends Component{
             numberPhone={item.phone}
             detail_address={item.detail_address}
             address_default={item.address_default}
-            actionEdit={() => this.toggleModalEditAddress(item)}/>
+            actionEdit={() => this.toggleModalEditAddress(item)}
+            actionSetdefault={() => this.onChangeDefault(item)}/>
         )}
       />
     )
@@ -138,6 +144,7 @@ const mapDispatchToProps = (dispatch) =>{
 
     fetchUserShipping: (id, accessToken) => dispatch(fetchUserShipping(id, accessToken)),
     updateShipping: (id, items, accessToken) => dispatch(updateShipping(id, items, accessToken)),
+    updateSetdefault: (id, accessToken) => dispatch(updateSetdefault(id, accessToken)),
 
   }
 }
