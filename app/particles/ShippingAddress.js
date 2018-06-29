@@ -18,7 +18,7 @@ const ShippingAddress = (props) => (
         {props.address_default ? (
           <View/>
         ) : (
-          <TouchableOpacity onPress={props.actionSetAsDefault}>
+          <TouchableOpacity onPress={props.actionSetdefault}>
             <Text style={styles.txtAction}>Set as Default</Text>
           </TouchableOpacity>
           
@@ -26,7 +26,7 @@ const ShippingAddress = (props) => (
         <TouchableOpacity onPress={props.actionEdit}>
           <Text style={styles.txtAction}>Edit Address</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={props.actionRemove}>
+        <TouchableOpacity onPress={props.actionDelete}>
           <Text style={styles.txtAction}>Remove</Text>
         </TouchableOpacity>
       </View>
