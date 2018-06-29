@@ -244,11 +244,11 @@ class RegisterIdentifyContainer extends Component {
     this.setState({passwordFieldVisibility: !this.state.passwordFieldVisibility})
   }
 
-  renderButton(){
+  renderButton(id){
         const { first_name, last_name, email, password } = this.state
         const { loading } = this.props
         // const regexEmail = /^[^@]+@(yahoo|gmail)\.(com|net)$/i
-    
+      
         if (!isEmpty( String(JSON.stringify(first_name)) ) &&
             !isEmpty(String(JSON.stringify(last_name))) &&
             !isEmpty(String(JSON.stringify(email))) &&
@@ -261,7 +261,7 @@ class RegisterIdentifyContainer extends Component {
                     <Spinner color="#FFFFFF" />
                   </Button>
                   ) : (
-                  <Button full style={styles.buttonRegisterActive} onPress={() => this.handleValidationRegister()} rounded center>
+                  <Button full style={styles.buttonRegisterActive} onPress={() => this.handleValidationRegister(id)} rounded center>
                     <Text style={styles.buttonRegisterActiveText}>Next</Text>
                   </Button>
                   )}
@@ -278,8 +278,9 @@ class RegisterIdentifyContainer extends Component {
         }
       }
 
-    handleValidationRegister(nextProps){
+    async handleValidationRegister(id){
       const { email } = this.state
+      // console.log('id response user: ', id)
       // if (!isEmail(String(JSON.stringify(email)))) {
       //   console.log('Ini email', email)
       //   Alert.alert('Register gagal', 'Silahkan masukan alamat email yang valid')
@@ -293,9 +294,10 @@ class RegisterIdentifyContainer extends Component {
       //     password: ''
       //   })
       // }
-      this.props.register(this.state)
-      this.props.navigation.navigate('LoginContainer', {user: this.state})
-      this.setState({
+
+      await this.props.register(this.state)
+      await this.props.navigation.navigate('AddPhotoProfileContainer', {user: this.state, id: this.props.registerresult.id})
+      await this.setState({
         first_name: '',
         last_name: '',
         email: '',
@@ -321,7 +323,7 @@ class RegisterIdentifyContainer extends Component {
         onChangeLastName={(last_name)=> this.setState({last_name})}
         onChangeEmail={(email)=> this.setState({email})}
         onChangePassword={(password)=> this.setState({password})}
-        renderButton={this.renderButton()}
+        renderButton={this.renderButton(this.props.registerresult.id)}
       />
     )
   }
@@ -330,7 +332,8 @@ class RegisterIdentifyContainer extends Component {
 const mapStateToProps = state => ({
   loading: state.loading,
   success: state.success,
-  failed: state.failed
+  failed: state.failed,
+  registerresult: state.registerresult
 })
 
 const mapDispatchToProps = dispatch => ({

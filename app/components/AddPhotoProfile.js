@@ -18,7 +18,7 @@ const AddPhotoProfile = (props) => (
         <View style={{paddingBottom: 60}}>
           <Text style={{fontSize: 18, fontWeight: 'bold', color: '#000'}}>Add Photo Profile</Text>
         </View>
-        <Button full style={styles.uploadButton}>
+        <Button full style={styles.uploadButton} onPress={props.handleActionUpload}>
 					<Text style={styles.uploadButtonText}>Upload</Text>
 				</Button>
       </View>
