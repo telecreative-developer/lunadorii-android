@@ -88,7 +88,7 @@ class YourShippingAddressContainer extends Component{
     })
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.props.updateSetdefault(this.state.address_id, data.accessToken)
+    await this.props.updateSetdefault(data.id, this.state.address_id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
     console.log('clicked onchange: ', this.state.address_default)
   }
@@ -158,7 +158,7 @@ const mapDispatchToProps = (dispatch) =>{
 
     fetchUserShipping: (id, accessToken) => dispatch(fetchUserShipping(id, accessToken)),
     updateShipping: (id, items, accessToken) => dispatch(updateShipping(id, items, accessToken)),
-    updateSetdefault: (id, accessToken) => dispatch(updateSetdefault(id, accessToken)),
+    updateSetdefault: (id_user, id_addres, accessToken) => dispatch(updateSetdefault(id_user, id_addres, accessToken)),
     deleteShipping: (id, accessToken) => dispatch(deleteShipping(id, accessToken)),
 
   }
