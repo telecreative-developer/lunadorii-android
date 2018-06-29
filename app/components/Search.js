@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { StyleSheet, StatusBar, TouchableOpacity, Text, FlatList } from 'react-native'
+import { StyleSheet, StatusBar, TouchableOpacity, Text, FlatList, Dimensions } from 'react-native'
 import { Container, Content, View, Icon, Item, Input } from 'native-base'
 import Feather from 'react-native-vector-icons/Feather'
 import Navbar from '../particles/Navbar'
 import FiltersModal from '../modals/FiltersModal'
 import ResultNotFound from '../particles/ResultNotFound'
+const { height, width } = Dimensions.get('window')
 
 const Search = (props) => (
   <Container style={{ backgroundColor: '#fff' }}>

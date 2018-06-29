@@ -1,6 +1,7 @@
 import React, {Component} from 'react'
-import { View, StyleSheet, StatusBar, Text, Image, TouchableOpacity } from 'react-native'
+import { View, StyleSheet, StatusBar, Text, Image, TouchableOpacity, Dimensions } from 'react-native'
 import { Container, Content, Button } from 'native-base'
+const { height, width } = Dimensions.get('window')
 
 const AddPhotoProfile = (props) => (
   <Container style={styles.container}>

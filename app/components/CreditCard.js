@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { StyleSheet, FlatList, StatusBar } from 'react-native'
+import { StyleSheet, FlatList, StatusBar, Dimensions } from 'react-native'
 import { Container, Content, Text, View, Button, Icon } from 'native-base'
 import Navbar from '../particles/Navbar'
 import EditCreditCardModal from '../modals/EditCreditCardModal'
 import AddCreditCardModal from '../modals/AddCreditCardModal'
+const { height, width } = Dimensions.get('window')
 
 const CreditCard = (props) => (
   <Container style={styles.container}>

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, FlatList, ImageBackground, TouchableOpacity, StatusBar } from 'react-native'
+import { StyleSheet, FlatList, ImageBackground, TouchableOpacity, StatusBar, Dimensions} from 'react-native'
 import { Container, Content, Text, View, Button, Icon, Item, Input } from 'native-base'
 import StarRating from 'react-native-star-rating';
 import NavbarTransparent from '../particles/NavbarTransparent'
@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Entypo from 'react-native-vector-icons/Entypo'
 import ImageViewModal from '../modals/ImageViewModal'
+const { height, width } = Dimensions.get('window')
 
 const ProductShow = (props) => (
   <Container>

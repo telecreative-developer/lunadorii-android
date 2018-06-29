@@ -1,11 +1,12 @@
 import React from 'react'
-import { StyleSheet, View, Text, FlatList, TouchableOpacity, StatusBar } from 'react-native'
+import { StyleSheet, View, Text, FlatList, TouchableOpacity, StatusBar, Dimensions } from 'react-native'
 import { Container, Button, Icon, Content, Radio } from 'native-base'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import PropTypes from 'prop-types'
 import Navbar from '../particles/Navbar'
 import EditCreditCardModal from '../modals/EditCreditCardModal'
 import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
+const { height, width } = Dimensions.get('window')
 
 const Payments = (props) => (
   <Container style={styles.container}>

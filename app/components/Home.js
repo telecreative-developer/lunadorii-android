@@ -8,7 +8,7 @@ import Carousel from 'react-native-banner-carousel'
 import Categories from '../particles/Categories'
 import AddToCart from '../modals/AddToCart'
 
-const { height } = Dimensions.get('window')
+const { height, width } = Dimensions.get('window')
 
 const bannerWidth = Dimensions.get('window').width
 
