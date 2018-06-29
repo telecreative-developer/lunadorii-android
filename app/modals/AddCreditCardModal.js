@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet } from 'react-native'
+import { Modal, View, Text, StyleSheet, Dimensions } from 'react-native'
 import { Content, Item, Input, Label, Button, Form, Textarea } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
+const { height, width } = Dimensions.get('window')
 
 const AddCreditCardModal = (props) => (
   <Modal
