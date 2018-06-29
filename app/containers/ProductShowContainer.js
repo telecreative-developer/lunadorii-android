@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage } from 'react-native'
+import { ToastAndroid } from 'react-native'
 import ProductShow from '../components/ProductShow'
 import RecommendProduct from '../particles/RecommendProduct'
 import CommentAndRating from '../particles/CommentAndRating'
@@ -32,6 +32,10 @@ class ProductShowContainer extends Component {
 
   toggleImageViewModal(){
     this.setState({ modalVisibleImageView: !this.state.modalVisibleImageView })
+  }
+
+  addToCart(){
+    ToastAndroid.showWithGravity("Added to cart.", ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
 
   async componentDidMount() {
@@ -157,6 +161,7 @@ class ProductShowContainer extends Component {
         toggleImageViewModal={() => this.toggleImageViewModal()}
         images={this.state.images}
 
+        addToCart={() => this.addToCart()}
         goback={() => this.props.navigation.goBack()} />
     )
   }

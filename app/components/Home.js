@@ -6,6 +6,7 @@ import NavbarHome from '../particles/NavbarHome'
 import Carousel from 'react-native-banner-carousel'
 // import imageCover from '../assets/images/cover/cover.jpg'
 import Categories from '../particles/Categories'
+import AddToCart from '../modals/AddToCart'
 
 const { height } = Dimensions.get('window')
 
@@ -20,6 +21,12 @@ const Home = (props) => (
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content"
+    />
+    <AddToCart
+      modalVisible={props.modalVisibleAddToCart}
+      toggleModalAddToCart={props.toggleModalAddToCart}
+      onChangeQty={props.onChangeQty}
+      handleAddToCart={props.handleAddToCart}
     />
     <Tabs locked={true} style={styles.tabHeight} tabBarUnderlineStyle={styles.tabBarUnderlineStyle}>
       <Tab heading={<TabHeading style={styles.tabHeading} ><Text style={styles.txtHeading}>New Arrivals</Text></TabHeading>}>
