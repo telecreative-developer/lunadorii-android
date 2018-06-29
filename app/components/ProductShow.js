@@ -37,11 +37,21 @@ const ProductShow = (props) => (
           <Text style={styles.fistGroupSubtitle}>{props.categories}</Text>
         </View>
         <View style={styles.firstGroupWrapper2}>
-          <TouchableOpacity onPress={props.AddWishlist}>
+          {/* <TouchableOpacity onPress={props.AddWishlist}>
             <View style={styles.firstGroupButtonShare}>
               <Entypo name="heart-outlined" style={styles.firstGroupButtonIcon} />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          {props.wishlisted === true ? 
+              <View style={styles.firstGroupButtonShare}>
+                <Entypo name="heart" style={styles.firstGroupButtonIcon} />
+              </View> : 
+            <TouchableOpacity onPress={props.AddWishlist}>
+              <View style={styles.firstGroupButtonShare}>
+                <Entypo name="heart-outlined" style={styles.firstGroupButtonIcon} />
+              </View>
+            </TouchableOpacity>
+          }
         </View>
       </View>
       <View style={styles.secondGroup}>
