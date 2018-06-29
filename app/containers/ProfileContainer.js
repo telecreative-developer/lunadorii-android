@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { AsyncStorage } from 'react-native'
 import Profile from '../components/Profile'
 import RecentOrders from '../particles/RecentOrders'
+import ImagePicker from 'react-native-image-picker'
 import {connect} from 'react-redux'
 import { fetchSingleUser } from '../actions/getSingleUser'
 import { editName } from '../actions/editprofile'
@@ -37,17 +38,33 @@ class ProfileContainer extends Component {
 
   state = {
     userData: {},
-
+    photoProfile: '',
     modalVisibleEditProfile: false,
     imageProfile: 'https://avatars0.githubusercontent.com/u/38149346?s=400&u=7db8195dd7b4436cbf6d0575915ca6b198d116cc&v=4',
-    firstName: '',
-    lastName: '',
-    email: 'hyperspace018@gmail.com',
-    birthDate: '17/11/1999'
   }
 
   toggleModalEditProfile() {
     this.setState({ modalVisibleEditProfile: !this.state.modalVisibleEditProfile })
+  }
+
+  async handleOpenCamera(){
+    const options = await {
+      storageOptions:{
+        cameraRoll: true,
+        path: this.state.photoProfile
+      }
+    }
+    await ImagePicker.showImagePicker(options, (responses) => {
+      if(responses.didCancel){
+        alert("You've canceled")
+      }else if(responses.error){
+        alert("An error occured")
+      }else{
+        this.setState({
+          photoProfile: responses.uri
+        })
+      }
+    })
   }
 
   async handleSaveEditProfile() {
@@ -81,6 +98,9 @@ class ProfileContainer extends Component {
             date={item.date}
             time={item.time} />
         )}
+
+        photoProfile={this.state.photoProfile}
+        handleOpenCamera={() => this.handleOpenCamera()}
 
         toggleModalEditProfile={() => this.toggleModalEditProfile()}
         modalVisibleEditProfile={this.state.modalVisibleEditProfile}
