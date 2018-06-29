@@ -3,13 +3,14 @@ import {AsyncStorage} from 'react-native'
 import { connect } from 'react-redux'
 
 import Wishlist from '../components/Wishlist'
+import WishlistIsEmpty from '../components/WishlistIsEmpty'
 import Product from '../particles/Product'
 import {fetchwishlist} from '../actions/wishlist'
 
 class WishlistContainer extends Component{
 
   state={
-    wishlist: {},
+    isEmpty: false,
     id_user: 0,
     accessToken:''
   }
@@ -21,20 +22,39 @@ class WishlistContainer extends Component{
       id:data.id,
       accessToken: data.accessToken
     })
+    
     await this.props.fetchwishlist(this.state.accessToken, this.state.id)
+    console.log('accesToken container: ', this.state.accessToken)
+    if(this.props.wishlist.length == 0){
+      await this.setState({isEmpty: true})
+    }else{
+      await this.setState({isEmpty: false})
+    }
+  }
+
+  capitalize(string) {
+    return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
   }
 
   render(){
-    return(
-      <Wishlist
-      goback={() => this.props.navigation.goBack()}
-      dataProduct={this.props.wishlist}
-      renderProduct={({item}) => (
-         <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
-         />
-       )}
-      />
-    )
+    if(this.state.isEmpty){
+      return(
+        <WishlistIsEmpty
+          navigateToMart={() => this.props.navigation.navigate("HomeContainer")}
+        />
+      )
+    }else{
+      return(
+        <Wishlist
+          dataProduct={this.props.wishlist}
+          renderProduct={({item}) => (
+            <Product image={item.thumbnails[0].thumbnail_url} title={this.capitalize(item.product).slice(0,18) + '...'} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+            />
+          )}
+          goback={() => this.props.navigation.goBack()}
+        />
+      )
+    }
   }
 }
 

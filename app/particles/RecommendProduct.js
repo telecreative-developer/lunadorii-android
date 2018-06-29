@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
-import { Rating } from 'react-native-ratings' 
+import StarRating from 'react-native-star-rating'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 
 
@@ -13,24 +13,23 @@ const RecommendProduct = (props) => {
         <Text style={styles.txtTitle}>{props.title}</Text>
         <Text style={styles.txtCategories}>{props.categories}</Text>
         <View style={styles.viewFlexRow}>
-          <View style={styles.viewRating}>
-            <Rating
-              type='star'
-              ratingCount={5}
-              disable
-              defaultRating={props.star}
-              imageSize={12}
-              ratingColor="#000"
-              ratingBackgroundColor="#ccc"
-            />
-          </View>
+          {/* <View style={styles.viewRating}>
+          
+          </View> */}
+          <StarRating
+            disabled={true}
+            maxStars={5}
+            rating={props.star}
+            starSize={12}
+            // selectedStar={props.onStarRatingPress}
+          />
           <View>
             <Text style={styles.txtReviews}>{props.reviews} Reviews</Text>
           </View>
         </View>
         <View style={styles.viewFooterProduct}>
           <View>
-            <TouchableOpacity style={styles.touchableOpacity}  onPress={() => alert('Sabar, addToCart "'+ props.title +'" onProgress')}>
+            <TouchableOpacity style={styles.touchableOpacity} onPress={props.toggleModalAddToCart}>
               <Text style={styles.txtCart}><MaterialCommunityIcons name='cart' /> Add to cart</Text>
             </TouchableOpacity>
           </View>

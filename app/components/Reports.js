@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, Text, StyleSheet, StatusBar } from 'react-native'
+import { View, Text, StyleSheet, StatusBar, Dimensions } from 'react-native'
 import { Container, Content, Button, Item, Input, Textarea } from 'native-base'
 import Navbar from '../particles/Navbar'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+const { height, width } = Dimensions.get('window')
 
 const Reports = (props) => (
   <Container style={styles.container}>

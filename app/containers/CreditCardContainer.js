@@ -22,6 +22,26 @@ export default class CreditCardContainer extends Component {
   state = {
     modalVisibleEditCreditCard: false,
     modalVisibleAddCreditCard: false,
+    cardNumber:'',
+    validationDate: '',
+    cvv: '',
+    cardHolderName:''
+  }
+
+  cardNumberFormatter(cardNumber){
+    let formattedCardNumber = cardNumber.split(' ').join(' ')
+    if(formattedCardNumber.length > 0 && formattedCardNumber.length == 16){
+      formattedCardNumber = formattedCardNumber.match(new RegExp('.{1,4}', 'g')).join(' ')
+      return formattedCardNumber
+    }
+  }
+
+  validationDateFormatter(validationDate){
+    let formattedValidationDate = validationDate.split('/').join('/')
+    if(formattedValidationDate.length > 0 && formattedValidationDate.length == 4){
+      formattedValidationDate = formattedValidationDate.match(new RegExp('.{1,2}', 'g')).join('/')
+      return formattedValidationDate
+    }
   }
 
   toggleModalEditCreditCard() {
@@ -33,11 +53,21 @@ export default class CreditCardContainer extends Component {
   }
 
   handleUpdateCreditCard(){
-    alert("Handler for update credit card")
+    alert(
+      "Card Number " + this.state.cardNumber + "\n" +
+      "Validation Date " + this.state.validationDate + "\n" +
+      "CVV " + this.state.cvv + "\n" + 
+      "Card Holder Name " + this.state.cardHolderName
+    )
   }
 
   handleSaveCreditCard(){
-    alert("Handler for save credit card")
+    alert(
+      "Card Number " + this.state.cardNumber + "\n" +
+      "Validation Date " + this.state.validationDate + "\n" +
+      "CVV " + this.state.cvv + "\n" + 
+      "Card Holder Name " + this.state.cardHolderName
+    )
   }
 
   render() {
@@ -48,10 +78,32 @@ export default class CreditCardContainer extends Component {
         modalVisibleEditCreditCard={this.state.modalVisibleEditCreditCard}
         toggleModalEditCreditCard={() => this.toggleModalEditCreditCard()}
         handleUpdateCreditCard={() => this.handleUpdateCreditCard()}
+        
+        cardNumber={this.cardNumberFormatter(this.state.cardNumber)}
+        validationDate={this.validationDateFormatter(this.state.validationDate)}
+        cvv={this.state.cvv}
+        cardHolderName={this.state.cardHolderName}
+
+        onChangeCardNumber={(cardNumber) => this.setState({cardNumber})}
+        onChangeValidationDate={(validationDate) => this.setState({validationDate})}
+        onChangeCVV={(cvv) => this.setState({cvv})}
+        onChangeCardHolder={(cardHolderName) => this.setState({cardHolderName})}
+
+        // ---- //
 
         modalVisibleAddCreditCard={this.state.modalVisibleAddCreditCard}
         toggleModalAddCreditCard={() => this.toggleModalAddCreditCard()}
         handleSaveCreditCard={() => this.handleSaveCreditCard()}
+
+        cardNumber={this.cardNumberFormatter(this.state.cardNumber)}
+        validationDate={this.validationDateFormatter(this.state.validationDate)}
+        cvv={this.state.cvv}
+        cardHolderName={this.state.cardHolderName}
+
+        onChangeCardNumber={(cardNumber) => this.setState({cardNumber})}
+        onChangeValidationDate={(validationDate) => this.setState({validationDate})}
+        onChangeCVV={(cvv) => this.setState({cvv})}
+        onChangeCardHolder={(cardHolderName) => this.setState({cardHolderName})}
 
         dataCreditCards={dataCreditCards}
         renderCreditCards={({ item }) => (

@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { Modal, View, Text, StyleSheet, Dimensions } from 'react-native'
 import { Container, Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
+const { height, width } = Dimensions.get('window')
 
 const AddAddressModal = (props) => (
   <Modal
@@ -41,7 +42,7 @@ const AddAddressModal = (props) => (
         </Item>
         <Label style={styles.labels}>No Telp</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.numberPhone} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeNumberPhone} />
+          <Input placeholder={props.numberPhone} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeNumberPhone} keyboardType={'numeric'}/>
         </Item>
       </Form>
     </Content>

@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
-import { StyleSheet, FlatList, ImageBackground, TouchableOpacity, StatusBar } from 'react-native'
+import { StyleSheet, FlatList, ImageBackground, TouchableOpacity, StatusBar, Dimensions} from 'react-native'
 import { Container, Content, Text, View, Button, Icon, Item, Input } from 'native-base'
-import { Rating } from 'react-native-ratings'
+import StarRating from 'react-native-star-rating';
 import NavbarTransparent from '../particles/NavbarTransparent'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Entypo from 'react-native-vector-icons/Entypo'
 import ImageViewModal from '../modals/ImageViewModal'
+const { height, width } = Dimensions.get('window')
 
 const ProductShow = (props) => (
   <Container>
@@ -29,30 +30,51 @@ const ProductShow = (props) => (
       <ImageViewModal
         modalVisible={props.modalVisibleImageView}
         actionIcon={props.toggleImageViewModal}
-        image={props.imageToView}/>
+        images={props.images}/>
       <View style={styles.firstGroup}>
         <View style={styles.firstGroupWrapper}>
           <Text style={styles.firstGroupTitle}>{props.title}</Text>
           <Text style={styles.fistGroupSubtitle}>{props.categories}</Text>
         </View>
         <View style={styles.firstGroupWrapper2}>
-          <TouchableOpacity onPress={props.AddWishlist}>
+          {/* <TouchableOpacity onPress={props.AddWishlist}>
             <View style={styles.firstGroupButtonShare}>
               <Entypo name="heart-outlined" style={styles.firstGroupButtonIcon} />
             </View>
-          </TouchableOpacity>
+          </TouchableOpacity> */}
+          {props.wishlisted === true ? 
+              <View style={styles.firstGroupButtonShare}>
+                <Entypo name="heart" style={styles.firstGroupButtonIcon} />
+              </View> : 
+            <TouchableOpacity onPress={props.AddWishlist}>
+              {/* <View style={styles.firstGroupButtonShare}>
+                <Entypo name="heart-outlined" style={styles.firstGroupButtonIcon} />
+              </View> */}
+              {props.clickWishlist === true ?
+                <View style={styles.firstGroupButtonShare}>
+                  <Entypo name="heart" style={styles.firstGroupButtonIcon} />
+                </View>:
+                <View style={styles.firstGroupButtonShare}>
+                  <Entypo name="heart-outlined" style={styles.firstGroupButtonIcon} />
+                </View>
+              }
+            </TouchableOpacity>
+          }
         </View>
       </View>
       <View style={styles.secondGroup}>
-        <Rating
-          type='custom'
-          ratingCount={5}
-          startingValue={props.star}
-          imageSize={16}
-          ratingColor="#000"
-          ratingBackgroundColor="#ccc"
-          style={styles.rating} />
-        <Text style={styles.reviewsLabel}>{props.star}.0 reviews</Text>
+        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
+          <View style={{flexDirection: 'row'}}>
+            <StarRating
+              disabled={true}
+              maxStars={5}
+              rating={props.star}
+              starSize={14}
+              // selectedStar={props.onStarRatingPress}
+            />
+          </View>
+          <Text style={styles.reviewsLabel}>{props.star} reviews</Text>
+        </View>
       </View>
       <View style={styles.borderedSparator}>
         <View style={styles.borderedSparatorFirst}>
@@ -83,16 +105,17 @@ const ProductShow = (props) => (
           <View style={styles.ratingCard}>
             <View style={styles.ratingCardContentWrapper}>
               <Text style={styles.ratingReviewsText}>
-                <Text style={styles.ratingAmountReviewsText}>{props.star}.0</Text> reviews
+                <Text style={styles.ratingAmountReviewsText}>{props.star}</Text> reviews
               </Text>
-              <Rating
-                type='custom'
-                ratingCount={5}
-                startingValue={props.star}
-                imageSize={16}
-                ratingColor="#000"
-                ratingBackgroundColor="#ccc"
-                style={styles.rating1} />
+              <View style={{flexDirection: 'row'}}>
+                <StarRating
+                  disabled={true}
+                  maxStars={5}
+                  rating={props.star}
+                  starSize={14}
+                  // selectedStar={props.onStarRatingPress}
+                />
+              </View>
             </View>
           </View>
           <View>
@@ -153,7 +176,7 @@ const ProductShow = (props) => (
           <View style={styles.leftWrapper}>
             <View style={styles.flexDirectionCol}>
               <Text style={styles.footerTotalPriceText}>Rp {props.totalPrice}</Text>
-              <TouchableOpacity>
+              <TouchableOpacity onPress={props.addToCart}>
                 <View style={styles.footerButtonStyling}>
                   <MaterialCommunityIcons name="cart" size={16} />
                   <Text style={styles.footerButtonTextStyling}>Add to Cart</Text>
@@ -207,7 +230,8 @@ const styles = StyleSheet.create({
     borderColor: '#ccc'
   },
   firstGroupButtonIcon: {
-    fontSize: 24
+    fontSize: 24,
+    color: '#d11e48'
   },
   secondGroup: {
     flexDirection: 'row',
@@ -307,6 +331,7 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   reviewsLabel: {
+    justifyContent: 'center',
     paddingLeft: 10,
     color: '#F7009A'
   },

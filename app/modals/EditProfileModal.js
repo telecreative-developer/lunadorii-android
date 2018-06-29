@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { Container, Content, Item, Input, Icon, Label, Form, Button } from 'native-base'
+import { Content, Item, Input, Icon, Label, Form, Button } from 'native-base'
+import defaultPhotoProfile from '../assets/images/icon/photoProfileDefault.png'
 import NavbarModal from '../particles/NavbarModal'
 import DatePicker from 'react-native-datepicker'
 
@@ -18,9 +19,9 @@ const EditProfileModal = (props) => (
     />
     <Content style={styles.container}>
       <View>
-        <Image source={{ uri: props.imageProfile }} style={styles.imageFrame} />
+        <Image source={props.photoProfile.length == 0 ? defaultPhotoProfile : { uri : props.photoProfile }} style={styles.imageFrame} />
         <View style={styles.takePhotoButton}>
-          <TouchableOpacity>
+          <TouchableOpacity onPress={props.handleOpenCamera}>
             <Icon name='camera' style={styles.takePhotoButtonIcon} />
           </TouchableOpacity>
         </View>

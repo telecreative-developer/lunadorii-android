@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { StyleSheet, TouchableOpacity, FlatList, StatusBar } from 'react-native'
+import { StyleSheet, TouchableOpacity, FlatList, StatusBar, Dimensions } from 'react-native'
 import { Container, Content, Text, View, Button, Icon } from 'native-base'
 import Navbar from '../particles/Navbar'
 import EditAddressModal from '../modals/EditAddressModal'
 import AddAddressModal from '../modals/AddAddressModal'
+const { height, width } = Dimensions.get('window')
 
 const YourShippingAddress = (props) => (
   <Container style={styles.container}>
@@ -16,7 +17,23 @@ const YourShippingAddress = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleEditAddress}
       actionIcon={props.toggleModalEditAddress} 
-      handleUpdateShippingAddress={props.handleUpdateShippingAddress}/>
+      
+      name={props.name}
+      phone={props.phone}
+      detail_address={props.detail_address}
+      province={props.province}
+      city={props.city}
+      district={props.district}
+
+      onChangeName={props.onChangeName}
+      onChangePhone={props.onChangePhone}
+      onChangeAddress={props.onChangeAddress}
+      onChangeProvince={props.onChangeProvince}
+      onChangeCity={props.onChangeCity}
+      onChangeDistrict={props.onChangeDistrict}
+
+      updateShipping={props.handlerUpdateShipping}
+    />
     <AddAddressModal
       navbarTitle="Add Addresss"
       navbarIcon="close"

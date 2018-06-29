@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { StyleSheet, FlatList, StatusBar } from 'react-native'
+import { StyleSheet, FlatList, StatusBar, Dimensions } from 'react-native'
 import { Container, Content, Text, View, Button, Icon } from 'native-base'
 import Navbar from '../particles/Navbar'
 import EditCreditCardModal from '../modals/EditCreditCardModal'
 import AddCreditCardModal from '../modals/AddCreditCardModal'
+const { height, width } = Dimensions.get('window')
 
 const CreditCard = (props) => (
   <Container style={styles.container}>
@@ -16,13 +17,33 @@ const CreditCard = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleEditCreditCard}
       actionIcon={props.toggleModalEditCreditCard} 
-      handleUpdateCreditCard={props.handleUpdateCreditCard}/>
+      handleUpdateCreditCard={props.handleUpdateCreditCard}
+      
+      cardNumber={props.cardNumber}
+      validationDate={props.validationDate}
+      cvv={props.cvv}
+      cardHolderName={props.cardHolderName}
+
+      onChangeCardNumber={props.onChangeCardNumber}
+      onChangeValidationDate={props.onChangeValidationDate}
+      onChangeCVV={props.onChangeCVV}
+      onChangeCardHolder={props.onChangeCardHolder}/>
     <AddCreditCardModal
       navbarTitle="Add Credit Card"
       navbarIcon="close"
       modalVisible={props.modalVisibleAddCreditCard}
       actionIcon={props.toggleModalAddCreditCard} 
-      handleSaveCreditCard={props.handleSaveCreditCard}/>
+      handleSaveCreditCard={props.handleSaveCreditCard}
+
+      cardNumber={props.cardNumber}
+      validationDate={props.validationDate}
+      cvv={props.cvv}
+      cardHolderName={props.cardHolderName}
+
+      onChangeCardNumber={props.onChangeCardNumber}
+      onChangeValidationDate={props.onChangeValidationDate}
+      onChangeCVV={props.onChangeCVV}
+      onChangeCardHolder={props.onChangeCardHolder}/>
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content"

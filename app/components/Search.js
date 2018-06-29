@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
-import { StyleSheet, StatusBar, TouchableOpacity, Text, FlatList } from 'react-native'
+import { StyleSheet, StatusBar, TouchableOpacity, Text, FlatList, Dimensions } from 'react-native'
 import { Container, Content, View, Icon, Item, Input } from 'native-base'
 import Feather from 'react-native-vector-icons/Feather'
 import Navbar from '../particles/Navbar'
 import FiltersModal from '../modals/FiltersModal'
 import ResultNotFound from '../particles/ResultNotFound'
+const { height, width } = Dimensions.get('window')
 
 const Search = (props) => (
   <Container style={{ backgroundColor: '#fff' }}>
@@ -16,6 +17,11 @@ const Search = (props) => (
       navbarTitle="Filters"
       navbarIcon="close"
       modalVisible={props.modalVisibleFilters}
+      handleCategory={props.handleCategory}
+      handleBrand={props.handleBrand}
+      handleMinPrice={props.handleMinPrice}
+      handleMaxPrice={props.handleMaxPrice}
+      handleFilterSearch={props.handleFilterSearch}
       actionIcon={props.toggleModalFilters} 
       modalVisibleBrandChooser={props.modalVisibleBrandChooser}
       toggleModalBrandChooser={props.toggleModalBrandChooser}/>
@@ -25,7 +31,7 @@ const Search = (props) => (
     />
     <Content style={styles.container}>
       <Item regular style={styles.items}>
-        <Input placeholder="Search product, brand name, etc.," placeholderTextColor="#ccc" onChangeText={props.onChangeSearchTitle} />
+        <Input placeholder="Search product, brand name, etc.," returnKeyType="search" placeholderTextColor="#ccc" onChangeText={props.onChangeSearchTitle} onSubmitEditing={props.handleSearch} />
         <Feather name="search" style={styles.searchIcon} />
       </Item>
       <View style={styles.moreFilters}>
@@ -35,7 +41,7 @@ const Search = (props) => (
       </View>
       <View style={{ paddingLeft: 5, paddingTop: 15 }}>
         {
-          props.searchTitle.length == 0 || props.searchTitle === "lipstick" ?
+          props.dateRelatedProducts.length != 0  ?
             props.searchTitle.length == 0 ?
               <View />
               :

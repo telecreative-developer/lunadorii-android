@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { StyleSheet, FlatList, StatusBar } from 'react-native'
+import { StyleSheet, StatusBar, Dimensions } from 'react-native'
 import { Container, Content, Text, View } from 'native-base'
 import Navbar from '../particles/Navbar'
+const { height, width } = Dimensions.get('window')
 
 const PrivacyPolici = (props) => (
   <Container style={styles.container}>

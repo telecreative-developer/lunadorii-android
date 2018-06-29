@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, StyleSheet, TouchableOpacity, StatusBar } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, StatusBar, Dimensions } from 'react-native'
 import { Container, Content } from 'native-base'
 import Navbar from '../particles/Navbar'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import ChangePasswordModal from '../modals/ChangePasswordModal'
 import ChangeEmailModal from '../modals/ChangeEmailModal'
 import NotificationsModal from '../modals/NotificationsModal'
+const { height, width } = Dimensions.get('window')
 
 const Settings = (props) => (
   <Container style={styles.container}>
@@ -158,7 +159,7 @@ const styles = StyleSheet.create({
   iconLogout: {
     fontSize: 24,
     alignSelf: 'flex-end',
-    paddingRight: 20,
+    paddingRight: 10,
     bottom: 10
   }
 })
