@@ -1,4 +1,5 @@
-import { API_SERVER_AUTH, API_SERVER_USER } from '../env'
+import { API_SERVER_USER } from '../env'
+import { RECEIVE_REGISTER_RESULT } from '../constants'
 import { setLoading, setFailed, setSuccess } from './processor'
 
 const toLower = str => {
@@ -8,7 +9,7 @@ const toLower = str => {
 export const register = item => {
   return async dispatch => {
     await dispatch(setLoading(true, 'LOADING_REGISTER'))
-    console.log(item)
+    console.log("item: ",item)
     try {
       const response = await fetch(`${API_SERVER_USER}/api/v1/user/register`, {
         method: 'POST',
@@ -26,25 +27,20 @@ export const register = item => {
       })
       
       const data = await response.json()
-      console.log("item: ",item)
+      await dispatch(receiveRegister(data.data[0]))
       console.log("data: ",data)
       if (data.status === 401) {
-        await dispatch(
-          setFailed(true, 'FAILED_REGISTER', data.message)
-        )
-        await dispatch(
-          setFailed(false, 'FAILED_REGISTER', data.message)
-        )
+        await dispatch(setFailed(true, 'FAILED_REGISTER', data.message))
+        await dispatch(setFailed(false, 'FAILED_REGISTER', data.message))
         await dispatch(setLoading(false, 'LOADING_REGISTER'))
       } else {
         await dispatch(setSuccess(true, 'SUCCESS_REGISTER'))
         await dispatch(setSuccess(false, 'SUCCESS_REGISTER'))
         await dispatch(setLoading(false, 'LOADING_REGISTER'))
-        
       }
     } catch (e) {
-      await dispatch(
-        setFailed(true, 'FAILED_REGISTER', 'Something Wrong!')
+      console.log('error: ', e)
+      await dispatch(setFailed(true, 'FAILED_REGISTER', 'Something Wrong!')
       )
       await dispatch(setLoading(false, 'LOADING_REGISTER'))
     }
@@ -78,5 +74,13 @@ export const checkEmail = (email) => {
 			dispatch(setFailed(true, 'FAILED_PROCESS_CHECK_EMAIL', e))
 			dispatch(setLoading(false, 'LOADING_PROCESS_CHECK_EMAIL'))
 		}
+	}
+}
+
+
+const receiveRegister = data => {
+	return{
+		type: RECEIVE_REGISTER_RESULT,
+		payload: data
 	}
 }
