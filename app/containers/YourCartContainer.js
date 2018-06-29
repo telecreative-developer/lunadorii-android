@@ -32,7 +32,11 @@ class YourCartContainer extends Component {
           <ShippingAddress 
           name={item.recepient}
           numberPhone={item.phone}
-          detail_address={item.detail_address}/>
+          detail_address={item.detail_address}
+          address_default={item.address_default}
+          actionEdit={() => this.toggleModalEditAddress(item)}
+          actionSetdefault={() => this.onChangeDefault(item)}
+          actionDelete={() => this.deteleShipping(item)}/>
         )}
 
         navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
