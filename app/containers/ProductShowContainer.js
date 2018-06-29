@@ -34,7 +34,6 @@ class ProductShowContainer extends Component {
 
   async componentDidMount() {
     const data = this.props.navigation.state.params.data
-    console.log('Data Product Show :' , data)
     await this.setState({ 
       data,
       accessToken:data.accessToken,
@@ -85,7 +84,6 @@ class ProductShowContainer extends Component {
     const dataProduct = this.props.navigation.state.params.data
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    console.log('add wishlist' , data.id)
     await this.setState({
       product_id: dataProduct.product_id
     })
@@ -93,10 +91,6 @@ class ProductShowContainer extends Component {
   }
 
   render() {
-    {console.log('data wishlist :', this.validationWishlist())}
-    {console.log('isi state data : ' , this.state.data.product_id)}
-    {console.log('isi wishlist' , this.props.wishlist.filter(product_id == this.state.data.product_id))}
-    {console.log('isi datasession', this.state.dataSession.id)}
     return (
       <ProductShow
         image={this.state.image}

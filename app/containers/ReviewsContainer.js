@@ -42,7 +42,6 @@ class ReviewsContainer extends Component{
         comment: ''
       })
     }
-    console.log('clicked: ', item)
   }
 
   async componentDidMount(){

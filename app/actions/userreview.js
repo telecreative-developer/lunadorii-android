@@ -27,7 +27,6 @@ export const fetchUserReview = (id, accessToken) => {
 
 export const updateReview = (id, items, accessToken) => {
 	return async dispatch => {
-		console.log('accestoken: ', accessToken)
 		await dispatch(setLoading(true, 'LOADING_UPDATE_REVIEW'))
 		try {
 			const response = await fetch(`${API_SERVER_USER}/api/v1/user-review/${id}`, {

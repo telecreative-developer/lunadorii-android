@@ -17,13 +17,11 @@ class WishlistContainer extends Component{
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    console.log('wishlist container' , data)
     await this.setState({
       id:data.id,
       accessToken: data.accessToken
     })
     await this.props.fetchwishlist(this.state.accessToken, this.state.id)
-    console.log('accesToken container: ', this.state.accessToken)
   }
 
   render(){
