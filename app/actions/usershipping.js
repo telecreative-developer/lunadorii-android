@@ -57,18 +57,20 @@ export const updateShipping = (id, items, accessToken) => {
 	}
 }
 
-export const updateSetdefault = (id, accessToken) => {
+export const updateSetdefault = (id_user, id_addres, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_UPDATE_SETDEFAULT'))
-		console.log('items action: ', id)
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/user-address/set-default/${id}`, {
+			const response = await fetch(`${API_SERVER_USER}/api/v1/user-address/set-default/${id_addres}`, {
 				method: 'PUT',
 				headers: {
 					Accept: 'application/json',
                     'Content-Type': 'application/json',
                     Authorization: accessToken
-                },
+				},
+				body: JSON.stringify({
+					id: id_user
+                })
 			})
 			const data = await response.json()
 			console.log('response: ', data)

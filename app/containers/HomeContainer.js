@@ -30,6 +30,7 @@ class HomeContainer extends Component {
       showMore: false,
       id_user: 0,
       product_id: 0,
+      product_name: '',
       qty: 0,
       modalVisibleAddToCart: false
     };
@@ -52,6 +53,7 @@ class HomeContainer extends Component {
       await this.setState({
         id_user: data.id,
         product_id: item.product_id,
+        product_name: item.product
       }) 
     }else{
       await this.setState({
@@ -63,13 +65,13 @@ class HomeContainer extends Component {
   }
 
   async handleAddToCart(){
-
+    console.log('isi state: ', this.state)
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-
-    console.log("Isi State ", this.state)
+    await alert('Berhasil Menambahkan ke Kranjang', this.state.product_name.slice(0,10))
     await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
     await this.closeModal()
+
   }
 
   async componentDidMount() {
