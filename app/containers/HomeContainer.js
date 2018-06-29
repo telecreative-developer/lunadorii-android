@@ -24,12 +24,22 @@ class HomeContainer extends Component {
     super(props);
     this.state = {
       size: { width, height },
-      showMore: false
+      showMore: false,
+      qty:0,
+      modalVisibleAddToCart: false
     };
   }
 
   toggleShowMore(){
     this.setState({showMore: !this.state.showMore})
+  }
+
+  toggleModalAddToCart(){
+    this.setState({modalVisibleAddToCart: !this.state.modalVisibleAddToCart})
+  }
+
+  handleAddToCart(){
+    alert("Quantity " + this.state.qty)
   }
 
   async componentDidMount() {
@@ -72,7 +82,13 @@ class HomeContainer extends Component {
 
         dataProduct={this.props.product}
         renderProduct={({ item }) => (
-          <Product image={item.thumbnails[0].thumbnail_url} title={this.capitalize(item.product).slice(0,18) + '...'} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+          <Product 
+            image={item.thumbnails[0].thumbnail_url} 
+            title={this.capitalize(item.product).slice(0,18) + '...'} 
+            categories={item.subcategories[0].subcategory} 
+            price={item.price} star={item.product_rate} 
+            action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+            toggleModalAddToCart={() => this.toggleModalAddToCart()}
           />
         )}
 
@@ -90,6 +106,11 @@ class HomeContainer extends Component {
 
         showMore={this.state.showMore}
         toggleShowMore={() => this.toggleShowMore()}
+
+        modalVisibleAddToCart={this.state.modalVisibleAddToCart}
+        toggleModalAddToCart={() => this.toggleModalAddToCart()}
+        onChangeQty={(qty) => this.setState({qty})}
+        handleAddToCart={() => this.handleAddToCart()}
 
         navigateToYourCart={() => this.props.navigation.navigate("YourCartContainer")}
         navigateToProfile={() => this.props.navigation.navigate('ProfileContainer')}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage } from 'react-native'
+import { ToastAndroid } from 'react-native'
 import ProductShow from '../components/ProductShow'
 import RecommendProduct from '../particles/RecommendProduct'
 import CommentAndRating from '../particles/CommentAndRating'
@@ -34,6 +34,10 @@ class ProductShowContainer extends Component {
     this.setState({ modalVisibleImageView: !this.state.modalVisibleImageView })
   }
 
+  addToCart(){
+    ToastAndroid.showWithGravity("Added to cart.", ToastAndroid.SHORT, ToastAndroid.CENTER)
+  }
+
   async componentDidMount() {
     const data = this.props.navigation.state.params.data
     console.log('Data Product Show :' , data)
@@ -42,7 +46,7 @@ class ProductShowContainer extends Component {
       accessToken:data.accessToken,
       image: data.thumbnails[0].thumbnail_url,
       title: data.product,
-      images: data.thumbnails,
+      images: data.thumbnails.map(data => ({url: data.thumbnail_url})),
       subcategories: data.subcategories[0].subcategory,
       totalPrice: data.price,
       amountOfImage: data.thumbnails.length,
@@ -50,18 +54,6 @@ class ProductShowContainer extends Component {
     })
     await this.props.fetchProduct('123')
   }
-
-  // validationWishlist(){
-  //   this.props.wishlist.map(wishlist => (
-  //     wishlist.product_id == this.state.data.product_id ? (
-  //       return true
-  //     ) 
-  //     :
-  //     (
-  //       return false
-  //     )
-  //   ))
-  // }
 
   async addQty(){
     await this.setState({
@@ -114,7 +106,7 @@ class ProductShowContainer extends Component {
     return (
       <ProductShow
         image={this.state.image}
-        title={this.capitalize(this.state.title)}
+        title={this.capitalize(this.state.title).slice(0,20 ) + '...'}
         categories={this.state.subcategories}
         price={this.state.data.price}
         star={this.state.starCount}
@@ -157,6 +149,7 @@ class ProductShowContainer extends Component {
         toggleImageViewModal={() => this.toggleImageViewModal()}
         images={this.state.images}
 
+        addToCart={() => this.addToCart()}
         goback={() => this.props.navigation.goBack()} />
     )
   }
