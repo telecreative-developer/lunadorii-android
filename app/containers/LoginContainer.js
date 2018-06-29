@@ -74,7 +74,6 @@ class LoginContainer extends Component {
   handleValidationLogin() {
     const { email, password } = this.state
       this.props.login(email, password)
-      console.log("email", email, "pasword", password)
   }
 
   renderButtons() {
