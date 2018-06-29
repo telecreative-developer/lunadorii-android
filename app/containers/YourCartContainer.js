@@ -1,10 +1,8 @@
 import React, { Component } from 'react'
-import {AsyncStorage} from 'react-native'
+import {AsyncStorage, View} from 'react-native'
 import YourCart from '../components/YourCart'
 import OnCart from '../particles/OnCart'
 import ShippingAddress from '../particles/ShippingAddress'
-
-
 import { connect } from 'react-redux'
 import { fetchCartUser } from '../actions/cart'
 import { fetchUserShipping } from '../actions/usershipping'
@@ -24,19 +22,22 @@ class YourCartContainer extends Component {
 
         onCartProduct={this.props.cartuser}
         renderOnCartProduct={({item}) => (
-          <OnCart title={item.product} categories={item.subcategories[0].subcategory} quantity={item.subtotal} price={item.price} image={item.thumbnails[0].thumbnail_url}/>
+          <OnCart title={item.product} categories={item.subcategories[0].subcategory} quantity={item.qty} price={item.price} image={item.thumbnails[0].thumbnail_url}/>
         )}
 
         onCartShippingAddress={this.props.usershipping}
-        renderOnCartShippingAddress={({item}) => (
+        renderOnCartShippingAddress={({item}) => 
+        item.address_default ? (
           <ShippingAddress 
-          name={item.recepient}
-          numberPhone={item.phone}
-          detail_address={item.detail_address}
-          address_default={item.address_default}
-          actionEdit={() => this.toggleModalEditAddress(item)}
-          actionSetdefault={() => this.onChangeDefault(item)}
-          actionDelete={() => this.deteleShipping(item)}/>
+            name={item.recepient}
+            numberPhone={item.phone}
+            detail_address={item.detail_address}
+            address_default={item.address_default}
+            actionEdit={() => this.toggleModalEditAddress(item)}
+            actionSetdefault={() => this.onChangeDefault(item)}
+            actionDelete={() => this.deteleShipping(item)}/>
+        ) : (
+          <View/>
         )}
 
         navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
