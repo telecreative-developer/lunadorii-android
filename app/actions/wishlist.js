@@ -3,9 +3,7 @@ import { RECEIVE_WISHLIST } from '../constants'
 import { API_SERVER_PRODUCT } from '../env'
 
 export const fetchwishlist = (accessToken, id) => {
-    console.log("wistlist action:" , accessToken , id)
 	return async dispatch => {
-		console.log('accestoken: ', accessToken)
 		await dispatch(setLoading(true, 'LOADING_FETCH_WISHLIST'))
 		try {
 			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/wishlist/${id}`, {
@@ -17,12 +15,10 @@ export const fetchwishlist = (accessToken, id) => {
 				}
 			})
 			const data = await response.json()
-			console.log('dataProducts: ', data.data)
 			await dispatch(receiveWishlist(data.data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_WISHLIST'))
       		await dispatch(setLoading(false, 'LOADING_FETCH_WISHLIST'))
 		} catch (e) {
-			console.log('error action :' ,e )
 			dispatch(setFailed(true, 'FAILED_FETCH_WISHLIST', e))
 			dispatch(setLoading(false, 'LOADING_FETCH_WISHLIST'))
 		}
@@ -30,9 +26,7 @@ export const fetchwishlist = (accessToken, id) => {
 }
 
 export const addWishlist = (accessToken, id, idProduct) => {
-    console.log("wistlist action:" , accessToken , id, idProduct)
 	return async dispatch => {
-		console.log('accestoken: ', accessToken)
 		await dispatch(setLoading(true, 'LOADING_ADD_WISHLIST'))
 		try {
 			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/wishlist/`, {
@@ -48,11 +42,9 @@ export const addWishlist = (accessToken, id, idProduct) => {
 				})
 			})
 			const data = await response.json()
-			console.log('dataProducts: ', data.data)
 			await dispatch(setSuccess(true, 'SUCCESS_ADD_WISHLIST'))
       		await dispatch(setLoading(false, 'LOADING_ADD_WISHLIST'))
 		} catch (e) {
-			console.log('error action :' ,e )
 			dispatch(setFailed(true, 'FAILED_ADD_WISHLIST', e))
 			dispatch(setLoading(false, 'LOADING_ADD_WISHLIST'))
 		}
