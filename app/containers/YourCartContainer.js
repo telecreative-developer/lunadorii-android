@@ -24,7 +24,7 @@ class YourCartContainer extends Component {
 
         onCartProduct={this.props.cartuser}
         renderOnCartProduct={({item}) => (
-          <OnCart title={item.product} categories={item.subcategories[0].subcategory} quantity={item.subtotal} price={item.price} image={item.thumbnails[0].thumbnail_url}/>
+          <OnCart title={item.product} categories={item.subcategories[0].subcategory} quantity={item.qty} price={item.price} image={item.thumbnails[0].thumbnail_url}/>
         )}
 
         onCartShippingAddress={this.props.usershipping}
