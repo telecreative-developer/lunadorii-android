@@ -46,7 +46,7 @@ class ProductShowContainer extends Component {
       accessToken:data.accessToken,
       image: data.thumbnails[0].thumbnail_url,
       title: data.product,
-      images: data.thumbnails,
+      images: data.thumbnails.map(data => ({url: data.thumbnail_url})),
       subcategories: data.subcategories[0].subcategory,
       totalPrice: data.price,
       amountOfImage: data.thumbnails.length,
@@ -54,18 +54,6 @@ class ProductShowContainer extends Component {
     })
     await this.props.fetchProduct('123')
   }
-
-  // validationWishlist(){
-  //   this.props.wishlist.map(wishlist => (
-  //     wishlist.product_id == this.state.data.product_id ? (
-  //       return true
-  //     ) 
-  //     :
-  //     (
-  //       return false
-  //     )
-  //   ))
-  // }
 
   async addQty(){
     await this.setState({
@@ -118,7 +106,7 @@ class ProductShowContainer extends Component {
     return (
       <ProductShow
         image={this.state.image}
-        title={this.capitalize(this.state.title).slice(0,20) + '...'}
+        title={this.capitalize(this.state.title).slice(0,20 ) + '...'}
         categories={this.state.subcategories}
         price={this.state.data.price}
         star={this.state.starCount}
