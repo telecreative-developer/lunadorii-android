@@ -90,7 +90,7 @@ export const deleteShipping = (id, accessToken) => {
 		console.log('items action: ', id)
 		try {
 			const response = await fetch(`${API_SERVER_USER}/api/v1/user-address/${id}`, {
-				method: 'PUT',
+				method: 'DELETE',
 				headers: {
 					Accept: 'application/json',
                     'Content-Type': 'application/json',
@@ -98,6 +98,7 @@ export const deleteShipping = (id, accessToken) => {
                 }
 			})
 			const data = await response.json()
+			console.log('response: ', data)
 			await dispatch(setSuccess(true, 'SUCCESS_DELETE_SHIPPING'))
       		await dispatch(setLoading(false, 'LOADING_DELETE_SHIPPING'))
 		} catch (e) {
