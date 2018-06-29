@@ -30,7 +30,7 @@ export const updateShipping = (id, items, accessToken) => {
 		await dispatch(setLoading(true, 'LOADING_UPDATE_SHIPPING'))
 		console.log('items action: ', items)
 		try {
-			const response = await fetch(`${API_SERVER_USER}api/v1/user-address/${id}`, {
+			const response = await fetch(`${API_SERVER_USER}/api/v1/user-address/${id}`, {
 				method: 'PUT',
 				headers: {
 					Accept: 'application/json',
@@ -53,6 +53,31 @@ export const updateShipping = (id, items, accessToken) => {
 		} catch (e) {
 			dispatch(setFailed(true, 'FAILED_UPDATE_SHIPPING', e))
 			dispatch(setLoading(false, 'LOADING_UPDATE_SHIPPING'))
+		}
+	}
+}
+
+export const updateSetdefault = (id, accessToken) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_UPDATE_SETDEFAULT'))
+		console.log('items action: ', id)
+		try {
+			const response = await fetch(`${API_SERVER_USER}/api/v1/user-address/set-default/${id}`, {
+				method: 'PUT',
+				headers: {
+					Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: accessToken
+                },
+			})
+			const data = await response.json()
+			console.log('response: ', data)
+			await dispatch(setSuccess(true, 'SUCCESS_UPDATE_SETDEFAULT'))
+      		await dispatch(setLoading(false, 'LOADING_UPDATE_SETDEFAULT'))
+		} catch (e) {
+			console.log('error: ', e)
+			dispatch(setFailed(true, 'FAILED_UPDATE_SETDEFAULT', e))
+			dispatch(setLoading(false, 'LOADING_UPDATE_SETDEFAULT'))
 		}
 	}
 }
