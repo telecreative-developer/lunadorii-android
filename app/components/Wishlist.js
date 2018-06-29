@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, Text, FlatList, StyleSheet, StatusBar } from 'react-native'
+import { View, Text, FlatList, StyleSheet, StatusBar, Dimensions } from 'react-native'
 import { Container, Content } from 'native-base'
 import Navbar from '../particles/Navbar'
-
+const { height, width } = Dimensions.get('window')
 
 const Wishlist = (props) => (
   <Container style={styles.container}>

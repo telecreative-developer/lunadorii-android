@@ -60,6 +60,16 @@ class ReviewsContainer extends Component{
     await this.closeModal()
   }
 
+  async onStarRatingPress(star) {
+    await this.setState({
+      star: star
+    });
+  }
+
+  capitalize(string) {
+    return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
+  }
+
   render(){
     return(
       <Reviews
@@ -68,11 +78,12 @@ class ReviewsContainer extends Component{
       toggleModalEditReviews={() => this.toggleModalEditReviews()}
       
       image={this.state.image}
-      title={this.state.title}
+      title={this.capitalize(this.state.title)}
       price={this.state.price}
       star={this.state.star}
       comment={this.state.comment}
       onChangeComment={(comment) => this.setState({ comment })}
+      onChangeStar={(star) => this.onStarRatingPress(star)}
       updateRating={() => this.btnUpdateRating()}
 
       dataReviews={this.props.userreview}
@@ -80,7 +91,7 @@ class ReviewsContainer extends Component{
         <ProductReviews 
           id={item.product_review_id}
           image={item.product.thumbnails[0].thumbnail_url} 
-          title={item.product.name} 
+          title={this.capitalize(item.product.name)} 
           star={item.rate} 
           date={item.updated_at} 
           review={item.comment}

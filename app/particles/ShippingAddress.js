@@ -2,16 +2,32 @@ import React, { Component } from 'react'
 import { StyleSheet, TouchableOpacity, Text, View } from 'react-native'
 
 const ShippingAddress = (props) => (
-  <View style={styles.Card}>
+  <View style={{
+    borderRadius: 1,
+    borderColor: props.address_default ? '#d11e48' : '#E2E2E2',
+    borderWidth: 1,
+    marginBottom: 5
+  }}>
     <View style={styles.contentCard}>
       <View style={styles.wrapLeft}>
         <Text style={styles.txtHeader}>{props.name}</Text>
         <Text>{props.numberPhone}</Text>
-        <Text>{props.address}</Text>
+        <Text>{props.detail_address}</Text>
       </View>
       <View style={styles.wrapRight}>
-        <TouchableOpacity onPress={props.action}>
+        {props.address_default ? (
+          <View/>
+        ) : (
+          <TouchableOpacity onPress={props.actionSetdefault}>
+            <Text style={styles.txtAction}>Set as Default</Text>
+          </TouchableOpacity>
+          
+        )}
+        <TouchableOpacity onPress={props.actionEdit}>
           <Text style={styles.txtAction}>Edit Address</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={props.actionDelete}>
+          <Text style={styles.txtAction}>Remove</Text>
         </TouchableOpacity>
       </View>
     </View>
@@ -19,12 +35,6 @@ const ShippingAddress = (props) => (
 )
 
 const styles = StyleSheet.create({
-  Card: {
-    borderRadius: 1,
-    borderColor: '#E2E2E2',
-    borderWidth: 1,
-    marginBottom: 5
-  },
   contentCard: {
     margin: 10,
     flexDirection: 'row',

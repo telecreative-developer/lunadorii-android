@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage } from 'react-native'
+import { ToastAndroid } from 'react-native'
 import ProductShow from '../components/ProductShow'
 import RecommendProduct from '../particles/RecommendProduct'
 import CommentAndRating from '../particles/CommentAndRating'
@@ -13,6 +13,7 @@ class ProductShowContainer extends Component {
     super()
     this.state = {
       modalVisibleImageView: false,
+      title: '',
       image: '',
       images:[],
       data: {},
@@ -24,12 +25,19 @@ class ProductShowContainer extends Component {
       idUser:0,
       idProduct:0,
       accessToken:'',
-      amountOfImage: 0
+      amountOfImage: 0,
+      starCount: 0,
+      wishlisted:'',
+      clickWishlist:false
     }
   }
 
   toggleImageViewModal(){
     this.setState({ modalVisibleImageView: !this.state.modalVisibleImageView })
+  }
+
+  addToCart(){
+    ToastAndroid.showWithGravity("Added to cart.", ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
 
   async componentDidMount() {
@@ -39,25 +47,16 @@ class ProductShowContainer extends Component {
       data,
       accessToken:data.accessToken,
       image: data.thumbnails[0].thumbnail_url,
-      images: data.thumbnails,
+      title: data.product,
+      images: data.thumbnails.map(data => ({url: data.thumbnail_url})),
       subcategories: data.subcategories[0].subcategory,
       totalPrice: data.price,
-      amountOfImage: data.thumbnails.length   
+      amountOfImage: data.thumbnails.length,
+      starCount: data.product_rate,
+      wishlisted: data.wishlisted
     })
     await this.props.fetchProduct('123')
   }
-
-  // validationWishlist(){
-  //   this.props.wishlist.map(wishlist => (
-  //     wishlist.product_id == this.state.data.product_id ? (
-  //       return true
-  //     ) 
-  //     :
-  //     (
-  //       return false
-  //     )
-  //   ))
-  // }
 
   async addQty(){
     await this.setState({
@@ -86,10 +85,21 @@ class ProductShowContainer extends Component {
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     console.log('add wishlist' , data.id)
+    
     await this.setState({
       product_id: dataProduct.product_id
     })
     await this.props.addWishlist(data.accessToken, data.id, this.state.product_id)
+  }
+
+  capitalize(string) {
+    return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
+  }
+
+  onStarRatingPress(rating) {
+    this.setState({
+      starCount: rating
+    });
   }
 
   render() {
@@ -100,16 +110,17 @@ class ProductShowContainer extends Component {
     return (
       <ProductShow
         image={this.state.image}
-        title={this.state.data.product}
+        title={this.capitalize(this.state.title).slice(0,20 ) + '...'}
         categories={this.state.subcategories}
         price={this.state.data.price}
-        star={this.state.data.product_rate}
+        star={this.state.starCount}
         descriptions={this.state.data.description}
         productDetails={this.state.data.detail}
         guide={this.state.data.to_use}
         qty={this.state.qty}
         totalPrice={this.state.totalPrice}
         amountOfImage={this.state.amountOfImage}
+        wishlisted={this.state.wishlisted}
 
         onChangeQty={(qty) => this.setState({ qty })}
         addQty={() => this.addQty()}
@@ -118,7 +129,7 @@ class ProductShowContainer extends Component {
 
         dateRelatedProducts={this.props.product}
         renderRelatedProducts={({ item }) => (
-          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate} action={() => 
+          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={this.capitalize(item.product)} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate} action={() => 
             // this.props.navigation.navigate("ProductShowContainer", { data: item })
             this.props.navigation.navigate({
               routeName: 'ProductShowContainer',
@@ -141,9 +152,9 @@ class ProductShowContainer extends Component {
 
         modalVisibleImageView={this.state.modalVisibleImageView}
         toggleImageViewModal={() => this.toggleImageViewModal()}
-        imageToView={this.state.image}
         images={this.state.images}
 
+        addToCart={() => this.addToCart()}
         goback={() => this.props.navigation.goBack()} />
     )
   }

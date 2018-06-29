@@ -18,9 +18,9 @@ const BrandChooserModal = (props) => (
       navbarIcon="close"
       actionIcon={props.actionIcon} />
     <Content style={styles.container}>
-      <View>
+      {/* <View style={}>
 
-      </View>
+      </View> */}
     </Content>
     <Button full style={styles.buttonSelectStyleEditProfile}>
       <Text style={styles.buttonSelectTextStyleEditProfile}>Select</Text>
@@ -36,7 +36,7 @@ const styles = StyleSheet.create({
     padding: 10
   },
   buttonSelectStyleEditProfile: {
-    height: 50,
+    height: 50, 
     backgroundColor: '#d11e48'
   },
   buttonSelectTextStyleEditProfile: {

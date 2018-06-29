@@ -2,17 +2,19 @@ import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Container, Content, Item, Icon, Button, Form, Textarea } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
-import { Rating } from 'react-native-ratings'
+import StarRating from 'react-native-star-rating'
 import ProductReviewed from '../particles/ProductReviewed'
 
 const EditReviewsModal = (props) => {
-  console.log('props edit: ', props.star)
+
+  console.log('tipe data state star: ')
   return(
   <Modal
     animationType="slide"
     transparent={false}
     visible={props.modalVisible}
     onRequestClose={props.actionIcon}>
+    {console.log('props edit: ', props.star)}
     <NavbarModal
       navbarTitle="Edit Reviews"
       navbarIcon="close"
@@ -22,17 +24,14 @@ const EditReviewsModal = (props) => {
         image={props.image}
         title={props.title}
         price={props.price} />
-      <Rating
-        type='custom'
-        ratingCount={5}
-        onFinishRating={props.star}
-        defaultValue={props.star}
-        startingValue={props.star}
-        imageSize={30}
-        ratingColor="#000"
-        ratingBackgroundColor="#ccc"
-        style={styles.rating} 
-        />
+        <View style={{alignItems: 'center', padding: 10}}>
+          <StarRating
+            disabled={false}
+            maxStars={5}
+            rating={props.star}
+            selectedStar={props.onChangeStar}
+          />
+        </View>
       <Item regular style={styles.itemsTextarea}>
         <Textarea placeholder="Type your reviews here" placeholderTextColor="#CDCDCD" style={styles.textareaStyle} value={props.comment} onChangeText={props.onChangeComment}/>
       </Item>

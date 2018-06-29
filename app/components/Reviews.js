@@ -1,8 +1,9 @@
 import React from 'react'
-import { View, Text, FlatList, StyleSheet, StatusBar } from 'react-native'
+import { View, Text, FlatList, StyleSheet, StatusBar, Dimensions } from 'react-native'
 import { Container, Content } from 'native-base'
 import Navbar from '../particles/Navbar'
 import EditReviewsModal from '../modals/EditReviewsModal'
+const { height, width } = Dimensions.get('window')
 
 const Reviews = (props) => {
   console.log('reviews: ', props)
@@ -24,6 +25,8 @@ const Reviews = (props) => {
       comment={props.comment}
       price={props.price}
       onChangeComment={props.onChangeComment}
+      updateRating={props.updateRating} 
+      onChangeStar={props.onChangeStar}
     />
     <StatusBar
       backgroundColor="#f65857"

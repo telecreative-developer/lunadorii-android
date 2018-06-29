@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, FlatList, StatusBar } from 'react-native'
+import { StyleSheet, View, Text, FlatList, StatusBar, Dimensions } from 'react-native'
 import PropTypes from 'prop-types'
 import Navbar from '../particles/Navbar'
 import { Container, Content, CheckBox, Item, Title, Subtitle, Button } from 'native-base';
+const { height, width } = Dimensions.get('window')
 
 const PurchaseHistory = (props) => (
   <Container style={styles.container}>

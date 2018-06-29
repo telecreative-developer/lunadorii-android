@@ -1,7 +1,8 @@
 import React from 'react'
-import { View, Image, StyleSheet, StatusBar } from 'react-native'
+import { View, Image, StyleSheet, StatusBar, Dimensions } from 'react-native'
 import { Container } from 'native-base'
-import LunadoriiPortraitLogo from '../assets/images/icon/PortraitLogo.png'
+import LunadoriiPortraitLogo from '../assets/images/icon/lunadorii-highres.png'
+const { height, width } = Dimensions.get('window')
 
 const SplashScreen = (props) => (
   <Container>
