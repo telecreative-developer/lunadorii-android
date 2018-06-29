@@ -13,6 +13,7 @@ import { wishlist } from "./wishlist"
 import { userreview } from "./userreview"
 import { cartuser } from "./cart"
 import { usershipping } from "./usershipping"
+import { registerresult } from "./registerresult"
 
 const rootReducers = combineReducers({
   loading,
@@ -31,7 +32,8 @@ const rootReducers = combineReducers({
   wishlist,
   userreview,
   cartuser,
-  usershipping
+  usershipping,
+  registerresult
 //   sessionPersistance
 });
 
