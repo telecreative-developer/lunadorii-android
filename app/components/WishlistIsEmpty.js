@@ -1,6 +1,7 @@
 import React from 'react'
-import { View, StyleSheet, StatusBar, Text } from 'react-native'
+import { View, StyleSheet, StatusBar, Text, Dimensions } from 'react-native'
 import { Container, Icon, Button } from 'native-base'
+const { height, width } = Dimensions.get('window')
 
 const WishlistIsEmpty = (props) => (
   <Container style={styles.container}>

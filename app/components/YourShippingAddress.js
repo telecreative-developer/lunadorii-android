@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { StyleSheet, TouchableOpacity, FlatList, StatusBar } from 'react-native'
+import { StyleSheet, TouchableOpacity, FlatList, StatusBar, Dimensions } from 'react-native'
 import { Container, Content, Text, View, Button, Icon } from 'native-base'
 import Navbar from '../particles/Navbar'
 import EditAddressModal from '../modals/EditAddressModal'
 import AddAddressModal from '../modals/AddAddressModal'
+const { height, width } = Dimensions.get('window')
 
 const YourShippingAddress = (props) => (
   <Container style={styles.container}>

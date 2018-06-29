@@ -1,8 +1,9 @@
 import React from 'react'
-import { StyleSheet, View, Image, TouchableOpacity, Text, StatusBar } from 'react-native'
+import { StyleSheet, View, Image, TouchableOpacity, Text, StatusBar, Dimensions } from 'react-native'
 import { Container, Content, Icon, Button, Footer, Form, Label, Item, Input } from 'native-base'
 import PropTypes from 'prop-types'
 import { register } from '../actions/register';
+const { height, width } = Dimensions.get('window')
 
 const RegisterIdentify = (props) => (
   <Container style={styles.backgroundColorWhite}>
