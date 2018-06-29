@@ -28,7 +28,7 @@ const AddToCart = (props) => (
           </Item>
         </Form>
         <View style={{padding: 20}}>
-          <Button full onPress={props.handleAddToCart} style={{borderRadius: 5}}>
+          <Button full onPress={props.handleAddToCart} style={{borderRadius: 5, backgroundColor: '#d11e48'}}>
             <Text style={{color: '#fff'}}>Add to cart</Text>
           </Button>
         </View>

@@ -29,7 +29,7 @@ const RecommendProduct = (props) => {
         </View>
         <View style={styles.viewFooterProduct}>
           <View>
-            <TouchableOpacity style={styles.touchableOpacity}  onPress={() => alert('Sabar, addToCart "'+ props.title +'" onProgress')}>
+            <TouchableOpacity style={styles.touchableOpacity} onPress={props.toggleModalAddToCart}>
               <Text style={styles.txtCart}><MaterialCommunityIcons name='cart' /> Add to cart</Text>
             </TouchableOpacity>
           </View>
