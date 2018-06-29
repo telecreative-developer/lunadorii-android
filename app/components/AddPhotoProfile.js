@@ -10,9 +10,11 @@ const AddPhotoProfile = (props) => (
     />
     <Content style={styles.content}>
       <View style={styles.wrapper}>
-        <View style={{padding: 20, paddingTop: 100 }}>
-          <Image source={require('../assets/images/icon/photosluna.png')} style={{height: 150, width: 150}}/>
-        </View>
+        <TouchableOpacity onPress={props.handleOpenCamera}>
+          <View style={props.photoProfile.length == 0 ? {padding: 20, paddingTop: 100} : {padding: 20, paddingTop: 100, borderRadius: 50}}>
+              <Image source={props.photoProfile.length == 0 ? require('../assets/images/icon/photosluna.png') : {uri: props.photoProfile}} style={{height: 150, width: 150, borderRadius: 150/2}}/>    
+          </View>
+        </TouchableOpacity>
         <View style={{paddingBottom: 60}}>
           <Text style={{fontSize: 18, fontWeight: 'bold', color: '#000'}}>Add Photo Profile</Text>
         </View>
