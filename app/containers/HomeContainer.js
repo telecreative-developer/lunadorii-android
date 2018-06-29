@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import {AsyncStorage} from 'react-native'
 import { Dimensions, View, Text, Image, StyleSheet } from 'react-native'
 import Home from '../components/Home'
 import Product from '../particles/Product'
@@ -13,6 +14,8 @@ import { fetchBrandsProduct } from '../actions/brandsproduct'
 import { fetchProduct } from '../actions/product'
 import { fetchBanners } from '../actions/banners'
 import { fetchProductSubcategories } from '../actions/productsubcategories'
+import { addToCart } from '../actions/cart'
+
 
 const { width, height } = Dimensions.get('window')
 
@@ -25,7 +28,10 @@ class HomeContainer extends Component {
     this.state = {
       size: { width, height },
       showMore: false,
-      qty:0,
+      id_user: 0,
+      product_id: 0,
+      product_name: '',
+      qty: 0,
       modalVisibleAddToCart: false
     };
   }
@@ -34,12 +40,38 @@ class HomeContainer extends Component {
     this.setState({showMore: !this.state.showMore})
   }
 
-  toggleModalAddToCart(){
+  closeModal(){
     this.setState({modalVisibleAddToCart: !this.state.modalVisibleAddToCart})
   }
 
-  handleAddToCart(){
-    alert("Quantity " + this.state.qty)
+  async toggleModalAddToCart(item){
+
+    await this.closeModal()
+    if(this.state.modalVisibleAddToCart){
+      const session = await AsyncStorage.getItem('session')
+      const data = await JSON.parse(session)
+      await this.setState({
+        id_user: data.id,
+        product_id: item.product_id,
+        product_name: item.product
+      }) 
+    }else{
+      await this.setState({
+        id_user: 0,
+        product_id: 0,
+        qty: 0,
+      })
+    }
+  }
+
+  async handleAddToCart(){
+    console.log('isi state: ', this.state)
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await alert('Berhasil Menambahkan ke Kranjang', this.state.product_name.slice(0,10))
+    await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
+    await this.closeModal()
+
   }
 
   async componentDidMount() {
@@ -88,7 +120,7 @@ class HomeContainer extends Component {
             categories={item.subcategories[0].subcategory} 
             price={item.price} star={item.product_rate} 
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
-            toggleModalAddToCart={() => this.toggleModalAddToCart()}
+            toggleModalAddToCart={() => this.toggleModalAddToCart(item)}
           />
         )}
 
@@ -147,6 +179,7 @@ const mapDispatchToProps = (dispatch) =>{
     fetchProduct: () => dispatch(fetchProduct()),
     fetchBanners: () => dispatch(fetchBanners()),
     fetchProductSubcategories: () => dispatch(fetchProductSubcategories()),
+    addToCart: (id, product_id, qty, accessToken) => dispatch(addToCart(id, product_id, qty, accessToken)),
     
   }
 }
