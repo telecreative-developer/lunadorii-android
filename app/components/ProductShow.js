@@ -47,9 +47,17 @@ const ProductShow = (props) => (
                 <Entypo name="heart" style={styles.firstGroupButtonIcon} />
               </View> : 
             <TouchableOpacity onPress={props.AddWishlist}>
-              <View style={styles.firstGroupButtonShare}>
+              {/* <View style={styles.firstGroupButtonShare}>
                 <Entypo name="heart-outlined" style={styles.firstGroupButtonIcon} />
-              </View>
+              </View> */}
+              {props.clickWishlist === true ?
+                <View style={styles.firstGroupButtonShare}>
+                  <Entypo name="heart" style={styles.firstGroupButtonIcon} />
+                </View>:
+                <View style={styles.firstGroupButtonShare}>
+                  <Entypo name="heart-outlined" style={styles.firstGroupButtonIcon} />
+                </View>
+              }
             </TouchableOpacity>
           }
         </View>

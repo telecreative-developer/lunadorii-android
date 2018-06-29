@@ -61,7 +61,6 @@ class LoginContainer extends Component {
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    console.log('Ini isi session' , data)
     if(data !== null){
       try{
         this.props.navigation.navigate('HomeContainer')
