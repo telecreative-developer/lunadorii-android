@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ToastAndroid } from 'react-native'
+import { ToastAndroid, AsyncStorage } from 'react-native'
 import ProductShow from '../components/ProductShow'
 import RecommendProduct from '../particles/RecommendProduct'
 import CommentAndRating from '../particles/CommentAndRating'
@@ -42,7 +42,6 @@ class ProductShowContainer extends Component {
 
   async componentDidMount() {
     const data = this.props.navigation.state.params.data
-    console.log('Data Product Show :' , data)
     await this.setState({ 
       data,
       accessToken:data.accessToken,
@@ -84,12 +83,12 @@ class ProductShowContainer extends Component {
     const dataProduct = this.props.navigation.state.params.data
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    console.log('add wishlist' , data.id)
-    
     await this.setState({
       product_id: dataProduct.product_id
     })
     await this.props.addWishlist(data.accessToken, data.id, this.state.product_id)
+    this.setState({clickWishlist:true})
+    ToastAndroid.showWithGravity("Added to wishlist.", ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
 
   capitalize(string) {
@@ -103,10 +102,7 @@ class ProductShowContainer extends Component {
   }
 
   render() {
-    // {console.log('data wishlist :', this.validationWishlist())}
-    // {console.log('isi state data : ' , this.state.data.product_id)}
-    // {console.log('isi wishlist' , this.props.wishlist.filter(product_id == this.state.data.product_id))}
-    // {console.log('isi datasession', this.state.dataSession.id)}
+    {console.log(this.state.clickWishlist)}
     return (
       <ProductShow
         image={this.state.image}
@@ -121,6 +117,7 @@ class ProductShowContainer extends Component {
         totalPrice={this.state.totalPrice}
         amountOfImage={this.state.amountOfImage}
         wishlisted={this.state.wishlisted}
+        clickWishlist={this.state.clickWishlist}
 
         onChangeQty={(qty) => this.setState({ qty })}
         addQty={() => this.addQty()}

@@ -24,6 +24,28 @@ export const fetchProduct = (id) => {
 	}
 }
 
+export const fetchProductWithoutIs = () => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_FETCH_WITHOUT_ID'))
+		try {
+			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/products`, {
+				method: 'GET',
+				headers:{
+					Accept: 'application/json',
+					'content-Type': 'application/json'
+				}
+			})
+			const data = await response.json()
+			await dispatch(receiveProduct(data.data))
+			await dispatch(setSuccess(true, 'SUCESS_FETCH_PRODUCT_WITHOUT_ID'))
+			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITHOUT_ID'))
+		} catch (e){
+			dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT_WITHOUT_ID', e))
+			dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITHOUT_ID'))
+		}
+	}
+}
+
 const receiveProduct = data => {
 	return{
 		type: RECEIVE_PRODUCT,

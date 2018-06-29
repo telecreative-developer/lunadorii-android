@@ -9,7 +9,6 @@ const toLower = str => {
 export const register = item => {
   return async dispatch => {
     await dispatch(setLoading(true, 'LOADING_REGISTER'))
-    console.log("item: ",item)
     try {
       const response = await fetch(`${API_SERVER_USER}/api/v1/user/register`, {
         method: 'POST',
@@ -60,7 +59,6 @@ export const checkEmail = (email) => {
 				body: JSON.stringify({email})
 			})
 			const data = await response.json()
-			console.log("data action:" , data)
 			if (data.status === 409 && data.name === 'error') {
         await dispatch(setFailed(true, 'FAILED_PROCESS_CHECK_EMAIL', data.message))
         await dispatch(setFailed(false, 'FAILED_PROCESS_CHECK_EMAIL'))
@@ -70,7 +68,6 @@ export const checkEmail = (email) => {
 				await dispatch(setLoading(false, 'LOADING_PROCESS_CHECK_EMAIL'))
 			}
 		} catch (e) {
-			 console.log('error: ', e)
 			dispatch(setFailed(true, 'FAILED_PROCESS_CHECK_EMAIL', e))
 			dispatch(setLoading(false, 'LOADING_PROCESS_CHECK_EMAIL'))
 		}

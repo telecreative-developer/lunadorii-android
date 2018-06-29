@@ -25,7 +25,6 @@ class SettingsContainer extends Component {
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    console.log('Ini isi session di setting' , data)
     await this.setState({
       userData: data,
       newEmail: data.email
@@ -51,7 +50,6 @@ class SettingsContainer extends Component {
       alert("New Email wasn't comfirmed")
     } else {
       await this.props.editEmail(this.state.userData.id, this.state.newEmail, this.state.userData.accessToken)
-      // await console.log("editemail", this.props.editemail)
       await alert(this.props.editemail.message)
       await this.setState({confirmEmail: "" })
     }
@@ -70,7 +68,6 @@ class SettingsContainer extends Component {
         alert("New password wasn't comfirmed")
       } else {
         await this.props.editPassword(this.state.userData.id, this.state.currentPassword, this.state.newPassword, this.state.userData.accessToken)
-        await console.log("editpassword", this.props.editpassword)
         if (this.props.editpassword.status === 200){
           this.setState({ modalVisibleChangePassword: false })
         }
@@ -80,7 +77,6 @@ class SettingsContainer extends Component {
   }
 
   render() {
-    console.log(this.state.userData)
     return (
       <Settings
         userEmail={this.state.newEmail}
