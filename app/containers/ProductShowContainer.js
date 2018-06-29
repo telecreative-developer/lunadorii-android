@@ -118,7 +118,7 @@ class ProductShowContainer extends Component {
     return (
       <ProductShow
         image={this.state.image}
-        title={this.capitalize(this.state.title)}
+        title={this.capitalize(this.state.title).slice(0,20) + '...'}
         categories={this.state.subcategories}
         price={this.state.data.price}
         star={this.state.starCount}
