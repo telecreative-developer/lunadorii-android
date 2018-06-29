@@ -72,7 +72,7 @@ class HomeContainer extends Component {
 
         dataProduct={this.props.product}
         renderProduct={({ item }) => (
-          <Product image={item.thumbnails[0].thumbnail_url} title={this.capitalize(item.product)} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+          <Product image={item.thumbnails[0].thumbnail_url} title={this.capitalize(item.product).slice(0,18) + '...'} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
           />
         )}
 
@@ -84,7 +84,7 @@ class HomeContainer extends Component {
 
         dataRecommend={this.props.product}
         renderRecommend={({ item }) => (
-          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={this.capitalize(item.product)} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={this.capitalize(item.product).slice(0,27) + '...'} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
           />
         )}
 
