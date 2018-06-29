@@ -125,8 +125,9 @@ class SearchContainer extends Component {
   }
 
   async handleSearch(){
-    await this.props.fetchSearchProduct(this.state.searchTitle)
-    await this.setState({searchResult: this.props.searchproduct})
+    // await this.props.fetchSearchProduct(this.state.searchTitle)
+    // await this.setState({searchResult: this.props.searchproduct})
+    alert("Searching")
   }
 
   handleCategory(){

@@ -167,7 +167,7 @@ const ProductShow = (props) => (
           </View>
           <View style={styles.leftWrapper}>
             <View style={styles.flexDirectionCol}>
-              <Text style={styles.footerTotalPriceText}>Rp {props.totalPrice}</Text>
+              <Text style={styles.footerTotalPriceText}>Rp. {props.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
               <TouchableOpacity onPress={props.addToCart}>
                 <View style={styles.footerButtonStyling}>
                   <MaterialCommunityIcons name="cart" size={16} />

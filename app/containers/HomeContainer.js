@@ -118,7 +118,7 @@ class HomeContainer extends Component {
         renderProduct={({ item }) => (
           <Product 
             image={item.thumbnails[0].thumbnail_url} 
-            title={this.capitalize(item.product).slice(0,18) + '...'} 
+            title={this.capitalize(item.product).slice(0,12) + '...'} 
             categories={item.subcategories[0].subcategory} 
             price={item.price} star={item.product_rate} 
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}

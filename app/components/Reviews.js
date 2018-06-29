@@ -23,7 +23,7 @@ const Reviews = (props) => {
       title={props.title}
       star={props.star}
       comment={props.comment}
-      price={props.price}
+      price={props.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
       onChangeComment={props.onChangeComment}
       updateRating={props.updateRating} 
       onChangeStar={props.onChangeStar}
