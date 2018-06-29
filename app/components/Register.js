@@ -1,10 +1,11 @@
 import React from 'react'
-import { StyleSheet, View, Image, TouchableOpacity, Text, StatusBar } from 'react-native'
+import { StyleSheet, View, Image, TouchableOpacity, Text, StatusBar, Dimensions } from 'react-native'
 import { Container, Content, Form, Item, Input } from 'native-base'
 import PropTypes from 'prop-types'
 import { register } from '../actions/register';
 import LunadoriiPortraitLogo from '../assets/images/icon/lunadorii-highres.png'
 import LunadoriiCircleLogo from '../assets/images/icon/CircleLogo.png'
+const { height, width } = Dimensions.get('window')
 
 const Register = (props) => (
   <Container style={styles.backgroundColorWhite}>

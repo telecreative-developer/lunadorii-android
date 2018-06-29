@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, FlatList, TouchableOpacity, StatusBar } from 'react-native'
+import { StyleSheet, View, Text, Image, FlatList, TouchableOpacity, StatusBar, Dimensions } from 'react-native'
 import { Container, Button, Icon, Content, Tabs, Tab } from 'native-base'
 import SVGImage from 'react-native-svg-image'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -14,6 +14,7 @@ import ImageReport from '../assets/images/icon/report.png'
 import ImageSettings from '../assets/images/icon/settings.png'
 import ImagePrivacyPolicy from '../assets/images/icon/privacy-policy.png'
 import EditProfileModal from '../modals/EditProfileModal'
+const { height, width } = Dimensions.get('window')
 
 const Profile = (props) => (
   <Container style={styles.container}>

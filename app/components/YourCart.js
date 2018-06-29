@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, FlatList, StatusBar } from 'react-native'
+import { View, Text, StyleSheet, FlatList, StatusBar, Dimensions } from 'react-native'
 import { Container, Content, Icon, Button, Radio,  } from 'native-base'
 import Navigation from '../particles/Navbar'
+const { height, width } = Dimensions.get('window')
 
 const YourCart = (props) => (
   <Container style={styles.Container}>
