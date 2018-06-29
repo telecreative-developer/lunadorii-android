@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import {AsyncStorage} from 'react-native'
-import { Dimensions, View, Text, Image, StyleSheet } from 'react-native'
+import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage } from 'react-native'
 import Home from '../components/Home'
 import Product from '../particles/Product'
 import Brand from '../particles/Brand'
@@ -75,10 +74,12 @@ class HomeContainer extends Component {
   }
 
   async componentDidMount() {
-    
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+
     await this.props.fetchCategoryProduct()
     await this.props.fetchBrandsProduct()
-    await this.props.fetchProduct()
+    await this.props.fetchProduct(data.id)
     await this.props.fetchBanners()
     await this.props.fetchProductSubcategories()
 
@@ -98,6 +99,7 @@ class HomeContainer extends Component {
 
   render() {
     const { banners } = this.props
+    console.log(this.props.product)
     return (
       <Home
         banners={banners.map((banner, index) => this.renderBanners(banner, index))}
@@ -132,7 +134,15 @@ class HomeContainer extends Component {
 
         dataRecommend={this.props.product}
         renderRecommend={({ item }) => (
-          <RecommendProduct image={item.thumbnails[0].thumbnail_url} title={this.capitalize(item.product).slice(0,27) + '...'} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} reviews={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+          <RecommendProduct 
+            image={item.thumbnails[0].thumbnail_url} 
+            title={this.capitalize(item.product).slice(0,27) + '...'} 
+            categories={item.subcategories[0].subcategory} 
+            price={item.price} 
+            star={item.product_rate} 
+            reviews={item.product_rate} 
+            action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+            toggleModalAddToCart={() => this.toggleModalAddToCart()}
           />
         )}
 
@@ -168,7 +178,7 @@ const mapDispatchToProps = (dispatch) =>{
 
     fetchCategoryProduct: () => dispatch(fetchCategoryProduct()),
     fetchBrandsProduct: () => dispatch(fetchBrandsProduct()),
-    fetchProduct: () => dispatch(fetchProduct()),
+    fetchProduct: (id) => dispatch(fetchProduct(id)),
     fetchBanners: () => dispatch(fetchBanners()),
     fetchProductSubcategories: () => dispatch(fetchProductSubcategories()),
     addToCart: (id, product_id, qty, accessToken) => dispatch(addToCart(id, product_id, qty, accessToken)),

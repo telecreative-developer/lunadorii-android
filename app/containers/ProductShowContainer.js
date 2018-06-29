@@ -26,7 +26,9 @@ class ProductShowContainer extends Component {
       idProduct:0,
       accessToken:'',
       amountOfImage: 0,
-      starCount: 0
+      starCount: 0,
+      wishlisted:'',
+      clickWishlist:false
     }
   }
 
@@ -50,7 +52,8 @@ class ProductShowContainer extends Component {
       subcategories: data.subcategories[0].subcategory,
       totalPrice: data.price,
       amountOfImage: data.thumbnails.length,
-      starCount: data.product_rate
+      starCount: data.product_rate,
+      wishlisted: data.wishlisted
     })
     await this.props.fetchProduct('123')
   }
@@ -77,16 +80,17 @@ class ProductShowContainer extends Component {
     }
   }
 
-  // async AddWishlist(){
-  //   const dataProduct = this.props.navigation.state.params.data
-  //   const session = await AsyncStorage.getItem('session')
-  //   const data = await JSON.parse(session)
-  //   console.log('add wishlist' , data.id)
-  //   await this.setState({
-  //     product_id: dataProduct.product_id
-  //   })
-  //   await this.props.addWishlist(data.accessToken, data.id, this.state.product_id)
-  // }
+  async AddWishlist(){
+    const dataProduct = this.props.navigation.state.params.data
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    console.log('add wishlist' , data.id)
+    
+    await this.setState({
+      product_id: dataProduct.product_id
+    })
+    await this.props.addWishlist(data.accessToken, data.id, this.state.product_id)
+  }
 
   capitalize(string) {
     return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
@@ -116,11 +120,12 @@ class ProductShowContainer extends Component {
         qty={this.state.qty}
         totalPrice={this.state.totalPrice}
         amountOfImage={this.state.amountOfImage}
+        wishlisted={this.state.wishlisted}
 
         onChangeQty={(qty) => this.setState({ qty })}
         addQty={() => this.addQty()}
         minQty={() => this.minQty()}
-        // AddWishlist={()=> this.AddWishlist()}
+        AddWishlist={()=> this.AddWishlist()}
 
         dateRelatedProducts={this.props.product}
         renderRelatedProducts={({ item }) => (
