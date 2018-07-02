@@ -6,7 +6,7 @@ export const fetchUserShipping = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_USER_SHIPPING'))
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/user-addresses/${id}`, {
+			const response = await fetch(`${API_SERVER_USER}/api/v1/user-addressess/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',

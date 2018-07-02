@@ -36,6 +36,10 @@ class WishlistContainer extends Component{
     return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
   }
 
+  formatPrice(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
+
   render(){
     if(this.state.isEmpty){
       return(
@@ -53,7 +57,7 @@ class WishlistContainer extends Component{
               image={item.thumbnails[0].thumbnail_url} 
               title={item.title <= 17 ? this.capitalize(item.title) : this.capitalize(item.product).slice(0,17)+'...'} 
               categories={item.subcategories[0].subcategory} 
-              price={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 
+              price={this.formatPrice(item.price)} 
               star={item.product_rate} 
               action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
             />
