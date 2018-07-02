@@ -24,7 +24,7 @@ export const fetchProduct = (id) => {
 	}
 }
 
-export const fetchProductWithoutIs = () => {
+export const fetchProductWithoutId = () => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_WITHOUT_ID'))
 		try {
