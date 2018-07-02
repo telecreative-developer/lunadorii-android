@@ -12,6 +12,7 @@ class YourCartContainer extends Component {
   constructor(){
     super()
     this.state = {
+      modalVisibleEditQuantity: false,
       product_id: 0
     }
   }
@@ -23,6 +24,10 @@ class YourCartContainer extends Component {
     await this.props.fetchUserShipping(data.id, data.accessToken)
   }
 
+  toggleModalEditQuantity(){
+    this.setState({modalVisibleEditQuantity: !this.state.modalVisibleEditQuantity})
+  }
+  
   async removeCart(item){
     this.setState({
       product_id: item.product_id,
@@ -51,6 +56,7 @@ class YourCartContainer extends Component {
             quantity={item.qty} 
             price={this.formatPrice(item.price)} 
             image={item.thumbnails[0].thumbnail_url}
+            actionEdit={() => this.toggleModalEditQuantity()}
             actionRemove={() => this.removeCart(item)}
           />
         )}
@@ -65,10 +71,14 @@ class YourCartContainer extends Component {
             address_default={item.address_default}
             actionEdit={() => this.toggleModalEditAddress(item)}
             actionSetdefault={() => this.onChangeDefault(item)}
-            actionDelete={() => this.deteleShipping(item)}/>
+            actionDelete={() => this.deteleShipping(item)}
+          />
         ) : (
           <View/>
         )}
+
+        modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
+        toggleModalEditQuantity={() => this.toggleModalEditQuantity()}
 
         navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
         goback={() => this.props.navigation.goBack()}/>
