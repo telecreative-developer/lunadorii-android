@@ -15,7 +15,6 @@ import { fetchBanners } from '../actions/banners'
 import { fetchProductSubcategories } from '../actions/productsubcategories'
 import { addToCart } from '../actions/cart'
 
-
 const { width, height } = Dimensions.get('window')
 
 const bannerWidth = Dimensions.get('window').width
@@ -106,21 +105,28 @@ class HomeContainer extends Component {
 
         dataCategoriesButton={this.props.categoryproduct}
         renderCategoriesButton={({ item }) => (
-          <Categories title={item.subcategory} icon={item.thumbnail_url}/>
+          <Categories 
+            title={item.subcategory.length <= 10 ? item.subcategory : this.capitalize(item.subcategory).slice(0,8)+'...'} 
+            realTitle={item.subcategory}
+            icon={item.thumbnail_url}
+          />
         )}
 
         dataBrand={this.props.brandsproduct}
         renderBrand={({ item }) => (
-          <Brand image={item.logo_url} />
+          <Brand 
+            image={item.logo_url} 
+          />
         )}
 
         dataProduct={this.props.product}
         renderProduct={({ item }) => (
           <Product 
             image={item.thumbnails[0].thumbnail_url} 
-            title={this.capitalize(item.product).slice(0,12) + '...'} 
+            title={item.title <= 17 ? this.capitalize(item.title) : this.capitalize(item.product).slice(0,17)+'...'} 
             categories={item.subcategories[0].subcategory} 
-            price={item.price} star={item.product_rate} 
+            price={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 
+            star={item.product_rate} 
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
             toggleModalAddToCart={() => this.toggleModalAddToCart(item)}
           />
@@ -128,7 +134,10 @@ class HomeContainer extends Component {
 
         dataCategories={this.props.productsubcategories}
         renderCategories={({ item }) => (
-          <BestCategories image={item.thumbnail_url} title={this.capitalize(item.subcategory)} total={item.products.length}
+          <BestCategories 
+            image={item.thumbnail_url} 
+            title={this.capitalize(item.subcategory)} 
+            total={item.products.length}
           />
         )}
 
@@ -138,7 +147,7 @@ class HomeContainer extends Component {
             image={item.thumbnails[0].thumbnail_url} 
             title={this.capitalize(item.product).slice(0,27) + '...'} 
             categories={item.subcategories[0].subcategory} 
-            price={item.price} 
+            price={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 
             star={item.product_rate} 
             reviews={item.product_rate} 
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}

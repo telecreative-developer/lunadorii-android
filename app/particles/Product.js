@@ -2,15 +2,22 @@ import React from 'react'
 import { StyleSheet, View, Text, Dimensions, TouchableOpacity, ImageBackground } from 'react-native'
 import StarRating from 'react-native-star-rating';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import Entypo from 'react-native-vector-icons/Entypo'
 
 const { width, height } = Dimensions.get('window')
 const Product = (props) => (
   <View style={styles.viewProduct}>
     <TouchableOpacity onPress={props.action}>
       <ImageBackground source={{ uri: props.image }} style={styles.ImageBackground}>
-        <TouchableOpacity style={styles.touchableOpacity} onPress={props.toggleModalAddToCart}>
-          <Text style={styles.txtAddCart}><MaterialCommunityIcons name="cart" size={12}/> Add to Cart</Text>
-        </TouchableOpacity>
+        {props.isOnWishlist ? (
+          <TouchableOpacity style={styles.touchableOpacity} onPress={props.toggleModalAddToCart}>
+            <Text style={styles.txtAddCart}><Entypo name="trash" size={12}/> Remove</Text>
+          </TouchableOpacity>
+        ) : (
+          <TouchableOpacity style={styles.touchableOpacity} onPress={props.toggleModalAddToCart}>
+            <Text style={styles.txtAddCart}><MaterialCommunityIcons name="cart" size={12}/> Add to Cart</Text>
+          </TouchableOpacity>
+        )}
       </ImageBackground>
       <View style={styles.viewContent}>
         <View>
@@ -26,7 +33,7 @@ const Product = (props) => (
           />
         </View>
         <View style={{ marginTop: 10 }}>
-          <Text style={styles.txtPrice}>Rp. {props.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
+          <Text style={styles.txtPrice}>Rp. {props.price}</Text>
         </View>
       </View>
     </TouchableOpacity>

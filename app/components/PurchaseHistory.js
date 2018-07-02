@@ -18,21 +18,25 @@ const PurchaseHistory = (props) => (
     <Content>
       <View style={styles.viewBrand}>
         <Text style={styles.txtBrand}>Recent Orders</Text>
-        <FlatList
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          data={props.dataRecentOrders}
-          renderItem={props.renderRecentOrders}
-          keyExtractor={(item, index) => JSON.stringify(index)}
-        />
+        <View>
+          <FlatList
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            data={props.dataRecentOrders}
+            renderItem={props.renderRecentOrders}
+            keyExtractor={(item, index) => JSON.stringify(index)}
+          />
+        </View>
       </View>
       <View style={styles.viewBrandHistory}>
         <Text style={styles.txtBrand}>History</Text>
-        <FlatList
-          data={props.dataHistoryOrders}
-          renderItem={props.renderHistoryOrders}
-          keyExtractor={(item, index) => JSON.stringify(index)}
-        />
+        <View>
+          <FlatList
+            data={props.dataHistoryOrders}
+            renderItem={props.renderHistoryOrders}
+            keyExtractor={(item, index) => JSON.stringify(index)}
+          />
+        </View>
       </View>
     </Content>
   </Container>
