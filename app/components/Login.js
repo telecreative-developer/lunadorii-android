@@ -40,7 +40,7 @@ const Login = (props) => (
                 onChangeText={props.onChangePassword}
                 style={{marginLeft: 5}}
               />
-              <Icon type="Entypo" name={props.passwordFieldVisibility ? "eye" : "eye-with-line"} style={{fontSize: 18, color:'#ccc', marginRight: 5}} onPress={props.togglePasswordFieldVisibility}/>
+              <Icon type="Entypo" name={props.passwordFieldVisibility ? "eye-with-line" : "eye"} style={{fontSize: 18, color:'#ccc', marginRight: 5}} onPress={props.togglePasswordFieldVisibility}/>
             </Item>
             <View style={{marginBottom: 30}}>
               <TouchableOpacity onPress={props.navigateToLoginTroubleshooting}>

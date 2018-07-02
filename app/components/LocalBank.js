@@ -18,18 +18,22 @@ const LocalBank = (props) => (
       barStyle="light-content"
     />
     <AddLocalBankModal
+      bankNames={props.bankNames}
       modalVisible={props.modalVisibleAddLocalBank}
       actionIcon={props.toggleModalAddLocalBank}
       toggleModalAddLocalBank={props.toggleModalAddLocalBank}
+      selectedBank={props.selectedBank}
       onChangeBankName={props.onChangeBankName}
       onChangeName={props.onChangeName}
       onChangeBill={props.onChangeBill}
       handleSave={props.handleSave}
     />
     <EditLocalBankModal
+      bankNames={props.bankNames}
       modalVisible={props.modalVisibleEditLocalBank}
       actionIcon={props.toggleModalEditLocalBank}
       toggleModalEditLocalBank={props.toggleModalEditLocalBank}
+      selectedBank={props.selectedBank}
 
       bankName={props.bankName}
       name={props.name}
