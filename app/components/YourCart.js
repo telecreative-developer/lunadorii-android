@@ -21,8 +21,8 @@ const YourCart = (props) => (
       quantity={props.quantity}
       price={props.price}
       totalPrice={props.totalPrice}
-      addQty={props.addQty()}
-      minQty={props.minQty()}
+      addQty={props.addQty}
+      minQty={props.minQty}
     />
     <Content>
       <View style={styles.body}>
