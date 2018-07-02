@@ -6,7 +6,7 @@ import EditReviewsModal from '../modals/EditReviewsModal'
 const { height, width } = Dimensions.get('window')
 
 const Reviews = (props) => {
-  console.log('reviews: ', props)
+  // console.log('reviews: ', props)
   return(
   <Container style={styles.container}>
     <Navbar

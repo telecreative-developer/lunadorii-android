@@ -27,7 +27,7 @@ export const register = item => {
       
       const data = await response.json()
       await dispatch(receiveRegister(data.data[0]))
-      console.log("data: ",data)
+      // console.log("data: ",data)
       if (data.status === 401) {
         await dispatch(setFailed(true, 'FAILED_REGISTER', data.message))
         await dispatch(setFailed(false, 'FAILED_REGISTER', data.message))
@@ -38,7 +38,7 @@ export const register = item => {
         await dispatch(setLoading(false, 'LOADING_REGISTER'))
       }
     } catch (e) {
-      console.log('error: ', e)
+      // console.log('error: ', e)
       await dispatch(setFailed(true, 'FAILED_REGISTER', 'Something Wrong!')
       )
       await dispatch(setLoading(false, 'LOADING_REGISTER'))
