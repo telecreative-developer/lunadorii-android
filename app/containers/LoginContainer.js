@@ -18,11 +18,16 @@ class LoginContainer extends Component {
       email: '',
       password: '',
       passwordFieldVisibility: true,
+      modalVisibleInvalidCredentialModal: false
     }
   }
 
   togglePasswordFieldVisibility(){
     this.setState({passwordFieldVisibility: !this.state.passwordFieldVisibility})
+  }
+
+  modalVisibleInvalidCredentialModal(){
+    this.setState({modalVisibleInvalidCredentialModal: !this.state.modalVisibleInvalidCredentialModal})
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -106,6 +111,9 @@ class LoginContainer extends Component {
     const { navigate } = this.props.navigation
     return (
       <Login 
+        modalVisibleInvalidCredentialModal={this.state.modalVisibleInvalidCredentialModal}
+        toggleInvalidCredentialModal={() => this.modalVisibleInvalidCredentialModal()}
+
         navigateToRegister={() => this.props.navigation.navigate("RegisterContainer")}
         navigateToLoginTroubleshooting={() => this.props.navigation.navigate("LoginTroubleshootingContainer")}
         valueEmail={this.state.email}

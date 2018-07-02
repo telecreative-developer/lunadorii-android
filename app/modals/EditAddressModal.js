@@ -29,8 +29,8 @@ const EditAddressModal = (props) => (
           <Textarea value={props.detail_address} placeholderTextColor="#CDCDCD" style={styles.textareaStyle} onChangeText={props.onChangeAddress} />
         </Item>
         <Label style={styles.labels}>Provinsi</Label>
-        <Item regular style={styles.items} onPress={props.toggleModalSetProvince}>
-          <Input value={props.province} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeProvince} />
+        <Item regular style={styles.items}>
+          <Text style={{color: '#ccc'}} onPress={props.toggleModalSetProvince}>Select Province</Text>
         </Item>
         <Label style={styles.labels}>Kota/Kabupaten</Label>
         <Item regular style={styles.items}>
