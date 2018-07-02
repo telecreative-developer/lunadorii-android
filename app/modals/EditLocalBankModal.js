@@ -20,15 +20,15 @@ const EditLocalBankModal = (props) => (
       <Form style={styles.form}>
         <Label style={styles.labels}>Bank Name</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.bankName} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeBankName} />
+          <Input placeholder={props.bankName} placeholderTextColor="#CDCDCD" value={props.bankName} onChangeText={props.onChangeBankName} />
         </Item>
         <Label style={styles.labels}>Name</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeName} />
+          <Input placeholder={props.name} placeholderTextColor="#CDCDCD" value={props.name} onChangeText={props.onChangeName} />
         </Item>
         <Label style={styles.labels}>Bill</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.bill} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeBill} />
+          <Input placeholder={props.bill} placeholderTextColor="#CDCDCD" value={props.bill} onChangeText={props.onChangeBill} />
         </Item>
       </Form>
     </Content>

@@ -30,6 +30,11 @@ const LocalBank = (props) => (
       modalVisible={props.modalVisibleEditLocalBank}
       actionIcon={props.toggleModalEditLocalBank}
       toggleModalEditLocalBank={props.toggleModalEditLocalBank}
+
+      bankName={props.bankName}
+      name={props.name}
+      bill={props.bill}
+
       onChangeBankName={props.onChangeBankName}
       onChangeName={props.onChangeName}
       onChangeBill={props.onChangeBill}
