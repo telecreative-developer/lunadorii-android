@@ -21,9 +21,11 @@ import ProductShowContainer from './app/containers/ProductShowContainer'
 import AddPhotoProfileContainer from './app/containers/AddPhotoProfileContainer'
 import LoginTroubleshootingContainer from './app/containers/LoginTroubleshootingContainer'
 import RegisterIdentifyContainer from './app/containers/RegisterIdentifyContainer'
+import LocalBankContainer from './app/containers/LocalBankContainer'
 
 const AppNavigator = StackNavigator(
   {    
+    LocalBankContainer: { screen: LocalBankContainer },
     RegisterIdentifyContainer: { screen: RegisterIdentifyContainer },
     LoginTroubleshootingContainer: { screen: LoginTroubleshootingContainer },
     AddPhotoProfileContainer: { screen: AddPhotoProfileContainer },
