@@ -47,7 +47,7 @@ class LoginContainer extends Component {
     if (
       loading.condition === false &&
       loading.process_on === 'LOADING_PROCESS_LOGIN' &&
-      failed.condition === true &&
+      failed.condition === false &&
       failed.process_on === 'FAILED_PROCESS_LOGIN'
     ) {
       Alert.alert('Login gagal', 'Silahkan Cek Kembali Akun Anda!')
@@ -79,12 +79,8 @@ class LoginContainer extends Component {
   }
 
   handleValidationLogin() {
-    const { email, password } = this.state
-    if (!isEmail(email)) {
-			Alert.alert('Login Failed', 'Silahkan masukan alamat email yang valid')
-		} else {
-			this.props.login(email, password)
-		}
+    const { email } = this.state
+			this.props.login(email)
   }
 
   renderButtons() {
