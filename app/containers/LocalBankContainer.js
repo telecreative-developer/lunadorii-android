@@ -55,6 +55,7 @@ export default class LocalBankContainer extends Component{
 
         handleSave={() => alert(JSON.stringify(this.state))}
         handleEdit={() => alert(JSON.stringify(this.state))}
+        goback={() => this.props.navigation.goBack()}
       />
     )
   }
