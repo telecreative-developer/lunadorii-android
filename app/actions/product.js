@@ -1,5 +1,5 @@
 import { setLoading, setFailed, setSuccess } from './processor'
-import { RECEIVE_PRODUCT, RECEIVE_SEARCH_PRODUCT } from '../constants'
+import { RECEIVE_PRODUCT, RECEIVE_SEARCH_PRODUCT, RECEIVE_PRODUCT_WITHOUT_ID } from '../constants'
 import { API_SERVER_PRODUCT, API_SERVER_SEARCH } from '../env'
 
 export const fetchProduct = (id) => {
@@ -24,7 +24,7 @@ export const fetchProduct = (id) => {
 	}
 }
 
-export const fetchProductWithoutIs = () => {
+export const fetchProductWithoutId = () => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_WITHOUT_ID'))
 		try {
@@ -43,6 +43,13 @@ export const fetchProductWithoutIs = () => {
 			dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT_WITHOUT_ID', e))
 			dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITHOUT_ID'))
 		}
+	}
+}
+
+const receiveProductWithoutID = data => {
+	return{
+		type: RECEIVE_PRODUCT_WITHOUT_ID,
+		payload: data
 	}
 }
 

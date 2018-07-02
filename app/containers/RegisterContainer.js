@@ -36,7 +36,7 @@ class RegisterContainer extends Component{
       failed.condition === true &&
       failed.process_on === 'FAILED_PROCESS_CHECK_EMAIL'
     ) {
-      Alert.alert('Login Failed', 'Email Already Use!')
+      Alert.alert('Register Failed', 'Email Already Use!')
     } else if (
       loading.condition === false &&
       loading.process_on === 'LOADING_PROCESS_CHECK_EMAIL' &&

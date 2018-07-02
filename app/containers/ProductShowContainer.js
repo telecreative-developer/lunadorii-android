@@ -5,7 +5,7 @@ import RecommendProduct from '../particles/RecommendProduct'
 import CommentAndRating from '../particles/CommentAndRating'
 import { fetchProduct } from '../actions/product'
 import { connect } from 'react-redux'
-import { fetchwishlist, addWishlist } from '../actions/wishlist';
+import { fetchwishlist, addWishlist, deleteWishlistInHome } from '../actions/wishlist';
 
 class ProductShowContainer extends Component {
 
@@ -83,15 +83,30 @@ class ProductShowContainer extends Component {
   }
 
   async AddWishlist(){
+    this.setState({clickWishlist:!this.state.clickWishlist})
+    ToastAndroid.showWithGravity("Added to wishlist.", ToastAndroid.SHORT, ToastAndroid.CENTER)
     const dataProduct = this.props.navigation.state.params.data
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.setState({
       product_id: dataProduct.product_id
     })
+    await this.props.fetchProduct(data.id)
     await this.props.addWishlist(data.accessToken, data.id, this.state.product_id)
-    this.setState({clickWishlist:true})
-    ToastAndroid.showWithGravity("Added to wishlist.", ToastAndroid.SHORT, ToastAndroid.CENTER)
+  }
+
+  async deleteWishlistInHome(){
+    this.setState({clickWishlist:!this.state.clickWishlist})
+    ToastAndroid.showWithGravity("Delete to wishlist.", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    const dataProduct = this.props.navigation.state.params.data
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.setState({
+      product_id: dataProduct.product_id
+    })
+    await this.props.fetchProduct(data.id)
+    await this.props.deleteWishlistInHome(data.accessToken, data.id, this.state.product_id)
+    
   }
 
   capitalize(string) {
@@ -129,6 +144,7 @@ class ProductShowContainer extends Component {
         addQty={() => this.addQty()}
         minQty={() => this.minQty()}
         AddWishlist={()=> this.AddWishlist()}
+        deleteWishlistInHome={()=> this.deleteWishlistInHome()}
 
         dateRelatedProducts={this.props.product}
         renderRelatedProducts={({ item }) => (
@@ -147,7 +163,7 @@ class ProductShowContainer extends Component {
         dataCommentAndRating={this.state.data.reviews}
         renderCommentAndRating={({ item }) => (
           <CommentAndRating
-            user={item.user.first_name}
+            // user={item.user.first_name}
             reviews={item.comment}
             date={item.updated_at}
             rating={item.review_rate} />
@@ -166,8 +182,9 @@ class ProductShowContainer extends Component {
 const mapDispatchToProps = (dispatch) =>{
   return{
 
-    fetchProduct: (accessToken) => dispatch(fetchProduct(accessToken)),
+    fetchProduct: (id) => dispatch(fetchProduct(id)),
     addWishlist: (accessToken, id, idProduct) => dispatch(addWishlist(accessToken, id, idProduct)),
+    deleteWishlistInHome: (accessToken, id, idProduct) => dispatch(deleteWishlistInHome(accessToken, id, idProduct)),
     fetchwishlist:(accessToken, id) => dispatch(fetchwishlist(accessToken, id))
   }
 }

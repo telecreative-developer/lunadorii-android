@@ -10,7 +10,7 @@ import Categories from '../particles/Categories'
 import { connect } from 'react-redux'
 import { fetchCategoryProduct } from '../actions/categoryproduct'
 import { fetchBrandsProduct } from '../actions/brandsproduct'
-import { fetchProduct } from '../actions/product'
+import { fetchProduct, fetchProductWithoutId } from '../actions/product'
 import { fetchBanners } from '../actions/banners'
 import { fetchProductSubcategories } from '../actions/productsubcategories'
 import { addToCart } from '../actions/cart'
@@ -79,6 +79,7 @@ class HomeContainer extends Component {
     await this.props.fetchCategoryProduct()
     await this.props.fetchBrandsProduct()
     await this.props.fetchProduct(data.id)
+    // await this.props.fetchProductWithoutId()
     await this.props.fetchBanners()
     await this.props.fetchProductSubcategories()
 
@@ -192,6 +193,7 @@ const mapDispatchToProps = (dispatch) =>{
     fetchCategoryProduct: () => dispatch(fetchCategoryProduct()),
     fetchBrandsProduct: () => dispatch(fetchBrandsProduct()),
     fetchProduct: (id) => dispatch(fetchProduct(id)),
+    // fetchProductWithoutId: () =>dispatch(fetchProductWithoutId()),
     fetchBanners: () => dispatch(fetchBanners()),
     fetchProductSubcategories: () => dispatch(fetchProductSubcategories()),
     addToCart: (id, product_id, qty, accessToken) => dispatch(addToCart(id, product_id, qty, accessToken)),
@@ -208,6 +210,7 @@ const mapStateToProps = (state) => {
     brandsproduct: state.brandsproduct,
     product: state.product,
     banners: state.banners,
+    productwithoutid: state.productwithoutid,
     productsubcategories: state.productsubcategories
   }
 }
