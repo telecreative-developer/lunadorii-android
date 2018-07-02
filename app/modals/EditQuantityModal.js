@@ -30,17 +30,17 @@ const EditQuantityModal = (props) => (
       </View>
       <View style={styles.quantityAmountControl}>
         <View style={styles.flexEnd}>
-          <TouchableOpacity onPress={() => alert("Minus")}>
+          <TouchableOpacity onPress={props.addQty}>
             <View style={styles.minusButton}>
               <Text style={styles.buttonFontSize}>-</Text>
             </View>
           </TouchableOpacity>
         </View>
         <Item regular style={styles.amountTextInput}>
-          <Input value={String(props.quantity)} />
+          <Input value={String(props.quantity)} onChangeText={props.onChangeQuantity}/>
         </Item>
         <View style={styles.flexEnd}>
-          <TouchableOpacity onPress={() => alert("Pluss")}>
+          <TouchableOpacity onPress={props.minQty}>
             <View style={styles.plussButton}>
               <Text style={styles.buttonFontSize}>+</Text>
             </View>

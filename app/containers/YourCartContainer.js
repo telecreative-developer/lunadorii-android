@@ -13,7 +13,11 @@ class YourCartContainer extends Component {
     super()
     this.state = {
       modalVisibleEditQuantity: false,
-      product_id: 0
+      id: 0,
+      product_id: 0,
+      quantity: 0,
+      price: 0,
+      totalPrice: 0
     }
   }
 
@@ -24,8 +28,53 @@ class YourCartContainer extends Component {
     await this.props.fetchUserShipping(data.id, data.accessToken)
   }
 
-  toggleModalEditQuantity(){
+  closeModal(){
     this.setState({modalVisibleEditQuantity: !this.state.modalVisibleEditQuantity})
+  }
+
+  async toggleModalEditQuantity(item){
+    await this.closeModal()
+    if(this.state.modalVisibleEditQuantity){
+      const session = await AsyncStorage.getItem('session')
+      const data = await JSON.parse(session)
+      await this.setState({
+        id: data.id,
+        product_id: item.product_id,
+        quantity: item.qty,
+        price: item.price,
+        totalPrice: item.totalPrice
+      }) 
+    }else{
+      await this.setState({
+        id: 0,
+        product_id: 0,
+        quantity: 0,
+        price: 0,
+        totalPrice: 0
+      })
+    }
+  }
+
+  async addQty(){
+    await this.setState({
+      qty: this.state.quantity + 1
+    })
+    await this.setState({
+      totalPrice: this.state.price * this.state.quantity
+    })
+  }
+
+  async minQty(){
+    if(this.state.quantity <= 1){
+
+    }else {
+      await this.setState({
+        qty: this.state.quantity - 1
+      })
+      await this.setState({
+        totalPrice: this.state.price * this.state.quantity
+      })
+    }
   }
   
   async removeCart(item){
@@ -47,6 +96,13 @@ class YourCartContainer extends Component {
   render() {
     return (
       <YourCart 
+        quantity={this.state.quantity}
+        price={this.state.price}
+        totalPrice={this.state.totalPrice}
+
+        onChangeQuantity={(quantity) => this.setState({quantity})}
+        addQty={() => this.addQty()}
+        minQty={() => this.minQty()}
 
         onCartProduct={this.props.cartuser}
         renderOnCartProduct={({item}) => (
@@ -56,7 +112,7 @@ class YourCartContainer extends Component {
             quantity={item.qty} 
             price={this.formatPrice(item.price)} 
             image={item.thumbnails[0].thumbnail_url}
-            actionEdit={() => this.toggleModalEditQuantity()}
+            actionEdit={() => this.toggleModalEditQuantity(item)}
             actionRemove={() => this.removeCart(item)}
           />
         )}
@@ -78,7 +134,7 @@ class YourCartContainer extends Component {
         )}
 
         modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
-        toggleModalEditQuantity={() => this.toggleModalEditQuantity()}
+        toggleModalEditQuantity={() => this.toggleModalEditQuantity(this.props.cartuser)}
 
         navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
         goback={() => this.props.navigation.goBack()}/>

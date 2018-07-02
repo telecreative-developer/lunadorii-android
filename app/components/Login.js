@@ -11,10 +11,10 @@ const Login = (props) => (
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content" />
-    <InvalidCredentialModal
+    {/* <InvalidCredentialModal
       modalVisible={props.modalVisibleInvalidCredentialModal}
       toggleInvalidCredentialModal={props.toggleInvalidCredentialModal}
-    />
+    /> */}
     <Content style={styles.backgroundColorWhite}>
       <View style={styles.wrapper}>
         <View style={styles.logoImage}>

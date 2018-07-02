@@ -7,7 +7,7 @@ const InvalidCredentialModal = (props) => (
   <Modal
     animationType="slide"
     transparent={true}
-    visible={props.modalVisible}>
+    modalVisible={props.modalVisible}>
     <View style={{
         marginTop: 200,
         marginBottom: 100,

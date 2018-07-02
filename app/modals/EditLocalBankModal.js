@@ -37,11 +37,11 @@ const EditLocalBankModal = (props) => (
         </ScrollView>
         <Label style={styles.labels}>Name</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeName} />
+          <Input placeholder={props.name} placeholderTextColor="#CDCDCD" value={props.name} onChangeText={props.onChangeName} />
         </Item>
         <Label style={styles.labels}>Bill</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.bill} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeBill} />
+          <Input placeholder={props.bill} placeholderTextColor="#CDCDCD" value={props.bill} onChangeText={props.onChangeBill} />
         </Item>
       </Form>
     </Content>

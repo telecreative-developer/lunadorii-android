@@ -1,7 +1,10 @@
 import React, { Component } from 'react'
+import { AsyncStorage } from 'react-native'
 import LocalBank from '../components/LocalBank'
 import LocalBanks from '../particles/LocalBanks'
 
+import { connect } from 'react-redux'
+import { fetchUserBank } from '../actions/bank'
 
 dataLocalBank=[
   {bankName: "BCA", name: 'Nurdineeee', bill: '69696969696'},
@@ -9,7 +12,7 @@ dataLocalBank=[
   {bankName: "Mayapada", name: 'Nurdineeee', bill: '69696969696'}
 ]
 
-export default class LocalBankContainer extends Component{
+class LocalBankContainer extends Component{
 
   state={
     bankName: 'BCA',
@@ -19,18 +22,47 @@ export default class LocalBankContainer extends Component{
       'Mayapada',
       'Mandiri'
     ],
+
+    user_bank_id: 0,
+    bankName: '',
     name: '',
     bill: '',
     modalVisibleAddLocalBank: false,
     modalVisibleEditLocalBank: false,
   }
 
+  async componentDidMount(){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+
+    await this.props.fetchUserBank(data.id, data.accessToken)
+  }
+
   toggleModalAddLocalBank(){
     this.setState({ modalVisibleAddLocalBank: !this.state.modalVisibleAddLocalBank})
   }
 
-  toggleModalEditLocalBank(){
+  closeModal(){
     this.setState({ modalVisibleEditLocalBank: !this.state.modalVisibleEditLocalBank})
+  }
+
+  async toggleModalEditLocalBank(item){
+    await this.closeModal()
+    if(this.state.modalVisibleEditLocalBank){
+      await this.setState({
+        user_bank_id: item.user_bank_id,
+        bankName: item.bank.name,
+        name: item.account_name,
+        bill: item.account_number,
+      }) 
+    }else{
+      await this.setState({
+        user_bank_id: 0,
+        bankName: '',
+        name: '',
+        bill: '',
+      })
+    }
   }
 
   render(){
@@ -49,16 +81,18 @@ export default class LocalBankContainer extends Component{
         bankNames={this.state.banks}
         selectedBank={this.state.bankName}
 
+        user_bank_id={this.state.user_bank_id}
+        bankName={this.state.bankName}
         name={this.state.name}
         bill={this.state.bill}
 
-        dataLocalBank={dataLocalBank}
+        dataLocalBank={this.props.userbank}
         renderLocalBanks={({ item }) => (
           <LocalBanks
-            bankName={item.bankName}
-            name={item.name}
-            bill={item.bill}
-            action={() => this.toggleModalEditLocalBank()} />
+            bankName={item.bank.name}
+            name={item.account_name}
+            bill={item.account_number}
+            action={() => this.toggleModalEditLocalBank(item)} />
         )}
 
         handleSave={() => alert(JSON.stringify(this.state))}
@@ -68,3 +102,23 @@ export default class LocalBankContainer extends Component{
     )
   }
 }
+
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+
+    fetchUserBank: (id, accessToken) => dispatch(fetchUserBank(id, accessToken))
+    
+  }
+}
+
+const mapStateToProps = (state) => {
+  return{
+    loading: state.loading,
+    success: state.success,
+    failed: state.failed,
+    userbank: state.userbank
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(LocalBankContainer)

@@ -18,6 +18,11 @@ const YourCart = (props) => (
     <EditQuantityModal
       modalVisible={props.modalVisibleEditQuantity}
       actionIcon={props.toggleModalEditQuantity}
+      quantity={props.quantity}
+      price={props.price}
+      totalPrice={props.totalPrice}
+      addQty={props.addQty()}
+      minQty={props.minQty()}
     />
     <Content>
       <View style={styles.body}>

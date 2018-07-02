@@ -39,31 +39,70 @@ const ProductShow = (props) => (
           </View>
           <Text style={styles.fistGroupSubtitle}>{props.categories}</Text>
         </View>
-        <View style={styles.firstGroupWrapper2}>
-          {/* <TouchableOpacity onPress={props.AddWishlist}>
-            <View style={styles.firstGroupButtonShare}>
-              <Entypo name="heart-outlined" style={styles.firstGroupButtonIcon} />
-            </View>
-          </TouchableOpacity> */}
-          {props.wishlisted === true ? 
-              <View style={styles.firstGroupButtonShare}>
-                <Entypo name="heart" style={styles.firstGroupButtonIcon} />
-              </View> : 
-            <TouchableOpacity onPress={props.AddWishlist}>
-              {/* <View style={styles.firstGroupButtonShare}>
-                <Entypo name="heart-outlined" style={styles.firstGroupButtonIcon} />
-              </View> */}
-              {props.clickWishlist === true ?
-                <View style={styles.firstGroupButtonShare}>
-                  <Entypo name="heart" style={styles.firstGroupButtonIcon} />
-                </View>:
+        {console.log('props wishlisted:', props.wishlisted)}
+        {console.log('props click:', props.clickWishlist)}
+        {/* {props.wishlisted === true ? 
+          <View style={styles.firstGroupWrapper2}>
+            {props.clickWishlist === true ?
+              <TouchableOpacity onPress={props.deleteWishlist}>
                 <View style={styles.firstGroupButtonShare}>
                   <Entypo name="heart-outlined" style={styles.firstGroupButtonIcon} />
                 </View>
-              }
-            </TouchableOpacity>
-          }
-        </View>
+              </TouchableOpacity>:
+              <TouchableOpacity onPress={props.AddWishlist}>
+                <View style={styles.firstGroupButtonShare}>
+                  <Entypo name="heart" style={styles.firstGroupButtonIcon} />
+                </View>
+              </TouchableOpacity>
+            }
+          </View>:
+          <View style={styles.firstGroupWrapper2}>
+            {props.clickWishlist === true ?
+              <TouchableOpacity onPress={props.deleteWishlist}>
+                <View style={styles.firstGroupButtonShare}>
+                  <Entypo name="heart-outlined" style={styles.firstGroupButtonIcon} />
+                </View>
+              </TouchableOpacity>:
+              <TouchableOpacity onPress={props.AddWishlist}>
+                <View style={styles.firstGroupButtonShare}>
+                  <Entypo name="heart" style={styles.firstGroupButtonIcon} />
+                </View>
+              </TouchableOpacity>
+            }
+          </View>
+          } */}
+          <View style={styles.firstGroupWrapper2}>
+            {props.wishlisted === true ?
+              <View>
+                {props.clickWishlist === true ?
+                  <TouchableOpacity onPress={props.AddWishlist}>
+                    <View style={styles.firstGroupButtonShare}>
+                      <Entypo name="heart-outlined" style={styles.firstGroupButtonIcon} />
+                    </View>
+                  </TouchableOpacity>:
+                  <TouchableOpacity onPress={props.deleteWishlistInHome}>
+                    <View style={styles.firstGroupButtonShare}>
+                      <Entypo name="heart" style={styles.firstGroupButtonIcon} />
+                    </View>
+                  </TouchableOpacity>
+                }
+              </View>:
+              <View>
+                {props.clickWishlist === true ?
+                  <TouchableOpacity onPress={props.deleteWishlistInHome}>
+                    <View style={styles.firstGroupButtonShare}>
+                      <Entypo name="heart" style={styles.firstGroupButtonIcon} />
+                    </View>
+                  </TouchableOpacity>:
+                  <TouchableOpacity onPress={props.AddWishlist}>
+                    <View style={styles.firstGroupButtonShare}>
+                      <Entypo name="heart-outlined" style={styles.firstGroupButtonIcon} />
+                    </View>
+                  </TouchableOpacity>
+                }
+              </View>
+            }
+          </View>
       </View>
       <View style={styles.secondGroup}>
         <View style={{flexDirection: 'row', justifyContent: 'center'}}>
