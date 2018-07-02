@@ -24,7 +24,7 @@ const EditQuantityModal = (props) => (
             <Text style={styles.txtDetail}>Quantity: <Text style={styles.txtpcs}>{props.quantity} pcs</Text></Text>
           </View>
           <View style={styles.wrapRight}>
-            <Text style={styles.txtHeader}>Rp {props.price * props.quantity}</Text>
+            <Text style={styles.txtHeader}>Rp {props.price}</Text>
           </View>
         </View>
       </View>

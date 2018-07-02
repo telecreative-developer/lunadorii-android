@@ -40,7 +40,7 @@ const Search = (props) => (
         </TouchableOpacity>
       </View>
       <View style={{ paddingLeft: 5, paddingTop: 15 }}>
-        {
+        {/* {
           props.dateRelatedProducts.length != 0  ?
             props.searchTitle.length == 0 ?
               <View />
@@ -58,7 +58,7 @@ const Search = (props) => (
               </View>
             :
             <ResultNotFound amount={props.amount} searchTitle={props.searchTitle} />
-        }
+        } */}
       </View>
     </Content>
   </Container>

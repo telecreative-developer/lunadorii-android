@@ -13,7 +13,9 @@ const Product = (props) => (
         </TouchableOpacity>
       </ImageBackground>
       <View style={styles.viewContent}>
-        <Text style={styles.txtTitle}>{props.title}</Text>
+        <View>
+          <Text style={styles.txtTitle}>{props.title}</Text>
+        </View>
         <Text style={styles.txtCategories}>{props.categories}</Text>
         <View style={{flexDirection: 'row', paddingTop: 5}}>
           <StarRating
@@ -24,7 +26,7 @@ const Product = (props) => (
           />
         </View>
         <View style={{ marginTop: 10 }}>
-          <Text style={styles.txtPrice}>Rp. {props.price}</Text>
+          <Text style={styles.txtPrice}>Rp. {props.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
         </View>
       </View>
     </TouchableOpacity>
