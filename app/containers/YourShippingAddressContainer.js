@@ -14,6 +14,7 @@ class YourShippingAddressContainer extends Component{
     this.state = {
       modalVisibleEditAddress: false,
       modalVisibleAddAddress: false,
+      modalVisibleSetProvince: false,
       address_id: 0,
       name: '',
       phone: '',
@@ -23,6 +24,10 @@ class YourShippingAddressContainer extends Component{
       district: '',
       address_default: false
     }
+  }
+
+  toggleModalSetProvince(){
+    this.setState({modalVisibleSetProvince: !this.state.modalVisibleSetProvince})
   }
 
   closeModal(){
@@ -110,6 +115,9 @@ class YourShippingAddressContainer extends Component{
     return(
       <YourShippingAddress
         goback={() => this.props.navigation.goBack()}
+
+        modalVisibleSetProvince={this.state.modalVisibleSetProvince}
+        toggleModalSetProvince={() => this.toggleModalSetProvince()}
 
         modalVisibleEditAddress={this.state.modalVisibleEditAddress}
         toggleModalEditAddress={() => this.toggleModalEditAddress()}

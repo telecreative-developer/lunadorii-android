@@ -7,7 +7,7 @@ const dataRecentOrders = [
   {
     categories : "Beauty Box, Cream Sunblock, and 3 others",
     status : "Packaging",
-    total : "430,000",
+    total : 430000,
     date : "28 mei 2018",
     time : "16:00 PM",
     image : "https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg"
@@ -15,7 +15,7 @@ const dataRecentOrders = [
   {
     categories : "Beauty Box, Cream Sunblock, and 3 others",
     status : "Packaging",
-    total : "430,000",
+    total : 446000,
     date : "28 mei 2018",
     time : "16:00 PM",
     image : "https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg"
@@ -23,7 +23,7 @@ const dataRecentOrders = [
   {
     categories : "Beauty Box, Cream Sunblock, and 3 others",
     status : "Packaging",
-    total : "430,000",
+    total : 26000,
     date : "28 mei 2018",
     time : "16:00 PM",
     image : "https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg"
@@ -31,7 +31,7 @@ const dataRecentOrders = [
   {
     categories : "Beauty Box, Cream Sunblock, and 3 others",
     status : "Packaging",
-    total : "430,000",
+    total : 454000,
     date : "28 mei 2018",
     time : "16:00 PM",
     image : "https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg"
@@ -39,7 +39,7 @@ const dataRecentOrders = [
   {
     categories : "Beauty Box, Cream Sunblock, and 3 others",
     status : "Packaging",
-    total : "430,000",
+    total : 42000,
     date : "28 mei 2018",
     time : "16:00 PM",
     image : "https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg"
@@ -50,7 +50,7 @@ const dataHistoryOrders = [
   {
     categories : "Beauty Box, Cream Sunblock, and 3 others",
     status : "Packaging",
-    total : "430,000",
+    total : 234000,
     date : "28 mei 2018",
     time : "16:00 PM",
     image : "https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg"
@@ -58,7 +58,7 @@ const dataHistoryOrders = [
   {
     categories : "Beauty Box, Cream Sunblock, and 3 others",
     status : "Packaging",
-    total : "430,000",
+    total : 544000,
     date : "28 mei 2018",
     time : "16:00 PM",
     image : "https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg"
@@ -66,7 +66,7 @@ const dataHistoryOrders = [
   {
     categories : "Beauty Box, Cream Sunblock, and 3 others",
     status : "Packaging",
-    total : "430,000",
+    total : 664000,
     date : "28 mei 2018",
     time : "16:00 PM",
     image : "https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg"
@@ -88,7 +88,7 @@ export default class PurchaseHistoryContainer extends Component{
           <RecentOrders 
             categories={item.categories}
             status={item.status}
-            total={item.total}
+            total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             date={item.date}
             time={item.time}
             image={item.image}/>
@@ -98,7 +98,7 @@ export default class PurchaseHistoryContainer extends Component{
           <HistoryOrders
             categories={item.categories}
             status={item.status}
-            total={item.total}
+            total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             date={item.date}
             time={item.time}
             image={item.image}/>
