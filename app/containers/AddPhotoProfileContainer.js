@@ -42,26 +42,26 @@ class AddPhotoProfileContainer extends Component{
       }else if(responses.error){
         alert("An error occured")
       }else{
-        const file = {
-          uri: responses.uri,
-          name: responses.fileName,
-          type: 'image/png'
-        }
-        console.log('files: ', file)
+        // const file = {
+        //   uri: responses.uri,
+        //   name: responses.fileName,
+        //   type: 'image/png'
+        // }
+        // console.log('files: ', file)
 
-        const config =  {
-          keyPrefix: '/',
-          bucket: 'lunadorii',
-          region: 'us-east-1',
-          accessKey: 'AKIAIDZ3JEHIHGIIFKDA',
-          secretKey: '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',
-          successActionStatus: 201
-        }
+        // const config =  {
+        //   keyPrefix: '/',
+        //   bucket: 'lunadorii',
+        //   region: 'us-east-1',
+        //   accessKey: 'AKIAIDZ3JEHIHGIIFKDA',
+        //   secretKey: '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',
+        //   successActionStatus: 201
+        // }
 
-        RNS3.put(file, config)
-        .then(response => {
-          console.log('response: ', response)
-        })
+        // RNS3.put(file, config)
+        // .then(response => {
+        //   console.log('response: ', response)
+        // })
         this.setState({
           avatar_url: responses.uri
         })
