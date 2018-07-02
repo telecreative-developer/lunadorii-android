@@ -51,6 +51,32 @@ export const addWishlist = (accessToken, id, idProduct) => {
 	}
 }
 
+export const deleteWishlistInHome = (accessToken, id, idProduct) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_DELETE_WISHLIST'))
+		try {
+			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/wishlist/`, {
+				method: 'DELETE',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+					Authorization: accessToken
+				},
+				body:JSON.stringify({
+					id:id,
+					product_id: idProduct
+				})
+			})
+			const data = await response.json()
+			await dispatch(setSuccess(true, 'SUCCESS_DELETE_WISHLIST'))
+      		await dispatch(setLoading(false, 'LOADING_DELETE_WISHLIST'))
+		} catch (e) {
+			dispatch(setFailed(true, 'FAILED_DELETE_WISHLIST', e))
+			dispatch(setLoading(false, 'LOADING_DELETE_WISHLIST'))
+		}
+	}
+}
+
 const receiveWishlist = data => {
 	return{
 		type: RECEIVE_WISHLIST,

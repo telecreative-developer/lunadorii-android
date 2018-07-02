@@ -1,8 +1,8 @@
 import { reactotronRedux } from 'reactotron-redux'
 import Reactotron from 'reactotron-react-native'
 
-// Reactotron.configure({ name: 'lunadorii' , host:'192.168.1.124', port:9090})
-Reactotron.configure({ name: 'lunadorii' })
+Reactotron.configure({ name: 'lunadorii' , host:'192.168.1.124', port:9090})
+// Reactotron.configure({ name: 'lunadorii' })
   .useReactNative()
   .use(reactotronRedux())
   .connect()

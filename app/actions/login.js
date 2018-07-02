@@ -28,8 +28,8 @@ export const login = (email, password) => {
 			}
 		} catch (e) {
 			 // console.log('error: ', e)
+			 dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 			dispatch(setFailed(true, 'FAILED_PROCESS_LOGIN', e))
-			dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 		}
 	}
 }
