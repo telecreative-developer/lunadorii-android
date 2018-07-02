@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, Dimensions } from 'react-native'
-import { Container, Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
+import { Modal, View, Text, StyleSheet, Dimensions, ScrollView, Picker } from 'react-native'
+import { Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 const { height, width } = Dimensions.get('window')
-import SetProvinceModal from '../modals/SetProvinceModal'
+import SmartPicker from 'react-native-smart-picker'
 
 const EditLocalBankModal = (props) => (
   <Modal
@@ -12,16 +12,29 @@ const EditLocalBankModal = (props) => (
     visible={props.modalVisible}
     onRequestClose={props.actionIcon}>
     <NavbarModal
-      navbarTitle="Edit Local Bank"
+      navbarTitle="Add Local Bank"
       navbarIcon="close"
       actionIcon={props.actionIcon} 
     />
     <Content style={styles.container}>
       <Form style={styles.form}>
         <Label style={styles.labels}>Bank Name</Label>
-        <Item regular style={styles.items}>
-          <Input placeholder={props.bankName} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeBankName} />
-        </Item>
+        <ScrollView>
+          <ScrollView>
+            <View style={{flex: 1}}>
+              <ScrollView style={styles.container}>
+                <SmartPicker
+                  selectedValue={props.selectedBank}
+                  onValueChange={props.onChangeBankName}>
+                  <Picker.Item label='BRI' value='BRI' />
+                  <Picker.Item label='BCA' value='BCA' />
+                  <Picker.Item label='Mayapada' value='MAYAPADA' />
+                  <Picker.Item label='Mandiri' value='MANDIRI' />
+                </SmartPicker>
+              </ScrollView>
+            </View>
+          </ScrollView>
+        </ScrollView>
         <Label style={styles.labels}>Name</Label>
         <Item regular style={styles.items}>
           <Input placeholder={props.name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeName} />

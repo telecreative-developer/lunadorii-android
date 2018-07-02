@@ -12,7 +12,13 @@ dataLocalBank=[
 export default class LocalBankContainer extends Component{
 
   state={
-    bankName: '',
+    bankName: 'BCA',
+    banks: [
+      'BCA',
+      'BRI',
+      'Mayapada',
+      'Mandiri'
+    ],
     name: '',
     bill: '',
     modalVisibleAddLocalBank: false,
@@ -40,7 +46,9 @@ export default class LocalBankContainer extends Component{
         onChangeName={(name)=>this.setState({name})}
         onChangeBill={(bill)=>this.setState({bill})}
 
-        bankName={this.state.bankName}
+        bankNames={this.state.banks}
+        selectedBank={this.state.bankName}
+
         name={this.state.name}
         bill={this.state.bill}
 
