@@ -128,7 +128,7 @@ class HomeContainer extends Component {
         renderProduct={({ item }) => (
           <Product 
             image={item.thumbnails[0].thumbnail_url} 
-            title={item.title <= 17 ? this.capitalize(item.title) : this.capitalize(item.product).slice(0,17)+'...'} 
+            title={item.title <= 17 ? this.capitalize(item.title) : this.capitalize(item.product).slice(0,15)+'...'} 
             categories={item.subcategories[0].subcategory} 
             price={this.formatPrice(item.price)} 
             star={item.product_rate} 
