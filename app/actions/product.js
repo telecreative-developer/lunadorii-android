@@ -1,5 +1,5 @@
 import { setLoading, setFailed, setSuccess } from './processor'
-import { RECEIVE_PRODUCT, RECEIVE_SEARCH_PRODUCT } from '../constants'
+import { RECEIVE_PRODUCT, RECEIVE_SEARCH_PRODUCT, RECEIVE_PRODUCT_WITHOUT_ID } from '../constants'
 import { API_SERVER_PRODUCT, API_SERVER_SEARCH } from '../env'
 
 export const fetchProduct = (id) => {
@@ -46,6 +46,13 @@ export const fetchProductWithoutId = () => {
 	}
 }
 
+const receiveProductWithoutID = data => {
+	return{
+		type: RECEIVE_PRODUCT_WITHOUT_ID,
+		payload: data
+	}
+}
+
 const receiveProduct = data => {
 	return{
 		type: RECEIVE_PRODUCT,
@@ -65,7 +72,7 @@ export const fetchSearchProduct = (search) => {
 				}
 			})
 			const data = await response.json()
-			console.log("hasil search action", data.data)
+			// console.log("hasil search action", data.data)
 			await dispatch(receiveSearchProduct(data.data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_SEARCH_PRODUCT'))
       		await dispatch(setLoading(false, 'LOADING_FETCH_SEARCH_PRODUCT'))

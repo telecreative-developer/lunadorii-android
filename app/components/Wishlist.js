@@ -34,8 +34,8 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   viewArrivals: {
-    paddingLeft: 20,
-    paddingTop: 20
+    paddingLeft: 10,
+    paddingTop: 10
   },
   yourWhisListTextTitle: {
     fontWeight: 'bold',

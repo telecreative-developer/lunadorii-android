@@ -5,7 +5,7 @@ import { API_SERVER_USER, API_SERVER_AUTH } from '../env'
 
 export const login = (email, password) => {
 	return async dispatch => {
-		console.log('email: ', email, 'password: ', password)
+		// console.log('email: ', email, 'password: ', password)
 		await dispatch(setLoading(true, 'LOADING_PROCESS_LOGIN'))
 		try {
 			const response = await fetch(`${API_SERVER_AUTH}/api/v1/auth/user`, {
@@ -17,7 +17,7 @@ export const login = (email, password) => {
 				body: JSON.stringify({email, password})
 			})
 			const data = await response.json()
-			console.log("data action:" , data)
+			// console.log("data action:" , data)
 			if (data.status === 400 && data.name === 'error') {
 				await dispatch(setFailed(true, 'FAILED_PROCESS_LOGIN', data.message))
 				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
@@ -27,9 +27,9 @@ export const login = (email, password) => {
 				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 			}
 		} catch (e) {
-			 console.log('error: ', e)
+			 // console.log('error: ', e)
+			 dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 			dispatch(setFailed(true, 'FAILED_PROCESS_LOGIN', e))
-			dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 		}
 	}
 }

@@ -3,6 +3,7 @@ import { Modal, View, Text, StyleSheet, Dimensions } from 'react-native'
 import { Container, Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 const { height, width } = Dimensions.get('window')
+import SetProvinceModal from '../modals/SetProvinceModal'
 
 const AddAddressModal = (props) => (
   <Modal
@@ -13,7 +14,12 @@ const AddAddressModal = (props) => (
     <NavbarModal
       navbarTitle="Add Address"
       navbarIcon="close"
-      actionIcon={props.actionIcon} />
+      actionIcon={props.actionIcon} 
+    />
+    <SetProvinceModal
+      modalVisible={props.modalVisibleSetProvince}
+      toggleModalSetProvince={props.toggleModalSetProvince}
+    />
     <Content style={styles.container}>
       <Form style={styles.form}>
         <Label style={styles.labels}>Name</Label>
@@ -26,7 +32,7 @@ const AddAddressModal = (props) => (
         </Item>
         <Label style={styles.labels}>Provinsi</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.province} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeProvince} />
+          <Text style={{color: '#ccc', padding: 5}} onPress={props.toggleModalSetProvince}>Select Province</Text>
         </Item>
         <Label style={styles.labels}>Kota/Kabupaten</Label>
         <Item regular style={styles.items}>
@@ -46,7 +52,7 @@ const AddAddressModal = (props) => (
         </Item>
       </Form>
     </Content>
-    <Button full style={styles.buttonSaveStyle} onPress={props.handleSaveShippingAddress}>
+    <Button full style={styles.buttonSaveStyle} onPress={props.toggleModalSetProvince}>
       <Text style={styles.buttonSaveTextStyle}>Save</Text>
     </Button>
   </Modal>

@@ -18,24 +18,25 @@ class SplashScreenContainer extends Component {
     }, 1000)
   }
 
-  // navigateToUploadImage(data){
-  //   setTimeout(() => {
-  //     this.props.navigation.navigate("UploadImageContainer", {user: data});
-  //   }, 1000)
-  // }
+  navigateToUploadImage(data){
+    setTimeout(() => {
+      this.props.navigation.navigate('AddPhotoProfileContainer', {user: data, id: data.registerresult.id});
+    }, 1000)
+  }
 
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    console.log(data)
+    
     if(data !== null){
       try{
         await this.props.login(data.email, data.password)
-        // if(data.avatar_url == null || data.avatar_url == '' || data.avatar_url == 'undefined' ){
-        //   this.navigateToUploadImage(data)
-        // }else{
-        //   this.navigateToHome()
-        // }
+        if(data.avatar_url == null || data.avatar_url == '' || data.avatar_url == 'undefined' ){
+          await this.navigateToUploadImage(data)
+        }else{
+          console.log('splash screen: ', data)
+          await this.navigateToHome()
+        }
         this.navigateToHome()
       }catch(e){
         alert(e)

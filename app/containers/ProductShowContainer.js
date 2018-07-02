@@ -21,6 +21,7 @@ class ProductShowContainer extends Component {
       dataSession:{},
       subcategories: '',
       qty: 1, 
+      price: 0,
       totalPrice: 0,
       idUser:0,
       idProduct:0,
@@ -50,6 +51,7 @@ class ProductShowContainer extends Component {
       images: data.thumbnails.map(data => ({url: data.thumbnail_url})),
       subcategories: data.subcategories[0].subcategory,
       totalPrice: data.price,
+      price: data.price,
       amountOfImage: data.thumbnails.length,
       starCount: data.product_rate,
       wishlisted: data.wishlisted
@@ -62,7 +64,7 @@ class ProductShowContainer extends Component {
       qty: this.state.qty + 1
     })
     await this.setState({
-      totalPrice: this.state.totalPrice * this.state.qty
+      totalPrice: this.state.price * this.state.qty
     })
   }
 
@@ -74,7 +76,7 @@ class ProductShowContainer extends Component {
         qty: this.state.qty - 1
       })
       await this.setState({
-        totalPrice: this.state.totalPrice * this.state.qty
+        totalPrice: this.state.price * this.state.qty
       })
     }
   }
@@ -117,11 +119,10 @@ class ProductShowContainer extends Component {
   }
 
   render() {
-    {console.log(this.state.clickWishlist)}
     return (
       <ProductShow
         image={this.state.image}
-        title={this.capitalize(this.state.title).slice(0,20 ) + '...'}
+        title={this.capitalize(this.state.title)}
         categories={this.state.subcategories}
         price={this.state.data.price}
         star={this.state.starCount}
@@ -129,7 +130,7 @@ class ProductShowContainer extends Component {
         productDetails={this.state.data.detail}
         guide={this.state.data.to_use}
         qty={this.state.qty}
-        totalPrice={this.state.totalPrice}
+        totalPrice={this.state.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         amountOfImage={this.state.amountOfImage}
         wishlisted={this.state.wishlisted}
         clickWishlist={this.state.clickWishlist}

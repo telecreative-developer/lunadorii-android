@@ -65,13 +65,15 @@ const Profile = (props) => (
       </View>
       <View style={styles.viewRecent}>
         <Text style={styles.txtRecent}>Recent Orders</Text>
-        <FlatList
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          data={props.dataRecentOrders}
-          renderItem={props.renderRecentOrders}
-          keyExtractor={(item, index) => JSON.stringify(index)}
-        />
+        <View>
+          <FlatList
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            data={props.dataRecentOrders}
+            renderItem={props.renderRecentOrders}
+            keyExtractor={(item, index) => JSON.stringify(index)}
+          />
+        </View>
       </View>
       <View>
         <Text style={styles.txtMenuTitle}>Menu</Text>

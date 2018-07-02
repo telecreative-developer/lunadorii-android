@@ -4,6 +4,7 @@ import AddPhotoProfile from '../components/AddPhotoProfile'
 
 import { connect } from 'react-redux'
 import { saveUpdateImage } from '../actions/addimage'
+import { RNS3 } from 'react-native-aws3'
 
 class AddPhotoProfileContainer extends Component{
   
@@ -24,10 +25,11 @@ class AddPhotoProfileContainer extends Component{
       email: user.email,
       password: user.password
     })
-    console.log('state id from register: ', id)
+    // console.log('state id from register: ', id)
   }
 
   async handleOpenCamera(){
+    
     const options = await {
       storageOptions:{
         cameraRoll: true,
@@ -40,6 +42,26 @@ class AddPhotoProfileContainer extends Component{
       }else if(responses.error){
         alert("An error occured")
       }else{
+        const file = {
+          uri: responses.uri,
+          name: responses.fileName,
+          type: 'image/png'
+        }
+        console.log('files: ', file)
+
+        const config =  {
+          keyPrefix: '/',
+          bucket: 'lunadorii',
+          region: 'us-east-1',
+          accessKey: 'AKIAIDZ3JEHIHGIIFKDA',
+          secretKey: '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',
+          successActionStatus: 201
+        }
+
+        RNS3.put(file, config)
+        .then(response => {
+          console.log('response: ', response)
+        })
         this.setState({
           avatar_url: responses.uri
         })
@@ -49,6 +71,7 @@ class AddPhotoProfileContainer extends Component{
 
   async handleActionUpload(){
     await this.props.saveUpdateImage(this.state.id, this.state.email, this.state.password, this.state)
+    console.log('this.state.avatar_url containerx: ', this.state)
     await this.props.navigation.navigate('HomeContainer')
   }
 

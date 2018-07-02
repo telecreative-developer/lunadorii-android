@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, FlatList, ImageBackground, TouchableOpacity, StatusBar, Dimensions} from 'react-native'
-import { Container, Content, Text, View, Button, Icon, Item, Input } from 'native-base'
+import { Container, Content, Text, View, Item, Input } from 'native-base'
+import HeaderImageScrollView, { TriggeringView } from 'react-native-image-header-scroll-view';
 import StarRating from 'react-native-star-rating';
 import NavbarTransparent from '../particles/NavbarTransparent'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -18,11 +19,11 @@ const ProductShow = (props) => (
             navbarTitle=""
             navbarIcon="arrow-back"
             actionIcon={props.goback} />
-          <TouchableOpacity style={styles.touchableOpacity}>
-            <StatusBar
-              backgroundColor="#f65857"
-              barStyle="light-content"
-            />
+          <StatusBar
+            backgroundColor="#f65857"
+            barStyle="light-content"
+          />
+          <TouchableOpacity style={styles.touchableOpacity} onPress={props.toggleImageViewModal}>
             <Text style={styles.textPhotos}><FontAwesome name="photo" style={styles.touchableOpacityButtonIcon} /> +{props.amountOfImage} Photos</Text>
           </TouchableOpacity>
         </ImageBackground>
@@ -33,7 +34,9 @@ const ProductShow = (props) => (
         images={props.images}/>
       <View style={styles.firstGroup}>
         <View style={styles.firstGroupWrapper}>
-          <Text style={styles.firstGroupTitle}>{props.title}</Text>
+          <View style={{width: 255}}>
+            <Text style={styles.firstGroupTitle}>{props.title}</Text>
+          </View>
           <Text style={styles.fistGroupSubtitle}>{props.categories}</Text>
         </View>
         {console.log('props wishlisted:', props.wishlisted)}
@@ -109,7 +112,6 @@ const ProductShow = (props) => (
               maxStars={5}
               rating={props.star}
               starSize={14}
-              // selectedStar={props.onStarRatingPress}
             />
           </View>
           <Text style={styles.reviewsLabel}>{props.star} reviews</Text>
@@ -214,7 +216,7 @@ const ProductShow = (props) => (
           </View>
           <View style={styles.leftWrapper}>
             <View style={styles.flexDirectionCol}>
-              <Text style={styles.footerTotalPriceText}>Rp {props.totalPrice}</Text>
+              <Text style={styles.footerTotalPriceText}>Rp. {props.totalPrice}</Text>
               <TouchableOpacity onPress={props.addToCart}>
                 <View style={styles.footerButtonStyling}>
                   <MaterialCommunityIcons name="cart" size={16} />

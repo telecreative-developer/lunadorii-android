@@ -18,11 +18,16 @@ class LoginContainer extends Component {
       email: '',
       password: '',
       passwordFieldVisibility: true,
+      modalVisibleInvalidCredentialModal: false
     }
   }
 
   togglePasswordFieldVisibility(){
     this.setState({passwordFieldVisibility: !this.state.passwordFieldVisibility})
+  }
+
+  toggleInvalidCredentialModal(){
+    this.setState({modalVisibleInvalidCredentialModal: !this.state.modalVisibleInvalidCredentialModal})
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -40,10 +45,13 @@ class LoginContainer extends Component {
   componentWillUpdate(nextProps) {
     const { loading, success, failed, navigation } = nextProps
     if (
-      failed.condition === false &&
+      loading.condition === false &&
+      loading.process_on === 'LOADING_PROCESS_LOGIN' &&
+      failed.condition === true &&
       failed.process_on === 'FAILED_PROCESS_LOGIN'
     ) {
       Alert.alert('Login gagal', 'Silahkan Cek Kembali Akun Anda!')
+      // this.setState({modalVisibleInvalidCredentialModal:true})
     } else if (
       loading.condition === false &&
       loading.process_on === 'LOADING_FETCH_USER_WITH_ID' &&
@@ -72,7 +80,11 @@ class LoginContainer extends Component {
 
   handleValidationLogin() {
     const { email, password } = this.state
-      this.props.login(email, password)
+    if (!isEmail(email)) {
+			Alert.alert('Login Failed', 'Silahkan masukan alamat email yang valid')
+		} else {
+			this.props.login(email, password)
+		}
   }
 
   renderButtons() {
@@ -104,8 +116,12 @@ class LoginContainer extends Component {
 
   render() {
     const { navigate } = this.props.navigation
+    console.log('ini data:' , this.state.modalVisibleInvalidCredentialModal)
     return (
       <Login 
+        modalVisibleInvalidCredentialModal={this.state.modalVisibleInvalidCredentialModal}
+        toggleInvalidCredentialModal={() => this.toggleInvalidCredentialModal()}
+
         navigateToRegister={() => this.props.navigation.navigate("RegisterContainer")}
         navigateToLoginTroubleshooting={() => this.props.navigation.navigate("LoginTroubleshootingContainer")}
         valueEmail={this.state.email}

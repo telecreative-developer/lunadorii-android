@@ -32,6 +32,9 @@ const YourShippingAddress = (props) => (
       onChangeCity={props.onChangeCity}
       onChangeDistrict={props.onChangeDistrict}
 
+      modalVisibleSetProvince={props.modalVisibleSetProvince}
+      toggleModalSetProvince={props.toggleModalSetProvince}
+
       updateShipping={props.handlerUpdateShipping}
     />
     <AddAddressModal
@@ -39,6 +42,10 @@ const YourShippingAddress = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleAddAddress}
       actionIcon={props.toggleModalAddAddress} 
+      
+      modalVisibleSetProvince={props.modalVisibleSetProvince}
+      toggleModalSetProvince={props.toggleModalSetProvince}
+
       handleSaveShippingAddress={props.handleSaveShippingAddress}/>
     <StatusBar
       backgroundColor="#f65857"
