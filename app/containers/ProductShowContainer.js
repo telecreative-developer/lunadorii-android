@@ -106,7 +106,7 @@ class ProductShowContainer extends Component {
     return (
       <ProductShow
         image={this.state.image}
-        title={this.capitalize(this.state.title).slice(0,20 ) + '...'}
+        title={this.capitalize(this.state.title)}
         categories={this.state.subcategories}
         price={this.state.data.price}
         star={this.state.starCount}
@@ -114,7 +114,7 @@ class ProductShowContainer extends Component {
         productDetails={this.state.data.detail}
         guide={this.state.data.to_use}
         qty={this.state.qty}
-        totalPrice={this.state.totalPrice}
+        totalPrice={this.state.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
         amountOfImage={this.state.amountOfImage}
         wishlisted={this.state.wishlisted}
         clickWishlist={this.state.clickWishlist}

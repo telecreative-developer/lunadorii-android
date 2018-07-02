@@ -17,10 +17,12 @@ const YourCart = (props) => (
     <Content>
       <View style={styles.body}>
         <Text style={styles.title}>Products</Text>
-        <FlatList
-          data={props.onCartProduct}
-          renderItem={props.renderOnCartProduct}
-        />
+        <View>
+          <FlatList
+            data={props.onCartProduct}
+            renderItem={props.renderOnCartProduct}
+          />
+        </View>
         <Button style={styles.btnAdd} onPress={props.navigateToHome}>
           <Icon name="add"/><Text style={styles.txtAdd}>Add More Product</Text>
         </Button>
@@ -72,7 +74,7 @@ const styles = StyleSheet.create({
     marginBottom:5
   },
   body:{
-    marginHorizontal:20,
+    marginHorizontal:10,
     marginTop:10,
   },
   border:{

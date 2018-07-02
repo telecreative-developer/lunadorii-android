@@ -14,7 +14,7 @@ const dataRecentOrders = [
     status: 'Packing',
     date: '20 Mei',
     time: '12:00 AM',
-    total: '250.000'
+    total: 650000
   },
   {
     image: 'https://i5.walmartimages.ca/images/Large/1c0/_en/999999-00770103148748_a1c0_en.jpg?odnBound=460',
@@ -22,7 +22,7 @@ const dataRecentOrders = [
     status: 'Non - Packing',
     date: '20 Mei',
     time: '12:00 AM',
-    total: '250.000'
+    total: 450000
   },
   {
     image: 'https://image.afcdn.com/expertclub/20150420/279261_w300h300.jpg',
@@ -30,7 +30,7 @@ const dataRecentOrders = [
     status: 'Packing',
     date: '20 Mei',
     time: '12:00 AM',
-    total: '250.000'
+    total: 750000
   },
 ]
 
@@ -93,7 +93,7 @@ class ProfileContainer extends Component {
             image={item.image}
             categories={item.categories}
             status={item.status}
-            total={item.total}
+            total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             date={item.date}
             time={item.time} />
         )}

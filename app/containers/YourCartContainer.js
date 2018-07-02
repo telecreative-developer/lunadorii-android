@@ -22,7 +22,13 @@ class YourCartContainer extends Component {
 
         onCartProduct={this.props.cartuser}
         renderOnCartProduct={({item}) => (
-          <OnCart title={item.product} categories={item.subcategories[0].subcategory} quantity={item.qty} price={item.price} image={item.thumbnails[0].thumbnail_url}/>
+          <OnCart 
+            title={item.product.length == 20 ? item.product : item.product.slice(0,18) + "..."}
+            categories={item.subcategories[0].subcategory}
+            quantity={item.qty} 
+            price={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 
+            image={item.thumbnails[0].thumbnail_url}
+          />
         )}
 
         onCartShippingAddress={this.props.usershipping}
