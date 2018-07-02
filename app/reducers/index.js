@@ -14,6 +14,7 @@ import { userreview } from "./userreview"
 import { cartuser } from "./cart"
 import { usershipping } from "./usershipping"
 import { registerresult } from "./registerresult"
+import { userbank } from "./bank"
 
 const rootReducers = combineReducers({
   loading,
@@ -33,7 +34,8 @@ const rootReducers = combineReducers({
   userreview,
   cartuser,
   usershipping,
-  registerresult
+  registerresult,
+  userbank
 //   sessionPersistance
 });
 
