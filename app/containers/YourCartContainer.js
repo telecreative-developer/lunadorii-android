@@ -9,11 +9,19 @@ import { fetchUserShipping } from '../actions/usershipping'
 
 class YourCartContainer extends Component {
 
+  state={
+    modalVisibleEditQuantity: false
+  }
+
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchCartUser(data.id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
+  }
+
+  toggleModalEditQuantity(){
+    this.setState({modalVisibleEditQuantity: !this.state.modalVisibleEditQuantity})
   }
 
   render() {
@@ -28,6 +36,8 @@ class YourCartContainer extends Component {
             quantity={item.qty} 
             price={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 
             image={item.thumbnails[0].thumbnail_url}
+            actionEdit={() => this.toggleModalEditQuantity()}
+            actionRemove={() => alert(item.product)}
           />
         )}
 
@@ -41,10 +51,14 @@ class YourCartContainer extends Component {
             address_default={item.address_default}
             actionEdit={() => this.toggleModalEditAddress(item)}
             actionSetdefault={() => this.onChangeDefault(item)}
-            actionDelete={() => this.deteleShipping(item)}/>
+            actionDelete={() => this.deteleShipping(item)}
+          />
         ) : (
           <View/>
         )}
+
+        modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
+        toggleModalEditQuantity={() => this.toggleModalEditQuantity()}
 
         navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
         goback={() => this.props.navigation.goBack()}/>
