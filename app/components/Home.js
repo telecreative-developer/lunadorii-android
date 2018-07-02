@@ -37,11 +37,11 @@ const Home = (props) => (
             autoplay
             bullets
             bulletStyle={styles.carouselBulletStyle}
-            // onAnimateNextPage={(p) => console.log(p)}
+            // onAnimateNextPage={(p) => // console.log(p)}
           >
           <View>
             {props.dataBanners.map((data) => {
-              console.log('home banners: ', data)
+              // console.log('home banners: ', data)
               return (
                 <View style={[props.size]}>
                   <Image source={{ uri: data.thumbnail_url }} style={styles.imageAds}/>

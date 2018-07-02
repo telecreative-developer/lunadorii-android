@@ -43,7 +43,7 @@ export const addToCart = (id, product_id, qty, accessToken) => {
 				})
 			})
 			const data = await response.json()
-			console.log('repsonse: ', data)
+			// console.log('repsonse: ', data)
 			await dispatch(setSuccess(true, 'SUCCESS_ADD_TO_CART'))
       		await dispatch(setLoading(false, 'LOADING_ADD_TO_CART'))
 		} catch (e) {

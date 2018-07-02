@@ -71,7 +71,7 @@ class YourShippingAddressContainer extends Component{
     await this.props.updateShipping(this.state.address_id, this.state, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
     await this.toggleModalEditAddress()
-    console.log('clicked: ', this.state.address_id)
+    // console.log('clicked: ', this.state.address_id)
   }
 
   async componentDidMount() {
@@ -90,7 +90,7 @@ class YourShippingAddressContainer extends Component{
     const data = await JSON.parse(session)
     await this.props.updateSetdefault(data.id, this.state.address_id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
-    console.log('clicked onchange: ', this.state.address_default)
+    // console.log('clicked onchange: ', this.state.address_default)
   }
 
   async deteleShipping(item){
@@ -102,7 +102,7 @@ class YourShippingAddressContainer extends Component{
     const data = await JSON.parse(session)
     await this.props.deleteShipping(this.state.address_id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
-    console.log('clicked delete id: ', this.state.address_id)
+    // console.log('clicked delete id: ', this.state.address_id)
 
   }
 

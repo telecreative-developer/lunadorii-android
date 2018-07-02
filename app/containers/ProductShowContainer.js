@@ -104,7 +104,6 @@ class ProductShowContainer extends Component {
   }
 
   render() {
-    {console.log(this.state.clickWishlist)}
     return (
       <ProductShow
         image={this.state.image}

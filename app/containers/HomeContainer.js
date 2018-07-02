@@ -64,7 +64,7 @@ class HomeContainer extends Component {
   }
 
   async handleAddToCart(){
-    console.log('isi state: ', this.state)
+    // console.log('isi state: ', this.state)
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await alert('Berhasil Menambahkan ke Kranjang', this.state.product_name.slice(0,10))
@@ -99,7 +99,7 @@ class HomeContainer extends Component {
 
   render() {
     const { banners } = this.props
-    console.log(this.props.product)
+    // console.log(this.props.product)
     return (
       <Home
         banners={banners.map((banner, index) => this.renderBanners(banner, index))}
