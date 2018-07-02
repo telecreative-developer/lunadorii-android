@@ -4,13 +4,17 @@ import YourCart from '../components/YourCart'
 import OnCart from '../particles/OnCart'
 import ShippingAddress from '../particles/ShippingAddress'
 import { connect } from 'react-redux'
-import { fetchCartUser } from '../actions/cart'
+import { fetchCartUser, removeCart } from '../actions/cart'
 import { fetchUserShipping } from '../actions/usershipping'
 
 class YourCartContainer extends Component {
 
-  state={
-    modalVisibleEditQuantity: false
+  constructor(){
+    super()
+    this.state = {
+      modalVisibleEditQuantity: false,
+      product_id: 0
+    }
   }
 
   async componentDidMount(){
@@ -23,6 +27,22 @@ class YourCartContainer extends Component {
   toggleModalEditQuantity(){
     this.setState({modalVisibleEditQuantity: !this.state.modalVisibleEditQuantity})
   }
+  
+  async removeCart(item){
+    this.setState({
+      product_id: item.product_id,
+    }) 
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.removeCart(data.id, this.state.product_id, data.accessToken)
+    await this.props.fetchCartUser(data.id, data.accessToken)
+    console.log('deleted product id: ', this.state.product_id)
+
+  }
+
+  formatPrice(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
 
   render() {
     return (
@@ -34,10 +54,10 @@ class YourCartContainer extends Component {
             title={item.product.length == 20 ? item.product : item.product.slice(0,18) + "..."}
             categories={item.subcategories[0].subcategory}
             quantity={item.qty} 
-            price={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")} 
+            price={this.formatPrice(item.price)} 
             image={item.thumbnails[0].thumbnail_url}
             actionEdit={() => this.toggleModalEditQuantity()}
-            actionRemove={() => alert(item.product)}
+            actionRemove={() => this.removeCart(item)}
           />
         )}
 
@@ -72,6 +92,7 @@ const mapDispatchToProps = (dispatch) =>{
 
     fetchCartUser: (id, accessToken) => dispatch(fetchCartUser(id, accessToken)),
     fetchUserShipping: (id, accessToken) => dispatch(fetchUserShipping(id, accessToken)),
+    removeCart: (id, product_id, accessToken) => dispatch(removeCart(id, product_id, accessToken))
     
   }
 }

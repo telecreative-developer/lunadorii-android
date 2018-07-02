@@ -43,6 +43,7 @@ class ProductShowContainer extends Component {
 
   async componentDidMount() {
     const data = this.props.navigation.state.params.data
+    console.log('data: ', data)
     await this.setState({ 
       data,
       accessToken:data.accessToken,
@@ -97,6 +98,10 @@ class ProductShowContainer extends Component {
     return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
   }
 
+  formatPrice(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
+
   onStarRatingPress(rating) {
     this.setState({
       starCount: rating
@@ -115,7 +120,7 @@ class ProductShowContainer extends Component {
         productDetails={this.state.data.detail}
         guide={this.state.data.to_use}
         qty={this.state.qty}
-        totalPrice={this.state.totalPrice.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+        totalPrice={this.formatPrice(this.state.totalPrice)}
         amountOfImage={this.state.amountOfImage}
         wishlisted={this.state.wishlisted}
         clickWishlist={this.state.clickWishlist}
