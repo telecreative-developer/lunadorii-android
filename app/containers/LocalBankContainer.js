@@ -15,6 +15,13 @@ dataLocalBank=[
 class LocalBankContainer extends Component{
 
   state={
+    bankName: 'BCA',
+    banks: [
+      'BCA',
+      'BRI',
+      'Mayapada',
+      'Mandiri'
+    ],
 
     user_bank_id: 0,
     bankName: '',
@@ -70,6 +77,9 @@ class LocalBankContainer extends Component{
         onChangeBankName={(bankName)=>this.setState({bankName})}
         onChangeName={(name)=>this.setState({name})}
         onChangeBill={(bill)=>this.setState({bill})}
+
+        bankNames={this.state.banks}
+        selectedBank={this.state.bankName}
 
         user_bank_id={this.state.user_bank_id}
         bankName={this.state.bankName}
