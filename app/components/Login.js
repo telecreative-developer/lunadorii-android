@@ -3,6 +3,7 @@ import { StyleSheet, View, Image, TouchableOpacity, Text, StatusBar, Dimensions 
 import { Container, Content, Icon, Form, Item, Input } from 'native-base'
 import PropTypes from 'prop-types'
 import LunadoriiPortraitLogo from '../assets/images/icon/lunadorii-highres.png'
+import InvalidCredentialModal from '../modals/InvalidCredentialModal'
 const { height, width } = Dimensions.get('window')
 
 const Login = (props) => (
@@ -10,6 +11,10 @@ const Login = (props) => (
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content" />
+    <InvalidCredentialModal
+      modalVisible={props.modalVisibleInvalidCredentialModal}
+      toggleInvalidCredentialModal={props.toggleInvalidCredentialModal}
+    />
     <Content style={styles.backgroundColorWhite}>
       <View style={styles.wrapper}>
         <View style={styles.logoImage}>
