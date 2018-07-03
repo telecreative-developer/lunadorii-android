@@ -12,6 +12,9 @@ class ProductShowContainer extends Component {
   constructor(){
     super()
     this.state = {
+      isReviewsExist: false,
+      seeMoreDetails: false,
+      seeMoreReviews: false,
       modalVisibleImageView: false,
       title: '',
       image: '',
@@ -37,6 +40,23 @@ class ProductShowContainer extends Component {
     this.setState({ modalVisibleImageView: !this.state.modalVisibleImageView })
   }
 
+  toggleMoreDetails(){
+    this.setState({ seeMoreDetails: !this.state.seeMoreDetails })
+  }
+
+  checkReviewers(){
+    if(this.state.data.reviews.length != 0){
+      this.setState({isReviewsExist: true})
+    }else{
+      this.setState({isReviewsExist: false})
+    }
+  }
+
+  toggleMoreReviews(){
+    this.setState({ seeMoreReviews: !this.state.seeMoreReviews})
+    alert(this.state.data.reviews)
+  }
+
   addToCart(){
     ToastAndroid.showWithGravity("Added to cart.", ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
@@ -58,6 +78,7 @@ class ProductShowContainer extends Component {
       wishlisted: data.wishlisted
     })
     await this.props.fetchProduct('123')
+    await this.checkReviewers()
   }
 
   async addQty(){
@@ -179,6 +200,14 @@ class ProductShowContainer extends Component {
         modalVisibleImageView={this.state.modalVisibleImageView}
         toggleImageViewModal={() => this.toggleImageViewModal()}
         images={this.state.images}
+
+        toggleMoreDetails={() => this.toggleMoreDetails()}
+        seeMoreDetails={this.state.seeMoreDetails}
+
+        toggleMoreReviews={() => this.toggleMoreReviews()}
+        seeMoreReviews={this.state.seeMoreReviews}
+
+        isReviewsExist={this.state.isReviewsExist}
 
         addToCart={() => this.addToCart()}
         goback={() => this.props.navigation.goBack()} />

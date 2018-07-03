@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import { StyleSheet, FlatList, StatusBar, Dimensions } from 'react-native'
 import { Container, Content, Text, View, Button, Icon } from 'native-base'
 import Navbar from '../particles/Navbar'
-import LocalBanks from '../particles/LocalBanks'
 import AddLocalBankModal from '../modals/AddLocalBankModal';
 import EditLocalBankModal from '../modals/EditLocalBankModal';
 const { height, width } = Dimensions.get('window')
