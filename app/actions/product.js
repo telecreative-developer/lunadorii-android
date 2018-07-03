@@ -1,12 +1,12 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_PRODUCT, RECEIVE_SEARCH_PRODUCT, RECEIVE_PRODUCT_WITHOUT_ID } from '../constants'
-import { API_SERVER_PRODUCT, API_SERVER_SEARCH } from '../env'
+import { API_SERVER } from '../env'
 
 export const fetchProduct = (id) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT'))
 		try {
-			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/products?id=${id}`, {
+			const response = await fetch(`${API_SERVER}/products?id=${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
@@ -28,7 +28,7 @@ export const fetchProductWithoutId = () => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_WITHOUT_ID'))
 		try {
-			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/products`, {
+			const response = await fetch(`${API_SERVER}/products`, {
 				method: 'GET',
 				headers:{
 					Accept: 'application/json',
@@ -64,7 +64,7 @@ export const fetchSearchProduct = (search) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_SEARCH_PRODUCT'))
 		try {
-			const response = await fetch(`${API_SERVER_SEARCH}/api/v1/search?payload=${search}`, {
+			const response = await fetch(`${API_SERVER}/search?payload=${search}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',

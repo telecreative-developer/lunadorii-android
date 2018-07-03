@@ -71,6 +71,8 @@ const ProductShow = (props) => (
             }
           </View>
           } */}
+          {console.log('Wishlisted:', props.wishlisted)}
+          {console.log('clicked', props.clickWishlist)}
           <View style={styles.firstGroupWrapper2}>
             {props.wishlisted === true ?
               <View>

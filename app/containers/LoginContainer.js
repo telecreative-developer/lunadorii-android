@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Alert, AsyncStorage, StyleSheet, Text } from 'react-native'
 import { isEmpty, isEmail } from 'validator'
 import { connect } from 'react-redux'
-import { NavigationActions } from 'react-navigation'
+import { NavigationActions, StackActions } from 'react-navigation'
 import { Button, Spinner } from 'native-base'
 
 import Login from '../components/Login'
@@ -57,7 +57,12 @@ class LoginContainer extends Component {
       success.condition === true &&
       success.process_on === 'SUCCESS_FETCH_USER_WITH_ID'
     ) {
-      navigation.navigate('HomeContainer')
+      this.props.navigation.dispatch(
+        StackActions.reset({
+          index:0,
+          actions:[NavigationActions.navigate({routeName:'HomeContainer'})]
+        })
+      )
     }
   }
 

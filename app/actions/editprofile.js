@@ -1,12 +1,12 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_EDIT_PASSWORD, RECEIVE_EDIT_EMAIL } from '../constants'
-import { API_SERVER_USER } from '../env'
+import { API_SERVER } from '../env'
 
 export const editName = (id, first_name, last_name, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_EDIT_NAME'))
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/user/${id}`, {
+			const response = await fetch(`${API_SERVER}/user/${id}`, {
 				method: 'PUT',
 				headers: {
 					Accept: 'application/json',
@@ -32,7 +32,7 @@ export const editEmail = (id, email, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_EDIT_EMAIL'))
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/user/change-email/${id}`, {
+			const response = await fetch(`${API_SERVER}/user/change-email/${id}`, {
 				method: 'PUT',
 				headers: {
 					Accept: 'application/json',

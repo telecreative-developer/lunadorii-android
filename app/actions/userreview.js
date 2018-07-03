@@ -1,12 +1,12 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_USER_REVIEW } from '../constants'
-import { API_SERVER_USER } from '../env'
+import { API_SERVER } from '../env'
 
 export const fetchUserReview = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_USER_REVIEW'))
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/user-reviews/${id}`, {
+			const response = await fetch(`${API_SERVER}/user-reviews/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
@@ -29,7 +29,7 @@ export const updateReview = (id, items, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_UPDATE_REVIEW'))
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/user-review/${id}`, {
+			const response = await fetch(`${API_SERVER}/user-review/${id}`, {
 				method: 'PUT',
 				headers: {
 					Accept: 'application/json',

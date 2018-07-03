@@ -1,12 +1,12 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_PRODUCT_SUBCATEGORIES } from '../constants'
-import { API_SERVER_PRODUCT } from '../env'
+import { API_SERVER } from '../env'
 
 export const fetchProductSubcategories = () => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_SUBCATEGORIES'))
 		try {
-			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/product-subcategories?with_products=true`, {
+			const response = await fetch(`${API_SERVER}/product-subcategories?with_products=true`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
