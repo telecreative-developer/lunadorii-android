@@ -12,11 +12,15 @@ class ProductShowContainer extends Component {
   constructor(){
     super()
     this.state = {
+      isReviewsExist: false,
+      seeMoreDetails: false,
+      seeMoreReviews: false,
       modalVisibleImageView: false,
       title: '',
       image: '',
       images:[],
       data: {},
+      reviews:[],
       wishlist:{},
       dataSession:{},
       subcategories: '',
@@ -37,6 +41,22 @@ class ProductShowContainer extends Component {
     this.setState({ modalVisibleImageView: !this.state.modalVisibleImageView })
   }
 
+  toggleMoreDetails(){
+    this.setState({ seeMoreDetails: !this.state.seeMoreDetails })
+  }
+
+  checkReviewers(){
+    if(this.state.data.reviews.length != 0){
+      this.setState({isReviewsExist: true})
+    }else{
+      this.setState({isReviewsExist: false})
+    }
+  }
+
+  toggleMoreReviews(){
+    this.setState({ seeMoreReviews: !this.state.seeMoreReviews})
+  }
+
   addToCart(){
     ToastAndroid.showWithGravity("Added to cart.", ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
@@ -48,6 +68,7 @@ class ProductShowContainer extends Component {
     console.log('data :' , data)
     await this.setState({ 
       data,
+      reviews: data.reviews,
       accessToken:data.accessToken,
       image: data.thumbnails[0].thumbnail_url,
       title: data.product,
@@ -60,6 +81,7 @@ class ProductShowContainer extends Component {
       wishlisted: data.wishlisted
     })
     await this.props.fetchProduct(dataSession.id)
+    await this.checkReviewers()
   }
 
   async addQty(){
@@ -170,7 +192,7 @@ class ProductShowContainer extends Component {
           />
         )}
 
-        dataCommentAndRating={this.state.data.reviews}
+        dataCommentAndRating={this.state.seeMoreReviews ? this.state.reviews : this.state.reviews.slice(0,1)}
         renderCommentAndRating={({ item }) => (
           <CommentAndRating
             // user={item.user.first_name}
@@ -182,6 +204,14 @@ class ProductShowContainer extends Component {
         modalVisibleImageView={this.state.modalVisibleImageView}
         toggleImageViewModal={() => this.toggleImageViewModal()}
         images={this.state.images}
+
+        toggleMoreDetails={() => this.toggleMoreDetails()}
+        seeMoreDetails={this.state.seeMoreDetails}
+
+        toggleMoreReviews={() => this.toggleMoreReviews()}
+        seeMoreReviews={this.state.seeMoreReviews}
+
+        isReviewsExist={this.state.isReviewsExist}
 
         addToCart={() => this.addToCart()}
         goback={() => this.props.navigation.goBack()} />

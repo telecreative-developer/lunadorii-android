@@ -5,6 +5,7 @@ import LocalBanks from '../particles/LocalBanks'
 
 import { connect } from 'react-redux'
 import { fetchUserBank } from '../actions/bank'
+import CreditCardIsEmpty from '../components/CreditCardIsEmpty'
 
 dataLocalBank=[
   {bankName: "BCA", name: 'Nurdineeee', bill: '69696969696'},
@@ -15,6 +16,7 @@ dataLocalBank=[
 class LocalBankContainer extends Component{
 
   state={
+    isEmpty:false,
     bankName: 'BCA',
     banks: [
       'BCA',
@@ -35,7 +37,11 @@ class LocalBankContainer extends Component{
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
 
-    await this.props.fetchUserBank(data.id, data.accessToken)
+    if(this.props.fetchUserBank(data.id, data.accessToken)){
+      this.setState({isEmpty: true})
+    }else{
+      this.setState({isEmpty: false})
+    }
   }
 
   toggleModalAddLocalBank(){
@@ -66,40 +72,49 @@ class LocalBankContainer extends Component{
   }
 
   render(){
-    return(
-      <LocalBank
-        modalVisibleAddLocalBank={this.state.modalVisibleAddLocalBank}
-        toggleModalAddLocalBank={() => this.toggleModalAddLocalBank()}
-
-        modalVisibleEditLocalBank={this.state.modalVisibleEditLocalBank}
-        toggleModalEditLocalBank={() => this.toggleModalEditLocalBank()}
-
-        onChangeBankName={(bankName)=>this.setState({bankName})}
-        onChangeName={(name)=>this.setState({name})}
-        onChangeBill={(bill)=>this.setState({bill})}
-
-        bankNames={this.state.banks}
-        selectedBank={this.state.bankName}
-
-        user_bank_id={this.state.user_bank_id}
-        bankName={this.state.bankName}
-        name={this.state.name}
-        bill={this.state.bill}
-
-        dataLocalBank={this.props.userbank}
-        renderLocalBanks={({ item }) => (
-          <LocalBanks
-            bankName={item.bank.name}
-            name={item.account_name}
-            bill={item.account_number}
-            action={() => this.toggleModalEditLocalBank(item)} />
-        )}
-
-        handleSave={() => alert(JSON.stringify(this.state))}
-        handleEdit={() => alert(JSON.stringify(this.state))}
-        goback={() => this.props.navigation.goBack()}
-      />
-    )
+    if(this.state.isEmpty){
+      return(
+        <CreditCardIsEmpty
+          modalVisibleAddLocalBank={this.state.modalVisibleAddLocalBank}
+          toggleModalAddLocalBank={() => this.toggleModalAddLocalBank()}
+        />
+      )
+    }else{
+      return(
+        <LocalBank
+          modalVisibleAddLocalBank={this.state.modalVisibleAddLocalBank}
+          toggleModalAddLocalBank={() => this.toggleModalAddLocalBank()}
+  
+          modalVisibleEditLocalBank={this.state.modalVisibleEditLocalBank}
+          toggleModalEditLocalBank={() => this.toggleModalEditLocalBank()}
+  
+          onChangeBankName={(bankName)=>this.setState({bankName})}
+          onChangeName={(name)=>this.setState({name})}
+          onChangeBill={(bill)=>this.setState({bill})}
+  
+          bankNames={this.state.banks}
+          selectedBank={this.state.bankName}
+  
+          user_bank_id={this.state.user_bank_id}
+          bankName={this.state.bankName}
+          name={this.state.name}
+          bill={this.state.bill}
+  
+          dataLocalBank={this.props.userbank}
+          renderLocalBanks={({ item }) => (
+            <LocalBanks
+              bankName={item.bank.name}
+              name={item.account_name}
+              bill={item.account_number}
+              action={() => this.toggleModalEditLocalBank(item)} />
+          )}
+  
+          handleSave={() => alert(JSON.stringify(this.state))}
+          handleEdit={() => alert(JSON.stringify(this.state))}
+          goback={() => this.props.navigation.goBack()}
+        />
+      )
+    }
   }
 }
 

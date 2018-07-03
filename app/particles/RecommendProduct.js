@@ -1,8 +1,8 @@
 import React from 'react'
-import { View, Text, Image, TouchableOpacity, StyleSheet } from 'react-native'
+import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
 import StarRating from 'react-native-star-rating'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
-
+const { width, height } = Dimensions.get('window')
 
 const RecommendProduct = (props) => {
   return(
@@ -51,7 +51,8 @@ const styles = StyleSheet.create({
   },
   viewRecommend:{
     width: 260, 
-    marginRight: 20, 
+    marginRight:5,
+    paddingRight: 10, 
     borderWidth: 1, 
     borderColor: '#e2e2e2'
   },
@@ -77,7 +78,8 @@ const styles = StyleSheet.create({
   txtCart:{
     padding: 10, 
     bottom: 5, 
-    fontWeight: 'bold'
+    fontWeight: 'bold',
+    color: '#000'
   },
   txtPrice:{
     fontWeight: 'bold', 
@@ -86,7 +88,8 @@ const styles = StyleSheet.create({
   touchableOpacity:{
     backgroundColor: 'rgba(202, 202, 202, 0.43)', 
     height: 30, 
-    borderRadius: 5
+    borderRadius: 5,
+    width: (width - 150) / 2
   },
   viewFooterProduct:{
     justifyContent: 'space-between', 

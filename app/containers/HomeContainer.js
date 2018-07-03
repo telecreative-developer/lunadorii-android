@@ -84,7 +84,7 @@ class HomeContainer extends Component {
     // await this.props.fetchProductWithoutId()
     await this.props.fetchBanners()
     await this.props.fetchProductSubcategories()
-
+    // await this.props.fetchProductWithoutId()
   }
 
   capitalize(string) {
@@ -130,7 +130,7 @@ class HomeContainer extends Component {
         renderProduct={({ item }) => (
           <Product 
             image={item.thumbnails[0].thumbnail_url} 
-            title={item.title <= 17 ? this.capitalize(item.title) : this.capitalize(item.product).slice(0,15)+'...'} 
+            title={item.title <= 17 ? this.capitalize(item.title) : this.capitalize(item.product).slice(0,18)+'...'} 
             categories={item.subcategories[0].subcategory} 
             price={this.formatPrice(item.price)} 
             star={item.product_rate} 

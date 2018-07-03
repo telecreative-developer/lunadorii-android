@@ -128,19 +128,27 @@ const ProductShow = (props) => (
             </Text>
           </View>
         </View>
-        <View style={styles.borderedSparatorSecond}>
-          <Text style={styles.borderedSparatorSecondTitle}>Product Details</Text>
-          <Text style={styles.borderedSparatorSecondPointedContent}>{props.productDetails}</Text>
-        </View>
-        <View style={styles.borderedSparatorThird}>
-          <Text style={styles.borderedSparatorThirdTitle}>How to Use</Text>
-          <Text style={styles.borderedSparatorThirdContent}>
-            {props.guide}
-          </Text>
-        </View>
+        {props.seeMoreDetails ? (
+          <View>
+            <View style={styles.borderedSparatorSecond}>
+              <Text style={styles.borderedSparatorSecondTitle}>Product Details</Text>
+              <Text style={styles.borderedSparatorSecondPointedContent}>
+                {props.productDetails}
+              </Text>
+            </View>
+            <View style={styles.borderedSparatorThird}>
+              <Text style={styles.borderedSparatorThirdTitle}>How to Use</Text>
+              <Text style={styles.borderedSparatorThirdContent}>
+                {props.guide}
+              </Text>
+            </View>
+          </View>
+        ) : (
+          <View/>
+        )}
         <View style={styles.seeMore}>
-          <TouchableOpacity>
-            <Text style={styles.seeMoreText}>See More</Text>
+          <TouchableOpacity onPress={props.toggleMoreDetails}>
+            <Text style={styles.seeMoreText}>{props.seeMoreDetails ? "See Less" : "See More"}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -164,18 +172,31 @@ const ProductShow = (props) => (
             </View>
           </View>
           <View>
-            <FlatList
-              data={props.dataCommentAndRating}
-              renderItem={props.renderCommentAndRating}
-              keyExtractor={(item, index) => JSON.stringify(index)}
-            />
+            {props.isReviewsExist ? (
+              <FlatList
+                data={props.dataCommentAndRating}
+                renderItem={props.renderCommentAndRating}
+                keyExtractor={(item, index) => JSON.stringify(index)}
+              />
+            ) : (
+              <View style={{paddingTop: 10}}>
+                <View style={{alignItems: 'center', padding: 10, backgroundColor: '#ccc', borderRadius: 5, }}>
+                  <Text style={{textAlign: 'center'}}>No reviews yet.</Text>
+                  <Text style={{textAlign: 'center'}}>be the first to review this product</Text>
+                </View>
+              </View>
+            )}
           </View>
         </View>
-        <View style={styles.seeMore2}>
-          <TouchableOpacity>
-            <Text style={styles.seeMoreText}>See More</Text>
-          </TouchableOpacity>
-        </View>
+        {props.isReviewsExist ? (
+          <View style={styles.seeMore2}>
+            <TouchableOpacity onPress={props.toggleMoreReviews} style={{paddingBottom: 10}}>
+              <Text style={styles.seeMoreText}>{props.seeMoreReviews ? "See Less" : "See More"}</Text>
+            </TouchableOpacity>
+          </View>
+        ) : (
+          <View/>
+        )}
         <View style={styles.borderedSparator1}>
           <View style={styles.borderedSparatorFirst}>
             <Text style={styles.borderedSparatorFirstTitle2}>Related Products</Text>
@@ -362,7 +383,6 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   seeMoreText: {
-    paddingTop: 5,
     paddingBottom: 5,
     fontSize: 16,
     fontWeight: 'bold',
@@ -382,10 +402,10 @@ const styles = StyleSheet.create({
   },
   borderedSparator: {
     borderTopWidth: 1,
-    borderBottomWidth: 1,
     borderColor: '#e2e2e2'
   },
   borderedSparator1: {
+    borderTopWidth: 1,
     borderBottomWidth: 1,
     borderColor: '#e2e2e2'
   },
