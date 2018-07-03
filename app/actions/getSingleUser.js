@@ -1,12 +1,12 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_SINGLE_USER } from '../constants'
-import { API_SERVER_USER } from '../env'
+import { API_SERVER } from '../env'
 
 export const fetchSingleUser = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_SINGLE_USER'))
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/user/${id}`, {
+			const response = await fetch(`${API_SERVER}/user/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',

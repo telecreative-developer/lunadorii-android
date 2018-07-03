@@ -1,12 +1,12 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_BANK_USER } from '../constants'
-import { API_SERVER_USER } from '../env'
+import { API_SERVER } from '../env'
 
 export const fetchUserBank = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_USER_BANK'))
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/user-banks/${id}`, {
+			const response = await fetch(`${API_SERVER}/user-banks/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',

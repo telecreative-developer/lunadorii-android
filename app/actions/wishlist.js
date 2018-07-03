@@ -1,12 +1,12 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_WISHLIST } from '../constants'
-import { API_SERVER_PRODUCT } from '../env'
+import { API_SERVER } from '../env'
 
 export const fetchwishlist = (accessToken, id) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_WISHLIST'))
 		try {
-			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/wishlist/${id}`, {
+			const response = await fetch(`${API_SERVER}/wishlist/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
@@ -29,7 +29,7 @@ export const addWishlist = (accessToken, id, idProduct) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_ADD_WISHLIST'))
 		try {
-			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/wishlist/`, {
+			const response = await fetch(`${API_SERVER}/wishlist/`, {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',
@@ -55,7 +55,7 @@ export const deleteWishlistInHome = (accessToken, id, idProduct) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_DELETE_WISHLIST'))
 		try {
-			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/wishlist/`, {
+			const response = await fetch(`${API_SERVER}/wishlist/`, {
 				method: 'DELETE',
 				headers: {
 					Accept: 'application/json',

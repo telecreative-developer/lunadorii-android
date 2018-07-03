@@ -1,12 +1,12 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_CART_USER } from '../constants'
-import { API_SERVER_PRODUCT } from '../env'
+import { API_SERVER } from '../env'
 
 export const fetchCartUser = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_CART_USER'))
 		try {
-			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/cart/${id}`, {
+			const response = await fetch(`${API_SERVER}/cart/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
@@ -29,7 +29,7 @@ export const addToCart = (id, product_id, qty, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_ADD_TO_CART'))
 		try {
-			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/cart`, {
+			const response = await fetch(`${API_SERVER}/cart`, {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',
@@ -58,7 +58,7 @@ export const removeCart = (id, product_id, accessToken) => {
 		await dispatch(setLoading(true, 'LOADING_DELETE_CART'))
 		console.log('actions remove: ', product_id)
 		try {
-			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/cart`, {
+			const response = await fetch(`${API_SERVER}/cart`, {
 				method: 'DELETE',
 				headers: {
 					Accept: 'application/json',

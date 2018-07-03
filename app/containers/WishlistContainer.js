@@ -46,6 +46,7 @@ class WishlistContainer extends Component{
         />
       )
     }else{
+      {console.log('isi wishlist :', this.props.wishlist)}
       return(
         <Wishlist
           dataProduct={this.props.wishlist}

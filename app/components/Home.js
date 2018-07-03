@@ -11,9 +11,11 @@ const bannerWidth = Dimensions.get('window').width
 
 const Home = (props) => (
   <Container style={styles.tabHeading}>
+  {/* {console.log('avatar url', props.image.avatar_url)} */}
     <NavbarHome
       searchIconAction={props.navigateToSearch}
       cartIconAction={props.navigateToYourCart}
+      image={props.image.avatar_url}
       photoProfileAction={props.navigateToProfile} />
     <StatusBar
       backgroundColor="#f65857"

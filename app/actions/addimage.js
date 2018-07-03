@@ -1,4 +1,4 @@
-import { API_SERVER_USER } from '../env'
+import { API_SERVER } from '../env'
 import { RNS3 } from 'react-native-aws3'
 import { setLoading, setFailed, setSuccess } from './processor'
 import { login } from './login'
@@ -18,7 +18,7 @@ export const saveUpdateImage = (id, email, password, items) => {
 
 			axios({
 				method: 'POST',
-				url: `${API_SERVER_USER}/api/v1/user/upload-avatar/${id}`,
+				url: `${API_SERVER}/upload-avatar/${id}`,
 				data: fd,
 				body: fd,
 				config: { 

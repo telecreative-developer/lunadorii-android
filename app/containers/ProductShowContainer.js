@@ -62,8 +62,10 @@ class ProductShowContainer extends Component {
   }
 
   async componentDidMount() {
+    const session = await AsyncStorage.getItem('session')
+    const dataSession = await JSON.parse(session)
     const data = this.props.navigation.state.params.data
-    console.log('data: ', data)
+    console.log('data :' , data)
     await this.setState({ 
       data,
       reviews: data.reviews,
@@ -78,7 +80,7 @@ class ProductShowContainer extends Component {
       starCount: data.product_rate,
       wishlisted: data.wishlisted
     })
-    await this.props.fetchProduct('123')
+    await this.props.fetchProduct(dataSession.id)
     await this.checkReviewers()
   }
 
@@ -113,7 +115,8 @@ class ProductShowContainer extends Component {
     await this.setState({
       product_id: dataProduct.product_id
     })
-    await this.props.fetchProduct(data.id)
+    this.props.fetchProduct(data.id)
+    this.props.fetchwishlist(data.accessToken, data.id)
     await this.props.addWishlist(data.accessToken, data.id, this.state.product_id)
   }
 
@@ -126,7 +129,7 @@ class ProductShowContainer extends Component {
     await this.setState({
       product_id: dataProduct.product_id
     })
-    await this.props.fetchProduct(data.id)
+    this.props.fetchProduct(data.id)
     await this.props.deleteWishlistInHome(data.accessToken, data.id, this.state.product_id)
     
   }

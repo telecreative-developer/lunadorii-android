@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Alert, AsyncStorage, StyleSheet, Text } from 'react-native'
 import { isEmpty, isEmail } from 'validator'
 import { connect } from 'react-redux'
-import { NavigationActions } from 'react-navigation'
+import { NavigationActions, StackActions } from 'react-navigation'
 import { Button, Spinner } from 'native-base'
 
 import Login from '../components/Login'
@@ -47,7 +47,7 @@ class LoginContainer extends Component {
     if (
       loading.condition === false &&
       loading.process_on === 'LOADING_PROCESS_LOGIN' &&
-      failed.condition === false &&
+      failed.condition === true &&
       failed.process_on === 'FAILED_PROCESS_LOGIN'
     ) {
       Alert.alert('Login gagal', 'Silahkan Cek Kembali Akun Anda!')
@@ -57,7 +57,12 @@ class LoginContainer extends Component {
       success.condition === true &&
       success.process_on === 'SUCCESS_FETCH_USER_WITH_ID'
     ) {
-      navigation.navigate('HomeContainer')
+      this.props.navigation.dispatch(
+        StackActions.reset({
+          index:0,
+          actions:[NavigationActions.navigate({routeName:'HomeContainer'})]
+        })
+      )
     }
   }
 
@@ -68,7 +73,7 @@ class LoginContainer extends Component {
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    if(data !== null){
+    if(data){
       try{
         this.props.navigation.navigate('HomeContainer')
       }catch(e){
