@@ -120,9 +120,11 @@ const ProductShow = (props) => (
       <View style={styles.borderedSparator}>
         <View style={styles.borderedSparatorFirst}>
           <Text style={styles.borderedSparatorFirstTitle}>Description</Text>
-          <Text style={styles.borderedSparatorFirstContent}>
-            {props.descriptions}
-          </Text>
+          <View style={{}}>
+            <Text style={styles.borderedSparatorFirstContent}>
+              {props.descriptions}
+            </Text>
+          </View>
         </View>
         <View style={styles.borderedSparatorSecond}>
           <Text style={styles.borderedSparatorSecondTitle}>Product Details</Text>

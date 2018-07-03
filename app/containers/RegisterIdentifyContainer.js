@@ -113,7 +113,8 @@ class RegisterIdentifyContainer extends Component {
       // }
 
       await this.props.register(this.state)
-      await this.props.navigation.navigate('AddPhotoProfileContainer', {user: this.state, id: this.props.registerresult.id})
+      // await this.props.navigation.navigate('AddPhotoProfileContainer', {user: this.state, id: this.props.registerresult.id})
+      await this.props.navigation.navigate("LoginContainer")
       await this.setState({
         first_name: '',
         last_name: '',
