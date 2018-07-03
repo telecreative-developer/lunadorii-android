@@ -47,7 +47,7 @@ class LoginContainer extends Component {
     if (
       loading.condition === false &&
       loading.process_on === 'LOADING_PROCESS_LOGIN' &&
-      failed.condition === false &&
+      failed.condition === true &&
       failed.process_on === 'FAILED_PROCESS_LOGIN'
     ) {
       Alert.alert('Login gagal', 'Silahkan Cek Kembali Akun Anda!')
@@ -73,7 +73,7 @@ class LoginContainer extends Component {
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    if(data !== null){
+    if(data){
       try{
         this.props.navigation.navigate('HomeContainer')
       }catch(e){

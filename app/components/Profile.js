@@ -50,7 +50,7 @@ const Profile = (props) => (
         <View style={styles.subHeaderProfile}>
           <View style={styles.flexDirectionRow}>
             <View>
-              <Image source={{ uri: props.profile.imageProfile }} style={styles.imageProfile} />
+              <Image source={{ uri: props.profile.avatar_url }} style={styles.imageProfile} />
             </View>
             <View>
               <View style={styles.viewNameProfile}>

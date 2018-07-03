@@ -11,6 +11,7 @@ import { connect } from 'react-redux'
 import { fetchCategoryProduct } from '../actions/categoryproduct'
 import { fetchBrandsProduct } from '../actions/brandsproduct'
 import { fetchProduct, fetchProductWithoutId } from '../actions/product'
+import { fetchSingleUser } from '../actions/getSingleUser'
 import { fetchBanners } from '../actions/banners'
 import { fetchProductSubcategories } from '../actions/productsubcategories'
 import { addToCart } from '../actions/cart'
@@ -75,10 +76,11 @@ class HomeContainer extends Component {
   async componentDidMount() {
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-
+    console.log(data.accessToken)
     await this.props.fetchCategoryProduct()
     await this.props.fetchBrandsProduct()
     await this.props.fetchProduct(data.id)
+    await this.props.fetchSingleUser(data.id, data.accessToken)
     // await this.props.fetchProductWithoutId()
     await this.props.fetchBanners()
     await this.props.fetchProductSubcategories()
@@ -103,7 +105,7 @@ class HomeContainer extends Component {
 
   render() {
     const { banners } = this.props
-    // console.log(this.props.product)
+    console.log(this.props.getsingleuser)
     return (
       <Home
         banners={banners.map((banner, index) => this.renderBanners(banner, index))}
@@ -171,6 +173,7 @@ class HomeContainer extends Component {
         navigateToYourCart={() => this.props.navigation.navigate("YourCartContainer")}
         navigateToProfile={() => this.props.navigation.navigate('ProfileContainer')}
         navigateToSearch={() => this.props.navigation.navigate("SearchContainer")}
+        image={ this.props.getsingleuser}
       />
     )
   }
@@ -194,6 +197,7 @@ const mapDispatchToProps = (dispatch) =>{
     fetchBrandsProduct: () => dispatch(fetchBrandsProduct()),
     fetchProduct: (id) => dispatch(fetchProduct(id)),
     // fetchProductWithoutId: () =>dispatch(fetchProductWithoutId()),
+    fetchSingleUser:(id, accessToken) => dispatch(fetchSingleUser(id, accessToken)),
     fetchBanners: () => dispatch(fetchBanners()),
     fetchProductSubcategories: () => dispatch(fetchProductSubcategories()),
     addToCart: (id, product_id, qty, accessToken) => dispatch(addToCart(id, product_id, qty, accessToken)),
@@ -211,6 +215,7 @@ const mapStateToProps = (state) => {
     product: state.product,
     banners: state.banners,
     productwithoutid: state.productwithoutid,
+    getsingleuser: state.getsingleuser,
     productsubcategories: state.productsubcategories
   }
 }

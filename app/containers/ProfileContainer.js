@@ -74,7 +74,6 @@ class ProfileContainer extends Component {
   }
 
   async componentDidMount(){
-    // await this.props.fetchSingleUser(6, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6InVzZXIiLCJpYXQiOjE1Mjk2NTUyODMsImV4cCI6MTUzMDI2MDA4MywiaXNzIjoiaHR0cHM6Ly9naXRodWIuY29tL2tldmluaGVybWF3YW4iLCJzdWIiOiJsdW5hZG9yaWkifQ.DIQ6yH4qU_8oUAo7263CYkDklsCer2I2WLbaF_xHzAs')
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.setState({
@@ -82,9 +81,11 @@ class ProfileContainer extends Component {
       firstName: data.first_name,
       lastName : data.last_name,
     })
+    await this.props.fetchSingleUser(data.id, data.accessToken)
   }
 
   render() {
+    {console.log(this.props.fetchSingleUser)}
     return (
       <Profile
         dataRecentOrders={dataRecentOrders}

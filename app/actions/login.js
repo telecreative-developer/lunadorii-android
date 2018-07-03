@@ -21,6 +21,7 @@ export const login = (email, password) => {
 			if (data.status === 400 && data.name === 'error') {
 				await dispatch(setFailed(true, 'FAILED_PROCESS_LOGIN', data.message))
 				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
+				await dispatch(setFailed(false, 'FAILED_PROCESS_LOGIN'))
 			} else {
 				await dispatch(fetchUserWithId(data.email, data.password, data.accessToken, data.id))
 				await dispatch(setSuccess(true, 'SUCCESS_PROCESS_LOGIN'))

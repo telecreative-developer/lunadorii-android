@@ -6,7 +6,7 @@ export const fetchSingleUser = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_SINGLE_USER'))
 		try {
-			const response = await fetch(`${API_SERVER_USER}/user/${id}`, {
+			const response = await fetch(`${API_SERVER}/user/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
