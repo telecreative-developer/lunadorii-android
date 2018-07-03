@@ -126,19 +126,27 @@ const ProductShow = (props) => (
             </Text>
           </View>
         </View>
-        <View style={styles.borderedSparatorSecond}>
-          <Text style={styles.borderedSparatorSecondTitle}>Product Details</Text>
-          <Text style={styles.borderedSparatorSecondPointedContent}>{props.productDetails}</Text>
-        </View>
-        <View style={styles.borderedSparatorThird}>
-          <Text style={styles.borderedSparatorThirdTitle}>How to Use</Text>
-          <Text style={styles.borderedSparatorThirdContent}>
-            {props.guide}
-          </Text>
-        </View>
+        {props.seeMoreDetails ? (
+          <View>
+            <View style={styles.borderedSparatorSecond}>
+              <Text style={styles.borderedSparatorSecondTitle}>Product Details</Text>
+              <Text style={styles.borderedSparatorSecondPointedContent}>
+                {props.productDetails}
+              </Text>
+            </View>
+            <View style={styles.borderedSparatorThird}>
+              <Text style={styles.borderedSparatorThirdTitle}>How to Use</Text>
+              <Text style={styles.borderedSparatorThirdContent}>
+                {props.guide}
+              </Text>
+            </View>
+          </View>
+        ) : (
+          <View/>
+        )}
         <View style={styles.seeMore}>
-          <TouchableOpacity>
-            <Text style={styles.seeMoreText}>See More</Text>
+          <TouchableOpacity onPress={props.toggleMoreDetails}>
+            <Text style={styles.seeMoreText}>{props.seeMoreDetails ? "See Less" : "See More"}</Text>
           </TouchableOpacity>
         </View>
       </View>
@@ -150,15 +158,21 @@ const ProductShow = (props) => (
               <Text style={styles.ratingReviewsText}>
                 <Text style={styles.ratingAmountReviewsText}>{props.star}</Text> reviews
               </Text>
-              <View style={{flexDirection: 'row'}}>
-                <StarRating
-                  disabled={true}
-                  maxStars={5}
-                  rating={props.star}
-                  starSize={14}
-                  // selectedStar={props.onStarRatingPress}
-                />
-              </View>
+              {props.isReviewsExist ? (
+                <View style={{flexDirection: 'row'}}>
+                  <StarRating
+                    disabled={true}
+                    maxStars={5}
+                    rating={props.star}
+                    starSize={14}
+                    // selectedStar={props.onStarRatingPress}
+                  />
+                </View>
+              ) : (
+                <View>
+                  <Text>No reviews yet</Text>
+                </View>
+              )}
             </View>
           </View>
           <View>
@@ -170,8 +184,8 @@ const ProductShow = (props) => (
           </View>
         </View>
         <View style={styles.seeMore2}>
-          <TouchableOpacity>
-            <Text style={styles.seeMoreText}>See More</Text>
+          <TouchableOpacity onPress={props.toggleMoreReviews}>
+            <Text style={styles.seeMoreText}>{props.seeMoreReviews ? "See Less" : "See More"}</Text>
           </TouchableOpacity>
         </View>
         <View style={styles.borderedSparator1}>

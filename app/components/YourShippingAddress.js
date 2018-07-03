@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { StyleSheet, TouchableOpacity, FlatList, StatusBar, Dimensions } from 'react-native'
-import { Container, Content, Text, View, Button, Icon } from 'native-base'
+import { StyleSheet, TouchableOpacity, FlatList, StatusBar, Dimensions, Text } from 'react-native'
+import { Container, Content, View, Button, Icon } from 'native-base'
 import Navbar from '../particles/Navbar'
 import EditAddressModal from '../modals/EditAddressModal'
 import AddAddressModal from '../modals/AddAddressModal'
@@ -52,7 +52,7 @@ const YourShippingAddress = (props) => (
       barStyle="light-content"
     />
     <Content style={styles.container}>
-      <View style={styles.viewShippingAddress}>
+      <View>
         <Text style={styles.txtShippingAddress}>Your Shipping Address</Text>
         <FlatList
           data={props.dataShippingAddress}
@@ -69,13 +69,9 @@ const YourShippingAddress = (props) => (
 
 const styles = StyleSheet.create({
   container: {
-    backgroundColor: '#fff'
-  },
-  viewShippingAddress: {
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingLeft: 10,
-    paddingRight: 10
+    backgroundColor: '#fff',
+    width: width,
+    height: height
   },
   txtShippingAddress: {
     fontWeight: 'bold',

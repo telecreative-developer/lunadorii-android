@@ -19,10 +19,12 @@ const Product = (props) => (
           </TouchableOpacity>
         )}
       </ImageBackground>
-      <View style={styles.viewContent}>
-        <View>
-          <Text style={styles.txtTitle}>{props.title}</Text>
-        </View>
+    </TouchableOpacity>
+    <View style={styles.viewContent}>
+      <View style={{width: (width - 75) / 2, height: 30}}>
+        <Text style={styles.txtTitle}>{props.title}</Text>
+      </View>
+      <View style={{ marginTop: 10,  }}>
         <Text style={styles.txtCategories}>{props.categories}</Text>
         <View style={{flexDirection: 'row', paddingTop: 5}}>
           <StarRating
@@ -32,11 +34,9 @@ const Product = (props) => (
             starSize={12}
           />
         </View>
-        <View style={{ marginTop: 10 }}>
-          <Text style={styles.txtPrice}>Rp. {props.price}</Text>
-        </View>
+        <Text style={styles.txtPrice}>Rp. {props.price}</Text>
       </View>
-    </TouchableOpacity>
+    </View>
   </View>
 )
 const styles = StyleSheet.create({
@@ -47,10 +47,12 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   viewContent: {
-    padding: 10
+    padding: 10,
+    justifyContent: 'space-between',
+    flexDirection: 'column',
   },
   ImageBackground: {
-    width: (width - 50) / 2,
+    width: (width - 35) / 2,
     height: 100,
     padding: 20
   },
@@ -83,7 +85,7 @@ const styles = StyleSheet.create({
     height: 25,
     backgroundColor: 'rgba(202, 202, 202, 0.73)',
     marginRight: 5,
-    width: 90,
+    width: (width - 150) / 2,
     left: 20,
     bottom: 15,
     alignSelf: 'flex-end',
