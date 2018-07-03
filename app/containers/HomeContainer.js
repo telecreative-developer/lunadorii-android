@@ -74,17 +74,17 @@ class HomeContainer extends Component {
   }
 
   async componentDidMount() {
+    // await this.props.fetchProductWithoutId()
+    // await this.props.fetchProductWithoutId()
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     console.log(data.accessToken)
+    await this.props.fetchBanners()
     await this.props.fetchCategoryProduct()
     await this.props.fetchBrandsProduct()
     await this.props.fetchProduct(data.id)
     await this.props.fetchSingleUser(data.id, data.accessToken)
-    // await this.props.fetchProductWithoutId()
-    await this.props.fetchBanners()
     await this.props.fetchProductSubcategories()
-    // await this.props.fetchProductWithoutId()
   }
 
   capitalize(string) {

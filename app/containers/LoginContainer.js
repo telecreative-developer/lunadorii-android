@@ -47,7 +47,7 @@ class LoginContainer extends Component {
     if (
       loading.condition === false &&
       loading.process_on === 'LOADING_PROCESS_LOGIN' &&
-      failed.condition === true &&
+      failed.condition === false &&
       failed.process_on === 'FAILED_PROCESS_LOGIN'
     ) {
       Alert.alert('Login gagal', 'Silahkan Cek Kembali Akun Anda!')
@@ -57,6 +57,7 @@ class LoginContainer extends Component {
       success.condition === true &&
       success.process_on === 'SUCCESS_FETCH_USER_WITH_ID'
     ) {
+      console.log(success.process_on)
       this.props.navigation.dispatch(
         StackActions.reset({
           index:0,

@@ -14,7 +14,7 @@ const Home = (props) => (
   {/* {console.log('avatar url', props.image.avatar_url)} */}
     <NavbarHome
       searchIconAction={props.navigateToSearch}
-      cartIconAction={props.navigateToYourCart}
+      cartIconAction={props.navigateToProfile}
       image={props.image.avatar_url}
       photoProfileAction={props.navigateToProfile} />
     <StatusBar

@@ -38,9 +38,9 @@ class LocalBankContainer extends Component{
     const data = await JSON.parse(session)
 
     if(this.props.fetchUserBank(data.id, data.accessToken)){
-      this.setState({isEmpty: true})
+      await this.setState({isEmpty: false})
     }else{
-      this.setState({isEmpty: false})
+      await this.setState({isEmpty: true})
     }
   }
 

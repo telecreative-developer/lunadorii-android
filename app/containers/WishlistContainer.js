@@ -24,9 +24,9 @@ class WishlistContainer extends Component{
     })
     // console.log('accesToken container: ', this.state.accessToken)
     if(this.props.fetchwishlist(this.state.accessToken, this.state.id)){
-      await this.setState({isEmpty: true})
-    }else{
       await this.setState({isEmpty: false})
+    }else{
+      await this.setState({isEmpty: true})
     }
   }
 
