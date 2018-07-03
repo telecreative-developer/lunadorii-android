@@ -20,6 +20,7 @@ class ProductShowContainer extends Component {
       image: '',
       images:[],
       data: {},
+      reviews:[],
       wishlist:{},
       dataSession:{},
       subcategories: '',
@@ -54,7 +55,6 @@ class ProductShowContainer extends Component {
 
   toggleMoreReviews(){
     this.setState({ seeMoreReviews: !this.state.seeMoreReviews})
-    alert(this.state.data.reviews)
   }
 
   addToCart(){
@@ -66,6 +66,7 @@ class ProductShowContainer extends Component {
     console.log('data: ', data)
     await this.setState({ 
       data,
+      reviews: data.reviews,
       accessToken:data.accessToken,
       image: data.thumbnails[0].thumbnail_url,
       title: data.product,
@@ -188,7 +189,7 @@ class ProductShowContainer extends Component {
           />
         )}
 
-        dataCommentAndRating={this.state.data.reviews}
+        dataCommentAndRating={this.state.seeMoreReviews ? this.state.reviews : this.state.reviews.slice(0,1)}
         renderCommentAndRating={({ item }) => (
           <CommentAndRating
             // user={item.user.first_name}
