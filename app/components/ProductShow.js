@@ -76,7 +76,7 @@ const ProductShow = (props) => (
           {console.log('Wishlisted:', props.wishlisted)}
           {console.log('clicked', props.clickWishlist)}
           <View style={styles.firstGroupWrapper2}>
-            {props.wishlisted === true ?
+            {props.wishlisted[0] === true ?
               <View>
                 {props.clickWishlist === true ?
                   <TouchableOpacity onPress={props.AddWishlist}>

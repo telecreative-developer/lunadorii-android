@@ -3,7 +3,7 @@ import { combineReducers } from "redux";
 import { loading, success, failed } from "./processor";
 import { categoryproduct } from "./categoryproduct";
 import { brandsproduct } from "./brandsproduct"
-import { product, searchproduct } from "./product"
+import { product, searchproduct,receiveSingleProductWithId  } from "./product"
 import { banners } from "./banners"
 import { productsubcategories } from "./productsubcategories"
 import { getsingleuser } from "./getsingleuser"
@@ -35,7 +35,8 @@ const rootReducers = combineReducers({
   cartuser,
   usershipping,
   registerresult,
-  userbank
+  userbank,
+  receiveSingleProductWithId
 //   sessionPersistance
 });
 

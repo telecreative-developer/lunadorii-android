@@ -1,4 +1,9 @@
-import { RECEIVE_PRODUCT, RECEIVE_SEARCH_PRODUCT, RECEIVE_PRODCUT_WITHOU_ID } from '../constants'
+import { 
+		RECEIVE_PRODUCT, 
+		RECEIVE_SEARCH_PRODUCT, 
+		RECEIVE_PRODCUT_WITHOU_ID,
+		RECEIVE_SINGLE_PRODUCT_WITH_ID
+	} from '../constants'
 
 export const product = (state = [], action) => {
 	switch (action.type) {
@@ -21,6 +26,15 @@ export const searchproduct = (state = [], action) => {
 export const productwithoutid = ( state = [], action) => {
 	switch (action.type) {
 		case RECEIVE_PRODCUT_WITHOU_ID:
+			return action.payload
+		default:
+			return state
+	}
+}
+
+export const receiveSingleProductWithId = ( state = [] , action ) => {
+	switch (action.type) {
+		case RECEIVE_SINGLE_PRODUCT_WITH_ID:
 			return action.payload
 		default:
 			return state
