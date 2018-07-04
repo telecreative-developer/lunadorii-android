@@ -24,7 +24,8 @@ export default NavbarTransparent
 const styles = StyleSheet.create({
   header: {
     backgroundColor: 'transparent',
-    borderBottomWidth: 0
+    borderBottomWidth: 0,
+    height: 45
   },
   iconColor: {
     color: '#000'

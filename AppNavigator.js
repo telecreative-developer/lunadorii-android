@@ -22,9 +22,11 @@ import AddPhotoProfileContainer from './app/containers/AddPhotoProfileContainer'
 import LoginTroubleshootingContainer from './app/containers/LoginTroubleshootingContainer'
 import RegisterIdentifyContainer from './app/containers/RegisterIdentifyContainer'
 import LocalBankContainer from './app/containers/LocalBankContainer'
+import UnknownScreenContainer from './app/containers/UnknownScreenContainer'
 
 const AppNavigator = StackNavigator(
   {    
+    UnknownScreenContainer: { screen: UnknownScreenContainer },
     LocalBankContainer: { screen: LocalBankContainer },
     RegisterIdentifyContainer: { screen: RegisterIdentifyContainer },
     LoginTroubleshootingContainer: { screen: LoginTroubleshootingContainer },

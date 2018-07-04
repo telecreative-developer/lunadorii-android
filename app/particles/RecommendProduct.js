@@ -9,36 +9,36 @@ const RecommendProduct = (props) => {
   <View style={styles.viewRecommend}>
     <TouchableOpacity onPress={props.action}>
       <Image source={{uri: props.image}} style={styles.image}/> 
-      <View style={styles.viewWrapper}>
-        <Text style={styles.txtTitle}>{props.title}</Text>
-        <Text style={styles.txtCategories}>{props.categories}</Text>
-        <View style={styles.viewFlexRow}>
-          {/* <View style={styles.viewRating}>
-          
-          </View> */}
-          <StarRating
-            disabled={true}
-            maxStars={5}
-            rating={props.star}
-            starSize={12}
-            // selectedStar={props.onStarRatingPress}
-          />
-          <View>
-            <Text style={styles.txtReviews}>{props.reviews} Reviews</Text>
-          </View>
-        </View>
-        <View style={styles.viewFooterProduct}>
-          <View>
-            <TouchableOpacity style={styles.touchableOpacity} onPress={props.toggleModalAddToCart}>
-              <Text style={styles.txtCart}><MaterialCommunityIcons name='cart' /> Add to cart</Text>
-            </TouchableOpacity>
-          </View>
-          <View>
-            <Text style={styles.txtPrice}>Rp. {props.price}</Text>
-          </View>
+    </TouchableOpacity>
+    <View style={styles.viewWrapper}>
+      <Text style={styles.txtTitle}>{props.title}</Text>
+      <Text style={styles.txtCategories}>{props.categories}</Text>
+      <View style={styles.viewFlexRow}>
+        {/* <View style={styles.viewRating}>
+        
+        </View> */}
+        <StarRating
+          disabled={true}
+          maxStars={5}
+          rating={props.star}
+          starSize={12}
+          // selectedStar={props.onStarRatingPress}
+        />
+        <View>
+          <Text style={styles.txtReviews}>{props.reviews} Reviews</Text>
         </View>
       </View>
-     </TouchableOpacity>
+      <View style={styles.viewFooterProduct}>
+        <View>
+          <TouchableOpacity style={styles.touchableOpacity} onPress={props.toggleModalAddToCart}>
+            <Text style={styles.txtCart}><MaterialCommunityIcons name='cart' /> Add to cart</Text>
+          </TouchableOpacity>
+        </View>
+        <View>
+          <Text style={styles.txtPrice}>Rp. {props.price}</Text>
+        </View>
+      </View>
+    </View>
   </View>
 )}
 const styles = StyleSheet.create({
@@ -51,8 +51,8 @@ const styles = StyleSheet.create({
   },
   viewRecommend:{
     width: 260, 
-    marginRight:5,
-    paddingRight: 10, 
+    marginRight:10,
+    paddingRight: 5, 
     borderWidth: 1, 
     borderColor: '#e2e2e2'
   },
@@ -79,7 +79,8 @@ const styles = StyleSheet.create({
     padding: 10, 
     bottom: 5, 
     fontWeight: 'bold',
-    color: '#000'
+    color: '#000',
+    alignSelf: 'center'
   },
   txtPrice:{
     fontWeight: 'bold', 
@@ -89,7 +90,7 @@ const styles = StyleSheet.create({
     backgroundColor: 'rgba(202, 202, 202, 0.43)', 
     height: 30, 
     borderRadius: 5,
-    width: (width - 150) / 2
+    width: (width - 115) / 2
   },
   viewFooterProduct:{
     justifyContent: 'space-between', 

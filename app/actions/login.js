@@ -7,7 +7,7 @@ export const login = (email, password) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_PROCESS_LOGIN'))
 		try {
-			const response = await fetch(`http://ec2-18-222-130-109.us-east-2.compute.amazonaws.com/api/v1/auth/user`, {
+			const response = await fetch(`${API_SERVER}/auth/user`, {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',
@@ -21,14 +21,12 @@ export const login = (email, password) => {
 				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 				await dispatch(setFailed(false, 'FAILED_PROCESS_LOGIN'))
 			} else {
-				console.log("Email KONTOL : " , email)
 				await dispatch(fetchUserWithId(email, password, data.accessToken, data.id))
 				await dispatch(setSuccess(true, 'SUCCESS_PROCESS_LOGIN'))
 				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 			}
 		} catch (e) {
-			 // console.log('error: ', e)
-			 dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
+			dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 			dispatch(setFailed(true, 'FAILED_PROCESS_LOGIN', e))
 		}
 	}
@@ -36,8 +34,6 @@ export const login = (email, password) => {
 
 export const fetchUserWithId = (email, password, accessToken, users_id) => {
 	return async dispatch => {
-		console.log("KONTOL 1: " , email)
-		console.log("KONTOL 2: " , password)
 		await dispatch(setLoading(true, 'LOADING_FETCH_USER_WITH_ID'))
 		try {
 			const response = await fetch(`${API_SERVER}/user/${users_id}`, {
@@ -53,7 +49,7 @@ export const fetchUserWithId = (email, password, accessToken, users_id) => {
 			await dispatch(saveSession({...data.data[0], accessToken}))
 			await dispatch(saveSessionPersistance({...data.data[0], accessToken	}))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_USER_WITH_ID'))
-      		await dispatch(setLoading(false, 'LOADING_FETCH_USER_WITH_ID'))
+			await dispatch(setLoading(false, 'LOADING_FETCH_USER_WITH_ID'))
 		} catch (e) {
 			dispatch(setFailed(true, 'FAILED_FETCH_USER_WITH_ID', e))
 			dispatch(setLoading(false, 'LOADING_FETCH_USER_WITH_ID'))

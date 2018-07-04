@@ -47,7 +47,7 @@ class LoginContainer extends Component {
     if (
       loading.condition === false &&
       loading.process_on === 'LOADING_PROCESS_LOGIN' &&
-      failed.condition === false &&
+      failed.condition === true &&
       failed.process_on === 'FAILED_PROCESS_LOGIN'
     ) {
       Alert.alert('Login gagal', 'Silahkan Cek Kembali Akun Anda!')

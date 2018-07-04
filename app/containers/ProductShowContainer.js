@@ -214,7 +214,7 @@ class ProductShowContainer extends Component {
         isReviewsExist={this.state.isReviewsExist}
 
         addToCart={() => this.addToCart()}
-        goback={() => this.props.navigation.goBack()} />
+        goback={() => this.props.navigation.navigate("HomeContainer")} />
     )
   }
 }
