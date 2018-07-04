@@ -105,7 +105,7 @@ class HomeContainer extends Component {
 
   render() {
     const { banners } = this.props
-    console.log(this.props.getsingleuser)
+    console.log(this.props.product)
     return (
       <Home
         banners={banners.map((banner, index) => this.renderBanners(banner, index))}
@@ -149,7 +149,8 @@ class HomeContainer extends Component {
         )}
 
         dataRecommend={this.props.product}
-        renderRecommend={({ item }) => (
+        renderRecommend={({ item }) => {
+          return (
           <RecommendProduct 
             image={item.thumbnails[0].thumbnail_url} 
             title={this.capitalize(item.product).slice(0,27) + '...'} 
@@ -159,8 +160,10 @@ class HomeContainer extends Component {
             reviews={item.product_rate} 
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
             toggleModalAddToCart={() => this.toggleModalAddToCart()}
+
           />
-        )}
+        )
+        }}
 
         showMore={this.state.showMore}
         toggleShowMore={() => this.toggleShowMore()}

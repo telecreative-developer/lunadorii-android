@@ -3,7 +3,7 @@ import { ToastAndroid, AsyncStorage } from 'react-native'
 import ProductShow from '../components/ProductShow'
 import RecommendProduct from '../particles/RecommendProduct'
 import CommentAndRating from '../particles/CommentAndRating'
-import { fetchProduct } from '../actions/product'
+import { fetchProduct, fetchSingleProductWithId } from '../actions/product'
 import { connect } from 'react-redux'
 import { fetchwishlist, addWishlist, deleteWishlistInHome } from '../actions/wishlist';
 
@@ -68,19 +68,20 @@ class ProductShowContainer extends Component {
     console.log('data :' , data)
     await this.setState({ 
       data,
-      reviews: data.reviews,
-      accessToken:data.accessToken,
-      image: data.thumbnails[0].thumbnail_url,
-      title: data.product,
-      images: data.thumbnails.map(data => ({url: data.thumbnail_url})),
-      subcategories: data.subcategories[0].subcategory,
-      totalPrice: data.price,
-      price: data.price,
-      amountOfImage: data.thumbnails.length,
-      starCount: data.product_rate,
-      wishlisted: data.wishlisted
+      // reviews: data.reviews,
+      // accessToken:data.accessToken,
+      // image: data.thumbnails[0].thumbnail_url,
+      // title: data.product,
+      // images: data.thumbnails.map(data => ({url: data.thumbnail_url})),
+      // subcategories: data.subcategories[0].subcategory,
+      // totalPrice: data.price,
+      // price: data.price,
+      // amountOfImage: data.thumbnails.length,
+      // starCount: data.product_rate,
+      // wishlisted: data.wishlisted
     })
-    await this.props.fetchProduct(dataSession.id)
+    // await this.props.fetchProduct(dataSession.id)
+    await this.props.fetchSingleProductWithId(dataSession.id, data.product_id)
     await this.checkReviewers()
   }
 
@@ -149,20 +150,21 @@ class ProductShowContainer extends Component {
   }
 
   render() {
+    {console.log('isi single :', this.props.receiveSingleProductWithId)}
     return (
       <ProductShow
-        image={this.state.image}
-        title={this.capitalize(this.state.title)}
-        categories={this.state.subcategories}
-        price={this.state.data.price}
-        star={this.state.starCount}
-        descriptions={this.state.data.description}
-        productDetails={this.state.data.detail}
-        guide={this.state.data.to_use}
+        image={this.props.receiveSingleProductWithId.thumbnails}
+        title={this.capitalize(this.props.receiveSingleProductWithId.product)}
+        categories={this.props.receiveSingleProductWithId.subcategory}
+        price={this.props.receiveSingleProductWithId.price}
+        star={this.props.receiveSingleProductWithId.product_rate}
+        descriptions={this.props.receiveSingleProductWithId}
+        productDetails={this.props.receiveSingleProductWithId}
+        guide={this.props.receiveSingleProductWithId.to_use}
         qty={this.state.qty}
         totalPrice={this.formatPrice(this.state.totalPrice)}
         amountOfImage={this.state.amountOfImage}
-        wishlisted={this.state.wishlisted}
+        wishlisted={this.props.receiveSingleProductWithId.wishlisted}
         clickWishlist={this.state.clickWishlist}
 
         onChangeQty={(qty) => this.setState({ qty })}
@@ -203,7 +205,7 @@ class ProductShowContainer extends Component {
 
         modalVisibleImageView={this.state.modalVisibleImageView}
         toggleImageViewModal={() => this.toggleImageViewModal()}
-        images={this.state.images}
+        images={this.props.receiveSingleProductWithId.thumbnails.map(data => ({url: data.thumbnail_url}))}
 
         toggleMoreDetails={() => this.toggleMoreDetails()}
         seeMoreDetails={this.state.seeMoreDetails}
@@ -221,7 +223,7 @@ class ProductShowContainer extends Component {
 
 const mapDispatchToProps = (dispatch) =>{
   return{
-
+    fetchSingleProductWithId: (id, product_id) => dispatch(fetchSingleProductWithId(id, product_id)),
     fetchProduct: (id) => dispatch(fetchProduct(id)),
     addWishlist: (accessToken, id, idProduct) => dispatch(addWishlist(accessToken, id, idProduct)),
     deleteWishlistInHome: (accessToken, id, idProduct) => dispatch(deleteWishlistInHome(accessToken, id, idProduct)),
@@ -235,7 +237,8 @@ const mapStateToProps = (state) => {
     success: state.success,
     failed: state.failed,
     product: state.product,
-    wishlist: state.wishlist
+    wishlist: state.wishlist,
+    receiveSingleProductWithId: state.receiveSingleProductWithId
   }
 }
 

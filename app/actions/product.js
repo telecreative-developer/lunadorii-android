@@ -1,5 +1,10 @@
 import { setLoading, setFailed, setSuccess } from './processor'
-import { RECEIVE_PRODUCT, RECEIVE_SEARCH_PRODUCT, RECEIVE_PRODUCT_WITHOUT_ID } from '../constants'
+import { 
+		RECEIVE_PRODUCT, 
+		RECEIVE_SEARCH_PRODUCT, 
+		RECEIVE_PRODUCT_WITHOUT_ID,
+		RECEIVE_SINGLE_PRODUCT_WITH_ID
+	} from '../constants'
 import { API_SERVER } from '../env'
 
 export const fetchProduct = (id) => {
@@ -36,7 +41,7 @@ export const fetchProductWithoutId = () => {
 				}
 			})
 			const data = await response.json()
-			await dispatch(receiveProduct(data.data))
+			await dispatch(receiveProductWithoutID(data.data))
 			await dispatch(setSuccess(true, 'SUCESS_FETCH_PRODUCT_WITHOUT_ID'))
 			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITHOUT_ID'))
 		} catch (e){
@@ -86,6 +91,35 @@ export const fetchSearchProduct = (search) => {
 const receiveSearchProduct = data => {
 	return{
 		type: RECEIVE_SEARCH_PRODUCT,
+		payload: data
+	}
+}
+
+export const fetchSingleProductWithId = (id, id_product) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_SINGLE_PRODUCR_WITH_ID'))
+		try {
+			const response = await fetch(`${API_SERVER}/product/${id_product}?id=${id}`, {
+				method: 'GET',
+				headers:{
+					Accept: 'application/json',
+					'content-Type': 'application/json'
+				}
+			})
+			const data = await response.json()
+			await dispatch(receiveSingleProductWithId(data.data))
+			await dispatch(setSuccess(true, 'SUCCESS_SINGLE_PRODUCR_WITH_ID'))
+			await dispatch(setLoading(false, 'LOADING_SINGLE_PRODUCR_WITH_ID'))
+		} catch (e){
+			dispatch(setFailed(true, 'FAILED_SINGLE_PRODUCR_WITH_ID', e))
+			dispatch(setLoading(false, 'LOADING_SINGLE_PRODUCR_WITH_ID'))
+		}
+	}
+}
+
+const receiveSingleProductWithId = data => {
+	return{
+		type: RECEIVE_SINGLE_PRODUCT_WITH_ID,
 		payload: data
 	}
 }
