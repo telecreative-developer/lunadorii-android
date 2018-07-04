@@ -68,19 +68,19 @@ class ProductShowContainer extends Component {
     console.log('data :' , data)
     await this.setState({ 
       data,
-      // reviews: data.reviews,
-      // accessToken:data.accessToken,
-      // image: data.thumbnails[0].thumbnail_url,
-      // title: data.product,
-      // images: data.thumbnails.map(data => ({url: data.thumbnail_url})),
-      // subcategories: data.subcategories[0].subcategory,
-      // totalPrice: data.price,
-      // price: data.price,
-      // amountOfImage: data.thumbnails.length,
-      // starCount: data.product_rate,
-      // wishlisted: data.wishlisted
+      reviews: data.reviews,
+      accessToken:data.accessToken,
+      image: data.thumbnails[0].thumbnail_url,
+      title: data.product,
+      images: data.thumbnails.map(data => ({url: data.thumbnail_url})),
+      subcategories: data.subcategories[0].subcategory,
+      totalPrice: data.price,
+      price: data.price,
+      amountOfImage: data.thumbnails.length,
+      starCount: data.product_rate,
+      wishlisted: data.wishlisted
     })
-    // await this.props.fetchProduct(dataSession.id)
+    await this.props.fetchProduct(dataSession.id)
     await this.props.fetchSingleProductWithId(dataSession.id, data.product_id)
     await this.checkReviewers()
   }
@@ -153,18 +153,19 @@ class ProductShowContainer extends Component {
     {console.log('isi single :', this.props.receiveSingleProductWithId)}
     return (
       <ProductShow
-        image={this.props.receiveSingleProductWithId.thumbnails}
-        title={this.capitalize(this.props.receiveSingleProductWithId.product)}
-        categories={this.props.receiveSingleProductWithId.subcategory}
-        price={this.props.receiveSingleProductWithId.price}
-        star={this.props.receiveSingleProductWithId.product_rate}
-        descriptions={this.props.receiveSingleProductWithId}
-        productDetails={this.props.receiveSingleProductWithId}
-        guide={this.props.receiveSingleProductWithId.to_use}
+        image={this.state.image}
+        images={this.state.images}
+        title={this.props.receiveSingleProductWithId.map( data => data.product)}
+        categories={this.props.receiveSingleProductWithId.map(data => (data.subcategories[0].subcategory))}
+        price={this.props.receiveSingleProductWithId.map(data => (data.price))}
+        star={this.props.receiveSingleProductWithId.map(data => (data.product_rate))}
+        descriptions={this.props.receiveSingleProductWithId.map(data => data.description)}
+        productDetails={this.props.receiveSingleProductWithId.map(data => data.detail)}
+        guide={this.props.receiveSingleProductWithId.map( data => data.to_use)}
         qty={this.state.qty}
         totalPrice={this.formatPrice(this.state.totalPrice)}
         amountOfImage={this.state.amountOfImage}
-        wishlisted={this.props.receiveSingleProductWithId.wishlisted}
+        wishlisted={this.props.receiveSingleProductWithId.map(data => data.wishlisted)}
         clickWishlist={this.state.clickWishlist}
 
         onChangeQty={(qty) => this.setState({ qty })}
@@ -205,7 +206,6 @@ class ProductShowContainer extends Component {
 
         modalVisibleImageView={this.state.modalVisibleImageView}
         toggleImageViewModal={() => this.toggleImageViewModal()}
-        images={this.props.receiveSingleProductWithId.thumbnails.map(data => ({url: data.thumbnail_url}))}
 
         toggleMoreDetails={() => this.toggleMoreDetails()}
         seeMoreDetails={this.state.seeMoreDetails}

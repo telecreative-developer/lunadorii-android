@@ -11,7 +11,7 @@ export const fetchProduct = (id) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT'))
 		try {
-			const response = await fetch(`${API_SERVER}/products?id=${id}`, {
+			const response = await fetch(`${API_SERVER}/products/new-arrivals?id=${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
