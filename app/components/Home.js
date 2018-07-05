@@ -136,7 +136,8 @@ const styles = StyleSheet.create({
     paddingLeft: 10
   },
   tabBarUnderlineStyle: {
-    backgroundColor: '#f65857'
+    alignItems: 'center',
+    backgroundColor: '#d11e48'
   },
   recommededProductWrapper: {
     paddingLeft: 10,

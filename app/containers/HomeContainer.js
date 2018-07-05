@@ -25,7 +25,7 @@ class HomeContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loadingModal: true,
+      loadingModal: false,
       size: { width, height },
       showMore: false,
       id_user: 0,
@@ -156,7 +156,7 @@ class HomeContainer extends Component {
           return (
           <RecommendProduct 
             image={item.thumbnails[0].thumbnail_url} 
-            title={this.capitalize(item.product).slice(0,27) + '...'} 
+            title={this.capitalize(item.product).slice(0,28) + '...'} 
             categories={item.subcategories[0].subcategory} 
             price={this.formatPrice(item.price)} 
             star={item.product_rate} 

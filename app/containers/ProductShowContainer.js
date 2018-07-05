@@ -205,6 +205,8 @@ class ProductShowContainer extends Component {
             rating={item.review_rate} />
         )}
 
+        stillLoading={this.props.loading.condition}
+
         modalVisibleImageView={this.state.modalVisibleImageView}
         toggleImageViewModal={() => this.toggleImageViewModal()}
 

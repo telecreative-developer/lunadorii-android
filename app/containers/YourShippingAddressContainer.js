@@ -114,8 +114,6 @@ class YourShippingAddressContainer extends Component{
     // console.log('clicked delete id: ', this.state.address_id)
 
   }
-  
-  // name alamat province kota kecamatan kelurahan Notelp 
 
   render(){
     return(
