@@ -54,7 +54,7 @@ const Profile = (props) => (
             </View>
             <View>
               <View style={styles.viewNameProfile}>
-                <Text style={styles.txtNameProfile}>Hello, {props.profile.firstName}</Text>
+                <Text style={styles.txtNameProfile}>Hello, {props.profile.first_name}</Text>
                 <Button style={styles.btnProfile}><Text style={styles.txtBtnProfile} onPress={props.toggleModalEditProfile}>
                   <MaterialCommunityIcons name="pencil" size={15} /> Edit Profile</Text>
                 </Button>

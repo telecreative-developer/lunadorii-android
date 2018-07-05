@@ -109,7 +109,7 @@ class ProfileContainer extends Component {
         toggleModalEditProfile={() => this.toggleModalEditProfile()}
         modalVisibleEditProfile={this.state.modalVisibleEditProfile}
 
-        profile={this.state}
+        profile={this.state.userData}
         onChangeFirstName={(firstName) => this.setState({ firstName })}
         onChangeLastName={(lastName) => this.setState({ lastName })}
         onChangeBirthDate={(birthDate) => this.setState({ birthDate })}

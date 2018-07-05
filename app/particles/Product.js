@@ -52,6 +52,7 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
   },
   ImageBackground: {
+    resizeMode: 'contain',
     width: (width - 35) / 2,
     height: 100,
     padding: 20
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
     height: 25,
     backgroundColor: 'rgba(202, 202, 202, 0.73)',
     marginRight: 5,
-    width: (width - 150) / 2,
+    width: (width - 120) / 2,
     left: 20,
     bottom: 15,
     alignSelf: 'flex-end',

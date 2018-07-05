@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage } from 'react-native'
+import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage, TouchableOpacity } from 'react-native'
 import Home from '../components/Home'
 import Product from '../particles/Product'
 import Brand from '../particles/Brand'
@@ -74,17 +74,17 @@ class HomeContainer extends Component {
   }
 
   async componentDidMount() {
+    // await this.props.fetchProductWithoutId()
+    // await this.props.fetchProductWithoutId()
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     console.log(data.accessToken)
+    await this.props.fetchBanners()
     await this.props.fetchCategoryProduct()
     await this.props.fetchBrandsProduct()
     await this.props.fetchProduct(data.id)
     await this.props.fetchSingleUser(data.id, data.accessToken)
-    // await this.props.fetchProductWithoutId()
-    await this.props.fetchBanners()
     await this.props.fetchProductSubcategories()
-    // await this.props.fetchProductWithoutId()
   }
 
   capitalize(string) {
@@ -97,9 +97,9 @@ class HomeContainer extends Component {
 
   renderBanners(banner, index) {
     return (
-      <View key={index} style={styles.banner}>
+      <TouchableOpacity key={index} style={styles.banner} onPress={() => this.props.navigation.navigate("UnknownScreenContainer", {image: banner.thumbnail_url})}>
         <Image style={styles.bannerImage} source={{ uri: banner.thumbnail_url }} />
-      </View>
+      </TouchableOpacity>
     )
   }
 
@@ -116,6 +116,7 @@ class HomeContainer extends Component {
             title={item.subcategory.length <= 10 ? item.subcategory : this.capitalize(item.subcategory).slice(0,8)+'...'} 
             realTitle={item.subcategory}
             icon={item.thumbnail_url}
+            action={() => this.props.navigation.navigate("UnknownScreenContainer", {image: item.thumbnail_url})}
           />
         )}
 
@@ -123,6 +124,7 @@ class HomeContainer extends Component {
         renderBrand={({ item }) => (
           <Brand 
             image={item.logo_url} 
+            action={() => this.props.navigation.navigate("UnknownScreenContainer", {image: item.logo_url})}
           />
         )}
 
