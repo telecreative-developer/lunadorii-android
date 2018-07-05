@@ -14,7 +14,6 @@ class YourShippingAddressContainer extends Component{
     this.state = {
       modalVisibleEditAddress: false,
       modalVisibleAddAddress: false,
-      modalVisibleSetProvince: false,
       address_id: 0,
       name: '',
       phone: '',
@@ -24,10 +23,6 @@ class YourShippingAddressContainer extends Component{
       district: '',
       address_default: false
     }
-  }
-
-  toggleModalSetProvince(){
-    this.setState({modalVisibleSetProvince: !this.state.modalVisibleSetProvince})
   }
 
   closeModal(){
@@ -110,38 +105,18 @@ class YourShippingAddressContainer extends Component{
     // console.log('clicked delete id: ', this.state.address_id)
 
   }
+  
+  // name alamat province kota kecamatan kelurahan Notelp 
 
   render(){
     return(
       <YourShippingAddress
-        goback={() => this.props.navigation.goBack()}
-
-        modalVisibleSetProvince={this.state.modalVisibleSetProvince}
-        toggleModalSetProvince={() => this.toggleModalSetProvince()}
-
-        modalVisibleEditAddress={this.state.modalVisibleEditAddress}
-        toggleModalEditAddress={() => this.toggleModalEditAddress()}
+        goback={() => this.props.navigation.goBack()}    
 
         modalVisibleAddAddress={this.state.modalVisibleAddAddress}
         toggleModalAddAddress={() => this.toggleModalAddAddress()}
-        handleSaveShippingAddress={() => this.handleSaveShippingAddress()}
-
-        name={this.state.name}
-        phone={this.state.phone}
-        detail_address={this.state.detail_address}
-        province={this.state.province}
-        city={this.state.city}
-        district={this.state.district}
-        address_default={this.state.address_default}
-
-        onChangeName={(name) => this.setState({ name })}
-        onChangePhone={(phone) => this.setState({ phone })}
-        onChangeAddress={(detail_address) => this.setState({ detail_address })}
-        onChangeProvince={(province) => this.setState({ province })}
-        onChangeCity={(city) => this.setState({ city })}
-        onChangeDistrict={(district) => this.setState({ district })}
-
-        handlerUpdateShipping={() => this.btnUpdateShipping()}
+        name={(name) => this.setState({name})}
+        address={(address) => this.setState({address})}
 
         dataShippingAddress={this.props.usershipping}
         renderShippingAddress={({item}) => (
