@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet, StatusBar, Dimensions } from 'react-n
 import { Container, Content } from 'native-base'
 import Navbar from '../particles/Navbar'
 import EditReviewsModal from '../modals/EditReviewsModal'
+import ModalLoading from '../modals/LoadingModal'
 const { height, width } = Dimensions.get('window')
 
 const Reviews = (props) => {
@@ -13,6 +14,10 @@ const Reviews = (props) => {
       navbarTitle="Reviews"
       navbarIcon="arrow-back"
       actionIcon={props.goback}
+    />
+    <ModalLoading 
+        modalVisibleLoading={props.modalVisibleLoading}
+        message={props.message}
     />
     <EditReviewsModal
       navbarTitle="Edit Reviews"

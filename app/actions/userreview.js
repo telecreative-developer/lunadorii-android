@@ -53,7 +53,7 @@ export const updateReview = (id, items, accessToken) => {
 
 export const deleteReview = (id, accessToken) => {
 	return async dispatch => {
-		await dispatch(setLoading(true, 'LOADING_UPDATE_REVIEW'))
+		await dispatch(setLoading(true, 'LOADING_DELETE_REVIEW'))
 		try {
 			const response = await fetch(`${API_SERVER}/user-review/${id}`, {
 				method: 'DELETE',
@@ -64,11 +64,11 @@ export const deleteReview = (id, accessToken) => {
                 },
 			})
 			const data = await response.json()
-			await dispatch(setSuccess(true, 'SUCCESS_UPDATE_REVIEW'))
-      		await dispatch(setLoading(false, 'LOADING_UPDATE_REVIEW'))
+			await dispatch(setSuccess(true, 'SUCCESS_DELETE_REVIEW'))
+      		await dispatch(setLoading(false, 'LOADING_DELETE_REVIEW'))
 		} catch (e) {
-			dispatch(setFailed(true, 'FAILED_UPDATE_REVIEW', e))
-			dispatch(setLoading(false, 'LOADING_UPDATE_REVIEW'))
+			dispatch(setFailed(true, 'FAILED_DELETE_REVIEW', e))
+			dispatch(setLoading(false, 'LOADING_DELETE_REVIEW'))
 		}
 	}
 }

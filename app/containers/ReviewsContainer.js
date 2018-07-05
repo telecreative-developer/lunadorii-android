@@ -17,7 +17,9 @@ class ReviewsContainer extends Component{
     title: '',
     price: 0,
     star: 0,
-    comment: ''
+    comment: '',
+    modalVisibleLoading:false,
+    maessage:''
   }
 
   closeModal(){
@@ -69,19 +71,11 @@ class ReviewsContainer extends Component{
   }
 
   async deleteReview(item){
-    const loading = this.props
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.deleteReview(item.product_review_id, data.accessToken)
     await this.props.fetchUserReview(data.id, data.accessToken)
-    return (
-      <View>
-        {loading.condition === true && loading.process_on === 'LOADING_PROCESS_DELETE_WISHLIST' ?
-        <Spinner color="red"/> :
-        <View></View>  
-      }
-      </View>
-    )
+    this.setState({message:'DELETING'})
   }
  
   async onStarRatingPress(star) {
@@ -95,6 +89,9 @@ class ReviewsContainer extends Component{
   }
 
   render(){
+    const loading = this.props
+    console.log('isi modal loading :' , this.state.modalVisibleLoading)
+    console.log('loading :' , loading.condition, loading.process_on)
     if(this.state.isEmpty){
       return(
         <ReviewIsEmpty
@@ -116,6 +113,8 @@ class ReviewsContainer extends Component{
           onChangeComment={(comment) => this.setState({ comment })}
           onChangeStar={(star) => this.onStarRatingPress(star)}
           updateRating={() => this.btnUpdateRating()}
+          modalVisibleLoading={this.props.loading.condition}
+          message={this.state.message}
   
           dataReviews={this.props.userreview}
           renderReviews={({item}) => (
