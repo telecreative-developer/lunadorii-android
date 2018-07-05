@@ -3,7 +3,11 @@ import { ToastAndroid, AsyncStorage } from 'react-native'
 import ProductShow from '../components/ProductShow'
 import RecommendProduct from '../particles/RecommendProduct'
 import CommentAndRating from '../particles/CommentAndRating'
-import { fetchProduct, fetchSingleProductWithId } from '../actions/product'
+import { 
+  fetchProduct, 
+  fetchSingleProductWithId,
+  fetchRelatedProduct
+  } from '../actions/product'
 import { connect } from 'react-redux'
 import { fetchwishlist, addWishlist, deleteWishlistInHome } from '../actions/wishlist';
 
@@ -73,15 +77,12 @@ class ProductShowContainer extends Component {
       image: data.thumbnails[0].thumbnail_url,
       title: data.product,
       images: data.thumbnails.map(data => ({url: data.thumbnail_url})),
-      subcategories: data.subcategories[0].subcategory,
       totalPrice: data.price,
-      price: data.price,
       amountOfImage: data.thumbnails.length,
-      starCount: data.product_rate,
-      wishlisted: data.wishlisted
     })
     await this.props.fetchProduct(dataSession.id)
     await this.props.fetchSingleProductWithId(dataSession.id, data.product_id)
+    await this.props.fetchRelatedProduct(data.product_id)
     await this.checkReviewers()
   }
 
@@ -174,7 +175,7 @@ class ProductShowContainer extends Component {
         AddWishlist={()=> this.AddWishlist()}
         deleteWishlistInHome={()=> this.deleteWishlistInHome()}
 
-        dateRelatedProducts={this.props.product}
+        dateRelatedProducts={this.props.relatedProduct}
         renderRelatedProducts={({ item }) => (
           <RecommendProduct 
             image={item.thumbnails[0].thumbnail_url} 
@@ -227,7 +228,8 @@ const mapDispatchToProps = (dispatch) =>{
     fetchProduct: (id) => dispatch(fetchProduct(id)),
     addWishlist: (accessToken, id, idProduct) => dispatch(addWishlist(accessToken, id, idProduct)),
     deleteWishlistInHome: (accessToken, id, idProduct) => dispatch(deleteWishlistInHome(accessToken, id, idProduct)),
-    fetchwishlist:(accessToken, id) => dispatch(fetchwishlist(accessToken, id))
+    fetchwishlist:(accessToken, id) => dispatch(fetchwishlist(accessToken, id)),
+    fetchRelatedProduct:(product_id) => dispatch(fetchRelatedProduct(product_id))
   }
 }
 
@@ -238,7 +240,8 @@ const mapStateToProps = (state) => {
     failed: state.failed,
     product: state.product,
     wishlist: state.wishlist,
-    receiveSingleProductWithId: state.receiveSingleProductWithId
+    receiveSingleProductWithId: state.receiveSingleProductWithId,
+    relatedProduct: state.relatedProduct
   }
 }
 

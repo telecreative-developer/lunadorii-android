@@ -68,7 +68,11 @@ class ProfileContainer extends Component {
   }
 
   async handleSaveEditProfile() {
-    await this.props.editName(this.state.userData.id, this.state.firstName, this.state.lastName, this.state.userData.accessToken)
+    await this.props.editName(
+        this.state.userData.id, 
+        this.state.firstName, 
+        this.state.lastName, 
+        this.state.userData.accessToken)
     await this.setState({modalVisibleEditProfile: false })
     alert("Profile Saved")
   }
