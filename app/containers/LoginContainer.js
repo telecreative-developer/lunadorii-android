@@ -57,6 +57,7 @@ class LoginContainer extends Component {
       success.condition === true &&
       success.process_on === 'SUCCESS_FETCH_USER_WITH_ID'
     ) {
+      console.log(success.process_on)
       this.props.navigation.dispatch(
         StackActions.reset({
           index:0,

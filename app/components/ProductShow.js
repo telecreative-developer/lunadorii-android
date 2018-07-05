@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, FlatList, ImageBackground, TouchableOpacity, StatusBar, Dimensions} from 'react-native'
 import { Container, Content, Text, View, Item, Input } from 'native-base'
-import HeaderImageScrollView, { TriggeringView } from 'react-native-image-header-scroll-view';
 import StarRating from 'react-native-star-rating';
 import NavbarTransparent from '../particles/NavbarTransparent'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
@@ -11,7 +10,10 @@ import ImageViewModal from '../modals/ImageViewModal'
 const { height, width } = Dimensions.get('window')
 
 const ProductShow = (props) => (
-  <Container>
+  <Container style={{
+    width: width,
+    height: height
+  }}>
     <Content style={styles.container}>
       <TouchableOpacity onPress={props.toggleImageViewModal}>
         <ImageBackground source={{ uri: props.image }} style={styles.imageBackgroundStyle}>
@@ -34,7 +36,7 @@ const ProductShow = (props) => (
         images={props.images}/>
       <View style={styles.firstGroup}>
         <View style={styles.firstGroupWrapper}>
-          <View style={{width: 255}}>
+          <View style={{width: (width - 90) / 1 }}>
             <Text style={styles.firstGroupTitle}>{props.title}</Text>
           </View>
           <Text style={styles.fistGroupSubtitle}>{props.categories}</Text>
@@ -122,7 +124,7 @@ const ProductShow = (props) => (
       <View style={styles.borderedSparator}>
         <View style={styles.borderedSparatorFirst}>
           <Text style={styles.borderedSparatorFirstTitle}>Description</Text>
-          <View style={{}}>
+          <View style={{width: (width - 20) / 1 }}>
             <Text style={styles.borderedSparatorFirstContent}>
               {props.descriptions}
             </Text>
@@ -132,15 +134,19 @@ const ProductShow = (props) => (
           <View>
             <View style={styles.borderedSparatorSecond}>
               <Text style={styles.borderedSparatorSecondTitle}>Product Details</Text>
-              <Text style={styles.borderedSparatorSecondPointedContent}>
-                {props.productDetails}
-              </Text>
+              <View style={{width: (width - 20) / 1 }}>
+                <Text style={styles.borderedSparatorSecondPointedContent}>
+                  {props.productDetails}
+                </Text>
+              </View>
             </View>
             <View style={styles.borderedSparatorThird}>
               <Text style={styles.borderedSparatorThirdTitle}>How to Use</Text>
-              <Text style={styles.borderedSparatorThirdContent}>
-                {props.guide}
-              </Text>
+              <View style={{width: (width -20) / 1 }}>
+                <Text style={styles.borderedSparatorThirdContent}>
+                  {props.guide}
+                </Text>
+              </View>
             </View>
           </View>
         ) : (
@@ -412,11 +418,12 @@ const styles = StyleSheet.create({
   touchableOpacity: {
     backgroundColor: 'rgba(202, 202, 202, 0.73)',
     marginRight: 5,
-    width: 110,
-    height: 30,
-    top: 155,
+    width: (width - 130) / 2,
+    height: (height - 580) / 2,
+    top: 170,
     alignSelf: 'flex-end',
-    borderRadius: 8
+    borderRadius: 8,
+    alignItems:'center'
   },
   touchableOpacityButtonIcon: {
     fontSize: 16

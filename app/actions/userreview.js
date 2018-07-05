@@ -51,6 +51,30 @@ export const updateReview = (id, items, accessToken) => {
 	}
 }
 
+export const deleteReview = (id, accessToken) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_UPDATE_REVIEW'))
+		try {
+			const response = await fetch(`${API_SERVER}/user-review/${id}`, {
+				method: 'DELETE',
+				headers: {
+					Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: accessToken
+                },
+			})
+			const data = await response.json()
+			await dispatch(setSuccess(true, 'SUCCESS_UPDATE_REVIEW'))
+      		await dispatch(setLoading(false, 'LOADING_UPDATE_REVIEW'))
+		} catch (e) {
+			dispatch(setFailed(true, 'FAILED_UPDATE_REVIEW', e))
+			dispatch(setLoading(false, 'LOADING_UPDATE_REVIEW'))
+		}
+	}
+}
+
+
+
 const receiveUserReview = data => {
 	return{
 		type: RECEIVE_USER_REVIEW,

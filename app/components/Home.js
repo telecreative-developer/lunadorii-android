@@ -11,7 +11,6 @@ const bannerWidth = Dimensions.get('window').width
 
 const Home = (props) => (
   <Container style={styles.tabHeading}>
-  {/* {console.log('avatar url', props.image.avatar_url)} */}
     <NavbarHome
       searchIconAction={props.navigateToSearch}
       cartIconAction={props.navigateToYourCart}

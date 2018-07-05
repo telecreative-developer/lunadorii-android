@@ -76,7 +76,7 @@ class ProductShowContainer extends Component {
       accessToken:data.accessToken,
       image: data.thumbnails[0].thumbnail_url,
       title: data.product,
-      images: data.thumbnails.map(data => ({url: data.thumbnail_url})),
+      images: data.thumbnails.map(data => ({source:{uri: data.thumbnail_url}})),
       totalPrice: data.price,
       amountOfImage: data.thumbnails.length,
     })
@@ -217,7 +217,7 @@ class ProductShowContainer extends Component {
         isReviewsExist={this.state.isReviewsExist}
 
         addToCart={() => this.addToCart()}
-        goback={() => this.props.navigation.goBack()} />
+        goback={() => this.props.navigation.navigate("HomeContainer")} />
     )
   }
 }
