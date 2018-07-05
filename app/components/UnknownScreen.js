@@ -7,6 +7,7 @@ import {
   Text,
   View,
   RefreshControl,
+  FlatList
 } from 'react-native';
 import { Header, Left, Button, Icon, Body, Right } from 'native-base'
 
@@ -27,15 +28,15 @@ export default class UnknownScreen extends Component {
     };
   }
 
-  _renderScrollViewContent() {
-    const data = Array.from({ length: 30 });
+  _renderScrollViewContent(data, renderItem) {
+    // const data = Array.from({ length: 30 });
     return (
       <View style={styles.scrollViewContent}>
-        {data.map((_, i) => (
-          <View key={i} style={styles.row}>
-            <Text>{i}</Text>
-          </View>
-        ))}
+        <FlatList
+          numColumns={2}
+          data={data}
+          renderItem={renderItem}
+        />
       </View>
     );
   }
@@ -108,7 +109,7 @@ export default class UnknownScreen extends Component {
             y: -HEADER_MAX_HEIGHT,
           }}
         >
-          {this._renderScrollViewContent()}
+          {this._renderScrollViewContent(this.props.dataProduct, this.props.renderProduct)}
         </Animated.ScrollView>
         <Animated.View
           pointerEvents="none"
@@ -139,15 +140,6 @@ export default class UnknownScreen extends Component {
             },
           ]}
         >
-          <Left>
-            <Button transparent>
-              <Icon name="arrow-back" style={styles.iconColor} />
-            </Button>
-          </Left>
-          <Body>
-            <Text style={styles.navbarTitles}>title</Text>
-          </Body>
-          <Right />
         </Animated.View>
       </View>
     );
@@ -157,6 +149,8 @@ export default class UnknownScreen extends Component {
 const styles = StyleSheet.create({
   fill: {
     flex: 1,
+    paddingTop: 10,
+    backgroundColor: '#fff'
   },
   content: {
     flex: 1,
@@ -196,7 +190,9 @@ const styles = StyleSheet.create({
   },
   scrollViewContent: {
     // iOS uses content inset, which acts like padding.
-    paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 0,
+    paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 10,
+    padding: 10,
+    alignItems:'center'
   },
   row: {
     height: 40,
@@ -212,8 +208,9 @@ const styles = StyleSheet.create({
   },
   navbarTitles: {
     color: '#000',
-    fontSize: 16,
-    fontWeight: 'bold'
+    fontSize: 18,
+    fontWeight: 'bold',
+    alignItems: 'flex-start'
   },
   iconColor: {
     color: '#000'
