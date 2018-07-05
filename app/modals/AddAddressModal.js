@@ -1,9 +1,9 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, Dimensions } from 'react-native'
-import { Container, Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
+import { Modal, View, Text, StyleSheet, Dimensions, ScrollView, Picker } from 'react-native'
+import { Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
+import SmartPicker from 'react-native-smart-picker'
 const { height, width } = Dimensions.get('window')
-import SetProvinceModal from '../modals/SetProvinceModal'
 
 const AddAddressModal = (props) => (
   <Modal
@@ -16,10 +16,6 @@ const AddAddressModal = (props) => (
       navbarIcon="close"
       actionIcon={props.actionIcon} 
     />
-    <SetProvinceModal
-      modalVisible={props.modalVisibleSetProvince}
-      toggleModalSetProvince={props.toggleModalSetProvince}
-    />
     <Content style={styles.container}>
       <Form style={styles.form}>
         <Label style={styles.labels}>Name</Label>
@@ -31,9 +27,23 @@ const AddAddressModal = (props) => (
           <Textarea placeholder={props.address} placeholderTextColor="#CDCDCD" style={styles.textareaStyle} onChangeText={props.onChangeAddress} />
         </Item>
         <Label style={styles.labels}>Provinsi</Label>
-        <Item regular style={styles.items}>
-          <Text style={{color: '#ccc', padding: 5}} onPress={props.toggleModalSetProvince}>Select Province</Text>
-        </Item>
+        <ScrollView>
+          <ScrollView>
+            <View style={{flex: 1}}>
+              <ScrollView>
+                <SmartPicker
+                  arrowColor={"#fff"}
+                  selectedValue={props.selectedBank}
+                  onValueChange={props.onChangeBankName}>
+                  <Picker.Item label='BRI' value='BRI' />
+                  <Picker.Item label='BCA' value='BCA' />
+                  <Picker.Item label='Mayapada' value='MAYAPADA' />
+                  <Picker.Item label='Mandiri' value='MANDIRI' />
+                </SmartPicker>
+              </ScrollView>
+            </View>
+          </ScrollView>
+        </ScrollView>
         <Label style={styles.labels}>Kota/Kabupaten</Label>
         <Item regular style={styles.items}>
           <Input placeholder={props.city} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCity} />
@@ -73,13 +83,18 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Avenir Next',
     fontWeight: 'bold',
-    paddingBottom: 10,
     paddingTop: 10
+  },
+  pickers:{
+    width: '100%',
+    borderColor: '#ccc',
+    borderRadius: 5,
   },
   items: {
     width: '100%',
     borderRadius: 5,
-    height: 40
+    height: 40,
+    alignItems:'center'
   },
   itemsTextarea: {
     borderRadius: 5,
