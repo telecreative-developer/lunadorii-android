@@ -3,7 +3,9 @@ import {
 		RECEIVE_PRODUCT, 
 		RECEIVE_SEARCH_PRODUCT, 
 		RECEIVE_PRODUCT_WITHOUT_ID,
-		RECEIVE_SINGLE_PRODUCT_WITH_ID
+		RECEIVE_SINGLE_PRODUCT_WITH_ID,
+		RECEIVE_RELATED_PRODUCT,
+		RECEIVE_SINGLE_RELATED_PRODUCT
 	} from '../constants'
 import { API_SERVER } from '../env'
 
@@ -121,5 +123,63 @@ const receiveSingleProductWithId = data => {
 	return{
 		type: RECEIVE_SINGLE_PRODUCT_WITH_ID,
 		payload: data
+	}
+}
+//api/v1/products/related-product
+export const fetchRelatedProduct = (product_id) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_FETCH_RELATED_PRODUCT'))
+		try {
+			const response = await fetch(`${API_SERVER}/products/related/${product_id}`, {
+				method: 'GET',
+				headers:{
+					Accept: 'application/json',
+					'content-Type': 'application/json'
+				}
+			})
+			const data = await response.json()
+			await dispatch(receiveRelatedProduct(data.data))
+			await dispatch(setSuccess(true, 'SUCCESS_FETCH_RELATED_PRODUCT'))
+			await dispatch(setLoading(false, 'LOADING_FETCH_RELATED_PRODUCT'))
+		} catch (e){
+			dispatch(setFailed(true, 'FAILED_FETCH_RELATED_PRODUCT', e))
+			dispatch(setLoading(false, 'LOADING_FETCH_RELATED_PRODUCT'))
+		}
+	}
+}
+
+const receiveRelatedProduct = data => {
+	return{
+		type: RECEIVE_RELATED_PRODUCT,
+		payload: data
+	}
+}
+
+export const fetchSingleRelatedProduct = () => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_FETCH_SINGLE_RELATED_PRODUCT'))
+		try {
+			const response = await fetch(`${API_SERVER}/product/related`, {
+				method: 'GET',
+				headers:{
+					Accept: 'application/json',
+					'content-Type': 'application/json'
+				}
+			})
+			const data = await response.json()
+			await dispatch(receiveSingleRelatedProduct(data.data))
+			await dispatch(setSuccess(true, 'SUCCESS_FETCH_SINGLE_RELATED_PRODUCT'))
+			await dispatch(setLoading(false, 'LOADING_FETCH_SINGLE_RELATED_PRODUCT'))
+		} catch (e){
+			dispatch(setFailed(true, 'FAILED_FETCH_SINGLE_RELATED_PRODUCT', e))
+			dispatch(setLoading(false, 'LOADING_FETCH_SINGLE_RELATED_PRODUCT'))
+		}
+	}	
+}
+
+const receiveSingleRelatedProduct = data => {
+	return{
+		type: RECEIVE_SINGLE_RELATED_PRODUCT,
+		payload: data 
 	}
 }
