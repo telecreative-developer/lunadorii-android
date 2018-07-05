@@ -4,7 +4,7 @@ import { Container, Tabs, Tab, TabHeading, Icon, Content } from 'native-base'
 import NavbarHome from '../particles/NavbarHome'
 import Carousel from 'react-native-banner-carousel'
 import AddToCart from '../modals/AddToCart'
-
+import LoadingModal from '../modals/LoadingModal'
 const { height, width } = Dimensions.get('window')
 
 const bannerWidth = Dimensions.get('window').width
@@ -25,6 +25,10 @@ const Home = (props) => (
       toggleModalAddToCart={props.toggleModalAddToCart}
       onChangeQty={props.onChangeQty}
       handleAddToCart={props.handleAddToCart}
+    />
+    <LoadingModal
+      modalVisible={props.loadingModal}
+      message="Goblok"
     />
     <Tabs locked={true} style={styles.tabHeight} tabBarUnderlineStyle={styles.tabBarUnderlineStyle}>
       <Tab heading={<TabHeading style={styles.tabHeading} ><Text style={styles.txtHeading}>New Arrivals</Text></TabHeading>}>

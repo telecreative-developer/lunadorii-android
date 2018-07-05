@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, TouchableOpacity, FlatList, StatusBar, Dimensions, Text } from 'react-native'
 import { Container, Content, View, Button, Icon } from 'native-base'
 import Navbar from '../particles/Navbar'
-import EditAddressModal from '../modals/EditAddressModal'
+// import EditAddressModal from '../modals/EditAddressModal'
 import AddAddressModal from '../modals/AddAddressModal'
 const { height, width } = Dimensions.get('window')
 
@@ -12,18 +12,11 @@ const YourShippingAddress = (props) => (
       navbarTitle="Shipping Address"
       navbarIcon="arrow-back"
       actionIcon={props.goback} />
-    <EditAddressModal
-      navbarTitle="Edit Addresss"
+    <AddAddressModal
+      navbarTitle="Add Addresss"
       navbarIcon="close"
-      modalVisible={props.modalVisibleEditAddress}
-      actionIcon={props.toggleModalEditAddress} 
-      
-      name={props.name}
-      phone={props.phone}
-      detail_address={props.detail_address}
-      province={props.province}
-      city={props.city}
-      district={props.district}
+      modalVisible={props.modalVisibleAddAddress}
+      actionIcon={props.toggleModalAddAddress} 
 
       onChangeName={props.onChangeName}
       onChangePhone={props.onChangePhone}
@@ -31,17 +24,6 @@ const YourShippingAddress = (props) => (
       onChangeProvince={props.onChangeProvince}
       onChangeCity={props.onChangeCity}
       onChangeDistrict={props.onChangeDistrict}
-
-      modalVisibleSetProvince={props.modalVisibleSetProvince}
-      toggleModalSetProvince={props.toggleModalSetProvince}
-
-      updateShipping={props.handlerUpdateShipping}
-    />
-    <AddAddressModal
-      navbarTitle="Add Addresss"
-      navbarIcon="close"
-      modalVisible={props.modalVisibleAddAddress}
-      actionIcon={props.toggleModalAddAddress} 
       
       modalVisibleSetProvince={props.modalVisibleSetProvince}
       toggleModalSetProvince={props.toggleModalSetProvince}

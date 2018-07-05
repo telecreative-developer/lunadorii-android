@@ -25,6 +25,7 @@ class HomeContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loadingModal: true,
       size: { width, height },
       showMore: false,
       id_user: 0,
@@ -166,6 +167,8 @@ class HomeContainer extends Component {
           />
         )
         }}
+
+        loadingModal={this.state.loadingModal}
 
         showMore={this.state.showMore}
         toggleShowMore={() => this.toggleShowMore()}
