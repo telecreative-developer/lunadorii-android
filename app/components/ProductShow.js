@@ -418,11 +418,12 @@ const styles = StyleSheet.create({
   touchableOpacity: {
     backgroundColor: 'rgba(202, 202, 202, 0.73)',
     marginRight: 5,
-    width: 110,
-    height: 30,
-    top: 155,
+    width: (width - 130) / 2,
+    height: (height - 580) / 2,
+    top: 170,
     alignSelf: 'flex-end',
-    borderRadius: 8
+    borderRadius: 8,
+    alignItems:'center'
   },
   touchableOpacityButtonIcon: {
     fontSize: 16
