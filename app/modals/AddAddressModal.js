@@ -52,17 +52,17 @@ const AddAddressModal = (props) => (
         <Item regular style={styles.items}>
           <Input placeholder={props.regency} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeRegency} />
         </Item>
-        <Label style={styles.labels}>Kelurahan</Label>
+        {/* <Label style={styles.labels}>Kelurahan</Label>
         <Item regular style={styles.items}>
           <Input placeholder={props.district} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeDistrict} />
-        </Item>
+        </Item> */}
         <Label style={styles.labels}>No Telp</Label>
         <Item regular style={styles.items}>
           <Input placeholder={props.numberPhone} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeNumberPhone} keyboardType={'numeric'}/>
         </Item>
       </Form>
     </Content>
-    <Button full style={styles.buttonSaveStyle} onPress={props.toggleModalSetProvince}>
+    <Button full style={styles.buttonSaveStyle} onPress={props.handleSaveAddres}>
       <Text style={styles.buttonSaveTextStyle}>Save</Text>
     </Button>
   </Modal>
