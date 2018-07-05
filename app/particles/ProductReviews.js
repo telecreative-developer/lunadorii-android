@@ -18,6 +18,9 @@ const ProductReviews = (props) =>(
             <TouchableOpacity onPress={props.action}>
               <Text style={styles.txtEdit}>Edit</Text>
             </TouchableOpacity>
+            <TouchableOpacity onPress={props.deleteReview}>
+              <Text style={styles.txtEdit}>Delete</Text>
+            </TouchableOpacity>
           </View>
         </View> 
         <View style={styles.viewRating}>

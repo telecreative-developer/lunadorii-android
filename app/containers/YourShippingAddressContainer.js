@@ -4,7 +4,7 @@ import YourShippingAddress from '../components/YourShippingAddress'
 import ShippingAddress from '../particles/ShippingAddress'
 
 import { connect } from 'react-redux'
-import { fetchUserShipping, updateShipping, updateSetdefault, deleteShipping } from '../actions/usershipping'
+import { fetchUserShipping, updateShipping, updateSetdefault, deleteShipping, createAddress } from '../actions/usershipping'
 
 
 class YourShippingAddressContainer extends Component{
@@ -21,7 +21,7 @@ class YourShippingAddressContainer extends Component{
       province: '',
       city: '',
       district: '',
-      address_default: false
+      address_default: false,
     }
   }
 
@@ -51,13 +51,22 @@ class YourShippingAddressContainer extends Component{
         province: '',
         city: '',
         district: '',
-        address_default: ''
+        address_default: '',
+        regency:''
       })
     }
   }
 
   toggleModalAddAddress(){
     this.setState({modalVisibleAddAddress: !this.state.modalVisibleAddAddress})
+  }
+
+  async handleSaveAddress(){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.createAddress(data.id, this.state, data.accessToken)
+    await this.props.fetchUserShipping(data.id, data.accessToken)
+    await this.toggleModalAddAddress()
   }
 
   handleSaveShippingAddress(){
@@ -115,6 +124,14 @@ class YourShippingAddressContainer extends Component{
         toggleModalAddAddress={() => this.toggleModalAddAddress()}
         name={(name) => this.setState({name})}
         address={(address) => this.setState({address})}
+        handleSaveAddress={() => this.handleSaveAddress()}
+        onChangeName={(name) => this.setState({name})}
+        onChangePhone= {(phone) => this.setState({phone})}
+        onChangeAddress={(detail_address)  => this.setState({detail_address})}
+        onChangeProvince={(province) => this.setState({province})}
+        onChangeCity={(city) => this.setState({city})}
+        onChangeDistrict={(district) => this.setState({district})}
+        onChangeRegency={(regency) => this.setState({regency})}
 
         dataShippingAddress={this.props.usershipping}
         renderShippingAddress={({item}) => (
@@ -141,7 +158,7 @@ const mapDispatchToProps = (dispatch) =>{
     updateShipping: (id, items, accessToken) => dispatch(updateShipping(id, items, accessToken)),
     updateSetdefault: (id_user, id_addres, accessToken) => dispatch(updateSetdefault(id_user, id_addres, accessToken)),
     deleteShipping: (id, accessToken) => dispatch(deleteShipping(id, accessToken)),
-
+    createAddress: (id, items, accessToken) => dispatch(createAddress(id, items, accessToken))
   }
 }
 

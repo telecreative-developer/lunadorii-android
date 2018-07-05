@@ -6,7 +6,7 @@ export const fetchUserShipping = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_USER_SHIPPING'))
 		try {
-			const response = await fetch(`${API_SERVER}/user-addressess/${id}`, {
+			const response = await fetch(`${API_SERVER}/user-addresses/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
@@ -107,9 +107,46 @@ export const deleteShipping = (id, accessToken) => {
 		}
 	}
 }
+
+export const createAddress = (id, items, accessToken) => {
+	console.log(items)
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_CREATE_SHIPPING'))
+		// console.log('items action: ', items)
+		try {
+			const response = await fetch(`${API_SERVER}/user-address`, {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: accessToken
+                },
+                body: JSON.stringify({
+					...items,
+					name: items.name,
+					phone: items.phone,
+					detail_address: items.detail_address,
+					province: items.province,
+					city: items.city,
+					district: items.district,
+					postal_code: 14250
+                })
+			})
+			const data = await response.json()
+			await dispatch(setSuccess(true, 'SUCCESS_CREATE_SHIPPING'))
+      		await dispatch(setLoading(false, 'LOADING_CREATE_SHIPPING'))
+		} catch (e) {
+			dispatch(setFailed(true, 'FAILED_CREATE_SHIPPING', e))
+			dispatch(setLoading(false, 'LOADING_CREATE_SHIPPING'))
+		}
+	}
+}
+
 const receiveUserShipping = data => {
 	return{
 		type: RECEIVE_USER_SHIPPING,
 		payload: data
 	}
 }
+
+// URL Provinsi /general/places

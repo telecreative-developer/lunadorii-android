@@ -7,7 +7,7 @@ const LoadingModal = (props) => (
   <Modal
     animationType="fade"
     transparent={true}
-    visible={props.modalVisible}>
+    visible={props.modalVisibleLoading}>
     <View style={{
         marginHorizontal: 130,
         marginVertical: 250,

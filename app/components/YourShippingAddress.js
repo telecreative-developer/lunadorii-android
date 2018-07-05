@@ -17,13 +17,16 @@ const YourShippingAddress = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleAddAddress}
       actionIcon={props.toggleModalAddAddress} 
+      handleSaveAddres={props.handleSaveAddress}
 
       onChangeName={props.onChangeName}
       onChangePhone={props.onChangePhone}
       onChangeAddress={props.onChangeAddress}
       onChangeProvince={props.onChangeProvince}
       onChangeCity={props.onChangeCity}
-      onChangeDistrict={props.onChangeDistrict}
+      // onChangeDistrict={props.onChangeDistrict}
+      onChangeRegency={props.onChangeRegency}
+
       
       modalVisibleSetProvince={props.modalVisibleSetProvince}
       toggleModalSetProvince={props.toggleModalSetProvince}
