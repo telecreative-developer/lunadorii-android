@@ -2,7 +2,9 @@ import React, { Component } from 'react'
 import { Modal, StyleSheet, StatusBar, Image } from 'react-native'
 import { Content, Item, Input, Icon, Button, View } from 'native-base'
 import NavbarImageViewer from '../particles/NavbarImageViewer'
-import ImageViewer from 'react-native-image-zoom-viewer'
+// import ImageViewer from 'react-native-image-zoom-viewer'
+// import ImageViewer from '@dwqs/react-native-image-viewer'
+import Gallery from 'react-native-image-gallery';
 
 const ImageViewModal = (props) => (
   <Modal
@@ -17,7 +19,16 @@ const ImageViewModal = (props) => (
       backgroundColor="#f65857"
       barStyle="light-content"
     />
-    <ImageViewer imageUrls={props.images}/>
+    {/* <ImageViewer imageUrls={[
+      'https://facebook.github.io/react/logo-og.png',
+      'http://scimg.jb51.net/allimg/160815/103-160Q509544OC.jpg',
+      'http://img.sc115.com/uploads1/sc/jpgs/1508/apic22412_sc115.com.jpg',
+      'http://h.hiphotos.baidu.com/zhidao/pic/item/0df431adcbef7609bca7d58a2adda3cc7cd99e73.jpg'
+    ]}/> */}
+    <Gallery
+      style={{ backgroundColor: 'black' }}
+      images={props.images}
+    />
   </Modal>
 )
 

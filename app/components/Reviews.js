@@ -6,7 +6,7 @@ import EditReviewsModal from '../modals/EditReviewsModal'
 const { height, width } = Dimensions.get('window')
 
 const Reviews = (props) => {
-  console.log('reviews: ', props)
+  // console.log('reviews: ', props)
   return(
   <Container style={styles.container}>
     <Navbar
@@ -23,7 +23,7 @@ const Reviews = (props) => {
       title={props.title}
       star={props.star}
       comment={props.comment}
-      price={props.price}
+      price={props.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
       onChangeComment={props.onChangeComment}
       updateRating={props.updateRating} 
       onChangeStar={props.onChangeStar}
@@ -50,9 +50,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   viewReviews: {
-    marginLeft: 20,
-    marginRight: 20,
-    marginTop: 20
+    marginLeft: 10,
+    marginRight: 10,
+    marginTop: 10
   },
   txtReviews: {
     fontWeight: 'bold',

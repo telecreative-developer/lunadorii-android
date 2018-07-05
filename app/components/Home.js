@@ -1,13 +1,10 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, Dimensions, FlatList, StatusBar, TouchableOpacity } from 'react-native'
+import { StyleSheet, View, Text, Dimensions, FlatList, StatusBar, TouchableOpacity } from 'react-native'
 import { Container, Tabs, Tab, TabHeading, Icon, Content } from 'native-base'
 import NavbarHome from '../particles/NavbarHome'
-// import Carousel from 'react-native-looped-carousel'
 import Carousel from 'react-native-banner-carousel'
-// import imageCover from '../assets/images/cover/cover.jpg'
-import Categories from '../particles/Categories'
 import AddToCart from '../modals/AddToCart'
-
+import LoadingModal from '../modals/LoadingModal'
 const { height, width } = Dimensions.get('window')
 
 const bannerWidth = Dimensions.get('window').width
@@ -17,6 +14,7 @@ const Home = (props) => (
     <NavbarHome
       searchIconAction={props.navigateToSearch}
       cartIconAction={props.navigateToYourCart}
+      image={props.image.avatar_url}
       photoProfileAction={props.navigateToProfile} />
     <StatusBar
       backgroundColor="#f65857"
@@ -28,20 +26,24 @@ const Home = (props) => (
       onChangeQty={props.onChangeQty}
       handleAddToCart={props.handleAddToCart}
     />
+    <LoadingModal
+      modalVisible={props.loadingModal}
+      message="Goblok"
+    />
     <Tabs locked={true} style={styles.tabHeight} tabBarUnderlineStyle={styles.tabBarUnderlineStyle}>
       <Tab heading={<TabHeading style={styles.tabHeading} ><Text style={styles.txtHeading}>New Arrivals</Text></TabHeading>}>
-        <Content>
+        <Content style={{width: width,height: height}}>
           {/* <Carousel
             delay={4000}
             style={styles.imageAds}
             autoplay
             bullets
             bulletStyle={styles.carouselBulletStyle}
-            // onAnimateNextPage={(p) => console.log(p)}
+            // onAnimateNextPage={(p) => // console.log(p)}
           >
           <View>
             {props.dataBanners.map((data) => {
-              console.log('home banners: ', data)
+              // console.log('home banners: ', data)
               return (
                 <View style={[props.size]}>
                   <Image source={{ uri: data.thumbnail_url }} style={styles.imageAds}/>
@@ -53,8 +55,8 @@ const Home = (props) => (
           <Carousel autoplay={true} autoplayTimeout={2000} loop={true} index={0} pageSize={bannerWidth}>
             {props.banners}
           </Carousel>
-          <View>
-            <Text style={styles.txtCategories}>Category</Text>
+          <View style={styles.viewCategory}>
+            <Text style={styles.txtCategories}>Categories</Text>
             <View style={styles.viewWrapperCategories}>
               <FlatList
                 horizontal={true}
@@ -64,14 +66,16 @@ const Home = (props) => (
             </View>
           </View>
           <View style={styles.viewBrand}>
-            <Text style={styles.txtBrand}>Brand</Text>
-            <FlatList
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              data={props.dataBrand}
-              renderItem={props.renderBrand}
-              keyExtractor={(item, index) => JSON.stringify(index)}
-            />
+            <Text style={styles.txtCategories}>Brands</Text>
+            <View style={styles.viewWrapperCategories}>
+              <FlatList
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                data={props.dataBrand}
+                renderItem={props.renderBrand}
+                keyExtractor={(item, index) => JSON.stringify(index)}
+              />
+            </View>  
           </View>
           <View style={styles.viewArrivals}>
             <Text style={styles.txtArrivals}>More New Arrivals</Text>
@@ -85,7 +89,7 @@ const Home = (props) => (
         </Content>
       </Tab>
       <Tab heading={<TabHeading style={styles.tabHeading}><Text style={styles.txtHeading}>Best Sellers</Text></TabHeading>}>
-        <Content>
+        <Content style={{width: width,height: height}}>
           <View style={styles.recommededProductWrapper}>
             <FlatList
               horizontal={true}
@@ -124,22 +128,24 @@ const styles = StyleSheet.create({
     width: '100%',
     height: 200
   },
+  viewCategory: {
+    marginTop: 5
+  },
   viewBrand: {
-    paddingTop: 5,
-    paddingBottom: 5,
-    paddingLeft: 20
+    // marginBottom: 5,
   },
   tabHeight: {
     height: 1000
   },
   moreNewArrivalsWrapper: {
-    paddingLeft: 20
+    paddingLeft: 10
   },
   tabBarUnderlineStyle: {
     backgroundColor: '#f65857'
   },
   recommededProductWrapper: {
-    paddingLeft: 20,
+    paddingLeft: 10,
+    paddingRight: 10,
     paddingTop: 20,
     paddingBottom: 20
   },
@@ -153,7 +159,7 @@ const styles = StyleSheet.create({
   txtBrand: {
     fontWeight: 'bold',
     fontSize: 16,
-    paddingBottom: 10
+    paddingRight: 5
   },
   txtArrivals: {
     fontWeight: 'bold',
@@ -161,22 +167,22 @@ const styles = StyleSheet.create({
     marginBottom: 10
   },
   tabHeading: {
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
   },
   txtCategories: {
     fontWeight: 'bold',
     fontSize: 16,
-    paddingLeft: 20,
+    paddingLeft: 10,
     paddingTop: 10
   },
   viewArrivals: {
-    paddingLeft: 20,
+    paddingLeft: 10,
     marginTop: 10
   },
   viewWrapperCategories: {
     marginTop: 5,
-    marginLeft: 10,
-    marginRight: 10,
+    marginLeft: 5,
+    marginRight: 5,
   },
 })
 

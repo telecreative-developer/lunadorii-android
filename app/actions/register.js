@@ -1,4 +1,4 @@
-import { API_SERVER_USER } from '../env'
+import { API_SERVER } from '../env'
 import { RECEIVE_REGISTER_RESULT } from '../constants'
 import { setLoading, setFailed, setSuccess } from './processor'
 
@@ -10,7 +10,7 @@ export const register = item => {
   return async dispatch => {
     await dispatch(setLoading(true, 'LOADING_REGISTER'))
     try {
-      const response = await fetch(`${API_SERVER_USER}/api/v1/user/register`, {
+      const response = await fetch(`${API_SERVER}/user/register`, {
         method: 'POST',
         headers: {
           Accept: 'application/json',
@@ -27,7 +27,7 @@ export const register = item => {
       
       const data = await response.json()
       await dispatch(receiveRegister(data.data[0]))
-      console.log("data: ",data)
+      // console.log("data: ",data)
       if (data.status === 401) {
         await dispatch(setFailed(true, 'FAILED_REGISTER', data.message))
         await dispatch(setFailed(false, 'FAILED_REGISTER', data.message))
@@ -38,7 +38,7 @@ export const register = item => {
         await dispatch(setLoading(false, 'LOADING_REGISTER'))
       }
     } catch (e) {
-      console.log('error: ', e)
+      // console.log('error: ', e)
       await dispatch(setFailed(true, 'FAILED_REGISTER', 'Something Wrong!')
       )
       await dispatch(setLoading(false, 'LOADING_REGISTER'))
@@ -50,7 +50,7 @@ export const checkEmail = (email) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_PROCESS_CHECK_EMAIL'))
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/user/check-email`, {
+			const response = await fetch(`${API_SERVER}/user/check-email`, {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',

@@ -1,43 +1,42 @@
-import { API_SERVER_USER } from '../env'
-import RNFetchBlob from 'react-native-fetch-blob'
+import { API_SERVER } from '../env'
+import { RNS3 } from 'react-native-aws3'
 import { setLoading, setFailed, setSuccess } from './processor'
 import { login } from './login'
+import axios from 'axios'
 
 export const saveUpdateImage = (id, email, password, items) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_SAVE_UPDATE_IMAGE'))
+		
 		try {
 			console.log('items: ', items)
+			const fd = new FormData()
+			const uri = items.avatar_url
+			fd.append({
+				uri
+			  });
 
-			const responseImage = await RNFetchBlob.fetch(
-				'POST',
-				'https://api.cloudinary.com/v1_1/telecreativeid/image/upload?upload_preset=zgh23hbt',
-				{
-					'Content-Type': 'multipart/form-data'
-				},
-				[
-					{
-						name: 'file',
-						filename: 'image-profile.jpg',
-						data: RNFetchBlob.wrap(items.avatar_url)
-					}
-				]
-			)
-			const dataImage = await responseImage.json()
-			console.log('cloudinary: ', dataImage)
-
-			const response = await fetch(`${API_SERVER_USER}/api/v1/user/upload-avatar/${id}`, {
+			axios({
 				method: 'POST',
-				headers: {
-					Accept: 'application/json',
-					'Content-Type': 'application/json'
-				},
-				body: JSON.stringify({
-					avatar: dataImage.secure_url
+				url: `${API_SERVER}/upload-avatar/${id}`,
+				data: fd,
+				body: fd,
+				config: { 
+					headers: {
+						'Content-Type': 'multipart/form-data'
+					}
+				}
+			}).then(function (response) {
+					//handle success
+					console.log('response success: ', response);
 				})
-			})
-			const data = await response.json()
-			console.log('repsonse: ', data)
+				.catch(function (response) {
+					//handle error
+					console.log('response failed: ', response);
+				});
+			
+			
+			
 			await dispatch(login(email, password))
             await dispatch(setSuccess(true, 'SUCCESS_SAVE_UPDATE_IMAGE'))
             await dispatch(setLoading(false, 'LOADING_SAVE_UPDATE_IMAGE'))

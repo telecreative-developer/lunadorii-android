@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Alert, AsyncStorage, StyleSheet, Text } from 'react-native'
 import { isEmpty, isEmail } from 'validator'
 import { connect } from 'react-redux'
-import { NavigationActions } from 'react-navigation'
+import { NavigationActions, StackActions } from 'react-navigation'
 import { Button, Spinner } from 'native-base'
 
 import Login from '../components/Login'
@@ -18,11 +18,16 @@ class LoginContainer extends Component {
       email: '',
       password: '',
       passwordFieldVisibility: true,
+      modalVisibleInvalidCredentialModal: false
     }
   }
 
   togglePasswordFieldVisibility(){
     this.setState({passwordFieldVisibility: !this.state.passwordFieldVisibility})
+  }
+
+  modalVisibleInvalidCredentialModal(){
+    this.setState({modalVisibleInvalidCredentialModal: !this.state.modalVisibleInvalidCredentialModal})
   }
 
   shouldComponentUpdate(nextProps, nextState) {
@@ -40,7 +45,9 @@ class LoginContainer extends Component {
   componentWillUpdate(nextProps) {
     const { loading, success, failed, navigation } = nextProps
     if (
-      failed.condition === false &&
+      loading.condition === false &&
+      loading.process_on === 'LOADING_PROCESS_LOGIN' &&
+      failed.condition === true &&
       failed.process_on === 'FAILED_PROCESS_LOGIN'
     ) {
       Alert.alert('Login gagal', 'Silahkan Cek Kembali Akun Anda!')
@@ -50,7 +57,13 @@ class LoginContainer extends Component {
       success.condition === true &&
       success.process_on === 'SUCCESS_FETCH_USER_WITH_ID'
     ) {
-      navigation.navigate('HomeContainer')
+      console.log(success.process_on)
+      this.props.navigation.dispatch(
+        StackActions.reset({
+          index:0,
+          actions:[NavigationActions.navigate({routeName:'HomeContainer'})]
+        })
+      )
     }
   }
 
@@ -61,7 +74,7 @@ class LoginContainer extends Component {
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    if(data !== null){
+    if(data){
       try{
         this.props.navigation.navigate('HomeContainer')
       }catch(e){
@@ -72,7 +85,11 @@ class LoginContainer extends Component {
 
   handleValidationLogin() {
     const { email, password } = this.state
-      this.props.login(email, password)
+    // if (!isEmpty(email)) {
+		// 	Alert.alert('Login Failed', 'Silahkan masukan alamat email yang valid')
+		// } else {
+			this.props.login(email, password)
+		// }
   }
 
   renderButtons() {
@@ -106,6 +123,9 @@ class LoginContainer extends Component {
     const { navigate } = this.props.navigation
     return (
       <Login 
+        modalVisibleInvalidCredentialModal={this.state.modalVisibleInvalidCredentialModal}
+        toggleInvalidCredentialModal={() => this.modalVisibleInvalidCredentialModal()}
+
         navigateToRegister={() => this.props.navigation.navigate("RegisterContainer")}
         navigateToLoginTroubleshooting={() => this.props.navigation.navigate("LoginTroubleshootingContainer")}
         valueEmail={this.state.email}

@@ -12,8 +12,8 @@ const AddToCart = (props) => (
         marginTop: 200,
         marginBottom: 100,
         marginHorizontal: 20,
-        height: 250,
-        width: 320,
+        height: (height - 2000) / 1,
+        width: (width - 2000) / 2,
         backgroundColor: '#fff',
         borderColor: '#e2e2e2',
         borderWidth: 1.5,
@@ -22,10 +22,17 @@ const AddToCart = (props) => (
       <Icon name="close" type="EvilIcons" fontSize={12} onPress={props.toggleModalAddToCart} style={{alignSelf: 'flex-start', paddingLeft: 5, paddingTop: 10}}/>
       <View>
         <Form style={{padding: 20}}>
-          <Label style={{paddingBottom: 5}}>Quantity</Label>
-          <Item style={{borderRadius: 5, borderColor: '#e2e2e2'}} regular>
-            <Input keyboardType={'numeric'} onChangeText={props.onChangeQty}/>
-          </Item>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <View style={{borderRadius: 30, height: 50, width: 50, alignSelf: 'flex-start', backgroundColor: '#ccc', justifyContent:'center'}}>
+              <Text style={{textAlign: 'center', alignSelf:'center', fontSize: 24}}>-</Text>
+            </View>
+            <Item style={{borderRadius: 5, borderColor: '#e2e2e2', width: (width - 70 ) / 2}} regular>
+              <Input placeholder="Input Quantity" placeholderTextColor="#ccc" keyboardType={'numeric'} onChangeText={props.onChangeQty}/>
+            </Item>
+            <View style={{borderRadius: 30, height: 50, width: 50, alignSelf: 'flex-end', backgroundColor: '#ccc', justifyContent:'center'}}>
+              <Text style={{textAlign: 'center', alignSelf:'center', fontSize: 24}}>+</Text>
+            </View>
+          </View>
         </Form>
         <View style={{padding: 20}}>
           <Button full onPress={props.handleAddToCart} style={{borderRadius: 5, backgroundColor: '#d11e48'}}>

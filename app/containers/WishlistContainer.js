@@ -22,18 +22,21 @@ class WishlistContainer extends Component{
       id:data.id,
       accessToken: data.accessToken
     })
-    
-    await this.props.fetchwishlist(this.state.accessToken, this.state.id)
-    console.log('accesToken container: ', this.state.accessToken)
-    if(this.props.wishlist.length == 0){
-      await this.setState({isEmpty: true})
-    }else{
+    // console.log('accesToken container: ', this.state.accessToken)
+    await this.props.fetchwishlist(data.accessToken, data.id)
+    if(this.props.wishlist.length != 0){
       await this.setState({isEmpty: false})
+    }else{
+      await this.setState({isEmpty: true})
     }
   }
 
   capitalize(string) {
     return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
+  }
+
+  formatPrice(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }
 
   render(){
@@ -44,11 +47,19 @@ class WishlistContainer extends Component{
         />
       )
     }else{
+      {console.log('isi wishlist :', this.props.wishlist)}
       return(
         <Wishlist
           dataProduct={this.props.wishlist}
           renderProduct={({item}) => (
-            <Product image={item.thumbnails[0].thumbnail_url} title={this.capitalize(item.product).slice(0,18) + '...'} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+            <Product 
+              isOnWishlist={true}
+              image={item.thumbnails[0].thumbnail_url} 
+              title={item.title <= 17 ? this.capitalize(item.title) : this.capitalize(item.product).slice(0,17)+'...'} 
+              categories={item.subcategories[0].subcategory} 
+              price={this.formatPrice(item.price)} 
+              star={item.product_rate} 
+              action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
             />
           )}
           goback={() => this.props.navigation.goBack()}

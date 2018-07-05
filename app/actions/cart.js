@@ -1,12 +1,12 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_CART_USER } from '../constants'
-import { API_SERVER_PRODUCT } from '../env'
+import { API_SERVER } from '../env'
 
 export const fetchCartUser = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_CART_USER'))
 		try {
-			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/cart/${id}`, {
+			const response = await fetch(`${API_SERVER}/cart/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
@@ -29,7 +29,7 @@ export const addToCart = (id, product_id, qty, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_ADD_TO_CART'))
 		try {
-			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/cart`, {
+			const response = await fetch(`${API_SERVER}/cart`, {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',
@@ -43,12 +43,40 @@ export const addToCart = (id, product_id, qty, accessToken) => {
 				})
 			})
 			const data = await response.json()
-			console.log('repsonse: ', data)
+			// console.log('repsonse: ', data)
 			await dispatch(setSuccess(true, 'SUCCESS_ADD_TO_CART'))
       		await dispatch(setLoading(false, 'LOADING_ADD_TO_CART'))
 		} catch (e) {
 			dispatch(setFailed(true, 'FAILED_ADD_TO_CART', e))
 			dispatch(setLoading(false, 'LOADING_ADD_TO_CART'))
+		}
+	}
+}
+
+export const removeCart = (id, product_id, accessToken) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_DELETE_CART'))
+		console.log('actions remove: ', product_id)
+		try {
+			const response = await fetch(`${API_SERVER}/cart`, {
+				method: 'DELETE',
+				headers: {
+					Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: accessToken
+				},
+				body: JSON.stringify({
+					id: id,
+					product_id: product_id
+				})
+			})
+			const data = await response.json()
+			console.log('repsonse: ', data)
+			await dispatch(setSuccess(true, 'SUCCESS_DELETE_CART'))
+      		await dispatch(setLoading(false, 'LOADING_DELETE_CART'))
+		} catch (e) {
+			dispatch(setFailed(true, 'FAILED_DELETE_CART', e))
+			dispatch(setLoading(false, 'LOADING_DELETE_CART'))
 		}
 	}
 }

@@ -50,11 +50,11 @@ const Profile = (props) => (
         <View style={styles.subHeaderProfile}>
           <View style={styles.flexDirectionRow}>
             <View>
-              <Image source={{ uri: props.profile.imageProfile }} style={styles.imageProfile} />
+              <Image source={{ uri: props.profile.avatar_url }} style={styles.imageProfile} />
             </View>
             <View>
               <View style={styles.viewNameProfile}>
-                <Text style={styles.txtNameProfile}>Hello, {props.profile.firstName}</Text>
+                <Text style={styles.txtNameProfile}>Hello, {props.profile.first_name}</Text>
                 <Button style={styles.btnProfile}><Text style={styles.txtBtnProfile} onPress={props.toggleModalEditProfile}>
                   <MaterialCommunityIcons name="pencil" size={15} /> Edit Profile</Text>
                 </Button>
@@ -65,13 +65,15 @@ const Profile = (props) => (
       </View>
       <View style={styles.viewRecent}>
         <Text style={styles.txtRecent}>Recent Orders</Text>
-        <FlatList
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
-          data={props.dataRecentOrders}
-          renderItem={props.renderRecentOrders}
-          keyExtractor={(item, index) => JSON.stringify(index)}
-        />
+        <View>
+          <FlatList
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            data={props.dataRecentOrders}
+            renderItem={props.renderRecentOrders}
+            keyExtractor={(item, index) => JSON.stringify(index)}
+          />
+        </View>
       </View>
       <View>
         <Text style={styles.txtMenuTitle}>Menu</Text>
@@ -93,7 +95,7 @@ const Profile = (props) => (
             </TouchableOpacity>
           </View>
           <View style={styles.viewBoxMenu}>
-            <TouchableOpacity onPress={props.navigateToCreditCard}>
+            <TouchableOpacity onPress={props.navigateToLocalBank}>
               <View style={styles.viewSubBoxMenu}>
                 <Image source={ImageCreditCard} style={styles.imageIcon} />
                 <Text style={styles.txtMenu}>Credit Card</Text>

@@ -1,12 +1,12 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_BRANDS_PRODUCT } from '../constants'
-import { API_SERVER_PRODUCT } from '../env'
+import { API_SERVER } from '../env'
 
 export const fetchBrandsProduct = () => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_BRANDS_PRODUCT'))
 		try {
-			const response = await fetch(`${API_SERVER_PRODUCT}/api/v1/product-brands`, {
+			const response = await fetch(`${API_SERVER}/product-brands`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',

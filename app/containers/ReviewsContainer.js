@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {AsyncStorage} from 'react-native'
 import Reviews from '../components/Reviews'
 import ProductReviews from '../particles/ProductReviews'
+import ReviewIsEmpty from '../components/ReviewIsEmpty'
 import { connect } from 'react-redux'
 import { fetchUserReview, updateReview } from '../actions/userreview'
 
@@ -9,6 +10,7 @@ class ReviewsContainer extends Component{
 
   state = {
     modalVisibleEditReviews: false,
+    isEmpty: false,
     id: 0,
     image: '',
     title: '',
@@ -48,6 +50,11 @@ class ReviewsContainer extends Component{
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchUserReview(data.id, data.accessToken)
+    if(this.props.userreview.length != 0){
+      await this.setState({isEmpty: false})
+    }else{
+      await this.setState({isEmpty: true})
+    }
   }
 
   async btnUpdateRating(){
@@ -70,35 +77,43 @@ class ReviewsContainer extends Component{
   }
 
   render(){
-    return(
-      <Reviews
-      goback={() => this.props.navigation.goBack()}
-      modalVisibleEditReviews={this.state.modalVisibleEditReviews}
-      toggleModalEditReviews={() => this.toggleModalEditReviews()}
-      
-      image={this.state.image}
-      title={this.capitalize(this.state.title)}
-      price={this.state.price}
-      star={this.state.star}
-      comment={this.state.comment}
-      onChangeComment={(comment) => this.setState({ comment })}
-      onChangeStar={(star) => this.onStarRatingPress(star)}
-      updateRating={() => this.btnUpdateRating()}
-
-      dataReviews={this.props.userreview}
-      renderReviews={({item}) => (
-        <ProductReviews 
-          id={item.product_review_id}
-          image={item.product.thumbnails[0].thumbnail_url} 
-          title={this.capitalize(item.product.name)} 
-          star={item.rate} 
-          date={item.updated_at} 
-          review={item.comment}
-          action={() => this.toggleModalEditReviews(item)}
+    if(this.state.isEmpty){
+      return(
+        <ReviewIsEmpty
+          navigateToMart={() => this.props.navigation.navigate("HomeContainer")}
         />
-      )}
-      />
-    )
+      )
+    }else{
+      return(
+        <Reviews
+          goback={() => this.props.navigation.goBack()}
+          modalVisibleEditReviews={this.state.modalVisibleEditReviews}
+          toggleModalEditReviews={() => this.toggleModalEditReviews()}
+          
+          image={this.state.image}
+          title={this.capitalize(this.state.title)}
+          price={this.state.price}
+          star={this.state.star}
+          comment={this.state.comment}
+          onChangeComment={(comment) => this.setState({ comment })}
+          onChangeStar={(star) => this.onStarRatingPress(star)}
+          updateRating={() => this.btnUpdateRating()}
+  
+          dataReviews={this.props.userreview}
+          renderReviews={({item}) => (
+            <ProductReviews 
+              id={item.product_review_id}
+              image={item.product.thumbnails[0].thumbnail_url} 
+              title={this.capitalize(item.product.name)} 
+              star={item.rate} 
+              date={item.updated_at} 
+              review={item.comment}
+              action={() => this.toggleModalEditReviews(item)}
+            />
+          )}
+        />
+      )
+    }
   }
 }
 

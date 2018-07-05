@@ -54,7 +54,7 @@ class RegisterIdentifyContainer extends Component {
   async componentDidMount(){
     email = this.props.navigation.state.params
     await this.setState({email: email.email})
-    console.log('isi Session' , this.state )
+    // console.log('isi Session' , this.state )
   }
 
   togglePasswordFieldVisibility(){
@@ -97,9 +97,9 @@ class RegisterIdentifyContainer extends Component {
 
     async handleValidationRegister(id){
       const { email } = this.state
-      // console.log('id response user: ', id)
+      // // console.log('id response user: ', id)
       // if (!isEmail(String(JSON.stringify(email)))) {
-      //   console.log('Ini email', email)
+      //   // console.log('Ini email', email)
       //   Alert.alert('Register gagal', 'Silahkan masukan alamat email yang valid')
       // } else {
       //   this.props.register(this.state)
@@ -113,7 +113,8 @@ class RegisterIdentifyContainer extends Component {
       // }
 
       await this.props.register(this.state)
-      await this.props.navigation.navigate('AddPhotoProfileContainer', {user: this.state, id: this.props.registerresult.id})
+      // await this.props.navigation.navigate('AddPhotoProfileContainer', {user: this.state, id: this.props.registerresult.id})
+      await this.props.navigation.navigate("LoginContainer")
       await this.setState({
         first_name: '',
         last_name: '',

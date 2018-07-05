@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage } from 'react-native'
+import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage, TouchableOpacity } from 'react-native'
 import Home from '../components/Home'
 import Product from '../particles/Product'
 import Brand from '../particles/Brand'
@@ -10,11 +10,11 @@ import Categories from '../particles/Categories'
 import { connect } from 'react-redux'
 import { fetchCategoryProduct } from '../actions/categoryproduct'
 import { fetchBrandsProduct } from '../actions/brandsproduct'
-import { fetchProduct } from '../actions/product'
+import { fetchProduct, fetchProductWithoutId } from '../actions/product'
+import { fetchSingleUser } from '../actions/getSingleUser'
 import { fetchBanners } from '../actions/banners'
 import { fetchProductSubcategories } from '../actions/productsubcategories'
 import { addToCart } from '../actions/cart'
-
 
 const { width, height } = Dimensions.get('window')
 
@@ -25,6 +25,7 @@ class HomeContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      loadingModal: true,
       size: { width, height },
       showMore: false,
       id_user: 0,
@@ -64,7 +65,7 @@ class HomeContainer extends Component {
   }
 
   async handleAddToCart(){
-    console.log('isi state: ', this.state)
+    // console.log('isi state: ', this.state)
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await alert('Berhasil Menambahkan ke Kranjang', this.state.product_name.slice(0,10))
@@ -74,26 +75,32 @@ class HomeContainer extends Component {
   }
 
   async componentDidMount() {
+    // await this.props.fetchProductWithoutId()
+    // await this.props.fetchProductWithoutId()
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-
+    console.log(data.accessToken)
+    await this.props.fetchBanners()
     await this.props.fetchCategoryProduct()
     await this.props.fetchBrandsProduct()
     await this.props.fetchProduct(data.id)
-    await this.props.fetchBanners()
+    await this.props.fetchSingleUser(data.id, data.accessToken)
     await this.props.fetchProductSubcategories()
-
   }
 
   capitalize(string) {
     return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
   }
 
+  formatPrice(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
+
   renderBanners(banner, index) {
     return (
-      <View key={index} style={styles.banner}>
+      <TouchableOpacity key={index} style={styles.banner} onPress={() => this.props.navigation.navigate("UnknownScreenContainer", {image: banner.thumbnail_url})}>
         <Image style={styles.bannerImage} source={{ uri: banner.thumbnail_url }} />
-      </View>
+      </TouchableOpacity>
     )
   }
 
@@ -106,21 +113,30 @@ class HomeContainer extends Component {
 
         dataCategoriesButton={this.props.categoryproduct}
         renderCategoriesButton={({ item }) => (
-          <Categories title={item.subcategory} icon={item.thumbnail_url}/>
+          <Categories 
+            title={item.subcategory.length <= 10 ? item.subcategory : this.capitalize(item.subcategory).slice(0,8)+'...'} 
+            realTitle={item.subcategory}
+            icon={item.thumbnail_url}
+            action={() => this.props.navigation.navigate("UnknownScreenContainer", {image: item.thumbnail_url})}
+          />
         )}
 
         dataBrand={this.props.brandsproduct}
         renderBrand={({ item }) => (
-          <Brand image={item.logo_url} />
+          <Brand 
+            image={item.logo_url} 
+            action={() => this.props.navigation.navigate("UnknownScreenContainer", {image: item.logo_url})}
+          />
         )}
 
         dataProduct={this.props.product}
         renderProduct={({ item }) => (
           <Product 
             image={item.thumbnails[0].thumbnail_url} 
-            title={this.capitalize(item.product).slice(0,18) + '...'} 
+            title={item.title <= 17 ? this.capitalize(item.title) : this.capitalize(item.product).slice(0,18)+'...'} 
             categories={item.subcategories[0].subcategory} 
-            price={item.price} star={item.product_rate} 
+            price={this.formatPrice(item.price)} 
+            star={item.product_rate} 
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
             toggleModalAddToCart={() => this.toggleModalAddToCart(item)}
           />
@@ -128,23 +144,31 @@ class HomeContainer extends Component {
 
         dataCategories={this.props.productsubcategories}
         renderCategories={({ item }) => (
-          <BestCategories image={item.thumbnail_url} title={this.capitalize(item.subcategory)} total={item.products.length}
+          <BestCategories 
+            image={item.thumbnail_url} 
+            title={this.capitalize(item.subcategory)} 
+            total={item.products.length}
           />
         )}
 
         dataRecommend={this.props.product}
-        renderRecommend={({ item }) => (
+        renderRecommend={({ item }) => {
+          return (
           <RecommendProduct 
             image={item.thumbnails[0].thumbnail_url} 
             title={this.capitalize(item.product).slice(0,27) + '...'} 
             categories={item.subcategories[0].subcategory} 
-            price={item.price} 
+            price={this.formatPrice(item.price)} 
             star={item.product_rate} 
             reviews={item.product_rate} 
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
             toggleModalAddToCart={() => this.toggleModalAddToCart()}
+
           />
-        )}
+        )
+        }}
+
+        loadingModal={this.state.loadingModal}
 
         showMore={this.state.showMore}
         toggleShowMore={() => this.toggleShowMore()}
@@ -157,6 +181,7 @@ class HomeContainer extends Component {
         navigateToYourCart={() => this.props.navigation.navigate("YourCartContainer")}
         navigateToProfile={() => this.props.navigation.navigate('ProfileContainer')}
         navigateToSearch={() => this.props.navigation.navigate("SearchContainer")}
+        image={ this.props.getsingleuser}
       />
     )
   }
@@ -179,6 +204,8 @@ const mapDispatchToProps = (dispatch) =>{
     fetchCategoryProduct: () => dispatch(fetchCategoryProduct()),
     fetchBrandsProduct: () => dispatch(fetchBrandsProduct()),
     fetchProduct: (id) => dispatch(fetchProduct(id)),
+    // fetchProductWithoutId: () =>dispatch(fetchProductWithoutId()),
+    fetchSingleUser:(id, accessToken) => dispatch(fetchSingleUser(id, accessToken)),
     fetchBanners: () => dispatch(fetchBanners()),
     fetchProductSubcategories: () => dispatch(fetchProductSubcategories()),
     addToCart: (id, product_id, qty, accessToken) => dispatch(addToCart(id, product_id, qty, accessToken)),
@@ -195,6 +222,8 @@ const mapStateToProps = (state) => {
     brandsproduct: state.brandsproduct,
     product: state.product,
     banners: state.banners,
+    productwithoutid: state.productwithoutid,
+    getsingleuser: state.getsingleuser,
     productsubcategories: state.productsubcategories
   }
 }

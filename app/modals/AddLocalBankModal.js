@@ -2,37 +2,28 @@ import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Dimensions, ScrollView, Picker } from 'react-native'
 import { Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
-import SmartPicker from 'react-native-smart-picker'
 const { height, width } = Dimensions.get('window')
+import SmartPicker from 'react-native-smart-picker'
 
-const AddAddressModal = (props) => (
+const AddLocalBankModal = (props) => (
   <Modal
     animationType="slide"
     transparent={false}
     visible={props.modalVisible}
     onRequestClose={props.actionIcon}>
     <NavbarModal
-      navbarTitle="Add Address"
+      navbarTitle="Add Local Bank"
       navbarIcon="close"
       actionIcon={props.actionIcon} 
     />
     <Content style={styles.container}>
       <Form style={styles.form}>
-        <Label style={styles.labels}>Name</Label>
-        <Item regular style={styles.items}>
-          <Input placeholder={props.name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeName} />
-        </Item>
-        <Label style={styles.labels}>Alamat</Label>
-        <Item regular style={styles.itemsTextarea}>
-          <Textarea placeholder={props.address} placeholderTextColor="#CDCDCD" style={styles.textareaStyle} onChangeText={props.onChangeAddress} />
-        </Item>
-        <Label style={styles.labels}>Provinsi</Label>
+        <Label style={styles.labels}>Bank Name</Label>
         <ScrollView>
           <ScrollView>
             <View style={{flex: 1}}>
-              <ScrollView>
+              <ScrollView style={styles.container}>
                 <SmartPicker
-                  arrowColor={"#fff"}
                   selectedValue={props.selectedBank}
                   onValueChange={props.onChangeBankName}>
                   <Picker.Item label='BRI' value='BRI' />
@@ -44,31 +35,23 @@ const AddAddressModal = (props) => (
             </View>
           </ScrollView>
         </ScrollView>
-        <Label style={styles.labels}>Kota/Kabupaten</Label>
+        <Label style={styles.labels}>Name</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.city} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCity} />
+          <Input placeholder={props.name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeName} />
         </Item>
-        <Label style={styles.labels}>Kecamatan</Label>
+        <Label style={styles.labels}>Bill</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.regency} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeRegency} />
-        </Item>
-        <Label style={styles.labels}>Kelurahan</Label>
-        <Item regular style={styles.items}>
-          <Input placeholder={props.district} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeDistrict} />
-        </Item>
-        <Label style={styles.labels}>No Telp</Label>
-        <Item regular style={styles.items}>
-          <Input placeholder={props.numberPhone} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeNumberPhone} keyboardType={'numeric'}/>
+          <Input placeholder={props.bill} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeBill} />
         </Item>
       </Form>
     </Content>
-    <Button full style={styles.buttonSaveStyle} onPress={props.toggleModalSetProvince}>
+    <Button full style={styles.buttonSaveStyle} onPress={props.handleSave}>
       <Text style={styles.buttonSaveTextStyle}>Save</Text>
     </Button>
   </Modal>
 )
 
-export default AddAddressModal
+export default AddLocalBankModal
 
 const styles = StyleSheet.create({
   container: {
@@ -83,18 +66,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Avenir Next',
     fontWeight: 'bold',
+    paddingBottom: 10,
     paddingTop: 10
-  },
-  pickers:{
-    width: '100%',
-    borderColor: '#ccc',
-    borderRadius: 5,
   },
   items: {
     width: '100%',
     borderRadius: 5,
-    height: 40,
-    alignItems:'center'
+    height: 40
   },
   itemsTextarea: {
     borderRadius: 5,

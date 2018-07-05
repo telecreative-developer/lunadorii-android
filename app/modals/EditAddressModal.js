@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Container, Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
+import SetProvinceModal from '../modals/SetProvinceModal'
 
 const EditAddressModal = (props) => (
   <Modal
@@ -13,6 +14,10 @@ const EditAddressModal = (props) => (
       navbarTitle="Edit Address"
       navbarIcon="close"
       actionIcon={props.actionIcon} />
+    <SetProvinceModal
+      modalVisible={props.modalVisibleSetProvince}
+      toggleModalSetProvince={props.toggleModalSetProvince}
+    />
     <Content style={styles.container}>
       <Form style={styles.form}>
         <Label style={styles.labels}>Name</Label>
@@ -25,7 +30,7 @@ const EditAddressModal = (props) => (
         </Item>
         <Label style={styles.labels}>Provinsi</Label>
         <Item regular style={styles.items}>
-          <Input value={props.province} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeProvince} />
+          <Text style={{color: '#ccc'}} onPress={props.toggleModalSetProvince}>Select Province</Text>
         </Item>
         <Label style={styles.labels}>Kota/Kabupaten</Label>
         <Item regular style={styles.items}>

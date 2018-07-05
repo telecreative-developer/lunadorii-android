@@ -1,8 +1,8 @@
 import React from 'react'
 import { View, Image, Text, Dimensions, StyleSheet } from 'react-native'
 import imageSkinCare from '../assets/images/icon/skincare.png'
-
 const { width, height } = Dimensions.get('window')
+
 const BestCategories = (props) => (
   <View>
     <View style={styles.viewCategories}>
@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
   viewCategories:{
     borderWidth: 1, 
     borderColor: '#e2e2e2', 
-    width: ( width - 50 ) / 2, 
+    width: ( width - 30 ) / 2, 
     marginRight: 10, 
     marginBottom: 10, 
     padding: 10 

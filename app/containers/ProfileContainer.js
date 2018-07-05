@@ -14,7 +14,7 @@ const dataRecentOrders = [
     status: 'Packing',
     date: '20 Mei',
     time: '12:00 AM',
-    total: '250.000'
+    total: 650000
   },
   {
     image: 'https://i5.walmartimages.ca/images/Large/1c0/_en/999999-00770103148748_a1c0_en.jpg?odnBound=460',
@@ -22,7 +22,7 @@ const dataRecentOrders = [
     status: 'Non - Packing',
     date: '20 Mei',
     time: '12:00 AM',
-    total: '250.000'
+    total: 450000
   },
   {
     image: 'https://image.afcdn.com/expertclub/20150420/279261_w300h300.jpg',
@@ -30,7 +30,7 @@ const dataRecentOrders = [
     status: 'Packing',
     date: '20 Mei',
     time: '12:00 AM',
-    total: '250.000'
+    total: 750000
   },
 ]
 
@@ -68,13 +68,16 @@ class ProfileContainer extends Component {
   }
 
   async handleSaveEditProfile() {
-    await this.props.editName(this.state.userData.id, this.state.firstName, this.state.lastName, this.state.userData.accessToken)
+    await this.props.editName(
+        this.state.userData.id, 
+        this.state.firstName, 
+        this.state.lastName, 
+        this.state.userData.accessToken)
     await this.setState({modalVisibleEditProfile: false })
     alert("Profile Saved")
   }
 
   async componentDidMount(){
-    // await this.props.fetchSingleUser(6, 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6Niwicm9sZSI6InVzZXIiLCJpYXQiOjE1Mjk2NTUyODMsImV4cCI6MTUzMDI2MDA4MywiaXNzIjoiaHR0cHM6Ly9naXRodWIuY29tL2tldmluaGVybWF3YW4iLCJzdWIiOiJsdW5hZG9yaWkifQ.DIQ6yH4qU_8oUAo7263CYkDklsCer2I2WLbaF_xHzAs')
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.setState({
@@ -82,9 +85,11 @@ class ProfileContainer extends Component {
       firstName: data.first_name,
       lastName : data.last_name,
     })
+    await this.props.fetchSingleUser(data.id, data.accessToken)
   }
 
   render() {
+    {console.log(this.props.fetchSingleUser)}
     return (
       <Profile
         dataRecentOrders={dataRecentOrders}
@@ -93,7 +98,7 @@ class ProfileContainer extends Component {
             image={item.image}
             categories={item.categories}
             status={item.status}
-            total={item.total}
+            total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             date={item.date}
             time={item.time} />
         )}
@@ -104,7 +109,7 @@ class ProfileContainer extends Component {
         toggleModalEditProfile={() => this.toggleModalEditProfile()}
         modalVisibleEditProfile={this.state.modalVisibleEditProfile}
 
-        profile={this.state}
+        profile={this.state.userData}
         onChangeFirstName={(firstName) => this.setState({ firstName })}
         onChangeLastName={(lastName) => this.setState({ lastName })}
         onChangeBirthDate={(birthDate) => this.setState({ birthDate })}
@@ -112,7 +117,7 @@ class ProfileContainer extends Component {
 
         navigateToPurchaseHistory={() => this.props.navigation.navigate("PurchaseHistoryContainer")}
         navigateToWhishlist={() => this.props.navigation.navigate("WishlistContainer")}
-        navigateToCreditCard={() => this.props.navigation.navigate("CreditCardContainer")}
+        navigateToLocalBank={() => this.props.navigation.navigate("LocalBankContainer")}
         navigateToReviews={() => this.props.navigation.navigate("ReviewsContainer")}
         navigateToShippingAddress={() => this.props.navigation.navigate("YourShippingAddressContainer")}
         navigateToReports={() => this.props.navigation.navigate("ReportsContainer")}

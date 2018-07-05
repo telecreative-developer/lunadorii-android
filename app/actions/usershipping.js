@@ -1,12 +1,12 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_USER_SHIPPING } from '../constants'
-import { API_SERVER_USER } from '../env'
+import { API_SERVER } from '../env'
 
 export const fetchUserShipping = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_USER_SHIPPING'))
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/user-addresses/${id}`, {
+			const response = await fetch(`${API_SERVER}/user-addressess/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
@@ -28,9 +28,9 @@ export const fetchUserShipping = (id, accessToken) => {
 export const updateShipping = (id, items, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_UPDATE_SHIPPING'))
-		console.log('items action: ', items)
+		// console.log('items action: ', items)
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/user-address/${id}`, {
+			const response = await fetch(`${API_SERVER}/user-address/${id}`, {
 				method: 'PUT',
 				headers: {
 					Accept: 'application/json',
@@ -61,7 +61,7 @@ export const updateSetdefault = (id_user, id_addres, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_UPDATE_SETDEFAULT'))
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/user-address/set-default/${id_addres}`, {
+			const response = await fetch(`${API_SERVER}/user-address/set-default/${id_addres}`, {
 				method: 'PUT',
 				headers: {
 					Accept: 'application/json',
@@ -73,11 +73,11 @@ export const updateSetdefault = (id_user, id_addres, accessToken) => {
                 })
 			})
 			const data = await response.json()
-			console.log('response: ', data)
+			// console.log('response: ', data)
 			await dispatch(setSuccess(true, 'SUCCESS_UPDATE_SETDEFAULT'))
       		await dispatch(setLoading(false, 'LOADING_UPDATE_SETDEFAULT'))
 		} catch (e) {
-			console.log('error: ', e)
+			// console.log('error: ', e)
 			dispatch(setFailed(true, 'FAILED_UPDATE_SETDEFAULT', e))
 			dispatch(setLoading(false, 'LOADING_UPDATE_SETDEFAULT'))
 		}
@@ -87,9 +87,9 @@ export const updateSetdefault = (id_user, id_addres, accessToken) => {
 export const deleteShipping = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_DELETE_SHIPPING'))
-		console.log('items action: ', id)
+		// console.log('items action: ', id)
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/user-address/${id}`, {
+			const response = await fetch(`${API_SERVER}/user-address/${id}`, {
 				method: 'DELETE',
 				headers: {
 					Accept: 'application/json',
@@ -98,7 +98,7 @@ export const deleteShipping = (id, accessToken) => {
                 }
 			})
 			const data = await response.json()
-			console.log('response: ', data)
+			// console.log('response: ', data)
 			await dispatch(setSuccess(true, 'SUCCESS_DELETE_SHIPPING'))
       		await dispatch(setLoading(false, 'LOADING_DELETE_SHIPPING'))
 		} catch (e) {

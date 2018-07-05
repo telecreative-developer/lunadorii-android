@@ -1,12 +1,12 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_BANNERS } from '../constants'
-import { API_SERVER_BANNERS } from '../env'
+import { API_SERVER } from '../env'
 
 export const fetchBanners = () => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_BANNERS'))
 		try {
-			const response = await fetch(`${API_SERVER_BANNERS}/api/v1/banners`, {
+			const response = await fetch(`${API_SERVER}/banners`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',

@@ -7,14 +7,14 @@ import ProductReviewed from '../particles/ProductReviewed'
 
 const EditReviewsModal = (props) => {
 
-  console.log('tipe data state star: ')
+  // console.log('tipe data state star: ')
   return(
   <Modal
     animationType="slide"
     transparent={false}
     visible={props.modalVisible}
     onRequestClose={props.actionIcon}>
-    {console.log('props edit: ', props.star)}
+    {/* {// console.log('props edit: ', props.star)} */}
     <NavbarModal
       navbarTitle="Edit Reviews"
       navbarIcon="close"

@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, FlatList, StatusBar, Dimensions } from 'react-native'
 import { Container, Content, Icon, Button, Radio,  } from 'native-base'
 import Navigation from '../particles/Navbar'
+import EditQuantityModal from '../modals/EditQuantityModal'
 const { height, width } = Dimensions.get('window')
 
 const YourCart = (props) => (
@@ -14,13 +15,24 @@ const YourCart = (props) => (
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content" />
+    <EditQuantityModal
+      modalVisible={props.modalVisibleEditQuantity}
+      actionIcon={props.toggleModalEditQuantity}
+      quantity={props.quantity}
+      price={props.price}
+      totalPrice={props.totalPrice}
+      addQty={props.addQty}
+      minQty={props.minQty}
+    />
     <Content>
       <View style={styles.body}>
         <Text style={styles.title}>Products</Text>
-        <FlatList
-          data={props.onCartProduct}
-          renderItem={props.renderOnCartProduct}
-        />
+        <View>
+          <FlatList
+            data={props.onCartProduct}
+            renderItem={props.renderOnCartProduct}
+          />
+        </View>
         <Button style={styles.btnAdd} onPress={props.navigateToHome}>
           <Icon name="add"/><Text style={styles.txtAdd}>Add More Product</Text>
         </Button>
@@ -72,7 +84,7 @@ const styles = StyleSheet.create({
     marginBottom:5
   },
   body:{
-    marginHorizontal:20,
+    marginHorizontal:10,
     marginTop:10,
   },
   border:{

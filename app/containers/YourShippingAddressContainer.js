@@ -71,7 +71,7 @@ class YourShippingAddressContainer extends Component{
     await this.props.updateShipping(this.state.address_id, this.state, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
     await this.toggleModalEditAddress()
-    console.log('clicked: ', this.state.address_id)
+    // console.log('clicked: ', this.state.address_id)
   }
 
   async componentDidMount() {
@@ -90,7 +90,7 @@ class YourShippingAddressContainer extends Component{
     const data = await JSON.parse(session)
     await this.props.updateSetdefault(data.id, this.state.address_id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
-    console.log('clicked onchange: ', this.state.address_default)
+    // console.log('clicked onchange: ', this.state.address_default)
   }
 
   async deteleShipping(item){
@@ -102,38 +102,21 @@ class YourShippingAddressContainer extends Component{
     const data = await JSON.parse(session)
     await this.props.deleteShipping(this.state.address_id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
-    console.log('clicked delete id: ', this.state.address_id)
+    // console.log('clicked delete id: ', this.state.address_id)
 
   }
+  
+  // name alamat province kota kecamatan kelurahan Notelp 
 
   render(){
     return(
       <YourShippingAddress
-        goback={() => this.props.navigation.goBack()}
-
-        modalVisibleEditAddress={this.state.modalVisibleEditAddress}
-        toggleModalEditAddress={() => this.toggleModalEditAddress()}
+        goback={() => this.props.navigation.goBack()}    
 
         modalVisibleAddAddress={this.state.modalVisibleAddAddress}
         toggleModalAddAddress={() => this.toggleModalAddAddress()}
-        handleSaveShippingAddress={() => this.handleSaveShippingAddress()}
-
-        name={this.state.name}
-        phone={this.state.phone}
-        detail_address={this.state.detail_address}
-        province={this.state.province}
-        city={this.state.city}
-        district={this.state.district}
-        address_default={this.state.address_default}
-
-        onChangeName={(name) => this.setState({ name })}
-        onChangePhone={(phone) => this.setState({ phone })}
-        onChangeAddress={(detail_address) => this.setState({ detail_address })}
-        onChangeProvince={(province) => this.setState({ province })}
-        onChangeCity={(city) => this.setState({ city })}
-        onChangeDistrict={(district) => this.setState({ district })}
-
-        handlerUpdateShipping={() => this.btnUpdateShipping()}
+        name={(name) => this.setState({name})}
+        address={(address) => this.setState({address})}
 
         dataShippingAddress={this.props.usershipping}
         renderShippingAddress={({item}) => (
