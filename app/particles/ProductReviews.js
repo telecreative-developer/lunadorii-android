@@ -1,7 +1,9 @@
 import React from 'react'
-import { View, Text, Image, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity, Dimensions } from 'react-native'
 import StarRating from 'react-native-star-rating';
 import moment from 'moment'
+
+const { width, height } = Dimensions.get('window')
 
 const ProductReviews = (props) =>(
   <View style={styles.viewReviews}>
@@ -30,7 +32,6 @@ const ProductReviews = (props) =>(
               maxStars={5}
               rating={props.star}
               starSize={12}
-              // selectedStar={props.onStarRatingPress}
             />
           </View>
           <Text style={styles.txtReview}>{props.review}</Text>

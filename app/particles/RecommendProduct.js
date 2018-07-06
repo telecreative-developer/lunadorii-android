@@ -11,7 +11,7 @@ const RecommendProduct = (props) => {
       <Image source={{uri: props.image}} style={styles.image}/> 
     </TouchableOpacity>
     <View style={styles.viewWrapper}>
-      <View style={{width: (width - 1000) / 2}}>
+      <View style={{width: (width - 1000) / 2, height: (height - 530) / 2 }}>
         <Text style={styles.txtTitle}>{props.title}</Text>
       </View>
       <Text style={styles.txtCategories}>{props.categories}</Text>
@@ -42,7 +42,7 @@ const RecommendProduct = (props) => {
 const styles = StyleSheet.create({
   viewFlexRow:{
     flexDirection: 'row',
-    marginTop: 10
+    marginTop: 10,
   },
   viewRating:{
     paddingTop: 2

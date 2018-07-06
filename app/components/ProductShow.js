@@ -7,7 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Entypo from 'react-native-vector-icons/Entypo'
 import ImageViewModal from '../modals/ImageViewModal'
-import {DescriptionPlaceholder, TitlePlaceholder, CategoryPlaceholder} from '../placeholders/ProductShowPlaceholders'
+import { TitlePlaceholder, CategoryPlaceholder, StarPlaceholder, DescriptionPlaceholder, ReviewsAndRatings, TitleOneLine, RelatedProductsPlaceholder } from '../placeholders/ProductShowPlaceholders'
 const { height, width } = Dimensions.get('window')
 
 const ProductShow = (props) => (
@@ -36,22 +36,21 @@ const ProductShow = (props) => (
         actionIcon={props.toggleImageViewModal}
         images={props.images}/>
       <View style={styles.firstGroup}>
-        <View style={styles.firstGroupWrapper}>
-          {props.stillLoading ? (
-            <TitlePlaceholder/>
-          ) : (
+        {props.stillLoading ? (
+          <View style={styles.firstGroupWrapper}>
+            <View>
+              <TitlePlaceholder/>
+              <CategoryPlaceholder/>
+            </View>
+          </View>
+        ) : (
+          <View style={styles.firstGroupWrapper}>
             <View style={{width: (width - 90) / 1 }}>
               <Text style={styles.firstGroupTitle}>{props.title}</Text>
             </View>
-          )}
-          {props.stillLoading ? (
-            <CategoryPlaceholder/>
-          ) : (
             <Text style={styles.fistGroupSubtitle}>{props.categories}</Text>
-          )}
-        </View>
-        {console.log('props wishlisted:', props.wishlisted)}
-        {console.log('props click:', props.clickWishlist)}
+          </View>
+        )}
         {/* {props.wishlisted === true ? 
           <View style={styles.firstGroupWrapper2}>
             {props.clickWishlist === true ?
@@ -118,17 +117,23 @@ const ProductShow = (props) => (
           </View>
       </View>
       <View style={styles.secondGroup}>
-        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-          <View style={{flexDirection: 'row'}}>
+        {props.stillLoading ? (
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}>
+            <StarPlaceholder/>
+          </View>
+        ) : (
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}>
             <StarRating
               disabled={true}
               maxStars={5}
               rating={props.star}
               starSize={14}
             />
+            <View style={{paddingBottom: 5}}>
+              <Text style={styles.reviewsLabel}>{props.star} reviews</Text>
+            </View>
           </View>
-          <Text style={styles.reviewsLabel}>{props.star} reviews</Text>
-        </View>
+        )}
       </View>
       <View style={styles.borderedSparator}>
         {props.stillLoading ? (
@@ -173,22 +178,36 @@ const ProductShow = (props) => (
       </View>
       <View style={styles.borderedSparator1}>
         <View style={styles.borderedSparatorFirst}>
-          <Text style={styles.borderedSparatorFirstTitle}>Reviews & Rating</Text>
+          {props.stillLoading ? (
+            <TitleOneLine/>
+          ) : (
+            <Text style={styles.borderedSparatorFirstTitle}>Reviews & Rating</Text>
+          )}
           <View style={styles.ratingCard}>
-            <View style={styles.ratingCardContentWrapper}>
-              <Text style={styles.ratingReviewsText}>
-                <Text style={styles.ratingAmountReviewsText}>{props.star}</Text> reviews
-              </Text>
-              <View style={{flexDirection: 'row'}}>
-                <StarRating
-                  disabled={true}
-                  maxStars={5}
-                  rating={props.star}
-                  starSize={14}
-                  // selectedStar={props.onStarRatingPress}
-                />
+            {props.stillLoading ? (
+              <View style={styles.ratingCardContentWrapper}>
+                <View>
+                  <ReviewsAndRatings/>
+                </View>
               </View>
-            </View>
+            ) : (
+              <View style={styles.ratingCardContentWrapper}>
+                <View>
+                  <Text style={styles.ratingReviewsText}>
+                    <Text style={styles.ratingAmountReviewsText}>{props.star}</Text> reviews
+                  </Text>
+                  <View style={{flexDirection: 'row'}}>
+                    <StarRating
+                      disabled={true}
+                      maxStars={5}
+                      rating={props.star}
+                      starSize={14}
+                      // selectedStar={props.onStarRatingPress}
+                    />
+                  </View>
+                </View>
+              </View>
+            )}
           </View>
           <View>
             {props.isReviewsExist ? (
@@ -218,16 +237,33 @@ const ProductShow = (props) => (
         )}
         <View style={styles.borderedSparator1}>
           <View style={styles.borderedSparatorFirst}>
-            <Text style={styles.borderedSparatorFirstTitle2}>Related Products</Text>
-            <View>
-              <FlatList
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                data={props.dateRelatedProducts}
-                renderItem={props.renderRelatedProducts}
-                keyExtractor={(item, index) => JSON.stringify(index)}
-              />
-            </View>
+            {props.stillLoading ? (
+              <TitleOneLine style={{paddingBottom: 15}}/>
+            ) : (
+              <Text style={styles.borderedSparatorFirstTitle2}>Related Products</Text>
+            )}
+            {props.stillLoading ? (
+              <View>
+                <FlatList
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                  data={[1,2,3,4,5,6]}
+                  renderItem={({item}) => (
+                    <RelatedProductsPlaceholder/>
+                  )}
+                />
+              </View>
+            ) : (
+              <View>
+                <FlatList
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                  data={props.dateRelatedProducts}
+                  renderItem={props.renderRelatedProducts}
+                  keyExtractor={(item, index) => JSON.stringify(index)}
+                />
+              </View>
+            )}
           </View>
         </View>
       </View>
