@@ -156,7 +156,7 @@ class ProductShowContainer extends Component {
       <ProductShow
         image={this.state.image}
         images={this.state.images}
-        title={this.props.receiveSingleProductWithId.map( data => data.product)}
+        title={this.props.receiveSingleProductWithId.map(data => data.product)}
         categories={this.props.receiveSingleProductWithId.map(data => (data.subcategories[0].subcategory))}
         price={this.props.receiveSingleProductWithId.map(data => (data.price))}
         star={this.props.receiveSingleProductWithId.map(data => (data.product_rate))}
@@ -205,7 +205,9 @@ class ProductShowContainer extends Component {
             rating={item.review_rate} />
         )}
 
-        stillLoading={this.props.loading.condition}
+        stillLoading={this.props.loading.condition === true && this.props.loading.process_on === 'LOADING_SINGLE_PRODUCR_WITH_ID' ||
+        this.props.loading.condition === true && this.props.loading.process_on === 'SUCCESS_SINGLE_PRODUCR_WITH_ID' ? true : false}
+        // stillLoading={true}
 
         modalVisibleImageView={this.state.modalVisibleImageView}
         toggleImageViewModal={() => this.toggleImageViewModal()}
