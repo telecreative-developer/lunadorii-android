@@ -110,11 +110,11 @@ export const fetchSingleProductWithId = (id, id_product) => {
 			})
 			const data = await response.json()
 			await dispatch(receiveSingleProductWithId(data.data))
-			await dispatch(setSuccess(true, 'SUCCESS_SINGLE_PRODUCR_WITH_ID'))
 			await dispatch(setLoading(false, 'LOADING_SINGLE_PRODUCR_WITH_ID'))
+			await dispatch(setSuccess(true, 'SUCCESS_SINGLE_PRODUCR_WITH_ID'))
 		} catch (e){
-			dispatch(setFailed(true, 'FAILED_SINGLE_PRODUCR_WITH_ID', e))
 			dispatch(setLoading(false, 'LOADING_SINGLE_PRODUCR_WITH_ID'))
+			dispatch(setFailed(true, 'FAILED_SINGLE_PRODUCR_WITH_ID', e))
 		}
 	}
 }

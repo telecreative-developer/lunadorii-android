@@ -62,6 +62,9 @@ class WishlistContainer extends Component{
               action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
             />
           )}
+          stillLoading={this.props.loading.condition === true && this.props.loading.process_on === 'LOADING_FETCH_WISHLIST' ||
+          this.props.loading.condition === true && this.props.loading.process_on === 'SUCCESS_FETCH_WISHLIST' ? true : false}
+          amountOfContent={this.props.wishlist.length}
           goback={() => this.props.navigation.goBack()}
         />
       )
