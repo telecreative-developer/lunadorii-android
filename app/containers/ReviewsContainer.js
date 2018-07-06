@@ -4,7 +4,8 @@ import Reviews from '../components/Reviews'
 import ProductReviews from '../particles/ProductReviews'
 import ReviewIsEmpty from '../components/ReviewIsEmpty'
 import { connect } from 'react-redux'
-import { fetchUserReview, updateReview } from '../actions/userreview'
+import { fetchUserReview, updateReview, deleteReview } from '../actions/userreview'
+import { Spinner } from 'native-base';
 
 class ReviewsContainer extends Component{
 
@@ -16,7 +17,9 @@ class ReviewsContainer extends Component{
     title: '',
     price: 0,
     star: 0,
-    comment: ''
+    comment: '',
+    modalVisibleLoading:false,
+    maessage:''
   }
 
   closeModal(){
@@ -50,6 +53,7 @@ class ReviewsContainer extends Component{
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchUserReview(data.id, data.accessToken)
+    this.setState
     if(this.props.userreview.length != 0){
       await this.setState({isEmpty: false})
     }else{
@@ -66,6 +70,14 @@ class ReviewsContainer extends Component{
     await this.closeModal()
   }
 
+  async deleteReview(item){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.deleteReview(item.product_review_id, data.accessToken)
+    await this.props.fetchUserReview(data.id, data.accessToken)
+    this.setState({message:'DELETING'})
+  }
+ 
   async onStarRatingPress(star) {
     await this.setState({
       star: star
@@ -77,6 +89,9 @@ class ReviewsContainer extends Component{
   }
 
   render(){
+    const loading = this.props
+    console.log('isi modal loading :' , this.state.modalVisibleLoading)
+    console.log('loading :' , loading.condition, loading.process_on)
     if(this.state.isEmpty){
       return(
         <ReviewIsEmpty
@@ -98,6 +113,8 @@ class ReviewsContainer extends Component{
           onChangeComment={(comment) => this.setState({ comment })}
           onChangeStar={(star) => this.onStarRatingPress(star)}
           updateRating={() => this.btnUpdateRating()}
+          modalVisibleLoading={this.props.loading.condition}
+          message={this.state.message}
   
           dataReviews={this.props.userreview}
           renderReviews={({item}) => (
@@ -109,6 +126,7 @@ class ReviewsContainer extends Component{
               date={item.updated_at} 
               review={item.comment}
               action={() => this.toggleModalEditReviews(item)}
+              deleteReview={() => this.deleteReview(item)}
             />
           )}
         />
@@ -122,7 +140,8 @@ const mapDispatchToProps = (dispatch) =>{
   return{
 
     fetchUserReview: (id, accessToken) => dispatch(fetchUserReview(id, accessToken)),
-    updateReview: (id, items, accessToken) => dispatch(updateReview(id, items, accessToken))
+    updateReview: (id, items, accessToken) => dispatch(updateReview(id, items, accessToken)),
+    deleteReview: (id, accessToken) => dispatch(deleteReview(id, accessToken))
     
   }
 }

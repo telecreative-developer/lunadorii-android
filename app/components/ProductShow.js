@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, FlatList, ImageBackground, TouchableOpacity, StatusBar, Dimensions} from 'react-native'
+import { StyleSheet, FlatList, ImageBackground, TouchableOpacity, StatusBar, Dimensions, TouchableHighlight} from 'react-native'
 import { Container, Content, Text, View, Item, Input } from 'native-base'
 import StarRating from 'react-native-star-rating';
 import NavbarTransparent from '../particles/NavbarTransparent'
@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Entypo from 'react-native-vector-icons/Entypo'
 import ImageViewModal from '../modals/ImageViewModal'
+import {DescriptionPlaceholder, TitlePlaceholder, CategoryPlaceholder} from '../placeholders/ProductShowPlaceholders'
 const { height, width } = Dimensions.get('window')
 
 const ProductShow = (props) => (
@@ -15,7 +16,7 @@ const ProductShow = (props) => (
     height: height
   }}>
     <Content style={styles.container}>
-      <TouchableOpacity onPress={props.toggleImageViewModal}>
+      <TouchableHighlight onPress={props.toggleImageViewModal}>
         <ImageBackground source={{ uri: props.image }} style={styles.imageBackgroundStyle}>
           <NavbarTransparent
             navbarTitle=""
@@ -29,17 +30,25 @@ const ProductShow = (props) => (
             <Text style={styles.textPhotos}><FontAwesome name="photo" style={styles.touchableOpacityButtonIcon} /> +{props.amountOfImage} Photos</Text>
           </TouchableOpacity>
         </ImageBackground>
-      </TouchableOpacity>
+      </TouchableHighlight>
       <ImageViewModal
         modalVisible={props.modalVisibleImageView}
         actionIcon={props.toggleImageViewModal}
         images={props.images}/>
       <View style={styles.firstGroup}>
         <View style={styles.firstGroupWrapper}>
-          <View style={{width: (width - 90) / 1 }}>
-            <Text style={styles.firstGroupTitle}>{props.title}</Text>
-          </View>
-          <Text style={styles.fistGroupSubtitle}>{props.categories}</Text>
+          {props.stillLoading ? (
+            <TitlePlaceholder/>
+          ) : (
+            <View style={{width: (width - 90) / 1 }}>
+              <Text style={styles.firstGroupTitle}>{props.title}</Text>
+            </View>
+          )}
+          {props.stillLoading ? (
+            <CategoryPlaceholder/>
+          ) : (
+            <Text style={styles.fistGroupSubtitle}>{props.categories}</Text>
+          )}
         </View>
         {console.log('props wishlisted:', props.wishlisted)}
         {console.log('props click:', props.clickWishlist)}
@@ -122,14 +131,18 @@ const ProductShow = (props) => (
         </View>
       </View>
       <View style={styles.borderedSparator}>
-        <View style={styles.borderedSparatorFirst}>
-          <Text style={styles.borderedSparatorFirstTitle}>Description</Text>
-          <View style={{width: (width - 20) / 1 }}>
-            <Text style={styles.borderedSparatorFirstContent}>
-              {props.descriptions}
-            </Text>
+        {props.stillLoading ? (
+          <DescriptionPlaceholder/>
+        ) : (
+          <View style={styles.borderedSparatorFirst}>
+            <Text style={styles.borderedSparatorFirstTitle}>Description</Text>
+            <View style={{width: (width - 20) / 1 }}>
+              <Text style={styles.borderedSparatorFirstContent}>
+                {props.descriptions}
+              </Text>
+            </View>
           </View>
-        </View>
+        )}
         {props.seeMoreDetails ? (
           <View>
             <View style={styles.borderedSparatorSecond}>
@@ -186,9 +199,9 @@ const ProductShow = (props) => (
               />
             ) : (
               <View style={{paddingTop: 10}}>
-                <View style={{alignItems: 'center', padding: 10, backgroundColor: '#ccc', borderRadius: 5, }}>
-                  <Text style={{textAlign: 'center'}}>No reviews yet.</Text>
-                  <Text style={{textAlign: 'center'}}>be the first to review this product</Text>
+                <View style={{alignItems: 'center', padding: 10, backgroundColor: 'transparent', borderColor: '#e2e2e2', borderWidth:1}}>
+                  <Text style={{textAlign: 'center', color: '#848484'}}>No reviews yet.</Text>
+                  <Text style={{textAlign: 'center', color: '#848484'}}>be the first to review this product</Text>
                 </View>
               </View>
             )}
