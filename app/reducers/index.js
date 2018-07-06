@@ -11,6 +11,7 @@ import { sessionPersistance } from "./login"
 import { editpassword, editemail } from "./editprofile"
 import { wishlist } from "./wishlist"
 import { userreview } from "./userreview"
+import { getResultReport } from "./report"
 import { cartuser } from "./cart"
 import { usershipping } from "./usershipping"
 import { registerresult } from "./registerresult"
@@ -32,6 +33,7 @@ const rootReducers = combineReducers({
   editemail,
   wishlist,
   userreview,
+  getResultReport,
   cartuser,
   usershipping,
   registerresult,
