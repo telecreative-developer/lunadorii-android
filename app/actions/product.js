@@ -79,11 +79,12 @@ export const fetchSearchProduct = (search) => {
 				}
 			})
 			const data = await response.json()
-			// console.log("hasil search action", data.data)
-			await dispatch(receiveSearchProduct(data.data))
+			console.log("hasil search action", data)
+			await dispatch(receiveSearchProduct(data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_SEARCH_PRODUCT'))
       		await dispatch(setLoading(false, 'LOADING_FETCH_SEARCH_PRODUCT'))
 		} catch (e) {
+			console.log("error search action", e)
 			dispatch(setFailed(true, 'FAILED_FETCH_SEARCH_PRODUCT', e))
 			dispatch(setLoading(false, 'LOADING_FETCH_SEARCH_PRODUCT'))
 		}

@@ -119,14 +119,15 @@ class SearchContainer extends Component {
   state = {
     modalVisibleFilters: false,
     searchTitle: "",
+    lastSearchTitle: "",
     searchResult:[],
     modalVisibleBrandChooser: false
   }
 
   async handleSearch(){
-    // await this.props.fetchSearchProduct(this.state.searchTitle)
-    // await this.setState({searchResult: this.props.searchproduct})
-    alert("Searching")
+    await this.props.fetchSearchProduct(this.state.searchTitle)
+    await this.setState({searchResult: this.props.searchproduct})
+    await this.setState({lastSearchTitle: this.state.searchTitle})
   }
 
   handleCategory(){
@@ -165,7 +166,7 @@ class SearchContainer extends Component {
           />
         )}
 
-        searchTitle={this.state.searchTitle}
+        searchTitle={this.state.lastSearchTitle}
         amount={this.state.searchResult.length}
         onChangeSearchTitle={(searchTitle) => this.setState({ searchTitle })}
         
