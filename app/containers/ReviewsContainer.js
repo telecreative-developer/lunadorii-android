@@ -95,7 +95,7 @@ class ReviewsContainer extends Component{
     if(this.state.isEmpty){
       return(
         <ReviewIsEmpty
-          navigateToMart={() => this.props.navigation.navigate("HomeContainer")}
+          navigateToProfile={() => this.props.navigation.navigate("ProfileContainer")}
         />
       )
     }else{

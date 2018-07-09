@@ -13,9 +13,9 @@ const ProductShowPlaceholders = props => (
 
 const TitlePlaceholder = props => (
   <View>
-    <View style={{height: 25, width: 300, backgroundColor: '#f6f6f6', borderRadius: 5, marginBottom: 5}}/>
-    <View style={{height: 25, width: 300, backgroundColor: '#f6f6f6', borderRadius: 5, marginBottom: 5}}/>
-    <View style={{height: 25, width: 300, backgroundColor: '#f6f6f6', borderRadius: 5, marginBottom: 5}}/>
+    <View style={{height: 25, width: 255, backgroundColor: '#f6f6f6', borderRadius: 5, marginBottom: 5}}/>
+    <View style={{height: 25, width: 255, backgroundColor: '#f6f6f6', borderRadius: 5, marginBottom: 5}}/>
+    <View style={{height: 25, width: 255, backgroundColor: '#f6f6f6', borderRadius: 5, marginBottom: 5}}/>
   </View>
 )
 
