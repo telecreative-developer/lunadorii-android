@@ -15,6 +15,7 @@ class SettingsContainer extends Component {
 
     newEmail:"",
     confirmEmail:"",
+    buttonEmail: false,
 
     password: "",
     currentPassword: "",
@@ -47,12 +48,16 @@ class SettingsContainer extends Component {
   async handleChangeEmail(){
     if (this.state.newEmail == ""){
       alert("email cannot empty")
-    }if (this.state.newEmail !== this.state.confirmEmail) {
+    }else if (this.state.newEmail !== this.state.confirmEmail) {
       alert("New Email wasn't comfirmed")
     } else {
+      this.setState({ buttonEmail: true })
       await this.props.editEmail(this.state.userData.id, this.state.newEmail, this.state.userData.accessToken)
+      if (this.props.editemail.status === 201){
+        this.setState({ modalVisibleChangeEmail: false })
+      }
+      this.setState({ buttonEmail: false })
       await alert(this.props.editemail.message)
-      await this.setState({confirmEmail: "" })
     }
   }
 
@@ -91,6 +96,7 @@ class SettingsContainer extends Component {
 
         modalVisibleChangeEmail={this.state.modalVisibleChangeEmail}
         toggleModalChangeEmail={() => this.toggleModalChangeEmail()}
+        buttonEmail={this.state.buttonEmail}
 
         modalVisibleNotifications={this.state.modalVisibleNotifications}
         toggleModalNotifications={() => this.toggleModalNotifications()}

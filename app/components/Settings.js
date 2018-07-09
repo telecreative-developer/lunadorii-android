@@ -36,6 +36,7 @@ const Settings = (props) => (
 
       onChangeNewEmail={props.onChangeNewEmail}
       onChangeConfirmEmail={props.onChangeConfirmEmail}
+      buttonEmail={props.buttonEmail}
       handleChangeEmail={props.handleChangeEmail}
     />
     <NotificationsModal
