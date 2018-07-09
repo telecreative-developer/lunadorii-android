@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { Container, Content, Item, Input, Icon, Label, Button, Tabs } from 'native-base'
+import { Container, Content, Item, Input, Icon, Label, Button, Tabs, Spinner } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 
 const ChangeEmailModal = (props) => (
@@ -26,8 +26,8 @@ const ChangeEmailModal = (props) => (
         </Item>
       </View>
     </Content>
-    <Button full style={styles.btnSend} onPress={props.handleChangeEmail}>
-      <Text style={styles.txtBtnSend}>Change Email</Text>
+    <Button full style={styles.btnSend} onPress={props.handleChangeEmail} disabled={props.buttonEmail} >
+      {props.buttonEmail ? (<Spinner color='#fff' />):(<Text style={styles.txtBtnSend}>Change Email</Text>)}
     </Button>
   </Modal>
 )
