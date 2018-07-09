@@ -19,7 +19,8 @@ class SettingsContainer extends Component {
     password: "",
     currentPassword: "",
     newPassword: "",
-    confirmPassword: ""
+    confirmPassword: "",
+    buttonPassword: false
   };
 
   async componentDidMount(){
@@ -64,13 +65,15 @@ class SettingsContainer extends Component {
     
       if (this.state.currentPassword == ""){
         alert("your old password is empty")
-      }if (this.state.newPassword !== this.state.confirmPassword) {
+      }else if (this.state.newPassword !== this.state.confirmPassword) {
         alert("New password wasn't comfirmed")
       } else {
+        this.setState({ buttonPassword: true })
         await this.props.editPassword(this.state.userData.id, this.state.currentPassword, this.state.newPassword, this.state.userData.accessToken)
         if (this.props.editpassword.status === 200){
           this.setState({ modalVisibleChangePassword: false })
         }
+        this.setState({ buttonPassword: false })
         await alert(this.props.editpassword.message)
       }
     
@@ -83,6 +86,7 @@ class SettingsContainer extends Component {
 
         modalVisibleChangePassword={this.state.modalVisibleChangePassword}
         toggleModalChangePassword={() => this.toggleModalChangePassword()}
+        buttonPassword={this.state.buttonPassword}
         actionLogout={()=> this.handleLogout()}
 
         modalVisibleChangeEmail={this.state.modalVisibleChangeEmail}

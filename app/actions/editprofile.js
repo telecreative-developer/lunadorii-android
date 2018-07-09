@@ -66,7 +66,7 @@ export const editPassword = (id, old_password, new_password, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_EDIT_PASSWORD'))
 		try {
-			const response = await fetch(`${API_SERVER_USER}/api/v1/user/change-password/${id}`, {
+			const response = await fetch(`${API_SERVER}/user/change-password/${id}`, {
 				method: 'PUT',
 				headers: {
 					Accept: 'application/json',
