@@ -23,7 +23,7 @@ const Home = (props) => (
       modalVisible={props.modalVisibleAddToCart}
       toggleModalAddToCart={props.toggleModalAddToCart}
       onChangeQty={props.onChangeQty}
-      handleAddToCart={props.handleAddToCart}
+      handleAddToCart={props.handleAddToCart}      
     />
     <Tabs locked={true} style={styles.tabHeight} tabBarUnderlineStyle={styles.tabBarUnderlineStyle}>
       <Tab heading={<TabHeading style={styles.tabHeading} ><Text style={styles.txtHeading}>New Arrivals</Text></TabHeading>}>
@@ -140,8 +140,6 @@ const styles = StyleSheet.create({
     backgroundColor: '#d11e48'
   },
   recommededProductWrapper: {
-    paddingLeft: 10,
-    paddingRight: 10,
     paddingTop: 20,
     paddingBottom: 20
   },
@@ -177,8 +175,6 @@ const styles = StyleSheet.create({
   },
   viewWrapperCategories: {
     marginTop: 5,
-    marginLeft: 5,
-    marginRight: 5,
   },
 })
 

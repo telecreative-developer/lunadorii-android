@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage, TouchableOpacity } from 'react-native'
+import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage, TouchableOpacity, BackHandler } from 'react-native'
 import Home from '../components/Home'
 import Product from '../particles/Product'
 import Brand from '../particles/Brand'
@@ -40,7 +40,7 @@ class HomeContainer extends Component {
     this.setState({showMore: !this.state.showMore})
   }
 
-  closeModal(){
+  closeModal(){    
     this.setState({modalVisibleAddToCart: !this.state.modalVisibleAddToCart})
   }
 

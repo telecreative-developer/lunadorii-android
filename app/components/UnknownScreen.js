@@ -4,12 +4,12 @@ import {
   Platform,
   StatusBar,
   StyleSheet,
-  Text,
   View,
   RefreshControl,
   FlatList
 } from 'react-native';
-import { Header, Left, Button, Icon, Body, Right } from 'native-base'
+import NavbarTransparent from '../particles/NavbarTransparent'
+import { Icon, Text } from 'native-base';
 
 const HEADER_MAX_HEIGHT = 250;
 const HEADER_MIN_HEIGHT = 65;
@@ -67,12 +67,12 @@ export default class UnknownScreen extends Component {
 
     const titleScale = scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-      outputRange: [1, 1, 0.8],
+      outputRange: [1, 1, 1],
       extrapolate: 'clamp',
     });
     const titleTranslate = scrollY.interpolate({
       inputRange: [0, HEADER_SCROLL_DISTANCE / 2, HEADER_SCROLL_DISTANCE],
-      outputRange: [0, 0, -8],
+      outputRange: [0, 0, 0],
       extrapolate: 'clamp',
     });
 
@@ -140,6 +140,10 @@ export default class UnknownScreen extends Component {
             },
           ]}
         >
+          <View style={{flexDirection: 'row'}}>
+            <Icon name='arrow-back' style={{paddingHorizontal: 10,paddingVertical: 10}}/>
+            <Text style={{fontSize: 18, fontWeight: 'bold',paddingHorizontal: 20,paddingVertical: 13}}>Header</Text>
+          </View>
         </Animated.View>
       </View>
     );
@@ -175,14 +179,10 @@ const styles = StyleSheet.create({
   },
   bar: {
     backgroundColor: 'transparent',
-    marginTop: Platform.OS === 'ios' ? 28 : 38,
+    marginTop: 18,
+    marginLeft: 10,
     height: 32,
-    alignItems: 'center',
-    justifyContent: 'center',
-    position: 'absolute',
-    top: 0,
-    left: 0,
-    right: 0,
+    position: 'absolute'
   },
   title: {
     color: 'white',

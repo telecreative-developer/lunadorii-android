@@ -117,6 +117,7 @@ export const fetchSingleProductWithId = (id, id_product) => {
 			dispatch(setLoading(false, 'LOADING_SINGLE_PRODUCR_WITH_ID'))
 			dispatch(setFailed(true, 'FAILED_SINGLE_PRODUCR_WITH_ID', e))
 		}
+
 	}
 }
 

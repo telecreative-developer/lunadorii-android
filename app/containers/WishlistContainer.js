@@ -43,7 +43,7 @@ class WishlistContainer extends Component{
     if(this.state.isEmpty){
       return(
         <WishlistIsEmpty
-          navigateToMart={() => this.props.navigation.navigate("HomeContainer")}
+          navigateToProfile={() => this.props.navigation.navigate("ProfileContainer")}
         />
       )
     }else{

@@ -212,14 +212,12 @@ const styles = StyleSheet.create({
     color: '#e97e94'
   },
   viewRecent: {
-    paddingLeft: 10,
-    paddingRight: 10,
     paddingBottom: 20,
     paddingTop: 20
   },
   txtRecent: {
     fontWeight: 'bold',
-    paddingLeft: 0,
+    paddingLeft: 10,
     paddingBottom: 10,
     fontSize: 16
   },
