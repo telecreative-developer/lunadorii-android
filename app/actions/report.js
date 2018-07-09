@@ -1,19 +1,23 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_SEND_REPORT } from '../constants'
-import { API_SERVER_REPORT } from '../env'
+import { API_SERVER } from '../env'
 
-export const report = (data) => {
+export const report = (name, email, subject, content) => {
 	return async dispatch => {
-		console.log('data: ', data)
 		await dispatch(setLoading(true, 'LOADING_SEND_REPORT'))
 		try {
-			const response = await fetch(`${API_SERVER_REPORT}/api/v1/report`, {
+			const response = await fetch(`${API_SERVER}/report`, {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',
                     'Content-Type': 'application/json',
                 },
-                body: JSON.stringify(data)
+                body: JSON.stringify({
+					"name":name,
+					"email":email,
+					"subject":subject,
+					"content":content
+				})
 			})
 			const data = await response.json()
 			console.log('SendReport: ', data)

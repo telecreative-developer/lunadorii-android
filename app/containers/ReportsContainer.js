@@ -10,11 +10,17 @@ class ReportsContainer extends Component {
     name: "",
     email: "",
     subject: "",
-    content: "",    
+    content: "",
+    buttonReport: false
   }
 
-  handleSendReport(){
-    this.props.report(this.state)
+  async handleSendReport(){
+    const {name, email, subject, content} = this.state
+    this.setState({buttonReport: true})
+    await this.props.report(name, email, subject, content)
+    await alert(this.props.getResultReport.message)
+    this.setState({buttonReport: false})
+    await this.props.navigation.goBack()
   }
 
   render() {
@@ -28,7 +34,8 @@ class ReportsContainer extends Component {
         onChangeEmail={(email) => this.setState({email})}
         onChangeSubject={(subject) => this.setState({subject})}
         onChangeReports={(content) => this.setState({content})}
-        handleSendReport={() => alert(JSON.stringify(this.state))}
+        handleSendReport={() => this.handleSendReport()}
+        buttonReport={this.state.buttonReport}
         goback={() => this.props.navigation.goBack()}
       />
     )
@@ -38,7 +45,7 @@ class ReportsContainer extends Component {
 const mapDispatchToProps = (dispatch) =>{
   return{
 
-    report: (data) => dispatch(report(data)),
+    report: (name, email, subject, content) => dispatch(report(name, email, subject, content)),
     
   }
 }
