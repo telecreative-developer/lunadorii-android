@@ -178,11 +178,12 @@ const ProductShow = (props) => (
       </View>
       <View style={styles.borderedSparator1}>
         <View style={styles.borderedSparatorFirst}>
-          {props.stillLoading ? (
+          {/* {props.stillLoading ? (
             <TitleOneLine/>
           ) : (
-            <Text style={styles.borderedSparatorFirstTitle}>Reviews & Rating</Text>
-          )}
+            
+          )} */}
+          <Text style={styles.borderedSparatorFirstTitle}>Reviews & Rating</Text>
           <View style={styles.ratingCard}>
             {props.stillLoading ? (
               <View style={styles.ratingCardContentWrapper}>
@@ -217,7 +218,7 @@ const ProductShow = (props) => (
                 keyExtractor={(item, index) => JSON.stringify(index)}
               />
             ) : (
-              <View style={{paddingTop: 10}}>
+              <View style={{padding: 10}}>
                 <View style={{alignItems: 'center', padding: 10, backgroundColor: 'transparent', borderColor: '#e2e2e2', borderWidth:1}}>
                   <Text style={{textAlign: 'center', color: '#848484'}}>No reviews yet.</Text>
                   <Text style={{textAlign: 'center', color: '#848484'}}>be the first to review this product</Text>
@@ -236,12 +237,12 @@ const ProductShow = (props) => (
           <View/>
         )}
         <View style={styles.borderedSparator1}>
+          {props.stillLoading ? (
+            <TitleOneLine style={{paddingBottom: 15}}/>
+          ) : (
+            <Text style={styles.borderedSparatorFirstTitle2}>Related Products</Text>
+          )}
           <View style={styles.borderedSparatorFirst}>
-            {props.stillLoading ? (
-              <TitleOneLine style={{paddingBottom: 15}}/>
-            ) : (
-              <Text style={styles.borderedSparatorFirstTitle2}>Related Products</Text>
-            )}
             {props.stillLoading ? (
               <View>
                 <FlatList
@@ -361,23 +362,26 @@ const styles = StyleSheet.create({
     paddingBottom: 15
   },
   borderedSparatorFirst: {
-    padding: 10,
+    // padding: 10,
     marginTop: 10,
     marginBottom: 10
   },
   borderedSparatorFirstTitle: {
     fontWeight: 'bold',
     fontSize: 18,
+    paddingHorizontal: 10
   },
   borderedSparatorFirstTitle2: {
     fontWeight: 'bold',
     fontSize: 18,
-    paddingBottom: 15
+    padding: 10
   },
   borderedSparatorFirstContent: {
+    paddingHorizontal: 10,
     fontSize: 16,
     marginTop: 10,
-    color: '#848484'
+    color: '#848484',
+    textAlign: 'justify'
   },
   borderedSparatorSecond: {
     paddingLeft: 10,
@@ -390,7 +394,8 @@ const styles = StyleSheet.create({
   borderedSparatorSecondPointedContent: {
     fontSize: 16,
     marginTop: 10,
-    color: '#848484'
+    color: '#848484',
+    textAlign: 'justify'
   },
   borderedSparatorThird: {
     paddingLeft: 10,
@@ -398,15 +403,17 @@ const styles = StyleSheet.create({
   },
   borderedSparatorThirdTitle: {
     fontWeight: 'bold',
-    fontSize: 18
+    fontSize: 18,
   },
   borderedSparatorThirdContent: {
     fontSize: 16,
     marginTop: 10,
-    color: '#848484'
+    color: '#848484',
+    textAlign: 'justify'
   },
   ratingCard: {
     marginTop: 15,
+    marginHorizontal: 10,
     borderRadius: 1,
     borderColor: '#E2E2E2',
     borderWidth: 1,

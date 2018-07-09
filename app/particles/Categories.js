@@ -20,7 +20,9 @@ export default Categories
 const styles = StyleSheet.create({
   flexOnly2: {
     flex: 0.25,
-    padding: 5,
+    paddingVertical: 5,
+    marginRight: 10,
+    marginLeft: 10,
     alignItems: 'center'
   },
   viewCategories: {

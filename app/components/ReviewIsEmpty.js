@@ -23,8 +23,8 @@ const ReviewIsEmpty = (props) => (
       </View>
       <Text style={{fontSize: 20, color: '#ccc'}}>Please review your product</Text>
       <Text style={{fontSize: 20, color: '#ccc'}}>Have purchased</Text>
-      <Button full style={styles.backToMart} onPress={props.navigateToMart}>
-				<Text style={styles.backToMartText}>Back to mart</Text>
+      <Button full style={styles.backToMart} onPress={props.navigateToProfile}>
+				<Text style={styles.backToMartText}>Back to profile</Text>
 			</Button>
     </View>
   </Container>

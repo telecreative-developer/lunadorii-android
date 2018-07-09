@@ -13,7 +13,9 @@ const styles = StyleSheet.create({
     borderWidth: 1, 
     borderColor: '#e2e2e2', 
     width: 150, 
-    margin: 5
+    marginVertical: 5,
+    marginRight: 10,
+    marginLeft: 10,
   },
   image:{
     resizeMode: 'contain',

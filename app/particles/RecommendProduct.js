@@ -50,6 +50,7 @@ const styles = StyleSheet.create({
   viewRecommend:{
     width: 260, 
     marginRight:10,
+    marginLeft: 10,
     paddingRight: 5, 
     borderWidth: 1, 
     borderColor: '#e2e2e2'
