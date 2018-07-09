@@ -68,6 +68,11 @@ class ProductShowContainer extends Component {
     ToastAndroid.showWithGravity("Added to cart.", ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
 
+  async deleteState(){
+    await this.setState({})
+    await this.props.navigation.goBack()
+  }
+
   async componentDidMount() {
     const session = await AsyncStorage.getItem('session')
     const dataSession = await JSON.parse(session)
@@ -89,7 +94,6 @@ class ProductShowContainer extends Component {
     await this.props.fetchSingleProductWithId(dataSession.id, data.product_id)
     await this.props.fetchRelatedProduct(data.product_id)
     await this.checkReviewers()
-    await alert(JSON.stringify(this.state.images))
   }
 
   async addQty(){
