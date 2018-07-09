@@ -38,6 +38,9 @@ class ProfileContainer extends Component {
 
   state = {
     userData: {},
+    first_name: "",
+    last_name:"",
+    bod: "",
     photoProfile: '',
     modalVisibleEditProfile: false,
     imageProfile: 'https://avatars0.githubusercontent.com/u/38149346?s=400&u=7db8195dd7b4436cbf6d0575915ca6b198d116cc&v=4',
@@ -70,26 +73,27 @@ class ProfileContainer extends Component {
   async handleSaveEditProfile() {
     await this.props.editName(
         this.state.userData.id, 
-        this.state.firstName, 
-        this.state.lastName, 
+        this.state.first_name, 
+        this.state.last_name,
+        this.state.bod, 
         this.state.userData.accessToken)
     await this.setState({modalVisibleEditProfile: false })
-    alert("Profile Saved")
+    await alert(this.props.editname.message)
   }
 
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    await this.props.fetchSingleUser(data.id, data.accessToken)
     await this.setState({
       userData: data,
-      firstName: data.first_name,
-      lastName : data.last_name,
+      first_name: this.props.getsingleuser.first_name,
+      last_name : this.props.getsingleuser.last_name,
+      bod: this.props.getsingleuser.bod
     })
-    await this.props.fetchSingleUser(data.id, data.accessToken)
   }
 
   render() {
-    {console.log(this.props.fetchSingleUser)}
     return (
       <Profile
         dataRecentOrders={dataRecentOrders}
@@ -109,10 +113,10 @@ class ProfileContainer extends Component {
         toggleModalEditProfile={() => this.toggleModalEditProfile()}
         modalVisibleEditProfile={this.state.modalVisibleEditProfile}
 
-        profile={this.state.userData}
-        onChangeFirstName={(firstName) => this.setState({ firstName })}
-        onChangeLastName={(lastName) => this.setState({ lastName })}
-        onChangeBirthDate={(birthDate) => this.setState({ birthDate })}
+        profile={this.state}
+        onChangeFirstName={(first_name) => this.setState({ first_name })}
+        onChangeLastName={(last_name) => this.setState({ last_name })}
+        onChangeBirthDate={(bod) => this.setState({ bod })}
         handleSaveEditProfile={() => this.handleSaveEditProfile()}
 
         navigateToPurchaseHistory={() => this.props.navigation.navigate("PurchaseHistoryContainer")}
@@ -132,7 +136,7 @@ class ProfileContainer extends Component {
 const mapDispatchToProps = (dispatch) =>{
   return{
     fetchSingleUser: (id, accessToken) => dispatch(fetchSingleUser(id, accessToken)),
-    editName: (id, firstName, lastName, accessToken) => dispatch(editName(id, firstName, lastName, accessToken))
+    editName: (id, firstName, lastName, bod, accessToken) => dispatch(editName(id, firstName, lastName, bod, accessToken))
   }
 }
 
@@ -142,6 +146,7 @@ const mapStateToProps = (state) => {
     success: state.success,
     failed: state.failed,
     getsingleuser: state.getsingleuser,
+    editname: state.editname
   }
 }
 

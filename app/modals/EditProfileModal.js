@@ -29,17 +29,17 @@ const EditProfileModal = (props) => (
       <Form>
         <Label style={styles.labels}>First Name</Label>
         <Item regular style={styles.items}>
-          <Input value={props.firstName} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeFirstName} />
+          <Input value={props.first_name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeFirstName} />
         </Item>
         <Label style={styles.labels}>Last Name</Label>
         <Item regular style={styles.items}>
-          <Input value={props.lastName} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeLastName} />
+          <Input value={props.last_name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeLastName} />
         </Item>
         <Label style={styles.labels}>Birth Date</Label>
         <Item regular style={styles.items}>
           <DatePicker
             style={{ width: 100, borderWidth: 0 }}
-            date={props.birthDate}
+            date={props.bod}
             mode="date"
             placeholder="Birth of Date"
             format="YYYY-MM-DD"

@@ -1,8 +1,8 @@
 import { setLoading, setFailed, setSuccess } from './processor'
-import { RECEIVE_EDIT_PASSWORD, RECEIVE_EDIT_EMAIL } from '../constants'
+import { RECEIVE_EDIT_PASSWORD, RECEIVE_EDIT_EMAIL, RECEIVE_EDIT_NAME } from '../constants'
 import { API_SERVER } from '../env'
 
-export const editName = (id, first_name, last_name, accessToken) => {
+export const editName = (id, first_name, last_name, bod, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_EDIT_NAME'))
 		try {
@@ -15,16 +15,25 @@ export const editName = (id, first_name, last_name, accessToken) => {
                 },
                 body: JSON.stringify({
                     first_name,
-                    last_name
+					last_name,
+					bod
                 })
 			})
 			const data = await response.json()
+			await dispatch(receiveResultName(data))
 			await dispatch(setSuccess(true, 'SUCCESS_EDIT_NAME'))
       		await dispatch(setLoading(false, 'LOADING_EDIT_NAME'))
 		} catch (e) {
 			dispatch(setFailed(true, 'FAILED_EDIT_NAME', e))
 			dispatch(setLoading(false, 'LOADING_EDIT_NAME'))
 		}
+	}
+}
+
+const receiveResultName = data => {
+	return{
+		type: RECEIVE_EDIT_NAME,
+		payload: data
 	}
 }
 

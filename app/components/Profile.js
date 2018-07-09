@@ -30,10 +30,10 @@ const Profile = (props) => (
       actionIcon={props.toggleModalEditProfile}
 
       photoProfile={props.photoProfile}
-      imageProfile={props.profile.imageProfile}
-      firstName={props.profile.firstName}
-      lastName={props.profile.lastName}
-      birthDate={props.profile.birthDate}
+      imageProfile={props.profile.userData.imageProfile}
+      first_name={props.profile.first_name}
+      last_name={props.profile.last_name}
+      bod={props.profile.bod}
 
       onChangeFirstName={props.onChangeFirstName}
       onChangeLastName={props.onChangeLastName}
@@ -50,7 +50,7 @@ const Profile = (props) => (
         <View style={styles.subHeaderProfile}>
           <View style={styles.flexDirectionRow}>
             <View>
-              <Image source={{ uri: props.profile.avatar_url }} style={styles.imageProfile} />
+              <Image source={{ uri: props.profile.userData.avatar_url }} style={styles.imageProfile} />
             </View>
             <View>
               <View style={styles.viewNameProfile}>

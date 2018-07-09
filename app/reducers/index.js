@@ -8,7 +8,7 @@ import { banners } from "./banners"
 import { productsubcategories } from "./productsubcategories"
 import { getsingleuser } from "./getsingleuser"
 import { sessionPersistance } from "./login"
-import { editpassword, editemail } from "./editprofile"
+import { editname, editpassword, editemail } from "./editprofile"
 import { wishlist } from "./wishlist"
 import { userreview } from "./userreview"
 import { getResultReport } from "./report"
@@ -29,6 +29,7 @@ const rootReducers = combineReducers({
   productsubcategories,
   getsingleuser,
   sessionPersistance,
+  editname,
   editpassword,
   editemail,
   wishlist,
