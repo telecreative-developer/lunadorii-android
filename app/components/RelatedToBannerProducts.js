@@ -140,7 +140,7 @@ export default class RelatedToBannerProducts extends Component {
           ]}
         >
           <View style={{flexDirection: 'row'}}>
-            <Icon name='arrow-back' style={{paddingHorizontal: 10,paddingVertical: 10}}/>
+            <Icon name='arrow-back' style={{paddingHorizontal: 10,paddingVertical: 10}} onPress={this.props.goback}/>
             <Text style={{fontSize: 12, fontWeight: 'bold',paddingHorizontal: 20,paddingVertical: 13}}>Related to banner</Text>
           </View>
         </Animated.View>

@@ -84,11 +84,11 @@ class HomeContainer extends Component {
     await this.props.fetchBanners()
     await this.props.fetchCategoryProduct()
     await this.props.fetchBrandsProduct()
-    if(this.props.fetchProduct(data.id)){
+    await this.props.fetchProduct(data.id)
+    await this.props.fetchSingleUser(data.id, data.accessToken)
+    if(this.props.fetchProductSubcategories()){
       await this.setState({stillLoading: false})
     }
-    await this.props.fetchSingleUser(data.id, data.accessToken)
-    await this.props.fetchProductSubcategories()
   }
 
   capitalize(string) {
