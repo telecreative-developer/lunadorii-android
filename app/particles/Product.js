@@ -22,7 +22,9 @@ const Product = (props) => (
     </TouchableOpacity>
     <View style={styles.viewContent}>
       <View style={{width: (width - 75) / 2, height: 30}}>
-        <Text style={styles.txtTitle}>{props.title}</Text>
+        <TouchableOpacity onPress={props.action}>
+          <Text style={styles.txtTitle}>{props.title}</Text>
+        </TouchableOpacity>
       </View>
       <View style={{ marginTop: 10,  }}>
         <Text style={styles.txtCategories}>{props.categories}</Text>

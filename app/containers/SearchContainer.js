@@ -166,9 +166,10 @@ class SearchContainer extends Component {
           />
         )}
 
-        searchTitle={this.state.lastSearchTitle}
+        searchTitle={this.state.searchTitle}
         amount={this.state.searchResult.length}
         onChangeSearchTitle={(searchTitle) => this.setState({ searchTitle })}
+        clearSearchBar={() => this.setState({searchTitle: ""})}
         
         handleSearch={()=>this.handleSearch()}
         handleCategory={()=>this.handleCategory()}

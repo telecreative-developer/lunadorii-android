@@ -10,7 +10,6 @@ import {
   } from '../actions/product'
 import {addToCart} from '../actions/cart'
 import { connect } from 'react-redux'
-import { TitlePlaceholder, CategoryPlaceholder, StarPlaceholder, DescriptionPlaceholder, ReviewsAndRatings, TitleOneLine, RelatedProductsPlaceholder } from '../placeholders/ProductShowPlaceholders'
 import { fetchwishlist, addWishlist, deleteWishlistInHome } from '../actions/wishlist';
 
 class ProductShowContainer extends Component {
@@ -18,6 +17,7 @@ class ProductShowContainer extends Component {
   constructor(){
     super()
     this.state = {
+      stillLoading: true,
       isReviewsExist: false,
       seeMoreDetails: false,
       seeMoreReviews: false,
@@ -103,7 +103,9 @@ class ProductShowContainer extends Component {
       wishlisted: data.wishlisted
     })
     await this.props.fetchSingleProductWithId(dataSession.id, data.product_id)
-    await this.props.fetchRelatedProduct(data.product_id)
+    if(this.props.fetchRelatedProduct(data.product_id)){
+      await this.setState({stillLoading: false})
+    }
     await this.checkReviewers()
   }
 
@@ -226,9 +228,9 @@ class ProductShowContainer extends Component {
             rating={item.review_rate} />
         )}
 
-        stillLoading={this.props.loading.condition === true && this.props.loading.process_on === 'LOADING_SINGLE_PRODUCR_WITH_ID' ||
-        this.props.loading.condition === true && this.props.loading.process_on === 'SUCCESS_SINGLE_PRODUCR_WITH_ID' ? true : false}
-        // stillLoading={true}
+        // this.props.loading.condition === true && this.props.loading.process_on === 'LOADING_SINGLE_PRODUCR_WITH_ID' ||
+        // this.props.loading.condition === true && this.props.loading.process_on === 'SUCCESS_SINGLE_PRODUCR_WITH_ID' ? true : false
+        stillLoading={this.state.stillLoading}
 
         modalVisibleImageView={this.state.modalVisibleImageView}
         toggleImageViewModal={() => this.toggleImageViewModal()}

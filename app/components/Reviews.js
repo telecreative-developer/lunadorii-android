@@ -4,6 +4,7 @@ import { Container, Content } from 'native-base'
 import Navbar from '../particles/Navbar'
 import EditReviewsModal from '../modals/EditReviewsModal'
 import ModalLoading from '../modals/LoadingModal'
+import Validations from '../particles/Validations'
 const { height, width } = Dimensions.get('window')
 
 const Reviews = (props) => {
@@ -16,8 +17,8 @@ const Reviews = (props) => {
       actionIcon={props.goback}
     />
     <ModalLoading 
-        modalVisibleLoading={props.modalVisibleLoading}
-        message={props.message}
+      modalVisibleLoading={props.modalVisibleLoading}
+      message={props.message}
     />
     <EditReviewsModal
       navbarTitle="Edit Reviews"
@@ -38,14 +39,18 @@ const Reviews = (props) => {
       barStyle="light-content"
     />
     <Content>
-      <View style={styles.viewReviews}>
-        <Text style={styles.txtReviews}>Your Reviews</Text>
-        <FlatList
-          data={props.dataReviews}
-          renderItem={props.renderReviews}
-          keyExtractor={(item, index) => JSON.stringify(index)}
-        />
-      </View>
+      {props.isEmpty ? (
+        <Validations title="Your Review is empty" message1="Please review your product" message2="have purchased"/>
+      ) : (
+        <View style={styles.viewReviews}>
+          <Text style={styles.txtReviews}>Your Reviews</Text>
+          <FlatList
+            data={props.dataReviews}
+            renderItem={props.renderReviews}
+            keyExtractor={(item, index) => JSON.stringify(index)}
+          />
+        </View>
+      )}
     </Content>
   </Container>
 )}

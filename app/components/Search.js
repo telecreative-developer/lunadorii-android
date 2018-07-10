@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, StatusBar, TouchableOpacity, Text, FlatList, Dimensions } from 'react-native'
 import { Container, Content, View, Icon, Item, Input } from 'native-base'
-import Feather from 'react-native-vector-icons/Feather'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import Navbar from '../particles/Navbar'
 import FiltersModal from '../modals/FiltersModal'
 import ResultNotFound from '../particles/ResultNotFound'
@@ -31,8 +31,10 @@ const Search = (props) => (
     />
     <Content style={styles.container}>
       <Item regular style={styles.items}>
-        <Input placeholder="Search product, brand name, etc.," returnKeyType="search" placeholderTextColor="#ccc" onChangeText={props.onChangeSearchTitle} onSubmitEditing={props.handleSearch} />
-        <Feather name="search" style={styles.searchIcon} />
+        <Input placeholder="Search product, brand name, etc.," value={props.searchTitle} returnKeyType="search" placeholderTextColor="#ccc" onChangeText={props.onChangeSearchTitle} onSubmitEditing={props.handleSearch}/>
+        <TouchableOpacity onPress={props.clearSearchBar}>
+          <EvilIcons name="close" style={styles.searchIcon} />
+        </TouchableOpacity>
       </Item>
       <View style={styles.moreFilters}>
         <TouchableOpacity onPress={props.toggleModalFilters}>

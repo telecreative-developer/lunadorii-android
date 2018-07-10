@@ -8,14 +8,13 @@ import {
   RefreshControl,
   FlatList
 } from 'react-native';
-import NavbarTransparent from '../particles/NavbarTransparent'
 import { Icon, Text } from 'native-base';
 
 const HEADER_MAX_HEIGHT = 250;
 const HEADER_MIN_HEIGHT = 65;
 const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 
-export default class UnknownScreen extends Component {
+export default class RelatedToBannerProducts extends Component {
   constructor(props) {
     super(props);
 
@@ -141,8 +140,8 @@ export default class UnknownScreen extends Component {
           ]}
         >
           <View style={{flexDirection: 'row'}}>
-            <Icon name='arrow-back' style={{paddingHorizontal: 10,paddingVertical: 10}}/>
-            <Text style={{fontSize: 18, fontWeight: 'bold',paddingHorizontal: 20,paddingVertical: 13}}>Header</Text>
+            <Icon name='arrow-back' style={{paddingHorizontal: 10,paddingVertical: 10}} onPress={this.props.goback}/>
+            <Text style={{fontSize: 12, fontWeight: 'bold',paddingHorizontal: 20,paddingVertical: 13}}>Related to banner</Text>
           </View>
         </Animated.View>
       </View>
