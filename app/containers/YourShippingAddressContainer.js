@@ -4,7 +4,9 @@ import YourShippingAddress from '../components/YourShippingAddress'
 import ShippingAddress from '../particles/ShippingAddress'
 
 import { connect } from 'react-redux'
-import { fetchUserShipping, updateShipping, updateSetdefault, deleteShipping, createAddress } from '../actions/usershipping'
+import { fetchUserShipping, updateShipping, updateSetdefault, 
+         deleteShipping, createAddress, fetchProvince 
+       } from '../actions/usershipping'
 
 
 class YourShippingAddressContainer extends Component{
@@ -62,11 +64,14 @@ class YourShippingAddressContainer extends Component{
   }
 
   async handleSaveAddress(){
+    console.log(this.state)
+    const {name, phone, detail_address, province, city, district, address_default, regency} = this.state
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.props.createAddress(data.id, this.state, data.accessToken)
+    await this.props.createAddress(data.id, {name, phone, detail_address, province, city, district, address_default, regency}, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
     await this.toggleModalAddAddress()
+    
   }
 
   handleSaveShippingAddress(){
@@ -87,6 +92,7 @@ class YourShippingAddressContainer extends Component{
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchUserShipping(data.id, data.accessToken)
+    await this.props.fetchProvince()
 
   }
 
@@ -112,7 +118,25 @@ class YourShippingAddressContainer extends Component{
     await this.props.deleteShipping(this.state.address_id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
     // console.log('clicked delete id: ', this.state.address_id)
+  }
 
+  renderProvince(){
+    <ScrollView>
+      <ScrollView>
+        <View style={{flex: 1}}>
+          <ScrollView>
+            <SmartPicker
+              arrowColor={"#fff"}
+              selectedValue={this.state.id_province}
+              onValueChange={id_province => this.setState({id_province})}>
+              {this.props.province.map(((data, index) => (
+                <Picker.Item key={index} label={data.province} value={data.id_province} />
+              )))}
+            </SmartPicker>
+          </ScrollView>
+        </View>
+      </ScrollView>
+    </ScrollView>
   }
   
   // name alamat province kota kecamatan kelurahan Notelp 
@@ -128,12 +152,13 @@ class YourShippingAddressContainer extends Component{
         address={(address) => this.setState({address})}
         handleSaveAddress={() => this.handleSaveAddress()}
         onChangeName={(name) => this.setState({name})}
-        onChangePhone= {(phone) => this.setState({phone})}
+        onChangeNumberPhone= {(phone) => this.setState({phone})}
         onChangeAddress={(detail_address)  => this.setState({detail_address})}
         onChangeProvince={(province) => this.setState({province})}
         onChangeCity={(city) => this.setState({city})}
         onChangeDistrict={(district) => this.setState({district})}
         onChangeRegency={(regency) => this.setState({regency})}
+        province={this.props.province}
 
         dataShippingAddress={this.props.usershipping}
         renderShippingAddress={({item}) => (
@@ -160,7 +185,8 @@ const mapDispatchToProps = (dispatch) =>{
     updateShipping: (id, items, accessToken) => dispatch(updateShipping(id, items, accessToken)),
     updateSetdefault: (id_user, id_addres, accessToken) => dispatch(updateSetdefault(id_user, id_addres, accessToken)),
     deleteShipping: (id, accessToken) => dispatch(deleteShipping(id, accessToken)),
-    createAddress: (id, items, accessToken) => dispatch(createAddress(id, items, accessToken))
+    createAddress: (id, items, accessToken) => dispatch(createAddress(id, items, accessToken)),
+    fetchProvince: () => dispatch(fetchProvince())
   }
 }
 
@@ -169,7 +195,8 @@ const mapStateToProps = (state) => {
     loading: state.loading,
     success: state.success,
     failed: state.failed,
-    usershipping: state.usershipping
+    usershipping: state.usershipping,
+    province: state.province
   }
 }
 

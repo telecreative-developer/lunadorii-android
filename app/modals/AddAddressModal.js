@@ -27,23 +27,7 @@ const AddAddressModal = (props) => (
           <Textarea placeholder={props.address} placeholderTextColor="#CDCDCD" style={styles.textareaStyle} onChangeText={props.onChangeAddress} />
         </Item>
         <Label style={styles.labels}>Provinsi</Label>
-        <ScrollView>
-          <ScrollView>
-            <View style={{flex: 1}}>
-              <ScrollView>
-                <SmartPicker
-                  arrowColor={"#fff"}
-                  selectedValue={props.selectedBank}
-                  onValueChange={props.onChangeBankName}>
-                  <Picker.Item label='BRI' value='BRI' />
-                  <Picker.Item label='BCA' value='BCA' />
-                  <Picker.Item label='Mayapada' value='MAYAPADA' />
-                  <Picker.Item label='Mandiri' value='MANDIRI' />
-                </SmartPicker>
-              </ScrollView>
-            </View>
-          </ScrollView>
-        </ScrollView>
+        
         <Label style={styles.labels}>Kota/Kabupaten</Label>
         <Item regular style={styles.items}>
           <Input placeholder={props.city} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCity} />

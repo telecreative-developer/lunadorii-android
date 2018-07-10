@@ -5,10 +5,14 @@ import {
 		RECEIVE_PRODUCT_WITHOUT_ID,
 		RECEIVE_SINGLE_PRODUCT_WITH_ID,
 		RECEIVE_RELATED_PRODUCT,
-		RECEIVE_SINGLE_RELATED_PRODUCT
+		RECEIVE_SINGLE_RELATED_PRODUCT,
+		RECEIVE_PRODUCT_WITH_CATEGORY,
+		RECEIVE_PRODUCT_WITH_BRAND
 	} from '../constants'
 import { API_SERVER } from '../env'
 
+
+//  <---- FETCH PRODUCT WITH ID USER ----> //
 export const fetchProduct = (id) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT'))
@@ -31,6 +35,14 @@ export const fetchProduct = (id) => {
 	}
 }
 
+const receiveProduct = data => {
+	return{
+		type: RECEIVE_PRODUCT,
+		payload: data
+	}
+}
+
+//  <---- FETCH PRODUCT WITHOUT ID USER ----> //
 export const fetchProductWithoutId = () => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_WITHOUT_ID'))
@@ -60,13 +72,7 @@ const receiveProductWithoutID = data => {
 	}
 }
 
-const receiveProduct = data => {
-	return{
-		type: RECEIVE_PRODUCT,
-		payload: data
-	}
-}
-
+//  <---- SEARCH PRODUCT ----> //
 export const fetchSearchProduct = (search) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_SEARCH_PRODUCT'))
@@ -97,6 +103,8 @@ const receiveSearchProduct = data => {
 	}
 }
 
+
+//  <---- FETCH SINGLE PRODUCT WITH ID USER ----> //
 export const fetchSingleProductWithId = (id, id_product) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_SINGLE_PRODUCR_WITH_ID'))
@@ -155,6 +163,7 @@ const receiveRelatedProduct = data => {
 	}
 }
 
+//  <---- FETCH RELATED PRODUCT  ----> //
 export const fetchSingleRelatedProduct = () => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_SINGLE_RELATED_PRODUCT'))
@@ -181,5 +190,66 @@ const receiveSingleRelatedProduct = data => {
 	return{
 		type: RECEIVE_SINGLE_RELATED_PRODUCT,
 		payload: data 
+	}
+}
+
+
+//  <---- FETCH PRODUCT WITH CATEGORY ----> //
+export const fetchProductWithCategory = (id_category) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
+		try {
+			const response = await fetch(`${API_SERVER}/product/${id_category}`, {
+				method: 'GET',
+				headers:{
+					Accept: 'application/json',
+					'content-Type': 'application/json'
+				}
+			})
+			const data = await response.json()
+			await dispatch(receiveProductWithCategory(data.data))
+			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT_WITH_CATEGORY'))
+			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
+		} catch (e){
+			dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT_WITH_CATEGORY', e))
+			dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
+		}
+	}
+}
+
+const receiveProductWithCategory = data => {
+	return{
+		type: RECEIVE_PRODUCT_WITH_CATEGORY,
+		payload: data
+	}
+}
+
+//  <---- FETCH PRODUCT WITH BRAND ----> //
+export const fetchProductWithBrand = (id_brand) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_WITH_BRAND'))
+		try {
+			const response = await fetch(`${API_SERVER}/product/${id_brand}`, {
+				method: 'GET',
+				headers:{
+					Accept: 'application/json',
+					'content-Type': 'application/json'
+				}
+			})
+			const data = await response.json()
+			await dispatch(receiveProductWithBrand(data.data))
+			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT_WITH_BRAND'))
+			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_BRAND'))
+		} catch (e){
+			dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT_WITH_BRAND', e))
+			dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_BRAND'))
+		}
+	}
+}
+
+const receiveProductWithBrand = data => {
+	return{
+		type: RECEIVE_PRODUCT_WITH_BRAND,
+		payload: data
 	}
 }

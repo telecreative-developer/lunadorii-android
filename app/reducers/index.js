@@ -12,7 +12,7 @@ import { editpassword, editemail } from "./editprofile"
 import { wishlist } from "./wishlist"
 import { userreview } from "./userreview"
 import { cartuser } from "./cart"
-import { usershipping } from "./usershipping"
+import { usershipping, province } from "./usershipping"
 import { registerresult } from "./registerresult"
 import { userbank } from "./bank"
 
@@ -38,7 +38,8 @@ const rootReducers = combineReducers({
   userbank,
   receiveSingleProductWithId,
   relatedProduct,
-  singleRelatedProdct
+  singleRelatedProdct,
+  province
 //   sessionPersistance
 });
 
