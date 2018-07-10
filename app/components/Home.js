@@ -1,6 +1,7 @@
 import React from 'react'
-import { StyleSheet, View, Text, Dimensions, FlatList, StatusBar, TouchableOpacity } from 'react-native'
-import { Container, Tabs, Tab, TabHeading, Icon, Content } from 'native-base'
+import { StyleSheet, View, Text, Dimensions, FlatList, StatusBar, Image } from 'react-native'
+import { Container, Tabs, Tab, TabHeading, Icon, Content, Spinner } from 'native-base'
+import LunadoriiPortraitLogo from '../assets/images/icon/lunadorii-highres.png'
 import NavbarHome from '../particles/NavbarHome'
 import Carousel from 'react-native-banner-carousel'
 import AddToCart from '../modals/AddToCart'
@@ -27,92 +28,85 @@ const Home = (props) => (
     />
     <Tabs locked={true} style={styles.tabHeight} tabBarUnderlineStyle={styles.tabBarUnderlineStyle}>
       <Tab heading={<TabHeading style={styles.tabHeading} ><Text style={styles.txtHeading}>New Arrivals</Text></TabHeading>}>
-        <Content style={{width: width,height: height}}>
-          {/* <Carousel
-            delay={4000}
-            style={styles.imageAds}
-            autoplay
-            bullets
-            bulletStyle={styles.carouselBulletStyle}
-            // onAnimateNextPage={(p) => // console.log(p)}
-          >
-          <View>
-            {props.dataBanners.map((data) => {
-              // console.log('home banners: ', data)
-              return (
-                <View style={[props.size]}>
-                  <Image source={{ uri: data.thumbnail_url }} style={styles.imageAds}/>
-                </View>
-              )
-            })}
+        {props.stillLoading ? (
+          <View style={styles.style}>
+            <Spinner color="#d11e48"/>
           </View>
-          </Carousel> */}
-          <Carousel autoplay={true} autoplayTimeout={2000} loop={true} index={0} pageSize={bannerWidth}>
-            {props.banners}
-          </Carousel>
-          <View style={styles.viewCategory}>
-            <Text style={styles.txtCategories}>Categories</Text>
-            <View style={styles.viewWrapperCategories}>
-              <FlatList
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                data={props.dataCategoriesButton}
-                renderItem={props.renderCategoriesButton} />
+        ) : (
+          <Content style={{width: width,height: height}}>
+            <Carousel autoplay={true} autoplayTimeout={2000} loop={true} index={0} pageSize={bannerWidth}>
+              {props.banners}
+            </Carousel>
+            <View style={styles.viewCategory}>
+              <Text style={styles.txtCategories}>Categories</Text>
+              <View style={styles.viewWrapperCategories}>
+                <FlatList
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                  data={props.dataCategoriesButton}
+                  renderItem={props.renderCategoriesButton} />
+              </View>
             </View>
-          </View>
-          <View style={styles.viewBrand}>
-            <Text style={styles.txtCategories}>Brands</Text>
-            <View style={styles.viewWrapperCategories}>
+            <View style={styles.viewBrand}>
+              <Text style={styles.txtCategories}>Brands</Text>
+              <View style={styles.viewWrapperCategories}>
+                <FlatList
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                  data={props.dataBrand}
+                  renderItem={props.renderBrand}
+                  keyExtractor={(item, index) => JSON.stringify(index)}
+                />
+              </View>  
+            </View>
+            <View style={styles.viewArrivals}>
+              <Text style={styles.txtArrivals}>More New Arrivals</Text>
               <FlatList
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                data={props.dataBrand}
-                renderItem={props.renderBrand}
+                numColumns={2}
+                data={props.dataProduct}
+                renderItem={props.renderProduct}
                 keyExtractor={(item, index) => JSON.stringify(index)}
               />
-            </View>  
-          </View>
-          <View style={styles.viewArrivals}>
-            <Text style={styles.txtArrivals}>More New Arrivals</Text>
-            <FlatList
-              numColumns={2}
-              data={props.dataProduct}
-              renderItem={props.renderProduct}
-              keyExtractor={(item, index) => JSON.stringify(index)}
-            />
-          </View>
-        </Content>
+            </View>
+          </Content>
+        )}
       </Tab>
       <Tab heading={<TabHeading style={styles.tabHeading}><Text style={styles.txtHeading}>Best Sellers</Text></TabHeading>}>
-        <Content style={{width: width,height: height}}>
-          <View style={styles.recommededProductWrapper}>
-            <FlatList
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              data={props.dataRecommend}
-              renderItem={props.renderRecommend}
-              keyExtractor={(item, index) => JSON.stringify(index)}
-            />
+        {props.stillLoading ? (
+          <View stryle={styles.style}>
+            <Spinner color="#d11e48"/>
           </View>
-          <View style={styles.moreNewArrivalsWrapper}>
-            <Text style={styles.txtArrivals}>More New Arrivals</Text>
-            <FlatList
-              numColumns={2}
-              data={props.dataCategories}
-              renderItem={props.renderCategories}
-              keyExtractor={(item, index) => JSON.stringify(index)}
-            />
-          </View>
-          <View style={styles.viewArrivals}>
-            <Text style={styles.txtArrivals}>All Product</Text>
-            <FlatList
-              numColumns={2}
-              data={props.dataProduct}
-              renderItem={props.renderProduct}
-              keyExtractor={(item, index) => JSON.stringify(index)}
-            />
-          </View>
-        </Content>
+        ) : (
+          <Content style={{width: width,height: height}}>
+            <View style={styles.recommededProductWrapper}>
+              <FlatList
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                data={props.dataRecommend}
+                renderItem={props.renderRecommend}
+                keyExtractor={(item, index) => JSON.stringify(index)}
+              />
+            </View>
+            <View style={styles.moreNewArrivalsWrapper}>
+              <Text style={styles.txtArrivals}>More New Arrivals</Text>
+              <FlatList
+                numColumns={2}
+                data={props.dataCategories}
+                renderItem={props.renderCategories}
+                keyExtractor={(item, index) => JSON.stringify(index)}
+              />
+            </View>
+            <View style={styles.viewArrivals}>
+              <Text style={styles.txtArrivals}>All Product</Text>
+              <FlatList
+                numColumns={2}
+                data={props.dataProduct}
+                renderItem={props.renderProduct}
+                keyExtractor={(item, index) => JSON.stringify(index)}
+              />
+            </View>
+          </Content>
+        )}
       </Tab>
     </Tabs>
   </Container>
@@ -134,6 +128,12 @@ const styles = StyleSheet.create({
   },
   moreNewArrivalsWrapper: {
     paddingLeft: 10
+  },
+  style: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
   tabBarUnderlineStyle: {
     alignItems: 'center',

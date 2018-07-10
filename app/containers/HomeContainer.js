@@ -25,6 +25,7 @@ class HomeContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      stillLoading: true,
       loadingModal: false,
       size: { width, height },
       showMore: false,
@@ -86,7 +87,9 @@ class HomeContainer extends Component {
     await this.props.fetchBrandsProduct()
     await this.props.fetchProduct(data.id)
     await this.props.fetchSingleUser(data.id, data.accessToken)
-    await this.props.fetchProductSubcategories()
+    if(this.props.fetchProductSubcategories()){
+      await this.setState({stillLoading: false})
+    }
   }
 
   capitalize(string) {
@@ -110,6 +113,7 @@ class HomeContainer extends Component {
     console.log(this.props.categoryproduct)
     return (
       <Home
+        stillLoading={this.state.stillLoading}
         banners={banners.map((banner, index) => this.renderBanners(banner, index))}
 
         dataCategoriesButton={this.props.categoryproduct}
