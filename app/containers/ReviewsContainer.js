@@ -2,7 +2,6 @@ import React, { Component } from 'react'
 import {AsyncStorage} from 'react-native'
 import Reviews from '../components/Reviews'
 import ProductReviews from '../particles/ProductReviews'
-import ReviewIsEmpty from '../components/ReviewIsEmpty'
 import { connect } from 'react-redux'
 import { fetchUserReview, updateReview, deleteReview } from '../actions/userreview'
 import { Spinner } from 'native-base';
@@ -92,46 +91,37 @@ class ReviewsContainer extends Component{
     const loading = this.props
     console.log('isi modal loading :' , this.state.modalVisibleLoading)
     console.log('loading :' , loading.condition, loading.process_on)
-    if(this.state.isEmpty){
-      return(
-        <ReviewIsEmpty
-          navigateToProfile={() => this.props.navigation.navigate("ProfileContainer")}
-        />
-      )
-    }else{
-      return(
-        <Reviews
-          goback={() => this.props.navigation.goBack()}
-          modalVisibleEditReviews={this.state.modalVisibleEditReviews}
-          toggleModalEditReviews={() => this.toggleModalEditReviews()}
-          
-          image={this.state.image}
-          title={this.capitalize(this.state.title)}
-          price={this.state.price}
-          star={this.state.star}
-          comment={this.state.comment}
-          onChangeComment={(comment) => this.setState({ comment })}
-          onChangeStar={(star) => this.onStarRatingPress(star)}
-          updateRating={() => this.btnUpdateRating()}
-          modalVisibleLoading={this.props.loading.condition}
-          message={this.state.message}
-  
-          dataReviews={this.props.userreview}
-          renderReviews={({item}) => (
-            <ProductReviews 
-              id={item.product_review_id}
-              image={item.product.thumbnails[0].thumbnail_url} 
-              title={this.capitalize(item.product.name)} 
-              star={item.rate} 
-              date={item.updated_at} 
-              review={item.comment}
-              action={() => this.toggleModalEditReviews(item)}
-              deleteReview={() => this.deleteReview(item)}
-            />
-          )}
-        />
-      )
-    }
+    return(
+      <Reviews
+        goback={() => this.props.navigation.goBack()}
+        modalVisibleEditReviews={this.state.modalVisibleEditReviews}
+        toggleModalEditReviews={() => this.toggleModalEditReviews()}
+        isEmpty={this.state.isEmpty}
+        image={this.state.image}
+        title={this.capitalize(this.state.title)}
+        price={this.state.price}
+        star={this.state.star}
+        comment={this.state.comment}
+        onChangeComment={(comment) => this.setState({ comment })}
+        onChangeStar={(star) => this.onStarRatingPress(star)}
+        updateRating={() => this.btnUpdateRating()}
+        modalVisibleLoading={this.props.loading.condition}
+        message={this.state.message}
+        dataReviews={this.props.userreview}
+        renderReviews={({item}) => (
+          <ProductReviews 
+            id={item.product_review_id}
+            image={item.product.thumbnails[0].thumbnail_url} 
+            title={this.capitalize(item.product.name)} 
+            star={item.rate} 
+            date={item.updated_at} 
+            review={item.comment}
+            action={() => this.toggleModalEditReviews(item)}
+            deleteReview={() => this.deleteReview(item)}
+          />
+        )}
+      />
+    )
   }
 }
 
