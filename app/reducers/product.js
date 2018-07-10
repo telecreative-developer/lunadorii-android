@@ -1,7 +1,8 @@
 import { 
-		RECEIVE_PRODUCT, 
+		RECEIVE_PRODUCT,
+		RECEIVE_PRODUCT_BEST_SELLER, 
 		RECEIVE_SEARCH_PRODUCT, 
-		RECEIVE_PRODCUT_WITHOU_ID,
+		RECEIVE_PRODUCT_WITHOUT_ID,
 		RECEIVE_SINGLE_PRODUCT_WITH_ID,
 		RECEIVE_RELATED_PRODUCT,
 		RECEIVE_SINGLE_RELATED_PRODUCT,
@@ -11,6 +12,15 @@ import {
 export const product = (state = [], action) => {
 	switch (action.type) {
 		case RECEIVE_PRODUCT:
+			return action.payload
+		default:
+			return state
+	}
+}
+
+export const productbestseller = (state = [], action) => {
+	switch (action.type) {
+		case RECEIVE_PRODUCT_BEST_SELLER:
 			return action.payload
 		default:
 			return state
@@ -28,7 +38,7 @@ export const searchproduct = (state = [], action) => {
 
 export const productwithoutid = ( state = [], action) => {
 	switch (action.type) {
-		case RECEIVE_PRODCUT_WITHOU_ID:
+		case RECEIVE_PRODUCT_WITHOUT_ID:
 			return action.payload
 		default:
 			return state

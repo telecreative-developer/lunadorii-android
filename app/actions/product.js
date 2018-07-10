@@ -1,6 +1,7 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { 
-		RECEIVE_PRODUCT, 
+		RECEIVE_PRODUCT,
+		RECEIVE_PRODUCT_BEST_SELLER, 
 		RECEIVE_SEARCH_PRODUCT, 
 		RECEIVE_PRODUCT_WITHOUT_ID,
 		RECEIVE_SINGLE_PRODUCT_WITH_ID,
@@ -68,6 +69,36 @@ export const fetchProductWithoutId = () => {
 const receiveProductWithoutID = data => {
 	return{
 		type: RECEIVE_PRODUCT_WITHOUT_ID,
+		payload: data
+	}
+}
+
+//  <---- FETCH PRODUCT BEST SELLER ----> //
+export const fetchProductBestSeller = () => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_FETCH_BEST_SELLER'))
+		try {
+			const response = await fetch(`${API_SERVER}/products`, {
+				method: 'GET',
+				headers:{
+					Accept: 'application/json',
+					'content-Type': 'application/json'
+				}
+			})
+			const data = await response.json()
+			await dispatch(receiveProductBestSeller(data.data))
+			await dispatch(setSuccess(true, 'SUCESS_FETCH_PRODUCT_BEST_SELLER'))
+			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_BEST_SELLER'))
+		} catch (e){
+			dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT_BEST_SELLER', e))
+			dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_BEST_SELLER'))
+		}
+	}
+}
+
+const receiveProductBestSeller = data => {
+	return{
+		type: RECEIVE_PRODUCT_BEST_SELLER,
 		payload: data
 	}
 }

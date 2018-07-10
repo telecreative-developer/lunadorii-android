@@ -10,7 +10,7 @@ import Categories from '../particles/Categories'
 import { connect } from 'react-redux'
 import { fetchCategoryProduct } from '../actions/categoryproduct'
 import { fetchBrandsProduct } from '../actions/brandsproduct'
-import { fetchProduct, fetchProductWithoutId } from '../actions/product'
+import { fetchProduct, fetchProductWithoutId, fetchProductBestSeller } from '../actions/product'
 import { fetchSingleUser } from '../actions/getSingleUser'
 import { fetchBanners } from '../actions/banners'
 import { fetchProductSubcategories } from '../actions/productsubcategories'
@@ -86,6 +86,7 @@ class HomeContainer extends Component {
     await this.props.fetchCategoryProduct()
     await this.props.fetchBrandsProduct()
     await this.props.fetchProduct(data.id)
+    await this.props.fetchProductBestSeller()
     await this.props.fetchSingleUser(data.id, data.accessToken)
     if(this.props.fetchProductSubcategories()){
       await this.setState({stillLoading: false})
@@ -156,6 +157,9 @@ class HomeContainer extends Component {
           />
         )}
 
+        dataBigCard={this.props.productbestseller.slice(0,5)}
+        dataBestSeller={this.props.productbestseller.slice(5, this.props.productbestseller.length)}
+
         dataRecommend={this.props.product}
         renderRecommend={({ item }) => {
           return (
@@ -208,6 +212,7 @@ const mapDispatchToProps = (dispatch) =>{
     fetchCategoryProduct: () => dispatch(fetchCategoryProduct()),
     fetchBrandsProduct: () => dispatch(fetchBrandsProduct()),
     fetchProduct: (id) => dispatch(fetchProduct(id)),
+    fetchProductBestSeller: () =>dispatch(fetchProductBestSeller()),
     // fetchProductWithoutId: () =>dispatch(fetchProductWithoutId()),
     fetchSingleUser:(id, accessToken) => dispatch(fetchSingleUser(id, accessToken)),
     fetchBanners: () => dispatch(fetchBanners()),
@@ -226,6 +231,7 @@ const mapStateToProps = (state) => {
     categoryproduct: state.categoryproduct,
     brandsproduct: state.brandsproduct,
     product: state.product,
+    productbestseller: state.productbestseller,
     banners: state.banners,
     productwithoutid: state.productwithoutid,
     getsingleuser: state.getsingleuser,
