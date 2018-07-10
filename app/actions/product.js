@@ -197,11 +197,11 @@ const receiveSingleRelatedProduct = data => {
 
 
 //  <---- FETCH PRODUCT WITH CATEGORY ----> //
-export const fetchProductWithCategory = (id_category) => {
+export const fetchProductWithCategory = (product_subcategory_id) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
 		try {
-			const response = await fetch(`${API_SERVER}/product/${id_category}`, {
+			const response = await fetch(`${API_SERVER}/products/subcategory/${product_subcategory_id}`, {
 				method: 'GET',
 				headers:{
 					Accept: 'application/json',
@@ -209,6 +209,7 @@ export const fetchProductWithCategory = (id_category) => {
 				}
 			})
 			const data = await response.json()
+			console.log('action :' , data.data)
 			await dispatch(receiveProductWithCategory(data.data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT_WITH_CATEGORY'))
 			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))

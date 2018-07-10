@@ -107,7 +107,7 @@ class HomeContainer extends Component {
 
   render() {
     const { banners } = this.props
-    console.log(this.props.product)
+    console.log(this.props.categoryproduct)
     return (
       <Home
         banners={banners.map((banner, index) => this.renderBanners(banner, index))}
@@ -118,7 +118,7 @@ class HomeContainer extends Component {
             title={item.subcategory.length <= 10 ? item.subcategory : this.capitalize(item.subcategory).slice(0,8)+'...'} 
             realTitle={item.subcategory}
             icon={item.thumbnail_url}
-            action={() => this.props.navigation.navigate("RelatedToCategoryProductsContainer", {image: item.thumbnail_url})}
+            action={() => this.props.navigation.navigate("RelatedToCategoryProductsContainer", {data: item})}
           />
         )}
 

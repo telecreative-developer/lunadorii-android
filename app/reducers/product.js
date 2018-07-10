@@ -5,7 +5,7 @@ import {
 		RECEIVE_SINGLE_PRODUCT_WITH_ID,
 		RECEIVE_RELATED_PRODUCT,
 		RECEIVE_SINGLE_RELATED_PRODUCT,
-		RECEIVE_PRODUCT_WITH_CATEGROY
+		RECEIVE_PRODUCT_WITH_CATEGORY
 	} from '../constants'
 
 export const product = (state = [], action) => {
@@ -62,9 +62,9 @@ export const singleRelatedProdct = ( state = [], action ) => {
 	}
 }
 
-export const receiveProductWithCategory = ( state = [], action ) => {
-	switch (action.type){
-		case RECEIVE_SINGLE_RELATED_PRODUCT:
+export const receiveProductWithCategory = (state = [], action) => {
+	switch (action.type) {
+		case RECEIVE_PRODUCT_WITH_CATEGORY:
 			return action.payload
 		default:
 			return state
