@@ -1,10 +1,13 @@
 import React, { Component } from 'react'
-import {AsyncStorage} from 'react-native'
+import {AsyncStorage, View,Modalx, Text, SmartPicker, Dimensions, ScrollView, Picker} from 'react-native'
+import { Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
 import YourShippingAddress from '../components/YourShippingAddress'
 import ShippingAddress from '../particles/ShippingAddress'
 
 import { connect } from 'react-redux'
-import { fetchUserShipping, updateShipping, updateSetdefault, deleteShipping, createAddress } from '../actions/usershipping'
+import { fetchUserShipping, updateShipping, updateSetdefault, 
+         deleteShipping, createAddress, fetchProvince 
+       } from '../actions/usershipping'
 
 
 class YourShippingAddressContainer extends Component{
@@ -61,7 +64,18 @@ class YourShippingAddressContainer extends Component{
   }
 
   async handleSaveAddress(){
-    alert(JSON.stringify(this.state))
+    console.log(this.state)
+    const {name, phone, detail_address, province, city, district, address_default, regency} = this.state
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.createAddress(data.id, {name, phone, detail_address, province, city, district, address_default, regency}, data.accessToken)
+    await this.props.fetchUserShipping(data.id, data.accessToken)
+    await this.toggleModalAddAddress()
+    
+  }
+
+  handleSaveShippingAddress(){
+    alert("Handler for save shipping address")
   }
 
   async btnUpdateShipping(){
@@ -74,9 +88,11 @@ class YourShippingAddressContainer extends Component{
   }
 
   async componentDidMount() {
-    // const session = await AsyncStorage.getItem('session')
-    // const data = await JSON.parse(session)
-    // await this.props.fetchUserShipping(data.id, data.accessToken)
+    console.log('ini isi province: ',this.props.province)
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.fetchUserShipping(data.id, data.accessToken)
+    await this.props.fetchProvince()
 
   }
 
@@ -92,14 +108,18 @@ class YourShippingAddressContainer extends Component{
   }
 
   async deteleShipping(item){
-    // await this.setState({
-    //   address_id: item.user_address_id,
-    //   address_default: true
-    // })
-    // const session = await AsyncStorage.getItem('session')
-    // const data = await JSON.parse(session)
-    // await this.props.deleteShipping(this.state.address_id, data.accessToken)
-    // await this.props.fetchUserShipping(data.id, data.accessToken)
+    await this.setState({
+      address_id: item.user_address_id,
+      address_default: true
+    })
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.deleteShipping(this.state.address_id, data.accessToken)
+    await this.props.fetchUserShipping(data.id, data.accessToken)
+    // console.log('clicked delete id: ', this.state.address_id)
+  }
+
+  renderProvince(){
   }
 
   render(){
@@ -123,6 +143,7 @@ class YourShippingAddressContainer extends Component{
         
         regencyValue={this.state.regency}
         onChangeRegency={(regency) => this.setState({regency})}
+        renderProvince={this.renderProvince()}
 
         postalcodeValue={this.state.postalcode}
         onChangePostalcode={(postalcode) => this.setState({postalcode})}
@@ -155,7 +176,8 @@ const mapDispatchToProps = (dispatch) =>{
     updateShipping: (id, items, accessToken) => dispatch(updateShipping(id, items, accessToken)),
     updateSetdefault: (id_user, id_addres, accessToken) => dispatch(updateSetdefault(id_user, id_addres, accessToken)),
     deleteShipping: (id, accessToken) => dispatch(deleteShipping(id, accessToken)),
-    createAddress: (id, items, accessToken) => dispatch(createAddress(id, items, accessToken))
+    createAddress: (id, items, accessToken) => dispatch(createAddress(id, items, accessToken)),
+    fetchProvince: () => dispatch(fetchProvince())
   }
 }
 
@@ -164,7 +186,8 @@ const mapStateToProps = (state) => {
     loading: state.loading,
     success: state.success,
     failed: state.failed,
-    usershipping: state.usershipping
+    usershipping: state.usershipping,
+    province: state.province
   }
 }
 
