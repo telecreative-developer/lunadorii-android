@@ -99,7 +99,7 @@ class HomeContainer extends Component {
 
   renderBanners(banner, index) {
     return (
-      <TouchableOpacity key={index} style={styles.banner} onPress={() => this.props.navigation.navigate("UnknownScreenContainer", {image: banner.thumbnail_url})}>
+      <TouchableOpacity key={index} style={styles.banner} onPress={() => this.props.navigation.navigate("RelatedToBannerProductsContainer", {image: banner.thumbnail_url})}>
         <Image style={styles.bannerImage} source={{ uri: banner.thumbnail_url }} />
       </TouchableOpacity>
     )
@@ -118,7 +118,7 @@ class HomeContainer extends Component {
             title={item.subcategory.length <= 10 ? item.subcategory : this.capitalize(item.subcategory).slice(0,8)+'...'} 
             realTitle={item.subcategory}
             icon={item.thumbnail_url}
-            action={() => this.props.navigation.navigate("UnknownScreenContainer", {image: item.logo_url })}
+            action={() => this.props.navigation.navigate("RelatedToCategoryProductsContainer", {image: item.thumbnail_url})}
           />
         )}
 
@@ -126,7 +126,7 @@ class HomeContainer extends Component {
         renderBrand={({ item }) => (
           <Brand 
             image={item.logo_url} 
-            action={() => this.props.navigation.navigate("UnknownScreenContainer", {image: item.logo_url})}
+            action={() => this.props.navigation.navigate("RelatedToBrandProductsContainer", {image: item.logo_url})}
           />
         )}
 
@@ -155,7 +155,7 @@ class HomeContainer extends Component {
         dataRecommend={this.props.product}
         renderRecommend={({ item }) => {
           return (
-          <RecommendProduct 
+          <RecommendProduct
             image={item.thumbnails[0].thumbnail_url} 
             title={this.capitalize(item.product).slice(0,28) + '...'} 
             categories={item.subcategories[0].subcategory} 
@@ -164,7 +164,6 @@ class HomeContainer extends Component {
             reviews={item.product_rate} 
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
             toggleModalAddToCart={() => this.toggleModalAddToCart()}
-
           />
         )
         }}

@@ -12,7 +12,9 @@ const RecommendProduct = (props) => {
     </TouchableOpacity>
     <View style={styles.viewWrapper}>
       <View style={{width: (width - 1000) / 2, height: (height - 530) / 2 }}>
-        <Text style={styles.txtTitle}>{props.title}</Text>
+        <TouchableOpacity onPress={props.action}>
+          <Text style={styles.txtTitle}>{props.title}</Text>
+        </TouchableOpacity>
       </View>
       <Text style={styles.txtCategories}>{props.categories}</Text>
       <View style={styles.viewFlexRow}>

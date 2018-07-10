@@ -17,22 +17,29 @@ const YourShippingAddress = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleAddAddress}
       actionIcon={props.toggleModalAddAddress} 
-      handleSaveAddres={props.handleSaveAddress}
-      renderProvince={props.renderProvince}
 
+      nameValue={props.nameValue}
       onChangeName={props.onChangeName}
-      onChangePhone={props.onChangePhone}
+
+      addressValue={props.addressValue}
       onChangeAddress={props.onChangeAddress}
+
+      provinceValue={props.provinceValue}
       onChangeProvince={props.onChangeProvince}
+
+      cityValue={props.cityValue}
       onChangeCity={props.onChangeCity}
-      // onChangeDistrict={props.onChangeDistrict}
+
+      regencyValue={props.regencyValue}
       onChangeRegency={props.onChangeRegency}
 
-      
-      modalVisibleSetProvince={props.modalVisibleSetProvince}
-      toggleModalSetProvince={props.toggleModalSetProvince}
+      postalcodeValue={props.postalcodeValue}
+      onChangePostalcode={props.onChangePostalcode}
 
-      handleSaveShippingAddress={props.handleSaveShippingAddress}/>
+      numberPhoneValue={props.numberPhoneValue}
+      onChangeNumberPhone={props.onChangeNumberPhone}
+
+      handleSaveAddress={props.handleSaveAddress}/>
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content"

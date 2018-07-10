@@ -22,13 +22,15 @@ import AddPhotoProfileContainer from './app/containers/AddPhotoProfileContainer'
 import LoginTroubleshootingContainer from './app/containers/LoginTroubleshootingContainer'
 import RegisterIdentifyContainer from './app/containers/RegisterIdentifyContainer'
 import LocalBankContainer from './app/containers/LocalBankContainer'
-import UnknownScreenContainer from './app/containers/UnknownScreenContainer'
-import ProductCategoryContainer from './app/containers/ProductCategoryContainer'
+import RelatedToBannerProductsContainer from './app/containers/RelatedToBannerProductsContainer'
+import RelatedToCategoryProductsContainer from './app/containers/RelatedToCategoryProductsContainer'
+import RelatedToBrandProductsContainer from './app/containers/RelatedToBrandProductsContainer'
 
 const AppNavigator = StackNavigator(
   {    
-    ProductCategoryContainer: { screen: ProductCategoryContainer },
-    UnknownScreenContainer: { screen: UnknownScreenContainer },
+    RelatedToBannerProductsContainer: { screen: RelatedToBannerProductsContainer },
+    RelatedToCategoryProductsContainer: { screen: RelatedToCategoryProductsContainer },
+    RelatedToBrandProductsContainer: { screen: RelatedToBrandProductsContainer },
     LocalBankContainer: { screen: LocalBankContainer },
     RegisterIdentifyContainer: { screen: RegisterIdentifyContainer },
     LoginTroubleshootingContainer: { screen: LoginTroubleshootingContainer },
