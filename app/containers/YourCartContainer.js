@@ -13,6 +13,7 @@ class YourCartContainer extends Component {
     super()
     this.state = {
       modalVisibleEditQuantity: false,
+      modalVisibleCheckoutPayment: false,
       id: 0,
       product_id: 0,
       quantity: 0,
@@ -26,6 +27,10 @@ class YourCartContainer extends Component {
     const data = await JSON.parse(session)
     await this.props.fetchCartUser(data.id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
+  }
+
+  toggleCheckoutPayment(){
+    this.setState({modalVisibleCheckoutPayment: !this.state.modalVisibleCheckoutPayment})
   }
 
   closeModal(){
@@ -135,6 +140,9 @@ class YourCartContainer extends Component {
 
         modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
         toggleModalEditQuantity={() => this.toggleModalEditQuantity(this.props.cartuser)}
+
+        modalVisibleCheckoutPayment={this.state.modalVisibleCheckoutPayment}
+        toggleCheckoutPayment={() => this.toggleCheckoutPayment()}
 
         navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
         goback={() => this.props.navigation.goBack()}/>
