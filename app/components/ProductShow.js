@@ -283,7 +283,7 @@ const ProductShow = (props) => (
               </View>
               <View style={styles.flexOnly33}>
                 <Item regular style={styles.amountTextInput}>
-                  <Input value={`${props.qty}`} onChangeText={props.onChangeQty}/>
+                  <Input value={`${props.qty}`} onChangeText={props.onChangeQty} keyboardType={'numeric'}/>
                 </Item>
               </View> 
               <View style={styles.flexOnly33}>
