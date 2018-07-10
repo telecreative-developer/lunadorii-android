@@ -8,6 +8,7 @@ import {
   fetchSingleProductWithId,
   fetchRelatedProduct
   } from '../actions/product'
+import {addToCart} from '../actions/cart'
 import { connect } from 'react-redux'
 import { TitlePlaceholder, CategoryPlaceholder, StarPlaceholder, DescriptionPlaceholder, ReviewsAndRatings, TitleOneLine, RelatedProductsPlaceholder } from '../placeholders/ProductShowPlaceholders'
 import { fetchwishlist, addWishlist, deleteWishlistInHome } from '../actions/wishlist';
@@ -38,7 +39,8 @@ class ProductShowContainer extends Component {
       amountOfImage: 0,
       starCount: 0,
       wishlisted:'',
-      clickWishlist:false
+      clickWishlist:false,
+      clickCart: false
     }
   }
 
@@ -64,8 +66,17 @@ class ProductShowContainer extends Component {
     this.setState({ seeMoreReviews: !this.state.seeMoreReviews})
   }
 
-  addToCart(){
+  async addToCart(){
+    this.setState({clickCart: true})
     ToastAndroid.showWithGravity("Added to cart.", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    const dataProduct = this.props.navigation.state.params.data
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.setState({
+      product_id: dataProduct.product_id
+    })
+    await this.props.addToCart(data.id, this.state.product_id, this.state.qty, data.accessToken)
+    this.setState({clickCart: false})
   }
 
   async deleteState(){
@@ -231,6 +242,7 @@ class ProductShowContainer extends Component {
         isReviewsExist={this.state.isReviewsExist}
 
         addToCart={() => this.addToCart()}
+        clickCart={this.state.clickCart}
         goback={() => this.deleteState()} />
     )
   }
@@ -241,6 +253,7 @@ const mapDispatchToProps = (dispatch) =>{
     fetchSingleProductWithId: (id, product_id) => dispatch(fetchSingleProductWithId(id, product_id)),
     fetchProduct: (id) => dispatch(fetchProduct(id)),
     addWishlist: (accessToken, id, idProduct) => dispatch(addWishlist(accessToken, id, idProduct)),
+    addToCart: (id, product_id, qty, accessToken) => dispatch(addToCart(id, product_id, qty, accessToken)),
     deleteWishlistInHome: (accessToken, id, idProduct) => dispatch(deleteWishlistInHome(accessToken, id, idProduct)),
     fetchwishlist:(accessToken, id) => dispatch(fetchwishlist(accessToken, id)),
     fetchRelatedProduct:(product_id) => dispatch(fetchRelatedProduct(product_id))
