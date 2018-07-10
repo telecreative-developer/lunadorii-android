@@ -23,9 +23,11 @@ import LoginTroubleshootingContainer from './app/containers/LoginTroubleshooting
 import RegisterIdentifyContainer from './app/containers/RegisterIdentifyContainer'
 import LocalBankContainer from './app/containers/LocalBankContainer'
 import UnknownScreenContainer from './app/containers/UnknownScreenContainer'
+import ProductCategoryContainer from './app/containers/ProductCategoryContainer'
 
 const AppNavigator = StackNavigator(
   {    
+    ProductCategoryContainer: { screen: ProductCategoryContainer },
     UnknownScreenContainer: { screen: UnknownScreenContainer },
     LocalBankContainer: { screen: LocalBankContainer },
     RegisterIdentifyContainer: { screen: RegisterIdentifyContainer },

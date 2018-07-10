@@ -77,7 +77,7 @@ class ProductShowContainer extends Component {
     const session = await AsyncStorage.getItem('session')
     const dataSession = await JSON.parse(session)
     const data = this.props.navigation.state.params.data
-    console.log('data :' , data)
+    console.log('data :' , data.product_id)
     await this.setState({ 
       data,
       accessToken:data.accessToken,
@@ -89,10 +89,9 @@ class ProductShowContainer extends Component {
       price: data.price,
       amountOfImage: data.thumbnails.length,
       starCount: data.product_rate,
-      wishlisted: data.wishlisted
     })
     await this.props.fetchSingleProductWithId(dataSession.id, data.product_id)
-    await this.props.fetchRelatedProduct(data.product_id)
+    this.props.fetchRelatedProduct(data.product_id)
     await this.checkReviewers()
   }
 
@@ -127,6 +126,7 @@ class ProductShowContainer extends Component {
     await this.setState({
       product_id: dataProduct.product_id
     })
+    this.props.fetchProduct(data.id)
     this.props.fetchwishlist(data.accessToken, data.id)
     await this.props.addWishlist(data.accessToken, data.id, this.state.product_id)
   }
@@ -142,7 +142,25 @@ class ProductShowContainer extends Component {
     })
     this.props.fetchProduct(data.id)
     await this.props.deleteWishlistInHome(data.accessToken, data.id, this.state.product_id)
+    await this.reload()
     
+  }
+
+  async reload(){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.setState({
+      id:data.id,
+      accessToken: data.accessToken
+    })
+    // console.log('accesToken container: ', this.state.accessToken)
+    await this.props.fetchwishlist(data.accessToken, data.id)
+    if(this.props.wishlist.length != 0){
+      await this.setState({isEmpty: false})
+    }else{
+      await this.setState({isEmpty: true})
+    }
+    this.navigation.goback()
   }
 
   capitalize(string) {
@@ -175,7 +193,7 @@ class ProductShowContainer extends Component {
         qty={this.state.qty}
         totalPrice={this.formatPrice(this.state.totalPrice)}
         amountOfImage={this.state.amountOfImage}
-        wishlisted={this.state.wishlisted}
+        wishlisted={this.props.receiveSingleProductWithId.map(data => data.wishlisted)}
         images={this.state.images}
         clickWishlist={this.state.clickWishlist}
 

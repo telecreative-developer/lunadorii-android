@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import {AsyncStorage} from 'react-native'
+import {AsyncStorage, View,Modalx, Text, SmartPicker, Dimensions, ScrollView, Picker} from 'react-native'
+import { Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
 import YourShippingAddress from '../components/YourShippingAddress'
 import ShippingAddress from '../particles/ShippingAddress'
 
@@ -89,6 +90,7 @@ class YourShippingAddressContainer extends Component{
   }
 
   async componentDidMount() {
+    console.log('ini isi province: ',this.props.province)
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchUserShipping(data.id, data.accessToken)
@@ -121,22 +123,6 @@ class YourShippingAddressContainer extends Component{
   }
 
   renderProvince(){
-    <ScrollView>
-      <ScrollView>
-        <View style={{flex: 1}}>
-          <ScrollView>
-            <SmartPicker
-              arrowColor={"#fff"}
-              selectedValue={this.state.id_province}
-              onValueChange={id_province => this.setState({id_province})}>
-              {this.props.province.map(((data, index) => (
-                <Picker.Item key={index} label={data.province} value={data.id_province} />
-              )))}
-            </SmartPicker>
-          </ScrollView>
-        </View>
-      </ScrollView>
-    </ScrollView>
   }
 
   render(){
@@ -156,7 +142,7 @@ class YourShippingAddressContainer extends Component{
         onChangeCity={(city) => this.setState({city})}
         onChangeDistrict={(district) => this.setState({district})}
         onChangeRegency={(regency) => this.setState({regency})}
-        province={this.props.province}
+        renderProvince={this.renderProvince()}
 
         dataShippingAddress={this.props.usershipping}
         renderShippingAddress={({item}) => (

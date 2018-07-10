@@ -27,7 +27,15 @@ const AddAddressModal = (props) => (
           <Textarea placeholder={props.address} placeholderTextColor="#CDCDCD" style={styles.textareaStyle} onChangeText={props.onChangeAddress} />
         </Item>
         <Label style={styles.labels}>Provinsi</Label>
-        
+        <ScrollView>
+          <ScrollView>
+            <View style={{flex: 1}}>
+              <ScrollView>
+                {props.renderProvince}
+              </ScrollView>
+            </View>
+          </ScrollView>
+        </ScrollView>
         <Label style={styles.labels}>Kota/Kabupaten</Label>
         <Item regular style={styles.items}>
           <Input placeholder={props.city} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCity} />

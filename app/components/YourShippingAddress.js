@@ -18,6 +18,7 @@ const YourShippingAddress = (props) => (
       modalVisible={props.modalVisibleAddAddress}
       actionIcon={props.toggleModalAddAddress} 
       handleSaveAddres={props.handleSaveAddress}
+      renderProvince={props.renderProvince}
 
       onChangeName={props.onChangeName}
       onChangePhone={props.onChangePhone}

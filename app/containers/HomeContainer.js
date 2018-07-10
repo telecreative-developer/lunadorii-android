@@ -77,6 +77,7 @@ class HomeContainer extends Component {
   async componentDidMount() {
     // await this.props.fetchProductWithoutId()
     // await this.props.fetchProductWithoutId()
+    console.log('soncol',this.props.sessionPersistance)
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     console.log(data.accessToken)
@@ -117,7 +118,7 @@ class HomeContainer extends Component {
             title={item.subcategory.length <= 10 ? item.subcategory : this.capitalize(item.subcategory).slice(0,8)+'...'} 
             realTitle={item.subcategory}
             icon={item.thumbnail_url}
-            action={() => this.props.navigation.navigate("UnknownScreenContainer", {image: item.thumbnail_url})}
+            action={() => this.props.navigation.navigate("UnknownScreenContainer", {image: item.logo_url })}
           />
         )}
 
@@ -217,6 +218,7 @@ const mapStateToProps = (state) => {
   return{
     loading: state.loading,
     success: state.success,
+    sessionPersistance: state.sessionPersistance,
     failed: state.failed,
     categoryproduct: state.categoryproduct,
     brandsproduct: state.brandsproduct,
