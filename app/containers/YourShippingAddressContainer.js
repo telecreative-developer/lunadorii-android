@@ -14,14 +14,13 @@ class YourShippingAddressContainer extends Component{
     this.state = {
       modalVisibleEditAddress: false,
       modalVisibleAddAddress: false,
-      address_id: 0,
       name: '',
-      phone: '',
-      detail_address: '',
+      address: '',
       province: '',
       city: '',
-      district: '',
-      address_default: false,
+      regency: '',
+      postalcode: '',
+      numberPhone: '',
     }
   }
 
@@ -62,77 +61,76 @@ class YourShippingAddressContainer extends Component{
   }
 
   async handleSaveAddress(){
-    const session = await AsyncStorage.getItem('session')
-    const data = await JSON.parse(session)
-    await this.props.createAddress(data.id, this.state, data.accessToken)
-    await this.props.fetchUserShipping(data.id, data.accessToken)
-    await this.toggleModalAddAddress()
-  }
-
-  handleSaveShippingAddress(){
-    alert("Handler for save shipping address")
+    alert(JSON.stringify(this.state))
   }
 
   async btnUpdateShipping(){
-    alert('updated')
-    const session = await AsyncStorage.getItem('session')
-    const data = await JSON.parse(session)
-    await this.props.updateShipping(this.state.address_id, this.state, data.accessToken)
-    await this.props.fetchUserShipping(data.id, data.accessToken)
-    await this.toggleModalEditAddress()
-    // console.log('clicked: ', this.state.address_id)
+    // alert('updated')
+    // const session = await AsyncStorage.getItem('session')
+    // const data = await JSON.parse(session)
+    // await this.props.updateShipping(this.state.address_id, this.state, data.accessToken)
+    // await this.props.fetchUserShipping(data.id, data.accessToken)
+    // await this.toggleModalEditAddress()
   }
 
   async componentDidMount() {
-    const session = await AsyncStorage.getItem('session')
-    const data = await JSON.parse(session)
-    await this.props.fetchUserShipping(data.id, data.accessToken)
+    // const session = await AsyncStorage.getItem('session')
+    // const data = await JSON.parse(session)
+    // await this.props.fetchUserShipping(data.id, data.accessToken)
 
   }
 
   async onChangeDefault(item){
-    await this.setState({
-      address_id: item.user_address_id,
-      address_default: true
-    })
-    const session = await AsyncStorage.getItem('session')
-    const data = await JSON.parse(session)
-    await this.props.updateSetdefault(data.id, this.state.address_id, data.accessToken)
-    await this.props.fetchUserShipping(data.id, data.accessToken)
-    // console.log('clicked onchange: ', this.state.address_default)
+    // await this.setState({
+    //   address_id: item.user_address_id,
+    //   address_default: true
+    // })
+    // const session = await AsyncStorage.getItem('session')
+    // const data = await JSON.parse(session)
+    // await this.props.updateSetdefault(data.id, this.state.address_id, data.accessToken)
+    // await this.props.fetchUserShipping(data.id, data.accessToken)
   }
 
   async deteleShipping(item){
-    await this.setState({
-      address_id: item.user_address_id,
-      address_default: true
-    })
-    const session = await AsyncStorage.getItem('session')
-    const data = await JSON.parse(session)
-    await this.props.deleteShipping(this.state.address_id, data.accessToken)
-    await this.props.fetchUserShipping(data.id, data.accessToken)
-    // console.log('clicked delete id: ', this.state.address_id)
-
+    // await this.setState({
+    //   address_id: item.user_address_id,
+    //   address_default: true
+    // })
+    // const session = await AsyncStorage.getItem('session')
+    // const data = await JSON.parse(session)
+    // await this.props.deleteShipping(this.state.address_id, data.accessToken)
+    // await this.props.fetchUserShipping(data.id, data.accessToken)
   }
 
   render(){
     return(
       <YourShippingAddress
-        goback={() => this.props.navigation.goBack()}    
-
+        goback={() => this.props.navigation.goBack()}
         modalVisibleAddAddress={this.state.modalVisibleAddAddress}
         toggleModalAddAddress={() => this.toggleModalAddAddress()}
-        name={(name) => this.setState({name})}
-        address={(address) => this.setState({address})}
-        handleSaveAddress={() => this.handleSaveAddress()}
+
+        nameValue={this.state.name}
         onChangeName={(name) => this.setState({name})}
-        onChangePhone= {(phone) => this.setState({phone})}
-        onChangeAddress={(detail_address)  => this.setState({detail_address})}
+
+        addressValue={this.state.address}
+        onChangeAddress={(address) => this.setState({address})}
+
+        provinceValue={this.state.province}
         onChangeProvince={(province) => this.setState({province})}
+
+        cityValue={this.state.city}
         onChangeCity={(city) => this.setState({city})}
-        onChangeDistrict={(district) => this.setState({district})}
+        
+        regencyValue={this.state.regency}
         onChangeRegency={(regency) => this.setState({regency})}
 
+        postalcodeValue={this.state.postalcode}
+        onChangePostalcode={(postalcode) => this.setState({postalcode})}
+
+        numberPhoneValue={this.state.numberPhone}
+        onChangeNumberPhone={(numberPhone) => this.setState({numberPhone})}
+
+        handleSaveAddress={() => this.handleSaveAddress()}
         dataShippingAddress={this.props.usershipping}
         renderShippingAddress={({item}) => (
           <ShippingAddress
@@ -153,7 +151,6 @@ class YourShippingAddressContainer extends Component{
 
 const mapDispatchToProps = (dispatch) =>{
   return{
-
     fetchUserShipping: (id, accessToken) => dispatch(fetchUserShipping(id, accessToken)),
     updateShipping: (id, items, accessToken) => dispatch(updateShipping(id, items, accessToken)),
     updateSetdefault: (id_user, id_addres, accessToken) => dispatch(updateSetdefault(id_user, id_addres, accessToken)),

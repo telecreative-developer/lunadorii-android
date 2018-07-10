@@ -1,11 +1,11 @@
 import React, { Component } from 'react'
-import UnknownScreen from '../components/UnknownScreen'
+import RelatedToBrandProducts from '../components/RelatedToBrandProducts'
 import Product from '../particles/Product'
 
-export default class UnknownScreenContainer extends Component{
+export default class RelatedToBrandProductsContainer extends Component{
   render(){
     return(
-      <UnknownScreen
+      <RelatedToBrandProducts
         dataProduct={[
           {image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", title: "Hello World", price: 20900, categories: "Komok", star: 4},
           {image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", title: "Hello World", price: 20900, categories: "Komok", star: 4},

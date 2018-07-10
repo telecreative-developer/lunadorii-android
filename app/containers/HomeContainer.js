@@ -98,7 +98,7 @@ class HomeContainer extends Component {
 
   renderBanners(banner, index) {
     return (
-      <TouchableOpacity key={index} style={styles.banner} onPress={() => this.props.navigation.navigate("UnknownScreenContainer", {image: banner.thumbnail_url})}>
+      <TouchableOpacity key={index} style={styles.banner} onPress={() => this.props.navigation.navigate("RelatedToBannerProductsContainer", {image: banner.thumbnail_url})}>
         <Image style={styles.bannerImage} source={{ uri: banner.thumbnail_url }} />
       </TouchableOpacity>
     )
@@ -117,7 +117,7 @@ class HomeContainer extends Component {
             title={item.subcategory.length <= 10 ? item.subcategory : this.capitalize(item.subcategory).slice(0,8)+'...'} 
             realTitle={item.subcategory}
             icon={item.thumbnail_url}
-            action={() => this.props.navigation.navigate("UnknownScreenContainer", {image: item.thumbnail_url})}
+            action={() => this.props.navigation.navigate("RelatedToCategoryProductsContainer", {image: item.thumbnail_url})}
           />
         )}
 
@@ -125,7 +125,7 @@ class HomeContainer extends Component {
         renderBrand={({ item }) => (
           <Brand 
             image={item.logo_url} 
-            action={() => this.props.navigation.navigate("UnknownScreenContainer", {image: item.logo_url})}
+            action={() => this.props.navigation.navigate("RelatedToBrandProductsContainer", {image: item.logo_url})}
           />
         )}
 

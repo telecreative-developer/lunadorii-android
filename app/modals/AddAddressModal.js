@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, Dimensions, ScrollView, Picker } from 'react-native'
-import { Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
+import { Modal, Text, StyleSheet, Dimensions } from 'react-native'
+import { Content, Item, Input, Label, Button, Form, Textarea } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
-import SmartPicker from 'react-native-smart-picker'
 const { height, width } = Dimensions.get('window')
 
 const AddAddressModal = (props) => (
@@ -18,51 +17,46 @@ const AddAddressModal = (props) => (
     />
     <Content style={styles.container}>
       <Form style={styles.form}>
+        <Label style={styles.labels}>Complete Address</Label>
+        <Item regular style={styles.textareaStyle}>
+          <Textarea style={{height: 100,width: '100%'}} value={
+            "To " + props.nameValue + "\n" +
+            props.provinceValue + " " + props.cityValue + " " + props.addressValue + "\n" + 
+            props.regencyValue + " " +
+            "Postalcode " + props.postalcodeValue + " Number phone " + props.numberPhoneValue
+          }/>
+        </Item>
         <Label style={styles.labels}>Name</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeName} />
+          <Input placeholder={props.nameValue} value={props.nameValue} onChangeText={props.onChangeName}/>
         </Item>
-        <Label style={styles.labels}>Alamat</Label>
-        <Item regular style={styles.itemsTextarea}>
-          <Textarea placeholder={props.address} placeholderTextColor="#CDCDCD" style={styles.textareaStyle} onChangeText={props.onChangeAddress} />
+        <Label style={styles.labels}>Address</Label>
+        <Item regular style={styles.items}>
+          <Input placeholder={props.addressValue} value={props.addressValue} onChangeText={props.onChangeAddress}/>
         </Item>
-        <Label style={styles.labels}>Provinsi</Label>
-        <ScrollView>
-          <ScrollView>
-            <View style={{flex: 1}}>
-              <ScrollView>
-                <SmartPicker
-                  arrowColor={"#fff"}
-                  selectedValue={props.selectedBank}
-                  onValueChange={props.onChangeBankName}>
-                  <Picker.Item label='BRI' value='BRI' />
-                  <Picker.Item label='BCA' value='BCA' />
-                  <Picker.Item label='Mayapada' value='MAYAPADA' />
-                  <Picker.Item label='Mandiri' value='MANDIRI' />
-                </SmartPicker>
-              </ScrollView>
-            </View>
-          </ScrollView>
-        </ScrollView>
-        <Label style={styles.labels}>Kota/Kabupaten</Label>
+        <Label style={styles.labels}>Province</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.city} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCity} />
+          <Input placeholder={props.provinceValue} value={props.provinceValue} onChangeText={props.onChangeProvince}/>
         </Item>
-        <Label style={styles.labels}>Kecamatan</Label>
+        <Label style={styles.labels}>City</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.regency} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeRegency} />
+          <Input placeholder={props.cityValue} value={props.cityValue} onChangeText={props.onChangeCity}/> 
         </Item>
-        {/* <Label style={styles.labels}>Kelurahan</Label>
+        <Label style={styles.labels}>Regency</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.district} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeDistrict} />
-        </Item> */}
-        <Label style={styles.labels}>No Telp</Label>
+          <Input placeholder={props.regencyValue} value={props.regencyValue} onChangeText={props.onChangeRegency}/> 
+        </Item>
+        <Label style={styles.labels}>Postalcode</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.numberPhone} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeNumberPhone} keyboardType={'numeric'}/>
+          <Input placeholder={props.postalcodeValue} value={props.postalcodeValue} onChangeText={props.onChangePostalcode} keyboardType={'numeric'}/>
+        </Item>
+        <Label style={styles.labels}>Number Phone</Label>
+        <Item regular style={styles.items}>
+          <Input placeholder={props.numberPhoneValue} value={props.numberPhoneValue} onChangeText={props.onChangeNumberPhone} keyboardType={'numeric'}/>
         </Item>
       </Form>
     </Content>
-    <Button full style={styles.buttonSaveStyle} onPress={props.handleSaveAddres}>
+    <Button full style={styles.buttonSaveStyle} onPress={props.handleSaveAddress}>
       <Text style={styles.buttonSaveTextStyle}>Save</Text>
     </Button>
   </Modal>
@@ -83,7 +77,7 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Avenir Next',
     fontWeight: 'bold',
-    paddingTop: 10
+    paddingVertical: 10
   },
   pickers:{
     width: '100%',
@@ -101,8 +95,9 @@ const styles = StyleSheet.create({
     height: 100
   },
   textareaStyle: {
+    borderRadius: 5,
     height: 100,
-    width: 300
+    width: '100%'
   },
   buttonSaveStyle: {
     height: 50,
