@@ -20,11 +20,11 @@ const Reports = (props) => (
       <View style={styles.padding}>
         <Text style={styles.label}>Name</Text>
         <Item regular style={styles.item}>
-          <Input placeholder='Your name as reporter' value={props.name} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeName}/>
+          <Input value={props.name} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeName}/>
         </Item>
         <Text style={styles.label}>Email</Text>
         <Item regular style={styles.item}>
-          <Input placeholder='Your email' value={props.email} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeEmail}/>
+          <Input value={props.email} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeEmail}/>
         </Item>
         <Text style={styles.label}>Subject</Text>
         <Item regular style={styles.item}>

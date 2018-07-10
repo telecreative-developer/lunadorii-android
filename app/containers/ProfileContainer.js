@@ -41,6 +41,7 @@ class ProfileContainer extends Component {
     first_name: "",
     last_name:"",
     bod: "",
+    email: "",
     photoProfile: '',
     modalVisibleEditProfile: false,
     imageProfile: 'https://avatars0.githubusercontent.com/u/38149346?s=400&u=7db8195dd7b4436cbf6d0575915ca6b198d116cc&v=4',
@@ -89,7 +90,8 @@ class ProfileContainer extends Component {
       userData: data,
       first_name: this.props.getsingleuser.first_name,
       last_name : this.props.getsingleuser.last_name,
-      bod: this.props.getsingleuser.bod
+      bod: this.props.getsingleuser.bod,
+      email: this.props.getsingleuser.email
     })
   }
 
@@ -124,7 +126,7 @@ class ProfileContainer extends Component {
         navigateToLocalBank={() => this.props.navigation.navigate("LocalBankContainer")}
         navigateToReviews={() => this.props.navigation.navigate("ReviewsContainer")}
         navigateToShippingAddress={() => this.props.navigation.navigate("YourShippingAddressContainer")}
-        navigateToReports={() => this.props.navigation.navigate("ReportsContainer")}
+        navigateToReports={() => this.props.navigation.navigate("ReportsContainer", {first_name: this.state.first_name, last_name: this.state.last_name, email: this.state.email})}
         navigateToSettings={() => this.props.navigation.navigate("SettingsContainer")}
         navigateToPrivacyPolicy={() => this.props.navigation.navigate("PrivacyPolicyContainer")}
         goback={() => this.props.navigation.goBack()}
