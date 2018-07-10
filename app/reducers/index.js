@@ -3,7 +3,8 @@ import { combineReducers } from "redux";
 import { loading, success, failed } from "./processor";
 import { categoryproduct } from "./categoryproduct";
 import { brandsproduct } from "./brandsproduct"
-import { product, searchproduct,receiveSingleProductWithId, relatedProduct, singleRelatedProdct  } from "./product"
+import { product, searchproduct,receiveSingleProductWithId, 
+         relatedProduct, singleRelatedProdct, receiveProductWithCategory } from "./product"
 import { banners } from "./banners"
 import { productsubcategories } from "./productsubcategories"
 import { getsingleuser } from "./getsingleuser"
@@ -13,7 +14,7 @@ import { wishlist } from "./wishlist"
 import { userreview } from "./userreview"
 import { getResultReport } from "./report"
 import { cartuser } from "./cart"
-import { usershipping } from "./usershipping"
+import { usershipping, province } from "./usershipping"
 import { registerresult } from "./registerresult"
 import { userbank } from "./bank"
 
@@ -41,7 +42,9 @@ const rootReducers = combineReducers({
   userbank,
   receiveSingleProductWithId,
   relatedProduct,
-  singleRelatedProdct
+  singleRelatedProdct,
+  province,
+  receiveProductWithCategory
 //   sessionPersistance
 });
 

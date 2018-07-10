@@ -73,10 +73,19 @@ class ReviewsContainer extends Component{
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.deleteReview(item.product_review_id, data.accessToken)
-    await this.props.fetchUserReview(data.id, data.accessToken)
-    this.setState({message:'DELETING'})
+    this.props.fetchUserReview(data.id, data.accessToken)
+    this.reload()
   }
  
+  async reload(){
+    this.setState
+    if(this.props.userreview.length != 0){
+      await this.setState({isEmpty: false})
+    }else{
+      await this.setState({isEmpty: true})
+    }
+  }
+
   async onStarRatingPress(star) {
     await this.setState({
       star: star
