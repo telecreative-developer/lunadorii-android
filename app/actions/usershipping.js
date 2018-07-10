@@ -1,5 +1,5 @@
 import { setLoading, setFailed, setSuccess } from './processor'
-import { RECEIVE_USER_SHIPPING } from '../constants'
+import { RECEIVE_USER_SHIPPING, RECEIVE_PROVINCE } from '../constants'
 import { API_SERVER } from '../env'
 
 export const fetchUserShipping = (id, accessToken) => {
@@ -122,14 +122,15 @@ export const createAddress = (id, items, accessToken) => {
                     Authorization: accessToken
                 },
                 body: JSON.stringify({
-					...items,
-					name: items.name,
-					phone: items.phone,
-					detail_address: items.detail_address,
-					province: items.province,
-					city: items.city,
-					district: items.district,
-					postal_code: 14250
+									...items,
+									recepient:items.name,
+									phone: items.phone,
+									label: items.label,
+									postal_code: items.postal_code,
+									detail_address: items.detail_address,
+									province_id: items.province_id,
+									city_id: items.city_id,
+									id:id,
                 })
 			})
 			const data = await response.json()
@@ -150,3 +151,38 @@ const receiveUserShipping = data => {
 }
 
 // URL Provinsi /general/places
+
+
+// <--- FETCH PROVINCE --->
+export const fetchProvince = () => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_FETCH_PROVINCE'))
+		try {
+			const response = await fetch(`${API_SERVER}/general/places`, {
+				method: 'GET',
+				headers: {
+					Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: accessToken
+				}
+			})
+			const data = await response.json()
+			await dispatch(receiveProvince(data.data))
+			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PROVINCE'))
+      		await dispatch(setLoading(false, 'LOADING_FETCH_PROVINCE'))
+		} catch (e) {
+			dispatch(setFailed(true, 'FAILED_FETCH_PROVINCE', e))
+			dispatch(setLoading(false, 'LOADING_FETCH_PROVINCE'))
+		}
+	}
+}
+
+const receiveProvince = data => {
+	return{
+		type: RECEIVE_PROVINCE,
+		payload: data
+	}
+}
+
+// <--- FETCH CITIES --->
+

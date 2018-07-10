@@ -1,18 +1,23 @@
 import React, { Component } from 'react'
 import RelatedToCategoryProducts from '../components/RelatedToCategoryProducts'
 import Product from '../particles/Product'
+import { connect } from 'react-redux'
+import { fetchProductWithCategory } from '../actions/product'
 
-export default class RelatedToCategoryProductsContainer extends Component{
+class RelatedToCategoryProductsContainer extends Component{
+
+  async componentDidMount(){
+    const data = this.props.navigation.state.params.data
+    this.props.fetchProductWithCategory(data.product_subcategory_id)
+    console.log('data :', data.product_subcategory_id)
+    // this.props.fetchProductWithCategory()
+  }
+
   render(){
+    console.log('data isi :', this.props.receiveProductWithCategory)
     return(
       <RelatedToCategoryProducts
-        dataProduct={[
-          {image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", title: "Hello World", price: 20900, categories: "Komok", star: 4},
-          {image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", title: "Hello World", price: 20900, categories: "Komok", star: 4},
-          {image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", title: "Hello World", price: 20900, categories: "Komok", star: 4},
-          {image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", title: "Hello World", price: 20900, categories: "Komok", star: 4},
-          {image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", title: "Hello World", price: 20900, categories: "Komok", star: 4}
-        ]}
+        dataProduct={this.props.receiveProductWithCategory}
         renderProduct={({item}) => (
           <Product
             image={item.image}
@@ -28,3 +33,17 @@ export default class RelatedToCategoryProductsContainer extends Component{
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    fetchProductWithCategory: (product_subcategory_id) => dispatch(fetchProductWithCategory(product_subcategory_id)),
+  }
+}
+
+const mapStateToProps = (state) => {
+  return{
+    receiveProductWithCategory: state.receiveProductWithCategory
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RelatedToCategoryProductsContainer)
