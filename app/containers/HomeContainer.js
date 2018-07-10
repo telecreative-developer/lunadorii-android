@@ -154,7 +154,7 @@ class HomeContainer extends Component {
         dataRecommend={this.props.product}
         renderRecommend={({ item }) => {
           return (
-          <RecommendProduct 
+          <RecommendProduct
             image={item.thumbnails[0].thumbnail_url} 
             title={this.capitalize(item.product).slice(0,28) + '...'} 
             categories={item.subcategories[0].subcategory} 
@@ -163,7 +163,6 @@ class HomeContainer extends Component {
             reviews={item.product_rate} 
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
             toggleModalAddToCart={() => this.toggleModalAddToCart()}
-
           />
         )
         }}
