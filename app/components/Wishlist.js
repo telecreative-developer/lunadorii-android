@@ -3,7 +3,6 @@ import { View, Text, FlatList, StyleSheet, StatusBar, Dimensions } from 'react-n
 import { Container, Content, Icon } from 'native-base'
 import Navbar from '../particles/Navbar'
 import Validations from '../particles/Validations'
-import EvilIcons from 'react-native-vector-icons/EvilIcons'
 const { height, width } = Dimensions.get('window')
 
 const Wishlist = (props) => (
