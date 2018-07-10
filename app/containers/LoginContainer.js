@@ -8,9 +8,9 @@ import { Button, Spinner } from 'native-base'
 import Login from '../components/Login'
 import { login } from '../actions/login'
 import { setFailed } from '../actions/processor'
-import FBSDK from 'react-native-fbsdk';
+// import FBSDK from 'react-native-fbsdk';
 
-const { LoginButton, LoginManager, AccessToken } = FBSDK;
+// const { LoginButton, LoginManager, AccessToken } = FBSDK;
 
 class LoginContainer extends Component {
 
