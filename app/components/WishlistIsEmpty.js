@@ -23,8 +23,8 @@ const WishlistIsEmpty = (props) => (
       </View>
       <Text style={{fontSize: 20, color: '#ccc'}}>click <Icon type="Entypo" name="heart-outlined" style={{color: '#d11e48'}}/> to deviate your</Text>
       <Text style={{fontSize: 20, color: '#ccc'}}>stuff on wishlist</Text>
-      <Button full style={styles.backToMart} onPress={props.navigateToMart}>
-				<Text style={styles.backToMartText}>Back to mart</Text>
+      <Button full style={styles.backToMart} onPress={props.navigateToProfile}>
+				<Text style={styles.backToMartText}>Back to profile</Text>
 			</Button>
     </View>
   </Container>

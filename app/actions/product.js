@@ -85,11 +85,12 @@ export const fetchSearchProduct = (search) => {
 				}
 			})
 			const data = await response.json()
-			// console.log("hasil search action", data.data)
-			await dispatch(receiveSearchProduct(data.data))
+			console.log("hasil search action", data)
+			await dispatch(receiveSearchProduct(data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_SEARCH_PRODUCT'))
       		await dispatch(setLoading(false, 'LOADING_FETCH_SEARCH_PRODUCT'))
 		} catch (e) {
+			console.log("error search action", e)
 			dispatch(setFailed(true, 'FAILED_FETCH_SEARCH_PRODUCT', e))
 			dispatch(setLoading(false, 'LOADING_FETCH_SEARCH_PRODUCT'))
 		}
@@ -118,12 +119,13 @@ export const fetchSingleProductWithId = (id, id_product) => {
 			})
 			const data = await response.json()
 			await dispatch(receiveSingleProductWithId(data.data))
-			await dispatch(setSuccess(true, 'SUCCESS_SINGLE_PRODUCR_WITH_ID'))
 			await dispatch(setLoading(false, 'LOADING_SINGLE_PRODUCR_WITH_ID'))
+			await dispatch(setSuccess(true, 'SUCCESS_SINGLE_PRODUCR_WITH_ID'))
 		} catch (e){
-			dispatch(setFailed(true, 'FAILED_SINGLE_PRODUCR_WITH_ID', e))
 			dispatch(setLoading(false, 'LOADING_SINGLE_PRODUCR_WITH_ID'))
+			dispatch(setFailed(true, 'FAILED_SINGLE_PRODUCR_WITH_ID', e))
 		}
+
 	}
 }
 

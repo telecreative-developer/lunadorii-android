@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Text, StyleSheet, StatusBar, Dimensions } from 'react-native'
-import { Container, Content, Button, Item, Input, Textarea } from 'native-base'
+import { Container, Content, Button, Item, Input, Textarea, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 const { height, width } = Dimensions.get('window')
@@ -34,8 +34,8 @@ const Reports = (props) => (
         <Textarea rowSpan={5} bordered placeholder="Write Here.." value={props.reports} placeholderTextColor="#ccc" style={styles.textarea} onChangeText={props.onChangeReports}/>
       </View>
     </Content>
-    <Button full style={styles.btnSend} onPress={props.handleSendReport}>
-      <Text style={styles.txtSend}>Send Reports</Text>
+    <Button full style={styles.btnSend} onPress={props.handleSendReport} disabled={props.buttonReport}>
+      {props.buttonReport ? (<Spinner />): (<Text style={styles.txtSend}>Send Reports</Text>)}
     </Button>
   </Container>
 )

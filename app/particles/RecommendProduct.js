@@ -7,22 +7,20 @@ const { width, height } = Dimensions.get('window')
 const RecommendProduct = (props) => {
   return(
   <View style={styles.viewRecommend}>
-    <TouchableOpacity onPress={props.action}>
+    <TouchableOpacity onPress={props.action} style={styles.imageWrapper}>
       <Image source={{uri: props.image}} style={styles.image}/> 
     </TouchableOpacity>
     <View style={styles.viewWrapper}>
-      <Text style={styles.txtTitle}>{props.title}</Text>
+      <View style={{width: (width - 1000) / 2, height: (height - 530) / 2 }}>
+        <Text style={styles.txtTitle}>{props.title}</Text>
+      </View>
       <Text style={styles.txtCategories}>{props.categories}</Text>
       <View style={styles.viewFlexRow}>
-        {/* <View style={styles.viewRating}>
-        
-        </View> */}
         <StarRating
           disabled={true}
           maxStars={5}
           rating={props.star}
           starSize={12}
-          // selectedStar={props.onStarRatingPress}
         />
         <View>
           <Text style={styles.txtReviews}>{props.reviews} Reviews</Text>
@@ -44,7 +42,7 @@ const RecommendProduct = (props) => {
 const styles = StyleSheet.create({
   viewFlexRow:{
     flexDirection: 'row',
-    marginTop: 10
+    marginTop: 10,
   },
   viewRating:{
     paddingTop: 2
@@ -52,6 +50,7 @@ const styles = StyleSheet.create({
   viewRecommend:{
     width: 260, 
     marginRight:10,
+    marginLeft: 10,
     paddingRight: 5, 
     borderWidth: 1, 
     borderColor: '#e2e2e2'
@@ -59,8 +58,12 @@ const styles = StyleSheet.create({
   viewWrapper:{
     padding: 10
   },
+  imageWrapper:{
+    width: 258, 
+    height: 150
+  },
   image:{
-    width: '100%', 
+    width: 260, 
     height: 150
   },
   txtTitle:{

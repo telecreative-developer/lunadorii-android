@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage, TouchableOpacity } from 'react-native'
+import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage, TouchableOpacity, BackHandler } from 'react-native'
 import Home from '../components/Home'
 import Product from '../particles/Product'
 import Brand from '../particles/Brand'
@@ -25,7 +25,7 @@ class HomeContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      loadingModal: true,
+      loadingModal: false,
       size: { width, height },
       showMore: false,
       id_user: 0,
@@ -40,7 +40,7 @@ class HomeContainer extends Component {
     this.setState({showMore: !this.state.showMore})
   }
 
-  closeModal(){
+  closeModal(){    
     this.setState({modalVisibleAddToCart: !this.state.modalVisibleAddToCart})
   }
 
@@ -156,7 +156,7 @@ class HomeContainer extends Component {
           return (
           <RecommendProduct 
             image={item.thumbnails[0].thumbnail_url} 
-            title={this.capitalize(item.product).slice(0,27) + '...'} 
+            title={this.capitalize(item.product).slice(0,28) + '...'} 
             categories={item.subcategories[0].subcategory} 
             price={this.formatPrice(item.price)} 
             star={item.product_rate} 

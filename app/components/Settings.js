@@ -25,6 +25,7 @@ const Settings = (props) => (
       onChangeCurrentPassword={props.onChangeCurrentPassword}
       onChangeNewPassword={props.onChangeNewPassword}
       onChangeConfirmPassword={props.onChangeConfirmPassword}
+      buttonPassword={props.buttonPassword}
       handleChangePassword={props.handleChangePassword}
     />
     <ChangeEmailModal
@@ -35,6 +36,7 @@ const Settings = (props) => (
 
       onChangeNewEmail={props.onChangeNewEmail}
       onChangeConfirmEmail={props.onChangeConfirmEmail}
+      buttonEmail={props.buttonEmail}
       handleChangeEmail={props.handleChangeEmail}
     />
     <NotificationsModal

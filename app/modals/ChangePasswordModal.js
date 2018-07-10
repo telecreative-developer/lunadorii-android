@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { Container, Content, Item, Input, Icon, Label, Button, Tabs } from 'native-base'
+import { Container, Content, Item, Input, Icon, Label, Button, Tabs, Spinner } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 
 const ChangePasswordModal = (props) => (
@@ -30,8 +30,10 @@ const ChangePasswordModal = (props) => (
         </Item>
       </View>
     </Content>
-    <Button full style={styles.btnSend} onPress={props.handleChangePassword}>
-      <Text style={styles.txtBtnSend}>Change Password</Text>
+    <Button full style={styles.btnSend} onPress={props.handleChangePassword} disabled={props.buttonPassword} >
+      
+        {props.buttonPassword ? (<Spinner color='#fff' />):(<Text style={styles.txtBtnSend}>Change Password</Text>)}
+      
     </Button>
   </Modal>
 )

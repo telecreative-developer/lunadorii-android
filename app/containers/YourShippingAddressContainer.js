@@ -138,8 +138,6 @@ class YourShippingAddressContainer extends Component{
       </ScrollView>
     </ScrollView>
   }
-  
-  // name alamat province kota kecamatan kelurahan Notelp 
 
   render(){
     return(

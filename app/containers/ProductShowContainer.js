@@ -9,6 +9,7 @@ import {
   fetchRelatedProduct
   } from '../actions/product'
 import { connect } from 'react-redux'
+import { TitlePlaceholder, CategoryPlaceholder, StarPlaceholder, DescriptionPlaceholder, ReviewsAndRatings, TitleOneLine, RelatedProductsPlaceholder } from '../placeholders/ProductShowPlaceholders'
 import { fetchwishlist, addWishlist, deleteWishlistInHome } from '../actions/wishlist';
 
 class ProductShowContainer extends Component {
@@ -41,6 +42,8 @@ class ProductShowContainer extends Component {
     }
   }
 
+  
+
   toggleImageViewModal(){
     this.setState({ modalVisibleImageView: !this.state.modalVisibleImageView })
   }
@@ -65,6 +68,11 @@ class ProductShowContainer extends Component {
     ToastAndroid.showWithGravity("Added to cart.", ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
 
+  async deleteState(){
+    await this.setState({})
+    await this.props.navigation.goBack()
+  }
+
   async componentDidMount() {
     const session = await AsyncStorage.getItem('session')
     const dataSession = await JSON.parse(session)
@@ -72,15 +80,17 @@ class ProductShowContainer extends Component {
     console.log('data :' , data)
     await this.setState({ 
       data,
-      reviews: data.reviews,
       accessToken:data.accessToken,
       image: data.thumbnails[0].thumbnail_url,
       title: data.product,
       images: data.thumbnails.map(data => ({source:{uri: data.thumbnail_url}})),
+      subcategories: data.subcategories[0].subcategory,
       totalPrice: data.price,
+      price: data.price,
       amountOfImage: data.thumbnails.length,
+      starCount: data.product_rate,
+      wishlisted: data.wishlisted
     })
-    await this.props.fetchProduct(dataSession.id)
     await this.props.fetchSingleProductWithId(dataSession.id, data.product_id)
     await this.props.fetchRelatedProduct(data.product_id)
     await this.checkReviewers()
@@ -117,7 +127,6 @@ class ProductShowContainer extends Component {
     await this.setState({
       product_id: dataProduct.product_id
     })
-    this.props.fetchProduct(data.id)
     this.props.fetchwishlist(data.accessToken, data.id)
     await this.props.addWishlist(data.accessToken, data.id, this.state.product_id)
   }
@@ -156,17 +165,18 @@ class ProductShowContainer extends Component {
       <ProductShow
         image={this.state.image}
         images={this.state.images}
-        title={this.props.receiveSingleProductWithId.map( data => data.product)}
-        categories={this.props.receiveSingleProductWithId.map(data => (data.subcategories[0].subcategory))}
-        price={this.props.receiveSingleProductWithId.map(data => (data.price))}
-        star={this.props.receiveSingleProductWithId.map(data => (data.product_rate))}
-        descriptions={this.props.receiveSingleProductWithId.map(data => data.description)}
-        productDetails={this.props.receiveSingleProductWithId.map(data => data.detail)}
-        guide={this.props.receiveSingleProductWithId.map( data => data.to_use)}
+        title={this.capitalize(this.state.title)}
+        categories={this.state.subcategories}
+        price={this.state.data.price}
+        star={this.state.starCount}
+        descriptions={this.state.data.description}
+        productDetails={this.state.data.detail}
+        guide={this.state.data.to_use}
         qty={this.state.qty}
         totalPrice={this.formatPrice(this.state.totalPrice)}
         amountOfImage={this.state.amountOfImage}
-        wishlisted={this.props.receiveSingleProductWithId.map(data => data.wishlisted)}
+        wishlisted={this.state.wishlisted}
+        images={this.state.images}
         clickWishlist={this.state.clickWishlist}
 
         onChangeQty={(qty) => this.setState({ qty })}
@@ -205,6 +215,10 @@ class ProductShowContainer extends Component {
             rating={item.review_rate} />
         )}
 
+        stillLoading={this.props.loading.condition === true && this.props.loading.process_on === 'LOADING_SINGLE_PRODUCR_WITH_ID' ||
+        this.props.loading.condition === true && this.props.loading.process_on === 'SUCCESS_SINGLE_PRODUCR_WITH_ID' ? true : false}
+        // stillLoading={true}
+
         modalVisibleImageView={this.state.modalVisibleImageView}
         toggleImageViewModal={() => this.toggleImageViewModal()}
 
@@ -217,7 +231,7 @@ class ProductShowContainer extends Component {
         isReviewsExist={this.state.isReviewsExist}
 
         addToCart={() => this.addToCart()}
-        goback={() => this.props.navigation.navigate("HomeContainer")} />
+        goback={() => this.deleteState()} />
     )
   }
 }

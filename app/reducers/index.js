@@ -8,9 +8,10 @@ import { banners } from "./banners"
 import { productsubcategories } from "./productsubcategories"
 import { getsingleuser } from "./getsingleuser"
 import { sessionPersistance } from "./login"
-import { editpassword, editemail } from "./editprofile"
+import { editname, editpassword, editemail } from "./editprofile"
 import { wishlist } from "./wishlist"
 import { userreview } from "./userreview"
+import { getResultReport } from "./report"
 import { cartuser } from "./cart"
 import { usershipping, province } from "./usershipping"
 import { registerresult } from "./registerresult"
@@ -28,10 +29,12 @@ const rootReducers = combineReducers({
   productsubcategories,
   getsingleuser,
   sessionPersistance,
+  editname,
   editpassword,
   editemail,
   wishlist,
   userreview,
+  getResultReport,
   cartuser,
   usershipping,
   registerresult,

@@ -40,25 +40,26 @@ const Search = (props) => (
         </TouchableOpacity>
       </View>
       <View style={{ paddingLeft: 5, paddingTop: 15 }}>
-        {/* {
+        {console.log("data related", props.dateRelatedProducts)}
+        {
           props.dateRelatedProducts.length != 0  ?
-            props.searchTitle.length == 0 ?
-              <View />
-              :
+            props.dateRelatedProducts.name == "success" ?
               <View>
                 <Text style={{ fontSize: 16, fontWeight: 'bold', paddingBottom: 5 }}>Result by filter</Text>
                 <View>
                   <FlatList
                     numColumns={2}
-                    data={props.dateRelatedProducts}
+                    data={props.dateRelatedProducts.data}
                     renderItem={props.renderRelatedProducts}
                     keyExtractor={(item, index) => JSON.stringify(index)}
                   />
                 </View>
               </View>
             :
-            <ResultNotFound amount={props.amount} searchTitle={props.searchTitle} />
-        } */}
+            <ResultNotFound amount="0" searchTitle={props.searchTitle} />
+            :
+            <View />
+        }
       </View>
     </Content>
   </Container>

@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
   viewBox: {
     borderWidth: 1,
     borderColor: '#e2e2e2',
-    marginRight: 5,
+    marginRight: 10,
+    marginLeft: 10,
     padding: 10,
     width: 280
   },

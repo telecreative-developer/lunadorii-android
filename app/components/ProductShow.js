@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, FlatList, ImageBackground, TouchableOpacity, StatusBar, Dimensions} from 'react-native'
+import { StyleSheet, FlatList, ImageBackground, TouchableOpacity, StatusBar, Dimensions, TouchableHighlight} from 'react-native'
 import { Container, Content, Text, View, Item, Input } from 'native-base'
 import StarRating from 'react-native-star-rating';
 import NavbarTransparent from '../particles/NavbarTransparent'
@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Entypo from 'react-native-vector-icons/Entypo'
 import ImageViewModal from '../modals/ImageViewModal'
+import { TitlePlaceholder, CategoryPlaceholder, StarPlaceholder, DescriptionPlaceholder, ReviewsAndRatings, TitleOneLine, RelatedProductsPlaceholder } from '../placeholders/ProductShowPlaceholders'
 const { height, width } = Dimensions.get('window')
 
 const ProductShow = (props) => (
@@ -15,7 +16,7 @@ const ProductShow = (props) => (
     height: height
   }}>
     <Content style={styles.container}>
-      <TouchableOpacity onPress={props.toggleImageViewModal}>
+      <TouchableHighlight onPress={props.toggleImageViewModal}>
         <ImageBackground source={{ uri: props.image }} style={styles.imageBackgroundStyle}>
           <NavbarTransparent
             navbarTitle=""
@@ -29,20 +30,27 @@ const ProductShow = (props) => (
             <Text style={styles.textPhotos}><FontAwesome name="photo" style={styles.touchableOpacityButtonIcon} /> +{props.amountOfImage} Photos</Text>
           </TouchableOpacity>
         </ImageBackground>
-      </TouchableOpacity>
+      </TouchableHighlight>
       <ImageViewModal
         modalVisible={props.modalVisibleImageView}
         actionIcon={props.toggleImageViewModal}
         images={props.images}/>
       <View style={styles.firstGroup}>
-        <View style={styles.firstGroupWrapper}>
-          <View style={{width: (width - 90) / 1 }}>
-            <Text style={styles.firstGroupTitle}>{props.title}</Text>
+        {props.stillLoading ? (
+          <View style={styles.firstGroupWrapper}>
+            <View>
+              <TitlePlaceholder/>
+              <CategoryPlaceholder/>
+            </View>
           </View>
-          <Text style={styles.fistGroupSubtitle}>{props.categories}</Text>
-        </View>
-        {console.log('props wishlisted:', props.wishlisted)}
-        {console.log('props click:', props.clickWishlist)}
+        ) : (
+          <View style={styles.firstGroupWrapper}>
+            <View style={{width: (width - 90) / 1 }}>
+              <Text style={styles.firstGroupTitle}>{props.title}</Text>
+            </View>
+            <Text style={styles.fistGroupSubtitle}>{props.categories}</Text>
+          </View>
+        )}
         {/* {props.wishlisted === true ? 
           <View style={styles.firstGroupWrapper2}>
             {props.clickWishlist === true ?
@@ -109,27 +117,37 @@ const ProductShow = (props) => (
           </View>
       </View>
       <View style={styles.secondGroup}>
-        <View style={{flexDirection: 'row', justifyContent: 'center'}}>
-          <View style={{flexDirection: 'row'}}>
+        {props.stillLoading ? (
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}>
+            <StarPlaceholder/>
+          </View>
+        ) : (
+          <View style={{flexDirection: 'row', justifyContent: 'space-between', marginBottom: 10}}>
             <StarRating
               disabled={true}
               maxStars={5}
               rating={props.star}
               starSize={14}
             />
+            <View style={{paddingBottom: 5}}>
+              <Text style={styles.reviewsLabel}>{props.star} reviews</Text>
+            </View>
           </View>
-          <Text style={styles.reviewsLabel}>{props.star} reviews</Text>
-        </View>
+        )}
       </View>
       <View style={styles.borderedSparator}>
-        <View style={styles.borderedSparatorFirst}>
-          <Text style={styles.borderedSparatorFirstTitle}>Description</Text>
-          <View style={{width: (width - 20) / 1 }}>
-            <Text style={styles.borderedSparatorFirstContent}>
-              {props.descriptions}
-            </Text>
+        {props.stillLoading ? (
+          <DescriptionPlaceholder/>
+        ) : (
+          <View style={styles.borderedSparatorFirst}>
+            <Text style={styles.borderedSparatorFirstTitle}>Description</Text>
+            <View style={{width: (width - 20) / 1 }}>
+              <Text style={styles.borderedSparatorFirstContent}>
+                {props.descriptions}
+              </Text>
+            </View>
           </View>
-        </View>
+        )}
         {props.seeMoreDetails ? (
           <View>
             <View style={styles.borderedSparatorSecond}>
@@ -160,22 +178,37 @@ const ProductShow = (props) => (
       </View>
       <View style={styles.borderedSparator1}>
         <View style={styles.borderedSparatorFirst}>
+          {/* {props.stillLoading ? (
+            <TitleOneLine/>
+          ) : (
+            
+          )} */}
           <Text style={styles.borderedSparatorFirstTitle}>Reviews & Rating</Text>
           <View style={styles.ratingCard}>
-            <View style={styles.ratingCardContentWrapper}>
-              <Text style={styles.ratingReviewsText}>
-                <Text style={styles.ratingAmountReviewsText}>{props.star}</Text> reviews
-              </Text>
-              <View style={{flexDirection: 'row'}}>
-                <StarRating
-                  disabled={true}
-                  maxStars={5}
-                  rating={props.star}
-                  starSize={14}
-                  // selectedStar={props.onStarRatingPress}
-                />
+            {props.stillLoading ? (
+              <View style={styles.ratingCardContentWrapper}>
+                <View>
+                  <ReviewsAndRatings/>
+                </View>
               </View>
-            </View>
+            ) : (
+              <View style={styles.ratingCardContentWrapper}>
+                <View>
+                  <Text style={styles.ratingReviewsText}>
+                    <Text style={styles.ratingAmountReviewsText}>{props.star}</Text> reviews
+                  </Text>
+                  <View style={{flexDirection: 'row'}}>
+                    <StarRating
+                      disabled={true}
+                      maxStars={5}
+                      rating={props.star}
+                      starSize={14}
+                      // selectedStar={props.onStarRatingPress}
+                    />
+                  </View>
+                </View>
+              </View>
+            )}
           </View>
           <View>
             {props.isReviewsExist ? (
@@ -185,10 +218,10 @@ const ProductShow = (props) => (
                 keyExtractor={(item, index) => JSON.stringify(index)}
               />
             ) : (
-              <View style={{paddingTop: 10}}>
-                <View style={{alignItems: 'center', padding: 10, backgroundColor: '#ccc', borderRadius: 5, }}>
-                  <Text style={{textAlign: 'center'}}>No reviews yet.</Text>
-                  <Text style={{textAlign: 'center'}}>be the first to review this product</Text>
+              <View style={{padding: 10}}>
+                <View style={{alignItems: 'center', padding: 10, backgroundColor: 'transparent', borderColor: '#e2e2e2', borderWidth:1}}>
+                  <Text style={{textAlign: 'center', color: '#848484'}}>No reviews yet.</Text>
+                  <Text style={{textAlign: 'center', color: '#848484'}}>be the first to review this product</Text>
                 </View>
               </View>
             )}
@@ -204,17 +237,34 @@ const ProductShow = (props) => (
           <View/>
         )}
         <View style={styles.borderedSparator1}>
-          <View style={styles.borderedSparatorFirst}>
+          {props.stillLoading ? (
+            <TitleOneLine style={{paddingBottom: 15}}/>
+          ) : (
             <Text style={styles.borderedSparatorFirstTitle2}>Related Products</Text>
-            <View>
-              <FlatList
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                data={props.dateRelatedProducts}
-                renderItem={props.renderRelatedProducts}
-                keyExtractor={(item, index) => JSON.stringify(index)}
-              />
-            </View>
+          )}
+          <View style={styles.borderedSparatorFirst}>
+            {props.stillLoading ? (
+              <View>
+                <FlatList
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                  data={[1,2,3,4,5,6]}
+                  renderItem={({item}) => (
+                    <RelatedProductsPlaceholder/>
+                  )}
+                />
+              </View>
+            ) : (
+              <View>
+                <FlatList
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                  data={props.dateRelatedProducts}
+                  renderItem={props.renderRelatedProducts}
+                  keyExtractor={(item, index) => JSON.stringify(index)}
+                />
+              </View>
+            )}
           </View>
         </View>
       </View>
@@ -312,23 +362,26 @@ const styles = StyleSheet.create({
     paddingBottom: 15
   },
   borderedSparatorFirst: {
-    padding: 10,
+    // padding: 10,
     marginTop: 10,
     marginBottom: 10
   },
   borderedSparatorFirstTitle: {
     fontWeight: 'bold',
     fontSize: 18,
+    paddingHorizontal: 10
   },
   borderedSparatorFirstTitle2: {
     fontWeight: 'bold',
     fontSize: 18,
-    paddingBottom: 15
+    padding: 10
   },
   borderedSparatorFirstContent: {
+    paddingHorizontal: 10,
     fontSize: 16,
     marginTop: 10,
-    color: '#848484'
+    color: '#848484',
+    textAlign: 'justify'
   },
   borderedSparatorSecond: {
     paddingLeft: 10,
@@ -341,7 +394,8 @@ const styles = StyleSheet.create({
   borderedSparatorSecondPointedContent: {
     fontSize: 16,
     marginTop: 10,
-    color: '#848484'
+    color: '#848484',
+    textAlign: 'justify'
   },
   borderedSparatorThird: {
     paddingLeft: 10,
@@ -349,15 +403,17 @@ const styles = StyleSheet.create({
   },
   borderedSparatorThirdTitle: {
     fontWeight: 'bold',
-    fontSize: 18
+    fontSize: 18,
   },
   borderedSparatorThirdContent: {
     fontSize: 16,
     marginTop: 10,
-    color: '#848484'
+    color: '#848484',
+    textAlign: 'justify'
   },
   ratingCard: {
     marginTop: 15,
+    marginHorizontal: 10,
     borderRadius: 1,
     borderColor: '#E2E2E2',
     borderWidth: 1,
