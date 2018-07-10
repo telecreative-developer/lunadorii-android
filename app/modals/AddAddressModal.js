@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, Text, StyleSheet, Dimensions } from 'react-native'
-import { Content, Item, Input, Label, Button, Form, Textarea } from 'native-base'
+import { Content, Item, Input, Label, Button, Form, Textarea, View } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 const { height, width } = Dimensions.get('window')
 
@@ -16,7 +16,7 @@ const AddAddressModal = (props) => (
       actionIcon={props.actionIcon} 
     />
     <Content style={styles.container}>
-      <Form style={styles.form}>
+      <View style={styles.form}>
         <Label style={styles.labels}>Complete Address</Label>
         <Item regular style={styles.textareaStyle}>
           <Textarea style={{height: 100,width: '100%'}} value={
@@ -54,7 +54,7 @@ const AddAddressModal = (props) => (
         <Item regular style={styles.items}>
           <Input placeholder={props.numberPhoneValue} value={props.numberPhoneValue} onChangeText={props.onChangeNumberPhone} keyboardType={'numeric'}/>
         </Item>
-      </Form>
+      </View>
     </Content>
     <Button full style={styles.buttonSaveStyle} onPress={props.handleSaveAddress}>
       <Text style={styles.buttonSaveTextStyle}>Save</Text>
