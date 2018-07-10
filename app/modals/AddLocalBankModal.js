@@ -3,7 +3,6 @@ import { Modal, View, Text, StyleSheet, Dimensions, ScrollView, Picker } from 'r
 import { Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 const { height, width } = Dimensions.get('window')
-import SmartPicker from 'react-native-smart-picker'
 
 const AddLocalBankModal = (props) => (
   <Modal
@@ -19,22 +18,7 @@ const AddLocalBankModal = (props) => (
     <Content style={styles.container}>
       <Form style={styles.form}>
         <Label style={styles.labels}>Bank Name</Label>
-        <ScrollView>
-          <ScrollView>
-            <View style={{flex: 1}}>
-              <ScrollView style={styles.container}>
-                <SmartPicker
-                  selectedValue={props.selectedBank}
-                  onValueChange={props.onChangeBankName}>
-                  <Picker.Item label='BRI' value='BRI' />
-                  <Picker.Item label='BCA' value='BCA' />
-                  <Picker.Item label='Mayapada' value='MAYAPADA' />
-                  <Picker.Item label='Mandiri' value='MANDIRI' />
-                </SmartPicker>
-              </ScrollView>
-            </View>
-          </ScrollView>
-        </ScrollView>
+          <Input placeholder={props.name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeName} />
         <Label style={styles.labels}>Name</Label>
         <Item regular style={styles.items}>
           <Input placeholder={props.name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeName} />
