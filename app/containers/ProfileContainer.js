@@ -114,7 +114,10 @@ class ProfileContainer extends Component {
             billing_code={item.billing_code}
             status={item.order_status}
             total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            date={moment(item.created_at).calendar()}/>
+            date={item.date}
+            time={item.time} 
+            action={() => this.props.navigation.navigate("DetailsOrderContainer")}
+          />
         )}
 
         photoProfile={this.state.photoProfile}

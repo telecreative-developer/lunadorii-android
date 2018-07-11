@@ -25,9 +25,11 @@ import LocalBankContainer from './app/containers/LocalBankContainer'
 import RelatedToBannerProductsContainer from './app/containers/RelatedToBannerProductsContainer'
 import RelatedToCategoryProductsContainer from './app/containers/RelatedToCategoryProductsContainer'
 import RelatedToBrandProductsContainer from './app/containers/RelatedToBrandProductsContainer'
+import DetailsOrderContainer from './app/containers/DetailsOrderContainer'
 
 const AppNavigator = StackNavigator(
   {    
+    DetailsOrderContainer: { screen: DetailsOrderContainer },
     RelatedToBannerProductsContainer: { screen: RelatedToBannerProductsContainer },
     RelatedToCategoryProductsContainer: { screen: RelatedToCategoryProductsContainer },
     RelatedToBrandProductsContainer: { screen: RelatedToBrandProductsContainer },
