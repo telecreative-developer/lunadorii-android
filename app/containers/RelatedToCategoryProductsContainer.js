@@ -18,8 +18,8 @@ class RelatedToCategoryProductsContainer extends Component{
   render(){
     console.log('KONTOL:',this.props.navigation.state.params)
     return(
-      <View>{this.props.receiveProductWithCategory == null ? (console.log("haha")) : 
-        (<RelatedToCategoryProducts
+      <RelatedToCategoryProducts
+        name={this.props.receiveProductWithCategory.subcategories[0].subcategory}
         dataProduct={this.props.receiveProductWithCategory}
         renderProduct={({item}) => (
           <Product
@@ -32,8 +32,7 @@ class RelatedToCategoryProductsContainer extends Component{
         )}
         image={this.props.navigation.state.params.image}
         goback={() => this.props.navigation.goBack()}
-      />)
-      }</View>
+      />
     )
   }
 }
