@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { Container, Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
+import { Modal, Text, StyleSheet, Dimensions, FlatList } from 'react-native'
+import { Content, Item, Input, Label, Button, Form, Textarea, View } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
-import SetProvinceModal from '../modals/SetProvinceModal'
+const { height, width } = Dimensions.get('window')
 
 const EditAddressModal = (props) => (
   <Modal
@@ -11,43 +11,78 @@ const EditAddressModal = (props) => (
     visible={props.modalVisible}
     onRequestClose={props.actionIcon}>
     <NavbarModal
-      navbarTitle="Edit Address"
+      navbarTitle="Add Address"
       navbarIcon="close"
-      actionIcon={props.actionIcon} />
-    <SetProvinceModal
-      modalVisible={props.modalVisibleSetProvince}
-      toggleModalSetProvince={props.toggleModalSetProvince}
+      actionIcon={props.actionIcon} 
     />
     <Content style={styles.container}>
       <Form style={styles.form}>
         <Label style={styles.labels}>Name</Label>
         <Item regular style={styles.items}>
-          <Input value={props.name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeName} />
+          <Input placeholder={props.nameValue} value={props.nameValue} onChangeText={props.onChangeName}/>
         </Item>
-        <Label style={styles.labels}>Alamat</Label>
-        <Item regular style={styles.itemsTextarea}>
-          <Textarea value={props.detail_address} placeholderTextColor="#CDCDCD" style={styles.textareaStyle} onChangeText={props.onChangeAddress} />
-        </Item>
-        <Label style={styles.labels}>Provinsi</Label>
+        <Label style={styles.labels}>Address</Label>
         <Item regular style={styles.items}>
-          <Text style={{color: '#ccc'}} onPress={props.toggleModalSetProvince}>Select Province</Text>
+          <Input placeholder={props.addressValue} value={props.addressValue} onChangeText={props.onChangeAddress}/>
         </Item>
-        <Label style={styles.labels}>Kota/Kabupaten</Label>
+
+        <Label style={styles.labels}>Province</Label>
         <Item regular style={styles.items}>
-          <Input value={props.city} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCity} />
+          <Input placeholder={props.provinceValue} value={props.provinceValue} onChangeText={props.onChangeProvince}/>
         </Item>
-        <Label style={styles.labels}>Kecamatan</Label>
+        {props.provinceValue && props.visibleProvincePicker ? (
+          <FlatList
+            data={props.dataProvince}
+            renderItem={props.renderDataProvince}
+          />
+        ) : (
+          <View backgroundColor="transparent"/>
+        )}
+
+        <Label style={styles.labels}>City</Label>
         <Item regular style={styles.items}>
-          <Input value={props.district} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeRegency} />
+          <Input placeholder={props.cityValue} value={props.cityValue} onChangeText={props.onChangeCity}/> 
         </Item>
-        <Label style={styles.labels}>No Telp</Label>
+        {props.cityValue && props.visibleCityPicker ? (
+          <FlatList
+            data={props.dataCity}
+            renderItem={props.renderDataCity}
+          />
+        ) : (
+          <View backgroundColor="transparent"/>
+        )}
+
+        <Label style={styles.labels}>Regency</Label>
         <Item regular style={styles.items}>
-          <Input value={props.phone} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeNumberPhone} keyboardType={'numeric'}/>
+          <Input placeholder={props.regencyValue} value={props.regencyValue} onChangeText={props.onChangeRegency}/> 
         </Item>
+        {props.regencyValue && props.visibleRegencyPicker ? (
+          <FlatList
+            data={props.dataRegency}
+            renderItem={props.renderDataRegency}
+          />
+        ) : (
+          <View backgroundColor="transparent"/>
+        )}
+
+        <View style={styles.wrapper}>
+          <View style={styles.flexDirectionCol}>
+            <Label style={styles.labels}>Postalcode</Label>
+            <Item regular style={styles.centeredItems}>
+              <Input placeholder={props.postalcodeValue} value={props.postalcodeValue} onChangeText={props.onChangePostalcode} keyboardType={'numeric'}/>
+            </Item>
+          </View>
+          <View style={styles.flexDirectionCol}>
+            <Label style={styles.labels}>Number Phone</Label>
+            <Item regular style={styles.centeredItems}>
+              <Input placeholder={props.numberPhoneValue} value={props.numberPhoneValue} onChangeText={props.onChangeNumberPhone} keyboardType={'numeric'}/>
+            </Item>
+          </View>
+        </View>
       </Form>
     </Content>
-    <Button full style={styles.buttonSaveStyle} onPress={props.updateShipping}>
-      <Text style={styles.buttonSaveTextStyle}>Update</Text>
+    <Button full style={styles.buttonSaveStyle} onPress={props.handleSaveAddress}>
+      <Text style={styles.buttonSaveTextStyle}>Save</Text>
     </Button>
   </Modal>
 )
@@ -67,21 +102,27 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Avenir Next',
     fontWeight: 'bold',
-    paddingBottom: 10,
-    paddingTop: 10
+    paddingVertical: 10
+  },
+  pickers:{
+    width: '100%',
+    borderColor: '#ccc',
+    borderRadius: 5,
   },
   items: {
     width: '100%',
     borderRadius: 5,
-    height: 40
+    height: 40,
+    alignItems:'center'
   },
   itemsTextarea: {
     borderRadius: 5,
     height: 100
   },
   textareaStyle: {
+    borderRadius: 5,
     height: 100,
-    width: 300
+    width: '100%'
   },
   buttonSaveStyle: {
     height: 50,
@@ -90,5 +131,29 @@ const styles = StyleSheet.create({
   buttonSaveTextStyle: {
     color: '#fff',
     fontSize: 18
-  }
+  },
+  wrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  flexDirectionCol: {
+    flexDirection: 'column'
+  },
+  labels: {
+    fontSize: 16,
+    fontFamily: 'Avenir Next',
+    fontWeight: 'bold',
+    paddingBottom: 10,
+    paddingTop: 10
+  },
+  items: {
+    width: '100%',
+    borderRadius: 5,
+    height: 40
+  },
+  centeredItems: {
+    width: 160,
+    borderRadius: 5,
+    height: 40
+  },
 })

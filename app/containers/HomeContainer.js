@@ -103,7 +103,7 @@ class HomeContainer extends Component {
 
   renderBanners(banner, index) {
     return (
-      <TouchableOpacity key={index} style={styles.banner} onPress={() => this.props.navigation.navigate("RelatedToBannerProductsContainer", {data: banner})}>
+      <TouchableOpacity key={index} style={styles.banner} onPress={() => this.props.navigation.navigate("RelatedToBannerProductsContainer", {image: banner.thumbnail_url})}>
         <Image style={styles.bannerImage} source={{ uri: banner.thumbnail_url }} />
       </TouchableOpacity>
     )

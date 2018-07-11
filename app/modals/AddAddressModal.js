@@ -17,15 +17,6 @@ const AddAddressModal = (props) => (
     />
     <Content style={styles.container}>
       <Form style={styles.form}>
-        <Label style={styles.labels}>Complete Address</Label>
-        <Item regular style={styles.textareaStyle}>
-          <Textarea style={{height: 100,width: '100%'}} value={
-            "To " + props.nameValue + "\n" +
-            props.provinceValue + " " + props.cityValue + " " + props.addressValue + "\n" + 
-            props.regencyValue + " " +
-            "Postalcode " + props.postalcodeValue + " Number phone " + props.numberPhoneValue
-          }/>
-        </Item>
         <Label style={styles.labels}>Name</Label>
         <Item regular style={styles.items}>
           <Input placeholder={props.nameValue} value={props.nameValue} onChangeText={props.onChangeName}/>
@@ -74,14 +65,20 @@ const AddAddressModal = (props) => (
           <View backgroundColor="transparent"/>
         )}
 
-        <Label style={styles.labels}>Postalcode</Label>
-        <Item regular style={styles.items}>
-          <Input placeholder={props.postalcodeValue} value={props.postalcodeValue} onChangeText={props.onChangePostalcode} keyboardType={'numeric'}/>
-        </Item>
-        <Label style={styles.labels}>Number Phone</Label>
-        <Item regular style={styles.items}>
-          <Input placeholder={props.numberPhoneValue} value={props.numberPhoneValue} onChangeText={props.onChangeNumberPhone} keyboardType={'numeric'}/>
-        </Item>
+        <View style={styles.wrapper}>
+          <View style={styles.flexDirectionCol}>
+            <Label style={styles.labels}>Number Phone</Label>
+            <Item regular style={styles.centeredItems}>
+              <Input placeholder={props.numberPhoneValue} value={props.numberPhoneValue} onChangeText={props.onChangeNumberPhone} keyboardType={'numeric'}/>
+            </Item>
+          </View>
+          <View style={styles.flexDirectionCol}>
+            <Label style={styles.labels}>Postalcode</Label>
+            <Item regular style={styles.centeredItemsPostalcode}>
+              <Input placeholder={props.postalcodeValue} value={props.postalcodeValue} onChangeText={props.onChangePostalcode} keyboardType={'numeric'}/>
+            </Item>
+          </View>
+        </View>
       </Form>
     </Content>
     <Button full style={styles.buttonSaveStyle} onPress={props.handleSaveAddress}>
@@ -135,12 +132,33 @@ const styles = StyleSheet.create({
     color: '#fff',
     fontSize: 18
   },
-  autocompleteContainer: {
-    flex: 1,
-    left: 0,
-    position: 'absolute',
-    right: 0,
-    top: 0,
-    zIndex: 1
-  }
+  wrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  flexDirectionCol: {
+    flexDirection: 'column'
+  },
+  labels: {
+    fontSize: 16,
+    fontFamily: 'Avenir Next',
+    fontWeight: 'bold',
+    paddingBottom: 10,
+    paddingTop: 10
+  },
+  items: {
+    width: '100%',
+    borderRadius: 5,
+    height: 40
+  },
+  centeredItemsPostalcode: {
+    width: 140,
+    borderRadius: 5,
+    height: 40
+  },
+  centeredItems: {
+    width: 180,
+    borderRadius: 5,
+    height: 40
+  },
 })
