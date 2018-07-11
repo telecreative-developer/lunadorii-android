@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { AsyncStorage } from 'react-native'
 import LocalBank from '../components/LocalBank'
 import LocalBanks from '../particles/LocalBanks'
+import Picker from '../particles/Picker'
 
 import { connect } from 'react-redux'
 import { fetchUserBank, fetchDataBank } from '../actions/bank'
@@ -17,18 +18,12 @@ class LocalBankContainer extends Component{
 
   state={
     isEmpty:false,
-    bankName: 'BCA',
-    banks: [
-      'BCA',
-      'BRI',
-      'Mayapada',
-      'Mandiri'
-    ],
-
-    userBankId: 0,
+    visibleBankNamePicker:false,
+    user_bank_id: 0,
     bankName: '',
     name: '',
     bill: '',
+    password: '',
     modalVisibleAddLocalBank: false,
     modalVisibleEditLocalBank: false,
   }
@@ -90,17 +85,23 @@ class LocalBankContainer extends Component{
           modalVisibleEditLocalBank={this.state.modalVisibleEditLocalBank}
           toggleModalEditLocalBank={() => this.toggleModalEditLocalBank()}
   
-          onChangeBankName={(userBankId)=>this.setState({userBankId})}
+          onChangeBankName={(bankName)=>this.setState({bankName, visibleBankNamePicker: true})}
+          bankName={this.state.bankName}
+          dataBankName={['BCA','Mandiri','BRI']}
+          renderDataBankName={({item}) => (
+            <Picker data={item} onSelect={() => this.setState({bankName: item, visibleBankNamePicker: false})}/>
+          )}
+          visibleBankNamePicker={this.state.visibleBankNamePicker ? true : false}
+
           onChangeName={(name)=>this.setState({name})}
           onChangeBill={(bill)=>this.setState({bill})}
-  
-          bankNames={this.state.banks}
-          selectedBank={this.state.bankName}
-  
-          userBankId={this.state.userBankId}
+          onChangePassword={(password)=>this.setState({password})}
+
+          user_bank_id={this.state.user_bank_id}
           bankName={this.state.bankName}
           name={this.state.name}
           bill={this.state.bill}
+          password={this.state.password}
   
           dataLocalBank={this.props.userbank}
           renderLocalBanks={({ item }) => (

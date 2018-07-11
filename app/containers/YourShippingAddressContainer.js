@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import {AsyncStorage, View,Modalx, Text, SmartPicker, Dimensions, ScrollView, Picker} from 'react-native'
+import {AsyncStorage, View,Modalx, Text, SmartPicker, Dimensions, ScrollView} from 'react-native'
 import { Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
 import YourShippingAddress from '../components/YourShippingAddress'
 import ShippingAddress from '../particles/ShippingAddress'
+import Picker from '../particles/Picker'
 
 import { connect } from 'react-redux'
 import { fetchUserShipping, updateShipping, updateSetdefault, 
@@ -15,6 +16,10 @@ class YourShippingAddressContainer extends Component{
   constructor(){
     super()
     this.state = {
+      visibleProvincePicker:true,
+      visibleCityPicker: true,
+      visibleRegencyPicker: true,
+
       modalVisibleEditAddress: false,
       modalVisibleAddAddress: false,
       name: '',
@@ -119,9 +124,6 @@ class YourShippingAddressContainer extends Component{
     // console.log('clicked delete id: ', this.state.address_id)
   }
 
-  renderProvince(){
-  }
-
   render(){
     return(
       <YourShippingAddress
@@ -136,20 +138,37 @@ class YourShippingAddressContainer extends Component{
         onChangeAddress={(address) => this.setState({address})}
 
         provinceValue={this.state.province}
-        onChangeProvince={(province) => this.setState({province})}
+        onChangeProvince={(province) => this.setState({province, visibleProvincePicker: true})}
 
         cityValue={this.state.city}
-        onChangeCity={(city) => this.setState({city})}
+        onChangeCity={(city) => this.setState({city, visibleCityPicker: true})}
         
         regencyValue={this.state.regency}
-        onChangeRegency={(regency) => this.setState({regency})}
-        renderProvince={this.renderProvince()}
+        onChangeRegency={(regency) => this.setState({regency, visibleRegencyPicker: true})}
 
         postalcodeValue={this.state.postalcode}
         onChangePostalcode={(postalcode) => this.setState({postalcode})}
 
         numberPhoneValue={this.state.numberPhone}
         onChangeNumberPhone={(numberPhone) => this.setState({numberPhone})}
+
+        dataProvince={['Sumatera','Kalimantan','Banten']}
+        renderDataProvince={({item}) => (
+          <Picker data={item} onSelect={() => this.setState({province: item, visibleProvincePicker: false})}/>
+        )}
+        visibleProvincePicker={this.state.visibleProvincePicker ? true : false}
+
+        dataCity={['Jakarta','Bandung','Tangerang']}
+        renderDataCity={({item}) => (
+          <Picker data={item} onSelect={() => this.setState({city: item, visibleCityPicker: false})}/>
+        )}
+        visibleCityPicker={this.state.visibleCityPicker ? true : false}
+
+        dataRegency={['Cipondoh','Ketapang','Cimone']}
+        renderDataRegency={({item}) => (
+          <Picker data={item} onSelect={() => this.setState({regency: item, visibleRegencyPicker: false})}/>
+        )}
+        visibleRegencyPicker={this.state.visibleRegencyPicker ? true : false}
 
         handleSaveAddress={() => this.handleSaveAddress()}
         dataShippingAddress={this.props.usershipping}

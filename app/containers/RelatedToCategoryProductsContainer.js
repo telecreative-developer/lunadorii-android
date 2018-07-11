@@ -11,12 +11,9 @@ class RelatedToCategoryProductsContainer extends Component{
     const data = this.props.navigation.state.params.data
     await this.props.fetchProductWithCategory(data.product_subcategory_id)
     console.log('data :', data.product_subcategory_id)
-    // this.props.fetchProductWithCategory()
-    await console.log('data isi :', this.props.receiveProductWithCategory)
   }
 
   render(){
-    console.log('KONTOL:',this.props.navigation.state.params)
     return(
       <View>{this.props.receiveProductWithCategory == null ? (console.log("haha")) : 
         (<RelatedToCategoryProducts
@@ -30,7 +27,7 @@ class RelatedToCategoryProductsContainer extends Component{
             ratings={item.product_rate}
           />
         )}
-        image={this.props.navigation.state.params.image}
+        image={this.props.navigation.state.params.data.thumbnail_url}
         goback={() => this.props.navigation.goBack()}
       />)
       }</View>

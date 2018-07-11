@@ -20,7 +20,6 @@ export default class RelatedToCategoryProducts extends Component {
 
     this.state = {
       scrollY: new Animated.Value(
-        // iOS has negative initial scroll value because content inset...
         Platform.OS === 'ios' ? -HEADER_MAX_HEIGHT : 0,
       ),
       refreshing: false,
@@ -28,9 +27,6 @@ export default class RelatedToCategoryProducts extends Component {
   }
 
   render() {
-    // Because of content inset the scroll value will be negative on iOS so bring
-    // it back to 0.
-    console
     const scrollY = Animated.add(
       this.state.scrollY,
       Platform.OS === 'ios' ? HEADER_MAX_HEIGHT : 0,
@@ -77,24 +73,6 @@ export default class RelatedToCategoryProducts extends Component {
             [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
             { useNativeDriver: true },
           )}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={() => {
-                this.setState({ refreshing: true });
-                setTimeout(() => this.setState({ refreshing: false }), 1000);
-              }}
-              // Android offset for RefreshControl
-              progressViewOffset={HEADER_MAX_HEIGHT}
-            />
-          }
-          // iOS offset for RefreshControl
-          contentInset={{
-            top: HEADER_MAX_HEIGHT,
-          }}
-          contentOffset={{
-            y: -HEADER_MAX_HEIGHT,
-          }}
         >
           <View style={styles.scrollViewContent}>
             <FlatList
@@ -135,7 +113,6 @@ export default class RelatedToCategoryProducts extends Component {
         >
           <View style={{flexDirection: 'row'}}>
             <Icon name='arrow-back' style={{paddingHorizontal: 10,paddingVertical: 10}} onPress={this.props.goback}/>
-            <Text style={{fontSize: 18, fontWeight: 'bold',paddingHorizontal: 20,paddingVertical: 13}}>Related to category</Text>
           </View>
         </Animated.View>
       </View>
@@ -182,7 +159,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   scrollViewContent: {
-    // iOS uses content inset, which acts like padding.
     paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 10,
     padding: 10,
     alignItems:'center'
