@@ -143,6 +143,10 @@ class SearchContainer extends Component {
     
   }
 
+  capitalize(string) {
+    return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
+  }
+
   toggleModalFilters() {
     this.setState({ modalVisibleFilters: !this.state.modalVisibleFilters })
   }
@@ -162,7 +166,12 @@ class SearchContainer extends Component {
         toggleModalBrandChooser={() => this.toggleModalBrandChooser()}
 
         renderRelatedProducts={({ item }) => (
-          <Product image={item.thumbnails[0].thumbnail_url} title={item.product} categories={item.subcategories[0].subcategory} price={item.price} star={item.product_rate} action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+          <Product 
+            image={item.thumbnails[0].thumbnail_url} 
+            title={item.title <= 17 ? this.capitalize(item.title) : this.capitalize(item.product).slice(0,18)+'...'} 
+            categories={item.subcategories[0].subcategory} 
+            price={item.price} star={item.product_rate} 
+            action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
           />
         )}
 

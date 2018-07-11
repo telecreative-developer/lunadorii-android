@@ -17,7 +17,7 @@ class ProductShowContainer extends Component {
     super()
     this.state = {
       stillLoading: true,
-      isReviewsExist: false,
+      isReviewsExist: true,
       seeMoreDetails: false,
       seeMoreReviews: false,
       modalVisibleImageView: false,
@@ -77,7 +77,6 @@ class ProductShowContainer extends Component {
     const session = await AsyncStorage.getItem('session')
     const dataSession = await JSON.parse(session)
     const data = this.props.navigation.state.params.data
-    console.log('data :' , data.product_id)
     await this.setState({ 
       data,
       accessToken:data.accessToken,
@@ -155,7 +154,6 @@ class ProductShowContainer extends Component {
       id:data.id,
       accessToken: data.accessToken
     })
-    // console.log('accesToken container: ', this.state.accessToken)
     await this.props.fetchwishlist(data.accessToken, data.id)
     if(this.props.wishlist.length != 0){
       await this.setState({isEmpty: false})
@@ -180,7 +178,6 @@ class ProductShowContainer extends Component {
   }
 
   render() {
-    {console.log('isi single :', this.props.receiveSingleProductWithId)}
     return (
       <ProductShow
         image={this.state.image}
@@ -235,8 +232,6 @@ class ProductShowContainer extends Component {
             rating={item.review_rate} />
         )}
 
-        // this.props.loading.condition === true && this.props.loading.process_on === 'LOADING_SINGLE_PRODUCR_WITH_ID' ||
-        // this.props.loading.condition === true && this.props.loading.process_on === 'SUCCESS_SINGLE_PRODUCR_WITH_ID' ? true : false
         stillLoading={this.state.stillLoading}
 
         modalVisibleImageView={this.state.modalVisibleImageView}
