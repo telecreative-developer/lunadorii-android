@@ -156,19 +156,19 @@ class YourShippingAddressContainer extends Component{
         renderDataProvince={({item}) => (
           <Picker data={item} onSelect={() => this.setState({province: item, visibleProvincePicker: false})}/>
         )}
-        visibleProvincePicker={this.state.visibleProvincePicker || this.state.province.length == 0 ? true : false}
+        visibleProvincePicker={this.state.visibleProvincePicker ? true : false}
 
         dataCity={['Jakarta','Bandung','Tangerang']}
         renderDataCity={({item}) => (
           <Picker data={item} onSelect={() => this.setState({city: item, visibleCityPicker: false})}/>
         )}
-        visibleCityPicker={this.state.visibleCityPicker || this.state.city.length == 0 ? true : false}
+        visibleCityPicker={this.state.visibleCityPicker ? true : false}
 
         dataRegency={['Cipondoh','Ketapang','Cimone']}
         renderDataRegency={({item}) => (
           <Picker data={item} onSelect={() => this.setState({regency: item, visibleRegencyPicker: false})}/>
         )}
-        visibleRegencyPicker={this.state.visibleRegencyPicker || this.state.regency.length == 0 ? true : false}
+        visibleRegencyPicker={this.state.visibleRegencyPicker ? true : false}
 
         handleSaveAddress={() => this.handleSaveAddress()}
         dataShippingAddress={this.props.usershipping}
