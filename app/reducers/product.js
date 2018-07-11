@@ -8,7 +8,8 @@ import {
 		RECEIVE_SINGLE_PRODUCT_WITH_ID,
 		RECEIVE_RELATED_PRODUCT,
 		RECEIVE_SINGLE_RELATED_PRODUCT,
-		RECEIVE_PRODUCT_WITH_CATEGORY
+		RECEIVE_PRODUCT_WITH_CATEGORY,
+		RECEIVE_PRODUCT_WITH_BRAND
 	} from '../constants'
 
 export const product = (state = [], action) => {
@@ -83,7 +84,6 @@ export const singleRelatedProdct = ( state = [], action ) => {
 }
 
 export const receiveProductWithCategory = (state = [], action ) => {
-	console.log('reducer:', action.payload)
 	switch (action.type) {
 		case RECEIVE_PRODUCT_WITH_CATEGORY:
 			return action.payload
@@ -92,3 +92,11 @@ export const receiveProductWithCategory = (state = [], action ) => {
 	}
 }
 
+export const receiveProductWithBrand = ( state = [], action ) => {
+	switch (action.type) {
+		case RECEIVE_PRODUCT_WITH_BRAND:
+			return action.payload
+		default:
+			return state
+	}
+}

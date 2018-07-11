@@ -106,22 +106,23 @@ const receiveProductBestSeller = data => {
 }
 
 //  <---- FETCH PRODUCT RECENT ----> //
-export const fetchProductRecent = (id) => {
+export const fetchProductRecent = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_RECENT'))
 		try {
-			const response = await fetch(`https://api.backendless.com/F516E126-9D7D-8AB8-FFE8-6B20CAC17000/1E945276-30A8-7AAD-FFB7-2EF8CD024200/data/recent_order`, {
+			const response = await fetch(`${API_SERVER}/order/history/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
 					'Content-Type': 'application/json',
+					Authorization: accessToken
 				}
 			})
 			const data = await response.json()
-			console.log('action recent ', data)
-			await dispatch(receiveProductRecent(data))
+			console.log('konvtol:', data)
+			await dispatch(receiveProductRecent(data.data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT_RECENT'))
-      		await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_RECENT'))
+      await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_RECENT'))
 		} catch (e) {
 			dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT_RECENT', e))
 			dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_RECENT'))
@@ -314,7 +315,6 @@ export const fetchProductWithCategory = (product_subcategoy_id) => {
 }
 
 const receiveProductWithCategory = data => {
-	console.log("ha" , data)
 	return {
 		type: RECEIVE_PRODUCT_WITH_CATEGORY,
 		payload: data
@@ -322,31 +322,31 @@ const receiveProductWithCategory = data => {
 }
 
 //  <---- FETCH PRODUCT WITH BRAND ----> //
-export const fetchProductWithBrand = (id_brand) => {
+export const fetchProductWithBrand = (product_subcategoy_id) => {
 	return async dispatch => {
-		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_WITH_BRAND'))
+		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
 		try {
-			const response = await fetch(`${API_SERVER}/product/${id_brand}`, {
+			const response = await fetch(`${API_SERVER}/products/subcategory/${product_subcategoy_id}`,{
 				method: 'GET',
 				headers:{
 					Accept: 'application/json',
-					'content-Type': 'application/json'
+					'content-Type' :'application/json'
 				}
 			})
 			const data = await response.json()
-			// await dispatch(getProductWithCategory(data.data))
-			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT_WITH_BRAND'))
-			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_BRAND'))
-		} catch (e){
-			dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT_WITH_BRAND', e))
-			dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_BRAND'))
+			await dispatch(receiveProductWithBrand(data.data))
+			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT_WITH_CATEGORY'))
+			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
+		}catch (e){
+			await dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT_WITH_CATEGORY'))
+			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
 		}
 	}
 }
 
-// const getProductWithCategory = data => {
-// 	return{
-// 		type: RECEIVE_PRODUCT_WITH_BRAND,
-// 		payload: data
-// 	}
-// }
+const receiveProductWithBrand = data => {
+	return {
+		type: RECEIVE_PRODUCT_WITH_BRAND,
+		payload: data
+	}
+}

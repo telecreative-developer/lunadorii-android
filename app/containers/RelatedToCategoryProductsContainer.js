@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { View} from 'react-native'
 import RelatedToCategoryProducts from '../components/RelatedToCategoryProducts'
 import Product from '../particles/Product'
 import { connect } from 'react-redux'
@@ -9,14 +8,15 @@ class RelatedToCategoryProductsContainer extends Component{
 
   async componentDidMount(){
     const data = this.props.navigation.state.params.data
-    await this.props.fetchProductWithCategory(data.product_subcategory_id)
+    this.props.fetchProductWithCategory(data.product_subcategory_id)
     console.log('data :', data.product_subcategory_id)
   }
 
   render(){
     return(
-      <View>{this.props.receiveProductWithCategory == null ? (console.log("haha")) : 
-        (<RelatedToCategoryProducts
+      <RelatedToCategoryProducts
+        
+        name={this.props.navigation.state.params.data.subcategory}
         dataProduct={this.props.receiveProductWithCategory}
         renderProduct={({item}) => (
           <Product
@@ -29,8 +29,7 @@ class RelatedToCategoryProductsContainer extends Component{
         )}
         image={this.props.navigation.state.params.data.thumbnail_url}
         goback={() => this.props.navigation.goBack()}
-      />)
-      }</View>
+      />
     )
   }
 }

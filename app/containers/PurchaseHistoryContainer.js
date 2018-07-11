@@ -4,6 +4,8 @@ import RecentOrders from '../particles/RecentOrders'
 import HistoryOrders from '../particles/HistoryOrders'
 import moment from 'moment'
 import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
+
 
 // const dataRecentOrders = [
 //   {
@@ -88,20 +90,22 @@ class PurchaseHistoryContainer extends Component{
         dataRecentOrders={this.props.productrecent}
         renderRecentOrders={({item}) => (
           <RecentOrders 
-          image={item.image}
-          categories={item.category}
-          status={item.status}
-          total={item.harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-          date={moment(item.Tanggal).calendar()}/>
+            categories={item.subcategories[0].subcategory}
+            status={"checkout"}
+            total={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            date={item.created_at}
+            time={item.updated_at}
+            image={item.thumbnails[0].thumbnail_url}/>
         )}
         dataHistoryOrders={this.props.producthistory}
         renderHistoryOrders={({item}) => (
           <HistoryOrders
-          image={item.image}
-          categories={item.category}
-          status={item.status}
-          total={item.harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-          date={moment(item.Tanggal).calendar()} />
+            categories={item.subcategories[0].subcategory}
+            status={"checkout"}
+            total={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            date={item.created_at}
+            time={item.updated_at}
+            image={item.thumbnails[0].thumbnail_url} />
         )}
       />
     )

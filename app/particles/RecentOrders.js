@@ -9,14 +9,14 @@ const RecentOrders = (props) => (
       </View>
       <View style={styles.viewFlex7}>
         <View style={styles.viewOnlyColumn}>
-          <Text style={styles.txtTitle}>{props.date}, {props.time}</Text>
-          <Text>{props.categories}</Text>
+          <Text style={styles.txtTitle}>{props.date}</Text>
+          <Text>{props.billing_code}</Text>
         </View>
       </View>
     </View>
     <View style={styles.viewFooter}>
       <View style={{flexDirection: 'row'}}>
-        <Text>Status: </Text>
+        <Text>Status: {props.status}</Text>
         <TouchableOpacity onPress={() => alert('Alert')}>
           <Text style={{fontWeight: 'bold', color: '#d11e47' }}>{props.status}</Text>
         </TouchableOpacity>
