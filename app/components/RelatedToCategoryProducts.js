@@ -20,29 +20,13 @@ export default class RelatedToCategoryProducts extends Component {
 
     this.state = {
       scrollY: new Animated.Value(
-        // iOS has negative initial scroll value because content inset...
         Platform.OS === 'ios' ? -HEADER_MAX_HEIGHT : 0,
       ),
       refreshing: false,
     };
   }
 
-  _renderScrollViewContent(data, renderItem) {
-    // const data = Array.from({ length: 30 });
-    return (
-      <View style={styles.scrollViewContent}>
-        <FlatList
-          numColumns={2}
-          data={data}
-          renderItem={renderItem}
-        />
-      </View>
-    );
-  }
-
   render() {
-    // Because of content inset the scroll value will be negative on iOS so bring
-    // it back to 0.
     const scrollY = Animated.add(
       this.state.scrollY,
       Platform.OS === 'ios' ? HEADER_MAX_HEIGHT : 0,
@@ -90,7 +74,13 @@ export default class RelatedToCategoryProducts extends Component {
             { useNativeDriver: true },
           )}
         >
-          {this._renderScrollViewContent(this.props.dataProduct, this.props.renderProduct)}
+          <View style={styles.scrollViewContent}>
+            <FlatList
+              numColumns={2}
+              data={this.props.dataProduct}
+              renderItem={this.props.renderProduct}
+            />
+          </View>
         </Animated.ScrollView>
         <Animated.View
           pointerEvents="none"
@@ -123,7 +113,6 @@ export default class RelatedToCategoryProducts extends Component {
         >
           <View style={{flexDirection: 'row'}}>
             <Icon name='arrow-back' style={{paddingHorizontal: 10,paddingVertical: 10}} onPress={this.props.goback}/>
-            {/* <Text style={{fontSize: 18, fontWeight: 'bold',paddingHorizontal: 20,paddingVertical: 13}}>Related to category</Text> */}
           </View>
         </Animated.View>
       </View>
@@ -170,7 +159,6 @@ const styles = StyleSheet.create({
     fontSize: 18,
   },
   scrollViewContent: {
-    // iOS uses content inset, which acts like padding.
     paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 10,
     padding: 10,
     alignItems:'center'

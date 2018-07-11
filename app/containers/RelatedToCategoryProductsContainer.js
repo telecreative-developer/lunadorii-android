@@ -10,11 +10,9 @@ class RelatedToCategoryProductsContainer extends Component{
     const data = this.props.navigation.state.params.data
     this.props.fetchProductWithCategory(data.product_subcategory_id)
     console.log('data :', data.product_subcategory_id)
-    // this.props.fetchProductWithCategory()
   }
 
   render(){
-    console.log('data isi :', this.props.receiveProductWithCategory)
     return(
       <RelatedToCategoryProducts
         dataProduct={this.props.receiveProductWithCategory}
@@ -27,7 +25,7 @@ class RelatedToCategoryProductsContainer extends Component{
             ratings={item.ratings}
           />
         )}
-        image={this.props.navigation.state.params.image}
+        image={this.props.navigation.state.params.data.thumbnail_url}
         goback={() => this.props.navigation.goBack()}
       />
     )

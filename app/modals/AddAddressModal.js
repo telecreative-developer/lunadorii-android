@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Modal, Text, StyleSheet, Dimensions, TouchableOpacity, View } from 'react-native'
-import { Content, Item, Input, Label, Button, Form, Textarea } from 'native-base'
+import { Modal, Text, StyleSheet, Dimensions, FlatList } from 'react-native'
+import { Content, Item, Input, Label, Button, Form, Textarea, View } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 const { height, width } = Dimensions.get('window')
 
@@ -34,18 +34,46 @@ const AddAddressModal = (props) => (
         <Item regular style={styles.items}>
           <Input placeholder={props.addressValue} value={props.addressValue} onChangeText={props.onChangeAddress}/>
         </Item>
+
         <Label style={styles.labels}>Province</Label>
         <Item regular style={styles.items}>
           <Input placeholder={props.provinceValue} value={props.provinceValue} onChangeText={props.onChangeProvince}/>
         </Item>
+        {props.provinceValue && props.visibleProvincePicker ? (
+          <FlatList
+            data={props.dataProvince}
+            renderItem={props.renderDataProvince}
+          />
+        ) : (
+          <View backgroundColor="transparent"/>
+        )}
+
         <Label style={styles.labels}>City</Label>
         <Item regular style={styles.items}>
           <Input placeholder={props.cityValue} value={props.cityValue} onChangeText={props.onChangeCity}/> 
         </Item>
+        {props.cityValue && props.visibleCityPicker ? (
+          <FlatList
+            data={props.dataCity}
+            renderItem={props.renderDataCity}
+          />
+        ) : (
+          <View backgroundColor="transparent"/>
+        )}
+
         <Label style={styles.labels}>Regency</Label>
         <Item regular style={styles.items}>
           <Input placeholder={props.regencyValue} value={props.regencyValue} onChangeText={props.onChangeRegency}/> 
         </Item>
+        {props.regencyValue && props.visibleRegencyPicker ? (
+          <FlatList
+            data={props.dataRegency}
+            renderItem={props.renderDataRegency}
+          />
+        ) : (
+          <View backgroundColor="transparent"/>
+        )}
+
         <Label style={styles.labels}>Postalcode</Label>
         <Item regular style={styles.items}>
           <Input placeholder={props.postalcodeValue} value={props.postalcodeValue} onChangeText={props.onChangePostalcode} keyboardType={'numeric'}/>
