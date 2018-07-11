@@ -6,8 +6,8 @@ import {
 		RECEIVE_SINGLE_PRODUCT_WITH_ID,
 		RECEIVE_RELATED_PRODUCT,
 		RECEIVE_SINGLE_RELATED_PRODUCT,
-		RECEIVE_PRODUCT_WITH_CATEGORY,
-		RECEIVE_PRODUCT_WITH_BRAND
+		RECEIVE_PRODUCT_WITH_BRAND,
+		RECEIVE_PRODUCT_WITH_CATEGORY
 	} from '../constants'
 import { API_SERVER } from '../env'
 
@@ -55,7 +55,7 @@ export const fetchProductWithoutId = () => {
 				}
 			})
 			const data = await response.json()
-			await dispatch(receiveProductWithoutID(data.data))
+			await dispatch(receiveProductWithoutId(data.data))
 			await dispatch(setSuccess(true, 'SUCESS_FETCH_PRODUCT_WITHOUT_ID'))
 			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITHOUT_ID'))
 		} catch (e){
@@ -65,7 +65,7 @@ export const fetchProductWithoutId = () => {
 	}
 }
 
-const receiveProductWithoutID = data => {
+const receiveProductWithoutId = data => {
 	return{
 		type: RECEIVE_PRODUCT_WITHOUT_ID,
 		payload: data
@@ -197,31 +197,31 @@ const receiveSingleRelatedProduct = data => {
 
 
 //  <---- FETCH PRODUCT WITH CATEGORY ----> //
-export const fetchProductWithCategory = (product_subcategory_id) => {
+export const fetchProductWithCategory = (product_subcategoy_id) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
 		try {
-			const response = await fetch(`${API_SERVER}/products/subcategory/${product_subcategory_id}`, {
+			const response = await fetch(`${API_SERVER}/products/subcategory/${product_subcategoy_id}`,{
 				method: 'GET',
 				headers:{
 					Accept: 'application/json',
-					'content-Type': 'application/json'
+					'content-Type' :'application/json'
 				}
 			})
 			const data = await response.json()
-			console.log('action :' , data.data)
 			await dispatch(receiveProductWithCategory(data.data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT_WITH_CATEGORY'))
 			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
-		} catch (e){
-			dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT_WITH_CATEGORY', e))
-			dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
+		}catch (e){
+			await dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT_WITH_CATEGORY'))
+			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
 		}
 	}
 }
 
 const receiveProductWithCategory = data => {
-	return{
+	console.log("ha" , data)
+	return {
 		type: RECEIVE_PRODUCT_WITH_CATEGORY,
 		payload: data
 	}
@@ -240,7 +240,7 @@ export const fetchProductWithBrand = (id_brand) => {
 				}
 			})
 			const data = await response.json()
-			await dispatch(receiveProductWithBrand(data.data))
+			// await dispatch(getProductWithCategory(data.data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT_WITH_BRAND'))
 			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_BRAND'))
 		} catch (e){
@@ -250,9 +250,9 @@ export const fetchProductWithBrand = (id_brand) => {
 	}
 }
 
-const receiveProductWithBrand = data => {
-	return{
-		type: RECEIVE_PRODUCT_WITH_BRAND,
-		payload: data
-	}
-}
+// const getProductWithCategory = data => {
+// 	return{
+// 		type: RECEIVE_PRODUCT_WITH_BRAND,
+// 		payload: data
+// 	}
+// }

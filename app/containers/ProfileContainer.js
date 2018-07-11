@@ -5,6 +5,7 @@ import RecentOrders from '../particles/RecentOrders'
 import ImagePicker from 'react-native-image-picker'
 import {connect} from 'react-redux'
 import { fetchSingleUser } from '../actions/getSingleUser'
+import { fetchProductWithoutId } from '../actions/product'
 import { editName } from '../actions/editprofile'
 
 const dataRecentOrders = [
@@ -84,6 +85,7 @@ class ProfileContainer extends Component {
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    await this.props.fetchProductWithoutId()
     await this.props.fetchSingleUser(data.id, data.accessToken)
     await this.setState({
       userData: data,
@@ -94,15 +96,16 @@ class ProfileContainer extends Component {
   }
 
   render() {
+    {console.log('isiiiiii ::::', this.props.receiveProductWithoutId)}
     return (
       <Profile
-        dataRecentOrders={dataRecentOrders}
+        dataRecentOrders={this.props.receiveProductWithoutId}
         renderRecentOrders={({ item, key }) => (
           <RecentOrders
-            image={item.image}
-            categories={item.categories}
+            image={item.thumbnails[0].thumbnail_url}
+            categories={item.subcategories[0].subcategory}
             status={item.status}
-            total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            total={item.total}
             date={item.date}
             time={item.time} />
         )}
@@ -136,7 +139,8 @@ class ProfileContainer extends Component {
 const mapDispatchToProps = (dispatch) =>{
   return{
     fetchSingleUser: (id, accessToken) => dispatch(fetchSingleUser(id, accessToken)),
-    editName: (id, firstName, lastName, bod, accessToken) => dispatch(editName(id, firstName, lastName, bod, accessToken))
+    editName: (id, firstName, lastName, bod, accessToken) => dispatch(editName(id, firstName, lastName, bod, accessToken)),
+    fetchProductWithoutId: () => dispatch(fetchProductWithoutId())
   }
 }
 
@@ -146,7 +150,8 @@ const mapStateToProps = (state) => {
     success: state.success,
     failed: state.failed,
     getsingleuser: state.getsingleuser,
-    editname: state.editname
+    editname: state.editname,
+    receiveProductWithoutId: state.receiveProductWithoutId
   }
 }
 

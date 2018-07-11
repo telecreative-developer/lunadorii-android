@@ -1,7 +1,7 @@
 import { 
 		RECEIVE_PRODUCT, 
 		RECEIVE_SEARCH_PRODUCT, 
-		RECEIVE_PRODCUT_WITHOU_ID,
+		RECEIVE_PRODCUT_WITHOUT_ID,
 		RECEIVE_SINGLE_PRODUCT_WITH_ID,
 		RECEIVE_RELATED_PRODUCT,
 		RECEIVE_SINGLE_RELATED_PRODUCT,
@@ -26,9 +26,10 @@ export const searchproduct = (state = [], action) => {
 	}
 }
 
-export const productwithoutid = ( state = [], action) => {
+export const receiveProductWithoutId = ( state = [], action) => {
+	console.log('data jancok :', action.payload)
 	switch (action.type) {
-		case RECEIVE_PRODCUT_WITHOU_ID:
+		case RECEIVE_PRODCUT_WITHOUT_ID:
 			return action.payload
 		default:
 			return state
@@ -62,7 +63,8 @@ export const singleRelatedProdct = ( state = [], action ) => {
 	}
 }
 
-export const receiveProductWithCategory = (state = [], action) => {
+export const receiveProductWithCategory = (state = [], action ) => {
+	console.log('reducer:', action.payload)
 	switch (action.type) {
 		case RECEIVE_PRODUCT_WITH_CATEGORY:
 			return action.payload
@@ -70,3 +72,4 @@ export const receiveProductWithCategory = (state = [], action) => {
 			return state
 	}
 }
+

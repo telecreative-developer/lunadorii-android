@@ -4,7 +4,8 @@ import { loading, success, failed } from "./processor";
 import { categoryproduct } from "./categoryproduct";
 import { brandsproduct } from "./brandsproduct"
 import { product, searchproduct,receiveSingleProductWithId, 
-         relatedProduct, singleRelatedProdct, receiveProductWithCategory } from "./product"
+         relatedProduct, singleRelatedProdct, receiveProductWithCategory,
+         receiveProductWithoutId } from "./product"
 import { banners } from "./banners"
 import { productsubcategories } from "./productsubcategories"
 import { getsingleuser } from "./getsingleuser"
@@ -44,7 +45,8 @@ const rootReducers = combineReducers({
   relatedProduct,
   singleRelatedProdct,
   province,
-  receiveProductWithCategory
+  receiveProductWithoutId,
+  receiveProductWithCategory,
 //   sessionPersistance
 });
 
