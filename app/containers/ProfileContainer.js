@@ -7,6 +7,7 @@ import {connect} from 'react-redux'
 import { fetchSingleUser } from '../actions/getSingleUser'
 import { fetchProductWithoutId } from '../actions/product'
 import { editName } from '../actions/editprofile'
+import { fetchProductRecent, fetchProductHistory } from '../actions/product'
 
 const dataRecentOrders = [
   {
@@ -42,6 +43,7 @@ class ProfileContainer extends Component {
     first_name: "",
     last_name:"",
     bod: "",
+    email: "",
     photoProfile: '',
     modalVisibleEditProfile: false,
     imageProfile: 'https://avatars0.githubusercontent.com/u/38149346?s=400&u=7db8195dd7b4436cbf6d0575915ca6b198d116cc&v=4',
@@ -87,11 +89,14 @@ class ProfileContainer extends Component {
     const data = await JSON.parse(session)
     await this.props.fetchProductWithoutId()
     await this.props.fetchSingleUser(data.id, data.accessToken)
+    await this.props.fetchProductHistory(data.id)
+    await this.props.fetchProductRecent(data.id)
     await this.setState({
       userData: data,
       first_name: this.props.getsingleuser.first_name,
       last_name : this.props.getsingleuser.last_name,
-      bod: this.props.getsingleuser.bod
+      bod: this.props.getsingleuser.bod,
+      email: this.props.getsingleuser.email
     })
   }
 
@@ -99,15 +104,15 @@ class ProfileContainer extends Component {
     {console.log('isiiiiii ::::', this.props.receiveProductWithoutId)}
     return (
       <Profile
-        dataRecentOrders={this.props.receiveProductWithoutId}
+        dataRecentOrders={this.props.productrecent}
         renderRecentOrders={({ item, key }) => (
           <RecentOrders
             image={item.thumbnails[0].thumbnail_url}
             categories={item.subcategories[0].subcategory}
-            status={item.status}
-            total={item.total}
-            date={item.date}
-            time={item.time} />
+            status={"checkout"}
+            total={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            date={item.created_at}
+            time={item.updated_at} />
         )}
 
         photoProfile={this.state.photoProfile}
@@ -127,7 +132,7 @@ class ProfileContainer extends Component {
         navigateToLocalBank={() => this.props.navigation.navigate("LocalBankContainer")}
         navigateToReviews={() => this.props.navigation.navigate("ReviewsContainer")}
         navigateToShippingAddress={() => this.props.navigation.navigate("YourShippingAddressContainer")}
-        navigateToReports={() => this.props.navigation.navigate("ReportsContainer")}
+        navigateToReports={() => this.props.navigation.navigate("ReportsContainer", {first_name: this.state.first_name, last_name: this.state.last_name, email: this.state.email})}
         navigateToSettings={() => this.props.navigation.navigate("SettingsContainer")}
         navigateToPrivacyPolicy={() => this.props.navigation.navigate("PrivacyPolicyContainer")}
         goback={() => this.props.navigation.goBack()}
@@ -139,8 +144,9 @@ class ProfileContainer extends Component {
 const mapDispatchToProps = (dispatch) =>{
   return{
     fetchSingleUser: (id, accessToken) => dispatch(fetchSingleUser(id, accessToken)),
-    editName: (id, firstName, lastName, bod, accessToken) => dispatch(editName(id, firstName, lastName, bod, accessToken)),
-    fetchProductWithoutId: () => dispatch(fetchProductWithoutId())
+    fetchProductRecent: (id) => dispatch(fetchProductRecent(id)),
+    fetchProductHistory: (id) => dispatch(fetchProductHistory(id)),
+    editName: (id, firstName, lastName, bod, accessToken) => dispatch(editName(id, firstName, lastName, bod, accessToken))
   }
 }
 
@@ -151,7 +157,8 @@ const mapStateToProps = (state) => {
     failed: state.failed,
     getsingleuser: state.getsingleuser,
     editname: state.editname,
-    receiveProductWithoutId: state.receiveProductWithoutId
+    productrecent: state.productrecent,
+    producthistory: state.producthistory
   }
 }
 

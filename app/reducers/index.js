@@ -4,8 +4,8 @@ import { loading, success, failed } from "./processor";
 import { categoryproduct } from "./categoryproduct";
 import { brandsproduct } from "./brandsproduct"
 import { product, searchproduct,receiveSingleProductWithId, 
-         relatedProduct, singleRelatedProdct, receiveProductWithCategory,
-         receiveProductWithoutId } from "./product"
+         relatedProduct, singleRelatedProdct, receiveProductWithCategory, 
+         productbestseller, producthistory, productrecent } from "./product"
 import { banners } from "./banners"
 import { productsubcategories } from "./productsubcategories"
 import { getsingleuser } from "./getsingleuser"
@@ -26,6 +26,9 @@ const rootReducers = combineReducers({
   categoryproduct,
   brandsproduct,
   product,
+  productbestseller,
+  productrecent,
+  producthistory,
   searchproduct,
   banners,
   productsubcategories,

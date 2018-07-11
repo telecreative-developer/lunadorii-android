@@ -256,7 +256,7 @@ const ProductShow = (props) => (
           <View style={styles.leftWrapper}>
             <View style={styles.flexDirectionCol}>
               <Text style={styles.footerTotalPriceText}>Rp. {props.totalPrice}</Text>
-              <TouchableOpacity onPress={props.addToCart}>
+              <TouchableOpacity onPress={props.addToCart} disabled={props.clickCart} >
                 <View style={styles.footerButtonStyling}>
                   <MaterialCommunityIcons name="cart" size={16} />
                   <Text style={styles.footerButtonTextStyling}>Add to Cart</Text>

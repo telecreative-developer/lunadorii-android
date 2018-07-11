@@ -56,7 +56,7 @@ const Login = (props) => (
       <View style={{paddingBottom: 10, paddingTop: 45, paddingLeft: 45, paddingRight: 45}}>
         <View style={{borderTopColor: "#979797", borderTopWidth: 1.2, borderBottomColor: "#979797", borderBottomWidth: 1.2}}>
           <View style={styles.informationWrapper1}>
-            <TouchableOpacity style={styles.alignSelfCenter1} onPress={props.navigateToRegister}>
+            <TouchableOpacity style={styles.alignSelfCenter1} onPress={props.loginFB}>
               <Icon type="Entypo" name="facebook" style={{color:"#3B5998"}}/><Text style={{color:"#3B5998"}}>Log in With Facebook</Text>
             </TouchableOpacity>
           </View>

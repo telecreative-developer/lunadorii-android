@@ -1,6 +1,9 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { 
-		RECEIVE_PRODUCT, 
+		RECEIVE_PRODUCT,
+		RECEIVE_PRODUCT_BEST_SELLER,
+		RECEIVE_PRODUCT_RECENT,
+		RECEIVE_PRODUCT_HISTORY,
 		RECEIVE_SEARCH_PRODUCT, 
 		RECEIVE_PRODUCT_WITHOUT_ID,
 		RECEIVE_SINGLE_PRODUCT_WITH_ID,
@@ -68,6 +71,96 @@ export const fetchProductWithoutId = () => {
 const receiveProductWithoutId = data => {
 	return{
 		type: RECEIVE_PRODUCT_WITHOUT_ID,
+		payload: data
+	}
+}
+
+//  <---- FETCH PRODUCT BEST SELLER ----> //
+export const fetchProductBestSeller = () => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_FETCH_BEST_SELLER'))
+		try {
+			const response = await fetch(`${API_SERVER}/products`, {
+				method: 'GET',
+				headers:{
+					Accept: 'application/json',
+					'content-Type': 'application/json'
+				}
+			})
+			const data = await response.json()
+			await dispatch(receiveProductBestSeller(data.data))
+			await dispatch(setSuccess(true, 'SUCESS_FETCH_PRODUCT_BEST_SELLER'))
+			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_BEST_SELLER'))
+		} catch (e){
+			dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT_BEST_SELLER', e))
+			dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_BEST_SELLER'))
+		}
+	}
+}
+
+const receiveProductBestSeller = data => {
+	return{
+		type: RECEIVE_PRODUCT_BEST_SELLER,
+		payload: data
+	}
+}
+
+//  <---- FETCH PRODUCT RECENT ----> //
+export const fetchProductRecent = (id) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_RECENT'))
+		try {
+			const response = await fetch(`${API_SERVER}/products/new-arrivals?id=${id}`, {
+				method: 'GET',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+				}
+			})
+			const data = await response.json()
+			await dispatch(receiveProductRecent(data.data))
+			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT_RECENT'))
+      		await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_RECENT'))
+		} catch (e) {
+			dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT_RECENT', e))
+			dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_RECENT'))
+		}
+	}
+}
+
+const receiveProductRecent = data => {
+	return{
+		type: RECEIVE_PRODUCT_RECENT,
+		payload: data
+	}
+}
+
+//  <---- FETCH PRODUCT HISTORY ----> //
+export const fetchProductHistory = (id) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT'))
+		try {
+			const response = await fetch(`${API_SERVER}/products/new-arrivals?id=${id}`, {
+				method: 'GET',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+				}
+			})
+			const data = await response.json()
+			await dispatch(receiveProductHistory(data.data))
+			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT'))
+      		await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT'))
+		} catch (e) {
+			dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT', e))
+			dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT'))
+		}
+	}
+}
+
+const receiveProductHistory = data => {
+	return{
+		type: RECEIVE_PRODUCT_HISTORY,
 		payload: data
 	}
 }

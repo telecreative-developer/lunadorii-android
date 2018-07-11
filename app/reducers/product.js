@@ -1,7 +1,10 @@
 import { 
-		RECEIVE_PRODUCT, 
+		RECEIVE_PRODUCT,
+		RECEIVE_PRODUCT_BEST_SELLER,
+		RECEIVE_PRODUCT_RECENT,
+		RECEIVE_PRODUCT_HISTORY, 
 		RECEIVE_SEARCH_PRODUCT, 
-		RECEIVE_PRODCUT_WITHOUT_ID,
+		RECEIVE_PRODUCT_WITHOUT_ID,
 		RECEIVE_SINGLE_PRODUCT_WITH_ID,
 		RECEIVE_RELATED_PRODUCT,
 		RECEIVE_SINGLE_RELATED_PRODUCT,
@@ -11,6 +14,32 @@ import {
 export const product = (state = [], action) => {
 	switch (action.type) {
 		case RECEIVE_PRODUCT:
+			return action.payload
+		default:
+			return state
+	}
+}
+
+export const productbestseller = (state = [], action) => {
+	switch (action.type) {
+		case RECEIVE_PRODUCT_BEST_SELLER:
+			return action.payload
+		default:
+			return state
+	}
+}
+
+export const productrecent = (state = [], action) => {
+	switch (action.type) {
+		case RECEIVE_PRODUCT_RECENT:
+			return action.payload
+		default:
+			return state
+	}
+}
+export const producthistory = (state = [], action) => {
+	switch (action.type) {
+		case RECEIVE_PRODUCT_HISTORY:
 			return action.payload
 		default:
 			return state
@@ -29,7 +58,7 @@ export const searchproduct = (state = [], action) => {
 export const receiveProductWithoutId = ( state = [], action) => {
 	console.log('data jancok :', action.payload)
 	switch (action.type) {
-		case RECEIVE_PRODCUT_WITHOUT_ID:
+		case RECEIVE_PRODUCT_WITHOUT_ID:
 			return action.payload
 		default:
 			return state

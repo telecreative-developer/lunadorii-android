@@ -14,6 +14,16 @@ class ReportsContainer extends Component {
     buttonReport: false
   }
 
+  componentDidMount(){
+    const {first_name, last_name, email } = this.props.navigation.state.params
+    // const session = await AsyncStorage.getItem('session')
+    // const data = await JSON.parse(session)
+    this.setState({
+      name: `${first_name} ${last_name}`,
+      email: email
+    })
+  }
+
   async handleSendReport(){
     const {name, email, subject, content} = this.state
     this.setState({buttonReport: true})

@@ -75,7 +75,7 @@ class SettingsContainer extends Component {
       } else {
         this.setState({ buttonPassword: true })
         await this.props.editPassword(this.state.userData.id, this.state.currentPassword, this.state.newPassword, this.state.userData.accessToken)
-        if (this.props.editpassword.status === 200){
+        if (this.props.editpassword.status === 201){
           this.setState({ modalVisibleChangePassword: false })
         }
         this.setState({ buttonPassword: false })

@@ -8,6 +8,9 @@ import { Button, Spinner } from 'native-base'
 import Login from '../components/Login'
 import { login } from '../actions/login'
 import { setFailed } from '../actions/processor'
+// import FBSDK from 'react-native-fbsdk';
+
+// const { LoginButton, LoginManager, AccessToken } = FBSDK;
 
 class LoginContainer extends Component {
 
@@ -20,7 +23,59 @@ class LoginContainer extends Component {
       passwordFieldVisibility: true,
       modalVisibleInvalidCredentialModal: false
     }
+
+    this.loginFB = this.loginFB.bind(this);
   }
+
+  loginFB () {
+    AccessToken.getCurrentAccessToken()
+    .then((data) => {
+      if (data !== null) {
+        _this.initUser(data.accessToken);
+      } else {
+        // this.loginFBWithPermission();
+        console.log('haha')
+      }
+    })
+    .catch(err => {
+      console.log(err);
+    });
+  }
+  
+  loginFBWithPermission() {
+    const _this = this;
+    LoginManager.logInWithReadPermissions(["public_profile", "email", "user_photos"])
+    .then(
+      function (result) {
+        if (result.isCancelled) {
+          console.log('Login cancelled')
+        } else {
+          console.log('Login success with permissions: ' + result.grantedPermissions.toString())
+          AccessToken.getCurrentAccessToken().then((data) => {
+            _this.initUser(data.accessToken);
+          }).catch(err => {
+            console.log(err)
+          })
+        }
+      },
+      function (error) {
+        console.log('Login fail with error: ' + error)
+        Alert.alert('Error', 'Login fail with error: ' + error);
+      }
+    )
+    .catch((err) => console.log(err));
+  }
+  
+  initUser = (token1) => {
+    this.setState({ loading: true });
+    fetch('https://graph.facebook.com/v2.9/me?fields=id,name,email,picture{url}&access_token=' + token1) //--> parameter graph bisa diganti sesuai keinginan mengacu pada graph API Facebook
+    .then((response) => response.json())
+    .then((json) => {
+      console.log(json);
+    })
+    .catch((err) => console.log(err));
+  }
+
 
   togglePasswordFieldVisibility(){
     this.setState({passwordFieldVisibility: !this.state.passwordFieldVisibility})
@@ -135,6 +190,7 @@ class LoginContainer extends Component {
         renderButtons={this.renderButtons()}
         passwordFieldVisibility={this.state.passwordFieldVisibility}
         togglePasswordFieldVisibility={() => this.togglePasswordFieldVisibility()} 
+        loginFB={this.loginFB}
       />
     )
   }
