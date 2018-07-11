@@ -1,7 +1,6 @@
 import React from 'react'
 import { StyleSheet, View, Text, Image, FlatList, TouchableOpacity, StatusBar, Dimensions } from 'react-native'
-import { Container, Button, Icon, Content, Tabs, Tab } from 'native-base'
-import SVGImage from 'react-native-svg-image'
+import { Container, Button, Content, Spinner } from 'native-base'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import PropTypes from 'prop-types'
 import Navbar from '../particles/Navbar'
@@ -45,107 +44,114 @@ const Profile = (props) => (
       backgroundColor="#f65857"
       barStyle="light-content"
     />
-    <Content>
-      <View style={styles.headerProfile}>
-        <View style={styles.subHeaderProfile}>
-          <View style={styles.flexDirectionRow}>
-            <View>
-              <Image source={{ uri: props.profile.userData.avatar_url }} style={styles.imageProfile} />
-            </View>
-            <View>
-              <View style={styles.viewNameProfile}>
-                <Text style={styles.txtNameProfile}>Hello, {props.profile.first_name}</Text>
-                <Button style={styles.btnProfile}><Text style={styles.txtBtnProfile} onPress={props.toggleModalEditProfile}>
-                  <MaterialCommunityIcons name="pencil" size={15} /> Edit Profile</Text>
-                </Button>
+    {props.stillLoading ? (
+      <View style={styles.style}>
+        <Spinner color="#d11e48"/>
+      </View>
+    ) : (
+      <Content>
+        <View style={styles.headerProfile}>
+          <View style={styles.subHeaderProfile}>
+            <View style={styles.flexDirectionRow}>
+              <View>
+                <Image source={{ uri: props.profile.userData.avatar_url }} style={styles.imageProfile} />
+              </View>
+              <View>
+                <View style={styles.viewNameProfile}>
+                  <Text style={styles.txtNameProfile}>Hello, {props.profile.first_name}</Text>
+                  <Button style={styles.btnProfile}><Text style={styles.txtBtnProfile} onPress={props.toggleModalEditProfile}>
+                    <MaterialCommunityIcons name="pencil" size={15} /> Edit Profile</Text>
+                  </Button>
+                </View>
               </View>
             </View>
           </View>
         </View>
-      </View>
-      <View style={styles.viewRecent}>
-        <Text style={styles.txtRecent}>Recent Orders</Text>
+        <View style={styles.viewRecent}>
+          <Text style={styles.txtRecent}>Recent Orders</Text>
+          <View>
+            <FlatList
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              data={props.dataRecentOrders}
+              renderItem={props.renderRecentOrders}
+              keyExtractor={(item, index) => JSON.stringify(index)}
+            />
+          </View>
+        </View>
         <View>
-          <FlatList
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            data={props.dataRecentOrders}
-            renderItem={props.renderRecentOrders}
-          />
-        </View>
-      </View>
-      <View>
-        <Text style={styles.txtMenuTitle}>Menu</Text>
-        <View style={styles.viewMenu}>
-          <View style={styles.viewBoxMenu}>
-            <TouchableOpacity onPress={props.navigateToPurchaseHistory}>
-              <View style={styles.viewSubBoxMenu}>
-                <Image source={ImagePurchaseHistory} style={styles.imageIcon} />
-                <Text style={styles.txtMenu}>Purchase History</Text>
-              </View>
-            </TouchableOpacity>
+          <Text style={styles.txtMenuTitle}>Menu</Text>
+          <View style={styles.viewMenu}>
+            <View style={styles.viewBoxMenu}>
+              <TouchableOpacity onPress={props.navigateToPurchaseHistory}>
+                <View style={styles.viewSubBoxMenu}>
+                  <Image source={ImagePurchaseHistory} style={styles.imageIcon} />
+                  <Text style={styles.txtMenu}>Purchase History</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.viewBoxMenu}>
+              <TouchableOpacity onPress={props.navigateToWhishlist}>
+                <View style={styles.viewSubBoxMenu}>
+                  <Image source={ImageWhislist} style={styles.imageIcon} />
+                  <Text style={styles.txtMenu}>Wishlist</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.viewBoxMenu}>
+              <TouchableOpacity onPress={props.navigateToLocalBank}>
+                <View style={styles.viewSubBoxMenu}>
+                  <Image source={ImageCreditCard} style={styles.imageIcon} />
+                  <Text style={styles.txtMenu}>Payment</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.viewBoxMenu}>
+              <TouchableOpacity onPress={props.navigateToReviews}>
+                <View style={styles.viewSubBoxMenu}>
+                  <Image source={ImageYourReviews} style={styles.imageIcon} />
+                  <Text style={styles.txtMenu}>Your Reviews</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
-          <View style={styles.viewBoxMenu}>
-            <TouchableOpacity onPress={props.navigateToWhishlist}>
-              <View style={styles.viewSubBoxMenu}>
-                <Image source={ImageWhislist} style={styles.imageIcon} />
-                <Text style={styles.txtMenu}>Wishlist</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.viewBoxMenu}>
-            <TouchableOpacity onPress={props.navigateToLocalBank}>
-              <View style={styles.viewSubBoxMenu}>
-                <Image source={ImageCreditCard} style={styles.imageIcon} />
-                <Text style={styles.txtMenu}>Credit Card</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.viewBoxMenu}>
-            <TouchableOpacity onPress={props.navigateToReviews}>
-              <View style={styles.viewSubBoxMenu}>
-                <Image source={ImageYourReviews} style={styles.imageIcon} />
-                <Text style={styles.txtMenu}>Your Reviews</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.viewMenu}>
-          <View style={styles.viewBoxMenu}>
-            <TouchableOpacity onPress={props.navigateToShippingAddress}>
-              <View style={styles.viewSubBoxMenu}>
-                <Image source={ImageShippingAddress} style={styles.imageIcon} />
-                <Text style={styles.txtMenu}>Shipping Address</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.viewBoxMenu}>
-            <TouchableOpacity onPress={props.navigateToReports}>
-              <View style={styles.viewSubBoxMenu}>
-                <Image source={ImageReport} style={styles.imageIcon} />
-                <Text style={styles.txtMenu}>Report</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.viewBoxMenu}>
-            <TouchableOpacity onPress={props.navigateToSettings}>
-              <View style={styles.viewSubBoxMenu}>
-                <Image source={ImageSettings} style={styles.imageIcon} />
-                <Text style={styles.txtMenu}>Settings</Text>
-              </View>
-            </TouchableOpacity>
-          </View>
-          <View style={styles.viewBoxMenu}>
-            <TouchableOpacity onPress={props.navigateToPrivacyPolicy}>
-              <View style={styles.viewSubBoxMenu}>
-                <Image source={ImagePrivacyPolicy} style={styles.imageIcon} />
-                <Text style={styles.txtMenu}>Privacy Policy</Text>
-              </View>
-            </TouchableOpacity>
+          <View style={styles.viewMenu}>
+            <View style={styles.viewBoxMenu}>
+              <TouchableOpacity onPress={props.navigateToShippingAddress}>
+                <View style={styles.viewSubBoxMenu}>
+                  <Image source={ImageShippingAddress} style={styles.imageIcon} />
+                  <Text style={styles.txtMenu}>Shipping Address</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.viewBoxMenu}>
+              <TouchableOpacity onPress={props.navigateToReports}>
+                <View style={styles.viewSubBoxMenu}>
+                  <Image source={ImageReport} style={styles.imageIcon} />
+                  <Text style={styles.txtMenu}>Report</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.viewBoxMenu}>
+              <TouchableOpacity onPress={props.navigateToSettings}>
+                <View style={styles.viewSubBoxMenu}>
+                  <Image source={ImageSettings} style={styles.imageIcon} />
+                  <Text style={styles.txtMenu}>Settings</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
+            <View style={styles.viewBoxMenu}>
+              <TouchableOpacity onPress={props.navigateToPrivacyPolicy}>
+                <View style={styles.viewSubBoxMenu}>
+                  <Image source={ImagePrivacyPolicy} style={styles.imageIcon} />
+                  <Text style={styles.txtMenu}>Privacy Policy</Text>
+                </View>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
-      </View>
-    </Content>
+      </Content>
+    )}
   </Container>
 )
 
@@ -225,6 +231,12 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingBottom: 10,
     fontSize: 16
+  },
+  style: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   }
 })
 

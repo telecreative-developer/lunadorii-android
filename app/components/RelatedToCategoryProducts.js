@@ -49,7 +49,26 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     paddingTop: 10
   },
-  yourWhisListTextTitle: {
+  scrollViewContent: {
+    paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 10,
+    padding: 10,
+    alignItems:'center'
+  },
+  row: {
+    height: 40,
+    margin: 16,
+    backgroundColor: '#D3D3D3',
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  headerStyle: {
+    backgroundColor: '#fff',
+    height: 45,
+    width: "100%",
+  },
+  navbarTitles: {
+    color: '#000',
+    fontSize: 18,
     fontWeight: 'bold',
     fontSize: 16,
     marginBottom: 10

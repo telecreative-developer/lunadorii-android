@@ -21,7 +21,7 @@ const dataRecentOrders = [
   {
     image: 'https://i5.walmartimages.ca/images/Large/1c0/_en/999999-00770103148748_a1c0_en.jpg?odnBound=460',
     categories: 'Beuty Box, Cream Sunblock, and 3 others',
-    status: 'Non - Packing',
+    status: 'Delivered',
     date: '20 Mei',
     time: '12:00 AM',
     total: 450000
@@ -29,7 +29,7 @@ const dataRecentOrders = [
   {
     image: 'https://image.afcdn.com/expertclub/20150420/279261_w300h300.jpg',
     categories: 'Beuty Box, Cream Sunblock, and 3 others',
-    status: 'Packing',
+    status: 'Checkout',
     date: '20 Mei',
     time: '12:00 AM',
     total: 750000
@@ -40,6 +40,7 @@ class ProfileContainer extends Component {
 
   state = {
     userData: {},
+    stillLoading: true,
     first_name: "",
     last_name:"",
     bod: "",
@@ -56,6 +57,7 @@ class ProfileContainer extends Component {
   async handleOpenCamera(){
     const options = await {
       storageOptions:{
+        stillLoading: true,
         cameraRoll: true,
         path: this.state.photoProfile
       }
@@ -87,9 +89,11 @@ class ProfileContainer extends Component {
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.props.fetchSingleUser(data.id, data.accessToken)
     await this.props.fetchProductHistory(data.id)
     await this.props.fetchProductRecent(data.id, data.accessToken)
+    if(this.props.fetchSingleUser(data.id, data.accessToken)){
+      this.setState({stillLoading: false})
+    }
     await this.setState({
       userData: data,
       first_name: this.props.getsingleuser.first_name,
@@ -133,6 +137,7 @@ class ProfileContainer extends Component {
         navigateToReports={() => this.props.navigation.navigate("ReportsContainer", {first_name: this.state.first_name, last_name: this.state.last_name, email: this.state.email})}
         navigateToSettings={() => this.props.navigation.navigate("SettingsContainer")}
         navigateToPrivacyPolicy={() => this.props.navigation.navigate("PrivacyPolicyContainer")}
+        stillLoading={this.state.stillLoading}
         goback={() => this.props.navigation.goBack()}
       />
     )

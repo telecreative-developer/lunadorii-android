@@ -17,33 +17,38 @@ const LocalBank = (props) => (
       barStyle="light-content"
     />
     <AddLocalBankModal
-      bankNames={props.bankNames}
       modalVisible={props.modalVisibleAddLocalBank}
-      actionIcon={props.toggleModalAddLocalBank}
       toggleModalAddLocalBank={props.toggleModalAddLocalBank}
-      selectedBank={props.selectedBank}
+      actionIcon={props.toggleModalAddLocalBank}
+
       onChangeBankName={props.onChangeBankName}
+      bankName={props.bankName}
+      dataBankName={props.dataBankName}
+      renderDataBankName={props.renderDataBankName}
+      visibleBankNamePicker={props.visibleBankNamePicker}
+
       onChangeName={props.onChangeName}
       onChangeBill={props.onChangeBill}
+      onChangePassword={props.onChangePassword}
       handleSave={props.handleSave}
     />
     <EditLocalBankModal
-      bankNames={props.bankNames}
       modalVisible={props.modalVisibleEditLocalBank}
-      actionIcon={props.toggleModalEditLocalBank}
       toggleModalEditLocalBank={props.toggleModalEditLocalBank}
-      selectedBank={props.selectedBank}
-
-      bankName={props.bankName}
-      name={props.name}
-      bill={props.bill}
-
+      actionIcon={props.toggleModalEditLocalBank}
+      
       onChangeBankName={props.onChangeBankName}
+      bankName={props.bankName}
+      dataBankName={props.dataBankName}
+      renderDataBankName={props.renderDataBankName}
+      visibleBankNamePicker={props.visibleBankNamePicker}
+
       onChangeName={props.onChangeName}
       onChangeBill={props.onChangeBill}
+      onChangePassword={props.onChangePassword}
       handleEdit={props.handleEdit}
     />
-    <Content style={styles.content}>
+    <Content>
       <View style={styles.viewBrand}>
         <Text style={styles.txtLabel}>Your Local Bank</Text>
         <FlatList
@@ -64,9 +69,6 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff'
   },
-  content: {
-    padding: 10
-  },
   txtLabel: {
     fontWeight: 'bold',
     fontSize: 16,
@@ -74,8 +76,8 @@ const styles = StyleSheet.create({
     paddingLeft: 5
   },
   viewBrand: {
-    paddingBottom: 5,
-    paddingLeft: 5
+    paddingHorizontal: 5,
+    paddingVertical: 10
   },
   btnAdd: {
     borderRadius: 5,

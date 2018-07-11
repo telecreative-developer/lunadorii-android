@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, FlatList, StatusBar, Dimensions } from 'react-native'
+import { View, Text, StyleSheet, FlatList, StatusBar, Dimensions, TouchableOpacity } from 'react-native'
 import { Container, Content, Icon, Button, Radio,  } from 'native-base'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
+import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
 const { height, width } = Dimensions.get('window')
 
 const YourCart = (props) => (
@@ -23,6 +25,10 @@ const YourCart = (props) => (
       totalPrice={props.totalPrice}
       addQty={props.addQty}
       minQty={props.minQty}
+    />
+    <WaitingForPaymentModal
+      modalVisible={props.modalVisibleCheckoutPayment}
+      actionIcon={props.toggleCheckoutPayment}
     />
     <Content>
       <View style={styles.body}>
@@ -71,6 +77,23 @@ const YourCart = (props) => (
         </View>
       </View>
     </Content>
+    <View style={styles.footer}>
+      <View style={styles.footerWrapper}>
+        <View style={styles.footerInfo}>
+          <Text style={styles.footerTotalText}>Total</Text>
+          <Text style={styles.footerTotalPriceText}>Rp 420,000</Text>
+          <Text style={styles.footerTotalInfo}>Termasuk PPN, jika berlaku.</Text>
+        </View>
+        <View style={styles.footerButton}>
+          <TouchableOpacity onPress={props.toggleCheckoutPayment}>
+            <View style={styles.footerButtonStyling}> 
+              <FontAwesome name="money" size={20} color="#fff" />
+              <Text style={styles.footerButtonTextStyling}>Go to Payment</Text>
+            </View>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
   </Container>
 )
 
@@ -160,6 +183,50 @@ const styles = StyleSheet.create({
   txtdetilkurir:{
     fontSize:12,
     marginLeft:5
+  },
+  footer: {
+    borderTopWidth: 1,
+    borderTopColor: '#f6f6f6',
+    justifyContent: 'flex-start',
+    backgroundColor: '#fff',
+    height: 75
+  },
+  footerWrapper: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  footerInfo: {
+    padding: 5
+  },
+  footerButton: {
+    justifyContent: 'center',
+    paddingRight: 10,
+    paddingTop: 5
+  },
+  footerButtonStyling: {
+    borderRadius: 5,
+    height: 40,
+    width: 130,
+    backgroundColor: '#2ecc71',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+    paddingRight: 10,
+    paddingLeft: 10
+  },
+  footerButtonTextStyling: {
+    fontWeight: 'bold',
+    color: '#fff'
+  },
+  footerTotalText: {
+    fontSize: 16
+  },
+  footerTotalPriceText: {
+    fontSize: 18,
+    fontWeight: 'bold'
+  },
+  footerTotalInfo: {
+    fontSize: 16
   }
 })
 

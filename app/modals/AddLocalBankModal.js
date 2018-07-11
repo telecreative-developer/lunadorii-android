@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, Dimensions, ScrollView, Picker } from 'react-native'
-import { Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
+import { Modal, View, Text, StyleSheet, Dimensions, FlatList } from 'react-native'
+import { Content, Item, Input, Label, Button, Form } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 const { height, width } = Dimensions.get('window')
 
@@ -18,7 +18,17 @@ const AddLocalBankModal = (props) => (
     <Content style={styles.container}>
       <Form style={styles.form}>
         <Label style={styles.labels}>Bank Name</Label>
-          <Input placeholder={props.name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeName} />
+        <Item regular style={styles.items}>
+          <Input placeholder={props.bankName} value={props.bankName} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeBankName} />
+        </Item>
+        {props.bankName && props.visibleBankNamePicker ? (
+          <FlatList
+            data={props.dataBankName}
+            renderItem={props.renderDataBankName}
+          />
+        ) : (
+          <View backgroundColor="transparent"/>
+        )}
         <Label style={styles.labels}>Name</Label>
         <Item regular style={styles.items}>
           <Input placeholder={props.name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeName} />
@@ -26,6 +36,10 @@ const AddLocalBankModal = (props) => (
         <Label style={styles.labels}>Bill</Label>
         <Item regular style={styles.items}>
           <Input placeholder={props.bill} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeBill} />
+        </Item>
+        <Label style={styles.labels}>Password</Label>
+        <Item regular style={styles.items}>
+          <Input placeholder={props.password} placeholderTextColor="#CDCDCD" value={props.password} onChangeText={props.onChangePassword} secureTextEntry/>
         </Item>
       </Form>
     </Content>

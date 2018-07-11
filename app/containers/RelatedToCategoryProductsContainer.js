@@ -8,7 +8,8 @@ class RelatedToCategoryProductsContainer extends Component{
 
   async componentDidMount(){
     const data = this.props.navigation.state.params.data
-    await this.props.fetchProductWithCategory(data.product_subcategory_id)
+    this.props.fetchProductWithCategory(data.product_subcategory_id)
+    console.log('data :', data.product_subcategory_id)
   }
 
   render(){
@@ -26,7 +27,7 @@ class RelatedToCategoryProductsContainer extends Component{
             ratings={item.product_rate}
           />
         )}
-        image={this.props.navigation.state.params.image}
+        image={this.props.navigation.state.params.data.thumbnail_url}
         goback={() => this.props.navigation.goBack()}
       />
     )

@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Image, Text } from 'react-native'
+import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
 
 const RecentOrders = (props) => (
   <View style={styles.viewBox}>
@@ -15,9 +15,13 @@ const RecentOrders = (props) => (
       </View>
     </View>
     <View style={styles.viewFooter}>
-      <View>
-        <Text><Text style={styles.txtBold}>{props.status}</Text></Text>
+      <View style={{flexDirection: 'row'}}>
+        <Text>Status: {props.status}</Text>
+        <TouchableOpacity onPress={() => alert('Alert')}>
+          <Text style={{fontWeight: 'bold', color: '#d11e47' }}>{props.status}</Text>
+        </TouchableOpacity>
       </View>
+
       <View>
         <Text>Total : <Text style={styles.txtBold}>Rp. {props.total}</Text></Text>
       </View>
@@ -44,9 +48,6 @@ const styles = StyleSheet.create({
   },
   viewFlex7: {
     flex: 0.7
-  },
-  txtBold: {
-    fontWeight: 'bold'
   },
   txtTitle: {
     fontWeight: 'bold',
