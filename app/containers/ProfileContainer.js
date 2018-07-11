@@ -3,6 +3,7 @@ import { AsyncStorage } from 'react-native'
 import Profile from '../components/Profile'
 import RecentOrders from '../particles/RecentOrders'
 import ImagePicker from 'react-native-image-picker'
+import moment from 'moment'
 import {connect} from 'react-redux'
 import { fetchSingleUser } from '../actions/getSingleUser'
 import { editName } from '../actions/editprofile'
@@ -99,17 +100,17 @@ class ProfileContainer extends Component {
   }
 
   render() {
+    console.log(this.props.productrecent)
     return (
       <Profile
         dataRecentOrders={this.props.productrecent}
         renderRecentOrders={({ item, key }) => (
           <RecentOrders
-            image={item.thumbnails[0].thumbnail_url}
-            categories={item.subcategories[0].subcategory}
-            status={"checkout"}
-            total={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            date={item.created_at}
-            time={item.updated_at} />
+            image={item.image}
+            categories={item.category}
+            status={item.status}
+            total={item.harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            date={moment(item.Tanggal).calendar()}/>
         )}
 
         photoProfile={this.state.photoProfile}
