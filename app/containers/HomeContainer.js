@@ -103,15 +103,20 @@ class HomeContainer extends Component {
 
   renderBanners(banner, index) {
     return (
+      {this.props.banner.type === 'web' ? 
+      <TouchableOpacity key={index} style={styles.banner} onPress={() => alert('HAHA')}>
+        <Image style={styles.bannerImage} source={{ uri: banner.thumbnail_url }} />
+      </TouchableOpacity>:
       <TouchableOpacity key={index} style={styles.banner} onPress={() => this.props.navigation.navigate("RelatedToBannerProductsContainer", {image: banner.thumbnail_url})}>
         <Image style={styles.bannerImage} source={{ uri: banner.thumbnail_url }} />
       </TouchableOpacity>
+      }
     )
   }
 
   render() {
     const { banners } = this.props
-    console.log(this.props.categoryproduct)
+    console.log(banners)
     return (
       <Home
         stillLoading={this.state.stillLoading}

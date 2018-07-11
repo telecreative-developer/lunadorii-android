@@ -89,7 +89,7 @@ class ProfileContainer extends Component {
     const data = await JSON.parse(session)
     await this.props.fetchSingleUser(data.id, data.accessToken)
     await this.props.fetchProductHistory(data.id)
-    await this.props.fetchProductRecent(data.id)
+    await this.props.fetchProductRecent(data.id, data.accessToken)
     await this.setState({
       userData: data,
       first_name: this.props.getsingleuser.first_name,
@@ -100,17 +100,17 @@ class ProfileContainer extends Component {
   }
 
   render() {
-    console.log(this.props.productrecent)
+    console.log('jaoncok' ,this.props.productrecent)
     return (
       <Profile
         dataRecentOrders={this.props.productrecent}
         renderRecentOrders={({ item, key }) => (
           <RecentOrders
-            image={item.image}
-            categories={item.category}
-            status={item.status}
-            total={item.harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            date={moment(item.Tanggal).calendar()}/>
+            image={item.list[0].thumbnails[0].thumbnail_url}
+            billing_code={item.billing_code}
+            status={item.order_status}
+            total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            date={moment(item.created_at).calendar()}/>
         )}
 
         photoProfile={this.state.photoProfile}
@@ -142,7 +142,7 @@ class ProfileContainer extends Component {
 const mapDispatchToProps = (dispatch) =>{
   return{
     fetchSingleUser: (id, accessToken) => dispatch(fetchSingleUser(id, accessToken)),
-    fetchProductRecent: (id) => dispatch(fetchProductRecent(id)),
+    fetchProductRecent: (id, accessToken) => dispatch(fetchProductRecent(id, accessToken)),
     fetchProductHistory: (id) => dispatch(fetchProductHistory(id)),
     editName: (id, firstName, lastName, bod, accessToken) => dispatch(editName(id, firstName, lastName, bod, accessToken))
   }

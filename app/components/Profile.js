@@ -71,7 +71,6 @@ const Profile = (props) => (
             showsHorizontalScrollIndicator={false}
             data={props.dataRecentOrders}
             renderItem={props.renderRecentOrders}
-            keyExtractor={(item, index) => JSON.stringify(index)}
           />
         </View>
       </View>
