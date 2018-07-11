@@ -2,6 +2,9 @@ import React, { Component } from 'react'
 import PurchaseHistory from '../components/PurchaseHistory'
 import RecentOrders from '../particles/RecentOrders'
 import HistoryOrders from '../particles/HistoryOrders'
+import {connect} from 'react-redux'
+import PropTypes from 'prop-types'
+
 
 const dataRecentOrders = [
   {
@@ -73,7 +76,7 @@ const dataHistoryOrders = [
   }
 ]
 
-export default class PurchaseHistoryContainer extends Component{
+class PurchaseHistoryContainer extends Component{
 
   state = {
     modalVisibleEditQuantity : false
@@ -83,27 +86,47 @@ export default class PurchaseHistoryContainer extends Component{
     return(
       <PurchaseHistory
         goback={() => this.props.navigation.goBack()}
-        dataRecentOrders={dataRecentOrders}
+        dataRecentOrders={this.props.productrecent}
         renderRecentOrders={({item}) => (
           <RecentOrders 
-            categories={item.categories}
-            status={item.status}
-            total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            date={item.date}
-            time={item.time}
-            image={item.image}/>
+            categories={item.subcategories[0].subcategory}
+            status={"checkout"}
+            total={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            date={item.created_at}
+            time={item.updated_at}
+            image={item.thumbnails[0].thumbnail_url}/>
         )}
-        dataHistoryOrders={dataHistoryOrders}
+        dataHistoryOrders={this.props.producthistory}
         renderHistoryOrders={({item}) => (
           <HistoryOrders
-            categories={item.categories}
-            status={item.status}
-            total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            date={item.date}
-            time={item.time}
-            image={item.image}/>
+            categories={item.subcategories[0].subcategory}
+            status={"checkout"}
+            total={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            date={item.created_at}
+            time={item.updated_at}
+            image={item.thumbnails[0].thumbnail_url} />
         )}
       />
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    
+  }
+}
+
+const mapStateToProps = (state) => {
+  return{
+    loading: state.loading,
+    success: state.success,
+    failed: state.failed,
+    getsingleuser: state.getsingleuser,
+    editname: state.editname,
+    productrecent: state.productrecent,
+    producthistory: state.producthistory
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(PurchaseHistoryContainer)

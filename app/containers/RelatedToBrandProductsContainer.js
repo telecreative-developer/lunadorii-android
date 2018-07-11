@@ -1,25 +1,30 @@
 import React, { Component } from 'react'
 import RelatedToBrandProducts from '../components/RelatedToBrandProducts'
 import Product from '../particles/Product'
+import { connect } from 'react-redux'
+import { fetchProductWithBrand } from '../actions/product'
 
-export default class RelatedToBrandProductsContainer extends Component{
+class RelatedToBrandProductsContainer extends Component{
+
+  async componentDidMount(){
+    console.log('datttaaaaa ::::' , this.props.navigation.state.params.data.brand)
+    const data = this.props.navigation.state.params.data
+    await this.props.fetchProductWithBrand(data.product_brand_id)
+  }
+
   render(){
+    console.log('dattaa :' , this.props.receiveProductWithBrand)
     return(
       <RelatedToBrandProducts
-        dataProduct={[
-          {image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", title: "Hello World", price: 20900, categories: "Komok", star: 4},
-          {image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", title: "Hello World", price: 20900, categories: "Komok", star: 4},
-          {image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", title: "Hello World", price: 20900, categories: "Komok", star: 4},
-          {image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", title: "Hello World", price: 20900, categories: "Komok", star: 4},
-          {image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", title: "Hello World", price: 20900, categories: "Komok", star: 4}
-        ]}
+        name={this.props.navigation.state.params.data.brand}
+        dataProduct={this.props.receiveProductWithBrand}
         renderProduct={({item}) => (
           <Product
-            image={item.image}
-            title={item.title}
-            categories={item.categories}
+            image={item.thumbnails[0].thumbnail_url}
+            title={item.product}
+            categories={item.subcategories[0].subcategory}
             price={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            ratings={item.ratings}
+            ratings={item.product_rate}
           />
         )}
         image={this.props.navigation.state.params.image}
@@ -28,3 +33,17 @@ export default class RelatedToBrandProductsContainer extends Component{
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    fetchProductWithBrand: (product_brand_id) => dispatch(fetchProductWithBrand(product_brand_id)),
+  }
+}
+
+const mapStateToProps = (state) => {
+  return{
+    receiveProductWithBrand: state.receiveProductWithBrand
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RelatedToBrandProductsContainer)

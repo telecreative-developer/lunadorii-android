@@ -3,9 +3,11 @@ import { AsyncStorage } from 'react-native'
 import Profile from '../components/Profile'
 import RecentOrders from '../particles/RecentOrders'
 import ImagePicker from 'react-native-image-picker'
+import moment from 'moment'
 import {connect} from 'react-redux'
 import { fetchSingleUser } from '../actions/getSingleUser'
 import { editName } from '../actions/editprofile'
+import { fetchProductRecent, fetchProductHistory } from '../actions/product'
 
 const dataRecentOrders = [
   {
@@ -42,6 +44,7 @@ class ProfileContainer extends Component {
     first_name: "",
     last_name:"",
     bod: "",
+    email: "",
     photoProfile: '',
     modalVisibleEditProfile: false,
     imageProfile: 'https://avatars0.githubusercontent.com/u/38149346?s=400&u=7db8195dd7b4436cbf6d0575915ca6b198d116cc&v=4',
@@ -86,6 +89,8 @@ class ProfileContainer extends Component {
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    await this.props.fetchProductHistory(data.id)
+    await this.props.fetchProductRecent(data.id, data.accessToken)
     if(this.props.fetchSingleUser(data.id, data.accessToken)){
       this.setState({stillLoading: false})
     }
@@ -93,19 +98,21 @@ class ProfileContainer extends Component {
       userData: data,
       first_name: this.props.getsingleuser.first_name,
       last_name : this.props.getsingleuser.last_name,
-      bod: this.props.getsingleuser.bod
+      bod: this.props.getsingleuser.bod,
+      email: this.props.getsingleuser.email
     })
   }
 
   render() {
+    console.log('jaoncok' ,this.props.productrecent)
     return (
       <Profile
-        dataRecentOrders={dataRecentOrders}
+        dataRecentOrders={this.props.productrecent}
         renderRecentOrders={({ item, key }) => (
           <RecentOrders
-            image={item.image}
-            categories={item.categories}
-            status={item.status}
+            image={item.list[0].thumbnails[0].thumbnail_url}
+            billing_code={item.billing_code}
+            status={item.order_status}
             total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             date={item.date}
             time={item.time} 
@@ -130,7 +137,7 @@ class ProfileContainer extends Component {
         navigateToLocalBank={() => this.props.navigation.navigate("LocalBankContainer")}
         navigateToReviews={() => this.props.navigation.navigate("ReviewsContainer")}
         navigateToShippingAddress={() => this.props.navigation.navigate("YourShippingAddressContainer")}
-        navigateToReports={() => this.props.navigation.navigate("ReportsContainer")}
+        navigateToReports={() => this.props.navigation.navigate("ReportsContainer", {first_name: this.state.first_name, last_name: this.state.last_name, email: this.state.email})}
         navigateToSettings={() => this.props.navigation.navigate("SettingsContainer")}
         navigateToPrivacyPolicy={() => this.props.navigation.navigate("PrivacyPolicyContainer")}
         stillLoading={this.state.stillLoading}
@@ -143,6 +150,8 @@ class ProfileContainer extends Component {
 const mapDispatchToProps = (dispatch) =>{
   return{
     fetchSingleUser: (id, accessToken) => dispatch(fetchSingleUser(id, accessToken)),
+    fetchProductRecent: (id, accessToken) => dispatch(fetchProductRecent(id, accessToken)),
+    fetchProductHistory: (id) => dispatch(fetchProductHistory(id)),
     editName: (id, firstName, lastName, bod, accessToken) => dispatch(editName(id, firstName, lastName, bod, accessToken))
   }
 }
@@ -153,7 +162,9 @@ const mapStateToProps = (state) => {
     success: state.success,
     failed: state.failed,
     getsingleuser: state.getsingleuser,
-    editname: state.editname
+    editname: state.editname,
+    productrecent: state.productrecent,
+    producthistory: state.producthistory
   }
 }
 

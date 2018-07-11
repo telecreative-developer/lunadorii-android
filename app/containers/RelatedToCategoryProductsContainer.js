@@ -15,14 +15,16 @@ class RelatedToCategoryProductsContainer extends Component{
   render(){
     return(
       <RelatedToCategoryProducts
+        
+        name={this.props.navigation.state.params.data.subcategory}
         dataProduct={this.props.receiveProductWithCategory}
         renderProduct={({item}) => (
           <Product
-            image={item.image}
-            title={item.title}
-            categories={item.categories}
+            image={item.thumbnails[0].thumbnail_url}
+            title={item.product}
+            categories={item.subcategories[0].subcategory}
             price={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            ratings={item.ratings}
+            ratings={item.product_rate}
           />
         )}
         image={this.props.navigation.state.params.data.thumbnail_url}
