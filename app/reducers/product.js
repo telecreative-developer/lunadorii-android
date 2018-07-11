@@ -9,7 +9,8 @@ import {
 		RECEIVE_RELATED_PRODUCT,
 		RECEIVE_SINGLE_RELATED_PRODUCT,
 		RECEIVE_PRODUCT_WITH_CATEGORY,
-		RECEIVE_PRODUCT_WITH_BRAND
+		RECEIVE_PRODUCT_WITH_BRAND,
+		RECEIVE_PRODUCT_WITH_BANNER
 	} from '../constants'
 
 export const product = (state = [], action) => {
@@ -95,6 +96,15 @@ export const receiveProductWithCategory = (state = [], action ) => {
 export const receiveProductWithBrand = ( state = [], action ) => {
 	switch (action.type) {
 		case RECEIVE_PRODUCT_WITH_BRAND:
+			return action.payload
+		default:
+			return state
+	}
+}
+
+export const receiveProductWithBanner = (state = [], action ) => {
+	switch (action.type) {
+		case RECEIVE_PRODUCT_WITH_BANNER:
 			return action.payload
 		default:
 			return state
