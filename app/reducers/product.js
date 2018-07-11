@@ -1,6 +1,8 @@
 import { 
 		RECEIVE_PRODUCT,
-		RECEIVE_PRODUCT_BEST_SELLER, 
+		RECEIVE_PRODUCT_BEST_SELLER,
+		RECEIVE_PRODUCT_RECENT,
+		RECEIVE_PRODUCT_HISTORY, 
 		RECEIVE_SEARCH_PRODUCT, 
 		RECEIVE_PRODUCT_WITHOUT_ID,
 		RECEIVE_SINGLE_PRODUCT_WITH_ID,
@@ -21,6 +23,23 @@ export const product = (state = [], action) => {
 export const productbestseller = (state = [], action) => {
 	switch (action.type) {
 		case RECEIVE_PRODUCT_BEST_SELLER:
+			return action.payload
+		default:
+			return state
+	}
+}
+
+export const productrecent = (state = [], action) => {
+	switch (action.type) {
+		case RECEIVE_PRODUCT_RECENT:
+			return action.payload
+		default:
+			return state
+	}
+}
+export const producthistory = (state = [], action) => {
+	switch (action.type) {
+		case RECEIVE_PRODUCT_HISTORY:
 			return action.payload
 		default:
 			return state

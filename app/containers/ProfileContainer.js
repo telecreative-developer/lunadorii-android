@@ -6,6 +6,7 @@ import ImagePicker from 'react-native-image-picker'
 import {connect} from 'react-redux'
 import { fetchSingleUser } from '../actions/getSingleUser'
 import { editName } from '../actions/editprofile'
+import { fetchProductRecent, fetchProductHistory } from '../actions/product'
 
 const dataRecentOrders = [
   {
@@ -86,6 +87,8 @@ class ProfileContainer extends Component {
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchSingleUser(data.id, data.accessToken)
+    await this.props.fetchProductHistory(data.id)
+    await this.props.fetchProductRecent(data.id)
     await this.setState({
       userData: data,
       first_name: this.props.getsingleuser.first_name,
@@ -98,15 +101,15 @@ class ProfileContainer extends Component {
   render() {
     return (
       <Profile
-        dataRecentOrders={dataRecentOrders}
+        dataRecentOrders={this.props.productrecent}
         renderRecentOrders={({ item, key }) => (
           <RecentOrders
-            image={item.image}
-            categories={item.categories}
-            status={item.status}
-            total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            date={item.date}
-            time={item.time} />
+            image={item.thumbnails[0].thumbnail_url}
+            categories={item.subcategories[0].subcategory}
+            status={"checkout"}
+            total={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            date={item.created_at}
+            time={item.updated_at} />
         )}
 
         photoProfile={this.state.photoProfile}
@@ -138,6 +141,8 @@ class ProfileContainer extends Component {
 const mapDispatchToProps = (dispatch) =>{
   return{
     fetchSingleUser: (id, accessToken) => dispatch(fetchSingleUser(id, accessToken)),
+    fetchProductRecent: (id) => dispatch(fetchProductRecent(id)),
+    fetchProductHistory: (id) => dispatch(fetchProductHistory(id)),
     editName: (id, firstName, lastName, bod, accessToken) => dispatch(editName(id, firstName, lastName, bod, accessToken))
   }
 }
@@ -148,7 +153,9 @@ const mapStateToProps = (state) => {
     success: state.success,
     failed: state.failed,
     getsingleuser: state.getsingleuser,
-    editname: state.editname
+    editname: state.editname,
+    productrecent: state.productrecent,
+    producthistory: state.producthistory
   }
 }
 
