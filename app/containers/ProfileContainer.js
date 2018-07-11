@@ -89,7 +89,7 @@ class ProfileContainer extends Component {
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.props.fetchProductHistory(data.id)
+    await this.props.fetchProductHistory(data.id, data.accessToken)
     await this.props.fetchProductRecent(data.id, data.accessToken)
     if(this.props.fetchSingleUser(data.id, data.accessToken)){
       this.setState({stillLoading: false})
@@ -151,7 +151,7 @@ const mapDispatchToProps = (dispatch) =>{
   return{
     fetchSingleUser: (id, accessToken) => dispatch(fetchSingleUser(id, accessToken)),
     fetchProductRecent: (id, accessToken) => dispatch(fetchProductRecent(id, accessToken)),
-    fetchProductHistory: (id) => dispatch(fetchProductHistory(id)),
+    fetchProductHistory: (id, accessToken) => dispatch(fetchProductHistory(id, accessToken)),
     editName: (id, firstName, lastName, bod, accessToken) => dispatch(editName(id, firstName, lastName, bod, accessToken))
   }
 }

@@ -35,6 +35,7 @@ const RelatedToBrandProducts = (props) => (
           renderItem={props.renderProduct}
           keyExtractor={(item, index) => JSON.stringify(index)}
         />
+        
       </View>
     </Content>
   </Container>

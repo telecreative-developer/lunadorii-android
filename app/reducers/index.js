@@ -18,7 +18,7 @@ import { getResultReport } from "./report"
 import { cartuser } from "./cart"
 import { usershipping, province } from "./usershipping"
 import { registerresult } from "./registerresult"
-import { userbank } from "./bank"
+import { userbank, bank, manipulatebank } from "./bank"
 
 const rootReducers = combineReducers({
   loading,
@@ -45,6 +45,8 @@ const rootReducers = combineReducers({
   usershipping,
   registerresult,
   userbank,
+  bank,
+  manipulatebank,
   receiveSingleProductWithId,
   relatedProduct,
   singleRelatedProdct,

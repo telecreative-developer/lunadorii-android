@@ -111,7 +111,7 @@ export const fetchProductRecent = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_RECENT'))
 		try {
-			const response = await fetch(`${API_SERVER}/order/history/${id}`, {
+			const response = await fetch(`${API_SERVER}/order/recent/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
@@ -120,7 +120,6 @@ export const fetchProductRecent = (id, accessToken) => {
 				}
 			})
 			const data = await response.json()
-			console.log('konvtol:', data)
 			await dispatch(receiveProductRecent(data.data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT_RECENT'))
       await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_RECENT'))
@@ -139,15 +138,16 @@ const receiveProductRecent = data => {
 }
 
 //  <---- FETCH PRODUCT HISTORY ----> //
-export const fetchProductHistory = (id) => {
+export const fetchProductHistory = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT'))
 		try {
-			const response = await fetch(`${API_SERVER}/products/new-arrivals?id=${id}`, {
+			const response = await fetch(`${API_SERVER}/order/history/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
 					'Content-Type': 'application/json',
+					Authorization: accessToken
 				}
 			})
 			const data = await response.json()
