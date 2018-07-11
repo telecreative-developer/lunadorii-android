@@ -55,16 +55,6 @@ export const searchproduct = (state = [], action) => {
 	}
 }
 
-export const receiveProductWithoutId = ( state = [], action) => {
-	console.log('data jancok :', action.payload)
-	switch (action.type) {
-		case RECEIVE_PRODUCT_WITHOUT_ID:
-			return action.payload
-		default:
-			return state
-	}
-}
-
 export const receiveSingleProductWithId = ( state = [] , action ) => {
 	switch (action.type) {
 		case RECEIVE_SINGLE_PRODUCT_WITH_ID:

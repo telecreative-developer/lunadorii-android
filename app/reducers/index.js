@@ -48,7 +48,6 @@ const rootReducers = combineReducers({
   relatedProduct,
   singleRelatedProdct,
   province,
-  receiveProductWithoutId,
   receiveProductWithCategory,
 //   sessionPersistance
 });

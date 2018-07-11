@@ -27,19 +27,6 @@ export default class RelatedToCategoryProducts extends Component {
     };
   }
 
-  _renderScrollViewContent(data, renderItem) {
-    // const data = Array.from({ length: 30 });
-    return (
-      <View style={styles.scrollViewContent}>
-        <FlatList
-          numColumns={2}
-          data={data}
-          renderItem={renderItem}
-        />
-      </View>
-    );
-  }
-
   render() {
     // Because of content inset the scroll value will be negative on iOS so bring
     // it back to 0.
@@ -109,7 +96,13 @@ export default class RelatedToCategoryProducts extends Component {
             y: -HEADER_MAX_HEIGHT,
           }}
         >
-          {this._renderScrollViewContent(this.props.dataProduct, this.props.renderProduct)}
+          <View style={styles.scrollViewContent}>
+            <FlatList
+              numColumns={2}
+              data={this.props.dataProduct}
+              renderItem={this.props.renderProduct}
+            />
+          </View>
         </Animated.ScrollView>
         <Animated.View
           pointerEvents="none"

@@ -110,7 +110,7 @@ export const fetchProductRecent = (id) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_RECENT'))
 		try {
-			const response = await fetch(`${API_SERVER}/products/new-arrivals?id=${id}`, {
+			const response = await fetch(`https://api.backendless.com/F516E126-9D7D-8AB8-FFE8-6B20CAC17000/1E945276-30A8-7AAD-FFB7-2EF8CD024200/data/recent_order`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
@@ -118,7 +118,8 @@ export const fetchProductRecent = (id) => {
 				}
 			})
 			const data = await response.json()
-			await dispatch(receiveProductRecent(data.data))
+			console.log('action recent ', data)
+			await dispatch(receiveProductRecent(data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT_RECENT'))
       		await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_RECENT'))
 		} catch (e) {

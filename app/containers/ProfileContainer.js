@@ -3,9 +3,9 @@ import { AsyncStorage } from 'react-native'
 import Profile from '../components/Profile'
 import RecentOrders from '../particles/RecentOrders'
 import ImagePicker from 'react-native-image-picker'
+import moment from 'moment'
 import {connect} from 'react-redux'
 import { fetchSingleUser } from '../actions/getSingleUser'
-import { fetchProductWithoutId } from '../actions/product'
 import { editName } from '../actions/editprofile'
 import { fetchProductRecent, fetchProductHistory } from '../actions/product'
 
@@ -87,7 +87,6 @@ class ProfileContainer extends Component {
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.props.fetchProductWithoutId()
     await this.props.fetchSingleUser(data.id, data.accessToken)
     await this.props.fetchProductHistory(data.id)
     await this.props.fetchProductRecent(data.id)
@@ -101,18 +100,17 @@ class ProfileContainer extends Component {
   }
 
   render() {
-    {console.log('isiiiiii ::::', this.props.receiveProductWithoutId)}
+    console.log(this.props.productrecent)
     return (
       <Profile
         dataRecentOrders={this.props.productrecent}
         renderRecentOrders={({ item, key }) => (
           <RecentOrders
-            image={item.thumbnails[0].thumbnail_url}
-            categories={item.subcategories[0].subcategory}
-            status={"checkout"}
-            total={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            date={item.created_at}
-            time={item.updated_at} />
+            image={item.image}
+            categories={item.category}
+            status={item.status}
+            total={item.harga.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            date={moment(item.Tanggal).calendar()}/>
         )}
 
         photoProfile={this.state.photoProfile}
