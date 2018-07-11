@@ -131,7 +131,7 @@ class HomeContainer extends Component {
         renderBrand={({ item }) => (
           <Brand 
             image={item.logo_url} 
-            action={() => this.props.navigation.navigate("RelatedToBrandProductsContainer", {image: item.logo_url})}
+            action={() => this.props.navigation.navigate("RelatedToBrandProductsContainer", {data: item})}
           />
         )}
 
