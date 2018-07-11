@@ -99,7 +99,7 @@ const Profile = (props) => (
               </TouchableOpacity>
             </View>
             <View style={styles.viewBoxMenu}>
-              <TouchableOpacity onPress={props.navigateToLocalBank}>
+              <TouchableOpacity onPress={props.navigateToPayment}>
                 <View style={styles.viewSubBoxMenu}>
                   <Image source={ImageCreditCard} style={styles.imageIcon} />
                   <Text style={styles.txtMenu}>Payment</Text>
