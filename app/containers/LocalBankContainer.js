@@ -4,7 +4,7 @@ import LocalBank from '../components/LocalBank'
 import LocalBanks from '../particles/LocalBanks'
 
 import { connect } from 'react-redux'
-import { fetchUserBank } from '../actions/bank'
+import { fetchUserBank, fetchDataBank } from '../actions/bank'
 import CreditCardIsEmpty from '../components/CreditCardIsEmpty'
 
 dataLocalBank=[
@@ -25,7 +25,7 @@ class LocalBankContainer extends Component{
       'Mandiri'
     ],
 
-    user_bank_id: 0,
+    userBankId: 0,
     bankName: '',
     name: '',
     bill: '',
@@ -42,6 +42,8 @@ class LocalBankContainer extends Component{
     }else{
       await this.setState({isEmpty: true})
     }
+    
+    this.props.fetchDataBank()
   }
 
   toggleModalAddLocalBank(){
@@ -56,14 +58,14 @@ class LocalBankContainer extends Component{
     await this.closeModal()
     if(this.state.modalVisibleEditLocalBank){
       await this.setState({
-        user_bank_id: item.user_bank_id,
+        userBankId: item.userBankId,
         bankName: item.bank.name,
         name: item.account_name,
         bill: item.account_number,
       }) 
     }else{
       await this.setState({
-        user_bank_id: 0,
+        userBankId: 0,
         bankName: '',
         name: '',
         bill: '',
@@ -88,14 +90,14 @@ class LocalBankContainer extends Component{
           modalVisibleEditLocalBank={this.state.modalVisibleEditLocalBank}
           toggleModalEditLocalBank={() => this.toggleModalEditLocalBank()}
   
-          onChangeBankName={(bankName)=>this.setState({bankName})}
+          onChangeBankName={(userBankId)=>this.setState({userBankId})}
           onChangeName={(name)=>this.setState({name})}
           onChangeBill={(bill)=>this.setState({bill})}
   
           bankNames={this.state.banks}
           selectedBank={this.state.bankName}
   
-          user_bank_id={this.state.user_bank_id}
+          userBankId={this.state.userBankId}
           bankName={this.state.bankName}
           name={this.state.name}
           bill={this.state.bill}
@@ -122,8 +124,8 @@ class LocalBankContainer extends Component{
 const mapDispatchToProps = (dispatch) =>{
   return{
 
-    fetchUserBank: (id, accessToken) => dispatch(fetchUserBank(id, accessToken))
-    
+    fetchUserBank: (id, accessToken) => dispatch(fetchUserBank(id, accessToken)),
+    fetchDataBank: () => dispatch(fetchDataBank())
   }
 }
 
@@ -132,7 +134,8 @@ const mapStateToProps = (state) => {
     loading: state.loading,
     success: state.success,
     failed: state.failed,
-    userbank: state.userbank
+    userbank: state.userbank,
+    bank: state.bank
   }
 }
 
