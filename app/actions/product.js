@@ -110,7 +110,7 @@ export const fetchProductRecent = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_RECENT'))
 		try {
-			const response = await fetch(`${API_SERVER}/order/history/${id}`, {
+			const response = await fetch(`${API_SERVER}/order/recent/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
@@ -119,7 +119,6 @@ export const fetchProductRecent = (id, accessToken) => {
 				}
 			})
 			const data = await response.json()
-			console.log('konvtol:', data)
 			await dispatch(receiveProductRecent(data.data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT_RECENT'))
       await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_RECENT'))
@@ -138,19 +137,20 @@ const receiveProductRecent = data => {
 }
 
 //  <---- FETCH PRODUCT HISTORY ----> //
-export const fetchProductHistory = (id) => {
+export const fetchProductHistory = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT'))
 		try {
-			const response = await fetch(`https://api.backendless.com/F516E126-9D7D-8AB8-FFE8-6B20CAC17000/1E945276-30A8-7AAD-FFB7-2EF8CD024200/data/recent_order`, {
+			const response = await fetch(`${API_SERVER}/order/history/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
 					'Content-Type': 'application/json',
+					Authorization: accessToken
 				}
 			})
 			const data = await response.json()
-			await dispatch(receiveProductHistory(data))
+			await dispatch(receiveProductHistory(data.data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT'))
       		await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT'))
 		} catch (e) {

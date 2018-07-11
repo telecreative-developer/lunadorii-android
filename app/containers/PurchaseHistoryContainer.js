@@ -90,22 +90,20 @@ class PurchaseHistoryContainer extends Component{
         dataRecentOrders={this.props.productrecent}
         renderRecentOrders={({item}) => (
           <RecentOrders 
-            categories={item.subcategories[0].subcategory}
-            status={"checkout"}
-            total={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            date={item.created_at}
-            time={item.updated_at}
-            image={item.thumbnails[0].thumbnail_url}/>
+            image={item.list[0].thumbnails[0].thumbnail_url}
+            billing_code={item.billing_code}
+            status={item.order_status}
+            total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            date={moment(item.created_at).calendar()}/>
         )}
         dataHistoryOrders={this.props.producthistory}
         renderHistoryOrders={({item}) => (
           <HistoryOrders
-            categories={item.subcategories[0].subcategory}
-            status={"checkout"}
-            total={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            date={item.created_at}
-            time={item.updated_at}
-            image={item.thumbnails[0].thumbnail_url} />
+            image={item.list[0].thumbnails[0].thumbnail_url}
+            billing_code={item.billing_code}
+            status={item.order_status}
+            total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            date={moment(item.created_at).calendar()} />
         )}
       />
     )

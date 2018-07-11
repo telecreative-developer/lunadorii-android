@@ -36,50 +36,7 @@ const RelatedToBrandProducts = (props) => (
           renderItem={props.renderProduct}
           keyExtractor={(item, index) => JSON.stringify(index)}
         />
-        {/* <Animated.ScrollView
-          style={styles.fill}
-          scrollEventThrottle={1}
-          onScroll={Animated.event(
-            [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
-            { useNativeDriver: true },
-          )}
-        >
-          {this._renderScrollViewContent(this.props.dataProduct, this.props.renderProduct)}
-        </Animated.ScrollView>
-        <Animated.View
-          pointerEvents="none"
-          style={[
-            styles.header,
-            { transform: [{ translateY: headerTranslate }] },
-          ]}
-        >
-          <Animated.Image
-            style={[
-              styles.backgroundImage,
-              {
-                opacity: imageOpacity,
-                transform: [{ translateY: imageTranslate }],
-              },
-            ]}
-            source={{uri: this.props.image}}
-          />
-        </Animated.View>
-        <Animated.View
-          style={[
-            styles.bar,
-            {
-              transform: [
-                { scale: titleScale },
-                { translateY: titleTranslate },
-              ],
-            },
-          ]}
-        >
-          <View style={{flexDirection: 'row'}}>
-            <Icon name='arrow-back' style={{paddingHorizontal: 10,paddingVertical: 10}} onPress={this.props.goback}/>
-            {/* <Text style={{fontSize: 18, fontWeight: 'bold',paddingHorizontal: 20,paddingVertical: 13}}>Related to brand</Text> */}
-          {/* </View> */}
-        {/* </Animated.View> */} */}
+        
       </View>
     </Content>
   </Container>
