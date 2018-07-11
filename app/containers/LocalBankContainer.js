@@ -5,7 +5,7 @@ import LocalBanks from '../particles/LocalBanks'
 import Picker from '../particles/Picker'
 
 import { connect } from 'react-redux'
-import { fetchUserBank, fetchDataBank } from '../actions/bank'
+import { fetchUserBank, fetchDataBank, addUserBank } from '../actions/bank'
 import CreditCardIsEmpty from '../components/CreditCardIsEmpty'
 
 dataLocalBank=[
@@ -20,12 +20,14 @@ class LocalBankContainer extends Component{
     isEmpty:false,
     visibleBankNamePicker:false,
     user_bank_id: 0,
+    bank_id:0,
     bankName: '',
     name: '',
     bill: '',
     password: '',
     modalVisibleAddLocalBank: false,
     modalVisibleEditLocalBank: false,
+    buttonSave: false
   }
 
   async componentDidMount(){
@@ -39,6 +41,15 @@ class LocalBankContainer extends Component{
     }
     
     this.props.fetchDataBank()
+  }
+
+  async handleAddBank(){
+    this.setState({buttonSave: true})
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await addUserBank(this.state.bill, this.state.name, this.state.bank_id, data.id, this.state.password, data.accessToken)
+    this.setState({buttonSave: false})
+    this.setState({ modalVisibleAddLocalBank: !this.state.modalVisibleAddLocalBank})
   }
 
   toggleModalAddLocalBank(){
@@ -87,11 +98,12 @@ class LocalBankContainer extends Component{
   
           onChangeBankName={(bankName)=>this.setState({bankName, visibleBankNamePicker: true})}
           bankName={this.state.bankName}
-          dataBankName={['BCA','Mandiri','BRI']}
+          dataBankName={this.props.bank}
           renderDataBankName={({item}) => (
-            <Picker data={item} onSelect={() => this.setState({bankName: item, visibleBankNamePicker: false})}/>
+            <Picker data={item.bank} onSelect={() => this.setState({bankName: item.bank, visibleBankNamePicker: false})}/>
           )}
           visibleBankNamePicker={this.state.visibleBankNamePicker ? true : false}
+          
 
           onChangeName={(name)=>this.setState({name})}
           onChangeBill={(bill)=>this.setState({bill})}
@@ -126,7 +138,8 @@ const mapDispatchToProps = (dispatch) =>{
   return{
 
     fetchUserBank: (id, accessToken) => dispatch(fetchUserBank(id, accessToken)),
-    fetchDataBank: () => dispatch(fetchDataBank())
+    fetchDataBank: () => dispatch(fetchDataBank()),
+    addUserBank: (account_number, account_name, bank_id, id, password, accessToken) => dispatch(addUserBank(account_number, account_name, bank_id, id, password, accessToken))
   }
 }
 
@@ -136,7 +149,8 @@ const mapStateToProps = (state) => {
     success: state.success,
     failed: state.failed,
     userbank: state.userbank,
-    bank: state.bank
+    bank: state.bank,
+    manipulatebank: state.manipulatebank
   }
 }
 
