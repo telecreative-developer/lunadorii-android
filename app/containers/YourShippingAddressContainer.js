@@ -69,7 +69,6 @@ class YourShippingAddressContainer extends Component{
   }
 
   async handleSaveAddress(){
-    console.log(this.state)
     const {name, phone, detail_address, province, city, district, address_default, regency} = this.state
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
@@ -93,12 +92,12 @@ class YourShippingAddressContainer extends Component{
   }
 
   async componentDidMount() {
-    console.log('ini isi province: ',this.props.province)
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.props.fetchUserShipping(data.id, data.accessToken)
     await this.props.fetchProvince()
-
+    await this.props.fetchUserShipping(data.id, data.accessToken)
+    await console.log('ini isi province: ',...this.props.receiveProvince.filter(p => p.province === "Nanggroe Aceh Darussalam (NAD)").map(c => c))
+    
   }
 
   async onChangeDefault(item){
@@ -152,15 +151,16 @@ class YourShippingAddressContainer extends Component{
         numberPhoneValue={this.state.numberPhone}
         onChangeNumberPhone={(numberPhone) => this.setState({numberPhone})}
 
-        dataProvince={['Sumatera','Kalimantan','Banten']}
+
+        dataProvince={this.props.receiveProvince}
         renderDataProvince={({item}) => (
-          <Picker data={item} onSelect={() => this.setState({province: item, visibleProvincePicker: false})}/>
+          <Picker data={item.province} onSelect={() => this.setState({province: item.province, visibleProvincePicker: false})}/>
         )}
         visibleProvincePicker={this.state.visibleProvincePicker ? true : false}
 
-        dataCity={['Jakarta','Bandung','Tangerang']}
+        dataCity={[...this.props.receiveProvince.filter(p => p.province === this.state.province).map(c => c.cities.map(a => a))]}
         renderDataCity={({item}) => (
-          <Picker data={item} onSelect={() => this.setState({city: item, visibleCityPicker: false})}/>
+          <Picker data={item.city} onSelect={() => this.setState({city: item.city, visibleCityPicker: false})}/>
         )}
         visibleCityPicker={this.state.visibleCityPicker ? true : false}
 
@@ -206,7 +206,7 @@ const mapStateToProps = (state) => {
     success: state.success,
     failed: state.failed,
     usershipping: state.usershipping,
-    province: state.province
+    receiveProvince: state.receiveProvince
   }
 }
 

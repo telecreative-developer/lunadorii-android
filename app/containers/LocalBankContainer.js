@@ -47,9 +47,11 @@ class LocalBankContainer extends Component{
     this.setState({buttonSave: true})
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await addUserBank(this.state.bill, this.state.name, this.state.bank_id, data.id, this.state.password, data.accessToken)
-    this.setState({buttonSave: false})
-    this.setState({ modalVisibleAddLocalBank: !this.state.modalVisibleAddLocalBank})
+    await this.props.addUserBank(this.state.bill, this.state.name, this.state.bank_id, data.id, this.state.password, data.accessToken)
+    await alert(this.props.manipulatebank.message)
+    await this.setState({buttonSave: false})
+    await this.props.fetchUserBank(data.id, data.accessToken)
+    await this.setState({ modalVisibleAddLocalBank: !this.state.modalVisibleAddLocalBank})
   }
 
   toggleModalAddLocalBank(){
@@ -100,9 +102,10 @@ class LocalBankContainer extends Component{
           bankName={this.state.bankName}
           dataBankName={this.props.bank}
           renderDataBankName={({item}) => (
-            <Picker data={item.bank} onSelect={() => this.setState({bankName: item.bank, visibleBankNamePicker: false})}/>
+            <Picker data={item.bank} onSelect={() => this.setState({bankName: item.bank, bank_id: item.bank_id, visibleBankNamePicker: false})}/>
           )}
           visibleBankNamePicker={this.state.visibleBankNamePicker ? true : false}
+          handleAddBank={() => this.handleAddBank()}
           
 
           onChangeName={(name)=>this.setState({name})}
@@ -123,8 +126,8 @@ class LocalBankContainer extends Component{
               bill={item.account_number}
               action={() => this.toggleModalEditLocalBank(item)} />
           )}
-  
-          handleSave={() => alert(JSON.stringify(this.state))}
+
+          handleAddBank={() => this.handleAddBank()}
           handleEdit={() => alert(JSON.stringify(this.state))}
           goback={() => this.props.navigation.goBack()}
         />

@@ -162,15 +162,16 @@ export const fetchProvince = () => {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    Authorization: accessToken
+                  'Content-Type': 'application/json',
 				}
 			})
 			const data = await response.json()
+			console.log('data action :', data)
 			await dispatch(receiveProvince(data.data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PROVINCE'))
-      		await dispatch(setLoading(false, 'LOADING_FETCH_PROVINCE'))
+      await dispatch(setLoading(false, 'LOADING_FETCH_PROVINCE'))
 		} catch (e) {
+			console.log('data action error:', e)
 			dispatch(setFailed(true, 'FAILED_FETCH_PROVINCE', e))
 			dispatch(setLoading(false, 'LOADING_FETCH_PROVINCE'))
 		}

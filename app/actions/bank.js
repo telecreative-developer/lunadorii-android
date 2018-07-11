@@ -52,6 +52,7 @@ export const addUserBank = (account_number, account_name, bank_id, id, password,
                 })
 			})
 			const data = await response.json()
+			console.log("action add", data)
 			await dispatch(receiveManipulateUserBank(data))
 			await dispatch(setSuccess(true, 'SUCCESS_ADD_USER_BANK'))
       		await dispatch(setLoading(false, 'LOADING_ADD_USER_BANK'))

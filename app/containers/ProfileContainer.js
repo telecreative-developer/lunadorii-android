@@ -104,7 +104,6 @@ class ProfileContainer extends Component {
   }
 
   render() {
-    console.log('jaoncok' ,this.props.productrecent)
     return (
       <Profile
         dataRecentOrders={this.props.productrecent}

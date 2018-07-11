@@ -16,7 +16,7 @@ import { wishlist } from "./wishlist"
 import { userreview } from "./userreview"
 import { getResultReport } from "./report"
 import { cartuser } from "./cart"
-import { usershipping, province } from "./usershipping"
+import { usershipping, receiveProvince } from "./usershipping"
 import { registerresult } from "./registerresult"
 import { userbank, bank, manipulatebank } from "./bank"
 
@@ -50,7 +50,7 @@ const rootReducers = combineReducers({
   receiveSingleProductWithId,
   relatedProduct,
   singleRelatedProdct,
-  province,
+  receiveProvince,
   receiveProductWithCategory,
   receiveProductWithBrand,
   receiveProductWithBanner

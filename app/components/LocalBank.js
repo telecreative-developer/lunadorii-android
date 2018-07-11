@@ -30,7 +30,7 @@ const LocalBank = (props) => (
       onChangeName={props.onChangeName}
       onChangeBill={props.onChangeBill}
       onChangePassword={props.onChangePassword}
-      handleSave={props.handleSave}
+      handleSave={props.handleAddBank}
     />
     <EditLocalBankModal
       modalVisible={props.modalVisibleEditLocalBank}
