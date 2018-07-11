@@ -8,6 +8,12 @@ const RecentOrders = (props) => (
         <Image source={{ uri: props.image }} style={styles.image} />
       </View>
       <View style={styles.viewFlex7}>
+        <TouchableOpacity onPress={props.action}>
+          <View style={styles.viewOnlyColumn}>
+            <Text style={styles.txtTitle}>{props.date}, {props.time}</Text>
+            <Text>{props.categories}</Text>
+          </View>
+        </TouchableOpacity>
         <View style={styles.viewOnlyColumn}>
           <Text style={styles.txtTitle}>{props.date}</Text>
           <Text>{props.billing_code}</Text>
@@ -21,7 +27,6 @@ const RecentOrders = (props) => (
           <Text style={{fontWeight: 'bold', color: '#d11e47' }}>{props.status}</Text>
         </TouchableOpacity>
       </View>
-
       <View>
         <Text>Total : <Text style={styles.txtBold}>Rp. {props.total}</Text></Text>
       </View>
