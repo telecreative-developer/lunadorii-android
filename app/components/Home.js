@@ -82,7 +82,7 @@ const Home = (props) => (
               <FlatList
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
-                data={props.dataRecommend}
+                data={props.dataBigCard}
                 renderItem={props.renderRecommend}
                 keyExtractor={(item, index) => JSON.stringify(index)}
               />
@@ -100,7 +100,7 @@ const Home = (props) => (
               <Text style={styles.txtArrivals}>All Product</Text>
               <FlatList
                 numColumns={2}
-                data={props.dataProduct}
+                data={props.dataBestSeller}
                 renderItem={props.renderProduct}
                 keyExtractor={(item, index) => JSON.stringify(index)}
               />

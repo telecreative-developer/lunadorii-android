@@ -1,6 +1,7 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_USER_REVIEW } from '../constants'
 import { API_SERVER } from '../env'
+import moment from 'moment'
 
 export const fetchUserReview = (id, accessToken) => {
 	return async dispatch => {
@@ -37,8 +38,9 @@ export const updateReview = (id, items, accessToken) => {
                     Authorization: accessToken
                 },
                 body: JSON.stringify({
-					comment: items.comment,
-					rate: items.star
+									comment: items.comment,
+									rate: items.star,
+								
                 })
 			})
 			const data = await response.json()

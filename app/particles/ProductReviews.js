@@ -34,8 +34,9 @@ const ProductReviews = (props) =>(
               starSize={12}
             />
           </View>
+          {console.log('data', props.date)}
           <Text style={styles.txtReview}>{props.review}</Text>
-          <Text note style={styles.txtDate}>Edited {moment(props.date).startOf('day').fromNow()}</Text>
+          <Text note style={styles.txtDate}>Edited : {moment(props.date).startOf('day').fromNow()}</Text>
         </View>
       </View>
     </View>
