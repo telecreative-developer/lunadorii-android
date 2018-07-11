@@ -15,9 +15,13 @@ const RecentOrders = (props) => (
       </View>
     </View>
     <View style={styles.viewFooter}>
-      <TouchableOpacity onPress={() => alert('Alert')}>
-        <Text>Status: <Text style={{fontWeight: 'bold', color: '#2ecc71' }}>{props.status}</Text></Text>
-      </TouchableOpacity>
+      <View style={{flexDirection: 'row'}}>
+        <Text>Status: </Text>
+        <TouchableOpacity onPress={() => alert('Alert')}>
+          <Text style={{fontWeight: 'bold', color: '#d11e47' }}>{props.status}</Text>
+        </TouchableOpacity>
+      </View>
+
       <View>
         <Text>Total : <Text style={styles.txtBold}>Rp. {props.total}</Text></Text>
       </View>

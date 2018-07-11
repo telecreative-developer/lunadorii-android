@@ -102,7 +102,7 @@ const Profile = (props) => (
               <TouchableOpacity onPress={props.navigateToLocalBank}>
                 <View style={styles.viewSubBoxMenu}>
                   <Image source={ImageCreditCard} style={styles.imageIcon} />
-                  <Text style={styles.txtMenu}>Credit Card</Text>
+                  <Text style={styles.txtMenu}>Payment</Text>
                 </View>
               </TouchableOpacity>
             </View>

@@ -39,14 +39,16 @@ const AddAddressModal = (props) => (
         <Item regular style={styles.items}>
           <Input placeholder={props.provinceValue} value={props.provinceValue} onChangeText={props.onChangeProvince}/>
         </Item>
-        {props.provinceValue && props.visibleProvincePicker ? (
-          <FlatList
-            data={props.dataProvince}
-            renderItem={props.renderDataProvince}
-          />
-        ) : (
-          <View backgroundColor="transparent"/>
-        )}
+        <View>
+          {props.provinceValue && props.visibleProvincePicker ? (
+            <FlatList
+              data={props.dataProvince}
+              renderItem={props.renderDataProvince}
+            />
+          ) : (
+            <View backgroundColor="transparent"/>
+          )}
+        </View>
 
         <Label style={styles.labels}>City</Label>
         <Item regular style={styles.items}>

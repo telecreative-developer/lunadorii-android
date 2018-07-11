@@ -4,10 +4,9 @@ import { View, Text, TouchableOpacity } from 'react-native'
 const Picker = (props) => (
   <View style={{
     width: '100%',
-    borderRadius: 5,
-    borderColor: '#f6f6f6'
+    padding: 5
   }}>
-    <TouchableOpacity style={{padding: 5}} onPress={props.onSelect}>
+    <TouchableOpacity style={{backgroundColor: '#f6f6f6', borderRadius: 5, padding: 10}} onPress={props.onSelect}>
       <Text>{props.data}</Text>
     </TouchableOpacity>
   </View>
