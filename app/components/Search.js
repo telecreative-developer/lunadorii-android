@@ -41,12 +41,11 @@ const Search = (props) => (
           <Text style={styles.moreFiltersText}>More Filters</Text>
         </TouchableOpacity>
       </View>
-      <View style={{ paddingLeft: 5, paddingTop: 15 }}>
-        {console.log("data related", props.dateRelatedProducts)}
+      <View style={{ paddingTop: 15 }}>
         {
           props.dateRelatedProducts.length != 0  ?
             props.dateRelatedProducts.name == "success" ?
-              <View>
+              <View style={{height: '100%', width: '100%'}}>
                 <Text style={{ fontSize: 16, fontWeight: 'bold', paddingBottom: 5 }}>Result by filter</Text>
                 <View>
                   <FlatList

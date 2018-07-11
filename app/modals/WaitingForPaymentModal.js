@@ -17,7 +17,7 @@ const WaitingForPaymentModal = (props) => (
     onRequestClose={props.actionIcon}>
     <NavbarModal
       navbarTitle={props.navbarTitle}
-      navbarIcon={props.navbarIcon}
+      navbarIcon={"close"}
       actionIcon={props.actionIcon}
     />
     <Content style={styles.container}>

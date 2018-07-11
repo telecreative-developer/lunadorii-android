@@ -4,6 +4,7 @@ import { Container, Content, Icon, Button, Radio,  } from 'native-base'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
+import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
 const { height, width } = Dimensions.get('window')
 
 const YourCart = (props) => (
@@ -24,6 +25,10 @@ const YourCart = (props) => (
       totalPrice={props.totalPrice}
       addQty={props.addQty}
       minQty={props.minQty}
+    />
+    <WaitingForPaymentModal
+      modalVisible={props.modalVisibleCheckoutPayment}
+      actionIcon={props.toggleCheckoutPayment}
     />
     <Content>
       <View style={styles.body}>
@@ -80,8 +85,8 @@ const YourCart = (props) => (
           <Text style={styles.footerTotalInfo}>Termasuk PPN, jika berlaku.</Text>
         </View>
         <View style={styles.footerButton}>
-          <TouchableOpacity onPress={props.navigateToPayments}>
-            <View style={styles.footerButtonStyling}>
+          <TouchableOpacity onPress={props.toggleCheckoutPayment}>
+            <View style={styles.footerButtonStyling}> 
               <FontAwesome name="money" size={20} color="#fff" />
               <Text style={styles.footerButtonTextStyling}>Go to Payment</Text>
             </View>

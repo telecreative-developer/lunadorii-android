@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Text, StyleSheet, Dimensions } from 'react-native'
+import { Modal, Text, StyleSheet, Dimensions, TouchableOpacity, View } from 'react-native'
 import { Content, Item, Input, Label, Button, Form, Textarea } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 const { height, width } = Dimensions.get('window')
@@ -106,5 +106,13 @@ const styles = StyleSheet.create({
   buttonSaveTextStyle: {
     color: '#fff',
     fontSize: 18
+  },
+  autocompleteContainer: {
+    flex: 1,
+    left: 0,
+    position: 'absolute',
+    right: 0,
+    top: 0,
+    zIndex: 1
   }
 })

@@ -1,9 +1,8 @@
 import React from 'react'
 import { View, Text, FlatList, StyleSheet, StatusBar, Dimensions } from 'react-native'
-import { Container, Content } from 'native-base'
+import { Container, Content, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
 import EditReviewsModal from '../modals/EditReviewsModal'
-import ModalLoading from '../modals/LoadingModal'
 import Validations from '../particles/Validations'
 const { height, width } = Dimensions.get('window')
 
@@ -15,10 +14,6 @@ const Reviews = (props) => {
       navbarTitle="Reviews"
       navbarIcon="arrow-back"
       actionIcon={props.goback}
-    />
-    <ModalLoading 
-      modalVisibleLoading={props.modalVisibleLoading}
-      message={props.message}
     />
     <EditReviewsModal
       navbarTitle="Edit Reviews"
@@ -38,20 +33,26 @@ const Reviews = (props) => {
       backgroundColor="#f65857"
       barStyle="light-content"
     />
-    <Content>
-      {props.isEmpty ? (
-        <Validations title="Your Review is empty" message1="Please review your product" message2="have purchased"/>
-      ) : (
-        <View style={styles.viewReviews}>
-          <Text style={styles.txtReviews}>Your Reviews</Text>
-          <FlatList
-            data={props.dataReviews}
-            renderItem={props.renderReviews}
-            keyExtractor={(item, index) => JSON.stringify(index)}
-          />
-        </View>
-      )}
-    </Content>
+    {props.stillLoading ? (
+      <View style={styles.style}>
+        <Spinner color="#d11e48"/>
+      </View>
+    ) : (
+      <Content>
+        {props.isEmpty ? (
+          <Validations title="Your Review is empty" message1="Please review your product" message2="have purchased"/>
+        ) : (
+          <View style={styles.viewReviews}>
+            <Text style={styles.txtReviews}>Your Reviews</Text>
+            <FlatList
+              data={props.dataReviews}
+              renderItem={props.renderReviews}
+              keyExtractor={(item, index) => JSON.stringify(index)}
+            />
+          </View>
+        )}
+      </Content>
+    )}
   </Container>
 )}
 
@@ -67,6 +68,12 @@ const styles = StyleSheet.create({
   txtReviews: {
     fontWeight: 'bold',
     fontSize: 16
+  },
+  style: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   }
 })
 

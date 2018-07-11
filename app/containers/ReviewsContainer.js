@@ -4,11 +4,11 @@ import Reviews from '../components/Reviews'
 import ProductReviews from '../particles/ProductReviews'
 import { connect } from 'react-redux'
 import { fetchUserReview, updateReview, deleteReview } from '../actions/userreview'
-import { Spinner } from 'native-base';
 
 class ReviewsContainer extends Component{
 
   state = {
+    stillLoading: true,
     modalVisibleEditReviews: false,
     isEmpty: false,
     id: 0,
@@ -51,8 +51,9 @@ class ReviewsContainer extends Component{
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.props.fetchUserReview(data.id, data.accessToken)
-    this.setState
+    if(this.props.fetchUserReview(data.id, data.accessToken)){
+      await this.setState({stillLoading: false})
+    }
     if(this.props.userreview.length != 0){
       await this.setState({isEmpty: false})
     }else{
@@ -103,6 +104,7 @@ class ReviewsContainer extends Component{
     return(
       <Reviews
         goback={() => this.props.navigation.goBack()}
+        stillLoading={this.state.stillLoading}
         modalVisibleEditReviews={this.state.modalVisibleEditReviews}
         toggleModalEditReviews={() => this.toggleModalEditReviews()}
         isEmpty={this.state.isEmpty}
@@ -114,8 +116,6 @@ class ReviewsContainer extends Component{
         onChangeComment={(comment) => this.setState({ comment })}
         onChangeStar={(star) => this.onStarRatingPress(star)}
         updateRating={() => this.btnUpdateRating()}
-        modalVisibleLoading={this.props.loading.condition}
-        message={this.state.message}
         dataReviews={this.props.userreview}
         renderReviews={({item}) => (
           <ProductReviews 

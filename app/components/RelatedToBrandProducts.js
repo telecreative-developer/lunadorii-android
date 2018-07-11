@@ -89,24 +89,6 @@ export default class RelatedToBrandProducts extends Component {
             [{ nativeEvent: { contentOffset: { y: this.state.scrollY } } }],
             { useNativeDriver: true },
           )}
-          refreshControl={
-            <RefreshControl
-              refreshing={this.state.refreshing}
-              onRefresh={() => {
-                this.setState({ refreshing: true });
-                setTimeout(() => this.setState({ refreshing: false }), 1000);
-              }}
-              // Android offset for RefreshControl
-              progressViewOffset={HEADER_MAX_HEIGHT}
-            />
-          }
-          // iOS offset for RefreshControl
-          contentInset={{
-            top: HEADER_MAX_HEIGHT,
-          }}
-          contentOffset={{
-            y: -HEADER_MAX_HEIGHT,
-          }}
         >
           {this._renderScrollViewContent(this.props.dataProduct, this.props.renderProduct)}
         </Animated.ScrollView>
@@ -141,7 +123,7 @@ export default class RelatedToBrandProducts extends Component {
         >
           <View style={{flexDirection: 'row'}}>
             <Icon name='arrow-back' style={{paddingHorizontal: 10,paddingVertical: 10}} onPress={this.props.goback}/>
-            <Text style={{fontSize: 18, fontWeight: 'bold',paddingHorizontal: 20,paddingVertical: 13}}>Related to brand</Text>
+            {/* <Text style={{fontSize: 18, fontWeight: 'bold',paddingHorizontal: 20,paddingVertical: 13}}>Related to brand</Text> */}
           </View>
         </Animated.View>
       </View>

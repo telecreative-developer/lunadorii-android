@@ -39,6 +39,7 @@ const YourShippingAddress = (props) => (
       numberPhoneValue={props.numberPhoneValue}
       onChangeNumberPhone={props.onChangeNumberPhone}
 
+      province={props.province}
       handleSaveAddress={props.handleSaveAddress}/>
     <StatusBar
       backgroundColor="#f65857"

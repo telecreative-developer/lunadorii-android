@@ -119,9 +119,6 @@ class YourShippingAddressContainer extends Component{
     // console.log('clicked delete id: ', this.state.address_id)
   }
 
-  renderProvince(){
-  }
-
   render(){
     return(
       <YourShippingAddress
@@ -143,7 +140,6 @@ class YourShippingAddressContainer extends Component{
         
         regencyValue={this.state.regency}
         onChangeRegency={(regency) => this.setState({regency})}
-        renderProvince={this.renderProvince()}
 
         postalcodeValue={this.state.postalcode}
         onChangePostalcode={(postalcode) => this.setState({postalcode})}
@@ -163,6 +159,8 @@ class YourShippingAddressContainer extends Component{
             actionSetdefault={() => this.onChangeDefault(item)}
             actionDelete={() => this.deteleShipping(item)}/>
         )}
+
+        province={["Isa","Ratna","Okta","Windu"]}
       />
     )
   }
