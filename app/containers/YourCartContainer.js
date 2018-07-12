@@ -100,7 +100,7 @@ class YourCartContainer extends Component {
 
   totalPrice(){
     let totalPrice = 0
-    const price = this.props.cartuser.map(data => (data.price*data.qty - (data.price *(data.discount_percentage/100)))).map(data => totalPrice += data)
+    const price = this.props.cartuser.map(data => data.qty * (data.price - (data.price *(data.discount_percentage/100)))).map(data => totalPrice += data)
     // const reducer = (accumulator, currentValue) => accumulator + currentValue
     return totalPrice
   }
