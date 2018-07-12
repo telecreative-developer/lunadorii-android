@@ -31,11 +31,11 @@ const EditLocalBankModal = (props) => (
         )}
         <Label style={styles.labels}>Name</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeName} />
+          <Input value={props.name} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeName} />
         </Item>
         <Label style={styles.labels}>Bill</Label>
         <Item regular style={styles.items}>
-          <Input placeholder={props.bill} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeBill} />
+          <Input value={props.bill} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeBill} />
         </Item>
         <Label style={styles.labels}>Password</Label>
         <Item regular style={styles.items}>
@@ -43,7 +43,7 @@ const EditLocalBankModal = (props) => (
         </Item>
       </Form>
     </Content>
-    <Button full style={styles.buttonSaveStyle} onPress={props.handleSave}>
+    <Button full style={styles.buttonSaveStyle} onPress={props.handleEdit}>
       <Text style={styles.buttonSaveTextStyle}>Save</Text>
     </Button>
   </Modal>

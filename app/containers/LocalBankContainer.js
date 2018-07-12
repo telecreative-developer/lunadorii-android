@@ -5,7 +5,7 @@ import LocalBanks from '../particles/LocalBanks'
 import Picker from '../particles/Picker'
 
 import { connect } from 'react-redux'
-import { fetchUserBank, fetchDataBank, addUserBank } from '../actions/bank'
+import { fetchUserBank, fetchDataBank, addUserBank, editUserBank } from '../actions/bank'
 import CreditCardIsEmpty from '../components/CreditCardIsEmpty'
 
 dataLocalBank=[
@@ -54,6 +54,17 @@ class LocalBankContainer extends Component{
     await this.setState({ modalVisibleAddLocalBank: !this.state.modalVisibleAddLocalBank})
   }
 
+  async handleEditBank(){
+    this.setState({buttonSave: true})
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.editUserBank(this.state.user_bank_id, this.state.bill, this.state.name, this.state.bank_id, data.id, this.state.password, data.accessToken)
+    await alert(this.props.manipulatebank.message)
+    await this.setState({buttonSave: false})
+    await this.props.fetchUserBank(data.id, data.accessToken)
+    await this.setState({ modalVisibleEditLocalBank: !this.state.modalVisibleEditLocalBank})
+  }
+
   toggleModalAddLocalBank(){
     this.setState({ modalVisibleAddLocalBank: !this.state.modalVisibleAddLocalBank})
   }
@@ -65,9 +76,11 @@ class LocalBankContainer extends Component{
   async toggleModalEditLocalBank(item){
     await this.closeModal()
     if(this.state.modalVisibleEditLocalBank){
+      console.log("huhuh",item)
       await this.setState({
-        userBankId: item.userBankId,
+        user_bank_id: item.user_bank_id,
         bankName: item.bank.name,
+        bank_id: item.bank.bank_id,
         name: item.account_name,
         bill: item.account_number,
       }) 
@@ -105,8 +118,6 @@ class LocalBankContainer extends Component{
             <Picker data={item.bank} onSelect={() => this.setState({bankName: item.bank, bank_id: item.bank_id, visibleBankNamePicker: false})}/>
           )}
           visibleBankNamePicker={this.state.visibleBankNamePicker ? true : false}
-          handleAddBank={() => this.handleAddBank()}
-          
 
           onChangeName={(name)=>this.setState({name})}
           onChangeBill={(bill)=>this.setState({bill})}
@@ -128,7 +139,7 @@ class LocalBankContainer extends Component{
           )}
 
           handleAddBank={() => this.handleAddBank()}
-          handleEdit={() => alert(JSON.stringify(this.state))}
+          handleEditBank={() => this.handleEditBank()}
           goback={() => this.props.navigation.goBack()}
         />
       )
@@ -142,7 +153,8 @@ const mapDispatchToProps = (dispatch) =>{
 
     fetchUserBank: (id, accessToken) => dispatch(fetchUserBank(id, accessToken)),
     fetchDataBank: () => dispatch(fetchDataBank()),
-    addUserBank: (account_number, account_name, bank_id, id, password, accessToken) => dispatch(addUserBank(account_number, account_name, bank_id, id, password, accessToken))
+    addUserBank: (account_number, account_name, bank_id, id, password, accessToken) => dispatch(addUserBank(account_number, account_name, bank_id, id, password, accessToken)),
+    editUserBank: (user_bank_id, account_number, account_name, bank_id, id, password, accessToken) => dispatch(editUserBank(user_bank_id, account_number, account_name, bank_id, id, password, accessToken))
   }
 }
 
