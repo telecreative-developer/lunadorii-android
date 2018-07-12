@@ -6,10 +6,18 @@ import { fetchProductWithBanner } from '../actions/product'
 
 class RelatedToBannerProductsContainer extends Component{
 
+  state={
+    image:'',
+    stillLoading:true
+  }
+
   async componentDidMount(){
     console.log('Banner :',this.props.navigation.state.params.data )
     const data = this.props.navigation.state.params.data
-    await this.props.fetchProductWithBanner(data.banner_id)
+    if(this.props.fetchProductWithBanner(data.banner_id)){
+      await this.setState({stillLoading: false})
+      await this.setState({image: data.thumbnail_url})
+    }
   }
 
   capitalize(string) {
@@ -20,7 +28,10 @@ class RelatedToBannerProductsContainer extends Component{
     console.log('dattaa :' , this.props.receiveProductWithBanner)
     return(
       <RelatedToBannerProducts
+        stillLoading={this.state.stillLoading}
         dataProduct={this.props.receiveProductWithBanner}
+        image = {this.state.image}
+        title = {this.props.navigation.state.params.data.title}
         renderProduct={({item}) => (
           <Product
             image={item.thumbnails[0].thumbnail_url}
@@ -30,7 +41,6 @@ class RelatedToBannerProductsContainer extends Component{
             ratings={item.product_rate}
           />
         )}
-        image={this.props.navigation.state.params.image}
         goback={() => this.props.navigation.goBack()}
       />
     )

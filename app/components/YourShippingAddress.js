@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, TouchableOpacity, FlatList, StatusBar, Dimensions, Text } from 'react-native'
-import { Container, Content, View, Button, Icon } from 'native-base'
+import { Container, Content, View, Button, Icon, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
 // import EditAddressModal from '../modals/EditAddressModal'
 import AddAddressModal from '../modals/AddAddressModal'
@@ -56,19 +56,25 @@ const YourShippingAddress = (props) => (
       backgroundColor="#f65857"
       barStyle="light-content"
     />
-    <Content style={styles.container}>
-      <View>
-        <Text style={styles.txtShippingAddress}>Your Shipping Address</Text>
-        <FlatList
-          data={props.dataShippingAddress}
-          renderItem={props.renderShippingAddress}
-          keyExtractor={(item, index) => JSON.stringify(index)}
-        />
+    {props.stillLoading ? (
+      <View stryle={styles.style}>
+        <Spinner color="#d11e48"/>
       </View>
-      <Button style={styles.btnAddAddress} onPress={props.toggleModalAddAddress}>
-        <Icon name="add" /><Text style={styles.txtAddAddress}>Add Another Address</Text>
-      </Button>
-    </Content>
+    ) : (
+      <Content style={styles.container}>
+        <View>
+          <Text style={styles.txtShippingAddress}>Your Shipping Address</Text>
+          <FlatList
+            data={props.dataShippingAddress}
+            renderItem={props.renderShippingAddress}
+            keyExtractor={(item, index) => JSON.stringify(index)}
+          />
+        </View>
+        <Button style={styles.btnAddAddress} onPress={props.toggleModalAddAddress}>
+          <Icon name="add" /><Text style={styles.txtAddAddress}>Add Another Address</Text>
+        </Button>
+      </Content>
+    )}
   </Container>
 )
 
@@ -95,7 +101,13 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     color: '#fff',
     fontWeight: 'bold'
-  }
+  },
+  style: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
 })
 
 export default YourShippingAddress
