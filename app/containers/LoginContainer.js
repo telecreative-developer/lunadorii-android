@@ -28,18 +28,19 @@ class LoginContainer extends Component {
   }
 
   loginFB () {
-    AccessToken.getCurrentAccessToken()
-    .then((data) => {
-      if (data !== null) {
-        _this.initUser(data.accessToken);
-      } else {
-        // this.loginFBWithPermission();
-        console.log('haha')
-      }
-    })
-    .catch(err => {
-      console.log(err);
-    });
+    // AccessToken.getCurrentAccessToken()
+    // .then((data) => {
+    //   if (data !== null) {
+    //     _this.initUser(data.accessToken);
+    //   } else {
+    //     // this.loginFBWithPermission();
+    //     console.log('haha')
+    //   }
+    // })
+    // .catch(err => {
+    //   console.log(err);
+    // });
+    alert("This feature is under development")
   }
   
   loginFBWithPermission() {

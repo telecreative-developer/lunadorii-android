@@ -8,9 +8,10 @@ import {
   RefreshControl,
   FlatList
 } from 'react-native';
-import { Icon, Text, Container, Content } from 'native-base';
+import { Icon, Text, Container, Content, Spinner } from 'native-base';
 import RelatedToCategoryProductsContainer from '../containers/RelatedToCategoryProductsContainer';
 import Navbar from '../particles/Navbar';
+import AddToCart from '../modals/AddToCart'
 
 const HEADER_MAX_HEIGHT = 250;
 const HEADER_MIN_HEIGHT = 65;
@@ -20,24 +21,34 @@ const RelatedToCategoryProducts = (props) => (
   <Container style={styles.container}>
     <Navbar
       navbarIcon="arrow-back"
-      navbarTitle="Product Category "
+      navbarTitle={"Product Category " + props.name}
       actionIcon={props.goback}
     />
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content"
     />
-    <Content>
-      <View style={styles.viewArrivals}>
-        <Text style={styles.yourWhisListTextTitle}>{props.name} Category</Text>
-        <FlatList
-          numColumns={2}
-          data={props.dataProduct}
-          renderItem={props.renderProduct}
-          keyExtractor={(item, index) => JSON.stringify(index)}
-        />
+    {props.stillLoading ? (
+      <View style={styles.style}>
+        <Spinner color="#d11e48"/>
       </View>
-    </Content>
+    ) : (
+      <Content>
+        <View style={styles.viewArrivals}>
+          <View style={{padding: 10}}>
+            <Text style={{fontWeight: 'bold',fontSize: 18}}>{props.name}</Text>
+            <View style={{paddingTop: 5}}>
+              <FlatList
+                numColumns={2}
+                data={props.dataProduct}
+                renderItem={props.renderProduct}
+                keyExtractor={(item, index) => JSON.stringify(index)}
+              />
+            </View>
+          </View>
+        </View>
+      </Content>
+    )}
   </Container>
 )
 
@@ -46,8 +57,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   viewArrivals: {
-    paddingLeft: 10,
-    paddingTop: 10
+
   },
   scrollViewContent: {
     paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 10,
@@ -72,7 +82,13 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     fontSize: 16,
     marginBottom: 10
-  }
+  },
+  style: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
 })
 
 export default RelatedToCategoryProducts

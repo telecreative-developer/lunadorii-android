@@ -16,6 +16,7 @@ class YourShippingAddressContainer extends Component{
   constructor(){
     super()
     this.state = {
+      stillLoading:true,
       visibleProvincePicker:true,
       visibleCityPicker: true,
       visibleRegencyPicker: true,
@@ -109,7 +110,9 @@ class YourShippingAddressContainer extends Component{
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchProvince()
-    await this.props.fetchUserShipping(data.id, data.accessToken)
+    if(this.props.fetchUserShipping(data.id, data.accessToken)){
+      await this.setState({stillLoading: false})
+    }
     
   }
 
@@ -160,6 +163,7 @@ class YourShippingAddressContainer extends Component{
     console.log('cities :' , this.state)
     return(
       <YourShippingAddress
+        stillLoading={this.state.stillLoading}
         goback={() => this.props.navigation.goBack()}
         modalVisibleAddAddress={this.state.modalVisibleAddAddress}
         toggleModalAddAddress={() => this.toggleModalAddAddress()}
