@@ -1,5 +1,13 @@
 import React, { Component } from 'react'
 import { TouchableOpacity, View, Text, Image, StyleSheet } from 'react-native'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import Feather from 'react-native-vector-icons/Feather'
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
+
+//local-shipping
+//payment
+//check
+//package
 
 const OrderDetails = (props) => (
   <View style={styles.Card}>
@@ -15,15 +23,27 @@ const OrderDetails = (props) => (
         <Text style={styles.txtDetail}>Quantity: <Text style={styles.txtpcs}>{props.quantity} pcs</Text></Text>
       </View>
     </View>
-    <View style={{paddingHorizontal: 10, paddingBottom: 10, flexDirection: 'row', justifyContent: 'flex-start'}}>
-      <View style={{width: 60, backgroundColor: props.status === "DELIVERED" ? '#d11e48' : '#e2e2e2', borderRadius: 5, alignItems: 'center', marginHorizontal: 5}}>
-        <Text style={{color: '#fff'}}>Delivered</Text>
+    <View style={{paddingHorizontal:10, paddingVertical: 5, flexDirection: 'row', justifyContent: 'space-between', backgroundColor: '#f6f6f6', alignItems: 'center'}}>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+        <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
+          <Feather name="package" size={18} color={props.status === "PACKING" ? '#d11e48' : ''}/>
+          <Text style={{fontSize: 12, color:props.status === "PACKING" ? '#d11e48' : ''}}>Packing</Text>
+        </View>
+        <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
+        <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>      
+          <MaterialIcons name="local-shipping" size={18} color={props.status === "SHIPPING" ? '#d11e48' : ''}/>
+          <Text style={{fontSize: 12, color:props.status === "SHIPPING" ? '#d11e48' : ''}}>Shipping</Text>
+        </View>
+        <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
+        <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
+          <MaterialIcons name="check" size={18} color={props.status === "DELIVERED" ? '#d11e48' : ''}/>
+          <Text style={{fontSize: 12, color:props.status === "DELIVERED" ? '#d11e48' : ''}}>Delivered</Text>
+        </View>
       </View>
-      <View style={{width: 60, backgroundColor: props.status === "PACKING" ? '#d11e48' : '#e2e2e2', borderRadius: 5, alignItems: 'center', marginHorizontal: 5}}>
-        <Text style={{color: '#fff'}}>Packing</Text>
-      </View>
-      <View style={{width: 60, backgroundColor: props.status === "CHECKOUT" ? '#d11e48' : '#e2e2e2', borderRadius: 5, alignItems: 'center', marginHorizontal: 5}}>
-        <Text style={{color: '#fff'}}>Checkout</Text>
+      <View style={{justifyContent: 'flex-end', paddingHorizontal:5}}>
+        <TouchableOpacity>
+          <Text style={styles.txtMoreDetails}>Details</Text>
+        </TouchableOpacity>
       </View>
     </View>
   </View>
@@ -58,6 +78,11 @@ const styles = StyleSheet.create({
   },
   txtDetail: {
     fontSize: 14,
+  },
+  txtMoreDetails: {
+    fontSize: 14,
+    fontWeight: 'bold',
+    color: '#d11e48'
   },
   txtBlank: {
     marginVertical: 5

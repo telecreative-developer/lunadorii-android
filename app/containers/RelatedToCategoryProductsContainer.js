@@ -12,6 +12,10 @@ class RelatedToCategoryProductsContainer extends Component{
     console.log('data :', data.product_subcategory_id)
   }
 
+  capitalize(string) {
+    return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
+  }
+
   render(){
     return(
       <RelatedToCategoryProducts
@@ -21,7 +25,7 @@ class RelatedToCategoryProductsContainer extends Component{
         renderProduct={({item}) => (
           <Product
             image={item.thumbnails[0].thumbnail_url}
-            title={item.product}
+            title={item.title <= 17 ? this.capitalize(item.title) : this.capitalize(item.product).slice(0,18)+'...'} 
             categories={item.subcategories[0].subcategory}
             price={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             ratings={item.product_rate}

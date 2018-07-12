@@ -25,11 +25,15 @@ import LocalBankContainer from './app/containers/LocalBankContainer'
 import RelatedToBannerProductsContainer from './app/containers/RelatedToBannerProductsContainer'
 import RelatedToCategoryProductsContainer from './app/containers/RelatedToCategoryProductsContainer'
 import RelatedToBrandProductsContainer from './app/containers/RelatedToBrandProductsContainer'
+import DetailsTransactionContainer from './app/containers/DetailsTransactionContainer'
 import DetailsOrderContainer from './app/containers/DetailsOrderContainer'
+import PaymentContainer from './app/containers/PaymentContainer'
 
 const AppNavigator = StackNavigator(
   {    
+    PaymentContainer: { screen: PaymentContainer },
     DetailsOrderContainer: { screen: DetailsOrderContainer },
+    DetailsTransactionContainer: { screen: DetailsTransactionContainer },
     RelatedToBannerProductsContainer: { screen: RelatedToBannerProductsContainer },
     RelatedToCategoryProductsContainer: { screen: RelatedToCategoryProductsContainer },
     RelatedToBrandProductsContainer: { screen: RelatedToBrandProductsContainer },
@@ -55,7 +59,7 @@ const AppNavigator = StackNavigator(
     PaymentsContainer: { screen: PaymentsContainer },
     CreditCardContainer: { screen: CreditCardContainer }
   }, {
-    initialRouteName: 'SplashScreenContainer',
+    initialRouteName: 'DetailsOrderContainer',
     headerMode: 'none'
   }
 )
