@@ -21,6 +21,7 @@ export default class DetailsTransactionContainer extends Component{
             quantity={item.quantity}
             price={item.price}
             status={item.status}
+            action={() => this.props.navigation.navigate('DetailsOrderContainer')}
           />
         )}
       />

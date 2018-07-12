@@ -23,7 +23,7 @@ const Wishlist = (props) => (
     ) : (
       <Content>
         {props.isEmpty ? (
-          <Validations title="Your Wishlist is empty" message1="Go shop to find what you need " message2="and add it to wishlist"/>
+          <Validations title="Your Wishlist is empty" message1="Go shop to find what you need " message2="and add it to wishlist" navigateToProfile={props.navigateToProfile}/>
         ) : (
           props.stillLoading ? (
             <View style={styles.viewArrivals}>
