@@ -113,8 +113,7 @@ class ProfileContainer extends Component {
             billing_code={item.billing_code}
             status={item.order_status}
             total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            date={item.date}
-            time={item.time} 
+            date={moment(item.created_at).calendar()}
             action={() => this.props.navigation.navigate("DetailsOrderContainer")}
           />
         )}

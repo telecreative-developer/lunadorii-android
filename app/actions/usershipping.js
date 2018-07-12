@@ -109,10 +109,9 @@ export const deleteShipping = (id, accessToken) => {
 }
 
 export const createAddress = (id, items, accessToken) => {
-	console.log(items)
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_CREATE_SHIPPING'))
-		// console.log('items action: ', items)
+		console.log('items action: ', items)
 		try {
 			const response = await fetch(`${API_SERVER}/user-address`, {
 				method: 'POST',
@@ -121,22 +120,23 @@ export const createAddress = (id, items, accessToken) => {
                     'Content-Type': 'application/json',
                     Authorization: accessToken
                 },
-                body: JSON.stringify({
-									...items,
-									recepient:items.name,
-									phone: items.phone,
-									label: items.label,
-									postal_code: items.postal_code,
-									detail_address: items.detail_address,
-									province_id: items.province_id,
-									city_id: items.city_id,
-									id:id,
+                body: JSON.stringify({					
+    							recepient:items.name,
+									phone:items.numberPhone,
+									label:items.label,
+									postal_code: items.postalcode,
+									detail_address:items.address,
+									province_id:items.province_id,
+									city_id:items.city_id,
+									id:id
                 })
 			})
 			const data = await response.json()
+			console.log('action add adres',data)
 			await dispatch(setSuccess(true, 'SUCCESS_CREATE_SHIPPING'))
-      		await dispatch(setLoading(false, 'LOADING_CREATE_SHIPPING'))
+      await dispatch(setLoading(false, 'LOADING_CREATE_SHIPPING'))
 		} catch (e) {
+			console.log('action add error',e)
 			dispatch(setFailed(true, 'FAILED_CREATE_SHIPPING', e))
 			dispatch(setLoading(false, 'LOADING_CREATE_SHIPPING'))
 		}

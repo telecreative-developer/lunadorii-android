@@ -16,7 +16,6 @@ class RelatedToBannerProductsContainer extends Component{
     console.log('dattaa :' , this.props.receiveProductWithBanner)
     return(
       <RelatedToBannerProducts
-        name={this.props.navigation.state.params.data.title}
         dataProduct={this.props.receiveProductWithBanner}
         renderProduct={({item}) => (
           <Product
