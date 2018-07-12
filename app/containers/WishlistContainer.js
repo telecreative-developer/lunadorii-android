@@ -43,6 +43,7 @@ class WishlistContainer extends Component{
   }
 
   render(){
+    console.log('data :', this.props.wishlist)
     return(
       <Wishlist
         dataProduct={this.props.wishlist}
