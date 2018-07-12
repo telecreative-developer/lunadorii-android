@@ -56,12 +56,12 @@ const DetailsOrder = (props) => (
         </View>
       </View>
     </Content>
-    <View style={{flexDirection: 'row', justifyContent:'center'}}>
-      <Button style={styles.buttonReviewStyleEditProfile}>
-        <Text style={styles.buttonReviewTextStyleEditProfile}>Review</Text>
+    <View style={{flexDirection: 'row', justifyContent:'space-between', padding: 10}}>
+      <Button full style={styles.buttonStyleFotter}>
+        <Text style={styles.textStyleFooter}>Review</Text>
       </Button>
-      <Button style={styles.buttonBuyStyleEditProfile}>
-        <Text style={styles.buttonBuyTextStyleEditProfile}>Shop Again</Text>
+      <Button full style={styles.buttonStyleFotter} onPress={props.navigateToHome}>
+        <Text style={styles.textStyleFooter}>Go shop</Text>
       </Button>
     </View>
   </Container>
@@ -80,27 +80,42 @@ const styles = StyleSheet.create({
     width: '100%',
     height: '100%'
   },
-  buttonReviewStyleEditProfile: {
-    margin: 10,
+  buttonStyleFotter:{
     height: 50,
-    width: 165,
-    backgroundColor: '#27ae60',
-    borderRadius: 5,
+    width: 160,
+    borderRadius: 10, 
+    backgroundColor: '#d11e48'
   },
-  buttonReviewTextStyleEditProfile: {
-    color: '#fff',
-    fontSize: 18
+  textStyleFooter:{
+    color: '#fff', 
+    fontSize: 18 
   },
-  buttonBuyStyleEditProfile: {
-    margin: 10,
-    height: 50,
-    width: 165,
-    borderRadius: 5,
-    backgroundColor: '#d11e48',
-  },
-  buttonBuyTextStyleEditProfile: {
-    color: '#fff',
-    fontSize: 18,
-    textAlign: 'center'
-  }
+  // buttonReviewStyleEditProfile: {
+  //   margin: 10,
+  //   height: 50,
+  //   width: 165,
+  //   borderRadius: 5,
+  //   backgroundColor: '#27ae60',
+  //   alignContent: 'center'
+  // },
+  // buttonReviewTextStyleEditProfile: {
+  //   color: '#fff',
+  //   fontSize: 18,
+  //   textAlign: 'center',
+  //   alignSelf: 'center'
+  // },
+  // buttonBuyStyleEditProfile: {
+  //   margin: 10,
+  //   height: 50,
+  //   width: 165,
+  //   borderRadius: 5,
+  //   backgroundColor: '#d11e48',
+  //   alignContent: 'center'
+  // },
+  // buttonBuyTextStyleEditProfile: {
+  //   color: '#fff',
+  //   fontSize: 18,
+  //   textAlign: 'center',
+  //   alignSelf: 'center'
+  // }
 })
