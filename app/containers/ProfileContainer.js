@@ -89,7 +89,7 @@ class ProfileContainer extends Component {
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.props.fetchProductHistory(data.id)
+    await this.props.fetchProductHistory(data.id, data.accessToken)
     await this.props.fetchProductRecent(data.id, data.accessToken)
     if(this.props.fetchSingleUser(data.id, data.accessToken)){
       this.setState({stillLoading: false})
@@ -104,7 +104,6 @@ class ProfileContainer extends Component {
   }
 
   render() {
-    console.log('jaoncok' ,this.props.productrecent)
     return (
       <Profile
         dataRecentOrders={this.props.productrecent}
@@ -114,8 +113,7 @@ class ProfileContainer extends Component {
             billing_code={item.billing_code}
             status={item.order_status}
             total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            date={item.date}
-            time={item.time} 
+            date={moment(item.created_at).calendar()}
             action={() => this.props.navigation.navigate("DetailsOrderContainer")}
           />
         )}
@@ -151,7 +149,7 @@ const mapDispatchToProps = (dispatch) =>{
   return{
     fetchSingleUser: (id, accessToken) => dispatch(fetchSingleUser(id, accessToken)),
     fetchProductRecent: (id, accessToken) => dispatch(fetchProductRecent(id, accessToken)),
-    fetchProductHistory: (id) => dispatch(fetchProductHistory(id)),
+    fetchProductHistory: (id, accessToken) => dispatch(fetchProductHistory(id, accessToken)),
     editName: (id, firstName, lastName, bod, accessToken) => dispatch(editName(id, firstName, lastName, bod, accessToken))
   }
 }

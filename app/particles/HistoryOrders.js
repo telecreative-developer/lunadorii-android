@@ -9,8 +9,8 @@ const HistoryOrders = (props) => (
       </View>
       <View style={styles.viewFlex7}>
         <View style={styles.viewOnlyColumn}>
-          <Text style={styles.txtTitle}>{props.date}, {props.time}</Text>
-          <Text>{props.categories}</Text>
+          <Text style={styles.txtTitle}>{props.date}</Text>
+          <Text>{props.billing_code}</Text>
         </View>
       </View>
     </View>

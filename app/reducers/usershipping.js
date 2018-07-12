@@ -9,7 +9,7 @@ export const usershipping = (state = [], action) => {
 	}
 }
 
-export const province = (state = [], action) => {
+export const receiveProvince = (state = [], action) => {
 	switch (action.type) {
 		case RECEIVE_PROVINCE:
 			return action.payload

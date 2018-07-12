@@ -1,25 +1,29 @@
 import React, { Component } from 'react'
 import RelatedToBannerProducts from '../components/RelatedToBannerProducts'
 import Product from '../particles/Product'
+import { connect } from 'react-redux'
+import { fetchProductWithBanner } from '../actions/product'
 
-export default class RelatedToBannerProductsContainer extends Component{
+class RelatedToBannerProductsContainer extends Component{
+
+  async componentDidMount(){
+    console.log('Banner :',this.props.navigation.state.params.data )
+    const data = this.props.navigation.state.params.data
+    await this.props.fetchProductWithBanner(data.banner_id)
+  }
+
   render(){
+    console.log('dattaa :' , this.props.receiveProductWithBanner)
     return(
       <RelatedToBannerProducts
-        dataProduct={[
-          {image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", title: "Hello World", price: 20900, categories: "Komok", star: 4},
-          {image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", title: "Hello World", price: 20900, categories: "Komok", star: 4},
-          {image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", title: "Hello World", price: 20900, categories: "Komok", star: 4},
-          {image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", title: "Hello World", price: 20900, categories: "Komok", star: 4},
-          {image: "https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png", title: "Hello World", price: 20900, categories: "Komok", star: 4}
-        ]}
+        dataProduct={this.props.receiveProductWithBanner}
         renderProduct={({item}) => (
           <Product
-            image={item.image}
-            title={item.title}
-            categories={item.categories}
+            image={item.thumbnails[0].thumbnail_url}
+            title={item.product}
+            categories={item.subcategories[0].subcategory}
             price={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            ratings={item.ratings}
+            ratings={item.product_rate}
           />
         )}
         image={this.props.navigation.state.params.image}
@@ -28,3 +32,17 @@ export default class RelatedToBannerProductsContainer extends Component{
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    fetchProductWithBanner: (banner_id) => dispatch(fetchProductWithBanner(banner_id)),
+  }
+}
+
+const mapStateToProps = (state) => {
+  return{
+    receiveProductWithBanner: state.receiveProductWithBanner
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RelatedToBannerProductsContainer)
