@@ -1,12 +1,12 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Dimensions, StatusBar, FlatList } from 'react-native'
-import { Container, Content } from 'native-base'
+import { View, Text, StyleSheet, Dimensions, StatusBar } from 'react-native'
+import { Container, Content, Button } from 'native-base'
 import Navbar from '../particles/Navbar'
 const { height, width } = Dimensions.get('window')
 
 const DetailsOrder = (props) => (
 
-  <Container style={style.container}>
+  <Container style={styles.container}>
     <Navbar
       navbarTitle="Details Order"
       navbarIcon="arrow-back"
@@ -17,59 +17,60 @@ const DetailsOrder = (props) => (
       barStyle="light-content"
     />
     <Content>
-      <View style={style.grandWrapper}>
+      <View style={styles.grandWrapper}>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Bill Number</Text>
-            <Text style={{color: '#ccc'}}>23942103MSC9234</Text>
+            <Text style={{fontWeight: 'bold',fontSize: 18}}>Transaction Code</Text>
+            <Text style={{color: '#ccc'}}>TRANSACTION_NUMBER</Text>
+          </View>
+        </View>
+        <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
+          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+            <Text style={{fontWeight: 'bold',fontSize: 18}}>Purchase Transaction Number</Text>
+            <Text style={{color: '#ccc'}}>PURCHASE_TRANSACTION_NUMBER</Text>
           </View>
         </View>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Status</Text>
-            <Text style={{color: '#ccc'}}>Delivered</Text>
+            <Text style={{color: '#ccc'}}>STATUS</Text>
           </View>
         </View>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18, marginBottom: 5}}>On Cart</Text>
-            <FlatList
-              data={props.dataOnCart}
-              renderItem={props.renderDataOnCart}
-            />
+            <Text style={{fontWeight: 'bold',fontSize: 18}}>Payment Successfully Time</Text>
+            <Text style={{color: '#ccc'}}>PAYMEN_SUCCESSFULLY_TIME</Text>
           </View>
         </View>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Total Price</Text>
-            <Text style={{color: '#ccc'}}>Rp 120,500</Text>
+            <Text style={{fontWeight: 'bold',fontSize: 18}}>Delivery Time</Text>
+            <Text style={{color: '#ccc'}}>DELIVERY_TIME</Text>
           </View>
         </View>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Payment Method</Text>
-            <Text style={{color: '#ccc'}}>Transfer</Text>
-          </View>
-        </View>
-        <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Address</Text>
-            <Text style={{color: '#ccc', textAlign: 'justify'}}>
-              Jl.Manggala 3 Perumahan Cipondoh Makmur RT 01 RW 02
-              Provinsi Banten Kota Tangerang Kecamatan Cipondoh No. 29
-              14250 Nomor telp 089643951073
-            </Text>
+            <Text style={{fontWeight: 'bold',fontSize: 18}}>Receiptment Time</Text>
+            <Text style={{color: '#ccc'}}>RECEIPTMENT_TIME</Text>
           </View>
         </View>
       </View>
     </Content>
+    <View style={{flexDirection: 'row', justifyContent:'center'}}>
+      <Button style={styles.buttonReviewStyleEditProfile}>
+        <Text style={styles.buttonReviewTextStyleEditProfile}>Review</Text>
+      </Button>
+      <Button style={styles.buttonBuyStyleEditProfile}>
+        <Text style={styles.buttonBuyTextStyleEditProfile}>Shop Again</Text>
+      </Button>
+    </View>
   </Container>
 
 )
 
 export default DetailsOrder
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     width: width,
     height: height,
@@ -78,5 +79,28 @@ const style = StyleSheet.create({
   grandWrapper:{
     width: '100%',
     height: '100%'
+  },
+  buttonReviewStyleEditProfile: {
+    margin: 10,
+    height: 50,
+    width: 165,
+    backgroundColor: '#27ae60',
+    borderRadius: 5,
+  },
+  buttonReviewTextStyleEditProfile: {
+    color: '#fff',
+    fontSize: 18
+  },
+  buttonBuyStyleEditProfile: {
+    margin: 10,
+    height: 50,
+    width: 165,
+    borderRadius: 5,
+    backgroundColor: '#d11e48',
+  },
+  buttonBuyTextStyleEditProfile: {
+    color: '#fff',
+    fontSize: 18,
+    textAlign: 'center'
   }
 })
