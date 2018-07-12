@@ -48,6 +48,7 @@ class ReviewsContainer extends Component{
   }
 
   async componentDidMount(){
+    console.log(this.props.userreview.length)
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     if(this.props.fetchUserReview(data.id, data.accessToken)){
@@ -65,9 +66,9 @@ class ReviewsContainer extends Component{
     alert('updated')
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    await this.closeModal()
     await this.props.updateReview(this.state.id, this.state, data.accessToken)
     await this.props.fetchUserReview(data.id, data.accessToken)
-    await this.closeModal()
   }
 
   async deleteReview(item){
@@ -131,7 +132,6 @@ class ReviewsContainer extends Component{
       />
     )
   }
-}
 
 
 const mapDispatchToProps = (dispatch) =>{

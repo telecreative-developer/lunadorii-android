@@ -98,12 +98,20 @@ class YourCartContainer extends Component {
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }
 
+  totalPrice(){
+    let totalPrice = 0
+    const price = this.props.cartuser.map(data => (data.price*data.qty - (data.price *(data.discount_percentage/100)))).map(data => totalPrice += data)
+    // const reducer = (accumulator, currentValue) => accumulator + currentValue
+    return totalPrice
+  }
+
   render() {
+    {console.log(this.totalPrice())}
     return (
       <YourCart 
         quantity={this.state.quantity}
         price={this.state.price}
-        totalPrice={this.state.totalPrice}
+        totalPrice={this.totalPrice()}
 
         onChangeQuantity={(quantity) => this.setState({quantity})}
         addQty={() => this.addQty()}
