@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AsyncStorage, View,Modalx, Text, SmartPicker, Dimensions, ScrollView} from 'react-native'
+import {AsyncStorage, View,Modalx, Text, SmartPicker, Dimensions, ScrollView, Alert} from 'react-native'
 import { Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
 import YourShippingAddress from '../components/YourShippingAddress'
 import ShippingAddress from '../particles/ShippingAddress'
@@ -47,6 +47,7 @@ class YourShippingAddressContainer extends Component{
         phone: item.phone,
         detail_address: item.detail_address,
         province: item.province,
+        label: item.label,
         city: item.city,
         district: item.district,
         address_default: item.address_default
@@ -58,6 +59,7 @@ class YourShippingAddressContainer extends Component{
         phone: '',
         detail_address: '',
         province: '',
+        label:'',
         city: '',
         district: '',
         address_default: '',
@@ -77,7 +79,17 @@ class YourShippingAddressContainer extends Component{
     await this.props.createAddress(data.id, {name, address, province_id, city_id, postalcode, numberPhone, label }, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
     await this.toggleModalAddAddress()
-    
+    await this.setState({
+      name: '',
+      address: '',
+      province: '',
+      province_id:'',
+      city: '',
+      postalcode: '',
+      numberPhone: '',
+      label:'',
+    })
+    Alert.alert('Success Add Address', 'Thanks..')
   }
 
   handleSaveShippingAddress(){

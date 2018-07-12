@@ -7,6 +7,7 @@ const { height, width } = Dimensions.get('window')
 
 const Wishlist = (props) => (
   <Container style={styles.container}>
+    {console.log(props.isEmpty)}
     <Navbar
       navbarIcon="arrow-back"
       navbarTitle="Wishlist"
