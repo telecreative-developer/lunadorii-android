@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Icon, Text, Container, Content } from 'native-base';
 import Navbar from '../particles/Navbar';
+import AddToCart from '../modals/AddToCart'
 
 const HEADER_MAX_HEIGHT = 250;
 const HEADER_MIN_HEIGHT = 65;
@@ -25,6 +26,12 @@ const RelatedToBrandProducts = (props) => (
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content"
+    />
+    <AddToCart
+      modalVisible={props.modalVisibleAddToCart}
+      toggleModalAddToCart={props.toggleModalAddToCart}
+      onChangeQty={props.onChangeQty}
+      handleAddToCart={props.handleAddToCart}      
     />
     <Content>
       <View style={styles.viewArrivals}>
