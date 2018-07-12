@@ -20,16 +20,16 @@ const Payment = (props) => (
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <TouchableOpacity onPress={props.navigateToDebitPayment}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-              <Text style={{fontWeight: 'bold',fontSize: 18}}>Debit</Text>
-              <Text style={{color: '#ccc'}}>Payment with your bank</Text>
+              <Text style={{fontWeight: 'bold',fontSize: 18, color: '#000'}}>Debit</Text>
+              <Text>Payment with your bank</Text>
             </View>
           </TouchableOpacity>
         </View>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <TouchableOpacity onPress={props.navigateToCreditCard}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-              <Text style={{fontWeight: 'bold',fontSize: 18}}>Credit Card</Text>
-              <Text style={{color: '#ccc'}}>Payment with your Credit Card</Text>
+              <Text style={{fontWeight: 'bold',fontSize: 18, color: '#000'}}>Credit Card</Text>
+              <Text>Payment with your Credit Card</Text>
             </View>
           </TouchableOpacity>
         </View>

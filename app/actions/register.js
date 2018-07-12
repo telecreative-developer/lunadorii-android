@@ -17,7 +17,6 @@ export const register = item => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          ...item,
           first_name: item.first_name,
           last_name: item.last_name,
           email: toLower(item.email),

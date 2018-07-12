@@ -18,7 +18,8 @@ class RegisterIdentifyContainer extends Component {
       first_name:'',
       last_name:'',
       password:'',
-      email:''
+      email:'',
+      passwordFieldVisibility: true
     }
   }
 
