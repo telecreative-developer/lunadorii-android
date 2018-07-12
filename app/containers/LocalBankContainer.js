@@ -18,6 +18,7 @@ class LocalBankContainer extends Component{
 
   state={
     isEmpty:false,
+    stillLoading: true,
     visibleBankNamePicker:false,
     user_bank_id: 0,
     bank_id:0,
@@ -40,7 +41,9 @@ class LocalBankContainer extends Component{
       await this.setState({isEmpty: true})
     }
     
-    this.props.fetchDataBank()
+    if(this.props.fetchDataBank()){
+      await this.setState({stillLoading: false})
+    }
   }
 
   async handleAddBank(){

@@ -41,7 +41,7 @@ const OrderDetails = (props) => (
         </View>
       </View>
       <View style={{justifyContent: 'flex-end', paddingHorizontal:5}}>
-        <TouchableOpacity>
+        <TouchableOpacity onPress={props.action}>
           <Text style={styles.txtMoreDetails}>Details</Text>
         </TouchableOpacity>
       </View>

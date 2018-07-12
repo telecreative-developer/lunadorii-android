@@ -24,12 +24,13 @@ class WishlistContainer extends Component{
     })
     // console.log('accesToken container: ', this.state.accessToken)
     if(this.props.fetchwishlist(data.accessToken, data.id)){
-      await this.setState({stillLoading: false})
-    }
-    if(this.props.wishlist.length != 0){
-      await this.setState({isEmpty: false})
-    }else{
-      await this.setState({isEmpty: true})
+      if(this.setState({stillLoading: false})){
+        if(this.props.wishlist.length != 0){
+          await this.setState({isEmpty: false})
+        }else{
+          await this.setState({isEmpty: true})
+        }
+      }
     }
   }
 
@@ -56,9 +57,10 @@ class WishlistContainer extends Component{
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
           />
         )}
+        navigateToProfile={() => this.props.navigation.navigate('ProfileContainer')}
         stillLoading={this.state.stillLoading}
-        amountOfContent={this.props.wishlist.length}
         isEmpty={this.state.isEmpty}
+        amountOfContent={this.props.wishlist.length}
         goback={() => this.props.navigation.goBack()}
       />
     )
