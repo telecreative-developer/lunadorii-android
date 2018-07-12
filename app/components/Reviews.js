@@ -40,7 +40,7 @@ const Reviews = (props) => {
     ) : (
       <Content>
         {props.isEmpty ? (
-          <Validations title="Your Review is empty" message1="Please review your product" message2="have purchased"/>
+          <Validations title="Your Review is empty" message1="Please review your product" message2="have purchased" navigateToProfile={props.navigateToProfile}/>
         ) : (
           <View style={styles.viewReviews}>
             <Text style={styles.txtReviews}>Your Reviews</Text>
