@@ -21,6 +21,12 @@ const AddAddressModal = (props) => (
         <Item regular style={styles.items}>
           <Input placeholder={props.nameValue} value={props.nameValue} onChangeText={props.onChangeName}/>
         </Item>
+
+        <Label style={styles.labels}>Label</Label>
+        <Item regular style={styles.items}>
+          <Input placeholder={props.labelValue} value={props.labelValue} onChangeText={props.onChangeLabel}/>
+        </Item>
+
         <Label style={styles.labels}>Address</Label>
         <Item regular style={styles.items}>
           <Input placeholder={props.addressValue} value={props.addressValue} onChangeText={props.onChangeAddress}/>
@@ -52,19 +58,6 @@ const AddAddressModal = (props) => (
           <View backgroundColor="transparent"/>
         )}
 
-        <Label style={styles.labels}>Regency</Label>
-        <Item regular style={styles.items}>
-          <Input placeholder={props.regencyValue} value={props.regencyValue} onChangeText={props.onChangeRegency}/> 
-        </Item>
-        {props.regencyValue && props.visibleRegencyPicker ? (
-          <FlatList
-            data={props.dataRegency}
-            renderItem={props.renderDataRegency}
-          />
-        ) : (
-          <View backgroundColor="transparent"/>
-        )}
-
         <View style={styles.wrapper}>
           <View style={styles.flexDirectionCol}>
             <Label style={styles.labels}>Number Phone</Label>
@@ -75,7 +68,7 @@ const AddAddressModal = (props) => (
           <View style={styles.flexDirectionCol}>
             <Label style={styles.labels}>Postalcode</Label>
             <Item regular style={styles.centeredItemsPostalcode}>
-              <Input placeholder={props.postalcodeValue} value={props.postalcodeValue} onChangeText={props.onChangePostalcode} keyboardType={'numeric'}/>
+              <Input value={props.postalcodeValue.toString()} onChangeText={props.onChangePostalcode} />
             </Item>
           </View>
         </View>

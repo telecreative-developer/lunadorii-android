@@ -21,6 +21,9 @@ const YourShippingAddress = (props) => (
       nameValue={props.nameValue}
       onChangeName={props.onChangeName}
 
+      labelValue={props.labelValue}
+      onChangeLabel={props.onChangeLabel}
+
       addressValue={props.addressValue}
       onChangeAddress={props.onChangeAddress}
 
@@ -29,9 +32,6 @@ const YourShippingAddress = (props) => (
 
       cityValue={props.cityValue}
       onChangeCity={props.onChangeCity}
-
-      regencyValue={props.regencyValue}
-      onChangeRegency={props.onChangeRegency}
 
       postalcodeValue={props.postalcodeValue}
       onChangePostalcode={props.onChangePostalcode}
