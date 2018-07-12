@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, TouchableOpacity, FlatList, StatusBar, Dimensions, Text } from 'react-native'
 import { Container, Content, View, Button, Icon, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
+import UnderDevelopment from '../particles/UnderDevelopment'
 // import EditAddressModal from '../modals/EditAddressModal'
 import AddAddressModal from '../modals/AddAddressModal'
 const { height, width } = Dimensions.get('window')
@@ -52,8 +53,6 @@ const YourShippingAddress = (props) => (
       visibleRegencyPicker={props.visibleRegencyPicker}
 
       handleSaveAddress={props.handleSaveAddress}/>
-
-    
 
     <StatusBar
       backgroundColor="#f65857"

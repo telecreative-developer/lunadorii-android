@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { StyleSheet, TouchableOpacity, Text, View } from 'react-native'
+import { StyleSheet, TouchableOpacity, Text, View, Alert } from 'react-native'
 
 const ShippingAddress = (props) => (
   <View style={{
@@ -23,10 +23,10 @@ const ShippingAddress = (props) => (
           </TouchableOpacity>
           
         )}
-        <TouchableOpacity onPress={props.actionEdit}>
+        <TouchableOpacity onPress={() => Alert.alert('Sorry', 'Under Construction')}>
           <Text style={styles.txtAction}>Edit Address</Text>
         </TouchableOpacity>
-        <TouchableOpacity onPress={props.actionDelete}>
+        <TouchableOpacity onPress={() => Alert.alert('Sorry','Under Construction')}>
           <Text style={styles.txtAction}>Remove</Text>
         </TouchableOpacity>
       </View>

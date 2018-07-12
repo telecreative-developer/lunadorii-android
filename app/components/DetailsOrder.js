@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, Dimensions, StatusBar } from 'react-native'
 import { Container, Content, Button } from 'native-base'
 import Navbar from '../particles/Navbar'
+import UnderDevelopment from '../particles/UnderDevelopment'
 import AddReviewsModal from '../modals/AddReviewsModal'
 const { height, width } = Dimensions.get('window')
 

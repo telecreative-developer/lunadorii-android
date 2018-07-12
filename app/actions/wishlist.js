@@ -4,6 +4,7 @@ import { API_SERVER } from '../env'
 
 export const fetchwishlist = (accessToken, id) => {
 	return async dispatch => {
+		console.log('action Id', id)
 		await dispatch(setLoading(true, 'LOADING_FETCH_WISHLIST'))
 		try {
 			const response = await fetch(`${API_SERVER}/wishlist/${id}`, {
