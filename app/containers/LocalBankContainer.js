@@ -48,9 +48,9 @@ class LocalBankContainer extends Component{
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.addUserBank(this.state.bill, this.state.name, this.state.bank_id, data.id, this.state.password, data.accessToken)
+    await this.props.fetchUserBank(data.id, data.accessToken)
     await alert(this.props.manipulatebank.message)
     await this.setState({buttonSave: false})
-    await this.props.fetchUserBank(data.id, data.accessToken)
     await this.setState({ modalVisibleAddLocalBank: !this.state.modalVisibleAddLocalBank})
   }
 
@@ -59,9 +59,9 @@ class LocalBankContainer extends Component{
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.editUserBank(this.state.user_bank_id, this.state.bill, this.state.name, this.state.bank_id, data.id, this.state.password, data.accessToken)
+    await this.props.fetchUserBank(data.id, data.accessToken)
     await alert(this.props.manipulatebank.message)
     await this.setState({buttonSave: false})
-    await this.props.fetchUserBank(data.id, data.accessToken)
     await this.setState({ modalVisibleEditLocalBank: !this.state.modalVisibleEditLocalBank})
   }
 
@@ -138,6 +138,7 @@ class LocalBankContainer extends Component{
               action={() => this.toggleModalEditLocalBank(item)} />
           )}
 
+          buttonSave={this.state.buttonSave}
           handleAddBank={() => this.handleAddBank()}
           handleEditBank={() => this.handleEditBank()}
           goback={() => this.props.navigation.goBack()}

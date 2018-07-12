@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Dimensions, FlatList } from 'react-native'
-import { Content, Item, Input, Label, Button, Form } from 'native-base'
+import { Content, Item, Input, Label, Button, Form, Spinner } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 const { height, width } = Dimensions.get('window')
 
@@ -43,8 +43,10 @@ const AddLocalBankModal = (props) => (
         </Item>
       </Form>
     </Content>
-    <Button full style={styles.buttonSaveStyle} onPress={props.handleSave}>
+    <Button full style={styles.buttonSaveStyle} onPress={props.handleSave} disabled={props.buttonSave} >
+      {props.buttonSave ? <Spinner /> :
       <Text style={styles.buttonSaveTextStyle}>Save</Text>
+      }
     </Button>
   </Modal>
 )

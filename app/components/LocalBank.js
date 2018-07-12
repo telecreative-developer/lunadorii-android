@@ -27,6 +27,7 @@ const LocalBank = (props) => (
       renderDataBankName={props.renderDataBankName}
       visibleBankNamePicker={props.visibleBankNamePicker}
 
+      buttonSave={props.buttonSave}
       onChangeName={props.onChangeName}
       onChangeBill={props.onChangeBill}
       onChangePassword={props.onChangePassword}
@@ -45,6 +46,7 @@ const LocalBank = (props) => (
       renderDataBankName={props.renderDataBankName}
       visibleBankNamePicker={props.visibleBankNamePicker}
 
+      buttonSave={props.buttonSave}
       onChangeName={props.onChangeName}
       onChangeBill={props.onChangeBill}
       onChangePassword={props.onChangePassword}
