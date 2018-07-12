@@ -6,7 +6,7 @@ import { fetchProductWithCategory } from '../actions/product'
 import { addToCart } from '../actions/cart'
 
 class RelatedToCategoryProductsContainer extends Component{
-
+  
   constructor(props) {
     super(props);
     this.state = {
@@ -57,7 +57,9 @@ class RelatedToCategoryProductsContainer extends Component{
 
   async componentDidMount(){
     const data = this.props.navigation.state.params.data
-    this.props.fetchProductWithCategory(data.product_subcategory_id)
+    if(this.props.fetchProductWithCategory(data.product_subcategory_id)){
+      await this.setState({stillLoading: false})
+    }
     console.log('data :', data.product_subcategory_id)
   }
 
@@ -67,8 +69,8 @@ class RelatedToCategoryProductsContainer extends Component{
 
   render(){
     return(
-      <RelatedToCategoryProducts
-        
+      <RelatedToCategoryProducts    
+        stillLoading={this.state.stillLoading}
         name={this.props.navigation.state.params.data.subcategory}
         dataProduct={this.props.receiveProductWithCategory}
         renderProduct={({item}) => (

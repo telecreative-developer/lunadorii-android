@@ -12,6 +12,7 @@ class RelatedToBrandProductsContainer extends Component{
     this.state = {
       stillLoading: true,
       loadingModal: false,
+      title: '',
       showMore: false,
       id_user: 0,
       product_id: 0,
@@ -58,7 +59,10 @@ class RelatedToBrandProductsContainer extends Component{
   async componentDidMount(){
     console.log('datttaaaaa ::::' , this.props.navigation.state.params.data.brand)
     const data = this.props.navigation.state.params.data
-    await this.props.fetchProductWithBrand(data.product_brand_id)
+    if(this.props.fetchProductWithBrand(data.product_brand_id)){
+      await this.setState({stillLoading: false})
+    }
+    await this.setState({title: data.title})
   }
 
   capitalize(string) {
@@ -69,8 +73,10 @@ class RelatedToBrandProductsContainer extends Component{
     console.log('dattaa :' , this.props.receiveProductWithBrand)
     return(
       <RelatedToBrandProducts
-        name={this.props.navigation.state.params.data.brand}
+        stillLoading={this.state.stillLoading}
         dataProduct={this.props.receiveProductWithBrand}
+        name={this.props.navigation.state.params.data.brand}
+        title={this.state.title}
         renderProduct={({item}) => (
           <Product
             image={item.thumbnails[0].thumbnail_url}
