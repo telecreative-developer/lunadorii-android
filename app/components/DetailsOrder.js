@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, Dimensions, StatusBar } from 'react-native'
 import { Container, Content, Button } from 'native-base'
 import Navbar from '../particles/Navbar'
+import AddReviewsModal from '../modals/AddReviewsModal'
 const { height, width } = Dimensions.get('window')
 
 const DetailsOrder = (props) => (
@@ -15,6 +16,20 @@ const DetailsOrder = (props) => (
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content"
+    />
+    <AddReviewsModal
+      navbarTitle="Reviews"
+      navbarIcon="close"
+      modalVisible={props.modalVisibleAddReviews}
+      actionIcon={props.toggleModalAddReviews}
+
+      review={props.review}
+      onChangeReview={props.onChangeReview}
+
+      ratings={props.ratings}
+      onChangeRatings={props.onChangeRatings}
+
+      handleReview={props.handleReview}
     />
     <Content>
       <View style={styles.grandWrapper}>
@@ -57,7 +72,7 @@ const DetailsOrder = (props) => (
       </View>
     </Content>
     <View style={{flexDirection: 'row', justifyContent:'space-between', padding: 10}}>
-      <Button full style={styles.buttonStyleFotter}>
+      <Button full style={styles.buttonStyleFotter} onPress={props.toggleModalAddReviews}>
         <Text style={styles.textStyleFooter}>Review</Text>
       </Button>
       <Button full style={styles.buttonStyleFotter} onPress={props.navigateToHome}>

@@ -27,6 +27,7 @@ const LocalBank = (props) => (
       renderDataBankName={props.renderDataBankName}
       visibleBankNamePicker={props.visibleBankNamePicker}
 
+      buttonSave={props.buttonSave}
       onChangeName={props.onChangeName}
       onChangeBill={props.onChangeBill}
       onChangePassword={props.onChangePassword}
@@ -40,25 +41,36 @@ const LocalBank = (props) => (
       onChangeBankName={props.onChangeBankName}
       bankName={props.bankName}
       dataBankName={props.dataBankName}
+      name={props.name}
+      bill={props.bill}
       renderDataBankName={props.renderDataBankName}
       visibleBankNamePicker={props.visibleBankNamePicker}
 
+      buttonSave={props.buttonSave}
       onChangeName={props.onChangeName}
       onChangeBill={props.onChangeBill}
       onChangePassword={props.onChangePassword}
-      handleEdit={props.handleEdit}
+      handleEdit={props.handleEditBank}
     />
     <Content>
-      <View style={styles.viewBrand}>
-        <Text style={styles.txtLabel}>Your Local Bank</Text>
-        <FlatList
-          data={props.dataLocalBank}
-          renderItem={props.renderLocalBanks}
-          keyExtractor={(item, index) => JSON.stringify(index)} />
-      </View>
-      <Button style={styles.btnAdd} onPress={props.toggleModalAddLocalBank}>
-        <Icon name="add" /><Text style={styles.txtAdd}>Add Another Bank</Text>
-      </Button>
+      {props.stillLoading ? (
+        <View style={styles.style}>
+          <Spinner color="#d11e48"/>
+        </View>
+      ) : (
+        <View>
+          <View style={styles.viewBrand}>
+            <Text style={styles.txtLabel}>Your Local Bank</Text>
+            <FlatList
+              data={props.dataLocalBank}
+              renderItem={props.renderLocalBanks}
+              keyExtractor={(item, index) => JSON.stringify(index)} />
+          </View>
+          <Button style={styles.btnAdd} onPress={props.toggleModalAddLocalBank}>
+            <Icon name="add" /><Text style={styles.txtAdd}>Add Another Bank</Text>
+          </Button>
+        </View>
+      )}
     </Content>
   </Container>
 )
@@ -91,5 +103,11 @@ const styles = StyleSheet.create({
     paddingRight: 10,
     color: '#fff',
     fontWeight: 'bold'
-  }
+  },
+  style: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
 })

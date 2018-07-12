@@ -171,7 +171,7 @@ class HomeContainer extends Component {
             star={item.product_rate} 
             reviews={item.product_rate} 
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
-            toggleModalAddToCart={() => this.toggleModalAddToCart()}
+            toggleModalAddToCart={() => this.toggleModalAddToCart(item)}
           />
         )
         }}
@@ -182,7 +182,7 @@ class HomeContainer extends Component {
         toggleShowMore={() => this.toggleShowMore()}
 
         modalVisibleAddToCart={this.state.modalVisibleAddToCart}
-        toggleModalAddToCart={() => this.toggleModalAddToCart()}
+        toggleModalAddToCart={() => this.toggleModalAddToCart(item)}
         onChangeQty={(qty) => this.setState({qty: parseInt(qty)})}
         handleAddToCart={() => this.handleAddToCart()}
 
