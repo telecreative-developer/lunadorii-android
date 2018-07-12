@@ -7,7 +7,7 @@ export const fetchwishlist = (accessToken, id) => {
 		console.log('action Id', id)
 		await dispatch(setLoading(true, 'LOADING_FETCH_WISHLIST'))
 		try {
-			const response = await fetch(`${API_SERVER}/wishlist/${5}`, {
+			const response = await fetch(`${API_SERVER}/wishlist/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
