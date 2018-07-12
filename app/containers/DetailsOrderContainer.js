@@ -6,6 +6,7 @@ export default class DetailsOrderContainer extends Component{
     return(
       <DetailsOrder
         goback={() => this.props.navigation.goBack()}
+        navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
       />
     )
   }
