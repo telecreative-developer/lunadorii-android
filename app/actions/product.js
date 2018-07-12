@@ -81,7 +81,7 @@ export const fetchProductBestSeller = () => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_BEST_SELLER'))
 		try {
-			const response = await fetch(`${API_SERVER}/products`, {
+			const response = await fetch(`${API_SERVER}/products/best-seller`, {
 				method: 'GET',
 				headers:{
 					Accept: 'application/json',

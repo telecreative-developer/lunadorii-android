@@ -10,12 +10,11 @@ const RecentOrders = (props) => (
       <View style={styles.viewFlex7}>
         <TouchableOpacity onPress={props.action}>
           <View style={styles.viewOnlyColumn}>
-            <Text style={styles.txtTitle}>{props.date}, {props.time}</Text>
+            <Text style={styles.txtTitle}>{props.date}</Text>
             <Text>{props.categories}</Text>
           </View>
         </TouchableOpacity>
         <View style={styles.viewOnlyColumn}>
-          <Text style={styles.txtTitle}>{props.date}</Text>
           <Text>{props.billing_code}</Text>
         </View>
       </View>
