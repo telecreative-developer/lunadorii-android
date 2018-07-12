@@ -52,6 +52,9 @@ const YourShippingAddress = (props) => (
       visibleRegencyPicker={props.visibleRegencyPicker}
 
       handleSaveAddress={props.handleSaveAddress}/>
+
+    
+
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content"

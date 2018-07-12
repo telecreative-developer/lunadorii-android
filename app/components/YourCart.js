@@ -81,7 +81,7 @@ const YourCart = (props) => (
       <View style={styles.footerWrapper}>
         <View style={styles.footerInfo}>
           <Text style={styles.footerTotalText}>Total</Text>
-          <Text style={styles.footerTotalPriceText}>Rp 420,000</Text>
+          <Text style={styles.footerTotalPriceText}>{props.totalPrice}</Text>
           <Text style={styles.footerTotalInfo}>Termasuk PPN, jika berlaku.</Text>
         </View>
         <View style={styles.footerButton}>
