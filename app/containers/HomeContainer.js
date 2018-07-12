@@ -103,7 +103,7 @@ class HomeContainer extends Component {
 
   renderBanners(banner, index) {
     return (
-      <TouchableOpacity key={index} style={styles.banner} onPress={() => this.props.navigation.navigate("RelatedToBannerProductsContainer", {image: banner.thumbnail_url})}>
+      <TouchableOpacity key={index} style={styles.banner} onPress={() => this.props.navigation.navigate("RelatedToBannerProductsContainer", {data: banner, image: banner.thumbnail_url})}>
         <Image style={styles.bannerImage} source={{ uri: banner.thumbnail_url }} />
       </TouchableOpacity>
     )
@@ -171,7 +171,7 @@ class HomeContainer extends Component {
             star={item.product_rate} 
             reviews={item.product_rate} 
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
-            toggleModalAddToCart={() => this.toggleModalAddToCart()}
+            toggleModalAddToCart={() => this.toggleModalAddToCart(item)}
           />
         )
         }}
