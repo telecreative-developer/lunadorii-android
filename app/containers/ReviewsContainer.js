@@ -132,7 +132,7 @@ class ReviewsContainer extends Component{
       />
     )
   }
-
+}
 
 const mapDispatchToProps = (dispatch) =>{
   return{

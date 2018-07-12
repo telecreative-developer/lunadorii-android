@@ -166,7 +166,7 @@ class HomeContainer extends Component {
         toggleShowMore={() => this.toggleShowMore()}
 
         modalVisibleAddToCart={this.state.modalVisibleAddToCart}
-        toggleModalAddToCart={() => this.toggleModalAddToCart(item)}
+        toggleModalAddToCart={() => this.toggleModalAddToCart()}
         onChangeQty={(qty) => this.setState({qty: parseInt(qty)})}
         handleAddToCart={() => this.handleAddToCart()}
 

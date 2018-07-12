@@ -11,6 +11,7 @@ import {
 import { Icon, Text, Container, Content, Spinner } from 'native-base';
 import RelatedToCategoryProductsContainer from '../containers/RelatedToCategoryProductsContainer';
 import Navbar from '../particles/Navbar';
+import AddToCart from '../modals/AddToCart'
 
 const HEADER_MAX_HEIGHT = 250;
 const HEADER_MIN_HEIGHT = 65;
