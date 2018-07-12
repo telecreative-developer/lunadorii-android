@@ -8,6 +8,7 @@ const toLower = str => {
 
 export const register = item => {
   return async dispatch => {
+    console.log('itwm;', item)
     await dispatch(setLoading(true, 'LOADING_REGISTER'))
     try {
       const response = await fetch(`${API_SERVER}/user/register`, {
@@ -17,7 +18,6 @@ export const register = item => {
           'Content-Type': 'application/json'
         },
         body: JSON.stringify({
-          ...item,
           first_name: item.first_name,
           last_name: item.last_name,
           email: toLower(item.email),
@@ -27,7 +27,6 @@ export const register = item => {
       
       const data = await response.json()
       await dispatch(receiveRegister(data.data[0]))
-      // console.log("data: ",data)
       if (data.status === 401) {
         await dispatch(setFailed(true, 'FAILED_REGISTER', data.message))
         await dispatch(setFailed(false, 'FAILED_REGISTER', data.message))

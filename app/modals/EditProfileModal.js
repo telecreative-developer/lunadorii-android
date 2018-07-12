@@ -19,7 +19,7 @@ const EditProfileModal = (props) => (
     />
     <Content style={styles.container}>
       <View>
-        <Image source={props.photoProfile.length == 0 ? defaultPhotoProfile : { uri : props.photoProfile }} style={styles.imageFrame} />
+        <Image source={{uri : props.imageProfile }} style={styles.imageFrame} />
         <View style={styles.takePhotoButton}>
           <TouchableOpacity onPress={props.handleOpenCamera}>
             <Icon name='camera' style={styles.takePhotoButtonIcon} />
