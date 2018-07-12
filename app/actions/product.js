@@ -10,7 +10,8 @@ import {
 		RECEIVE_RELATED_PRODUCT,
 		RECEIVE_SINGLE_RELATED_PRODUCT,
 		RECEIVE_PRODUCT_WITH_BRAND,
-		RECEIVE_PRODUCT_WITH_CATEGORY
+		RECEIVE_PRODUCT_WITH_CATEGORY,
+		RECEIVE_PRODUCT_WITH_BANNER
 	} from '../constants'
 import { API_SERVER } from '../env'
 
@@ -110,7 +111,7 @@ export const fetchProductRecent = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_RECENT'))
 		try {
-			const response = await fetch(`${API_SERVER}/order/history/${id}`, {
+			const response = await fetch(`${API_SERVER}/order/recent/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
@@ -119,7 +120,6 @@ export const fetchProductRecent = (id, accessToken) => {
 				}
 			})
 			const data = await response.json()
-			console.log('konvtol:', data)
 			await dispatch(receiveProductRecent(data.data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT_RECENT'))
       await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_RECENT'))
@@ -138,15 +138,16 @@ const receiveProductRecent = data => {
 }
 
 //  <---- FETCH PRODUCT HISTORY ----> //
-export const fetchProductHistory = (id) => {
+export const fetchProductHistory = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT'))
 		try {
-			const response = await fetch(`${API_SERVER}/products/new-arrivals?id=${id}`, {
+			const response = await fetch(`${API_SERVER}/order/history/${id}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
 					'Content-Type': 'application/json',
+					Authorization: accessToken
 				}
 			})
 			const data = await response.json()
@@ -321,12 +322,12 @@ const receiveProductWithCategory = data => {
 	}
 }
 
-//  <---- FETCH PRODUCT WITH BRAND ----> //
-export const fetchProductWithBrand = (product_subcategoy_id) => {
+// <----- FETCH PRODUCT5 WITH BRAND -----> //
+export const fetchProductWithBrand = (brand_id) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
 		try {
-			const response = await fetch(`${API_SERVER}/products/subcategory/${product_subcategoy_id}`,{
+			const response = await fetch(`${API_SERVER}/products/brand/${brand_id}`,{
 				method: 'GET',
 				headers:{
 					Accept: 'application/json',
@@ -347,6 +348,36 @@ export const fetchProductWithBrand = (product_subcategoy_id) => {
 const receiveProductWithBrand = data => {
 	return {
 		type: RECEIVE_PRODUCT_WITH_BRAND,
+		payload: data
+	}
+}
+
+// <----- FETCH PRODUCT5 WITH BANNER -----> //
+export const fetchProductWithBanner = (banner_id) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
+		try {
+			const response = await fetch(`${API_SERVER}/product-banners/${banner_id}`,{
+				method: 'GET',
+				headers:{
+					Accept: 'application/json',
+					'content-Type' :'application/json'
+				}
+			})
+			const data = await response.json()
+			await dispatch(receiveProductWithBanner(data.data))
+			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT_WITH_CATEGORY'))
+			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
+		}catch (e){
+			await dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT_WITH_CATEGORY'))
+			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
+		}
+	}
+}
+
+const receiveProductWithBanner = data => {
+	return {
+		type: RECEIVE_PRODUCT_WITH_BANNER,
 		payload: data
 	}
 }

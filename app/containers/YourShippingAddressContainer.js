@@ -25,10 +25,12 @@ class YourShippingAddressContainer extends Component{
       name: '',
       address: '',
       province: '',
+      province_id:'',
       city: '',
-      regency: '',
       postalcode: '',
       numberPhone: '',
+      label:'',
+      cities:[]
     }
   }
 
@@ -69,11 +71,10 @@ class YourShippingAddressContainer extends Component{
   }
 
   async handleSaveAddress(){
-    console.log(this.state)
-    const {name, phone, detail_address, province, city, district, address_default, regency} = this.state
+    const { name, address, province_id, city_id, postalcode, numberPhone, label } = this.state
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.props.createAddress(data.id, {name, phone, detail_address, province, city, district, address_default, regency}, data.accessToken)
+    await this.props.createAddress(data.id, {name, address, province_id, city_id, postalcode, numberPhone, label }, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
     await this.toggleModalAddAddress()
     
@@ -84,32 +85,31 @@ class YourShippingAddressContainer extends Component{
   }
 
   async btnUpdateShipping(){
-    // alert('updated')
-    // const session = await AsyncStorage.getItem('session')
-    // const data = await JSON.parse(session)
-    // await this.props.updateShipping(this.state.address_id, this.state, data.accessToken)
-    // await this.props.fetchUserShipping(data.id, data.accessToken)
-    // await this.toggleModalEditAddress()
+    alert('updated')
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.updateShipping(this.state.address_id, this.state, data.accessToken)
+    await this.props.fetchUserShipping(data.id, data.accessToken)
+    await this.toggleModalEditAddress()
   }
 
   async componentDidMount() {
-    console.log('ini isi province: ',this.props.province)
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.props.fetchUserShipping(data.id, data.accessToken)
     await this.props.fetchProvince()
-
+    await this.props.fetchUserShipping(data.id, data.accessToken)
+    
   }
 
   async onChangeDefault(item){
-    // await this.setState({
-    //   address_id: item.user_address_id,
-    //   address_default: true
-    // })
-    // const session = await AsyncStorage.getItem('session')
-    // const data = await JSON.parse(session)
-    // await this.props.updateSetdefault(data.id, this.state.address_id, data.accessToken)
-    // await this.props.fetchUserShipping(data.id, data.accessToken)
+    await this.setState({
+      address_id: item.user_address_id,
+      address_default: true
+    })
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.updateSetdefault(data.id, this.state.address_id, data.accessToken)
+    await this.props.fetchUserShipping(data.id, data.accessToken)
   }
 
   async deteleShipping(item){
@@ -124,7 +124,28 @@ class YourShippingAddressContainer extends Component{
     // console.log('clicked delete id: ', this.state.address_id)
   }
 
+  async handleProvince(province, province_id){
+    await this.setState({
+      province_id: province_id,
+      province: province, 
+      visibleProvincePicker: false,
+    
+    })
+    await this.setState({
+      cities: this.props.receiveProvince.filter(p => p.province === this.state.province).map(m => m.cities)})
+  }
+
+  async handleCity(city,city_id, postal_code){
+    await this.setState({
+      city_id: city_id,
+      city:city, 
+      visibleCityPicker: false,
+      postalcode: postal_code
+    })
+  }
+
   render(){
+    console.log('cities :' , this.state)
     return(
       <YourShippingAddress
         goback={() => this.props.navigation.goBack()}
@@ -133,6 +154,9 @@ class YourShippingAddressContainer extends Component{
 
         nameValue={this.state.name}
         onChangeName={(name) => this.setState({name})}
+
+        labelValue={this.state.label}
+        onChangeLabel={(label) => this.setState({label})}
 
         addressValue={this.state.address}
         onChangeAddress={(address) => this.setState({address})}
@@ -152,22 +176,19 @@ class YourShippingAddressContainer extends Component{
         numberPhoneValue={this.state.numberPhone}
         onChangeNumberPhone={(numberPhone) => this.setState({numberPhone})}
 
-        dataProvince={['Sumatera','Kalimantan','Banten']}
+
+        dataProvince={this.props.receiveProvince}
         renderDataProvince={({item}) => (
-          <Picker data={item} onSelect={() => this.setState({province: item, visibleProvincePicker: false})}/>
+          <Picker data={item.province} onSelect={() => this.handleProvince(item.province, item.province_id) }/>
         )}
         visibleProvincePicker={this.state.visibleProvincePicker ? true : false}
 
-        dataCity={['Jakarta','Bandung','Tangerang']}
+        dataCity={this.state.cities[0]}
         renderDataCity={({item}) => (
-          <Picker data={item} onSelect={() => this.setState({city: item, visibleCityPicker: false})}/>
+          <Picker data={item.city} onSelect={() => this.handleCity(item.city, item.city_id, item.postal_code)}/>
         )}
         visibleCityPicker={this.state.visibleCityPicker ? true : false}
 
-        dataRegency={['Cipondoh','Ketapang','Cimone']}
-        renderDataRegency={({item}) => (
-          <Picker data={item} onSelect={() => this.setState({regency: item, visibleRegencyPicker: false})}/>
-        )}
         visibleRegencyPicker={this.state.visibleRegencyPicker ? true : false}
 
         handleSaveAddress={() => this.handleSaveAddress()}
@@ -206,7 +227,7 @@ const mapStateToProps = (state) => {
     success: state.success,
     failed: state.failed,
     usershipping: state.usershipping,
-    province: state.province
+    receiveProvince: state.receiveProvince
   }
 }
 

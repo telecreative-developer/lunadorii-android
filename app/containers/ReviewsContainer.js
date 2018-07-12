@@ -4,11 +4,11 @@ import Reviews from '../components/Reviews'
 import ProductReviews from '../particles/ProductReviews'
 import { connect } from 'react-redux'
 import { fetchUserReview, updateReview, deleteReview } from '../actions/userreview'
+import { Spinner } from 'native-base';
 
 class ReviewsContainer extends Component{
 
   state = {
-    stillLoading: true,
     modalVisibleEditReviews: false,
     isEmpty: false,
     id: 0,
@@ -16,9 +16,7 @@ class ReviewsContainer extends Component{
     title: '',
     price: 0,
     star: 0,
-    comment: '',
-    modalVisibleLoading:false,
-    maessage:''
+    comment: ''
   }
 
   closeModal(){
@@ -51,9 +49,8 @@ class ReviewsContainer extends Component{
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    if(this.props.fetchUserReview(data.id, data.accessToken)){
-      await this.setState({stillLoading: false})
-    }
+    await this.props.fetchUserReview(data.id, data.accessToken)
+    this.setState
     if(this.props.userreview.length != 0){
       await this.setState({isEmpty: false})
     }else{
@@ -71,22 +68,21 @@ class ReviewsContainer extends Component{
   }
 
   async deleteReview(item){
+    const loading = this.props
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.deleteReview(item.product_review_id, data.accessToken)
-    this.props.fetchUserReview(data.id, data.accessToken)
-    this.reload()
+    await this.props.fetchUserReview(data.id, data.accessToken)
+    return (
+      <View>
+        {loading.condition === true && loading.process_on === 'LOADING_PROCESS_DELETE_WISHLIST' ?
+        <Spinner color="red"/> :
+        <View></View>  
+      }
+      </View>
+    )
   }
  
-  async reload(){
-    this.setState
-    if(this.props.userreview.length != 0){
-      await this.setState({isEmpty: false})
-    }else{
-      await this.setState({isEmpty: true})
-    }
-  }
-
   async onStarRatingPress(star) {
     await this.setState({
       star: star
@@ -98,39 +94,44 @@ class ReviewsContainer extends Component{
   }
 
   render(){
-    const loading = this.props
-    console.log('isi modal loading :' , this.state.modalVisibleLoading)
-    console.log('loading :' , loading.condition, loading.process_on)
-    return(
-      <Reviews
-        goback={() => this.props.navigation.goBack()}
-        stillLoading={this.state.stillLoading}
-        modalVisibleEditReviews={this.state.modalVisibleEditReviews}
-        toggleModalEditReviews={() => this.toggleModalEditReviews()}
-        isEmpty={this.state.isEmpty}
-        image={this.state.image}
-        title={this.capitalize(this.state.title)}
-        price={this.state.price}
-        star={this.state.star}
-        comment={this.state.comment}
-        onChangeComment={(comment) => this.setState({ comment })}
-        onChangeStar={(star) => this.onStarRatingPress(star)}
-        updateRating={() => this.btnUpdateRating()}
-        dataReviews={this.props.userreview}
-        renderReviews={({item}) => (
-          <ProductReviews 
-            id={item.product_review_id}
-            image={item.product.thumbnails[0].thumbnail_url} 
-            title={this.capitalize(item.product.name)} 
-            star={item.rate} 
-            date={item.updated_at} 
-            review={item.comment}
-            action={() => this.toggleModalEditReviews(item)}
-            deleteReview={() => this.deleteReview(item)}
-          />
-        )}
-      />
-    )
+    if(this.state.isEmpty){
+      return(
+        <ReviewIsEmpty
+          navigateToMart={() => this.props.navigation.navigate("HomeContainer")}
+        />
+      )
+    }else{
+      return(
+        <Reviews
+          goback={() => this.props.navigation.goBack()}
+          modalVisibleEditReviews={this.state.modalVisibleEditReviews}
+          toggleModalEditReviews={() => this.toggleModalEditReviews()}
+          
+          image={this.state.image}
+          title={this.capitalize(this.state.title)}
+          price={this.state.price}
+          star={this.state.star}
+          comment={this.state.comment}
+          onChangeComment={(comment) => this.setState({ comment })}
+          onChangeStar={(star) => this.onStarRatingPress(star)}
+          updateRating={() => this.btnUpdateRating()}
+  
+          dataReviews={this.props.userreview}
+          renderReviews={({item}) => (
+            <ProductReviews 
+              id={item.product_review_id}
+              image={item.product.thumbnails[0].thumbnail_url} 
+              title={this.capitalize(item.product.name)} 
+              star={item.rate} 
+              date={item.updated_at} 
+              review={item.comment}
+              action={() => this.toggleModalEditReviews(item)}
+              deleteReview={() => this.deleteReview(item)}
+            />
+          )}
+        />
+      )
+    }
   }
 }
 

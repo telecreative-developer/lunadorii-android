@@ -21,6 +21,7 @@ const AddLocalBankModal = (props) => (
         <Item regular style={styles.items}>
           <Input placeholder={props.bankName} value={props.bankName} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeBankName} />
         </Item>
+        {console.log("hahah",props.dataBankName)}
         {props.bankName && props.visibleBankNamePicker ? (
           <FlatList
             data={props.dataBankName}

@@ -6,7 +6,7 @@ import { brandsproduct } from "./brandsproduct"
 import { product, searchproduct,receiveSingleProductWithId, 
          relatedProduct, singleRelatedProdct, receiveProductWithCategory, 
          productbestseller, producthistory, productrecent,
-         receiveProductWithBrand } from "./product"
+         receiveProductWithBrand, receiveProductWithBanner } from "./product"
 import { banners } from "./banners"
 import { productsubcategories } from "./productsubcategories"
 import { getsingleuser } from "./getsingleuser"
@@ -16,9 +16,9 @@ import { wishlist } from "./wishlist"
 import { userreview } from "./userreview"
 import { getResultReport } from "./report"
 import { cartuser } from "./cart"
-import { usershipping, province } from "./usershipping"
+import { usershipping, receiveProvince } from "./usershipping"
 import { registerresult } from "./registerresult"
-import { userbank } from "./bank"
+import { userbank, bank, manipulatebank } from "./bank"
 
 const rootReducers = combineReducers({
   loading,
@@ -45,12 +45,15 @@ const rootReducers = combineReducers({
   usershipping,
   registerresult,
   userbank,
+  bank,
+  manipulatebank,
   receiveSingleProductWithId,
   relatedProduct,
   singleRelatedProdct,
-  province,
+  receiveProvince,
   receiveProductWithCategory,
-  receiveProductWithBrand
+  receiveProductWithBrand,
+  receiveProductWithBanner
 //   sessionPersistance
 });
 
