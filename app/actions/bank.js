@@ -123,20 +123,13 @@ export const deleteUserBank = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_DELETE_USER_BANK'))
 		try {
-			const response = await fetch(`${API_SERVER}/user-banks/${id}`, {
+			const response = await fetch(`${API_SERVER}/user-bank/${id}`, {
 				method: 'DELETE',
 				headers: {
 					Accept: 'application/json',
                     'Content-Type': 'application/json',
                     Authorization: accessToken
-				},
-				body: JSON.stringify({
-					account_number,
-					account_name,
-					bank_id,
-					id,
-					password
-                })
+                }
 			})
 			const data = await response.json()
 			await dispatch(receiveManipulateUserBank(data))
