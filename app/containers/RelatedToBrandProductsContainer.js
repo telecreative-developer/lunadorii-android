@@ -75,6 +75,11 @@ class RelatedToBrandProductsContainer extends Component{
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }
 
+  discountPrice(price, discount_percentage){
+    let DiscountPrice = price - (price *(discount_percentage/100))
+    return DiscountPrice
+  }
+
   render(){
     console.log('dattaa :' , this.props.receiveProductWithBrand)
     return(
@@ -87,8 +92,8 @@ class RelatedToBrandProductsContainer extends Component{
           <Product
             image={item.thumbnails[0].thumbnail_url} 
             title={item.title <= 17 ? this.capitalize(item.title) : this.capitalize(item.product).slice(0,18)+'...'} 
-            categories={item.subcategories[0].subcategory} 
-            price={this.formatPrice(item.price)} 
+            categories={item.brands[0].brand} 
+            price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
             star={item.product_rate} 
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
             toggleModalAddToCart={() => this.toggleModalAddToCart(item)}
