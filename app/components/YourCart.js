@@ -29,6 +29,12 @@ const YourCart = (props) => (
     <WaitingForPaymentModal
       modalVisible={props.modalVisibleCheckoutPayment}
       actionIcon={props.toggleCheckoutPayment}
+      
+      paymentGuide1Visible={props.paymentGuide1Visible}
+      togglePaymentGuide1Visible={props.togglePaymentGuide1Visible}
+
+      paymentGuide2Visible={props.paymentGuide2Visible}
+      togglePaymentGuide2Visible={props.togglePaymentGuide2Visible}
     />
     <Content>
       <View style={styles.body}>
