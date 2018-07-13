@@ -26,6 +26,7 @@ export const fetchUserShipping = (id, accessToken) => {
 }
 
 export const updateShipping = (id, items, accessToken) => {
+	console.log('items update :', items)
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_UPDATE_SHIPPING'))
 		// console.log('items action: ', items)
@@ -38,13 +39,14 @@ export const updateShipping = (id, items, accessToken) => {
                     Authorization: accessToken
                 },
                 body: JSON.stringify({
-					name: item.recepient,
-					phone: items.phone,
-					detail_address: items.detail_address,
-					province: items.province,
-					city: items.city,
-					district: items.district,
-					postal_code: 14250
+									recepient:items.name,
+									phone:items.numberPhone,
+									label:items.label,
+									postal_code: items.postalcode,
+									detail_address:items.address,
+									province_id:items.province_id,
+									city_id:items.city_id,
+									id:id
                 })
 			})
 			const data = await response.json()

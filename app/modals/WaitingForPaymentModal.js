@@ -3,6 +3,7 @@ import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-na
 import { Container, Content, Icon, Button, Radio } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import Banks from '../particles/Banks'
 const image = require('../assets/images/icon/clock.png')
 const bankIcon = require('../assets/images/icon/bank.png')
 const atmIcon = require('../assets/images/icon/atm.png')
@@ -53,7 +54,7 @@ const WaitingForPaymentModal = (props) => (
         <View style={styles.paymentGuideSparator}>
           <Text style={styles.paymentGuideTitle}>Panduan Pembayaran</Text>
         </View>
-        <TouchableOpacity style={styles.touchableGuidePayment1}>
+        <TouchableOpacity style={styles.touchableGuidePayment1} onPress={props.togglePaymentGuide1Visible}>
           <View style={styles.paddingLeft20}>
             <Image source={atmIcon} style={styles.iconSize} />
           </View>
@@ -66,7 +67,12 @@ const WaitingForPaymentModal = (props) => (
             <FontAwesome name="chevron-down" style={styles.iconDrop} />
           </View>
         </TouchableOpacity>
-        <TouchableOpacity style={styles.touchableGuidePayment1}>
+        {props.paymentGuide1Visible ? (
+          <Banks/>
+        ) : (
+          <View/>
+        )}
+        <TouchableOpacity style={styles.touchableGuidePayment1} onPress={props.togglePaymentGuide2Visible}>
           <View style={styles.paddingLeft20}>
             <Image source={bankIcon} style={styles.iconSize} />
           </View>
@@ -79,6 +85,11 @@ const WaitingForPaymentModal = (props) => (
             <FontAwesome name="chevron-down" style={styles.iconDrop} />
           </View>
         </TouchableOpacity>
+        {props.paymentGuide2Visible ? (
+          <Banks/>
+        ) : (
+          <View/>
+        )}
       </View>
       <View style={styles.paymentGuideSparator}>
         <Text style={styles.paymentGuideTitle}>More Information</Text>
@@ -117,6 +128,10 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     paddingBottom: 20,
     marginBottom: 20
+  },
+  grandWrapper:{
+    width: '100%',
+    height: '100%'
   },
   Card: {
     marginLeft: 5,
