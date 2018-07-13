@@ -77,7 +77,7 @@ class YourCartContainer extends Component {
 
   async addQty(){
     await this.setState({
-      qty: this.state.quantity + 1
+      quantity: this.state.quantity + 1
     })
     await this.setState({
       totalPrice: this.state.price * this.state.quantity
@@ -89,7 +89,7 @@ class YourCartContainer extends Component {
 
     }else {
       await this.setState({
-        qty: this.state.quantity - 1
+        quantity: this.state.quantity - 1
       })
       await this.setState({
         totalPrice: this.state.price * this.state.quantity
