@@ -154,7 +154,7 @@ class YourCartContainer extends Component {
 
         quantity={this.state.quantity}
         price={this.state.price}
-        totalPrice={this.totalPrice()}
+        totalPrice={this.formatPrice(this.totalPrice())}
 
         onChangeQuantity={(quantity) => this.setState({quantity})}
         addQty={() => this.addQty()}

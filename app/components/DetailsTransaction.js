@@ -3,6 +3,9 @@ import { View,Text, StyleSheet, Dimensions, StatusBar, FlatList, TouchableOpacit
 import { Container, Content } from 'native-base'
 import Navbar from '../particles/Navbar'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
+import Feather from 'react-native-vector-icons/Feather'
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 const { height, width } = Dimensions.get('window')
 
 const DetailsTransaction = (props) => (
@@ -17,6 +20,22 @@ const DetailsTransaction = (props) => (
       backgroundColor="#f65857"
       barStyle="light-content"
     />
+    <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 10, backgroundColor: '#ccc'}}>
+      <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
+        <Feather name="package" size={18} color={props.status === "PACKING" ? '#d11e48' : ''}/>
+        <Text style={{fontSize: 12, color:props.status === "PACKING" ? '#d11e48' : ''}}>Packing</Text>
+      </View>
+      <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
+      <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>      
+        <MaterialIcons name="local-shipping" size={18} color={props.status === "SHIPPING" ? '#d11e48' : ''}/>
+        <Text style={{fontSize: 12, color:props.status === "SHIPPING" ? '#d11e48' : ''}}>Shipping</Text>
+      </View>
+      <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
+      <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
+        <MaterialIcons name="check" size={18} color={props.status === "DELIVERED" ? '#d11e48' : ''}/>
+        <Text style={{fontSize: 12, color:props.status === "DELIVERED" ? '#d11e48' : ''}}>Delivered</Text>
+      </View>
+    </View>
     <Content>
       <View style={styles.grandWrapper}>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
