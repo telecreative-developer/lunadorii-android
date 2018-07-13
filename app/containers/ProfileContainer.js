@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { AsyncStorage } from 'react-native'
+import { RNS3 } from 'react-native-aws3';
 import Profile from '../components/Profile'
 import RecentOrders from '../particles/RecentOrders'
 import ImagePicker from 'react-native-image-picker'
@@ -46,6 +47,8 @@ class ProfileContainer extends Component {
     bod: "",
     email: "",
     photoProfile: '',
+    photoName: '',
+    photoType: '',
     modalVisibleEditProfile: false,
     imageProfile: 'https://avatars0.githubusercontent.com/u/38149346?s=400&u=7db8195dd7b4436cbf6d0575915ca6b198d116cc&v=4',
   }
@@ -55,6 +58,8 @@ class ProfileContainer extends Component {
   }
 
   async handleOpenCamera(){
+    const session = await AsyncStorage.getItem('session')
+    const data = await  JSON.parse(session)
     const options = await {
       storageOptions:{
         stillLoading: true,
@@ -68,11 +73,53 @@ class ProfileContainer extends Component {
       }else if(responses.error){
         alert("An error occured")
       }else{
+        let str = responses.fileName
+        let fileExt = str.split(".")
+
         this.setState({
-          photoProfile: responses.uri
+          photoProfile: responses.uri,
+          photoName: `${Date.now()}.${fileExt[1]}`,
+          photoType: `image/${fileExt[1]}`
         })
+        this.uploadToS3(responses.uri, `${Date.now()}.${fileExt[1]}`, `image/${fileExt[1]}`)
       }
     })
+  }
+
+  uploadToS3(uri, name, type){
+    const file = {
+      // `uri` can also be a file system path (i.e. file://)
+      uri,
+      name,
+      type
+    }
+    console.log(file, options)
+    
+    const options = {
+      keyPrefix: "avatars/",
+      bucket: "lunadorii-dev",
+      region: "ap-southeast-1",
+      accessKey: "AKIAIDZ3JEHIHGIIFKDA",
+      secretKey: "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",
+      successActionStatus: 201,
+      awsUrl: "s3.ap-southeast-1.amazonaws.com"
+    }
+    
+    RNS3.put(file, options).progress((e) => console.log(e.loaded / e.total)).then(response => {
+      if (response.status !== 201)
+        throw new Error("Failed to upload image to S3");
+      console.log(response);
+      /**
+       * {
+       *   postResponse: {
+       *     bucket: "your-bucket",
+       *     etag : "9f620878e06d28774406017480a59fd4",
+       *     key: "uploads/image.png",
+       *     location: "https://your-bucket.s3.amazonaws.com/uploads%2Fimage.png"
+       *   }
+       * }
+       */
+    }).catch(error => console.log(error));
   }
 
   async handleSaveEditProfile() {
@@ -96,6 +143,7 @@ class ProfileContainer extends Component {
     }
     await this.setState({
       userData: data,
+      photoProfile: this.props.getsingleuser.avatar_url,
       first_name: this.props.getsingleuser.first_name,
       last_name : this.props.getsingleuser.last_name,
       bod: this.props.getsingleuser.bod,
