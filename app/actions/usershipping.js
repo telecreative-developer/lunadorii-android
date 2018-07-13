@@ -29,7 +29,7 @@ export const updateShipping = (id, items, accessToken) => {
 	console.log('items update :', items)
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_UPDATE_SHIPPING'))
-		// console.log('items action: ', items)
+		console.log('items action: ', items)
 		try {
 			const response = await fetch(`${API_SERVER}/user-address/${id}`, {
 				method: 'PUT',
