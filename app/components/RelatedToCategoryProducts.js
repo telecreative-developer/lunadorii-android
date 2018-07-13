@@ -28,6 +28,12 @@ const RelatedToCategoryProducts = (props) => (
       backgroundColor="#f65857"
       barStyle="light-content"
     />
+    <AddToCart
+      modalVisible={props.modalVisibleAddToCart}
+      toggleModalAddToCart={props.toggleModalAddToCart}
+      onChangeQty={props.onChangeQty}
+      handleAddToCart={props.handleAddToCart}      
+    />
     {props.stillLoading ? (
       <View style={styles.style}>
         <Spinner color="#d11e48"/>

@@ -32,7 +32,7 @@ const styles = StyleSheet.create({
   },
   headerTitle: {
     fontWeight: 'bold',
-    color: '#fff',
+    color: '#000',
     fontFamily: 'Avenir Next',
     fontSize: 18
   },
