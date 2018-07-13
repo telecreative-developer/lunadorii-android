@@ -142,9 +142,27 @@ class YourShippingAddressContainer extends Component{
     })
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    Alert.alert(
+      'Delete',
+      'Are you sure to Delete ?',
+      [
+        { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+        {
+          text: 'Delete',
+          onPress: () => this.fetchData(item)
+          
+        }
+      ],
+      { cancelable: false }
+    ) 
+    // console.log('clicked delete id: ', this.state.address_id)
+  }
+
+  async fetchData(item){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
     await this.props.deleteShipping(this.state.address_id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
-    // console.log('clicked delete id: ', this.state.address_id)
   }
 
   async handleProvince(province, province_id){

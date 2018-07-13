@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AsyncStorage} from 'react-native'
+import {AsyncStorage, Alert} from 'react-native'
 import Reviews from '../components/Reviews'
 import ProductReviews from '../particles/ProductReviews'
 import { connect } from 'react-redux'
@@ -75,18 +75,28 @@ class ReviewsContainer extends Component{
     const loading = this.props
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.props.deleteReview(item.product_review_id, data.accessToken)
-    await this.props.fetchUserReview(data.id, data.accessToken)
-    return (
-      <View>
-        {loading.condition === true && loading.process_on === 'LOADING_PROCESS_DELETE_WISHLIST' ?
-        <Spinner color="red"/> :
-        <View></View>  
-      }
-      </View>
-    )
+    Alert.alert(
+      'Delete',
+      'Are you sure to Delete ?',
+      [
+        { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+        {
+          text: 'Delete',
+          onPress: () => this.fetchData(item)
+          
+        }
+      ],
+      { cancelable: false }
+    ) 
   }
  
+  async fetchData(item){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.deleteReview(item.product_review_id, data.accessToken)
+    await this.props.fetchUserReview(data.id, data.accessToken)
+  }
+
   async onStarRatingPress(star) {
     await this.setState({
       star: star

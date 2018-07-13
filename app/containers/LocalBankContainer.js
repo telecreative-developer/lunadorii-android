@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, Alert } from 'react-native'
 import LocalBank from '../components/LocalBank'
 import LocalBanks from '../particles/LocalBanks'
 import Picker from '../particles/Picker'
@@ -7,12 +7,6 @@ import Picker from '../particles/Picker'
 import { connect } from 'react-redux'
 import { fetchUserBank, fetchDataBank, addUserBank, editUserBank, deleteUserBank } from '../actions/bank'
 import CreditCardIsEmpty from '../components/CreditCardIsEmpty'
-
-dataLocalBank=[
-  {bankName: "BCA", name: 'Nurdineeee', bill: '69696969696'},
-  {bankName: "BRI", name: 'Nurdineeee', bill: '69696969696'},
-  {bankName: "Mayapada", name: 'Nurdineeee', bill: '69696969696'}
-]
 
 class LocalBankContainer extends Component{
 
@@ -69,7 +63,24 @@ class LocalBankContainer extends Component{
   }
 
   async handleDeleteBank(item){
-    console.log("eaaeae", item)
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    Alert.alert(
+      'Delete',
+      'Are you sure to Delete ?',
+      [
+        { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+        {
+          text: 'Delete',
+          onPress: () => this.fetchData(item)
+          
+        }
+      ],
+      { cancelable: false }
+    ) 
+  }
+
+  async fetchData(item){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.deleteUserBank(item.user_bank_id, data.accessToken)
