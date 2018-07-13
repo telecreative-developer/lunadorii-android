@@ -45,6 +45,7 @@ const Wishlist = (props) => (
                 data={props.dataProduct}
                 renderItem={props.renderProduct}
                 keyExtractor={(item, index) => JSON.stringify(index)}
+                handleRemove={() => alert('hai')}
               />
             </View>
           )
