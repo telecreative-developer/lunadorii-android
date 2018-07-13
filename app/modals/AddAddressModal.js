@@ -33,30 +33,34 @@ const AddAddressModal = (props) => (
         </Item>
 
         <Label style={styles.labels}>Province</Label>
-        <Item regular style={styles.items}>
-          <Input placeholder={props.provinceValue} value={props.provinceValue} onChangeText={props.onChangeProvince}/>
-        </Item>
         {props.provinceValue && props.visibleProvincePicker ? (
           <FlatList
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
             data={props.dataProvince}
             renderItem={props.renderDataProvince}
           />
         ) : (
           <View backgroundColor="transparent"/>
         )}
+        <Item regular style={styles.items}>
+          <Input placeholder={props.provinceValue} value={props.provinceValue} onChangeText={props.onChangeProvince}/>
+        </Item>
 
         <Label style={styles.labels}>City</Label>
-        <Item regular style={styles.items}>
-          <Input placeholder={props.cityValue} value={props.cityValue} onChangeText={props.onChangeCity}/> 
-        </Item>
         {props.cityValue && props.visibleCityPicker ? (
           <FlatList
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
             data={props.dataCity}
             renderItem={props.renderDataCity}
           />
         ) : (
           <View backgroundColor="transparent"/>
         )}
+        <Item regular style={styles.items}>
+          <Input placeholder={props.cityValue} value={props.cityValue} onChangeText={props.onChangeCity}/> 
+        </Item>
 
         <View style={styles.wrapper}>
           <View style={styles.flexDirectionCol}>

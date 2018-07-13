@@ -23,8 +23,8 @@ const OrderDetails = (props) => (
         <Text style={styles.txtDetail}>Quantity: <Text style={styles.txtpcs}>{props.quantity} pcs</Text></Text>
       </View>
     </View>
-    <View style={{paddingHorizontal:10, paddingVertical: 5, flexDirection: 'row', justifyContent: 'space-between', backgroundColor: '#f6f6f6', alignItems: 'center'}}>
-      <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+    <View style={{paddingHorizontal:10, paddingVertical: 5, flexDirection: 'row', justifyContent: 'flex-end', backgroundColor: '#f6f6f6', alignItems: 'center'}}>
+      {/* <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
         <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
           <Feather name="package" size={18} color={props.status === "PACKING" ? '#d11e48' : ''}/>
           <Text style={{fontSize: 12, color:props.status === "PACKING" ? '#d11e48' : ''}}>Packing</Text>
@@ -39,7 +39,7 @@ const OrderDetails = (props) => (
           <MaterialIcons name="check" size={18} color={props.status === "DELIVERED" ? '#d11e48' : ''}/>
           <Text style={{fontSize: 12, color:props.status === "DELIVERED" ? '#d11e48' : ''}}>Delivered</Text>
         </View>
-      </View>
+      </View> */}
       <View style={{justifyContent: 'flex-end', paddingHorizontal:5}}>
         <TouchableOpacity onPress={props.action}>
           <Text style={styles.txtMoreDetails}>Details</Text>

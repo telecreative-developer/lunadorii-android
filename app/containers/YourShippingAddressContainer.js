@@ -154,8 +154,7 @@ class YourShippingAddressContainer extends Component{
         }
       ],
       { cancelable: false }
-    ) 
-    // console.log('clicked delete id: ', this.state.address_id)
+    )
   }
 
   async fetchData(item){
