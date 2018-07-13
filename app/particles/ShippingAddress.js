@@ -23,7 +23,7 @@ const ShippingAddress = (props) => (
           </TouchableOpacity>
           
         )}
-        <TouchableOpacity onPress={Alert.alert('Sorry', 'Under Maintain')}>
+        <TouchableOpacity onPress={props.actionEdit}>
           <Text style={styles.txtAction}>Edit Address</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={props.actionDelete}>
