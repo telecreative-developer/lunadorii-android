@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, FlatList, StatusBar, Dimensions, TouchableOpacity } from 'react-native'
-import { Container, Content, Icon, Button, Radio,  } from 'native-base'
+import { View, Text, StyleSheet, FlatList, StatusBar, Dimensions, TouchableOpacity, Image } from 'react-native'
+import { Container, Content, Icon, Button, Input, Label, Item  } from 'native-base'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
 import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
+const shippingAddress = require('../assets/images/icon/shipping-address.png')
+const tiki = require('../assets/images/icon/tiki.png')
 const { height, width } = Dimensions.get('window')
 
 const YourCart = (props) => (
@@ -53,37 +55,86 @@ const YourCart = (props) => (
       </View>
       <View style={styles.border}>
         <View style={styles.body}>
-         <Text style={styles.title}>Shipping Options</Text>
+          <Text style={styles.title}>Shipping Options</Text>
           <FlatList
             data={props.onCartShippingAddress}
             renderItem={props.renderOnCartShippingAddress}
           />
-          <View style={styles.contentBottom}>
-           <Radio/>
-           <View style={styles.wrapKurir}>
-             <Text style={styles.txtkurir}>JNE</Text>
-             <Text style={styles.txtdetilkurir}>Barang akan sampai 2 -3 hari</Text>
-           </View>
-           <Text style={styles.txtpcs}>RP 15,000</Text>
-          </View>
-          <View style={styles.contentBottom}>
-           <Radio/>
-           <View style={styles.wrapKurir}>
-             <Text style={styles.txtkurir}>YES</Text>
-             <Text style={styles.txtdetilkurir}>Barang akan sampai 1 hari</Text>
-           </View>
-           <Text style={styles.txtpcs}>RP 15,000</Text>
-          </View>
-          <View style={styles.contentBottom}>
-           <Radio/>
-           <View style={styles.wrapKurir}>
-             <Text style={styles.txtkurir}>Express</Text>
-             <Text style={styles.txtdetilkurir}>Barang akan sampai 2 -3 hari</Text>
-           </View>
-           <Text style={styles.txtpcs}>RP 15,000</Text>
-          </View> 
+
+          {/* <View>
+            <TouchableOpacity style={styles.touchableGuidePayment1} onPress={props.toggleDeliverySerive}>
+              <View>
+                <Image source={shippingAddress} style={styles.iconSize} />
+              </View>
+              <View style={styles.flexOnly9}>
+                <View style={styles.viewPaddingLeft}>
+                  <Text style={styles.txtLabel}>Delivery Service</Text>
+                </View>
+              </View>
+              <View style={styles.flexOnly1}>
+                <FontAwesome name="chevron-down" style={styles.iconDrop} />
+              </View>
+            </TouchableOpacity>
+            {props.deliverySeriveVisible ? (
+              <View style={styles.contentBottom}>
+                <Radio/>
+                <View style={styles.wrapKurir}>
+                  <Text style={styles.txtkurir}>JNE</Text>
+                  <Text style={styles.txtdetilkurir}>Barang akan sampai 2 -3 hari</Text>
+                </View>
+                <Text style={styles.txtpcs}>RP 15,000</Text>
+              </View>
+
+              <View style={styles.contentBottom}>
+                <Radio/>
+                <View style={styles.wrapKurir}>
+                  <Text style={styles.txtkurir}>YES</Text>
+                  <Text style={styles.txtdetilkurir}>Barang akan sampai 1 hari</Text>
+                </View>
+                <Text style={styles.txtpcs}>RP 15,000</Text>
+              </View>
+
+              <View style={styles.contentBottom}>
+                <Radio/>
+                <View style={styles.wrapKurir}>
+                  <Text style={styles.txtkurir}>Express</Text>
+                  <Text style={styles.txtdetilkurir}>Barang akan sampai 2 -3 hari</Text>
+                </View>
+                <Text style={styles.txtpcs}>RP 15,000</Text>
+              </View> 
+            ) : (
+              <View/>
+            )}
+          </View> */}
         </View>
       </View>
+      {/* <View style={styles.border1}>
+        <View style={styles.body1}>
+          <Text style={styles.title}>Delivery Service</Text>
+          <View>
+            <View>
+              <Label style={styles.label}>Service</Label>
+              <Item regular style={{width: '100%', borderRadius: 5,height: 40,alignItems:'center'}}>
+                <Input/>
+              </Item>
+            </View>
+            <View style={{flexDirection:'row', justifyContent: 'space-between', paddingVertical: 10}}> 
+              <View>
+                <Label style={styles.label}>Class</Label>
+                <Item regular style={{width: 150, borderRadius: 5,height: 40,alignItems:'center'}}>
+                  <Input/>
+                </Item>
+              </View>
+              <View>
+                <Label style={styles.label}>Fare</Label>
+                <Item regular style={{width: 150, borderRadius: 5,height: 40,alignItems:'center'}}>
+                  <Input/>
+                </Item>
+              </View>
+            </View>
+          </View>
+        </View>
+      </View> */}
     </Content>
     <View style={styles.footer}>
       <View style={styles.footerWrapper}>
@@ -118,8 +169,16 @@ const styles = StyleSheet.create({
     marginHorizontal:10,
     marginTop:10,
   },
+  body1:{
+    marginHorizontal:10,
+  },
   border:{
     borderTopWidth:1,
+    borderBottomWidth:1,
+    borderColor:'#e2e2e2'
+  },
+  border1:{
+    borderTopWidth:0,
     borderBottomWidth:1,
     borderColor:'#e2e2e2'
   },
@@ -133,6 +192,12 @@ const styles = StyleSheet.create({
     margin:10,
     flexDirection:'row',
     flex:1,
+  },
+  label:{
+    fontSize: 16,
+    fontFamily: 'Avenir Next',
+    fontWeight: 'bold',
+    paddingVertical: 10
   },
   image:{
     width:75,
@@ -235,7 +300,53 @@ const styles = StyleSheet.create({
   },
   footerTotalInfo: {
     fontSize: 16
-  }
+  },
+  items: {
+    width: '100%',
+    borderRadius: 5,
+    height: 40,
+    alignItems:'center',
+    marginVertical: 5
+  },
+  labels: {
+    fontSize: 16,
+    fontFamily: 'Avenir Next',
+    fontWeight: 'bold',
+    paddingVertical: 10
+  },
+  touchableGuidePayment1: {
+    flexDirection: 'row',
+    paddingTop: 15,
+    paddingBottom: 15,
+  },
+  iconSize: {
+    width: 30,
+    height: 30
+  },
+  deliveryServiceLogoStyle: {
+    width: 40,
+    height: 40
+  },
+  flexOnly9: {
+    marginTop: 5,
+    flex: 0.9
+  },
+  viewPaddingLeft: {
+    paddingLeft: 20
+  },
+  txtLabel: {
+    fontSize: 16,
+    fontWeight: 'bold'
+  },
+  flexOnly1: {
+    flex: 0.1
+  },
+  iconDrop: {
+    marginTop: 5,
+    fontSize: 16,
+    paddingRight: 10,
+    top: 3
+  },
 })
 
 export default YourCart

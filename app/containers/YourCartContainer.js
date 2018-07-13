@@ -17,6 +17,8 @@ class YourCartContainer extends Component {
       paymentGuide2Visible: false,
       modalVisibleEditQuantity: false,
       modalVisibleCheckoutPayment: false,
+      deliverySeriveVisible: false,
+      deliverySerive: '',
       id: 0,
       product_id: 0,
       quantity: 0,
@@ -171,6 +173,9 @@ class YourCartContainer extends Component {
 
         modalVisibleCheckoutPayment={this.state.modalVisibleCheckoutPayment}
         toggleCheckoutPayment={() => this.toggleCheckoutPayment()}
+
+        deliverySeriveVisible={this.state.deliverySeriveVisible}
+        toggleDeliverySerive={() => this.setState({deliverySeriveVisible: !this.state.deliverySeriveVisible})}
 
         navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
         goback={() => this.props.navigation.goBack()}/>

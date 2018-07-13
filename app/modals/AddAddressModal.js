@@ -38,6 +38,8 @@ const AddAddressModal = (props) => (
         </Item>
         {props.provinceValue && props.visibleProvincePicker ? (
           <FlatList
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
             data={props.dataProvince}
             renderItem={props.renderDataProvince}
           />
@@ -51,6 +53,8 @@ const AddAddressModal = (props) => (
         </Item>
         {props.cityValue && props.visibleCityPicker ? (
           <FlatList
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
             data={props.dataCity}
             renderItem={props.renderDataCity}
           />
