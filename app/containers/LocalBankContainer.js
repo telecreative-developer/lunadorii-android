@@ -5,7 +5,7 @@ import LocalBanks from '../particles/LocalBanks'
 import Picker from '../particles/Picker'
 
 import { connect } from 'react-redux'
-import { fetchUserBank, fetchDataBank, addUserBank, editUserBank } from '../actions/bank'
+import { fetchUserBank, fetchDataBank, addUserBank, editUserBank, deleteUserBank } from '../actions/bank'
 import CreditCardIsEmpty from '../components/CreditCardIsEmpty'
 
 dataLocalBank=[
@@ -68,6 +68,15 @@ class LocalBankContainer extends Component{
     await this.setState({ modalVisibleEditLocalBank: !this.state.modalVisibleEditLocalBank})
   }
 
+  async handleDeleteBank(item){
+    console.log("eaaeae", item)
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.deleteUserBank(item.user_bank_id, data.accessToken)
+    await this.props.fetchUserBank(data.id, data.accessToken)
+    await alert(this.props.manipulatebank.message)
+  }
+
   toggleModalAddLocalBank(){
     this.setState({ modalVisibleAddLocalBank: !this.state.modalVisibleAddLocalBank})
   }
@@ -79,7 +88,6 @@ class LocalBankContainer extends Component{
   async toggleModalEditLocalBank(item){
     await this.closeModal()
     if(this.state.modalVisibleEditLocalBank){
-      console.log("huhuh",item)
       await this.setState({
         user_bank_id: item.user_bank_id,
         bankName: item.bank.name,
@@ -138,12 +146,14 @@ class LocalBankContainer extends Component{
               bankName={item.bank.name}
               name={item.account_name}
               bill={item.account_number}
-              action={() => this.toggleModalEditLocalBank(item)} />
+              action={() => this.toggleModalEditLocalBank(item)}
+              actionDelete={() => this.handleDeleteBank(item)} />
           )}
 
           buttonSave={this.state.buttonSave}
           handleAddBank={() => this.handleAddBank()}
           handleEditBank={() => this.handleEditBank()}
+          handleDeleteBank={() => this.handleDeleteBank()}
           goback={() => this.props.navigation.goBack()}
         />
       )
@@ -158,7 +168,8 @@ const mapDispatchToProps = (dispatch) =>{
     fetchUserBank: (id, accessToken) => dispatch(fetchUserBank(id, accessToken)),
     fetchDataBank: () => dispatch(fetchDataBank()),
     addUserBank: (account_number, account_name, bank_id, id, password, accessToken) => dispatch(addUserBank(account_number, account_name, bank_id, id, password, accessToken)),
-    editUserBank: (user_bank_id, account_number, account_name, bank_id, id, password, accessToken) => dispatch(editUserBank(user_bank_id, account_number, account_name, bank_id, id, password, accessToken))
+    editUserBank: (user_bank_id, account_number, account_name, bank_id, id, password, accessToken) => dispatch(editUserBank(user_bank_id, account_number, account_name, bank_id, id, password, accessToken)),
+    deleteUserBank: (id, accessToken) => dispatch(deleteUserBank(id, accessToken))
   }
 }
 

@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { AsyncStorage } from 'react-native'
 import RelatedToBrandProducts from '../components/RelatedToBrandProducts'
 import Product from '../particles/Product'
 import { connect } from 'react-redux'
@@ -10,6 +11,7 @@ class RelatedToBrandProductsContainer extends Component{
   constructor(props) {
     super(props);
     this.state = {
+      image: '',
       stillLoading: true,
       loadingModal: false,
       title: '',
@@ -69,6 +71,10 @@ class RelatedToBrandProductsContainer extends Component{
     return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
   }
 
+  formatPrice(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
+
   render(){
     console.log('dattaa :' , this.props.receiveProductWithBrand)
     return(
@@ -79,11 +85,12 @@ class RelatedToBrandProductsContainer extends Component{
         title={this.state.title}
         renderProduct={({item}) => (
           <Product
-            image={item.thumbnails[0].thumbnail_url}
+            image={item.thumbnails[0].thumbnail_url} 
             title={item.title <= 17 ? this.capitalize(item.title) : this.capitalize(item.product).slice(0,18)+'...'} 
-            categories={item.subcategories[0].subcategory}
-            price={item.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
-            ratings={item.product_rate}
+            categories={item.subcategories[0].subcategory} 
+            price={this.formatPrice(item.price)} 
+            star={item.product_rate} 
+            action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
             toggleModalAddToCart={() => this.toggleModalAddToCart(item)}
           />
         )}

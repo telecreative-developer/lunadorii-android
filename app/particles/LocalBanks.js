@@ -13,6 +13,9 @@ const LocalBanks = (props) => (
         <TouchableOpacity onPress={props.action}>
           <Text style={styles.txtAction}>Edit</Text>
         </TouchableOpacity>
+        <TouchableOpacity onPress={props.actionDelete}>
+          <Text style={styles.txtAction}>Remove</Text>
+        </TouchableOpacity>
       </View>
     </View>
   </View>
