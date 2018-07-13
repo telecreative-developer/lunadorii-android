@@ -3,7 +3,7 @@ import { StyleSheet, TouchableOpacity, FlatList, StatusBar, Dimensions, Text } f
 import { Container, Content, View, Button, Icon, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
 import UnderDevelopment from '../particles/UnderDevelopment'
-// import EditAddressModal from '../modals/EditAddressModal'
+import EditAddressModal from '../modals/EditAddressModal'
 import AddAddressModal from '../modals/AddAddressModal'
 const { height, width } = Dimensions.get('window')
 
@@ -13,6 +13,7 @@ const YourShippingAddress = (props) => (
       navbarTitle="Shipping Address"
       navbarIcon="arrow-back"
       actionIcon={props.goback} />
+    
     <AddAddressModal
       navbarTitle="Add Addresss"
       navbarIcon="close"
@@ -53,6 +54,48 @@ const YourShippingAddress = (props) => (
       visibleRegencyPicker={props.visibleRegencyPicker}
 
       handleSaveAddress={props.handleSaveAddress}/>
+
+      <EditAddressModal
+      navbarTitle="Edit Addresss"
+      navbarIcon="close"
+      modalVisible={props.modalVisibleEditAddress}
+      actionIcon={props.toggleModalEditAddress} 
+
+      nameValue={props.nameValue}
+      onChangeName={props.onChangeName}
+
+      labelValue={props.labelValue}
+      onChangeLabel={props.onChangeLabel}
+
+      addressValue={props.addressValue}
+      onChangeAddress={props.onChangeAddress}
+
+      provinceValue={props.provinceValue}
+      onChangeProvince={props.onChangeProvince}
+
+      cityValue={props.cityValue}
+      onChangeCity={props.onChangeCity}
+
+      postalcodeValue={props.postalcodeValue}
+      onChangePostalcode={props.onChangePostalcode}
+
+      numberPhoneValue={props.numberPhoneValue}
+      onChangeNumberPhone={props.onChangeNumberPhone}
+
+      dataProvince={props.dataProvince}
+      renderDataProvince={props.renderDataProvince}
+      visibleProvincePicker={props.visibleProvincePicker}
+
+      dataCity={props.dataCity}
+      renderDataCity={props.renderDataCity}
+      visibleCityPicker={props.visibleCityPicker}
+
+      dataRegency={props.dataRegency}
+      renderDataRegency={props.renderDataRegency}
+      visibleRegencyPicker={props.visibleRegencyPicker}
+
+      handleUpdateAddress={props.handleUpdateAddress}/>
+      
 
     <StatusBar
       backgroundColor="#f65857"

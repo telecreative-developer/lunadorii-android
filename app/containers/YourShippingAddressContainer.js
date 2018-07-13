@@ -43,28 +43,25 @@ class YourShippingAddressContainer extends Component{
     await this.closeModal()
     if(this.state.modalVisibleEditAddress){
       await this.setState({
-        address_id: item.user_address_id,
         name: item.recepient,
-        phone: item.phone,
-        detail_address: item.detail_address,
+        address: item.detail_address,
         province: item.province,
-        label: item.label,
+        province_id:item.province_id,
         city: item.city,
-        district: item.district,
-        address_default: item.address_default
+        postalcode: item.postal_code,
+        numberPhone: item.phone,
+        label:item.label,
       }) 
     }else{
       await this.setState({
-        address_id: '',
         name: '',
-        phone: '',
-        detail_address: '',
+        address: '',
         province: '',
-        label:'',
+        province_id:'',
         city: '',
-        district: '',
-        address_default: '',
-        regency:''
+        postalcode: '',
+        numberPhone: '',
+        label:'',
       })
     }
   }
@@ -98,12 +95,23 @@ class YourShippingAddressContainer extends Component{
   }
 
   async btnUpdateShipping(){
-    alert('updated')
+    const { name, address, province_id, city_id, postalcode, numberPhone, label } = this.state
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.props.updateShipping(this.state.address_id, this.state, data.accessToken)
+    await this.props.updateShipping(this.state.address_id, {name, address, province_id, city_id, postalcode, numberPhone, label}, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
     await this.toggleModalEditAddress()
+    await this.setState({
+      name: '',
+      address: '',
+      province: '',
+      province_id:'',
+      city: '',
+      postalcode: '',
+      numberPhone: '',
+      label:'',
+    })
+    Alert.alert('Success Add Address', 'Thanks..')
   }
 
   async componentDidMount() {
@@ -168,6 +176,9 @@ class YourShippingAddressContainer extends Component{
         modalVisibleAddAddress={this.state.modalVisibleAddAddress}
         toggleModalAddAddress={() => this.toggleModalAddAddress()}
 
+        modalVisibleEditAddress={this.state.modalVisibleEditAddress}
+        toggleModalEditAddress={() => this.toggleModalEditAddress()}
+
         nameValue={this.state.name}
         onChangeName={(name) => this.setState({name})}
 
@@ -208,6 +219,7 @@ class YourShippingAddressContainer extends Component{
         visibleRegencyPicker={this.state.visibleRegencyPicker ? true : false}
 
         handleSaveAddress={() => this.handleSaveAddress()}
+        handleUpdateAddress={() => this.btnUpdateShipping()}
         dataShippingAddress={this.props.usershipping}
         renderShippingAddress={({item}) => (
           <ShippingAddress
