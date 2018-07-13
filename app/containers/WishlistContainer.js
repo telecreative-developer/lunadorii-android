@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
-import {AsyncStorage} from 'react-native'
+import {AsyncStorage, Alert} from 'react-native'
 import { connect } from 'react-redux'
 
 import Wishlist from '../components/Wishlist'
 import Product from '../particles/Product'
-import {fetchwishlist} from '../actions/wishlist'
+import {fetchwishlist, deleteWishlistInHome} from '../actions/wishlist'
 
 class WishlistContainer extends Component{
 
@@ -41,6 +41,32 @@ class WishlistContainer extends Component{
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }
 
+  async handleRemove(item) {
+    console.log('delete :' , item)
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+		Alert.alert(
+        'Delete',
+        'Are you sure to Delete ?',
+        [
+          { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+          {
+            text: 'Delete',
+            onPress: () => this.fetchData(item)
+            
+          }
+        ],
+        { cancelable: false }
+      ) 
+	}
+
+  async fetchData(item){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.deleteWishlistInHome(data.accessToken, data.id, item.data.product_id),
+    await this.props.fetchwishlist(data.accessToken, data.id)
+  }
+
   render(){
     console.log('data :', this.props.wishlist)
     return(
@@ -55,6 +81,7 @@ class WishlistContainer extends Component{
             price={this.formatPrice(item.price)} 
             star={item.product_rate} 
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+            handleRemove={() => this.handleRemove({data: item})}
           />
         )}
         navigateToProfile={() => this.props.navigation.navigate('ProfileContainer')}
@@ -69,7 +96,8 @@ class WishlistContainer extends Component{
 
 const mapDispatchToProps = (dispatch) => {
   return{
-    fetchwishlist: (accessToken, id) => dispatch(fetchwishlist(accessToken, id))
+    fetchwishlist: (accessToken, id) => dispatch(fetchwishlist(accessToken, id)),
+    deleteWishlistInHome: (accessToken, id, idProduct) => dispatch(deleteWishlistInHome(accessToken, id, idProduct))
   }
 }
 

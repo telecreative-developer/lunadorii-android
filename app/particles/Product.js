@@ -10,7 +10,7 @@ const Product = (props) => (
     <TouchableOpacity onPress={props.action}>
       <ImageBackground source={{ uri: props.image }} style={styles.ImageBackground}>
         {props.isOnWishlist ? (
-          <TouchableOpacity style={styles.touchableOpacity} onPress={props.toggleModalAddToCart}>
+          <TouchableOpacity style={styles.touchableOpacity} onPress={props.handleRemove}>
             <Text style={styles.txtAddCart}><Entypo name="trash" size={12}/> Remove</Text>
           </TouchableOpacity>
         ) : (

@@ -145,7 +145,7 @@ class ProductShowContainer extends Component {
 
   async deleteWishlistInHome(){
     this.setState({clickWishlist:!this.state.clickWishlist})
-    ToastAndroid.showWithGravity("Delete to wishlist.", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    ToastAndroid.showWithGravity("Delete wishlist.", ToastAndroid.SHORT, ToastAndroid.CENTER)
     const dataProduct = this.props.navigation.state.params.data
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
