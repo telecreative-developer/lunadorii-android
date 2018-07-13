@@ -55,7 +55,7 @@ const YourCart = (props) => (
       </View>
       <View style={styles.border}>
         <View style={styles.body}>
-          <Text style={styles.title}>Shipping Options</Text>
+          <Text style={styles.title}>Shipping Address</Text>
           <FlatList
             data={props.onCartShippingAddress}
             renderItem={props.renderOnCartShippingAddress}
@@ -147,7 +147,7 @@ const YourCart = (props) => (
           <TouchableOpacity onPress={props.toggleCheckoutPayment}>
             <View style={styles.footerButtonStyling}> 
               <FontAwesome name="money" size={20} color="#fff" />
-              <Text style={styles.footerButtonTextStyling}>Go to Payment</Text>
+              <Text style={styles.footerButtonTextStyling}> Go to Payment</Text>
             </View>
           </TouchableOpacity>
         </View>
@@ -262,7 +262,8 @@ const styles = StyleSheet.create({
     borderTopColor: '#f6f6f6',
     justifyContent: 'flex-start',
     backgroundColor: '#fff',
-    height: 75
+    height: 75,
+    paddingHorizontal: 5
   },
   footerWrapper: {
     flexDirection: 'row',
@@ -273,7 +274,7 @@ const styles = StyleSheet.create({
   },
   footerButton: {
     justifyContent: 'center',
-    paddingRight: 10,
+    paddingRight: 15,
     paddingTop: 5
   },
   footerButtonStyling: {
