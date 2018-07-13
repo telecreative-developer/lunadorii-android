@@ -28,8 +28,7 @@ const Profile = (props) => (
       modalVisible={props.modalVisibleEditProfile}
       actionIcon={props.toggleModalEditProfile}
 
-      photoProfile={props.photoProfile}
-      imageProfile={props.profile.userData.avatar_url}
+      imageProfile={props.photoProfile}
       first_name={props.profile.first_name}
       last_name={props.profile.last_name}
       bod={props.profile.bod}
@@ -99,10 +98,10 @@ const Profile = (props) => (
               </TouchableOpacity>
             </View>
             <View style={styles.viewBoxMenu}>
-              <TouchableOpacity onPress={props.navigateToPayment}>
+              <TouchableOpacity onPress={props.navigateToCreditCard}>
                 <View style={styles.viewSubBoxMenu}>
                   <Image source={ImageCreditCard} style={styles.imageIcon} />
-                  <Text style={styles.txtMenu}>Payment</Text>
+                  <Text style={styles.txtMenu}>Credit Card</Text>
                 </View>
               </TouchableOpacity>
             </View>

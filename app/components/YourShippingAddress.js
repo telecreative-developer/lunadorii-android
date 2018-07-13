@@ -107,7 +107,7 @@ const YourShippingAddress = (props) => (
       </View>
     ) : (
       <Content style={styles.container}>
-        <View>
+        <View style={{paddingHorizontal: 10}}>
           <Text style={styles.txtShippingAddress}>Your Shipping Address</Text>
           <FlatList
             data={props.dataShippingAddress}
@@ -132,7 +132,7 @@ const styles = StyleSheet.create({
   txtShippingAddress: {
     fontWeight: 'bold',
     fontSize: 16,
-    padding: 10
+    paddingVertical: 10
   },
   btnAddAddress: {
     borderRadius: 5,
