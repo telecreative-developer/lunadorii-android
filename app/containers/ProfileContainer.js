@@ -119,7 +119,7 @@ class ProfileContainer extends Component {
        *   }
        * }
        */
-    }).catch(error => alert(JSON.stringify(error)));
+    }).catch(error => console.log(error));
   }
 
   async handleSaveEditProfile() {
