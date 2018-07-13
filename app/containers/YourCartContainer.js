@@ -13,6 +13,7 @@ class YourCartContainer extends Component {
     super()
     this.state = {
       paymentGuide1Visible: false,
+      bcaGuide: false,
       paymentGuide2Visible: false,
       modalVisibleEditQuantity: false,
       modalVisibleCheckoutPayment: false,
@@ -121,6 +122,9 @@ class YourCartContainer extends Component {
       <YourCart 
         paymentGuide1Visible={this.state.paymentGuide1Visible}
         togglePaymentGuide1Visible={() => this.togglePaymentGuide1Visible()}
+
+        bcaGuide={this.state.bcaGuide}
+        toggleBcaGuide={() => this.setState({bcaGuide: !this.state.bcaGuide})}
 
         paymentGuide2Visible={this.state.paymentGuide2Visible}
         togglePaymentGuide2Visible={() => this.togglePaymentGuide2Visible()}

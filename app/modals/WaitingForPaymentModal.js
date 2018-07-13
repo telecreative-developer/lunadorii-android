@@ -68,7 +68,7 @@ const WaitingForPaymentModal = (props) => (
           </View>
         </TouchableOpacity>
         {props.paymentGuide1Visible ? (
-          <Banks/>
+          <Banks bcaGuide={props.bcaGuide} toggleBcaGuide={props.toggleBcaGuide}/>
         ) : (
           <View/>
         )}
