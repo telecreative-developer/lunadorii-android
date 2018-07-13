@@ -12,6 +12,8 @@ class YourCartContainer extends Component {
   constructor(){
     super()
     this.state = {
+      paymentGuide1Visible: false,
+      paymentGuide2Visible: false,
       modalVisibleEditQuantity: false,
       modalVisibleCheckoutPayment: false,
       id: 0,
@@ -20,6 +22,14 @@ class YourCartContainer extends Component {
       price: 0,
       totalPrice: 0
     }
+  }
+
+  togglePaymentGuide1Visible(){
+    this.setState({paymentGuide1Visible: !this.state.paymentGuide1Visible})
+  }
+
+  togglePaymentGuide2Visible(){
+    this.setState({paymentGuide2Visible: !this.state.paymentGuide2Visible})
   }
 
   async componentDidMount(){
@@ -109,6 +119,12 @@ class YourCartContainer extends Component {
     {console.log(this.totalPrice())}
     return (
       <YourCart 
+        paymentGuide1Visible={this.state.paymentGuide1Visible}
+        togglePaymentGuide1Visible={() => this.togglePaymentGuide1Visible()}
+
+        paymentGuide2Visible={this.state.paymentGuide2Visible}
+        togglePaymentGuide2Visible={() => this.togglePaymentGuide2Visible()}
+
         quantity={this.state.quantity}
         price={this.state.price}
         totalPrice={this.totalPrice()}
