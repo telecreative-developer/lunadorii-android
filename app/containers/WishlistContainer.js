@@ -47,7 +47,7 @@ class WishlistContainer extends Component{
     const data = await JSON.parse(session)
 		Alert.alert(
         'Delete',
-        'Are you sure to Delete ?',
+        'Are you sure want to Delete ?',
         [
           { text: 'Cancel', onPress: () => {}, style: 'cancel' },
           {
@@ -67,6 +67,11 @@ class WishlistContainer extends Component{
     await this.props.fetchwishlist(data.accessToken, data.id)
   }
 
+  discountPrice(price, discount_percentage){
+    let DiscountPrice = price - (price *(discount_percentage/100))
+    return DiscountPrice
+  }
+
   render(){
     console.log('data :', this.props.wishlist)
     return(
@@ -77,8 +82,8 @@ class WishlistContainer extends Component{
             isOnWishlist={true}
             image={item.thumbnails[0].thumbnail_url} 
             title={item.title <= 17 ? this.capitalize(item.title) : this.capitalize(item.product).slice(0,17)+'...'} 
-            categories={item.subcategories[0].subcategory} 
-            price={this.formatPrice(item.price)} 
+            categories={item.brands[0].brand} 
+            price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
             star={item.product_rate} 
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
             handleRemove={() => this.handleRemove({data: item})}

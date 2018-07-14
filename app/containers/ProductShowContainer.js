@@ -32,6 +32,7 @@ class ProductShowContainer extends Component {
       subcategories: '',
       qty: 1, 
       price: 0,
+      discount:0,
       totalPrice: 0,
       idUser:0,
       idProduct:0,
@@ -95,10 +96,11 @@ class ProductShowContainer extends Component {
       title: data.product,
       images: data.thumbnails.map(data => ({source:{uri: data.thumbnail_url}})),
       subcategories: data.subcategories[0].subcategory,
-      totalPrice: data.price,
       price: data.price,
       amountOfImage: data.thumbnails.length,
       starCount: data.product_rate,
+      discount: data.discount_percentage,
+      totalPrice: this.discountPrice(data.price, data.discount_percentage)
     })
     await this.props.fetchSingleProductWithId(dataSession.id, data.product_id)
     if(this.props.fetchRelatedProduct(data.product_id)){
@@ -112,7 +114,7 @@ class ProductShowContainer extends Component {
       qty: this.state.qty + 1
     })
     await this.setState({
-      totalPrice: this.state.price * this.state.qty
+      totalPrice: this.discountPrice(this.state.price, this.state.discount) * this.state.qty
     })
   }
 
@@ -124,7 +126,7 @@ class ProductShowContainer extends Component {
         qty: this.state.qty - 1
       })
       await this.setState({
-        totalPrice: this.state.price * this.state.qty
+        totalPrice: this.discountPrice(this.state.price, this.state.discount) * this.state.qty
       })
     }
   }
@@ -188,14 +190,21 @@ class ProductShowContainer extends Component {
     });
   }
 
+  discountPrice(price, discount_percentage){
+    let DiscountPrice = price - (price *(discount_percentage/100))
+    return DiscountPrice
+  }
+
   render() {
+    console.log('dis',this.discountPrice(this.state.price, this.state.discount))
+    console.log('asyu',this.state.totalPrice)
     return (
       <ProductShow
         image={this.state.image}
         images={this.state.images}
         title={this.capitalize(this.state.title)}
         categories={this.state.subcategories}
-        price={this.state.data.price}
+        price={this.discountPrice(this.state.price, this.state.discount)}
         star={this.state.starCount}
         descriptions={this.state.data.description}
         productDetails={this.state.data.detail}
@@ -218,8 +227,8 @@ class ProductShowContainer extends Component {
           <RecommendProduct 
             image={item.thumbnails[0].thumbnail_url} 
             title={this.capitalize(item.product)} 
-            categories={item.subcategories[0].subcategory} 
-            price={this.formatPrice(item.price)} 
+            categories={item.brands[0].brand} 
+            price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
             star={item.product_rate} 
             reviews={item.product_rate} 
             action={() => 

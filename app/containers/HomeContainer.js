@@ -109,9 +109,15 @@ class HomeContainer extends Component {
     )
   }
 
+  discountPrice(price, discount_percentage){
+    let DiscountPrice = price - (price *(discount_percentage/100))
+    // const reducer = (accumulator, currentValue) => accumulator + currentValue
+    return DiscountPrice
+  }
+
   render() {
     const { banners } = this.props
-    console.log(banners)
+    console.log(this.discountPrice(100000, 100))
     return (
       <Home
         stillLoading={this.state.stillLoading}
@@ -140,8 +146,8 @@ class HomeContainer extends Component {
           <Product 
             image={item.thumbnails[0].thumbnail_url} 
             title={item.title <= 17 ? this.capitalize(item.title) : this.capitalize(item.product).slice(0,18)+'...'} 
-            categories={item.subcategories[0].subcategory} 
-            price={this.formatPrice(item.price)} 
+            categories={item.brands[0].brand} 
+            price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
             star={item.product_rate} 
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
             toggleModalAddToCart={() => this.toggleModalAddToCart(item)}
@@ -166,8 +172,8 @@ class HomeContainer extends Component {
           <RecommendProduct
             image={item.thumbnails[0].thumbnail_url} 
             title={this.capitalize(item.product).slice(0,28) + '...'} 
-            categories={item.subcategories[0].subcategory} 
-            price={this.formatPrice(item.price)} 
+            categories={item.brands[0].brand} 
+            price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
             star={item.product_rate} 
             reviews={item.product_rate} 
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
