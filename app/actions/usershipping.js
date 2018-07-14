@@ -118,9 +118,6 @@ const receiveUserShipping = data => {
 	}
 }
 
-// URL Provinsi /general/places
-
-
 // <--- FETCH PROVINCE --->
 export const fetchProvince = () => {
 	return async dispatch => {

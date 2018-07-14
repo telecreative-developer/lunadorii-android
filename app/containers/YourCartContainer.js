@@ -6,6 +6,7 @@ import ShippingAddress from '../particles/ShippingAddress'
 import { connect } from 'react-redux'
 import { fetchCartUser, removeCart } from '../actions/cart'
 import { fetchUserShipping } from '../actions/usershipping'
+import { fetchCourier } from '../actions/shipping'
 
 class YourCartContainer extends Component {
 
@@ -23,6 +24,7 @@ class YourCartContainer extends Component {
       product_id: 0,
       quantity: 0,
       price: 0,
+      discount_percentage:0,
       totalPrice: 0
     }
   }
@@ -40,6 +42,18 @@ class YourCartContainer extends Component {
     const data = await JSON.parse(session)
     await this.props.fetchCartUser(data.id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
+    await this.getCourier()
+  }
+
+  async getCourier(){
+    const data = await this.props.usershipping.filter(data => data.address_default === true)
+    await this.props.fetchCourier(this.totalWeight(),data[0].province_id)
+  }
+
+  totalWeight(){
+    let totalWeight = 0
+    const data = this.props.cartuser.map(data=> totalWeight+=data.wight_gram)
+    return totalWeight
   }
 
   toggleCheckoutPayment(){
@@ -50,9 +64,9 @@ class YourCartContainer extends Component {
     this.setState({modalVisibleEditQuantity: !this.state.modalVisibleEditQuantity})
   }
 
-  GotoMyShipping(){
+  // GotoMyShipping(){
     
-  }
+  // }
 
   async toggleModalEditQuantity(item){
     await this.closeModal()
@@ -64,6 +78,7 @@ class YourCartContainer extends Component {
         product_id: item.product_id,
         quantity: item.qty,
         price: item.price,
+        discount_percentage: item.discount_percentage,
         totalPrice: item.totalPrice
       }) 
     }else{
@@ -98,7 +113,7 @@ class YourCartContainer extends Component {
       })
     }
   }
-  
+
   async removeCart(item){
     this.setState({
       product_id: item.product_id,
@@ -135,12 +150,16 @@ class YourCartContainer extends Component {
   totalPrice(){
     let totalPrice = 0
     const price = this.props.cartuser.map(data => data.qty * (data.price - (data.price *(data.discount_percentage/100)))).map(data => totalPrice += data)
-    // const reducer = (accumulator, currentValue) => accumulator + currentValue
     return totalPrice
   }
 
+  discountPrice(price, discount_percentage){
+    let DiscountPrice = price - (price *(discount_percentage/100))
+    return DiscountPrice
+  }
+
   render() {
-    {console.log(this.totalPrice())}
+    console.log('kurir :', this.props.receiveCourier)
     return (
       <YourCart 
         paymentGuide1Visible={this.state.paymentGuide1Visible}
@@ -153,7 +172,7 @@ class YourCartContainer extends Component {
         togglePaymentGuide2Visible={() => this.togglePaymentGuide2Visible()}
 
         quantity={this.state.quantity}
-        price={this.state.price}
+        price={this.discountPrice(this.state.price, this.state.discount_percentage)}
         totalPrice={this.formatPrice(this.totalPrice())}
 
         onChangeQuantity={(quantity) => this.setState({quantity})}
@@ -164,9 +183,9 @@ class YourCartContainer extends Component {
         renderOnCartProduct={({item}) => (
           <OnCart 
             title={item.product.length == 20 ? item.product : item.product.slice(0,18) + "..."}
-            categories={item.subcategories[0].subcategory}
+            categories={item.brands[0].brand}
             quantity={item.qty} 
-            price={this.formatPrice(item.price)} 
+            price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
             image={item.thumbnails[0].thumbnail_url}
             actionEdit={() => this.toggleModalEditQuantity(item)}
             actionRemove={() => this.removeCart(item)}
@@ -210,8 +229,8 @@ const mapDispatchToProps = (dispatch) =>{
 
     fetchCartUser: (id, accessToken) => dispatch(fetchCartUser(id, accessToken)),
     fetchUserShipping: (id, accessToken) => dispatch(fetchUserShipping(id, accessToken)),
-    removeCart: (id, product_id, accessToken) => dispatch(removeCart(id, product_id, accessToken))
-    
+    removeCart: (id, product_id, accessToken) => dispatch(removeCart(id, product_id, accessToken)),
+    fetchCourier: (weight_gram, province_id) => dispatch(fetchCourier(weight_gram, province_id))
   }
 }
 
@@ -222,7 +241,8 @@ const mapStateToProps = (state) => {
     failed: state.failed,
     cartuser: state.cartuser,
     sessionPersistance: state.sessionPersistance,
-    usershipping: state.usershipping
+    usershipping: state.usershipping,
+    receiveCourier: state.receiveCourier
   }
 }
 
