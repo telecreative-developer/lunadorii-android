@@ -51,11 +51,11 @@ class YourShippingAddressContainer extends Component{
         province: item.province,
         province_id:item.province_id,
         city: item.city,
-        city_id:item.item.city_id,
+        city_id:item.city_id,
         postalcode: item.postal_code,
         numberPhone: item.phone,
         label:item.label,
-      }) 
+      })
     }else{
       await this.setState({
         name: '',
@@ -100,10 +100,9 @@ class YourShippingAddressContainer extends Component{
 
   async btnUpdateShipping(){
     const { name, address, province_id, city_id, postalcode, numberPhone, label } = this.state
-    console.log('btn shipping :', { name, address, province_id, city_id, postalcode, numberPhone, label })
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.props.updateShipping(this.state.address_id, {name, address, province_id, city_id, postalcode, numberPhone, label}, data.accessToken)
+    await this.props.updateShipping(this.state.user_address_id, {name, address, province_id, city_id, postalcode, numberPhone, label}, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
     await this.toggleModalEditAddress()
     await this.setState({
@@ -191,7 +190,7 @@ class YourShippingAddressContainer extends Component{
   }
 
   render(){
-    console.log('cities :' , this.state)
+    console.log('cities :' , JSON.stringify(this.state))
     console.log('usershipping : ', this.props.usershipping)
     return(
       <YourShippingAddress
