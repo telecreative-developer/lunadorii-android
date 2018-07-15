@@ -41,13 +41,13 @@ const DetailsTransaction = (props) => (
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Bill Number</Text>
-            <Text style={{color: '#ccc'}}>23942103MSC9234</Text>
+            <Text style={{color: '#ccc'}}>{ props.billing_code }</Text>
           </View>
         </View>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Status</Text>
-            <Text style={{color: '#ccc'}}>Delivered</Text>
+            <Text style={{color: '#ccc'}}>{ props.status }</Text>
           </View>
         </View>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
@@ -62,7 +62,7 @@ const DetailsTransaction = (props) => (
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Total Price</Text>
-            <Text style={{color: '#ccc'}}>Rp 120,500</Text>
+            <Text style={{color: '#ccc'}}>{ props.totalPrice }</Text>
           </View>
         </View>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
@@ -75,31 +75,32 @@ const DetailsTransaction = (props) => (
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Address</Text>
             <Text style={{color: '#ccc', textAlign: 'justify'}}>
-              Jl.Manggala 3 Perumahan Cipondoh Makmur RT 01 RW 02
-              Provinsi Banten Kota Tangerang Kecamatan Cipondoh No. 29
-              14250 Nomor telp 089643951073
+              { props.address }
             </Text>
           </View>
         </View>
       </View>
     </Content>
-    <View style={styles.footer}>
-      <View style={styles.footerWrapper}>
-        <View style={styles.footerInfo}>
-          <Text style={styles.footerTotalText}>Total</Text>
-          <Text style={styles.footerTotalPriceText}>Rp. 2,400,000</Text>
-          <Text style={styles.footerTotalInfo}>Termasuk PPN, jika berlaku.</Text>
+    {props.status === 'waiting-for-payment' ? 
+      <View style={styles.footer}>
+        <View style={styles.footerWrapper}>
+          <View style={styles.footerInfo}>
+            <Text style={styles.footerTotalText}>Total</Text>
+            <Text style={styles.footerTotalPriceText}>{props.totalPrice}</Text>
+            <Text style={styles.footerTotalInfo}>Termasuk PPN, jika berlaku.</Text>
+          </View>
+          <View style={styles.footerButton}>
+            <TouchableOpacity onPress={props.toggleCheckoutPayment}>
+              <View style={styles.footerButtonStyling}> 
+                <FontAwesome name="money" size={20} color="#fff" />
+                <Text style={styles.footerButtonTextStyling}> Go to Payment</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.footerButton}>
-          <TouchableOpacity onPress={props.toggleCheckoutPayment}>
-            <View style={styles.footerButtonStyling}> 
-              <FontAwesome name="money" size={20} color="#fff" />
-              <Text style={styles.footerButtonTextStyling}> Go to Payment</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
+      </View>:
+      <View></View>
+      }
   </Container>
 
 )

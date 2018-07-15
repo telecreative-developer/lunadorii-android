@@ -5,7 +5,7 @@ import OnCart from '../particles/OnCart'
 import ShippingAddress from '../particles/ShippingAddress'
 import { connect } from 'react-redux'
 import { fetchCartUser, removeCart } from '../actions/cart'
-import { fetchUserShipping } from '../actions/usershipping'
+import { fetchUserShipping, updateShipping } from '../actions/usershipping'
 import { fetchCourier } from '../actions/shipping'
 
 class YourCartContainer extends Component {
@@ -19,6 +19,7 @@ class YourCartContainer extends Component {
       modalVisibleEditQuantity: false,
       modalVisibleCheckoutPayment: false,
       deliverySeriveVisible: false,
+      modalVisibleEditAddress: false,
       deliverySerive: '',
       id: 0,
       product_id: 0,
@@ -158,6 +159,82 @@ class YourCartContainer extends Component {
     return DiscountPrice
   }
 
+  closeModal(){
+    this.setState({modalVisibleEditAddress: !this.state.modalVisibleEditAddress})
+  }
+
+  async btnUpdateShipping(){
+    const { name, address, province_id, city_id, postalcode, numberPhone, label } = this.state
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.updateShipping(this.state.user_address_id, {name, address, province_id, city_id, postalcode, numberPhone, label}, data.accessToken)
+    await this.props.fetchUserShipping(data.id, data.accessToken)
+    await this.toggleModalEditAddress()
+    await this.setState({
+      name: '',
+      address: '',
+      province: '',
+      province_id:'',
+      city_id:'',
+      city: '',
+      postalcode: '',
+      numberPhone: '',
+      label:'',
+    })
+    Alert.alert('Success Add Address', 'Thanks..')
+  }
+
+  async toggleModalEditAddress(item){
+    await this.closeModal()
+    if(this.state.modalVisibleEditAddress){
+      await this.setState({
+        user_address_id:item.user_address_id,
+        name: item.recepient,
+        address: item.detail_address,
+        province: item.province,
+        province_id:item.province_id,
+        city: item.city,
+        city_id:item.city_id,
+        postalcode: item.postal_code,
+        numberPhone: item.phone,
+        label:item.label,
+      })
+    }else{
+      await this.setState({
+        name: '',
+        address: '',
+        province: '',
+        province_id:'',
+        city: '',
+        postalcode: '',
+        numberPhone: '',
+        label:'',
+      })
+    }
+  }
+
+  async deteleShipping(item){
+    await this.setState({
+      address_id: item.user_address_id,
+      address_default: true
+    })
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    Alert.alert(
+      'Delete',
+      'Are you sure to Delete ?',
+      [
+        { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+        {
+          text: 'Delete',
+          onPress: () => this.fetchData(item)
+          
+        }
+      ],
+      { cancelable: false }
+    )
+  }
+
   render() {
     console.log('kurir :', this.props.receiveCourier)
     return (
@@ -191,7 +268,7 @@ class YourCartContainer extends Component {
             actionRemove={() => this.removeCart(item)}
           />
         )}
-
+        goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer")}
         onCartShippingAddress={this.props.usershipping}
         renderOnCartShippingAddress={({item}) => 
         item.address_default ? (
@@ -203,6 +280,7 @@ class YourCartContainer extends Component {
             actionEdit={() => this.toggleModalEditAddress(item)}
             actionSetdefault={() => this.onChangeDefault(item)}
             actionDelete={() => this.deteleShipping(item)}
+            goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer")}
           />
         ) : (
           <View/>

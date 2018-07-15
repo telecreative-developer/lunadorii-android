@@ -57,11 +57,12 @@ const YourCart = (props) => (
       <View style={styles.border}>
         <View style={styles.body}>
           <Text style={styles.title}>Shipping Address</Text>
-          <FlatList
-            data={props.onCartShippingAddress}
-            renderItem={props.renderOnCartShippingAddress}
-          />
-
+          <TouchableOpacity onPress={props.goToShipping}>
+            <FlatList
+              data={props.onCartShippingAddress}
+              renderItem={props.renderOnCartShippingAddress}
+            />
+          </TouchableOpacity>
           {/* <View>
             <TouchableOpacity style={styles.touchableGuidePayment1} onPress={props.toggleDeliverySerive}>
               <View>
