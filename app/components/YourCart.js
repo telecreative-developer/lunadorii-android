@@ -2,9 +2,11 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, FlatList, StatusBar, Dimensions, TouchableOpacity, Image } from 'react-native'
 import { Container, Content, Icon, Button, Input, Label, Item, Spinner  } from 'native-base'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
 import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
+import PickDeliverySeriveModal from '../modals/PickDeliveryServiceModal'
 const shippingAddress = require('../assets/images/icon/shipping-address.png')
 const tiki = require('../assets/images/icon/tiki.png')
 const { height, width } = Dimensions.get('window')
@@ -19,6 +21,10 @@ const YourCart = (props) => (
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content" />
+    <PickDeliverySeriveModal
+      modalVisible={props.modalVisiblePickDeliveryService}
+      closeIcon={props.toggleModalPickDeliveryService}
+    />
     <EditQuantityModal
       modalVisible={props.modalVisibleEditQuantity}
       actionIcon={props.toggleModalEditQuantity}
@@ -116,6 +122,46 @@ const YourCart = (props) => (
             </View> */}
           </View>
         </View>
+        <View style={styles.border1}>
+          <View style={styles.body}>
+            <Text style={styles.title}>Delivery Service</Text>
+            {false ? (
+              <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'row',justifyContent: 'space-around'}}>
+                <Text style={{fontWeight: 'bold',color: '#000'}}>Standard Shipping</Text>
+                <Text>est delivery (Fri 04/29)</Text>
+                <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. 50.000,-</Text>
+              </View>
+            ) : (
+              <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'column',justifyContent: 'space-around', alignItems: 'center'}}>
+                <Text>No delivery service selected</Text>
+                <Text>pick one</Text>
+              </View>
+            )}
+          </View>
+          <View style={{alignItems:'center', paddingBottom: 10}}>
+            <FlatList
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              data={[
+                'JNE',
+                'TIKI',
+                'Wahana',
+                'Logistic',
+                'JNE',
+                'TIKI',
+                'Wahana',
+                'Logistic',
+                'Wahana',
+                'Logistic',
+              ]}
+              renderItem={({item}) => (
+                <Button style={styles.btnPickDeliveryService} onPress={props.toggleModalPickDeliveryService}>
+                  <Text style={styles.txtChooseDeliveryService}>{item}</Text>
+                </Button>
+              )}
+            />
+          </View>
+        </View>
         {/* <View style={styles.border1}>
           <View style={styles.body1}>
             <Text style={styles.title}>Delivery Service</Text>
@@ -177,6 +223,7 @@ const styles = StyleSheet.create({
   body:{
     marginHorizontal:10,
     marginTop:10,
+    marginBottom: 5,
   },
   body1:{
     marginHorizontal:10,
@@ -244,6 +291,19 @@ const styles = StyleSheet.create({
     backgroundColor:'#AEAEAE',
     margin:5,
     marginBottom:15
+  },
+  btnPickDeliveryService:{
+    height: 25,
+    borderRadius:5,
+    alignSelf:'center',
+    backgroundColor:'#d11e48',
+    margin:5,
+  },
+  txtChooseDeliveryService:{
+    fontSize:14,
+    padding:5,
+    color:'#fff',
+    fontWeight:'bold'
   },
   txtAdd:{
     fontSize:14,
