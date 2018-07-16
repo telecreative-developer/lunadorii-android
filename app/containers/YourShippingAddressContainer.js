@@ -33,7 +33,8 @@ class YourShippingAddressContainer extends Component{
       address_id:'',
       user_address_id:'',
       label:'',
-      cities:[]
+      cities:[],
+      loading: false
     }
   }
 
@@ -75,6 +76,7 @@ class YourShippingAddressContainer extends Component{
   }
 
   async handleSaveAddress(){
+    this.setState({loading: true})
     const { name, address, province_id, city_id, postalcode, numberPhone, label } = this.state
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
@@ -93,6 +95,7 @@ class YourShippingAddressContainer extends Component{
     })
     // Alert.alert('Success Add Address', 'Thanks..')
     ToastAndroid.showWithGravity("Added", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    this.setState({loading: false})
   }
 
   handleSaveShippingAddress(){
@@ -100,6 +103,7 @@ class YourShippingAddressContainer extends Component{
   }
 
   async btnUpdateShipping(){
+    this.setState({loading: true})
     const { name, address, province_id, city_id, postalcode, numberPhone, label } = this.state
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
@@ -119,6 +123,7 @@ class YourShippingAddressContainer extends Component{
     })
     // Alert.alert('Success Add Address', 'Thanks..')
     ToastAndroid.showWithGravity("Updated", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    this.setState({loading: false})
   }
 
   async componentDidMount() {
@@ -127,8 +132,7 @@ class YourShippingAddressContainer extends Component{
     await this.props.fetchProvince()
     if(this.props.fetchUserShipping(data.id, data.accessToken)){
       await this.setState({stillLoading: false})
-    }
-    
+    }    
   }
 
   async onChangeDefault(item){
@@ -196,6 +200,7 @@ class YourShippingAddressContainer extends Component{
     return(
       <YourShippingAddress
         stillLoading={this.state.stillLoading}
+        loading={this.state.loading}
         goback={() => this.props.navigation.goBack()}
         modalVisibleAddAddress={this.state.modalVisibleAddAddress}
         toggleModalAddAddress={() => this.toggleModalAddAddress()}

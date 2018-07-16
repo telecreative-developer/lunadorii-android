@@ -19,6 +19,7 @@ const YourShippingAddress = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleAddAddress}
       actionIcon={props.toggleModalAddAddress} 
+      loading={props.loading}
 
       nameValue={props.nameValue}
       onChangeName={props.onChangeName}
@@ -60,6 +61,7 @@ const YourShippingAddress = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleEditAddress}
       actionIcon={props.toggleModalEditAddress} 
+      loading={props.loading}
 
       nameValue={props.nameValue}
       onChangeName={props.onChangeName}
@@ -102,9 +104,11 @@ const YourShippingAddress = (props) => (
       barStyle="light-content"
     />
     {props.stillLoading ? (
-      <View stryle={styles.style}>
-        <Spinner color="#d11e48"/>
-      </View>
+      <Content contentContainerStyle={{justifyContent: 'center', alignItems:'center', flex: 1}}>
+        <View stryle={styles.style}>
+          <Spinner color="#d11e48"/>
+        </View>
+      </Content>
     ) : (
       <Content style={styles.container}>
         <View style={{paddingHorizontal: 10}}>
