@@ -88,7 +88,7 @@ const Home = (props) => (
               />
             </View>
             <View style={styles.moreNewArrivalsWrapper}>
-              <Text style={styles.txtArrivals}>More New Arrivals</Text>
+              <Text style={styles.txtArrivals}>All Categories</Text>
               <FlatList
                 numColumns={2}
                 data={props.dataCategories}
