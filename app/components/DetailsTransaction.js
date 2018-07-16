@@ -20,20 +20,25 @@ const DetailsTransaction = (props) => (
       backgroundColor="#f65857"
       barStyle="light-content"
     />
-    <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 10, backgroundColor: '#ccc'}}>
+    <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 10, backgroundColor: '#f6f6f6'}}>
       <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
-        <Feather name="package" size={18} color={props.status === "PACKING" ? '#d11e48' : ''}/>
-        <Text style={{fontSize: 12, color:props.status === "PACKING" ? '#d11e48' : ''}}>Packing</Text>
+        <MaterialIcons name="monetization-on" size={18} color={props.status === "waiting-for-payment" ? '#d11e48' : ''}/>
+        <Text style={{fontSize: 12, color:props.status === "waiting-for-payment" ? '#d11e48' : ''}}>Checkout</Text>
+      </View>
+      <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
+      <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
+        <Feather name="package" size={18} color={props.status === "packing" ? '#d11e48' : ''}/>
+        <Text style={{fontSize: 12, color:props.status === "packing" ? '#d11e48' : ''}}>Packing</Text>
       </View>
       <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
       <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>      
-        <MaterialIcons name="local-shipping" size={18} color={props.status === "SHIPPING" ? '#d11e48' : ''}/>
-        <Text style={{fontSize: 12, color:props.status === "SHIPPING" ? '#d11e48' : ''}}>Shipping</Text>
+        <MaterialIcons name="local-shipping" size={18} color={props.status === "shipping" ? '#d11e48' : ''}/>
+        <Text style={{fontSize: 12, color:props.status === "shipping" ? '#d11e48' : ''}}>Shipping</Text>
       </View>
       <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
       <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
-        <MaterialIcons name="check" size={18} color={props.status === "DELIVERED" ? '#d11e48' : ''}/>
-        <Text style={{fontSize: 12, color:props.status === "DELIVERED" ? '#d11e48' : ''}}>Delivered</Text>
+        <MaterialIcons name="check" size={18} color={props.status === "delivered" ? '#d11e48' : ''}/>
+        <Text style={{fontSize: 12, color:props.status === "delivered" ? '#d11e48' : ''}}>Delivered</Text>
       </View>
     </View>
     <Content>
@@ -41,13 +46,13 @@ const DetailsTransaction = (props) => (
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Bill Number</Text>
-            <Text style={{color: '#ccc'}}>23942103MSC9234</Text>
+            <Text style={{color: '#ccc'}}>{ props.billing_code }</Text>
           </View>
         </View>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Status</Text>
-            <Text style={{color: '#ccc'}}>Delivered</Text>
+            <Text style={{color: '#ccc'}}>{ props.status }</Text>
           </View>
         </View>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
@@ -62,7 +67,7 @@ const DetailsTransaction = (props) => (
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Total Price</Text>
-            <Text style={{color: '#ccc'}}>Rp 120,500</Text>
+            <Text style={{color: '#ccc'}}>{ props.totalPrice }</Text>
           </View>
         </View>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
@@ -75,31 +80,32 @@ const DetailsTransaction = (props) => (
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Address</Text>
             <Text style={{color: '#ccc', textAlign: 'justify'}}>
-              Jl.Manggala 3 Perumahan Cipondoh Makmur RT 01 RW 02
-              Provinsi Banten Kota Tangerang Kecamatan Cipondoh No. 29
-              14250 Nomor telp 089643951073
+              { props.address }
             </Text>
           </View>
         </View>
       </View>
     </Content>
-    <View style={styles.footer}>
-      <View style={styles.footerWrapper}>
-        <View style={styles.footerInfo}>
-          <Text style={styles.footerTotalText}>Total</Text>
-          <Text style={styles.footerTotalPriceText}>Rp. 2,400,000</Text>
-          <Text style={styles.footerTotalInfo}>Termasuk PPN, jika berlaku.</Text>
+    {props.status === 'waiting-for-payment' ? 
+      <View style={styles.footer}>
+        <View style={styles.footerWrapper}>
+          <View style={styles.footerInfo}>
+            <Text style={styles.footerTotalText}>Total</Text>
+            <Text style={styles.footerTotalPriceText}>{props.totalPrice}</Text>
+            <Text style={styles.footerTotalInfo}>Termasuk PPN, jika berlaku.</Text>
+          </View>
+          <View style={styles.footerButton}>
+            <TouchableOpacity onPress={props.toggleCheckoutPayment}>
+              <View style={styles.footerButtonStyling}> 
+                <FontAwesome name="money" size={20} color="#fff" />
+                <Text style={styles.footerButtonTextStyling}> Go to Payment</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.footerButton}>
-          <TouchableOpacity onPress={props.toggleCheckoutPayment}>
-            <View style={styles.footerButtonStyling}> 
-              <FontAwesome name="money" size={20} color="#fff" />
-              <Text style={styles.footerButtonTextStyling}> Go to Payment</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
-    </View>
+      </View>:
+      <View/>
+    }
   </Container>
 
 )
