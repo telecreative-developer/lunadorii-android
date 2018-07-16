@@ -81,9 +81,14 @@ const DetailsOrder = (props) => (
       </View>
     </Content>
     <View style={{flexDirection: 'row', justifyContent:'space-between', padding: 10}}>
-      <Button full style={styles.buttonStyleFotter} onPress={props.toggleModalAddReviews}>
-        <Text style={styles.textStyleFooter}>Review</Text>
-      </Button>
+      {props.status === 'delivered' ? 
+        <Button full style={styles.buttonStyleFotter} onPress={props.toggleModalAddReviews}>
+          <Text style={styles.textStyleFooter}>Review</Text>
+        </Button>:
+        <Button full style={styles.buttonStyleFotterDisabled} disabled>
+          <Text style={styles.textStyleFooterDisabled}>Review</Text>
+        </Button>
+      }
       <Button full style={styles.buttonStyleFotter} onPress={props.navigateToHome}>
         <Text style={styles.textStyleFooter}>Go shop</Text>
       </Button>
@@ -114,6 +119,18 @@ const styles = StyleSheet.create({
     color: '#fff', 
     fontSize: 18 
   },
+  buttonStyleFotterDisabled:{
+    height: 50,
+    width: 160,
+    borderRadius: 10, 
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#d11e48',
+  },
+  textStyleFooterDisabled:{
+    color: '#d11e48', 
+    fontSize: 18 
+  }
   // buttonReviewStyleEditProfile: {
   //   margin: 10,
   //   height: 50,
