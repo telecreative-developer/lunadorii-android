@@ -19,6 +19,7 @@ const YourShippingAddress = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleAddAddress}
       actionIcon={props.toggleModalAddAddress} 
+      loading={props.loading}
 
       nameValue={props.nameValue}
       onChangeName={props.onChangeName}
@@ -60,6 +61,7 @@ const YourShippingAddress = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleEditAddress}
       actionIcon={props.toggleModalEditAddress} 
+      loading={props.loading}
 
       nameValue={props.nameValue}
       onChangeName={props.onChangeName}
