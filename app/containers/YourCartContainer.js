@@ -14,6 +14,7 @@ class YourCartContainer extends Component {
     super()
     this.state = {
       stillLoading: true,
+      modalVisiblePickDeliveryService: false,
       paymentGuide1Visible: false,
       bcaGuide: false,
       paymentGuide2Visible: false,
@@ -244,6 +245,10 @@ class YourCartContainer extends Component {
     return (
       <YourCart 
         stillLoading={this.state.stillLoading}
+
+        modalVisiblePickDeliveryService={this.state.modalVisiblePickDeliveryService}
+        toggleModalPickDeliveryService={() => this.setState({modalVisiblePickDeliveryService: !this.state.modalVisiblePickDeliveryService})}
+
         paymentGuide1Visible={this.state.paymentGuide1Visible}
         togglePaymentGuide1Visible={() => this.togglePaymentGuide1Visible()}
 
