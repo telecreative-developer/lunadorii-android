@@ -6,7 +6,9 @@ const RecentOrders = (props) => (
   <View style={styles.viewBox}>
     <View style={styles.viewOnlyRow}>
       <View style={styles.viewFlex3}>
-        <Image source={{ uri: props.image }} style={styles.image} />
+        <TouchableOpacity onPress={props.action}>
+          <Image source={{ uri: props.image }} style={styles.image} />
+        </TouchableOpacity>
       </View>
       <View style={styles.viewFlex7}>
         <TouchableOpacity onPress={props.action}>
@@ -14,26 +16,31 @@ const RecentOrders = (props) => (
             <Text style={styles.txtTitle}>{props.date}</Text>
           </View>
         </TouchableOpacity>
-        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <View style={styles.viewOnlyRow2}>
-            <FontAwesome name="shopping-cart" size={12} style={{paddingRight: 5}} />
-            <Text style={{fontSize: 12, fontWeight: 'bold'}}>{props.amountOfItem} items On Cart</Text>
+        <TouchableOpacity onPress={props.action}>
+          <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <View style={styles.viewOnlyRow2}>
+              <FontAwesome name="shopping-cart" size={12} style={{paddingRight: 5}} />
+              <Text style={{fontSize: 12, fontWeight: 'bold'}}>{props.amountOfItem} items On Cart</Text>
+            </View>
+            <View style={styles.viewOnlyColumn}>
+              <Text style={{fontSize: 12}}>{props.billing_code}</Text>
+            </View>
           </View>
-          <View style={styles.viewOnlyColumn}>
-            <Text style={{fontSize: 12}}>{props.billing_code}</Text>
-          </View>
-        </View>
+        </TouchableOpacity>
       </View>
     </View>
     <View style={styles.viewFooter}>
       <View style={{flexDirection: 'row'}}>
         <Text>Status : </Text>
-        <TouchableOpacity onPress={() => alert('Alert')}>
-          <Text style={{fontWeight: 'bold', color: '#d11e47' }}>{props.status}</Text>
+        <TouchableOpacity onPress={props.action}>
+          <Text style={{fontWeight: 'bold', color: '#d11e47' }}>{props.status.replace(/(^|\s)\S/g, l => l.toUpperCase())}</Text>
         </TouchableOpacity>
       </View>
-      <View>
-        <Text>Total : <Text style={styles.txtBold}>Rp. {props.total}</Text></Text>
+      <View style={{flexDirection: 'row'}}>
+        <Text>Total : </Text>
+        <TouchableOpacity onPress={props.action}>
+          <Text style={styles.txtBold}>Rp. {props.total}</Text>
+        </TouchableOpacity>
       </View>
     </View>
   </View>

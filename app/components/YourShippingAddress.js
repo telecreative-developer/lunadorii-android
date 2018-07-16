@@ -56,7 +56,7 @@ const YourShippingAddress = (props) => (
 
       handleSaveAddress={props.handleSaveAddress}/>
 
-      <EditAddressModal
+    <EditAddressModal
       navbarTitle="Edit Addresss"
       navbarIcon="close"
       modalVisible={props.modalVisibleEditAddress}

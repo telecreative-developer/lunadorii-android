@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, Text, StyleSheet, Dimensions, FlatList } from 'react-native'
-import { Content, Item, Input, Label, Button, Form, Textarea, View, Spinner } from 'native-base'
+import { Content, Item, Input, Label, Button, Form, View, Spinner } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 const { height, width } = Dimensions.get('window')
 
@@ -79,8 +79,13 @@ const AddAddressModal = (props) => (
       </Form>
     </Content>
     <Button full style={styles.buttonSaveStyle} onPress={props.handleSaveAddress} disabled={props.loading} >
-      {props.loading ? <Spinner /> :
-      <Text style={styles.buttonSaveTextStyle}>Save</Text> }
+      {props.loading ? (
+        <View stryle={styles.style}>
+          <Spinner color="#fff"/>
+        </View>
+      ) : (
+        <Text style={styles.buttonSaveTextStyle}>Save</Text>
+      )}
     </Button>
   </Modal>
 )
@@ -88,6 +93,12 @@ const AddAddressModal = (props) => (
 export default AddAddressModal
 
 const styles = StyleSheet.create({
+  style: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
+  },
   container: {
     backgroundColor: '#fff'
   },

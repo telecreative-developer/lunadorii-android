@@ -12,15 +12,24 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 const OrderDetails = (props) => (
   <View style={styles.Card}>
     <View style={styles.contentCard}>
-      <Image source={{ uri: props.image }} style={styles.image} />
+      <TouchableOpacity onPress={props.action}>
+        <Image source={{ uri: props.image }} style={styles.image} />
+      </TouchableOpacity>
       <View style={styles.wrapLeft}>
-        <Text style={styles.txtHeader}>{props.title}</Text>
-        <Text style={styles.txtDetail}>{props.categories}</Text>
-        <Text style={styles.txtBlank}></Text>
+        <TouchableOpacity onPress={props.action}>
+          <Text style={styles.txtHeader}>{props.title}</Text>
+        </TouchableOpacity>
       </View>
       <View style={styles.wrapRight}>
-        <Text style={styles.txtHeader}>Rp {props.price}</Text>
-        <Text style={styles.txtDetail}>Quantity: <Text style={styles.txtpcs}>{props.quantity} pcs</Text></Text>
+        <TouchableOpacity onPress={props.action}>
+          <Text style={styles.txtHeader}>Rp {props.price}</Text>
+        </TouchableOpacity>
+        <View style={{flexDirection: 'row'}}>
+          <Text>Quantity : </Text>
+          <TouchableOpacity onPress={props.action}>
+            <Text style={styles.txtpcs}>{props.quantity} pcs</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
     <View style={{paddingHorizontal:10, paddingVertical: 5, flexDirection: 'row', justifyContent: 'flex-end', backgroundColor: '#f6f6f6', alignItems: 'center'}}>
@@ -67,7 +76,7 @@ const styles = StyleSheet.create({
     marginRight: 10
   },
   wrapLeft: {
-    flex: 1,
+    flex: 1
   },
   wrapRight: {
     alignItems: 'flex-end'
@@ -75,6 +84,7 @@ const styles = StyleSheet.create({
   txtHeader: {
     fontSize: 16,
     fontWeight: 'bold',
+    padding: 5
   },
   txtDetail: {
     fontSize: 14,
