@@ -37,7 +37,7 @@ export const updateSetdefault = (id_user, id_addres, accessToken) => {
                     Authorization: accessToken
 				},
 				body: JSON.stringify({
-					id: id_user
+							id: id_user
                 })
 			})
 			const data = await response.json()
