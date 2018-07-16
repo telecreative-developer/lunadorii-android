@@ -25,40 +25,6 @@ export const fetchUserShipping = (id, accessToken) => {
 	}
 }
 
-export const updateShipping = (id, items, accessToken) => {
-	console.log('items update :', items)
-	return async dispatch => {
-		await dispatch(setLoading(true, 'LOADING_UPDATE_SHIPPING'))
-		console.log('items action: ', items)
-		try {
-			const response = await fetch(`${API_SERVER}/user-address/${id}`, {
-				method: 'PUT',
-				headers: {
-					Accept: 'application/json',
-                    'Content-Type': 'application/json',
-                    Authorization: accessToken
-                },
-                body: JSON.stringify({
-									recepient:items.name,
-									phone:items.numberPhone,
-									label:items.label,
-									postal_code: items.postalcode,
-									detail_address:items.address,
-									province_id:items.province_id,
-									city_id:items.city_id,
-									id:id
-                })
-			})
-			const data = await response.json()
-			await dispatch(setSuccess(true, 'SUCCESS_UPDATE_SHIPPING'))
-      		await dispatch(setLoading(false, 'LOADING_UPDATE_SHIPPING'))
-		} catch (e) {
-			dispatch(setFailed(true, 'FAILED_UPDATE_SHIPPING', e))
-			dispatch(setLoading(false, 'LOADING_UPDATE_SHIPPING'))
-		}
-	}
-}
-
 export const updateSetdefault = (id_user, id_addres, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_UPDATE_SETDEFAULT'))
@@ -152,9 +118,6 @@ const receiveUserShipping = data => {
 	}
 }
 
-// URL Provinsi /general/places
-
-
 // <--- FETCH PROVINCE --->
 export const fetchProvince = () => {
 	return async dispatch => {
@@ -187,5 +150,37 @@ const receiveProvince = data => {
 	}
 }
 
-// <--- FETCH CITIES --->
+// <--- UPDATE SHIPPING ADDRESS --->
 
+export const updateShipping = (id, items, accessToken) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_CREATE_SHIPPING'))
+		console.log('items action: ', items)
+		try {
+			const response = await fetch(`${API_SERVER}/user-address/${id}`, {
+				method: 'PUT',
+				headers: {
+					Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: accessToken
+                },
+                body: JSON.stringify({	
+    							recepient:items.name,
+									phone:items.numberPhone,
+									label:items.label,
+									postal_code: items.postalcode,
+									detail_address:items.address,
+									province_id:items.province_id,
+									city_id:items.city_id
+                })
+			})
+			const data = await response.json()
+			await dispatch(setSuccess(true, 'SUCCESS_CREATE_SHIPPING'))
+      await dispatch(setLoading(false, 'LOADING_CREATE_SHIPPING'))
+		} catch (e) {
+			console.log('action add error',e)
+			dispatch(setFailed(true, 'FAILED_CREATE_SHIPPING', e))
+			dispatch(setLoading(false, 'LOADING_CREATE_SHIPPING'))
+		}
+	}
+}

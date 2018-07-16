@@ -19,6 +19,7 @@ import { cartuser } from "./cart"
 import { usershipping, receiveProvince } from "./usershipping"
 import { registerresult } from "./registerresult"
 import { userbank, bank, manipulatebank } from "./bank"
+import { receiveCourier } from "./shipping"
 
 const rootReducers = combineReducers({
   loading,
@@ -53,7 +54,8 @@ const rootReducers = combineReducers({
   receiveProvince,
   receiveProductWithCategory,
   receiveProductWithBrand,
-  receiveProductWithBanner
+  receiveProductWithBanner,
+  receiveCourier
 //   sessionPersistance
 });
 

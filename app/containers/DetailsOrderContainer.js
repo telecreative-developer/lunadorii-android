@@ -24,8 +24,17 @@ export default class DetailsOrderContainer extends Component{
   }
 
   render(){
+    console.log('order :' , this.props.navigation.state.params)
+    const data = this.props.navigation.state.params.item
     return(
       <DetailsOrder
+        billing_code={this.props.navigation.state.params.billing_code}
+        payment_time={data.payment_time}
+        delivery_time={data.delivery_time}
+        status={data.order_product_status}
+        purchase_number={data.purchase_number}
+        receipt_time={data.receipt_time}
+        delivery_service={data.delivery_service}
         goback={() => this.props.navigation.goBack()}
         navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
         toggleModalAddReviews={() => this.toggleModalAddReviews()}

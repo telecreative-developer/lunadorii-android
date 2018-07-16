@@ -37,37 +37,45 @@ const DetailsOrder = (props) => (
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Transaction Code</Text>
-            <Text style={{color: '#ccc'}}>TRANSACTION_NUMBER</Text>
+            <Text style={{color: '#ccc'}}>{props.billing_code}</Text>
           </View>
         </View>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Purchase Transaction Number</Text>
-            <Text style={{color: '#ccc'}}>PURCHASE_TRANSACTION_NUMBER</Text>
+            <Text style={{color: '#ccc'}}>{props.purchase_number}</Text>
+            {console.log(props.purchase_number)}
           </View>
         </View>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Status</Text>
-            <Text style={{color: '#ccc'}}>STATUS</Text>
+            <Text style={{color: '#ccc'}}>{props.status}</Text>
+            {console.log(props.status)}
           </View>
         </View>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Payment Successfully Time</Text>
-            <Text style={{color: '#ccc'}}>PAYMEN_SUCCESSFULLY_TIME</Text>
+            <Text style={{color: '#ccc'}}>{props.payment_time}</Text>
           </View>
         </View>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Delivery Time</Text>
-            <Text style={{color: '#ccc'}}>DELIVERY_TIME</Text>
+            <Text style={{color: '#ccc'}}>{props.delivery_time}</Text>
           </View>
         </View>
         <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Receiptment Time</Text>
-            <Text style={{color: '#ccc'}}>RECEIPTMENT_TIME</Text>
+            <Text style={{color: '#ccc'}}>{props.receipt_time}</Text>
+          </View>
+        </View>
+        <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
+          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+            <Text style={{fontWeight: 'bold',fontSize: 18}}>Delivery Service</Text>
+            <Text style={{color: '#ccc'}}>{props.delivery_service}</Text>
           </View>
         </View>
       </View>
