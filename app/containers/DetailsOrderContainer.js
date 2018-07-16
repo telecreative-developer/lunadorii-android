@@ -44,6 +44,15 @@ class DetailsOrderContainer extends Component{
     })
   }
 
+
+  capitalize(string) {
+    return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
+  }
+
+  formatPrice(price) {
+    return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+  }
+
   render(){
     console.log('order :' , this.props.navigation.state.params)
     const data = this.props.navigation.state.params.item
@@ -52,7 +61,7 @@ class DetailsOrderContainer extends Component{
         billing_code={this.props.navigation.state.params.billing_code}
         payment_time={moment(data.payment_time).calendar()}
         delivery_time={moment(data.delivery_time).calendar()}
-        status={data.order_product_status}
+        status={this.capitalize(data.order_product_status)}
         purchase_number={data.purchase_number}
         receipt_time={moment(data.receipt_time).calendar()}
         delivery_service={data.delivery_service}

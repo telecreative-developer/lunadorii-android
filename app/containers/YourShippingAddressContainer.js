@@ -132,8 +132,7 @@ class YourShippingAddressContainer extends Component{
     await this.props.fetchProvince()
     if(this.props.fetchUserShipping(data.id, data.accessToken)){
       await this.setState({stillLoading: false})
-    }
-    
+    }    
   }
 
   async onChangeDefault(item){
