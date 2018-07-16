@@ -100,7 +100,6 @@ export const createAddress = (id, items, accessToken) => {
                 })
 			})
 			const data = await response.json()
-			console.log('action add adres',data)
 			await dispatch(setSuccess(true, 'SUCCESS_CREATE_SHIPPING'))
       await dispatch(setLoading(false, 'LOADING_CREATE_SHIPPING'))
 		} catch (e) {

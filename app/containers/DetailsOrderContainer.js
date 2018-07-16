@@ -1,12 +1,22 @@
 import React, { Component } from 'react'
+import { AsyncStorage } from 'react-native'
+import { connect } from 'react-redux'
+
+import { createReview } from '../actions/userreview'
 import DetailsOrder from '../components/DetailsOrder'
 
-export default class DetailsOrderContainer extends Component{
+class DetailsOrderContainer extends Component{
 
   state={
     modalVisibleAddReviews: false,
     review:'',
     ratings: 0
+  }
+
+  async componentDidMount(){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    const dataProduct = this.props.navigation.state.params.item
   }
 
   toggleModalAddReviews(){
@@ -19,8 +29,17 @@ export default class DetailsOrderContainer extends Component{
     });
   }
 
-  handleReview(){
-    alert("Review : " + this.state.review + "\n" + "Ratings : " + this.state.ratings)
+  async handleReview(){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    const { review, ratings } = this.state
+    const dataProduct = this.props.navigation.state.params.item
+    await this.props.createReview(data.id, {review , ratings} , data.accessToken, dataProduct.product_id)
+    await this.setState({
+      modalVisibleAddReviews: false,
+      review:'',
+      ratings: 0
+    })
   }
 
   render(){
@@ -51,3 +70,20 @@ export default class DetailsOrderContainer extends Component{
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    createReview: (id, items, accessToken, product_id) => dispatch(createReview(id, items, accessToken, product_id))
+  }
+}
+
+const mapStateToProps = (state) => {
+  return{
+    loading: state.loading,
+    success: state.success,
+    sessionPersistance: state.sessionPersistance,
+    failed: state.failed
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsOrderContainer)
