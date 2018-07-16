@@ -8,15 +8,20 @@ export default class DetailsTransactionContainer extends Component{
     super(props)
     this.state = {
       list_produk:{},
+      billing_code:''
     }
   }
 
   componentDidMount(){
     const data = this.props.navigation.state.params.data
-    this.setState({list_produk: data.list})
+    this.setState({
+      list_produk: data.list,
+      billing_code: data.billing_code
+    })
 
   }
   render(){
+    console.log(this.props.navigation.state.params.data)
     const data = this.props.navigation.state.params.data
     return(
       <DetailsTransaction
@@ -31,10 +36,10 @@ export default class DetailsTransactionContainer extends Component{
             image={item.thumbnails[0].thumbnail_url}
             title={item.product}
             categories={item.subcategories[0].stat}
-            quantity={item.quantity}
-            price={item.price}
+            quantity={item.qty}
+            price={item.subtotal}
             status={item.status}
-            action={() => this.props.navigation.navigate('DetailsOrderContainer')}
+            action={() => this.props.navigation.navigate('DetailsOrderContainer' , {item, billing_code: this.state.billing_code})}
           />
         )}
       />
