@@ -46,10 +46,10 @@ class YourCartContainer extends Component {
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchCartUser(data.id, data.accessToken)
+    await this.props.fetchUserShipping(data.id, data.accessToken)
     if(this.props.fetchUserShipping(data.id, data.accessToken)){
       this.setState({stillLoading: false})
     }
-    await this.props.fetchUserShipping(data.id, data.accessToken)
     await this.getCourier()
   }
 
@@ -137,7 +137,6 @@ class YourCartContainer extends Component {
       ],
       { cancelable: false }
     )
-    
   }
 
   async fetchData(){

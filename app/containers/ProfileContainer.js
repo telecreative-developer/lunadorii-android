@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, ToastAndroid } from 'react-native'
 import { RNS3 } from 'react-native-aws3';
 import Profile from '../components/Profile'
 import RecentOrders from '../particles/RecentOrders'
@@ -130,7 +130,8 @@ class ProfileContainer extends Component {
         this.state.bod, 
         this.state.userData.accessToken)
     await this.setState({modalVisibleEditProfile: false })
-    await alert(this.props.editname.message)
+    // await alert(this.props.editname.message)
+    ToastAndroid.showWithGravity("Edited", ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
 
   async componentDidMount(){
@@ -158,6 +159,7 @@ class ProfileContainer extends Component {
         renderRecentOrders={({ item, key }) => (
           <RecentOrders
             image={item.list[0].thumbnails[0].thumbnail_url}
+            amountOfItem={item.list.length}
             billing_code={item.billing_code}
             status={item.order_status}
             total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
