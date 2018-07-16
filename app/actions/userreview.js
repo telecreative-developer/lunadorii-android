@@ -1,8 +1,9 @@
 import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_USER_REVIEW } from '../constants'
 import { API_SERVER } from '../env'
-import moment from 'moment'
 
+
+// <----- Get Review ----->
 export const fetchUserReview = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_USER_REVIEW'))
@@ -26,6 +27,14 @@ export const fetchUserReview = (id, accessToken) => {
 	}
 }
 
+const receiveUserReview = data => {
+	return{
+		type: RECEIVE_USER_REVIEW,
+		payload: data
+	}
+}
+
+// <----- Update Review ----->
 export const updateReview = (id, items, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_UPDATE_REVIEW'))
@@ -40,7 +49,6 @@ export const updateReview = (id, items, accessToken) => {
                 body: JSON.stringify({
 									comment: items.comment,
 									rate: items.star,
-								
                 })
 			})
 			const data = await response.json()
@@ -53,6 +61,7 @@ export const updateReview = (id, items, accessToken) => {
 	}
 }
 
+// <----- Delete Review ----->
 export const deleteReview = (id, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_DELETE_REVIEW'))
@@ -75,11 +84,35 @@ export const deleteReview = (id, accessToken) => {
 	}
 }
 
-
-
-const receiveUserReview = data => {
-	return{
-		type: RECEIVE_USER_REVIEW,
-		payload: data
+//<----- Create Review ----->
+export const createReview = (id, items, accessToken, product_id) => {
+	console.log('woyy' ,items)
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_CREATE_REVIEW'))
+		try {
+			const response = await fetch(`${API_SERVER}/user-review`, {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+                    'Content-Type': 'application/json',
+                    Authorization: accessToken
+                },
+                body: JSON.stringify({					
+    							comment: items.review,
+									rate: items.ratings,
+									product_id: product_id,
+									id: id
+                })
+			})
+			const data = await response.json()
+			await dispatch(setSuccess(true, 'SUCCESS_CREATE_REVIEW'))
+      await dispatch(setLoading(false, 'LOADING_CREATE_REVIEW'))
+		} catch (e) {
+			console.log('action add error',e)
+			dispatch(setFailed(true, 'FAILED_CREATE_REVIEW', e))
+			dispatch(setLoading(false, 'LOADING_CREATE_REVIEW'))
+		}
 	}
 }
+
+
