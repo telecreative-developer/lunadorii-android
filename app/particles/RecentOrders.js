@@ -1,4 +1,5 @@
 import React from 'react'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
 
 const RecentOrders = (props) => (
@@ -11,16 +12,22 @@ const RecentOrders = (props) => (
         <TouchableOpacity onPress={props.action}>
           <View style={styles.viewOnlyColumn}>
             <Text style={styles.txtTitle}>{props.date}</Text>
-            <Text>{props.categories}</Text>
           </View>
         </TouchableOpacity>
-        <View style={styles.viewOnlyColumn}>
-          <Text>{props.billing_code}</Text>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <View style={styles.viewOnlyRow2}>
+            <FontAwesome name="shopping-cart" size={12} style={{paddingRight: 5}} />
+            <Text style={{fontSize: 12, fontWeight: 'bold'}}>{props.amountOfItem} items On Cart</Text>
+          </View>
+          <View style={styles.viewOnlyColumn}>
+            <Text style={{fontSize: 12}}>{props.billing_code}</Text>
+          </View>
         </View>
       </View>
     </View>
     <View style={styles.viewFooter}>
       <View style={{flexDirection: 'row'}}>
+        <Text>Status : </Text>
         <TouchableOpacity onPress={() => alert('Alert')}>
           <Text style={{fontWeight: 'bold', color: '#d11e47' }}>{props.status}</Text>
         </TouchableOpacity>
@@ -43,6 +50,9 @@ const styles = StyleSheet.create({
   viewOnlyRow: {
     flexDirection: 'row'
   },
+  viewOnlyRow2: {
+    flexDirection: 'row',
+  },
   viewOnlyColumn: {
     flexDirection: 'column'
   },
@@ -61,6 +71,7 @@ const styles = StyleSheet.create({
     height: 70
   },
   viewFooter: {
+    paddingTop: 5,
     flexDirection: 'row',
     justifyContent: 'space-between'
   },

@@ -27,18 +27,18 @@ const DetailsTransaction = (props) => (
       </View>
       <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
       <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
-        <Feather name="package" size={18} color={props.status === "packing" ? '#d11e48' : ''}/>
-        <Text style={{fontSize: 12, color:props.status === "packing" ? '#d11e48' : ''}}>Packing</Text>
+        <Feather name="package" size={18} color={props.status === "Packing" ? '#d11e48' : ''}/>
+        <Text style={{fontSize: 12, color:props.status === "Packing" ? '#d11e48' : ''}}>Packing</Text>
       </View>
       <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
       <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>      
-        <MaterialIcons name="local-shipping" size={18} color={props.status === "shipping" ? '#d11e48' : ''}/>
-        <Text style={{fontSize: 12, color:props.status === "shipping" ? '#d11e48' : ''}}>Shipping</Text>
+        <MaterialIcons name="local-shipping" size={18} color={props.status === "Shipping" ? '#d11e48' : ''}/>
+        <Text style={{fontSize: 12, color:props.status === "Shipping" ? '#d11e48' : ''}}>Shipping</Text>
       </View>
       <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
       <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
-        <MaterialIcons name="check" size={18} color={props.status === "delivered" ? '#d11e48' : ''}/>
-        <Text style={{fontSize: 12, color:props.status === "delivered" ? '#d11e48' : ''}}>Delivered</Text>
+        <MaterialIcons name="check" size={18} color={props.status === "Delivered" ? '#d11e48' : ''}/>
+        <Text style={{fontSize: 12, color:props.status === "Delivered" ? '#d11e48' : ''}}>Delivered</Text>
       </View>
     </View>
     <Content>

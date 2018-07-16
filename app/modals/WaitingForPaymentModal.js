@@ -52,22 +52,23 @@ const WaitingForPaymentModal = (props) => (
             <Text style={styles.paymentCardInformationGrandTotal}>Rp 420,000</Text>
           </View>
         </View>
+        <View style={{padding: 10}}>
+          <Button full style={{
+            height: 45,
+            width: 200,
+            borderRadius: 5,
+            backgroundColor: '#d11e48',
+            alignSelf: 'center'
+          }}>
+            <Text style={{
+              color: '#fff', 
+              fontSize: 18 
+            }}>Pay With Credit Card</Text>
+          </Button>
+        </View>
         <View style={styles.paymentGuideSparator}>
           <Text style={styles.paymentGuideTitle}>Panduan Pembayaran</Text>
         </View>
-        <TouchableOpacity style={styles.touchableGuidePayment1} onPress={()=>alert("Payment")}>
-          <View style={styles.paddingLeft20}>
-            <Image source={creditCard} style={styles.iconSize} />
-          </View>
-          <View style={styles.flexOnly9}>
-            <View style={styles.viewPaddingLeft}>
-              <Text style={styles.txtLabel}>Pay with Credit Card</Text>
-            </View>
-          </View>
-          <View style={styles.flexOnly1}>
-            <FontAwesome name="chevron-down" style={styles.iconDrop} />
-          </View>
-        </TouchableOpacity>
         <TouchableOpacity style={styles.touchableGuidePayment1} onPress={props.togglePaymentGuide1Visible}>
           <View style={styles.paddingLeft20}>
             <Image source={atmIcon} style={styles.iconSize} />
