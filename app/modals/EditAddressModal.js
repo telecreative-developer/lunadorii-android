@@ -78,8 +78,8 @@ const EditAddressModal = (props) => (
         </View>
       </Form>
     </Content>
-    <Button full style={styles.buttonSaveStyle} onPress={props.handleUpdateAddress}>
-      {false ? (
+    <Button full style={styles.buttonSaveStyle} onPress={props.handleUpdateAddress} disabled={props.loading} >
+    {props.loading ? (
         <View stryle={styles.style}>
           <Spinner color="#fff"/>
         </View>
