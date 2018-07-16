@@ -1,12 +1,23 @@
 import React, { Component } from 'react'
+import { AsyncStorage } from 'react-native'
+import { connect } from 'react-redux'
+import moment from 'moment'
+
+import { createReview } from '../actions/userreview'
 import DetailsOrder from '../components/DetailsOrder'
 
-export default class DetailsOrderContainer extends Component{
+class DetailsOrderContainer extends Component{
 
   state={
     modalVisibleAddReviews: false,
     review:'',
     ratings: 0
+  }
+
+  async componentDidMount(){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    const dataProduct = this.props.navigation.state.params.item
   }
 
   toggleModalAddReviews(){
@@ -19,8 +30,18 @@ export default class DetailsOrderContainer extends Component{
     });
   }
 
-  handleReview(){
-    alert("Review : " + this.state.review + "\n" + "Ratings : " + this.state.ratings)
+  async handleReview(){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    const { review, ratings } = this.state
+    const dataProduct = this.props.navigation.state.params.item
+    await this.props.createReview(data.id, {review , ratings} , data.accessToken, dataProduct.product_id)
+    await alert('Succes Add Review')
+    await this.setState({
+      modalVisibleAddReviews: false,
+      review:'',
+      ratings: 0
+    })
   }
 
 
@@ -38,11 +59,11 @@ export default class DetailsOrderContainer extends Component{
     return(
       <DetailsOrder
         billing_code={this.props.navigation.state.params.billing_code}
-        payment_time={data.payment_time}
-        delivery_time={data.delivery_time}
+        payment_time={moment(data.payment_time).calendar()}
+        delivery_time={moment(data.delivery_time).calendar()}
         status={this.capitalize(data.order_product_status)}
         purchase_number={data.purchase_number}
-        receipt_time={data.receipt_time}
+        receipt_time={moment(data.receipt_time).calendar()}
         delivery_service={data.delivery_service}
         goback={() => this.props.navigation.goBack()}
         navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
@@ -60,3 +81,20 @@ export default class DetailsOrderContainer extends Component{
     )
   }
 }
+
+const mapDispatchToProps = (dispatch) =>{
+  return{
+    createReview: (id, items, accessToken, product_id) => dispatch(createReview(id, items, accessToken, product_id))
+  }
+}
+
+const mapStateToProps = (state) => {
+  return{
+    loading: state.loading,
+    success: state.success,
+    sessionPersistance: state.sessionPersistance,
+    failed: state.failed
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsOrderContainer)

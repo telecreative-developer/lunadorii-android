@@ -31,6 +31,7 @@ class ProductShowContainer extends Component {
       dataSession:{},
       subcategories: '',
       qty: 1, 
+      brand:'',
       price: 0,
       discount:0,
       totalPrice: 0,
@@ -97,6 +98,7 @@ class ProductShowContainer extends Component {
       images: data.thumbnails.map(data => ({source:{uri: data.thumbnail_url}})),
       subcategories: data.subcategories[0].subcategory,
       price: data.price,
+      brand: data.brands[0].brand,
       amountOfImage: data.thumbnails.length,
       starCount: data.product_rate,
       discount: data.discount_percentage,
@@ -203,8 +205,9 @@ class ProductShowContainer extends Component {
         image={this.state.image}
         images={this.state.images}
         title={this.capitalize(this.state.title)}
-        categories={this.state.subcategories}
-        price={this.discountPrice(this.state.price, this.state.discount)}
+        categories={this.state.brand}
+        normalPrice={this.formatPrice(this.state.price)}
+        price={this.formatPrice(this.discountPrice(this.state.price, this.state.discount))}
         star={this.state.starCount}
         descriptions={this.state.data.description}
         productDetails={this.state.data.detail}

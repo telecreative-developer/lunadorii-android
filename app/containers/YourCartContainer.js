@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AsyncStorage, View, Alert, ToastAndroid} from 'react-native'
+import {AsyncStorage, View, Alert, Button, Text, StyleSheet, TouchableOpacity} from 'react-native'
 import YourCart from '../components/YourCart'
 import OnCart from '../particles/OnCart'
 import ShippingAddress from '../particles/ShippingAddress'
@@ -28,7 +28,9 @@ class YourCartContainer extends Component {
       quantity: 0,
       price: 0,
       discount_percentage:0,
-      totalPrice: 0
+      totalPrice: 0,
+      code:'',
+      cost:[]
     }
   }
 
@@ -69,10 +71,6 @@ class YourCartContainer extends Component {
   closeModal(){
     this.setState({modalVisibleEditQuantity: !this.state.modalVisibleEditQuantity})
   }
-
-  // GotoMyShipping(){
-    
-  // }
 
   async toggleModalEditQuantity(item){
     await this.closeModal()
@@ -239,11 +237,31 @@ class YourCartContainer extends Component {
     )
   }
 
+ async chooseService(code, cost){
+   await this.setState({
+     modalVisiblePickDeliveryService: !this.state.modalVisiblePickDeliveryService,
+     code: code,
+     cost: cost
+    })
+    await console.log('item:', code)
+ }
+
   render() {
     console.log('kurir :', this.props.receiveCourier)
+    const courier = this.props.receiveCourier
+    console.log('Good :',this.state.cost)
     return (
       <YourCart 
         stillLoading={this.state.stillLoading}
+
+        courierCode={courier}
+        renderCode={({item}) => (
+                <TouchableOpacity  title={item.code.toUpperCase()} style={styles.btnPickDeliveryService} onPress={()=>this.chooseService(item.code, item.costs)}>
+                  <Text style={styles.txtChooseDeliveryService}>{item.code.toUpperCase()}</Text>
+                </TouchableOpacity>
+              )}
+        
+        courierMetode={this.state.cost}
 
         modalVisiblePickDeliveryService={this.state.modalVisiblePickDeliveryService}
         toggleModalPickDeliveryService={() => this.setState({modalVisiblePickDeliveryService: !this.state.modalVisiblePickDeliveryService})}
@@ -332,5 +350,16 @@ const mapStateToProps = (state) => {
     receiveCourier: state.receiveCourier
   }
 }
+
+const styles = StyleSheet.create({
+  btnPickDeliveryService:{
+    height: 25,
+    borderRadius:5,
+    alignSelf:'center',
+    backgroundColor:'#d11e48',
+    margin:5,
+  },
+  
+})
 
 export default connect(mapStateToProps, mapDispatchToProps)(YourCartContainer)

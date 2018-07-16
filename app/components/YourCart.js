@@ -7,6 +7,7 @@ import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
 import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
 import PickDeliverySeriveModal from '../modals/PickDeliveryServiceModal'
+import { fetchCourier } from '../actions/shipping';
 const shippingAddress = require('../assets/images/icon/shipping-address.png')
 const tiki = require('../assets/images/icon/tiki.png')
 const { height, width } = Dimensions.get('window')
@@ -24,6 +25,7 @@ const YourCart = (props) => (
     <PickDeliverySeriveModal
       modalVisible={props.modalVisiblePickDeliveryService}
       closeIcon={props.toggleModalPickDeliveryService}
+      courierMetode={props.courierMetode}
     />
     <EditQuantityModal
       modalVisible={props.modalVisibleEditQuantity}
@@ -139,26 +141,12 @@ const YourCart = (props) => (
             )}
           </View>
           <View style={{alignItems:'center', paddingBottom: 10}}>
+            {console.log('courier :', props.courierCode)}
             <FlatList
               horizontal={true}
               showsHorizontalScrollIndicator={false}
-              data={[
-                'JNE',
-                'TIKI',
-                'Wahana',
-                'Logistic',
-                'JNE',
-                'TIKI',
-                'Wahana',
-                'Logistic',
-                'Wahana',
-                'Logistic',
-              ]}
-              renderItem={({item}) => (
-                <Button style={styles.btnPickDeliveryService} onPress={props.toggleModalPickDeliveryService}>
-                  <Text style={styles.txtChooseDeliveryService}>{item}</Text>
-                </Button>
-              )}
+              data={props.courierCode}
+              renderItem={props.renderCode}
             />
           </View>
         </View>

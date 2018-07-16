@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage, TouchableOpacity, ToastAndroid } from 'react-native'
+import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage, TouchableOpacity, BackHandler } from 'react-native'
+import { connect } from 'react-redux'
+
 import Home from '../components/Home'
 import Product from '../particles/Product'
 import Brand from '../particles/Brand'
 import RecommendProduct from '../particles/RecommendProduct'
 import BestCategories from '../particles/BestCategories'
 import Categories from '../particles/Categories'
-
-import { connect } from 'react-redux'
 import { fetchCategoryProduct } from '../actions/categoryproduct'
 import { fetchBrandsProduct } from '../actions/brandsproduct'
 import { fetchProduct, fetchProductWithoutId, fetchProductBestSeller } from '../actions/product'
@@ -77,12 +77,9 @@ class HomeContainer extends Component {
   }
 
   async componentDidMount() {
-    // await this.props.fetchProductWithoutId()
-    // await this.props.fetchProductWithoutId()
-    console.log('soncol',this.props.sessionPersistance)
+
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    console.log(data.accessToken)
     await this.props.fetchBanners()
     await this.props.fetchCategoryProduct()
     await this.props.fetchBrandsProduct()

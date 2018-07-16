@@ -190,7 +190,7 @@ class YourShippingAddressContainer extends Component{
   }
 
   render(){
-    console.log('cities :' , JSON.stringify(this.state))
+    console.log('cities :' , this.state)
     console.log('usershipping : ', this.props.usershipping)
     return(
       <YourShippingAddress
@@ -220,7 +220,7 @@ class YourShippingAddressContainer extends Component{
         regencyValue={this.state.regency}
         onChangeRegency={(regency) => this.setState({regency, visibleRegencyPicker: true})}
 
-        postalcodeValue={this.state.postalcode}
+        postalcodeValue={this.state.postalcode.toString()}
         onChangePostalcode={(postalcode) => this.setState({postalcode})}
 
         numberPhoneValue={this.state.numberPhone}

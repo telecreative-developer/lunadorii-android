@@ -51,42 +51,10 @@ const ProductShow = (props) => (
             <Text style={styles.fistGroupSubtitle}>{props.categories}</Text>
           </View>
           <View style={{flexDirection: 'row'}}>
-            <Text style={{paddingRight:10}}>Rp. 50,000</Text>
-            <Text style={{textDecorationLine: 'line-through',fontSize: 12,color: '#ccc'}}>Rp. 100,000</Text>
+            <Text style={{paddingRight:10}}>{props.price}</Text>
+            <Text style={{textDecorationLine: 'line-through',fontSize: 12,color: '#ccc'}}>{props.normalPrice}</Text>
           </View>
         </View>
-        {/* {props.wishlisted === true ? 
-          <View style={styles.firstGroupWrapper2}>
-            {props.clickWishlist === true ?
-              <TouchableOpacity onPress={props.deleteWishlist}>
-                <View style={styles.firstGroupButtonShare}>
-                  <Entypo name="heart-outlined" style={styles.firstGroupButtonIcon} />
-                </View>
-              </TouchableOpacity>:
-              <TouchableOpacity onPress={props.AddWishlist}>
-                <View style={styles.firstGroupButtonShare}>
-                  <Entypo name="heart" style={styles.firstGroupButtonIcon} />
-                </View>
-              </TouchableOpacity>
-            }
-          </View>:
-          <View style={styles.firstGroupWrapper2}>
-            {props.clickWishlist === true ?
-              <TouchableOpacity onPress={props.deleteWishlist}>
-                <View style={styles.firstGroupButtonShare}>
-                  <Entypo name="heart-outlined" style={styles.firstGroupButtonIcon} />
-                </View>
-              </TouchableOpacity>:
-              <TouchableOpacity onPress={props.AddWishlist}>
-                <View style={styles.firstGroupButtonShare}>
-                  <Entypo name="heart" style={styles.firstGroupButtonIcon} />
-                </View>
-              </TouchableOpacity>
-            }
-          </View>
-          } */}
-          {console.log('Wishlisted:', props.wishlisted)}
-          {console.log('clicked', props.clickWishlist)}
           <View style={styles.firstGroupWrapper2}>
             {props.wishlisted[0] === true ?
               <View>

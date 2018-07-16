@@ -130,6 +130,18 @@ const styles = StyleSheet.create({
     color: '#fff', 
     fontSize: 18 
   },
+  buttonStyleFotterDisabled:{
+    height: 50,
+    width: 160,
+    borderRadius: 10, 
+    backgroundColor: '#fff',
+    borderWidth: 1,
+    borderColor: '#d11e48',
+  },
+  textStyleFooterDisabled:{
+    color: '#d11e48', 
+    fontSize: 18 
+  }
   // buttonReviewStyleEditProfile: {
   //   margin: 10,
   //   height: 50,

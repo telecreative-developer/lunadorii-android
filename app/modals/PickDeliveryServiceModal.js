@@ -25,21 +25,15 @@ const PickDeliveryServiceModal = (props) => (
         <Text style={{fontWeight: 'bold',color: '#000',alignSelf: 'flex-end', paddingBottom: 13, paddingRight: 10}}>Delivery Services</Text>
       </View>
       <View style={{height: 200}}>
+        {console.log(props.courierMetode)}
         <FlatList
-          data={[
-            {class: 'Standard', estimated: 'est delivery (Fri 20/5)', price: 20000},
-            {class: 'Fast', estimated: 'est delivery (Fri 20/5)', price: 20000},
-            {class: 'Normal', estimated: 'est delivery (Fri 20/5)', price: 20000},
-            {class: 'Madness', estimated: 'est delivery (Fri 20/5)', price: 20000},
-            {class: 'Fuckin Shit', estimated: 'est delivery (Fri 20/5)', price: 20000},
-            {class: 'OMG', estimated: 'est delivery (Fri 20/5)', price: 20000}
-          ]}
+          data={props.courierMetode}
           renderItem={({item}) => (
             <TouchableOpacity onPress={() => alert("You pick " + item.class)}>
               <View style={{padding: 10, flexDirection: 'row',justifyContent: 'space-around'}}>
-                <Text style={{fontWeight: 'bold',color: '#000'}}>{item.class}</Text>
-                <Text>{item.estimated}</Text>
-                <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. {item.price},-</Text>
+                <Text style={{fontWeight: 'bold',color: '#000'}}>{item.service}</Text>
+                <Text>{item.cost[0].etd}</Text>
+                <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. {item.cost[0].value},-</Text>
               </View>
             </TouchableOpacity>
           )}
