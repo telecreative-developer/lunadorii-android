@@ -9,6 +9,7 @@ const bankIcon = require('../assets/images/icon/bank.png')
 const atmIcon = require('../assets/images/icon/atm.png')
 const deliveryIcon = require('../assets/images/icon/shipped.png')
 const emailIcon = require('../assets/images/icon/email.png')
+const creditCard = require('../assets/images/icon/cc.png')
 
 const WaitingForPaymentModal = (props) => (
   <Modal
@@ -54,6 +55,19 @@ const WaitingForPaymentModal = (props) => (
         <View style={styles.paymentGuideSparator}>
           <Text style={styles.paymentGuideTitle}>Panduan Pembayaran</Text>
         </View>
+        <TouchableOpacity style={styles.touchableGuidePayment1} onPress={()=>alert("Payment")}>
+          <View style={styles.paddingLeft20}>
+            <Image source={creditCard} style={styles.iconSize} />
+          </View>
+          <View style={styles.flexOnly9}>
+            <View style={styles.viewPaddingLeft}>
+              <Text style={styles.txtLabel}>Pay with Credit Card</Text>
+            </View>
+          </View>
+          <View style={styles.flexOnly1}>
+            <FontAwesome name="chevron-down" style={styles.iconDrop} />
+          </View>
+        </TouchableOpacity>
         <TouchableOpacity style={styles.touchableGuidePayment1} onPress={props.togglePaymentGuide1Visible}>
           <View style={styles.paddingLeft20}>
             <Image source={atmIcon} style={styles.iconSize} />
