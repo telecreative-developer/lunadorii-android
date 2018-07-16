@@ -66,7 +66,7 @@ const EditAddressModal = (props) => (
           <View style={styles.flexDirectionCol}>
             <Label style={styles.labels}>Number Phone</Label>
             <Item regular style={styles.centeredItems}>
-              <Input placeholder={props.numberPhoneValue} value={props.numberPhoneValue} onChangeText={props.onChangeNumberPhone} keyboardType={'numeric'}/>
+              <Input placeholder={props.numberPhoneValue} value={props.numberPhoneValue.toString()} onChangeText={props.onChangeNumberPhone} keyboardType={'numeric'}/>
             </Item>
           </View>
           <View style={styles.flexDirectionCol}>
