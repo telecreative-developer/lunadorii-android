@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Dimensions, FlatList, TouchableOpacity } from 'react-native'
 import { Icon, Button, Form, Input, Item, Label } from 'native-base'
+import moment from 'moment'
 const { height, width } = Dimensions.get('window')
 
 const PickDeliveryServiceModal = (props) => (
@@ -29,10 +30,10 @@ const PickDeliveryServiceModal = (props) => (
         <FlatList
           data={props.courierMetode}
           renderItem={({item}) => (
-            <TouchableOpacity onPress={() => alert("You pick " + item.class)}>
+            <TouchableOpacity onPress={props.selectedCourier}>
               <View style={{padding: 10, flexDirection: 'row',justifyContent: 'space-around'}}>
                 <Text style={{fontWeight: 'bold',color: '#000'}}>{item.service}</Text>
-                <Text>{item.cost[0].etd}</Text>
+                <Text>{item.cost[0].etd }</Text>
                 <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. {item.cost[0].value},-</Text>
               </View>
             </TouchableOpacity>

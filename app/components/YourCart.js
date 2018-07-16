@@ -26,6 +26,7 @@ const YourCart = (props) => (
       modalVisible={props.modalVisiblePickDeliveryService}
       closeIcon={props.toggleModalPickDeliveryService}
       courierMetode={props.courierMetode}
+      selectedCourier={props.selectedCourier}
     />
     <EditQuantityModal
       modalVisible={props.modalVisibleEditQuantity}
