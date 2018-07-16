@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, Alert } from 'react-native'
+import { AsyncStorage, Alert, ToastAndroid } from 'react-native'
 import LocalBank from '../components/LocalBank'
 import LocalBanks from '../particles/LocalBanks'
 import Picker from '../particles/Picker'
@@ -46,7 +46,8 @@ class LocalBankContainer extends Component{
     const data = await JSON.parse(session)
     await this.props.addUserBank(this.state.bill, this.state.name, this.state.bank_id, data.id, this.state.password, data.accessToken)
     await this.props.fetchUserBank(data.id, data.accessToken)
-    await alert(this.props.manipulatebank.message)
+    // await alert(this.props.manipulatebank.message)
+    ToastAndroid.showWithGravity("Added", ToastAndroid.SHORT, ToastAndroid.CENTER)
     await this.setState({buttonSave: false})
     await this.setState({ modalVisibleAddLocalBank: !this.state.modalVisibleAddLocalBank})
   }
@@ -57,7 +58,8 @@ class LocalBankContainer extends Component{
     const data = await JSON.parse(session)
     await this.props.editUserBank(this.state.user_bank_id, this.state.bill, this.state.name, this.state.bank_id, data.id, this.state.password, data.accessToken)
     await this.props.fetchUserBank(data.id, data.accessToken)
-    await alert(this.props.manipulatebank.message)
+    // await alert(this.props.manipulatebank.message)
+    ToastAndroid.showWithGravity("Edited", ToastAndroid.SHORT, ToastAndroid.CENTER)
     await this.setState({buttonSave: false})
     await this.setState({ modalVisibleEditLocalBank: !this.state.modalVisibleEditLocalBank})
   }
@@ -85,7 +87,8 @@ class LocalBankContainer extends Component{
     const data = await JSON.parse(session)
     await this.props.deleteUserBank(item.user_bank_id, data.accessToken)
     await this.props.fetchUserBank(data.id, data.accessToken)
-    await alert(this.props.manipulatebank.message)
+    // await alert(this.props.manipulatebank.message)
+    ToastAndroid.showWithGravity("Fetching", ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
 
   toggleModalAddLocalBank(){

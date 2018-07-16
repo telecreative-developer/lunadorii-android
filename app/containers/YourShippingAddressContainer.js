@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AsyncStorage, View,Modalx, Text, SmartPicker, Dimensions, ScrollView, Alert} from 'react-native'
+import {AsyncStorage, View,Modalx, Text, SmartPicker, Dimensions, ScrollView, Alert, ToastAndroid} from 'react-native'
 import { Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
 import YourShippingAddress from '../components/YourShippingAddress'
 import ShippingAddress from '../particles/ShippingAddress'
@@ -91,7 +91,8 @@ class YourShippingAddressContainer extends Component{
       numberPhone: '',
       label:'',
     })
-    Alert.alert('Success Add Address', 'Thanks..')
+    // Alert.alert('Success Add Address', 'Thanks..')
+    ToastAndroid.showWithGravity("Added", ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
 
   handleSaveShippingAddress(){
@@ -116,7 +117,8 @@ class YourShippingAddressContainer extends Component{
       numberPhone: '',
       label:'',
     })
-    Alert.alert('Success Add Address', 'Thanks..')
+    // Alert.alert('Success Add Address', 'Thanks..')
+    ToastAndroid.showWithGravity("Updated", ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
 
   async componentDidMount() {
@@ -154,8 +156,7 @@ class YourShippingAddressContainer extends Component{
         { text: 'Cancel', onPress: () => {}, style: 'cancel' },
         {
           text: 'Delete',
-          onPress: () => this.fetchData(item)
-          
+          onPress: () => this.fetchData(item),
         }
       ],
       { cancelable: false }

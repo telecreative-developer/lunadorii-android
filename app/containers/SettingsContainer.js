@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { editPassword, editEmail } from '../actions/editprofile'
-import {AsyncStorage} from 'react-native'
+import {AsyncStorage, ToastAndroid} from 'react-native'
 
 import Settings from '../components/Settings'
 
@@ -57,7 +57,8 @@ class SettingsContainer extends Component {
         this.setState({ modalVisibleChangeEmail: false })
       }
       this.setState({ buttonEmail: false })
-      await alert(this.props.editemail.message)
+      // await alert(this.props.editemail.message)
+      ToastAndroid.showWithGravity("Change saved", ToastAndroid.SHORT, ToastAndroid.CENTER)
     }
   }
 
@@ -79,7 +80,8 @@ class SettingsContainer extends Component {
           this.setState({ modalVisibleChangePassword: false })
         }
         this.setState({ buttonPassword: false })
-        await alert(this.props.editpassword.message)
+        // await alert(this.props.editpassword.message)
+        ToastAndroid.showWithGravity("Password changed", ToastAndroid.SHORT, ToastAndroid.CENTER)
       }
     
   }
