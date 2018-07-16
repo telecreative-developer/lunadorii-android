@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View, Text, StyleSheet, FlatList, StatusBar, Dimensions, TouchableOpacity, Image } from 'react-native'
-import { Container, Content, Icon, Button, Input, Label, Item  } from 'native-base'
+import { Container, Content, Icon, Button, Input, Label, Item, Spinner  } from 'native-base'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
@@ -41,103 +41,110 @@ const YourCart = (props) => (
       paymentGuide2Visible={props.paymentGuide2Visible}
       togglePaymentGuide2Visible={props.togglePaymentGuide2Visible}
     />
-    <Content>
-      <View style={styles.body}>
-        <Text style={styles.title}>Products</Text>
-        <View>
-          <FlatList
-            data={props.onCartProduct}
-            renderItem={props.renderOnCartProduct}
-          />
+    {props.stillLoading ? (
+      <Content contentContainerStyle={{justifyContent: 'center', alignItems:'center', flex: 1}}>
+        <View stryle={styles.style}>
+          <Spinner color="#d11e48"/>
         </View>
-        <Button style={styles.btnAdd} onPress={props.navigateToHome}>
-          <Icon name="add"/><Text style={styles.txtAdd}>Add More Product</Text>
-        </Button>
-      </View>
-      <View style={styles.border}>
+      </Content>
+    ) : (
+      <Content>
         <View style={styles.body}>
-          <Text style={styles.title}>Shipping Address</Text>
-          <TouchableOpacity onPress={props.goToShipping}>
+          <Text style={styles.title}>Products</Text>
+          <View>
+            <FlatList
+              data={props.onCartProduct}
+              renderItem={props.renderOnCartProduct}
+            />
+          </View>
+          <Button style={styles.btnAdd} onPress={props.navigateToHome}>
+            <Icon name="add"/><Text style={styles.txtAdd}>Add More Product</Text>
+          </Button>
+        </View>
+        <View style={styles.border}>
+          <View style={styles.body}>
+            <Text style={styles.title}>Shipping Address</Text>
             <FlatList
               data={props.onCartShippingAddress}
               renderItem={props.renderOnCartShippingAddress}
             />
-          </TouchableOpacity>
-          {/* <View>
-            <TouchableOpacity style={styles.touchableGuidePayment1} onPress={props.toggleDeliverySerive}>
-              <View>
-                <Image source={shippingAddress} style={styles.iconSize} />
-              </View>
-              <View style={styles.flexOnly9}>
-                <View style={styles.viewPaddingLeft}>
-                  <Text style={styles.txtLabel}>Delivery Service</Text>
-                </View>
-              </View>
-              <View style={styles.flexOnly1}>
-                <FontAwesome name="chevron-down" style={styles.iconDrop} />
-              </View>
-            </TouchableOpacity>
-            {props.deliverySeriveVisible ? (
-              <View style={styles.contentBottom}>
-                <Radio/>
-                <View style={styles.wrapKurir}>
-                  <Text style={styles.txtkurir}>JNE</Text>
-                  <Text style={styles.txtdetilkurir}>Barang akan sampai 2 -3 hari</Text>
-                </View>
-                <Text style={styles.txtpcs}>RP 15,000</Text>
-              </View>
 
-              <View style={styles.contentBottom}>
-                <Radio/>
-                <View style={styles.wrapKurir}>
-                  <Text style={styles.txtkurir}>YES</Text>
-                  <Text style={styles.txtdetilkurir}>Barang akan sampai 1 hari</Text>
+            {/* <View>
+              <TouchableOpacity style={styles.touchableGuidePayment1} onPress={props.toggleDeliverySerive}>
+                <View>
+                  <Image source={shippingAddress} style={styles.iconSize} />
                 </View>
-                <Text style={styles.txtpcs}>RP 15,000</Text>
-              </View>
+                <View style={styles.flexOnly9}>
+                  <View style={styles.viewPaddingLeft}>
+                    <Text style={styles.txtLabel}>Delivery Service</Text>
+                  </View>
+                </View>
+                <View style={styles.flexOnly1}>
+                  <FontAwesome name="chevron-down" style={styles.iconDrop} />
+                </View>
+              </TouchableOpacity>
+              {props.deliverySeriveVisible ? (
+                <View style={styles.contentBottom}>
+                  <Radio/>
+                  <View style={styles.wrapKurir}>
+                    <Text style={styles.txtkurir}>JNE</Text>
+                    <Text style={styles.txtdetilkurir}>Barang akan sampai 2 -3 hari</Text>
+                  </View>
+                  <Text style={styles.txtpcs}>RP 15,000</Text>
+                </View>
 
-              <View style={styles.contentBottom}>
-                <Radio/>
-                <View style={styles.wrapKurir}>
-                  <Text style={styles.txtkurir}>Express</Text>
-                  <Text style={styles.txtdetilkurir}>Barang akan sampai 2 -3 hari</Text>
+                <View style={styles.contentBottom}>
+                  <Radio/>
+                  <View style={styles.wrapKurir}>
+                    <Text style={styles.txtkurir}>YES</Text>
+                    <Text style={styles.txtdetilkurir}>Barang akan sampai 1 hari</Text>
+                  </View>
+                  <Text style={styles.txtpcs}>RP 15,000</Text>
                 </View>
-                <Text style={styles.txtpcs}>RP 15,000</Text>
-              </View> 
-            ) : (
-              <View/>
-            )}
-          </View> */}
+
+                <View style={styles.contentBottom}>
+                  <Radio/>
+                  <View style={styles.wrapKurir}>
+                    <Text style={styles.txtkurir}>Express</Text>
+                    <Text style={styles.txtdetilkurir}>Barang akan sampai 2 -3 hari</Text>
+                  </View>
+                  <Text style={styles.txtpcs}>RP 15,000</Text>
+                </View> 
+              ) : (
+                <View/>
+              )}
+            </View> */}
+          </View>
         </View>
-      </View>
-      {/* <View style={styles.border1}>
-        <View style={styles.body1}>
-          <Text style={styles.title}>Delivery Service</Text>
-          <View>
+        {/* <View style={styles.border1}>
+          <View style={styles.body1}>
+            <Text style={styles.title}>Delivery Service</Text>
             <View>
-              <Label style={styles.label}>Service</Label>
-              <Item regular style={{width: '100%', borderRadius: 5,height: 40,alignItems:'center'}}>
-                <Input/>
-              </Item>
-            </View>
-            <View style={{flexDirection:'row', justifyContent: 'space-between', paddingVertical: 10}}> 
               <View>
-                <Label style={styles.label}>Class</Label>
-                <Item regular style={{width: 150, borderRadius: 5,height: 40,alignItems:'center'}}>
+                <Label style={styles.label}>Service</Label>
+                <Item regular style={{width: '100%', borderRadius: 5,height: 40,alignItems:'center'}}>
                   <Input/>
                 </Item>
               </View>
-              <View>
-                <Label style={styles.label}>Fare</Label>
-                <Item regular style={{width: 150, borderRadius: 5,height: 40,alignItems:'center'}}>
-                  <Input/>
-                </Item>
+              <View style={{flexDirection:'row', justifyContent: 'space-between', paddingVertical: 10}}> 
+                <View>
+                  <Label style={styles.label}>Class</Label>
+                  <Item regular style={{width: 150, borderRadius: 5,height: 40,alignItems:'center'}}>
+                    <Input/>
+                  </Item>
+                </View>
+                <View>
+                  <Label style={styles.label}>Fare</Label>
+                  <Item regular style={{width: 150, borderRadius: 5,height: 40,alignItems:'center'}}>
+                    <Input/>
+                  </Item>
+                </View>
               </View>
             </View>
           </View>
-        </View>
-      </View> */}
-    </Content>
+        </View> */}
+      </Content>
+    )}
     <View style={styles.footer}>
       <View style={styles.footerWrapper}>
         <View style={styles.footerInfo}>

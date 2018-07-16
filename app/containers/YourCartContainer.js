@@ -13,6 +13,7 @@ class YourCartContainer extends Component {
   constructor(){
     super()
     this.state = {
+      stillLoading: true,
       paymentGuide1Visible: false,
       bcaGuide: false,
       paymentGuide2Visible: false,
@@ -42,6 +43,9 @@ class YourCartContainer extends Component {
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchCartUser(data.id, data.accessToken)
+    if(this.props.fetchUserShipping(data.id, data.accessToken)){
+      this.setState({stillLoading: false})
+    }
     await this.props.fetchUserShipping(data.id, data.accessToken)
     await this.getCourier()
   }
@@ -239,6 +243,7 @@ class YourCartContainer extends Component {
     console.log('kurir :', this.props.receiveCourier)
     return (
       <YourCart 
+        stillLoading={this.state.stillLoading}
         paymentGuide1Visible={this.state.paymentGuide1Visible}
         togglePaymentGuide1Visible={() => this.togglePaymentGuide1Visible()}
 

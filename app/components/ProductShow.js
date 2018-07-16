@@ -47,7 +47,13 @@ const ProductShow = (props) => (
           <View style={{width: (width - 90) / 1 }}>
             <Text style={styles.firstGroupTitle}>{props.title}</Text>
           </View>
-          <Text style={styles.fistGroupSubtitle}>{props.categories}</Text>
+          <View>
+            <Text style={styles.fistGroupSubtitle}>{props.categories}</Text>
+          </View>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={{paddingRight:10}}>Rp. 50,000</Text>
+            <Text style={{textDecorationLine: 'line-through',fontSize: 12,color: '#ccc'}}>Rp. 100,000</Text>
+          </View>
         </View>
         {/* {props.wishlisted === true ? 
           <View style={styles.firstGroupWrapper2}>
