@@ -37,7 +37,7 @@ export const updateSetdefault = (id_user, id_addres, accessToken) => {
                     Authorization: accessToken
 				},
 				body: JSON.stringify({
-					id: id_user
+							id: id_user
                 })
 			})
 			const data = await response.json()
@@ -100,7 +100,6 @@ export const createAddress = (id, items, accessToken) => {
                 })
 			})
 			const data = await response.json()
-			console.log('action add adres',data)
 			await dispatch(setSuccess(true, 'SUCCESS_CREATE_SHIPPING'))
       await dispatch(setLoading(false, 'LOADING_CREATE_SHIPPING'))
 		} catch (e) {
