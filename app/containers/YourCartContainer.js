@@ -4,7 +4,7 @@ import YourCart from '../components/YourCart'
 import OnCart from '../particles/OnCart'
 import ShippingAddress from '../particles/ShippingAddress'
 import { connect } from 'react-redux'
-import { fetchCartUser, removeCart } from '../actions/cart'
+import { fetchCartUser, removeCart, editQty } from '../actions/cart'
 import { fetchUserShipping, updateShipping } from '../actions/usershipping'
 import { fetchCourier } from '../actions/shipping'
 
@@ -28,11 +28,15 @@ class YourCartContainer extends Component {
       quantity: 0,
       price: 0,
       discount_percentage:0,
+      cart_id: 0,
       totalPrice: 0,
       code:'',
+      loadingBtn: false,
       selectedCourier:null,
       cost:[],
-      estDays: ""
+      estDays: "",
+      product: "",
+      brand: ""
     }
   }
 
@@ -75,7 +79,7 @@ class YourCartContainer extends Component {
   }
 
   async toggleModalEditQuantity(item){
-    await this.setState({modalVisibleEditQuantity: true})
+    await this.closeModal()
     if(this.state.modalVisibleEditQuantity){
       const session = await AsyncStorage.getItem('session')
       const data = await JSON.parse(session)
@@ -85,7 +89,10 @@ class YourCartContainer extends Component {
         quantity: item.qty,
         price: item.price,
         discount_percentage: item.discount_percentage,
-        totalPrice: item.totalPrice
+        totalPrice: item.totalPrice,
+        cart_id: item.cart_id,
+        product: item.product,
+        brand: item.brands[0].brand
       }) 
     }else{
       await this.setState({
@@ -93,18 +100,35 @@ class YourCartContainer extends Component {
         product_id: 0,
         quantity: 0,
         price: 0,
-        totalPrice: 0
+        totalPrice: 0,
+        cart_id: 0,
+        product: "",
+        brand: ""
       })
     }
   }
 
+  async handleEditQtyModal(){
+    this.setState({loadingBtn: true})
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    await this.props.editQty(data.id, this.state.product_id, this.state.quantity, this.state.cart_id, data.accessToken)
+    await this.props.fetchCartUser(data.id, data.accessToken)
+    await this.closeModal()
+    this.setState({loadingBtn: false})
+  }
+
   async addQty(){
-    await this.setState({
-      quantity: this.state.quantity + 1
-    })
-    await this.setState({
-      totalPrice: this.state.price * this.state.quantity
-    })
+    if(this.state.quantity >= 100){
+
+    }else {
+      await this.setState({
+        quantity: this.state.quantity + 1
+      })
+      await this.setState({
+        totalPrice: this.state.price * this.state.quantity
+      })
+    }
   }
 
   async minQty(){
@@ -161,10 +185,6 @@ class YourCartContainer extends Component {
   discountPrice(price, discount_percentage){
     let DiscountPrice = price - (price *(discount_percentage/100))
     return DiscountPrice
-  }
-
-  closeModal(){
-    this.setState({modalVisibleEditAddress: !this.state.modalVisibleEditAddress})
   }
 
   async btnUpdateShipping(){
@@ -308,6 +328,8 @@ class YourCartContainer extends Component {
         onChangeQuantity={(quantity) => this.setState({quantity})}
         addQty={() => this.addQty()}
         minQty={() => this.minQty()}
+        handleEditQtyModal={() => this.handleEditQtyModal()}
+        loadingBtn={this.state.loadingBtn}
 
         onCartProduct={this.props.cartuser}
         renderOnCartProduct={({item}) => (
@@ -344,6 +366,9 @@ class YourCartContainer extends Component {
           </TouchableOpacity>
         )}
 
+        product={this.state.product}
+        brand={this.state.brand}
+
         modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
         toggleModalEditQuantity={() => this.toggleModalEditQuantity(this.props.cartuser)}
 
@@ -366,6 +391,7 @@ const mapDispatchToProps = (dispatch) =>{
     fetchCartUser: (id, accessToken) => dispatch(fetchCartUser(id, accessToken)),
     fetchUserShipping: (id, accessToken) => dispatch(fetchUserShipping(id, accessToken)),
     removeCart: (id, product_id, accessToken) => dispatch(removeCart(id, product_id, accessToken)),
+    editQty: (id, product_id, qty, cart_id, accessToken) => dispatch(editQty(id, product_id, qty, cart_id, accessToken)),
     fetchCourier: (weight_gram, province_id) => dispatch(fetchCourier(weight_gram, province_id))
   }
 }

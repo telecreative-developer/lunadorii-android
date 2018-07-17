@@ -78,6 +78,8 @@ class SettingsContainer extends Component {
     
       if (this.state.currentPassword == ""){
         alert("your old password is empty")
+      }else if (this.state.newPassword == "" && this.state.confirmPassword == "") {
+        alert("Please Insert Your New Password")
       }else if (this.state.newPassword !== this.state.confirmPassword) {
         alert("New password wasn't comfirmed")
       } else {
@@ -113,11 +115,16 @@ class SettingsContainer extends Component {
 
         onChangeNewEmail={(newEmail) => this.setState({newEmail})}
         onChangeConfirmEmail={(confirmEmail) => this.setState({confirmEmail})}
+        newEmail={this.state.newEmail}
+        confirmEmail={this.state.confirmEmail}
         handleChangeEmail={() => this.handleChangeEmail()}
 
         onChangeCurrentPassword={(currentPassword) => this.setState({ currentPassword })}
         onChangeNewPassword={(newPassword) => this.setState({ newPassword })}
         onChangeConfirmPassword={(confirmPassword) => this.setState({ confirmPassword })}
+        currentPassword={this.state.currentPassword}
+        newPassword={this.state.newPassword}
+        newConfirmPassword={this.state.confirmPassword}
         handleChangePassword={() => this.handleChangePassword()}
 
         goback={() => this.props.navigation.goBack()}

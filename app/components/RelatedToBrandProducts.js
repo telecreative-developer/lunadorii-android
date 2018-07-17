@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Icon, Text, Container, Content, Spinner } from 'native-base';
 import Navbar from '../particles/Navbar';
+import Validations from '../particles/Validations'
 import AddToCart from '../modals/AddToCart'
 
 const HEADER_MAX_HEIGHT = 250;
@@ -41,14 +42,26 @@ const RelatedToBrandProducts = (props) => (
       <Content>
         <View style={styles.viewArrivals}>
           <View style={{padding: 10}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>{props.name}</Text>
             <View style={{paddingTop: 5}}>
-              <FlatList
-                numColumns={2}
-                data={props.dataProduct}
-                renderItem={props.renderProduct}
-                keyExtractor={(item, index) => JSON.stringify(index)}
+              {props.dataProduct.length == 0 ?
+              <Validations
+                title={props.name+" Doesn't has product"}
+                message1={"Please be patient for new products"}
+                message2={props.name}
+                buttonText={"Continue shoping"}
+                buttonAction={props.navigateToHome}
               />
+              :
+              <View>
+                <Text style={{fontWeight: 'bold',fontSize: 18}}>{props.name}</Text>
+                <FlatList
+                  numColumns={2}
+                  data={props.dataProduct}
+                  renderItem={props.renderProduct}
+                  keyExtractor={(item, index) => JSON.stringify(index)}
+                />
+              </View>
+              }
             </View>
           </View>
         </View>

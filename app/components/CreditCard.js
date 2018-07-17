@@ -23,11 +23,15 @@ const CreditCard = (props) => (
       validationDate={props.validationDate}
       cvv={props.cvv}
       cardHolderName={props.cardHolderName}
+      country={props.country}
+      postalCode={props.postalCode}
 
       onChangeCardNumber={props.onChangeCardNumber}
       onChangeValidationDate={props.onChangeValidationDate}
       onChangeCVV={props.onChangeCVV}
-      onChangeCardHolder={props.onChangeCardHolder}/>
+      onChangeCardHolder={props.onChangeCardHolder}
+      onChangeCountry={props.onChangeCountry}
+      onChangePostalCode={props.onChangePostalCode}/>
     <AddCreditCardModal
       navbarTitle="Add Credit Card"
       navbarIcon="close"
@@ -39,11 +43,15 @@ const CreditCard = (props) => (
       validationDate={props.validationDate}
       cvv={props.cvv}
       cardHolderName={props.cardHolderName}
+      country={props.country}
+      postalCode={props.postalCode}
 
       onChangeCardNumber={props.onChangeCardNumber}
       onChangeValidationDate={props.onChangeValidationDate}
       onChangeCVV={props.onChangeCVV}
-      onChangeCardHolder={props.onChangeCardHolder}/>
+      onChangeCardHolder={props.onChangeCardHolder}
+      onChangeCountry={props.onChangeCountry}
+      onChangePostalCode={props.onChangePostalCode}/>
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content"

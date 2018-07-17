@@ -5,7 +5,8 @@ export default class LoginTroubleshootingContainer extends Component{
   render(){
     return(
       <LoginTroubleshooting
-        navigateToLogin={() => this.props.navigation.navigate('LoginContainer')}/>
+        navigateToLogin={() => this.props.navigation.navigate('LoginContainer')}
+        navigateToMoreHelp={() => this.props.navigation.navigate('MoreHelpContainer')}/>
     )
   }
 }

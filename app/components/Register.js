@@ -145,7 +145,9 @@ const styles = StyleSheet.create({
     color: '#d11e48'
   },
   backgroundColorWhite:{
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    height: height,
+    width: width
   },
   txtLabel: {
     fontSize: 16,

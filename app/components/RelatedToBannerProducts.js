@@ -10,6 +10,8 @@ import {
 } from 'react-native';
 import { Text, Container, Content, Spinner } from 'native-base';
 import NavbarTransparent from '../particles/NavbarTransparent';
+import Navbar from '../particles/Navbar';
+import Validations from '../particles/Validations'
 import AddToCart from '../modals/AddToCart'
 
 const HEADER_MAX_HEIGHT = 250;
@@ -29,36 +31,63 @@ const RelatedToBannerProducts = (props) => (
       handleAddToCart={props.handleAddToCart}      
     />
     {props.stillLoading ? (
-      <View style={styles.style}>
-        <Spinner color="#d11e48"/>
-      </View>
-    ) : (
-      <Content>
-        <ImageBackground source={{ uri: props.image }} style={styles.imageBackgroundStyle}>
-          <NavbarTransparent
-            navbarTitle={props.title}
-            navbarIcon="arrow-back"
-            iconColor
-            actionIcon={props.goback} />
-          <StatusBar
-            backgroundColor="#f65857"
-            barStyle="light-content"
-          />
-        </ImageBackground>
-        <View style={styles.viewArrivals}>
-          <View style={{padding: 10}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>{props.title}</Text>
-            <View style={{paddingTop: 5}}>
-              <FlatList
-                numColumns={2}
-                data={props.dataProduct}
-                renderItem={props.renderProduct}
-                keyExtractor={(item, index) => JSON.stringify(index)}
-              />
-            </View>
-          </View>
+      <Content contentContainerStyle={{justifyContent: 'center', alignItems:'center'}}>
+        <Navbar
+          navbarIcon="arrow-back"
+          navbarTitle={props.title}
+          actionIcon={props.goback}
+        />
+        <View stryle={styles.style}>
+          <Spinner color="#d11e48"/>
         </View>
       </Content>
+    ) : ( 
+      props.dataProduct.length == 0 ? 
+        <Content>
+          <Navbar
+            navbarIcon="arrow-back"
+            navbarTitle={props.title}
+            actionIcon={props.goback}
+          />
+          <Validations
+            title={props.title+" Doesn't has product"}
+            message1={"Please be patient for new products"}
+            message2={props.name}
+            buttonText={"Continue shoping"}
+            buttonAction={props.navigateToHome}
+          />
+        </Content>
+      :
+        <Content>
+          <ImageBackground source={{ uri: props.image }} style={styles.imageBackgroundStyle}>
+            <NavbarTransparent
+              navbarTitle={props.title}
+              navbarIcon="arrow-back"
+              iconColor
+              actionIcon={props.goback} />
+            <StatusBar
+              backgroundColor="#f65857"
+              barStyle="light-content"
+            />
+          </ImageBackground>
+          <View style={styles.viewArrivals}>
+            <View style={{padding: 10}}>
+              <View style={{paddingTop: 5}}>
+                <View>
+                  <View>
+                    <Text style={{fontWeight: 'bold',fontSize: 18}}>{props.title}</Text>
+                    <FlatList
+                      numColumns={2}
+                      data={props.dataProduct}
+                      renderItem={props.renderProduct}
+                      keyExtractor={(item, index) => JSON.stringify(index)}
+                    />
+                  </View>
+                </View>
+              </View>
+            </View>
+          </View>
+        </Content>
     )}
   </Container>
 )
@@ -96,10 +125,11 @@ const styles = StyleSheet.create({
     width: '100%'
   },
   style: {
-    flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-around',
     alignItems: 'center',
     backgroundColor: '#fff',
+    width: '100%',
+    height: '100%',
   },
 })
 

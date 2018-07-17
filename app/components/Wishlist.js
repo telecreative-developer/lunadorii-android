@@ -23,6 +23,39 @@ const Wishlist = (props) => (
       </View>
       :
       <Content>
+        {props.isEmpty ? (
+          <Validations 
+            title={"Your Wishlist is empty"} 
+            message1={"Go shop to find what you need"} 
+            message2={"and add it to wishlist"}
+            buttonText={"Go to mart"}
+            buttonAction={props.navigateToProfile}
+          />
+        ) : (
+          props.stillLoading ? (
+            <View style={styles.viewArrivals}>
+              <View style={{backgroundColor: '#f6f6f6',height: 20, width: 100, marginBottom: 10}}/>
+              <FlatList
+                numColumns={2}
+                data={[1,2,3,4,5]}
+                renderItem={({item}) => (
+                  <View style={{width: (width - 35) / 2, height: 200, backgroundColor: '#f6f6f6',marginRight: 10,marginBottom: 10}}/>
+                )}
+              />
+            </View>
+          ) : (
+            <View style={styles.viewArrivals}>
+              <Text style={styles.yourWhisListTextTitle}>Your Wishlist</Text>
+              <FlatList
+                numColumns={2}
+                data={props.dataProduct}
+                renderItem={props.renderProduct}
+                keyExtractor={(item, index) => JSON.stringify(index)}
+                handleRemove={() => alert('hai')}
+              />
+            </View>
+          )
+        )}
         {props.dataProduct.lenght == 0 ? 
           <Validations 
             title="Your Wishlist is empty" 
@@ -48,12 +81,13 @@ const Wishlist = (props) => (
         <Spinner color="#d11e48"/>
       </View>:
       <Content>
-        {props.dataProduct.length == 0 ? 
+        {props.dataProduct <= 0 ? 
           <Validations 
             title="Your Wishlist is empty" 
             message1="Go shop to find what you need " 
             message2="and add it to wishlist" 
-            navigateToProfile={props.navigateToProfile}/>:
+            buttonText="Go shop"
+            buttonAction={props.navigateToProfile}/>:
           <View style={styles.viewArrivals}>
             <Text style={styles.yourWhisListTextTitle}>Your Wishlist</Text>
             <FlatList

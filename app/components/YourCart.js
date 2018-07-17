@@ -7,6 +7,7 @@ import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
 import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
 import PickDeliverySeriveModal from '../modals/PickDeliveryServiceModal'
+import Validations from '../particles/Validations'
 import { fetchCourier } from '../actions/shipping';
 const shippingAddress = require('../assets/images/icon/shipping-address.png')
 const tiki = require('../assets/images/icon/tiki.png')
@@ -32,12 +33,16 @@ const YourCart = (props) => (
     <EditQuantityModal
       modalVisible={props.modalVisibleEditQuantity}
       actionIcon={props.toggleModalEditQuantity}
+      product={props.product}
+      brand={props.brand}
       quantity={props.quantity}
       price={props.price}
       totalPrice={props.totalPrice}
       addQty={props.addQty}
       minQty={props.minQty}
       onChangeQuantity={props.onChangeQuantity}
+      handleEditQtyModal={props.handleEditQtyModal}
+      loadingBtn={props.loadingBtn}
     />
     <WaitingForPaymentModal
       modalVisible={props.modalVisibleCheckoutPayment}

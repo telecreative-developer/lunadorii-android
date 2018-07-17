@@ -22,6 +22,10 @@ const Settings = (props) => (
       modalVisible={props.modalVisibleChangePassword}
       actionIcon={props.toggleModalChangePassword}
 
+      currentPassword={props.currentPassword}
+      newPassword={props.newPassword}
+      newConfirmPassword={props.newConfirmPassword}
+
       onChangeCurrentPassword={props.onChangeCurrentPassword}
       onChangeNewPassword={props.onChangeNewPassword}
       onChangeConfirmPassword={props.onChangeConfirmPassword}
@@ -33,6 +37,9 @@ const Settings = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleChangeEmail}
       actionIcon={props.toggleModalChangeEmail}
+
+      newEmail={props.newEmail}
+      confirmEmail={props.confirmEmail}
 
       onChangeNewEmail={props.onChangeNewEmail}
       onChangeConfirmEmail={props.onChangeConfirmEmail}

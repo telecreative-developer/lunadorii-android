@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { Container, Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
+import { Container, Content, Item, Input, Icon, Label, Button, Form, Textarea, Spinner } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 
 const EditQuantityModal = (props) => (
@@ -18,13 +18,13 @@ const EditQuantityModal = (props) => (
         <View style={styles.contentCard}>
           <Image source={{ uri: props.image }} style={styles.image} />
           <View style={styles.wrapLeft}>
-            <Text style={styles.txtHeader}>{props.title}</Text>
-            <Text style={styles.txtDetail}>{props.categories}</Text>
+            <Text style={styles.txtHeader}>{props.product}</Text>
+            <Text style={styles.txtDetail}>{props.brand}</Text>
             <Text style={styles.txtBlank}></Text>
             <Text style={styles.txtDetail}>Quantity: <Text style={styles.txtpcs}>{props.quantity} pcs</Text></Text>
           </View>
           <View style={styles.wrapRight}>
-            <Text style={styles.txtHeader}>Rp {props.price}</Text>
+            <Text style={styles.txtHeader}>Rp {props.price * props.quantity}</Text>
           </View>
         </View>
       </View>
@@ -37,7 +37,7 @@ const EditQuantityModal = (props) => (
           </TouchableOpacity>
         </View>
         <Item regular style={styles.amountTextInput}>
-          <Input value={String(props.quantity)} onChangeText={props.onChangeQuantity} keyboardType={'numeric'} maxLength={100}/>
+          <Input value={String(props.quantity)} onChangeText={props.onChangeQuantity} keyboardType={'numeric'} maxLength={100} disabled/>
         </Item>
         <View style={styles.flexEnd}>
           <TouchableOpacity onPress={props.addQty}>
@@ -48,8 +48,10 @@ const EditQuantityModal = (props) => (
         </View>
       </View>
     </Content>
-    <Button full style={styles.buttonSaveStyle} onPress={props.onUpdate}>
+    <Button full style={styles.buttonSaveStyle} onPress={props.handleEditQtyModal} disabled={props.loadingBtn} >
+      {props.loadingBtn ? <Spinner /> :
       <Text style={styles.buttonSaveTextStyle}>Update</Text>
+      }
     </Button>
   </Modal>
 )

@@ -80,6 +80,14 @@ const Home = (props) => (
         ) : (
           <Content style={{width: width,height: height}}>
             <View style={styles.recommededProductWrapper}>
+            {props.dataProduct.length == 0 ?
+            <View>
+              <View style={{alignItems: 'center'}}>
+                <Text>We don't have Recommended Product</Text>
+                <Text>We don't have Recommended Product</Text>
+              </View>
+            </View>
+            :
               <FlatList
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
@@ -87,24 +95,43 @@ const Home = (props) => (
                 renderItem={props.renderRecommend}
                 keyExtractor={(item, index) => JSON.stringify(index)}
               />
+            }
             </View>
             <View style={styles.moreNewArrivalsWrapper}>
               <Text style={styles.txtArrivals}>All Categories</Text>
+              {props.dataCategories.length == 0 ?
+              <View>
+                <View style={{alignItems: 'center'}}>
+                  <Text>We don't have Recommended Product</Text>
+                  <Text>We don't have Recommended Product</Text>
+                </View>
+              </View>
+              :
               <FlatList
                 numColumns={2}
                 data={props.dataCategories}
                 renderItem={props.renderCategories}
                 keyExtractor={(item, index) => JSON.stringify(index)}
               />
+              }
             </View>
             <View style={styles.viewArrivals}>
               <Text style={styles.txtArrivals}>All Product</Text>
+              {props.dataBestSeller.length == 0 ?
+              <View>
+                <View style={{alignItems: 'center'}}>
+                  <Text>We don't have Recommended Product</Text>
+                  <Text>We don't have Recommended Product</Text>
+                </View>
+              </View>
+              :
               <FlatList
                 numColumns={2}
                 data={props.dataBestSeller}
                 renderItem={props.renderProduct}
                 keyExtractor={(item, index) => JSON.stringify(index)}
               />
+              }
             </View>
           </Content>
         )}
