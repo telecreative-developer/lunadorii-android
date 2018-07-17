@@ -28,6 +28,7 @@ class SettingsContainer extends Component {
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    console.log(data)
     await this.setState({
       userData: data,
       newEmail: data.email
@@ -95,10 +96,11 @@ class SettingsContainer extends Component {
   }
 
   render() {
+    console.log(this.state.userData)
     return (
       <Settings
         userEmail={this.state.newEmail}
-
+        email={this.state.userData.email}
         modalVisibleChangePassword={this.state.modalVisibleChangePassword}
         toggleModalChangePassword={() => this.toggleModalChangePassword()}
         buttonPassword={this.state.buttonPassword}

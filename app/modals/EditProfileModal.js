@@ -37,6 +37,7 @@ const EditProfileModal = (props) => (
         </Item>
         <Label style={styles.labels}>Birth Date</Label>
         <Item regular style={styles.items}>
+          {console.log('data bod :', props.bod)}
           <DatePicker
             style={{ width: 100, borderWidth: 0 }}
             date={props.bod}

@@ -381,3 +381,33 @@ const receiveProductWithBanner = data => {
 		payload: data
 	}
 }
+
+// <----- FETCH PRODUCT WITH CATEGORY IN BEST SELLER ----->
+export const fetchBestProductWithSubCategory = (banner_id) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
+		try {
+			const response = await fetch(`${API_SERVER}/product-banners/${banner_id}`,{
+				method: 'GET',
+				headers:{
+					Accept: 'application/json',
+					'content-Type' :'application/json'
+				}
+			})
+			const data = await response.json()
+			await dispatch(receiveProductWithBanner(data.data))
+			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT_WITH_CATEGORY'))
+			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
+		}catch (e){
+			await dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT_WITH_CATEGORY'))
+			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
+		}
+	}
+}
+
+const receiveProductWithBanner = data => {
+	return {
+		type: RECEIVE_PRODUCT_WITH_BANNER,
+		payload: data
+	}
+}
