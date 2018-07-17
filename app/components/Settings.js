@@ -38,6 +38,9 @@ const Settings = (props) => (
       modalVisible={props.modalVisibleChangeEmail}
       actionIcon={props.toggleModalChangeEmail}
 
+      newEmail={props.newEmail}
+      confirmEmail={props.confirmEmail}
+
       onChangeNewEmail={props.onChangeNewEmail}
       onChangeConfirmEmail={props.onChangeConfirmEmail}
       buttonEmail={props.buttonEmail}

@@ -111,6 +111,8 @@ class SettingsContainer extends Component {
 
         onChangeNewEmail={(newEmail) => this.setState({newEmail})}
         onChangeConfirmEmail={(confirmEmail) => this.setState({confirmEmail})}
+        newEmail={this.state.newEmail}
+        confirmEmail={this.state.confirmEmail}
         handleChangeEmail={() => this.handleChangeEmail()}
 
         onChangeCurrentPassword={(currentPassword) => this.setState({ currentPassword })}
