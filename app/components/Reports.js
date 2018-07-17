@@ -2,7 +2,7 @@ import React from 'react'
 import { View, Text, StyleSheet, StatusBar, Dimensions } from 'react-native'
 import { Container, Content, Button, Item, Input, Textarea, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
-import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 const { height, width } = Dimensions.get('window')
 
 const Reports = (props) => (
@@ -19,24 +19,48 @@ const Reports = (props) => (
     <Content>
       <View style={styles.padding}>
         <Text style={styles.label}>Name</Text>
-        <Item regular style={styles.item}>
+        <Item regular style={{
+          marginBottom: 10,
+          borderRadius: 5,
+          height: 40,
+          borderColor: props.name ? '#ccc' : '#c0392b'
+        }}>
           <Input value={props.name} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeName}/>
+          <Ionicons name={props.name ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
         <Text style={styles.label}>Email</Text>
-        <Item regular style={styles.item}>
+        <Item regular style={{
+          marginBottom: 10,
+          borderRadius: 5,
+          height: 40,
+          borderColor: props.email ? '#ccc' : '#c0392b'
+        }}>
           <Input value={props.email} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeEmail}/>
+          <Ionicons name={props.email ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
         <Text style={styles.label}>Subject</Text>
-        <Item regular style={styles.item}>
+        <Item regular style={{
+          marginBottom: 10,
+          borderRadius: 5,
+          height: 40,
+          borderColor: props.subject ? '#ccc' : '#c0392b'
+        }}>
           <Input placeholder='Subject' value={props.subject} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeSubject}/>
+          <Ionicons name={props.subject ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
         <Text style={styles.label}>Reports</Text>
-        <Textarea rowSpan={5} bordered placeholder="Write Here.." value={props.reports} placeholderTextColor="#ccc" style={styles.textarea} onChangeText={props.onChangeReports}/>
+        <Textarea rowSpan={5} bordered placeholder="Write Here.." value={props.reports} placeholderTextColor="#ccc" style={{marginTop: 10, marginBottom: 10, borderRadius: 5,borderColor: props.reports ? '#ccc' : '#c0392b'}} onChangeText={props.onChangeReports}/>
       </View>
     </Content>
-    <Button full style={styles.btnSend} onPress={props.handleSendReport} disabled={props.buttonReport}>
-      {props.buttonReport ? (<Spinner />): (<Text style={styles.txtSend}>Send Reports</Text>)}
-    </Button>
+    {props.name && props.email && props.subject && props.reports ? (
+      <Button full style={styles.btnSend} onPress={props.handleSendReport} disabled={props.buttonReport}>
+        {props.buttonReport ? (<Spinner />): (<Text style={styles.txtSend}>Send Reports</Text>)}
+      </Button>
+    ) : (
+      <Button full style={styles.buttonSaveStyleDisabled} onPress={props.handleSendReport} disabled>
+        <Text style={styles.buttonSaveTextStyleDisabled}>Send Reports</Text>
+      </Button>
+    )}
   </Container>
 )
 
@@ -72,7 +96,15 @@ const styles = StyleSheet.create({
   textarea: {
     marginTop: 10,
     borderRadius: 5
-  }
+  },
+  buttonSaveStyleDisabled: {
+    height: 50,
+    backgroundColor: '#f6f6f6'
+  },
+  buttonSaveTextStyleDisabled: {
+    color: '#ccc',
+    fontSize: 18
+  },
 })
 
 export default Reports

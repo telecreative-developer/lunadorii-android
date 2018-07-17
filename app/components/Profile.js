@@ -70,7 +70,12 @@ const Profile = (props) => (
           <Text style={styles.txtRecent}>Recent Orders</Text>
           {props.dataRecentOrders.length == 0 ? 
             <View>
-              <Text>Hai Isa ini butuh Validasi</Text>
+              <View style={{alignItems: 'center'}}>
+                <Text>You don't have Recent Orders</Text>
+                <TouchableOpacity onPress={props.navigateToHome}>
+                  <Text style={{color: '#ccc'}}>Go shop now</Text>
+                </TouchableOpacity>
+              </View>
             </View>:
             <View>
               <FlatList

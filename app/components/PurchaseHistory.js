@@ -1,7 +1,8 @@
 import React, { Component } from 'react'
-import { StyleSheet, View, Text, FlatList, StatusBar, Dimensions } from 'react-native'
+import { StyleSheet, View, Text, FlatList, StatusBar, Dimensions, TouchableOpacity } from 'react-native'
 import PropTypes from 'prop-types'
 import Navbar from '../particles/Navbar'
+import Validations from '../particles/Validations'
 import { Container, Content, CheckBox, Item, Title, Subtitle, Button } from 'native-base';
 const { height, width } = Dimensions.get('window')
 
@@ -16,35 +17,36 @@ const PurchaseHistory = (props) => (
       barStyle="light-content"
     />
     <Content>
-      {props.dataRecentOrders.length == 0 ? 
+      {props.dataRecentOrders.length == 0 && props.dataHistoryOrders.length == 0 ? 
+        <Validations
+          title={"Opps empty"}
+          message1={"Buy some product and it will"}
+          message2={"be here as history orders"}
+          buttonText={"Buy some product"}
+          buttonAction={props.navigateToHome}
+        />:
         <View>
-          <Text>Hai Isa ini butuh validasi</Text>
-        </View>:
-        <View style={styles.viewBrand}>
-          <Text style={styles.txtBrand}>Recent Orders</Text>
-          <View>
-            <FlatList
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              data={props.dataRecentOrders}
-              renderItem={props.renderRecentOrders}
-              keyExtractor={(item, index) => JSON.stringify(index)}
-            />
+          <View style={styles.viewBrand}>
+            <Text style={styles.txtBrand}>Recent Orders</Text>
+            <View>
+              <FlatList
+                horizontal={true}
+                showsHorizontalScrollIndicator={false}
+                data={props.dataRecentOrders}
+                renderItem={props.renderRecentOrders}
+                keyExtractor={(item, index) => JSON.stringify(index)}
+              />
+            </View>
           </View>
-        </View>
-      }
-      {props.dataHistoryOrders.length == 0 ? 
-        <View>
-          <Text>Hai Isa ini butuh validasi</Text>
-        </View>:
-        <View style={styles.viewBrandHistory}>
-          <Text style={styles.txtBrand}>History</Text>
-          <View>
-            <FlatList
-              data={props.dataHistoryOrders}
-              renderItem={props.renderHistoryOrders}
-              keyExtractor={(item, index) => JSON.stringify(index)}
-            />
+          <View style={styles.viewBrandHistory}>
+            <Text style={styles.txtBrand}>History</Text>
+            <View>
+              <FlatList
+                data={props.dataHistoryOrders}
+                renderItem={props.renderHistoryOrders}
+                keyExtractor={(item, index) => JSON.stringify(index)}
+              />
+            </View>
           </View>
         </View>
       }
