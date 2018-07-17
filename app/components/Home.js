@@ -80,7 +80,13 @@ const Home = (props) => (
         ) : (
           <Content style={{width: width,height: height}}>
             <View style={styles.recommededProductWrapper}>
-            {props.dataProduct.length == 0 ? <Text>isa tolong validasi</Text> 
+            {props.dataProduct.length == 0 ?
+            <View>
+              <View style={{alignItems: 'center'}}>
+                <Text>We don't have Recommended Product</Text>
+                <Text>We don't have Recommended Product</Text>
+              </View>
+            </View>
             :
               <FlatList
                 horizontal={true}
@@ -93,7 +99,13 @@ const Home = (props) => (
             </View>
             <View style={styles.moreNewArrivalsWrapper}>
               <Text style={styles.txtArrivals}>All Categories</Text>
-              {props.dataCategories.length == 0 ? <Text>isa tolong validasi</Text> 
+              {props.dataCategories.length == 0 ?
+              <View>
+                <View style={{alignItems: 'center'}}>
+                  <Text>We don't have Recommended Product</Text>
+                  <Text>We don't have Recommended Product</Text>
+                </View>
+              </View>
               :
               <FlatList
                 numColumns={2}
@@ -105,7 +117,13 @@ const Home = (props) => (
             </View>
             <View style={styles.viewArrivals}>
               <Text style={styles.txtArrivals}>All Product</Text>
-              {props.dataBestSeller.length == 0 ? <Text>isa tolong validasi</Text> 
+              {props.dataBestSeller.length == 0 ?
+              <View>
+                <View style={{alignItems: 'center'}}>
+                  <Text>We don't have Recommended Product</Text>
+                  <Text>We don't have Recommended Product</Text>
+                </View>
+              </View>
               :
               <FlatList
                 numColumns={2}
