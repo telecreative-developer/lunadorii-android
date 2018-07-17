@@ -37,7 +37,7 @@ const LoginTroubleshooting = (props) => (
             </Button>
           </View>
           <View style={{marginBottom: 30, paddingTop: 10}}>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={props.navigateToMoreHelp}>
               <Text style={{alignSelf: 'center', color:'#d11e48'}}>Need more help?</Text>
             </TouchableOpacity>
           </View>
@@ -68,7 +68,9 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   content:{
-    backgroundColor: '#fff'
+    backgroundColor: '#fff',
+    height: height,
+    width: width
   },
   wrapper: {
     paddingLeft: 45,
