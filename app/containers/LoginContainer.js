@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Alert, AsyncStorage, StyleSheet, Text, BackAndroid, Platform, BackHandler } from 'react-native'
 import { isEmpty, isEmail } from 'validator'
 import { connect } from 'react-redux'
-import { NavigationActions, StackActions } from 'react-navigation'
+import { StackActions, NavigationActions } from 'react-navigation';
 import { Button, Spinner } from 'native-base'
 
 import Login from '../components/Login'
@@ -99,6 +99,10 @@ class LoginContainer extends Component {
   }
 
   componentWillUpdate(nextProps) {
+    const resetAction = StackActions.reset({
+      index: 0,
+      actions: [NavigationActions.navigate({ routeName: 'HomeContainer' })],
+    });
     const { loading, success, failed, navigation } = nextProps
     if (
       loading.condition === false &&
@@ -113,13 +117,8 @@ class LoginContainer extends Component {
       success.condition === true &&
       success.process_on === 'SUCCESS_FETCH_USER_WITH_ID'
     ) {
-      console.log(success.process_on)
-      this.props.navigation.dispatch(
-        StackActions.reset({
-          index:0,
-          actions:[NavigationActions.navigate({routeName:'HomeContainer'})]
-        })
-      )
+      
+      this.props.navigation.dispatch(resetAction);
     }
   }
 
@@ -132,7 +131,12 @@ class LoginContainer extends Component {
     const data = await JSON.parse(session)
     if(data){
       try{
-        this.props.navigation.navigate('HomeContainer')
+        this.props.navigation.dispatch(
+          StackActions.reset({
+            index:0,
+            actions:[NavigationActions.navigate({routeName:'HomeContainer'})]
+          })
+        )
       }catch(e){
         alert(e)
       }
@@ -157,7 +161,8 @@ class LoginContainer extends Component {
   renderButtons() {
     const { email, password } = this.state
     const { loading } = this.props
-		if (!isEmpty(email) && !isEmpty(password)) {
+    const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+		if (!isEmpty(email) && !isEmpty(password) && regexEmail.test(email) === true) {
 			return (
         <Button full style={styles.buttonLoginActive} onPress={()=> this.handleValidationLogin()}>
           {loading.condition === true && loading.process_on === 'LOADING_PROCESS_LOGIN' ? (
@@ -169,7 +174,7 @@ class LoginContainer extends Component {
 			)
 		} else {
 			return (
-				<Button bordered full style={styles.buttonLoginInactive}>
+				<Button bordered full style={styles.buttonLoginInactive} disabled>
 					<Text style={styles.buttonLoginInactiveText}>Login</Text>
 				</Button>
 			)
