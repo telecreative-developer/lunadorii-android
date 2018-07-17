@@ -28,9 +28,11 @@ import RelatedToBrandProductsContainer from './app/containers/RelatedToBrandProd
 import DetailsTransactionContainer from './app/containers/DetailsTransactionContainer'
 import DetailsOrderContainer from './app/containers/DetailsOrderContainer'
 import PaymentContainer from './app/containers/PaymentContainer'
+import ProductInCategoryBestSellerContainer from './app/containers/ProductInCategoryBestSellerContainer'
 
 const AppNavigator = StackNavigator(
-  {    
+  { 
+    ProductInCategoryBestSellerContainer: { screen: ProductInCategoryBestSellerContainer },
     PaymentContainer: { screen: PaymentContainer },
     DetailsOrderContainer: { screen: DetailsOrderContainer },
     DetailsTransactionContainer: { screen: DetailsTransactionContainer },

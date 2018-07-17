@@ -156,6 +156,7 @@ class ProfileContainer extends Component {
   }
 
   render() {
+    console.log('state :', this.props.getsingleuser)
     return (
       <Profile
         dataRecentOrders={this.props.productrecent}

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Alert, AsyncStorage, StyleSheet, Text } from 'react-native'
+import { Alert, AsyncStorage, StyleSheet, Text, BackAndroid, Platform, BackHandler } from 'react-native'
 import { isEmpty, isEmail } from 'validator'
 import { connect } from 'react-redux'
 import { NavigationActions, StackActions } from 'react-navigation'
@@ -137,6 +137,12 @@ class LoginContainer extends Component {
         alert(e)
       }
     }
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress)
+  }
+
+  handleBackPress = () => {
+    this.props.navigation.navigate('RegisterContainer') // works best when the goBack is async
+    return true;
   }
 
   handleValidationLogin() {

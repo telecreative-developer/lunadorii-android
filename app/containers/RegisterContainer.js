@@ -54,12 +54,17 @@ class RegisterContainer extends Component{
   handleValidationCheckEmail(){
     const {email} = this.state
     this.props.checkEmail(email)
+    this.setState({
+      email:""
+    })
   }
-
+  
   renderButton() {
     const { email } = this.state
     const { loading } = this.props
-		if (!isEmpty(email)) {
+    const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    if (!isEmpty(email) &&
+        regexEmail.test(email) === true) {
 			return (
         <Button full style={styles.buttonLoginActive} onPress={()=> this.handleValidationCheckEmail()}>
           {loading.condition === true && loading.process_on === 'LOADING_PROCESS_CHECK_EMAIL' ? (
