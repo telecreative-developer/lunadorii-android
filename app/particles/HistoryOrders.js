@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Image, Text } from 'react-native'
+import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
 
 const HistoryOrders = (props) => (
   <View style={styles.viewBox}>
@@ -8,10 +8,12 @@ const HistoryOrders = (props) => (
         <Image source={{uri: props.image}} style={styles.image}/>
       </View>
       <View style={styles.viewFlex7}>
+      <TouchableOpacity onPress={props.action}>
         <View style={styles.viewOnlyColumn}>
           <Text style={styles.txtTitle}>{props.date}</Text>
           <Text>{props.billing_code}</Text>
         </View>
+      </TouchableOpacity>
       </View>
     </View>
     <View style={styles.viewFooter}>

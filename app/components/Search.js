@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, StatusBar, TouchableOpacity, Text, FlatList, Dimensions } from 'react-native'
-import { Container, Content, View, Icon, Item, Input } from 'native-base'
+import { Container, Content, View, Icon, Item, Input, Spinner } from 'native-base'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import Navbar from '../particles/Navbar'
 import FiltersModal from '../modals/FiltersModal'
@@ -43,10 +43,11 @@ const Search = (props) => (
       </View>
       <View style={{ paddingTop: 15 }}>
         {
-          props.dateRelatedProducts.length != 0  ?
-            props.dateRelatedProducts.name == "success" ?
+          props.loading ? <Spinner /> :
+          props.dateRelatedProducts !== "not yet search"  ?
+            props.dateRelatedProducts.data.length != 0 ?
               <View style={{height: '100%', width: '100%'}}>
-                <Text style={{ fontSize: 16, fontWeight: 'bold', paddingBottom: 5 }}>Result by filter</Text>
+                <Text style={{ fontSize: 16, fontWeight: 'bold', paddingBottom: 5 }}>Result Product for "{props.lastSearchTitle}"</Text>
                 <View>
                   <FlatList
                     numColumns={2}
@@ -57,7 +58,7 @@ const Search = (props) => (
                 </View>
               </View>
             :
-            <ResultNotFound amount="0" searchTitle={props.searchTitle} />
+            <ResultNotFound amount="0" searchTitle={props.lastSearchTitle} />
             :
             <View />
         }
