@@ -166,11 +166,13 @@ const ProductShow = (props) => (
           </View>
           <View>
             {props.isReviewsExist ? (
-              <FlatList
-                data={props.dataCommentAndRating}
-                renderItem={props.renderCommentAndRating}
-                keyExtractor={(item, index) => JSON.stringify(index)}
-              />
+              <View style={{padding: 10}}>
+                <FlatList
+                  data={props.dataCommentAndRating}
+                  renderItem={props.renderCommentAndRating}
+                  keyExtractor={(item, index) => JSON.stringify(index)}
+                />
+              </View>
             ) : (
               <View style={{padding: 10}}>
                 <View style={{alignItems: 'center', padding: 10, backgroundColor: 'transparent', borderColor: '#e2e2e2', borderWidth:1}}>
