@@ -8,6 +8,7 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Entypo from 'react-native-vector-icons/Entypo'
 import ImageViewModal from '../modals/ImageViewModal'
 const { height, width } = Dimensions.get('window')
+import AddToCart from '../modals/AddToCart'
 
 const ProductShow = (props) => (
   <Container style={{
@@ -15,6 +16,12 @@ const ProductShow = (props) => (
     // height: height,
     backgroundColor: '#fff'
   }}>
+  <AddToCart
+    modalVisible={props.modalVisibleAddToCart}
+    toggleModalAddToCart={props.toggleModalAddToCart}
+    onChangeQty={props.onChangeQty}
+    handleAddToCart={props.handleAddToCartModal}      
+  />
     {props.stillLoading ? (
       <Content contentContainerStyle={{justifyContent: 'center', alignItems:'center', flex: 1}}>
         <View stryle={styles.style}>

@@ -42,7 +42,11 @@ class ProductShowContainer extends Component {
       starCount: 0,
       wishlisted:'',
       clickWishlist:false,
-      clickCart: false
+      clickCart: false,
+      modalVisibleAddToCart: false,
+      id_user: 0,
+      product_id: 0,
+      product_name: ''
     }
   }
 
@@ -109,6 +113,41 @@ class ProductShowContainer extends Component {
       await this.setState({stillLoading: false})
     }
     await this.checkReviewers()
+  }
+
+  closeModal(){    
+    this.setState({modalVisibleAddToCart: !this.state.modalVisibleAddToCart})
+  }
+
+  async toggleModalAddToCart(item){
+
+    await this.closeModal()
+    if(this.state.modalVisibleAddToCart){
+      const session = await AsyncStorage.getItem('session')
+      const data = await JSON.parse(session)
+      await this.setState({
+        id_user: data.id,
+        product_id: item.product_id,
+        product_name: item.product
+      }) 
+    }else{
+      await this.setState({
+        id_user: 0,
+        product_id: 0,
+        qty: 0,
+      })
+    }
+  }
+
+  async handleAddToCartModal(){
+    // console.log('isi state: ', this.state)
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    // await alert('Berhasil Menambahkan ke Kranjang', this.state.product_name.slice(0,10))
+    ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
+    await this.closeModal()
+
   }
 
   async addQty(){
@@ -219,6 +258,10 @@ class ProductShowContainer extends Component {
         images={this.state.images}
         clickWishlist={this.state.clickWishlist}
 
+        modalVisibleAddToCart={this.state.modalVisibleAddToCart}
+        toggleModalAddToCart={() => this.toggleModalAddToCart()}
+        handleAddToCartModal={() => this.handleAddToCartModal()}
+
         onChangeQty={(qty) => this.setState({ qty })}
         addQty={() => this.addQty()}
         minQty={() => this.minQty()}
@@ -243,6 +286,7 @@ class ProductShowContainer extends Component {
               },
               key: Math.random () * 10000
             })}
+            toggleModalAddToCart={() => this.toggleModalAddToCart(item)}
           />
         )}
 
@@ -268,6 +312,7 @@ class ProductShowContainer extends Component {
 
         isReviewsExist={this.state.isReviewsExist}
 
+        handleAddToCartModal={() => this.handleAddToCartModal()}
         addToCart={() => this.addToCart()}
         clickCart={this.state.clickCart}
         goback={() => this.deleteState()} />
