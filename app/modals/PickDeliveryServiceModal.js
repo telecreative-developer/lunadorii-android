@@ -22,7 +22,7 @@ const PickDeliveryServiceModal = (props) => (
       }}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor: '#f6f6f6',borderBottomColor: '#e2e2e2', borderBottomWidth:1}}>
         <Icon name="close" type="EvilIcons" fontSize={12} onPress={props.closeIcon} style={{alignSelf: 'flex-start', paddingVertical: 10, paddingHorizontal:5, paddingTop: 10}}/>
-        <Text style={{fontWeight: 'bold',color: '#000',alignSelf: 'flex-end', paddingBottom: 13, paddingRight: 10}}>Delivery Services</Text>
+        <Text style={{fontWeight: 'bold',color: '#000',alignSelf: 'flex-end', paddingBottom: 13, paddingRight: 10}}>{props.selectedServices} Services</Text>
       </View>
       <View style={{height: 200}}>
         {console.log(props.courierMetode)}
@@ -31,8 +31,8 @@ const PickDeliveryServiceModal = (props) => (
           renderItem={({item}) => (
             <TouchableOpacity onPress={() => alert("You pick " + item.class)}>
               <View style={{padding: 10, flexDirection: 'row',justifyContent: 'space-around'}}>
-                <Text style={{fontWeight: 'bold',color: '#000'}}>{item.service}</Text>
-                <Text>{item.cost[0].etd}</Text>
+                <Text>{item.service}</Text>
+                <Text style={{fontWeight: 'bold',color: '#000'}}>{item.cost[0].etd}</Text>
                 <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. {item.cost[0].value},-</Text>
               </View>
             </TouchableOpacity>
