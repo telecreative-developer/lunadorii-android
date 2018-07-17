@@ -21,8 +21,8 @@ const Validations = (props) => (
       <Text style={{fontSize: 20, color: '#ccc', textAlign: 'center'}}>{props.message1}</Text>
       <Text style={{fontSize: 20, color: '#ccc', textAlign: 'center'}}>{props.message2}</Text>
     </View>
-    <Button full style={styles.backToMart} onPress={props.navigateToProfile}>
-			<Text style={styles.backToMartText}>Back to profile</Text>
+    <Button full style={styles.backToMart} onPress={props.buttonAction}>
+			<Text style={styles.backToMartText}>{props.buttonText}</Text>
 		</Button>
   </View>
 )

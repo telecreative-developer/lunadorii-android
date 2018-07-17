@@ -51,14 +51,13 @@ class ReviewsContainer extends Component{
     console.log(this.props.userreview.length)
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    if(this.props.fetchUserReview(data.id, data.accessToken)){
-      await this.setState({stillLoading: false})
-    }
-    this.setState
     if(this.props.userreview.length != 0){
       await this.setState({isEmpty: false})
     }else{
       await this.setState({isEmpty: true})
+    }
+    if(this.props.fetchUserReview(data.id, data.accessToken)){
+      await this.setState({stillLoading: false})
     }
   }
 
