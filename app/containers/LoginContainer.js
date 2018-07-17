@@ -99,10 +99,6 @@ class LoginContainer extends Component {
   }
 
   componentWillUpdate(nextProps) {
-    const resetAction = StackActions.reset({
-      index: 0,
-      actions: [NavigationActions.navigate({ routeName: 'HomeContainer' })],
-    });
     const { loading, success, failed, navigation } = nextProps
     if (
       loading.condition === false &&
@@ -117,8 +113,12 @@ class LoginContainer extends Component {
       success.condition === true &&
       success.process_on === 'SUCCESS_FETCH_USER_WITH_ID'
     ) {
-      
-      this.props.navigation.dispatch(resetAction);
+      this.props.navigation.dispatch(
+        StackActions.reset({
+          index:0,
+          actions:[NavigationActions.navigate({routeName:'HomeContainer'})]
+        })
+      )
     }
   }
 

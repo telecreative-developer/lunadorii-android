@@ -92,6 +92,7 @@ class ProductShowContainer extends Component {
   }
 
   async componentDidMount() {
+    // BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton(this))
     const session = await AsyncStorage.getItem('session')
     const dataSession = await JSON.parse(session)
     const data = this.props.navigation.state.params.data

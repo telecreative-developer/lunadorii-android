@@ -77,7 +77,7 @@ class HomeContainer extends Component {
   }
 
   async componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    this.BackHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchBanners()
@@ -92,26 +92,29 @@ class HomeContainer extends Component {
     
   }
 
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-  }
+  // async componentWillUnmount() {
+  //   BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton(this))
+  //   // this.BackHandler.remove();
+  // }
 
-  handleBackButton() {
-    Alert.alert(
-      'Exit App',
-      'Exiting the application?', [{
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel'
-      }, {
-          text: 'OK',
-          onPress: () => BackHandler.exitApp()
-      }, ], {
-          cancelable: false
-      }
-   )
-   return true;
-  }
+  // async handleBackButton() {
+  //   await Alert.alert(
+  //     'Exit App',
+  //     'Exiting the application?', [{
+  //         text: 'Cancel',
+  //         onPress: () => BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton),
+  //         style: 'cancel'
+  //     }, {
+  //         text: 'OK',
+  //         onPress: () => BackHandler.exitApp()
+  //     }, ], {
+  //         cancelable: false
+  //     }
+  //  )
+  //  return true;
+
+  //  await BackHandler.removeEventListener('hardwareBackPress',  this.handleBackButton)
+  // }
 
   capitalize(string) {
     return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
