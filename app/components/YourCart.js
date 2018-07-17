@@ -27,6 +27,7 @@ const YourCart = (props) => (
       closeIcon={props.toggleModalPickDeliveryService}
       courierMetode={props.courierMetode}
       selectedCourier={props.selectedCourier}
+      courierRender={props.courierRender}
     />
     <EditQuantityModal
       modalVisible={props.modalVisibleEditQuantity}
@@ -128,11 +129,13 @@ const YourCart = (props) => (
         <View style={styles.border1}>
           <View style={styles.body}>
             <Text style={styles.title}>Delivery Service</Text>
-            {false ? (
+            {console.log(props.selectedCourier)}
+            {props.selectedCourier != null ? (
+              
               <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'row',justifyContent: 'space-around'}}>
-                <Text style={{fontWeight: 'bold',color: '#000'}}>Standard Shipping</Text>
-                <Text>est delivery (Fri 04/29)</Text>
-                <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. 50.000,-</Text>
+                <Text style={{fontWeight: 'bold',color: '#000'}}>{props.selectedCourier.service}</Text>
+                <Text>{props.selectedCourier.cost[0].etd} Days</Text>
+                <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. {props.selectedCourier.cost[0].value},-</Text>
               </View>
             ) : (
               <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'column',justifyContent: 'space-around', alignItems: 'center'}}>

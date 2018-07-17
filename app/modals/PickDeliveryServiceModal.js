@@ -26,18 +26,9 @@ const PickDeliveryServiceModal = (props) => (
         <Text style={{fontWeight: 'bold',color: '#000',alignSelf: 'flex-end', paddingBottom: 13, paddingRight: 10}}>Delivery Services</Text>
       </View>
       <View style={{height: 200}}>
-        {console.log(props.courierMetode)}
         <FlatList
           data={props.courierMetode}
-          renderItem={({item}) => (
-            <TouchableOpacity onPress={props.selectedCourier}>
-              <View style={{padding: 10, flexDirection: 'row',justifyContent: 'space-around'}}>
-                <Text style={{fontWeight: 'bold',color: '#000'}}>{item.service}</Text>
-                <Text>{item.cost[0].etd }</Text>
-                <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. {item.cost[0].value},-</Text>
-              </View>
-            </TouchableOpacity>
-          )}
+          renderItem={props.courierRender}
         />
       </View>
     </View>

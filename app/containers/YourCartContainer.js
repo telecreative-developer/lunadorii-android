@@ -30,7 +30,9 @@ class YourCartContainer extends Component {
       discount_percentage:0,
       totalPrice: 0,
       code:'',
-      cost:[]
+      selectedCourier:null,
+      cost:[],
+      estDays: ""
     }
   }
 
@@ -73,7 +75,7 @@ class YourCartContainer extends Component {
   }
 
   async toggleModalEditQuantity(item){
-    await this.closeModal()
+    await this.setState({modalVisibleEditQuantity: true})
     if(this.state.modalVisibleEditQuantity){
       const session = await AsyncStorage.getItem('session')
       const data = await JSON.parse(session)
@@ -246,13 +248,22 @@ class YourCartContainer extends Component {
     await console.log('item:', code)
  }
 
+ async chooseCourier(item){
+  await this.setState({
+     selectedCourier: item,
+     modalVisiblePickDeliveryService: false
+   })
+ }
+
   render() {
     console.log('kurir :', this.props.receiveCourier)
     const courier = this.props.receiveCourier
-    console.log('Good :',this.state.cost)
+    console.log('Good :',this.state.modalVisibleEditQuantity)
     return (
       <YourCart 
         stillLoading={this.state.stillLoading}
+        selectedCourier={this.state.selectedCourier}
+        // estDays={this.state.estDays}
 
         courierCode={courier}
         renderCode={({item}) => (
@@ -262,6 +273,15 @@ class YourCartContainer extends Component {
               )}
         
         courierMetode={this.state.cost}
+        courierRender={({item}) => (
+            <TouchableOpacity onPress={() => this.chooseCourier(item)}>
+              <View style={{padding: 10, flexDirection: 'row',justifyContent: 'space-around'}}>
+                <Text style={{fontWeight: 'bold',color: '#000'}}>{item.service.toUpperCase()}</Text>
+                <Text>{item.cost[0].etd} Days</Text>
+                <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. {item.cost[0].value},-</Text>
+              </View>
+            </TouchableOpacity>
+          )}
 
         modalVisiblePickDeliveryService={this.state.modalVisiblePickDeliveryService}
         toggleModalPickDeliveryService={() => this.setState({modalVisiblePickDeliveryService: !this.state.modalVisiblePickDeliveryService})}
