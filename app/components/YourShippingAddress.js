@@ -137,7 +137,7 @@ const YourShippingAddress = (props) => (
       <Content style={styles.container}>
         {props.dataShippingAddress <= 0 ? 
           <Validations 
-            title={"Shipping address is empty :("} 
+            title={"Shipping address is empty"} 
             message1={"You don't set shipping address"} 
             message2={"press button bellow to add one"}
             buttonText={"Add shipping address"}

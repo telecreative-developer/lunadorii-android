@@ -84,7 +84,6 @@ const Home = (props) => (
             <View>
               <View style={{alignItems: 'center'}}>
                 <Text>We don't have Recommended Product</Text>
-                <Text>We don't have Recommended Product</Text>
               </View>
             </View>
             :
@@ -103,7 +102,6 @@ const Home = (props) => (
               <View>
                 <View style={{alignItems: 'center'}}>
                   <Text>We don't have Recommended Product</Text>
-                  <Text>We don't have Recommended Product</Text>
                 </View>
               </View>
               :
@@ -120,7 +118,6 @@ const Home = (props) => (
               {props.dataBestSeller.length == 0 ?
               <View>
                 <View style={{alignItems: 'center'}}>
-                  <Text>We don't have Recommended Product</Text>
                   <Text>We don't have Recommended Product</Text>
                 </View>
               </View>

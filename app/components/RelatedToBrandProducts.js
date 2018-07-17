@@ -45,7 +45,7 @@ const RelatedToBrandProducts = (props) => (
             <View style={{paddingTop: 5}}>
               {props.dataProduct.length == 0 ?
               <Validations
-                title={props.name+" Doesn't has product"}
+                title={props.name+" Doesn't has products"}
                 message1={"Please be patient for new products"}
                 message2={props.name}
                 buttonText={"Continue shoping"}
