@@ -116,6 +116,9 @@ class SettingsContainer extends Component {
         onChangeCurrentPassword={(currentPassword) => this.setState({ currentPassword })}
         onChangeNewPassword={(newPassword) => this.setState({ newPassword })}
         onChangeConfirmPassword={(confirmPassword) => this.setState({ confirmPassword })}
+        currentPassword={this.state.currentPassword}
+        newPassword={this.state.newPassword}
+        newConfirmPassword={this.state.confirmPassword}
         handleChangePassword={() => this.handleChangePassword()}
 
         goback={() => this.props.navigation.goBack()}
