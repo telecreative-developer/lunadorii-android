@@ -36,6 +36,20 @@ const AddCreditCardModal = (props) => (
             </Item>
           </View>
         </View>
+        <View style={styles.wrapper}>
+          <View style={styles.flexDirectionCol}>
+            <Label style={styles.labels}>Country</Label>
+            <Item regular style={styles.centeredItems}>
+              <Input placeholder="Your country" placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCountry}/>
+            </Item>
+          </View>
+          <View style={styles.flexDirectionCol}>
+            <Label style={styles.labels}>Postalcode</Label>
+            <Item regular style={styles.centeredItems}>
+              <Input placeholder="Postalcode" placeholderTextColor="#CDCDCD" maxLength={6} onChangeText={props.onChangePostalCode} keyboardType={'numeric'}/>
+            </Item>
+          </View>
+        </View>
         <Label style={styles.labels}>Cardholder Name</Label>
         <Item regular style={styles.items}>
           <Input placeholder="Your name" placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCardHolder}/>

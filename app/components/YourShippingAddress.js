@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { StyleSheet, TouchableOpacity, FlatList, StatusBar, Dimensions, Text } from 'react-native'
 import { Container, Content, View, Button, Icon, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
-import UnderDevelopment from '../particles/UnderDevelopment'
+import Validations from '../particles/Validations'
+// import UnderDevelopment from '../particles/UnderDevelopment'
 import EditAddressModal from '../modals/EditAddressModal'
 import AddAddressModal from '../modals/AddAddressModal'
 const { height, width } = Dimensions.get('window')
@@ -134,24 +135,28 @@ const YourShippingAddress = (props) => (
         </View>
       </Content>:
       <Content style={styles.container}>
-        {props.dataShippingAddress == 0 ? 
+        {props.dataShippingAddress <= 0 ? 
+          <Validations 
+            title={"Shipping address is empty :("} 
+            message1={"You don't set shipping address"} 
+            message2={"press button bellow to add one"}
+            buttonText={"Add shipping address"}
+            buttonAction={props.toggleModalAddAddress}
+          />:
           <View>
-            <Text>
-              Haii isaa butuh validasi
-            </Text>
-          </View>:
-          <View style={{paddingHorizontal: 10}}>
-            <Text style={styles.txtShippingAddress}>Your Shipping Address</Text>
-            <FlatList
-              data={props.dataShippingAddress}
-              renderItem={props.renderShippingAddress}
-              keyExtractor={(item, index) => JSON.stringify(index)}
-            />
+            <View style={{paddingHorizontal: 10}}>
+              <Text style={styles.txtShippingAddress}>Your Shipping Address</Text>
+              <FlatList
+                data={props.dataShippingAddress}
+                renderItem={props.renderShippingAddress}
+                keyExtractor={(item, index) => JSON.stringify(index)}
+              />
+            </View>
+            <Button style={styles.btnAddAddress} onPress={props.toggleModalAddAddress}>
+              <Icon name="add" /><Text style={styles.txtAddAddress}>Add Another Address</Text>
+            </Button>
           </View>
-        }
-        <Button style={styles.btnAddAddress} onPress={props.toggleModalAddAddress}>
-          <Icon name="add" /><Text style={styles.txtAddAddress}>Add Another Address</Text>
-        </Button>
+        }        
       </Content>
     }
   </Container>

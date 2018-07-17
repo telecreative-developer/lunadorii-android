@@ -10,7 +10,6 @@ class WishlistContainer extends Component{
 
   state={
     stillLoading: true,
-    isEmpty: false,
     id_user: 0,
     accessToken:''
   }
@@ -20,17 +19,11 @@ class WishlistContainer extends Component{
     const data = await JSON.parse(session)
     await this.setState({
       id:data.id,
-      accessToken: data.accessToken
+      accessToken: data.accessToken,
     })
-    // console.log('accesToken container: ', this.state.accessToken)
-    if(this.props.fetchwishlist(data.accessToken, data.id)){
-      this.setState({stillLoading: false})
-    }
-    if(this.props.wishlist.length != 0){
-      await this.setState({isEmpty: false})
-    }else{
-      await this.setState({isEmpty: true})
-    }
+    await this.props.fetchwishlist(data.accessToken, data.id)
+    await this.setState({stillLoading: false})
+    
   }
 
   capitalize(string) {
@@ -91,7 +84,6 @@ class WishlistContainer extends Component{
         )}
         navigateToProfile={() => this.props.navigation.navigate('ProfileContainer')}
         stillLoading={this.state.stillLoading}
-        isEmpty={this.state.isEmpty}
         amountOfContent={this.props.wishlist.length}
         goback={() => this.props.navigation.goBack()}
       />

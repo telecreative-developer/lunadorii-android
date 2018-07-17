@@ -129,8 +129,8 @@ class YourShippingAddressContainer extends Component{
   async componentDidMount() {
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.props.fetchProvince()
     if(this.props.fetchUserShipping(data.id, data.accessToken)){
+      await this.props.fetchProvince()
       await this.setState({stillLoading: false})
     }    
   }

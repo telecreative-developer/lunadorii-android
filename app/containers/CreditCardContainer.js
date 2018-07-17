@@ -25,7 +25,9 @@ export default class CreditCardContainer extends Component {
     cardNumber:'',
     validationDate: '',
     cvv: '',
-    cardHolderName:''
+    cardHolderName:'',
+    country:'',
+    postalCode:''
   }
 
   cardNumberFormatter(cardNumber){
@@ -57,7 +59,9 @@ export default class CreditCardContainer extends Component {
       "Card Number " + this.state.cardNumber + "\n" +
       "Validation Date " + this.state.validationDate + "\n" +
       "CVV " + this.state.cvv + "\n" + 
-      "Card Holder Name " + this.state.cardHolderName
+      "Card Holder Name " + this.state.cardHolderName + '\n' +
+      "Country " + this.state.country + '\n' + 
+      "Postal code " + this.state.postalCode
     )
   }
 
@@ -66,7 +70,9 @@ export default class CreditCardContainer extends Component {
       "Card Number " + this.state.cardNumber + "\n" +
       "Validation Date " + this.state.validationDate + "\n" +
       "CVV " + this.state.cvv + "\n" + 
-      "Card Holder Name " + this.state.cardHolderName
+      "Card Holder Name " + this.state.cardHolderName + '\n' +
+      "Country " + this.state.country + '\n' + 
+      "Postal code " + this.state.postalCode
     )
   }
 
@@ -83,11 +89,15 @@ export default class CreditCardContainer extends Component {
         validationDate={this.validationDateFormatter(this.state.validationDate)}
         cvv={this.state.cvv}
         cardHolderName={this.state.cardHolderName}
+        country={this.state.country}
+        postalCode={this.state.postalCode}
 
         onChangeCardNumber={(cardNumber) => this.setState({cardNumber})}
-        onChangeValidationDate={(validationDate) => this.setState({validationDate})}
+        onChangeValidationDate={(validationDate) => this.setState({validationDate: this.validationDateFormatter(validationDate)})}
         onChangeCVV={(cvv) => this.setState({cvv})}
         onChangeCardHolder={(cardHolderName) => this.setState({cardHolderName})}
+        onChangeCountry={(country) => this.setState({country})}
+        onChangePostalCode={(postalCode) => this.setState({postalCode})}
 
         // ---- //
 
@@ -96,14 +106,18 @@ export default class CreditCardContainer extends Component {
         handleSaveCreditCard={() => this.handleSaveCreditCard()}
 
         cardNumber={this.cardNumberFormatter(this.state.cardNumber)}
-        validationDate={this.validationDateFormatter(this.state.validationDate)}
+        onChangeValidationDate={(validationDate) => this.setState({validationDate: this.validationDateFormatter(validationDate)})}
         cvv={this.state.cvv}
         cardHolderName={this.state.cardHolderName}
+        country={this.state.country}
+        postalCode={this.state.postalCode}
 
         onChangeCardNumber={(cardNumber) => this.setState({cardNumber})}
         onChangeValidationDate={(validationDate) => this.setState({validationDate})}
         onChangeCVV={(cvv) => this.setState({cvv})}
         onChangeCardHolder={(cardHolderName) => this.setState({cardHolderName})}
+        onChangeCountry={(country) => this.setState({country})}
+        onChangePostalCode={(postalCode) => this.setState({postalCode})}
 
         dataCreditCards={dataCreditCards}
         renderCreditCards={({ item }) => (
