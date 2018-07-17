@@ -19,7 +19,7 @@ const PurchaseHistory = (props) => (
     <Content>
       {props.dataRecentOrders.length == 0 && props.dataHistoryOrders.length == 0 ? 
         <Validations
-          title={"Opps empty"}
+          title={"Recent order is Empty"}
           message1={"Buy some product and it will"}
           message2={"be here as history orders"}
           buttonText={"Buy some product"}
