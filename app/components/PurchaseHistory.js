@@ -16,28 +16,38 @@ const PurchaseHistory = (props) => (
       barStyle="light-content"
     />
     <Content>
-      <View style={styles.viewBrand}>
-        <Text style={styles.txtBrand}>Recent Orders</Text>
+      {props.dataRecentOrders.length == 0 ? 
         <View>
-          <FlatList
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            data={props.dataRecentOrders}
-            renderItem={props.renderRecentOrders}
-            keyExtractor={(item, index) => JSON.stringify(index)}
-          />
+          <Text>Hai Isa ini butuh validasi</Text>
+        </View>:
+        <View style={styles.viewBrand}>
+          <Text style={styles.txtBrand}>Recent Orders</Text>
+          <View>
+            <FlatList
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              data={props.dataRecentOrders}
+              renderItem={props.renderRecentOrders}
+              keyExtractor={(item, index) => JSON.stringify(index)}
+            />
+          </View>
         </View>
-      </View>
-      <View style={styles.viewBrandHistory}>
-        <Text style={styles.txtBrand}>History</Text>
+      }
+      {props.dataHistoryOrders.length == 0 ? 
         <View>
-          <FlatList
-            data={props.dataHistoryOrders}
-            renderItem={props.renderHistoryOrders}
-            keyExtractor={(item, index) => JSON.stringify(index)}
-          />
+          <Text>Hai Isa ini butuh validasi</Text>
+        </View>:
+        <View style={styles.viewBrandHistory}>
+          <Text style={styles.txtBrand}>History</Text>
+          <View>
+            <FlatList
+              data={props.dataHistoryOrders}
+              renderItem={props.renderHistoryOrders}
+              keyExtractor={(item, index) => JSON.stringify(index)}
+            />
+          </View>
         </View>
-      </View>
+      }
     </Content>
   </Container>
 )
