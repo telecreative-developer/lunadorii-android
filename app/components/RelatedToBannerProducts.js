@@ -50,7 +50,7 @@ const RelatedToBannerProducts = (props) => (
             actionIcon={props.goback}
           />
           <Validations
-            title={props.title+" Doesn't has product"}
+            title={props.title+" Doesn't has products"}
             message1={"Please be patient for new products"}
             message2={props.name}
             buttonText={"Continue shoping"}
