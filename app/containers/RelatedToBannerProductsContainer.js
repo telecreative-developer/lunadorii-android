@@ -60,11 +60,10 @@ class RelatedToBannerProductsContainer extends Component{
 
   async componentDidMount(){
     console.log('Banner :',this.props.navigation.state.params.data )
-    const data = this.props.navigation.state.params.data
-    if(this.props.fetchProductWithBanner(data.banner_id)){
-      await this.setState({stillLoading: false})
-      await this.setState({image: data.thumbnail_url})
-    }
+    const data = await this.props.navigation.state.params.data
+    await this.props.fetchProductWithBanner(data.banner_id)
+    await this.setState({image: data.thumbnail_url})
+    await this.setState({stillLoading: false})
   }
 
   capitalize(string) {

@@ -60,11 +60,10 @@ class RelatedToBrandProductsContainer extends Component{
 
   async componentDidMount(){
     console.log('datttaaaaa ::::' , this.props.navigation.state.params.data.brand)
-    const data = this.props.navigation.state.params.data
-    if(this.props.fetchProductWithBrand(data.product_brand_id)){
-      await this.setState({stillLoading: false})
-    }
+    const data = await this.props.navigation.state.params.data
+    this.props.fetchProductWithBrand(data.product_brand_id)
     await this.setState({title: data.title})
+    await this.setState({stillLoading: false})
   }
 
   capitalize(string) {
