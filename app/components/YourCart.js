@@ -7,6 +7,7 @@ import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
 import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
 import PickDeliverySeriveModal from '../modals/PickDeliveryServiceModal'
+import Validations from '../particles/Validations'
 import { fetchCourier } from '../actions/shipping';
 const shippingAddress = require('../assets/images/icon/shipping-address.png')
 const tiki = require('../assets/images/icon/tiki.png')

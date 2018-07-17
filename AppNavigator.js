@@ -28,10 +28,12 @@ import RelatedToBrandProductsContainer from './app/containers/RelatedToBrandProd
 import DetailsTransactionContainer from './app/containers/DetailsTransactionContainer'
 import DetailsOrderContainer from './app/containers/DetailsOrderContainer'
 import PaymentContainer from './app/containers/PaymentContainer'
+import MoreHelpContainer from './app/containers/MoreHelpContainer'
 
 const AppNavigator = StackNavigator(
-  {    
+  {
     PaymentContainer: { screen: PaymentContainer },
+    MoreHelpContainer: { screen: MoreHelpContainer },
     DetailsOrderContainer: { screen: DetailsOrderContainer },
     DetailsTransactionContainer: { screen: DetailsTransactionContainer },
     RelatedToBannerProductsContainer: { screen: RelatedToBannerProductsContainer },
