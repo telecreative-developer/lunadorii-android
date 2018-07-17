@@ -18,7 +18,7 @@ const EditQuantityModal = (props) => (
         <View style={styles.contentCard}>
           <Image source={{ uri: props.image }} style={styles.image} />
           <View style={styles.wrapLeft}>
-            <Text style={styles.txtHeader}>{props.title}</Text>
+            <Text style={styles.txtHeader}>{props.product}</Text>
             <Text style={styles.txtDetail}>{props.brand}</Text>
             <Text style={styles.txtBlank}></Text>
             <Text style={styles.txtDetail}>Quantity: <Text style={styles.txtpcs}>{props.quantity} pcs</Text></Text>
@@ -37,7 +37,7 @@ const EditQuantityModal = (props) => (
           </TouchableOpacity>
         </View>
         <Item regular style={styles.amountTextInput}>
-          <Input value={String(props.quantity)} onChangeText={props.onChangeQuantity} keyboardType={'numeric'} maxLength={100}/>
+          <Input value={String(props.quantity)} onChangeText={props.onChangeQuantity} keyboardType={'numeric'} maxLength={100} disabled/>
         </Item>
         <View style={styles.flexEnd}>
           <TouchableOpacity onPress={props.addQty}>
