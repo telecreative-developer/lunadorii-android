@@ -20,11 +20,16 @@ class SplashScreenContainer extends Component {
 
   navigateToLogin(){
     setTimeout(() => {
-      this.props.navigation.navigate("RegisterContainer");
+      this.props.navigation.dispatch(
+        StackActions.reset({
+          index:0,
+          actions:[NavigationActions.navigate({routeName:'RegisterContainer'})]
+        })
+      )
     }, 1000)
   }
 
-  // navigateToUploadImage(data){
+  // navigateToUploadImage(data){ RegisterContainer
   //   setTimeout(() => {
   //     this.props.navigation.navigate('AddPhotoProfileContainer', {user: data, id: data.registerresult.id});
   //   }, 1000)

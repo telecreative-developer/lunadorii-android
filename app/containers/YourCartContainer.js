@@ -31,8 +31,10 @@ class YourCartContainer extends Component {
       cart_id: 0,
       totalPrice: 0,
       code:'',
+      loadingBtn: false,
+      selectedCourier:null,
       cost:[],
-      loadingBtn: false
+      estDays: ""
     }
   }
 
@@ -75,7 +77,7 @@ class YourCartContainer extends Component {
   }
 
   async toggleModalEditQuantity(item){
-    await this.closeModal()
+    await this.setState({modalVisibleEditQuantity: true})
     if(this.state.modalVisibleEditQuantity){
       const session = await AsyncStorage.getItem('session')
       const data = await JSON.parse(session)
@@ -256,22 +258,46 @@ class YourCartContainer extends Component {
     await console.log('item:', code)
  }
 
+ async chooseCourier(item){
+  await this.setState({
+     selectedCourier: item,
+     modalVisiblePickDeliveryService: false
+   })
+ }
+
+ capitalize(string) {
+  return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
+}
+
+
   render() {
     console.log('kurir :', this.props.receiveCourier)
     const courier = this.props.receiveCourier
-    console.log('Good :',this.state.cost)
+    console.log('Good :',this.state.modalVisibleEditQuantity)
     return (
       <YourCart 
         stillLoading={this.state.stillLoading}
+        selectedCourier={this.state.selectedCourier}
+        // estDays={this.state.estDays}
 
+        selectedServices={this.capitalize(this.state.code)}
         courierCode={courier}
         renderCode={({item}) => (
-                <TouchableOpacity  title={item.code.toUpperCase()} style={styles.btnPickDeliveryService} onPress={()=>this.chooseService(item.code, item.costs)}>
-                  <Text style={styles.txtChooseDeliveryService}>{item.code.toUpperCase()}</Text>
-                </TouchableOpacity>
-              )}
+          <TouchableOpacity  title={item.code.toUpperCase()} style={styles.btnPickDeliveryService} onPress={()=>this.chooseService(item.code, item.costs)}>
+            <Text style={styles.txtChooseDeliveryService}>{item.code.toUpperCase()}</Text>
+          </TouchableOpacity>
+        )}
         
         courierMetode={this.state.cost}
+        courierRender={({item}) => (
+            <TouchableOpacity onPress={() => this.chooseCourier(item)}>
+              <View style={{padding: 10, flexDirection: 'row',justifyContent: 'space-around'}}>
+                <Text style={{fontWeight: 'bold',color: '#000'}}>{item.service.toUpperCase()}</Text>
+                <Text>{item.cost[0].etd} Days</Text>
+                <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. {item.cost[0].value},-</Text>
+              </View>
+            </TouchableOpacity>
+          )}
 
         modalVisiblePickDeliveryService={this.state.modalVisiblePickDeliveryService}
         toggleModalPickDeliveryService={() => this.setState({modalVisiblePickDeliveryService: !this.state.modalVisiblePickDeliveryService})}
@@ -322,7 +348,12 @@ class YourCartContainer extends Component {
             goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer")}
           />
         ) : (
-          <View/>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("YourShippingAddressContainer")}>
+            <View style={{padding: 10}}>
+              <Text>No default shipping address</Text>
+              <Text>Selected tap here to add</Text>
+            </View>
+          </TouchableOpacity>
         )}
 
         modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
@@ -372,7 +403,11 @@ const styles = StyleSheet.create({
     backgroundColor:'#d11e48',
     margin:5,
   },
-  
+  txtChooseDeliveryService:{
+    color: '#fff',
+    alignSelf: 'center',
+    marginHorizontal:  10
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(YourCartContainer)

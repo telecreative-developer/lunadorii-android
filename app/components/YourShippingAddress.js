@@ -103,7 +103,9 @@ const YourShippingAddress = (props) => (
       backgroundColor="#f65857"
       barStyle="light-content"
     />
-    {props.stillLoading ? (
+    {console.log('panjang data :', props.dataShippingAddress.length)}
+    {console.log('is data :', props.dataShippingAddress)}
+    {/* {props.stillLoading ? (
       <Content contentContainerStyle={{justifyContent: 'center', alignItems:'center', flex: 1}}>
         <View stryle={styles.style}>
           <Spinner color="#d11e48"/>
@@ -123,7 +125,35 @@ const YourShippingAddress = (props) => (
           <Icon name="add" /><Text style={styles.txtAddAddress}>Add Another Address</Text>
         </Button>
       </Content>
-    )}
+    )} */}
+
+    {props.stillLoading ? 
+      <Content contentContainerStyle={{justifyContent: 'center', alignItems:'center', flex: 1}}>
+        <View stryle={styles.style}>
+          <Spinner color="#d11e48"/>
+        </View>
+      </Content>:
+      <Content style={styles.container}>
+        {props.dataShippingAddress == 0 ? 
+          <View>
+            <Text>
+              Haii isaa butuh validasi
+            </Text>
+          </View>:
+          <View style={{paddingHorizontal: 10}}>
+            <Text style={styles.txtShippingAddress}>Your Shipping Address</Text>
+            <FlatList
+              data={props.dataShippingAddress}
+              renderItem={props.renderShippingAddress}
+              keyExtractor={(item, index) => JSON.stringify(index)}
+            />
+          </View>
+        }
+        <Button style={styles.btnAddAddress} onPress={props.toggleModalAddAddress}>
+          <Icon name="add" /><Text style={styles.txtAddAddress}>Add Another Address</Text>
+        </Button>
+      </Content>
+    }
   </Container>
 )
 
