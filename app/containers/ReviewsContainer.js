@@ -11,7 +11,6 @@ class ReviewsContainer extends Component{
   state = {
     modalVisibleEditReviews: false,
     stillLoading: true,
-    isEmpty: false,
     id: 0,
     image: '',
     title: '',
@@ -51,14 +50,8 @@ class ReviewsContainer extends Component{
     console.log(this.props.userreview.length)
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    if(this.props.userreview.length != 0){
-      await this.setState({isEmpty: false})
-    }else{
-      await this.setState({isEmpty: true})
-    }
-    if(this.props.fetchUserReview(data.id, data.accessToken)){
-      await this.setState({stillLoading: false})
-    }
+    await this.props.fetchUserReview(data.id, data.accessToken)
+    await this.setState({stillLoading: false})
   }
 
   async btnUpdateRating(){
@@ -114,7 +107,6 @@ class ReviewsContainer extends Component{
         toggleModalEditReviews={() => this.toggleModalEditReviews()}
         navigateToProfile={() => this.props.navigation.navigate('ProfileContainer')}
         
-        isEmpty={this.state.isEmpty}
         stillLoading={this.state.stillLoading}
         image={this.state.image}
         title={this.capitalize(this.state.title)}

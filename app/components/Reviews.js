@@ -39,7 +39,7 @@ const Reviews = (props) => {
       </View>
     ) : (
       <Content>
-        {props.isEmpty ? (
+        {props.dataReviews <= 0 ? (
           <Validations 
             title={"Your Review is empty"} 
             message1={"Please review your product"} 

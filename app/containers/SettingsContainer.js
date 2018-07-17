@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { editPassword, editEmail } from '../actions/editprofile'
+import { StackActions, NavigationActions} from 'react-navigation'
 import {AsyncStorage, ToastAndroid} from 'react-native'
 
 import Settings from '../components/Settings'
@@ -64,7 +65,12 @@ class SettingsContainer extends Component {
 
   handleLogout() {
     AsyncStorage.removeItem('session')
-    this.props.navigation.navigate('LoginContainer')
+    this.props.navigation.dispatch(
+      StackActions.reset({
+        index:0,
+        actions:[NavigationActions.navigate({routeName:'RegisterContainer'})]
+      })
+    )
   }
 
   async handleChangePassword() {

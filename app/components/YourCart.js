@@ -38,6 +38,8 @@ const YourCart = (props) => (
       addQty={props.addQty}
       minQty={props.minQty}
       onChangeQuantity={props.onChangeQuantity}
+      handleEditQtyModal={props.handleEditQtyModal}
+      loadingBtn={props.loadingBtn}
     />
     <WaitingForPaymentModal
       modalVisible={props.modalVisibleCheckoutPayment}
