@@ -34,7 +34,9 @@ class YourCartContainer extends Component {
       loadingBtn: false,
       selectedCourier:null,
       cost:[],
-      estDays: ""
+      estDays: "",
+      product: "",
+      brand: ""
     }
   }
 
@@ -77,7 +79,7 @@ class YourCartContainer extends Component {
   }
 
   async toggleModalEditQuantity(item){
-    await this.setState({modalVisibleEditQuantity: true})
+    await this.closeModal()
     if(this.state.modalVisibleEditQuantity){
       const session = await AsyncStorage.getItem('session')
       const data = await JSON.parse(session)
@@ -88,7 +90,9 @@ class YourCartContainer extends Component {
         price: item.price,
         discount_percentage: item.discount_percentage,
         totalPrice: item.totalPrice,
-        cart_id: item.cart_id
+        cart_id: item.cart_id,
+        product: item.product,
+        brand: item.brands[0].brand
       }) 
     }else{
       await this.setState({
@@ -97,7 +101,9 @@ class YourCartContainer extends Component {
         quantity: 0,
         price: 0,
         totalPrice: 0,
-        cart_id: 0
+        cart_id: 0,
+        product: "",
+        brand: ""
       })
     }
   }
@@ -113,12 +119,16 @@ class YourCartContainer extends Component {
   }
 
   async addQty(){
-    await this.setState({
-      quantity: this.state.quantity + 1
-    })
-    await this.setState({
-      totalPrice: this.state.price * this.state.quantity
-    })
+    if(this.state.quantity >= 100){
+
+    }else {
+      await this.setState({
+        quantity: this.state.quantity + 1
+      })
+      await this.setState({
+        totalPrice: this.state.price * this.state.quantity
+      })
+    }
   }
 
   async minQty(){
@@ -355,6 +365,9 @@ class YourCartContainer extends Component {
             </View>
           </TouchableOpacity>
         )}
+
+        product={this.state.product}
+        brand={this.state.brand}
 
         modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
         toggleModalEditQuantity={() => this.toggleModalEditQuantity(this.props.cartuser)}

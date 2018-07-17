@@ -49,12 +49,15 @@ const RelatedToBannerProducts = (props) => (
           <View style={{padding: 10}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>{props.title}</Text>
             <View style={{paddingTop: 5}}>
+            {props.dataProduct.length == 0 ? <Text>isa tolong validasi</Text> 
+              :
               <FlatList
                 numColumns={2}
                 data={props.dataProduct}
                 renderItem={props.renderProduct}
                 keyExtractor={(item, index) => JSON.stringify(index)}
               />
+            }
             </View>
           </View>
         </View>

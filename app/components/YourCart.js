@@ -32,6 +32,8 @@ const YourCart = (props) => (
     <EditQuantityModal
       modalVisible={props.modalVisibleEditQuantity}
       actionIcon={props.toggleModalEditQuantity}
+      product={props.product}
+      brand={props.brand}
       quantity={props.quantity}
       price={props.price}
       totalPrice={props.totalPrice}

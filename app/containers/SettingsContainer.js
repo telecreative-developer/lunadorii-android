@@ -77,6 +77,8 @@ class SettingsContainer extends Component {
     
       if (this.state.currentPassword == ""){
         alert("your old password is empty")
+      }else if (this.state.newPassword == "" && this.state.confirmPassword == "") {
+        alert("Please Insert Your New Password")
       }else if (this.state.newPassword !== this.state.confirmPassword) {
         alert("New password wasn't comfirmed")
       } else {

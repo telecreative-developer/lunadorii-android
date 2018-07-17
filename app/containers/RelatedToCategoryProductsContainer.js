@@ -61,9 +61,8 @@ class RelatedToCategoryProductsContainer extends Component{
   async componentDidMount(){
     const data = this.props.navigation.state.params.data
     if(this.props.fetchProductWithCategory(data.product_subcategory_id)){
-      await this.setState({stillLoading: false})
+        await this.setState({stillLoading: false})
     }
-    console.log('data :', data.product_subcategory_id)
   }
 
   capitalize(string) {
