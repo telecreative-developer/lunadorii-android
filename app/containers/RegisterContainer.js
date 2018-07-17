@@ -18,6 +18,81 @@ class RegisterContainer extends Component{
     }
   }
 
+  // shouldComponentUpdate(nextProps, nextState) {
+  //   if(nextProps !== this.props) {
+  //     return true
+  //   }
+
+  //   if(nextState !== this.state) {
+  //     return true
+  //   }
+
+  //   return false
+  // }
+
+  // getSnapshotBeforeUpdate(prevProps) {
+  //   if (
+  //     prevProps.success.condition &&
+  //     prevProps.success.process_on === 'SUCCESS_PROCESS_CHECK_EMAIL'
+  //   ) {
+  //     return {
+  //       register: true,
+  //       platform: 'BASIC',
+  //       message: null
+  //     }
+  //   } else if (
+  //     prevProps.failed.condition &&
+  //     prevProps.failed.process_on === 'FAILED_PROCESS_CHECK_EMAIL'
+  //   ) {
+  //     return {
+  //       register: false,
+  //       platform: 'BASIC',
+  //       message: prevProps.failed.message
+  //     }
+  //   }
+
+  //   return null
+  // }
+
+  // componentDidUpdate(prevProps, prevState, snapshot) {
+  //   if (snapshot !== null) {
+  //     if (snapshot.register && snapshot.platform === 'BASIC') {
+  //       prevProps.navigation.navigate('RegisterIdentifyContainer', prevState)
+  //     } else {
+  //       Alert.alert('Register gagal', snapshot.message)
+  //     }
+  //   }
+  // }
+
+  // ValidationEmail() {
+  //   const { email } = this.state
+  //     this.props.checkEmail(email)
+  //     console.log("email", email)
+  // }
+
+  // renderButton() {
+  //   const { email } = this.state
+  //   const { loading } = this.props
+  //   {console.log('Test Button' , this.ValidationEmail())}
+	// 	if (!isEmpty(email)) {
+	// 		return (
+  //       <Button full style={styles.buttonLoginActive} onPress={()=> this.ValidationEmail()}>
+  //         {loading.condition === true && loading.process_on === 'LOADING_PROCESS_CHECK_EMAIL' ? (
+  //           <Spinner color="#FFFFFF" />
+  //         ) : (
+  //           <Text style={styles.buttonLoginActiveText}>NEXT</Text>
+  //         )}
+  //       </Button>
+	// 		)
+	// 	} else {
+	// 		return (
+	// 			<Button bordered full style={styles.buttonLoginInactive}>
+	// 				<Text style={styles.buttonLoginInactiveText}>NEXT</Text>
+	// 			</Button>
+	// 		)
+	// 	}
+  // }
+
   shouldComponentUpdate(nextProps, nextState) {
     if(nextProps !== this.props) {
       return true
@@ -36,7 +111,7 @@ class RegisterContainer extends Component{
       failed.condition === true &&
       failed.process_on === 'FAILED_PROCESS_CHECK_EMAIL'
     ) {
-      Alert.alert('Register Failed', 'Email Already Use!')
+      Alert.alert('Login Failed', 'Email Already Use!')
     } else if (
       loading.condition === false &&
       loading.process_on === 'LOADING_PROCESS_CHECK_EMAIL' &&
@@ -54,16 +129,13 @@ class RegisterContainer extends Component{
   handleValidationCheckEmail(){
     const {email} = this.state
     this.props.checkEmail(email)
-    this.setState({
-      email:""
-    })
   }
-  
+
   renderButton() {
     const { email } = this.state
     const { loading } = this.props
     const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-    if (!isEmpty(email) &&
+    if (!isEmpty(email) && 
         regexEmail.test(email) === true) {
 			return (
         <Button full style={styles.buttonLoginActive} onPress={()=> this.handleValidationCheckEmail()}>
@@ -76,7 +148,7 @@ class RegisterContainer extends Component{
 			)
 		} else {
 			return (
-				<Button bordered full style={styles.buttonLoginInactive}>
+				<Button bordered full style={styles.buttonLoginInactive} disabled>
 					<Text style={styles.buttonLoginInactiveText}>NEXT</Text>
 				</Button>
 			)

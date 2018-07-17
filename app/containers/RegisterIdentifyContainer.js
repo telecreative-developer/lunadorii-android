@@ -67,20 +67,20 @@ class RegisterIdentifyContainer extends Component {
         const { loading } = this.props
         // const regexEmail = /^[^@]+@(yahoo|gmail)\.(com|net)$/i
       
-        if (!isEmpty( String(JSON.stringify(first_name)) ) &&
-            !isEmpty(String(JSON.stringify(last_name))) &&
-            !isEmpty(String(JSON.stringify(email))) &&
+        if (!isEmpty(first_name) &&
+            !isEmpty(last_name) &&
+            !isEmpty(email) &&
             // regexEmail.test(email) === true &&
-            !isEmpty(String(JSON.stringify(password)))) {
+            !isEmpty(password)) {
             return (
               <View style={styles.formRegister}>
                 {loading.condition === true && loading.process_on === 'LOADING_REGISTER' ? (
-                  <Button full style={styles.buttonRegisterActive}>
+                  <Button full style={styles.buttonRegisterActive} disabled>
                     <Spinner color="#FFFFFF" />
                   </Button>
                   ) : (
                   <Button full style={styles.buttonRegisterActive} onPress={() => this.handleValidationRegister(id)} rounded center>
-                    <Text style={styles.buttonRegisterActiveText}>Next</Text>
+                    <Text style={styles.buttonRegisterActiveText}>Register</Text>
                   </Button>
                   )}
               </View>
@@ -88,7 +88,7 @@ class RegisterIdentifyContainer extends Component {
         } else {
           return (
             <View style={styles.formRegister}>
-              <Button bordered full style={styles.buttonRegisterInactive}>
+              <Button bordered full style={styles.buttonRegisterInactivedisabled} disabled>
                 <Text style={styles.buttonRegisterInactiveText}>Register</Text>
               </Button>
             </View>
@@ -126,7 +126,7 @@ class RegisterIdentifyContainer extends Component {
 
   render(){
     const { first_name, last_name, email, password } = this.state
-
+    console.log(this.state)
     return(
       <RegisterIdentify
         passwordFieldVisibility={this.state.passwordFieldVisibility}
@@ -177,7 +177,7 @@ const styles = StyleSheet.create({
     height: 50,
     borderRadius: 10, 
     backgroundColor: '#fff',
-    borderColor:'#d11e48'
+    borderColor:'#000'
   },
   buttonRegisterInactiveText:{
     color: '#d11e48', 

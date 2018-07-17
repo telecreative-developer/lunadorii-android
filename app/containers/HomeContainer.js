@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage, TouchableOpacity, BackHandler } from 'react-native'
+import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage, TouchableOpacity, BackHandler, ToastAndroid, Alert } from 'react-native'
 import { connect } from 'react-redux'
 
 import Home from '../components/Home'
@@ -77,7 +77,7 @@ class HomeContainer extends Component {
   }
 
   async componentDidMount() {
-
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchBanners()
@@ -89,6 +89,28 @@ class HomeContainer extends Component {
     if(this.props.fetchProductSubcategories()){
       await this.setState({stillLoading: false})
     }
+    
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  }
+
+  handleBackButton() {
+    Alert.alert(
+      'Exit App',
+      'Exiting the application?', [{
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel'
+      }, {
+          text: 'OK',
+          onPress: () => BackHandler.exitApp()
+      }, ], {
+          cancelable: false
+      }
+   )
+   return true;
   }
 
   capitalize(string) {
