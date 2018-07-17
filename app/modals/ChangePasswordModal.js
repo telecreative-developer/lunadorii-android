@@ -42,10 +42,10 @@ const ChangePasswordModal = (props) => (
           marginBottom: 10,
           borderRadius: 5,
           height: 40,
-          borderColor:  props.newPassword ? '#ccc' : '#c0392b'
+          borderColor:  props.newConfirmPassword ? '#ccc' : '#c0392b'
         }}>
-          <Input placeholder='Enter New Password' secureTextEntry placeholderTextColor="#ccc" onChangeText={props.onChangeConfirmPassword} />
-          <Ionicons name={props.newConfirmPassword ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Input placeholder='Confirm New Password' secureTextEntry placeholderTextColor="#ccc" onChangeText={props.onChangeConfirmPassword} />
+          <Ionicons name={props.newConfirmPassword == props.newPassword && props.newConfirmPassword != '' ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
       </View>
     </Content>
