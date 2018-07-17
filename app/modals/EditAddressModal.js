@@ -66,13 +66,13 @@ const EditAddressModal = (props) => (
           <View style={styles.flexDirectionCol}>
             <Label style={styles.labels}>Number Phone</Label>
             <Item regular style={styles.centeredItems}>
-              <Input placeholder={props.numberPhoneValue} value={props.numberPhoneValue.toString()} onChangeText={props.onChangeNumberPhone} keyboardType={'numeric'}/>
+              <Input placeholder={props.numberPhoneValue} value={props.numberPhoneValue.toString()} onChangeText={props.onChangeNumberPhone} keyboardType={'numeric'} maxLength={13}/>
             </Item>
           </View>
           <View style={styles.flexDirectionCol}>
             <Label style={styles.labels}>Postalcode</Label>
             <Item regular style={styles.centeredItemsPostalcode}>
-              <Input value={props.postalcodeValue.toString()} onChangeText={props.onChangePostalcode} keyboardType={'numeric'}/>
+              <Input value={props.postalcodeValue.toString()} onChangeText={props.onChangePostalcode} keyboardType={'numeric'} maxLength={6}/>
             </Item>
           </View>
         </View>

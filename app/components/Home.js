@@ -21,6 +21,7 @@ const Home = (props) => (
       barStyle="light-content"
     />
     <AddToCart
+      quantityValue={props.quantityValue}
       modalVisible={props.modalVisibleAddToCart}
       toggleModalAddToCart={props.toggleModalAddToCart}
       onChangeQty={props.onChangeQty}
