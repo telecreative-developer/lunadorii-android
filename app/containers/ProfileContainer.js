@@ -183,6 +183,7 @@ class ProfileContainer extends Component {
         onChangeBirthDate={(bod) => this.setState({ bod })}
         handleSaveEditProfile={() => this.handleSaveEditProfile()}
 
+        navigateToHome={() => this.props.navigation.navigate("HomeContainer")}
         navigateToPurchaseHistory={() => this.props.navigation.navigate("PurchaseHistoryContainer")}
         navigateToWhishlist={() => this.props.navigation.navigate("WishlistContainer")}
         navigateToCreditCard={() => this.props.navigation.navigate("CreditCardContainer")}

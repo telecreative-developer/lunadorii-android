@@ -87,6 +87,7 @@ class PurchaseHistoryContainer extends Component{
     return(
       <PurchaseHistory
         goback={() => this.props.navigation.goBack()}
+        navigateToHome={() => this.props.navigation.navigate("HomeContainer")}
         dataRecentOrders={this.props.productrecent}
         renderRecentOrders={({item}) => (
           <RecentOrders 
