@@ -24,14 +24,22 @@ const AddToCart = (props) => (
       <View>
         <Form style={{paddingVertical:5, paddingHorizontal:20}}>
           <Item style={{borderRadius: 5, borderColor: '#e2e2e2', width: '100%'}} regular>
-            <Input placeholder="Input Quantity" placeholderTextColor="#ccc" keyboardType={'numeric'} onChangeText={props.onChangeQty} maxLength={100}/>
+            <Input placeholder="Input Quantity" placeholderTextColor="#ccc" keyboardType={'numeric'} onChangeText={props.onChangeQty} maxLength={3}/>
           </Item>
         </Form>
-        <View style={{paddingHorizontal:20, paddingVertical: 10}}>
-          <Button full onPress={props.handleAddToCart} style={{borderRadius: 5, backgroundColor: '#d11e48'}}>
-            <Text style={{color: '#fff'}}>Add to cart</Text>
-          </Button>
-        </View>
+        {props.quantityValue > 100 ? (
+          <View style={{paddingHorizontal:20, paddingVertical: 10}}>
+            <Button full onPress={props.handleAddToCart} style={{borderRadius: 5, backgroundColor: '#f6f6f6'}} disabled>
+              <Text style={{color: '#ccc'}}>You can't buy up to 100 items</Text>
+            </Button>
+          </View>
+        ) : (
+          <View style={{paddingHorizontal:20, paddingVertical: 10}}>
+            <Button full onPress={props.handleAddToCart} style={{borderRadius: 5, backgroundColor: '#d11e48'}}>
+              <Text style={{color: '#fff'}}>Add to cart</Text>
+            </Button>
+          </View>
+        )}
       </View>
     </View>
   </Modal>
@@ -50,6 +58,14 @@ const styles = StyleSheet.create({
   },
   buttonSelectTextStyleEditProfile: {
     color: '#fff',
+    fontSize: 18
+  },
+  buttonSelectStyleEditProfileDisabled: {
+    height: 50, 
+    backgroundColor: '#f6f6f6'
+  },
+  buttonSelectTextStyleEditProfileDisabled: {
+    color: '#ccc',
     fontSize: 18
   }
 })
