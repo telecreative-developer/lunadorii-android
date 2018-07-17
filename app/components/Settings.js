@@ -22,6 +22,10 @@ const Settings = (props) => (
       modalVisible={props.modalVisibleChangePassword}
       actionIcon={props.toggleModalChangePassword}
 
+      currentPassword={props.currentPassword}
+      newPassword={props.newPassword}
+      newConfirmPassword={props.newConfirmPassword}
+
       onChangeCurrentPassword={props.onChangeCurrentPassword}
       onChangeNewPassword={props.onChangeNewPassword}
       onChangeConfirmPassword={props.onChangeConfirmPassword}
