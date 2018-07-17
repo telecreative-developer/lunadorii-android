@@ -10,6 +10,7 @@ import {
 } from 'react-native';
 import { Icon, Text, Container, Content, Spinner } from 'native-base';
 import RelatedToCategoryProductsContainer from '../containers/RelatedToCategoryProductsContainer';
+import Validations from '../particles/Validations'
 import Navbar from '../particles/Navbar';
 import AddToCart from '../modals/AddToCart'
 
@@ -21,7 +22,7 @@ const RelatedToCategoryProducts = (props) => (
   <Container style={styles.container}>
     <Navbar
       navbarIcon="arrow-back"
-      navbarTitle={"Product Category " + props.name}
+      navbarTitle={props.name}
       actionIcon={props.goback}
     />
     <StatusBar
@@ -42,16 +43,25 @@ const RelatedToCategoryProducts = (props) => (
       <Content>
         <View style={styles.viewArrivals}>
           <View style={{padding: 10}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>{props.name}</Text>
             <View style={{paddingTop: 5}}>
-              {props.dataProduct.length == 0 ? <Text>isa tolong validasi</Text> 
-              :
-              <FlatList
-                numColumns={2}
-                data={props.dataProduct}
-                renderItem={props.renderProduct}
-                keyExtractor={(item, index) => JSON.stringify(index)}
+              {props.dataProduct.length == 0 ? 
+              <Validations
+                title={props.name+" Doesn't has product"}
+                message1={"Please be patient for new products"}
+                message2={props.name}
+                buttonText={"Continue shoping"}
+                buttonAction={props.navigateToHome}
               />
+              :
+              <View>
+                <Text style={{fontWeight: 'bold',fontSize: 18}}>{props.name}</Text>
+                <FlatList
+                  numColumns={2}
+                  data={props.dataProduct}
+                  renderItem={props.renderProduct}
+                  keyExtractor={(item, index) => JSON.stringify(index)}
+                />
+              </View>
               }
             </View>
           </View>
