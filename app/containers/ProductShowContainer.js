@@ -22,6 +22,7 @@ class ProductShowContainer extends Component {
       seeMoreDetails: false,
       seeMoreReviews: false,
       modalVisibleImageView: false,
+      isDiscount: false,
       title: '',
       image: '',
       images:[],
@@ -102,6 +103,7 @@ class ProductShowContainer extends Component {
       amountOfImage: data.thumbnails.length,
       starCount: data.product_rate,
       discount: data.discount_percentage,
+      isDiscount: data.discount_percentage <= 0 ? false : true,
       totalPrice: this.discountPrice(data.price, data.discount_percentage)
     })
     await this.props.fetchSingleProductWithId(dataSession.id, data.product_id)
@@ -212,6 +214,7 @@ class ProductShowContainer extends Component {
         descriptions={this.state.data.description}
         productDetails={this.state.data.detail}
         guide={this.state.data.to_use}
+        isDiscount={this.state.isDiscount}
         qty={this.state.qty}
         totalPrice={this.formatPrice(this.state.totalPrice)}
         amountOfImage={this.state.amountOfImage}

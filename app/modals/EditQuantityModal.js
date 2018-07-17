@@ -37,7 +37,7 @@ const EditQuantityModal = (props) => (
           </TouchableOpacity>
         </View>
         <Item regular style={styles.amountTextInput}>
-          <Input value={String(props.quantity)} onChangeText={props.onChangeQuantity} keyboardType={'numeric'}/>
+          <Input value={String(props.quantity)} onChangeText={props.onChangeQuantity} keyboardType={'numeric'} maxLength={100}/>
         </Item>
         <View style={styles.flexEnd}>
           <TouchableOpacity onPress={props.minQty}>
