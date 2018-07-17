@@ -123,12 +123,15 @@ class ProfileContainer extends Component {
   }
 
   async handleSaveEditProfile() {
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
     await this.props.editName(
         this.state.userData.id, 
         this.state.first_name, 
         this.state.last_name,
         this.state.bod, 
         this.state.userData.accessToken)
+    await this.props.fetchSingleUser(data.id, data.accessToken)
     await this.setState({modalVisibleEditProfile: false })
     // await alert(this.props.editname.message)
     ToastAndroid.showWithGravity("Edited", ToastAndroid.SHORT, ToastAndroid.CENTER)
