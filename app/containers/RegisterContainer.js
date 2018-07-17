@@ -129,6 +129,7 @@ class RegisterContainer extends Component{
   handleValidationCheckEmail(){
     const {email} = this.state
     this.props.checkEmail(email)
+    this.setState({email:''})
   }
 
   renderButton() {
