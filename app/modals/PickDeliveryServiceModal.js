@@ -23,7 +23,7 @@ const PickDeliveryServiceModal = (props) => (
       }}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor: '#f6f6f6',borderBottomColor: '#e2e2e2', borderBottomWidth:1}}>
         <Icon name="close" type="EvilIcons" fontSize={12} onPress={props.closeIcon} style={{alignSelf: 'flex-start', paddingVertical: 10, paddingHorizontal:5, paddingTop: 10}}/>
-        <Text style={{fontWeight: 'bold',color: '#000',alignSelf: 'flex-end', paddingBottom: 13, paddingRight: 10}}>Delivery Services</Text>
+        <Text style={{fontWeight: 'bold',color: '#000',alignSelf: 'flex-end', paddingBottom: 13, paddingRight: 10}}>{props.selectedServices} Services</Text>
       </View>
       <View style={{height: 200}}>
         <FlatList

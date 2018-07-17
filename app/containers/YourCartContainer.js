@@ -255,6 +255,11 @@ class YourCartContainer extends Component {
    })
  }
 
+ capitalize(string) {
+  return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
+}
+
+
   render() {
     console.log('kurir :', this.props.receiveCourier)
     const courier = this.props.receiveCourier
@@ -265,12 +270,13 @@ class YourCartContainer extends Component {
         selectedCourier={this.state.selectedCourier}
         // estDays={this.state.estDays}
 
+        selectedServices={this.capitalize(this.state.code)}
         courierCode={courier}
         renderCode={({item}) => (
-                <TouchableOpacity  title={item.code.toUpperCase()} style={styles.btnPickDeliveryService} onPress={()=>this.chooseService(item.code, item.costs)}>
-                  <Text style={styles.txtChooseDeliveryService}>{item.code.toUpperCase()}</Text>
-                </TouchableOpacity>
-              )}
+          <TouchableOpacity  title={item.code.toUpperCase()} style={styles.btnPickDeliveryService} onPress={()=>this.chooseService(item.code, item.costs)}>
+            <Text style={styles.txtChooseDeliveryService}>{item.code.toUpperCase()}</Text>
+          </TouchableOpacity>
+        )}
         
         courierMetode={this.state.cost}
         courierRender={({item}) => (
@@ -330,7 +336,12 @@ class YourCartContainer extends Component {
             goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer")}
           />
         ) : (
-          <View/>
+          <TouchableOpacity onPress={() => this.props.navigation.navigate("YourShippingAddressContainer")}>
+            <View style={{padding: 10}}>
+              <Text>No default shipping address</Text>
+              <Text>Selected tap here to add</Text>
+            </View>
+          </TouchableOpacity>
         )}
 
         modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
@@ -379,7 +390,11 @@ const styles = StyleSheet.create({
     backgroundColor:'#d11e48',
     margin:5,
   },
-  
+  txtChooseDeliveryService:{
+    color: '#fff',
+    alignSelf: 'center',
+    marginHorizontal:  10
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(YourCartContainer)

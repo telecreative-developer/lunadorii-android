@@ -24,7 +24,7 @@ const AddToCart = (props) => (
       <View>
         <Form style={{paddingVertical:5, paddingHorizontal:20}}>
           <Item style={{borderRadius: 5, borderColor: '#e2e2e2', width: '100%'}} regular>
-            <Input placeholder="Input Quantity" placeholderTextColor="#ccc" keyboardType={'numeric'} onChangeText={props.onChangeQty}/>
+            <Input placeholder="Input Quantity" placeholderTextColor="#ccc" keyboardType={'numeric'} onChangeText={props.onChangeQty} maxLength={100}/>
           </Item>
         </Form>
         <View style={{paddingHorizontal:20, paddingVertical: 10}}>

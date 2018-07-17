@@ -50,10 +50,16 @@ const ProductShow = (props) => (
           <View>
             <Text style={styles.fistGroupSubtitle}>{props.categories}</Text>
           </View>
-          <View style={{flexDirection: 'row'}}>
-            <Text style={{paddingRight:10}}>{props.price}</Text>
-            <Text style={{textDecorationLine: 'line-through',fontSize: 12,color: '#ccc'}}>{props.normalPrice}</Text>
-          </View>
+          {props.isDiscount ? (
+            <View style={{flexDirection: 'row'}}>
+              <Text style={{paddingRight:10}}>Rp. {props.price}</Text>
+              <Text style={{textDecorationLine: 'line-through',color: '#ccc'}}>Rp. {props.normalPrice}</Text>
+            </View>
+          ) : (
+            <View style={{flexDirection: 'row'}}>
+              <Text style={{paddingRight:10}}>Rp. {props.price}</Text>
+            </View>
+          )}
         </View>
           <View style={styles.firstGroupWrapper2}>
             {props.wishlisted[0] === true ?
@@ -160,11 +166,13 @@ const ProductShow = (props) => (
           </View>
           <View>
             {props.isReviewsExist ? (
-              <FlatList
-                data={props.dataCommentAndRating}
-                renderItem={props.renderCommentAndRating}
-                keyExtractor={(item, index) => JSON.stringify(index)}
-              />
+              <View style={{padding: 10}}>
+                <FlatList
+                  data={props.dataCommentAndRating}
+                  renderItem={props.renderCommentAndRating}
+                  keyExtractor={(item, index) => JSON.stringify(index)}
+                />
+              </View>
             ) : (
               <View style={{padding: 10}}>
                 <View style={{alignItems: 'center', padding: 10, backgroundColor: 'transparent', borderColor: '#e2e2e2', borderWidth:1}}>
@@ -215,7 +223,7 @@ const ProductShow = (props) => (
               </View>
               <View style={styles.flexOnly33}>
                 <Item regular style={styles.amountTextInput}>
-                  <Input value={`${props.qty}`} onChangeText={props.onChangeQty} disabled/>
+                  <Input value={`${props.qty}`} onChangeText={props.onChangeQty} maxLength={100} disabled/>
                 </Item>
               </View> 
               <View style={styles.flexOnly33}>

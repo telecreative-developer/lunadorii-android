@@ -22,6 +22,7 @@ class ProductShowContainer extends Component {
       seeMoreDetails: false,
       seeMoreReviews: false,
       modalVisibleImageView: false,
+      isDiscount: false,
       title: '',
       image: '',
       images:[],
@@ -56,13 +57,13 @@ class ProductShowContainer extends Component {
     this.setState({ seeMoreDetails: !this.state.seeMoreDetails })
   }
 
-  checkReviewers(){
-    if(this.state.data.reviews.length != 0){
-      this.setState({isReviewsExist: true})
-    }else{
-      this.setState({isReviewsExist: false})
-    }
-  }
+  // checkReviewers(){
+  //   if(this.state.data.reviews.length != 0){
+  //     this.setState({isReviewsExist: true})
+  //   }else{
+  //     this.setState({isReviewsExist: false})
+  //   }
+  // }
 
   toggleMoreReviews(){
     this.setState({ seeMoreReviews: !this.state.seeMoreReviews})
@@ -92,6 +93,7 @@ class ProductShowContainer extends Component {
     const data = this.props.navigation.state.params.data
     await this.setState({ 
       data,
+      reviews: data.reviews,
       accessToken:data.accessToken,
       image: data.thumbnails[0].thumbnail_url,
       title: data.product,
@@ -102,13 +104,19 @@ class ProductShowContainer extends Component {
       amountOfImage: data.thumbnails.length,
       starCount: data.product_rate,
       discount: data.discount_percentage,
+      isDiscount: data.discount_percentage <= 0 ? false : true,
       totalPrice: this.discountPrice(data.price, data.discount_percentage)
     })
     await this.props.fetchSingleProductWithId(dataSession.id, data.product_id)
     if(this.props.fetchRelatedProduct(data.product_id)){
       await this.setState({stillLoading: false})
     }
-    await this.checkReviewers()
+    if(this.state.data.reviews.length){
+      await this.setState({isReviewsExist: true})
+    }else{
+      await this.setState({isReviewsExist: false})
+    }
+    
   }
 
   async addQty(){
@@ -212,6 +220,7 @@ class ProductShowContainer extends Component {
         descriptions={this.state.data.description}
         productDetails={this.state.data.detail}
         guide={this.state.data.to_use}
+        isDiscount={this.state.isDiscount}
         qty={this.state.qty}
         totalPrice={this.formatPrice(this.state.totalPrice)}
         amountOfImage={this.state.amountOfImage}
@@ -249,7 +258,7 @@ class ProductShowContainer extends Component {
         dataCommentAndRating={this.state.seeMoreReviews ? this.state.reviews : this.state.reviews.slice(0,1)}
         renderCommentAndRating={({ item }) => (
           <CommentAndRating
-            // user={item.user.first_name}
+            user={item.user.first_name}
             reviews={item.comment}
             date={item.updated_at}
             rating={item.review_rate} />
