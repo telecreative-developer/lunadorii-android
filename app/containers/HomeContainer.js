@@ -77,7 +77,7 @@ class HomeContainer extends Component {
   }
 
   async componentDidMount() {
-    BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    // BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchBanners()
@@ -92,26 +92,26 @@ class HomeContainer extends Component {
     
   }
 
-  componentWillUnmount() {
-    BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
-  }
+  // componentWillUnmount() {
+  //   BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  // }
 
-  handleBackButton() {
-    Alert.alert(
-      'Exit App',
-      'Exiting the application?', [{
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel'
-      }, {
-          text: 'OK',
-          onPress: () => BackHandler.exitApp()
-      }, ], {
-          cancelable: false
-      }
-   )
-   return true;
-  }
+  // handleBackButton() {
+  //   Alert.alert(
+  //     'Exit App',
+  //     'Exiting the application?', [{
+  //         text: 'Cancel',
+  //         onPress: () => console.log('Cancel Pressed'),
+  //         style: 'cancel'
+  //     }, {
+  //         text: 'OK',
+  //         onPress: () => BackHandler.exitApp()
+  //     }, ], {
+  //         cancelable: false
+  //     }
+  //  )
+  //  return true;
+  // }
 
   capitalize(string) {
     return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
@@ -180,6 +180,7 @@ class HomeContainer extends Component {
             image={item.thumbnail_url} 
             title={this.capitalize(item.subcategory)} 
             total={item.products.length}
+            action={() => this.props.navigation.navigate("RelatedToCategoryProductsContainer", {data: item})}
           />
         )}
 
