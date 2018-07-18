@@ -1,10 +1,10 @@
 import React from 'react'
-import { View, Image, Text, Dimensions, StyleSheet } from 'react-native'
+import { View, Image, Text, Dimensions, StyleSheet, TouchableOpacity } from 'react-native'
 import imageSkinCare from '../assets/images/icon/skincare.png'
 const { width, height } = Dimensions.get('window')
 
 const BestCategories = (props) => (
-  <View>
+  <TouchableOpacity onPress={props.action}>
     <View style={styles.viewCategories}>
       <View style={styles.viewFlexRow}>
         <View style={styles.viewFlex2}>
@@ -18,7 +18,7 @@ const BestCategories = (props) => (
         </View>
       </View>
     </View>
-  </View>
+  </TouchableOpacity>
 )
 
 const styles = StyleSheet.create({

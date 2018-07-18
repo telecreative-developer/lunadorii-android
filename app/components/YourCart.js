@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, FlatList, StatusBar, Dimensions, TouchableOpacity, Image } from 'react-native'
 import { Container, Content, Icon, Button, Input, Label, Item, Spinner  } from 'native-base'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import EvilIcons from 'react-native-vector-icons/EvilIcons'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
 import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
@@ -75,13 +75,39 @@ const YourCart = (props) => (
           <Button style={styles.btnAdd} onPress={props.navigateToHome}>
             <Icon name="add"/><Text style={styles.txtAdd}>Add More Product</Text>
           </Button>
+          {/* <TouchableOpacity style={{
+             height: 40,
+             width: 130,
+             borderRadius:5,
+             alignItems:'center',
+             alignSelf:'center',
+             justifyContent:'space-between',
+             backgroundColor:'#ccc',
+             margin:5,
+             flexDirection: 'row',
+          }}>
+            <Ionicons name="md-add"/>
+            <Text style={{
+              color: '#fff',
+              marginHorizontal:  10
+            }}>Add More Product</Text>
+          </TouchableOpacity> */}
+          
+        </View>
+        <View style={{
+          borderTopWidth:1,
+          borderColor:'#e2e2e2'
+        }}>
+          <View style={styles.body}>
+            <Text style={styles.title}>Payment Method</Text>
+          </View>
         </View>
         <View style={styles.border}>
           <View style={styles.body}>
             <Text style={styles.title}>Shipping Address</Text>
             <FlatList
               data={props.onCartShippingAddress}
-              renderItem={props.renderOnCartShippingAddress}
+              renderItem={props.rendersOnCartShippingAddress}
             />
 
             {/* <View>
@@ -232,7 +258,6 @@ const styles = StyleSheet.create({
   },
   border1:{
     borderTopWidth:0,
-    borderBottomWidth:1,
     borderColor:'#e2e2e2'
   },
   Card:{
@@ -283,11 +308,10 @@ const styles = StyleSheet.create({
     fontWeight:'bold'
   },
   btnAdd:{
+    marginVertical:10,
     borderRadius:5,
     alignSelf:'center',
-    backgroundColor:'#AEAEAE',
-    margin:5,
-    marginBottom:15
+    backgroundColor:'#AEAEAE'
   },
   btnPickDeliveryService:{
     height: 25,
@@ -303,8 +327,7 @@ const styles = StyleSheet.create({
     fontWeight:'bold'
   },
   txtAdd:{
-    fontSize:14,
-    paddingRight:10,
+    padding: 10,
     color:'#fff',
     fontWeight:'bold'
   },
