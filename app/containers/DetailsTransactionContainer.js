@@ -35,9 +35,9 @@ export default class DetailsTransactionContainer extends Component{
     return(
       <DetailsTransaction
         goback={() => this.props.navigation.goBack()}
-        totalPrice={ this.formatPrice(data.total) }
+        totalPrice={ data.total == null || data.total === '' ? data.total : this.formatPrice(data.total) }
         address={ data.address }
-        status={ this.capitalize(data.order_status) }
+        status={ data.order_status == null || data.order_status === '' ? data.order_status :this.capitalize(data.order_status) }
         billing_code={ data.billing_code }
         dataOnCart={this.props.navigation.state.params.data.list}
         renderDataOnCart={({item}) => (
@@ -46,7 +46,7 @@ export default class DetailsTransactionContainer extends Component{
             title={item.product}
             categories={item.subcategories[0].stat}
             quantity={item.qty}
-            price={this.formatPrice(item.subtotal)}
+            price={ item.subtotal == null || item.subtotal === '' ? item.subtotal : this.formatPrice(item.subtotal)}
             status={item.status}
             action={() => this.props.navigation.navigate('DetailsOrderContainer' , {item, billing_code: this.state.billing_code})}
           />

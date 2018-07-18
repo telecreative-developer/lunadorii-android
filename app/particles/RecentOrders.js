@@ -33,7 +33,7 @@ const RecentOrders = (props) => (
       <View style={{flexDirection: 'row'}}>
         <Text>Status : </Text>
         <TouchableOpacity onPress={props.action}>
-          <Text style={{fontWeight: 'bold', color: '#d11e47' }}>{props.status.replace(/(^|\s)\S/g, l => l.toUpperCase())}</Text>
+          <Text style={{fontWeight: 'bold', color: '#d11e47' }}>{props.status == null || props.status == '' ? props.status : props.status.replace(/(^|\s)\S/g, l => l.toUpperCase())}</Text>
         </TouchableOpacity>
       </View>
       <View style={{flexDirection: 'row'}}>

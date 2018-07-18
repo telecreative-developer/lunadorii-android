@@ -166,7 +166,7 @@ class ProfileContainer extends Component {
             amountOfItem={item.list.length}
             billing_code={item.billing_code}
             status={item.order_status}
-            total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            total={item.total == null ? item.total : item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             date={moment(item.created_at).calendar()}
             action={() => this.props.navigation.navigate("DetailsTransactionContainer", {data:item})}
           />
