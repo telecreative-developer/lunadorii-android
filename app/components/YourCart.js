@@ -66,12 +66,23 @@ const YourCart = (props) => (
       <Content>
         <View style={styles.body}>
           <Text style={styles.title}>Products</Text>
-          <View>
-            <FlatList
-              data={props.onCartProduct}
-              renderItem={props.renderOnCartProduct}
-            />
-          </View>
+          {props.onCartProduct.length > 0 ? (
+            <View>
+              <FlatList
+                data={props.onCartProduct}
+                renderItem={props.renderOnCartProduct}
+              />
+            </View>
+          ) : (
+            <View>
+              <View style={{alignItems: 'center'}}>
+                <Text>You don't have Recent Orders</Text>
+                <TouchableOpacity onPress={props.navigateToHome}>
+                  <Text style={{color: '#ccc'}}>Go shop now</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
           <Button style={styles.btnAdd} onPress={props.navigateToHome}>
             <Icon name="add"/><Text style={styles.txtAdd}>Add More Product</Text>
           </Button>
@@ -223,23 +234,27 @@ const YourCart = (props) => (
         </View> */}
       </Content>
     )}
-    <View style={styles.footer}>
-      <View style={styles.footerWrapper}>
-        <View style={styles.footerInfo}>
-          <Text style={styles.footerTotalText}>Total</Text>
-          <Text style={styles.footerTotalPriceText}>Rp. {props.totalPrice}</Text>
-          <Text style={styles.footerTotalInfo}>Termasuk PPN, jika berlaku.</Text>
-        </View>
-        <View style={styles.footerButton}>
-          <TouchableOpacity onPress={props.toggleCheckoutPayment}>
-            <View style={styles.footerButtonStyling}> 
-              <FontAwesome name="money" size={20} color="#fff" />
-              <Text style={styles.footerButtonTextStyling}> Go to Payment</Text>
-            </View>
-          </TouchableOpacity>
+    {props.onCartProduct.length ? (
+      <View style={styles.footer}>
+        <View style={styles.footerWrapper}>
+          <View style={styles.footerInfo}>
+            <Text style={styles.footerTotalText}>Total</Text>
+            <Text style={styles.footerTotalPriceText}>Rp. {props.totalPrice}</Text>
+            <Text style={styles.footerTotalInfo}>Termasuk PPN, jika berlaku.</Text>
+          </View>
+          <View style={styles.footerButton}>
+            <TouchableOpacity onPress={props.toggleCheckoutPayment}>
+              <View style={styles.footerButtonStyling}> 
+                <FontAwesome name="money" size={20} color="#fff" />
+                <Text style={styles.footerButtonTextStyling}> Go to Payment</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
       </View>
-    </View>
+    ) : (
+      <View/>
+    )}
   </Container>
 )
 
