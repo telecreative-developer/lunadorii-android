@@ -40,7 +40,7 @@ class YourCartContainer extends Component {
       estDays: "",
       product: "",
       brand: "",
-      selectedMethod: ""
+      selectedMethod: "cc"
     }
   }
 

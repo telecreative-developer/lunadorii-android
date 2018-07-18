@@ -66,12 +66,23 @@ const YourCart = (props) => (
       <Content>
         <View style={styles.body}>
           <Text style={styles.title}>Products</Text>
-          <View>
-            <FlatList
-              data={props.onCartProduct}
-              renderItem={props.renderOnCartProduct}
-            />
-          </View>
+          {props.onCartProduct.length > 0 ? (
+            <View>
+              <FlatList
+                data={props.onCartProduct}
+                renderItem={props.renderOnCartProduct}
+              />
+            </View>
+          ) : (
+            <View>
+              <View style={{alignItems: 'center'}}>
+                <Text>You don't have Recent Orders</Text>
+                <TouchableOpacity onPress={props.navigateToHome}>
+                  <Text style={{color: '#ccc'}}>Go shop now</Text>
+                </TouchableOpacity>
+              </View>
+            </View>
+          )}
           <Button style={styles.btnAdd} onPress={props.navigateToHome}>
             <Icon name="add"/><Text style={styles.txtAdd}>Add More Product</Text>
           </Button>
@@ -223,9 +234,8 @@ const YourCart = (props) => (
         </View> */}
       </Content>
     )}
-    <View style={styles.footer}>
-      {/* {props.selectedCourier == 0 ?
-        <View></View>: */}
+    {props.onCartProduct.length ? (
+      <View style={styles.footer}>
         <View style={styles.footerWrapper}>
           <View style={styles.footerInfo}>
             <Text style={styles.footerTotalText}>Total</Text>
@@ -241,9 +251,10 @@ const YourCart = (props) => (
             </TouchableOpacity>
           </View>
         </View>
-      {/* } */}
-      
-    </View>
+      </View>
+    ) : (
+      <View/>
+    )}
   </Container>
 )
 
