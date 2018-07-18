@@ -41,8 +41,8 @@ const RelatedToBrandProducts = (props) => (
     ) : (
       <Content>
         <View style={styles.viewArrivals}>
-          <View style={{padding: 10}}>
-            <View style={{paddingTop: 5}}>
+          <View>
+            <View>
               {props.dataProduct.length == 0 ?
               <Validations
                 title={props.name+" Doesn't has products"}
@@ -53,7 +53,7 @@ const RelatedToBrandProducts = (props) => (
               />
               :
               <View>
-                <Text style={{fontWeight: 'bold',fontSize: 18}}>{props.name}</Text>
+                <Text style={{fontWeight: 'bold',fontSize: 18, paddingVertical: 5}}>{props.name}</Text>
                 <FlatList
                   numColumns={2}
                   data={props.dataProduct}
@@ -75,7 +75,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   viewArrivals: {
-  
+    paddingLeft: 10
   },
   yourWhisListTextTitle: {
     fontWeight: 'bold',

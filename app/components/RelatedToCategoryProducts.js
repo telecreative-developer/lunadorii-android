@@ -42,7 +42,7 @@ const RelatedToCategoryProducts = (props) => (
     ) : (
       <Content>
         <View style={styles.viewArrivals}>
-          <View style={{padding: 10}}>
+          <View>
             <View style={{paddingTop: 5}}>
               {props.dataProduct.length == 0 ? 
               <Validations
@@ -54,7 +54,7 @@ const RelatedToCategoryProducts = (props) => (
               />
               :
               <View>
-                <Text style={{fontWeight: 'bold',fontSize: 18}}>{props.name}</Text>
+                <Text style={{fontWeight: 'bold',fontSize: 18, paddingVertical: 5}}>{props.name}</Text>
                 <FlatList
                   numColumns={2}
                   data={props.dataProduct}
@@ -76,7 +76,7 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff'
   },
   viewArrivals: {
-
+    paddingLeft: 10
   },
   scrollViewContent: {
     paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 10,
