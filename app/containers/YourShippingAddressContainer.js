@@ -232,6 +232,7 @@ class YourShippingAddressContainer extends Component{
         numberPhoneValue={this.state.numberPhone}
         onChangeNumberPhone={(numberPhone) => this.setState({numberPhone})}
 
+        postalcodeValue={this.props.usershipping.postal_code}
 
         dataProvince={this.props.receiveProvince}
         renderDataProvince={({item}) => (

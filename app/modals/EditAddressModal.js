@@ -122,7 +122,7 @@ const EditAddressModal = (props) => (
       </Form>
     </Content>
     {props.nameValue && props.labelValue && props.addressValue && props.provinceValue && props.cityValue && props.numberPhoneValue && props.postalcodeValue ? (
-      <Button full style={styles.buttonSaveStyle} onPress={props.handleSaveAddress} disabled={props.loading} >
+      <Button full style={styles.buttonSaveStyle} onPress={props.handleUpdateAddress} disabled={props.loading} >
         {props.loading ? (
           <View stryle={styles.style}>
             <Spinner color="#fff"/>
@@ -132,7 +132,7 @@ const EditAddressModal = (props) => (
         )}
       </Button>
     ) : (
-      <Button full style={styles.buttonSaveStyleDisabled} onPress={props.handleSaveAddress} disabled>
+      <Button full style={styles.buttonSaveStyleDisabled} disabled>
         <Text style={styles.buttonSaveTextStyleDisabled}>Save</Text>
       </Button>
     )}

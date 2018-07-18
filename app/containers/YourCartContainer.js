@@ -181,6 +181,7 @@ class YourCartContainer extends Component {
   totalPrice(){
     let totalPrice = 0
     const price = this.props.cartuser.map(data => data.qty * (data.price - (data.price *(data.discount_percentage/100)))).map(data => totalPrice += data)
+    const Tprice = price
     return totalPrice
   }
 
@@ -281,11 +282,12 @@ class YourCartContainer extends Component {
   return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
 }
 
+  handleCheckout
 
 render() {
   console.log('kurir :', this.props.receiveCourier)
   const courier = this.props.receiveCourier
-  console.log('Good :',this.state.modalVisibleEditQuantity)
+  console.log('Good :',this.state.selectedCourier)
   return (
     <YourCart 
       stillLoading={this.state.stillLoading}
