@@ -94,25 +94,25 @@ class HomeContainer extends Component {
   }
 
   // componentWillUnmount() {
-  //   BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+  //   
   // }
 
-  // handleBackButton() {
-  //   Alert.alert(
-  //     'Exit App',
-  //     'Exiting the application?', [{
-  //         text: 'Cancel',
-  //         onPress: () => console.log('Cancel Pressed'),
-  //         style: 'cancel'
-  //     }, {
-  //         text: 'OK',
-  //         onPress: () => BackHandler.exitApp()
-  //     }, ], {
-  //         cancelable: false
-  //     }
-  //  )
-  //  return true;
-  // }
+  handleBackButton() {
+    Alert.alert(
+      'Exit App',
+      'Exiting the application?', [{
+          text: 'Cancel',
+          onPress: () => console.log('Cancel Pressed'),
+          style: 'cancel'
+      }, {
+          text: 'OK',
+          onPress: () => BackHandler.exitApp()
+      }, ], {
+          cancelable: false
+      }
+   )
+   return true;
+  }
 
   capitalize(string) {
     return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
