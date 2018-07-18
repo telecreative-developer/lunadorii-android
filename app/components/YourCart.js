@@ -100,6 +100,10 @@ const YourCart = (props) => (
         }}>
           <View style={styles.body}>
             <Text style={styles.title}>Payment Method</Text>
+            <FlatList
+              data={props.paymentMethod}
+              renderItem={props.renderPaymentMethod}
+            />
           </View>
         </View>
         <View style={styles.border}>
