@@ -224,21 +224,25 @@ const YourCart = (props) => (
       </Content>
     )}
     <View style={styles.footer}>
-      <View style={styles.footerWrapper}>
-        <View style={styles.footerInfo}>
-          <Text style={styles.footerTotalText}>Total</Text>
-          <Text style={styles.footerTotalPriceText}>Rp. {props.totalPrice}</Text>
-          <Text style={styles.footerTotalInfo}>Termasuk PPN, jika berlaku.</Text>
+      {/* {props.selectedCourier == 0 ?
+        <View></View>: */}
+        <View style={styles.footerWrapper}>
+          <View style={styles.footerInfo}>
+            <Text style={styles.footerTotalText}>Total</Text>
+            <Text style={styles.footerTotalPriceText}>Rp. {props.totalPrice}</Text>
+            <Text style={styles.footerTotalInfo}>Termasuk PPN, jika berlaku.</Text>
+          </View>
+          <View style={styles.footerButton}>
+            <TouchableOpacity onPress={props.toggleCheckoutPayment}>
+              <View style={styles.footerButtonStyling}> 
+                <FontAwesome name="money" size={20} color="#fff" />
+                <Text style={styles.footerButtonTextStyling}> Go to Payment</Text>
+              </View>
+            </TouchableOpacity>
+          </View>
         </View>
-        <View style={styles.footerButton}>
-          <TouchableOpacity onPress={props.toggleCheckoutPayment}>
-            <View style={styles.footerButtonStyling}> 
-              <FontAwesome name="money" size={20} color="#fff" />
-              <Text style={styles.footerButtonTextStyling}> Go to Payment</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-      </View>
+      {/* } */}
+      
     </View>
   </Container>
 )
