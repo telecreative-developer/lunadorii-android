@@ -81,11 +81,11 @@ const Home = (props) => (
           <Content style={{width: width,height: height}}>
             <View style={styles.recommededProductWrapper}>
             {props.dataProduct.length == 0 ?
-            <View>
-              <View style={{alignItems: 'center'}}>
-                <Text>We don't have Recommended Product</Text>
+              <View>
+                <View style={{alignItems: 'center'}}>
+                  <Text>We don't have Recommended Product</Text>
+                </View>
               </View>
-            </View>
             :
               <FlatList
                 horizontal={true}
