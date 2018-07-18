@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AsyncStorage, View, Alert, Button, Text, StyleSheet, TouchableOpacity, Image} from 'react-native'
+import {AsyncStorage, View, Alert, Button, Text, StyleSheet, TouchableOpacity, Image, BackHandler} from 'react-native'
 import YourCart from '../components/YourCart'
 import OnCart from '../particles/OnCart'
 import ShippingAddress from '../particles/ShippingAddress'
@@ -53,12 +53,24 @@ class YourCartContainer extends Component {
   }
 
   async componentDidMount(){
+    // await BackHandler.eve('hardwareBackPress', () => this.props.navigation.goBack());
+    {console.log('prop :', this.props.cartuser.length)}
+    await this.validasiCart()
+  }
+
+  async validasiCart(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    if(this.props.cartuser.length == 0){
+      await this.props.fetchCartUser(data.id, data.accessToken)
+      await this.props.fetchUserShipping(data.id, data.accessToken)
+      await this.setState({stillLoading: false}) 
+    }else{
     await this.props.fetchCartUser(data.id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
     await this.getCourier()
     await this.setState({stillLoading: false})
+    }
   }
 
   async getCourier(){

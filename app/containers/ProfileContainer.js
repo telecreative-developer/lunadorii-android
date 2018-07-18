@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, ToastAndroid } from 'react-native'
+import { AsyncStorage, ToastAndroid, BackHandler } from 'react-native'
 import { RNS3 } from 'react-native-aws3';
 import Profile from '../components/Profile'
 import RecentOrders from '../particles/RecentOrders'
@@ -9,33 +9,6 @@ import {connect} from 'react-redux'
 import { fetchSingleUser } from '../actions/getSingleUser'
 import { editName } from '../actions/editprofile'
 import { fetchProductRecent, fetchProductHistory } from '../actions/product'
-
-const dataRecentOrders = [
-  {
-    image: 'https://ssli.ebayimg.com/images/g/Dp8AAOSwPc9WuaVh/s-l640.jpg',
-    categories: 'Beuty Box, Cream Sunblock, and 3 others',
-    status: 'Packing',
-    date: '20 Mei',
-    time: '12:00 AM',
-    total: 650000
-  },
-  {
-    image: 'https://i5.walmartimages.ca/images/Large/1c0/_en/999999-00770103148748_a1c0_en.jpg?odnBound=460',
-    categories: 'Beuty Box, Cream Sunblock, and 3 others',
-    status: 'Delivered',
-    date: '20 Mei',
-    time: '12:00 AM',
-    total: 450000
-  },
-  {
-    image: 'https://image.afcdn.com/expertclub/20150420/279261_w300h300.jpg',
-    categories: 'Beuty Box, Cream Sunblock, and 3 others',
-    status: 'Checkout',
-    date: '20 Mei',
-    time: '12:00 AM',
-    total: 750000
-  },
-]
 
 class ProfileContainer extends Component {
 
@@ -138,6 +111,7 @@ class ProfileContainer extends Component {
   }
 
   async componentDidMount(){
+    await BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchProductHistory(data.id, data.accessToken)
@@ -166,7 +140,7 @@ class ProfileContainer extends Component {
             amountOfItem={item.list.length}
             billing_code={item.billing_code}
             status={item.order_status}
-            total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+            total={item.total}
             date={moment(item.created_at).calendar()}
             action={() => this.props.navigation.navigate("DetailsTransactionContainer", {data:item})}
           />
