@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage, TouchableOpacity, BackHandler, ToastAndroid, Alert } from 'react-native'
+import { Radio } from 'native-base'
 import { connect } from 'react-redux'
 
 import Home from '../components/Home'

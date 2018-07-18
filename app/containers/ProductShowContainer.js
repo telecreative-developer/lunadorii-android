@@ -88,7 +88,7 @@ class ProductShowContainer extends Component {
 
   async deleteState(){
     await this.setState({})
-    await this.props.navigation.goBack()
+    await this.props.navigation.navigate('HomeContainer')
   }
 
   async componentDidMount() {

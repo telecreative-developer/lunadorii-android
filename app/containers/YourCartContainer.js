@@ -1,12 +1,15 @@
 import React, { Component } from 'react'
-import {AsyncStorage, View, Alert, Button, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import {AsyncStorage, View, Alert, Button, Text, StyleSheet, TouchableOpacity, Image} from 'react-native'
 import YourCart from '../components/YourCart'
 import OnCart from '../particles/OnCart'
 import ShippingAddress from '../particles/ShippingAddress'
+import ImageCreditCard from '../assets/images/icon/credit-card.png'
+import ImageBank from '../assets/images/icon/bank.png'
 import { connect } from 'react-redux'
 import { fetchCartUser, removeCart, editQty } from '../actions/cart'
 import { fetchUserShipping, updateShipping } from '../actions/usershipping'
 import { fetchCourier } from '../actions/shipping'
+import { Radio } from 'native-base';
 
 class YourCartContainer extends Component {
 
@@ -37,6 +40,7 @@ class YourCartContainer extends Component {
       estDays: "",
       product: "",
       brand: "",
+      selectedMethod: ""
     }
   }
 
@@ -52,7 +56,6 @@ class YourCartContainer extends Component {
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchCartUser(data.id, data.accessToken)
-    await this.props.fetchUserShipping(data.id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
     await this.getCourier()
     await this.setState({stillLoading: false})
@@ -336,6 +339,21 @@ render() {
           actionRemove={() => this.removeCart(item)}
         />
       )}
+
+      paymentMethod={[
+        {methodAlias: 'cc'  , label: 'Credit Card', image: ImageCreditCard},
+        {methodAlias: 'bank', label: 'Bank Transfer',  image: ImageBank}
+      ]}
+      renderPaymentMethod={({item}) => (
+        <View style={{borderColor: this.state.selectedMethod === item.methodAlias ? '#d11e48':'#e2e2e2', margin: 5,borderWidth: 1, width: 150}}>
+          <TouchableOpacity onPress={() => this.setState({selectedMethod: item.methodAlias})} style={{padding: 10, flexDirection: 'row', justifyContent:'space-evenly'}}>
+            <Radio selected={this.state.selectedMethod === item.methodAlias} selectedColor={'#d11e48'} onPress={() => this.setState({selectedMethod: item.methodAlias})}/>
+            <Image source={item.image} style={{height: 20, width: 20, padding:5}}/>
+            <Text>{item.label}</Text>
+          </TouchableOpacity>
+        </View>
+      )}
+      
       // goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer")}
       onCartShippingAddress={this.props.usershipping.filter(shp => shp.address_default)}
       rendersOnCartShippingAddress={({item}) => (

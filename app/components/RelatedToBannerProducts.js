@@ -71,11 +71,11 @@ const RelatedToBannerProducts = (props) => (
             />
           </ImageBackground>
           <View style={styles.viewArrivals}>
-            <View style={{padding: 10}}>
-              <View style={{paddingTop: 5}}>
+            <View>
+              <View>
                 <View>
                   <View>
-                    <Text style={{fontWeight: 'bold',fontSize: 18}}>{props.title}</Text>
+                    <Text style={{fontWeight: 'bold',fontSize: 18, paddingVertical: 5}}>{props.title}</Text>
                     <FlatList
                       numColumns={2}
                       data={props.dataProduct}
@@ -100,6 +100,9 @@ const styles = StyleSheet.create({
     paddingTop: Platform.OS !== 'ios' ? HEADER_MAX_HEIGHT : 10,
     padding: 10,
     alignItems:'center'
+  },
+  viewArrivals:{
+    paddingLeft: 10
   },
   row: {
     height: 40,
