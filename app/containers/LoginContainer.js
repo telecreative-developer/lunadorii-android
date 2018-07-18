@@ -116,10 +116,24 @@ class LoginContainer extends Component {
       this.props.navigation.dispatch(
         StackActions.reset({
           index:0,
-          actions:[NavigationActions.navigate({routeName:'HomeContainer'})]
+          actions:[NavigationActions.navigate({routeName:'ProfileContainer'})]
         })
       )
     }
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.backPressed)
+  }
+
+  backPressed = () => {
+    this.handleBack()
+    return true
+  }
+
+   async handleBack() {
+    await this.props.navigation.goBack()
+    await this.props.setNavigate()
   }
 
   componentDidUpdate(prevProps) {

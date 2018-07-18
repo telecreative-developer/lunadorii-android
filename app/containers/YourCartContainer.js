@@ -36,7 +36,7 @@ class YourCartContainer extends Component {
       cost:[],
       estDays: "",
       product: "",
-      brand: ""
+      brand: "",
     }
   }
 
@@ -53,10 +53,9 @@ class YourCartContainer extends Component {
     const data = await JSON.parse(session)
     await this.props.fetchCartUser(data.id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
-    if(this.props.fetchUserShipping(data.id, data.accessToken)){
-      this.setState({stillLoading: false})
-    }
+    await this.props.fetchUserShipping(data.id, data.accessToken)
     await this.getCourier()
+    await this.setState({stillLoading: false})
   }
 
   async getCourier(){
@@ -179,6 +178,7 @@ class YourCartContainer extends Component {
   totalPrice(){
     let totalPrice = 0
     const price = this.props.cartuser.map(data => data.qty * (data.price - (data.price *(data.discount_percentage/100)))).map(data => totalPrice += data)
+    const Tprice = price
     return totalPrice
   }
 
@@ -279,107 +279,87 @@ class YourCartContainer extends Component {
   return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
 }
 
+  handleCheckout
 
-  render() {
-    console.log('kurir :', this.props.receiveCourier)
-    const courier = this.props.receiveCourier
-    console.log('Good :',this.state.modalVisibleEditQuantity)
-    return (
-      <YourCart 
-        stillLoading={this.state.stillLoading}
-        selectedCourier={this.state.selectedCourier}
-        // estDays={this.state.estDays}
-
-        selectedServices={this.capitalize(this.state.code)}
-        courierCode={courier}
-        renderCode={({item}) => (
-          <TouchableOpacity  title={item.code.toUpperCase()} style={styles.btnPickDeliveryService} onPress={()=>this.chooseService(item.code, item.costs)}>
-            <Text style={styles.txtChooseDeliveryService}>{item.code.toUpperCase()}</Text>
-          </TouchableOpacity>
-        )}
-        
-        courierMetode={this.state.cost}
-        courierRender={({item}) => (
-            <TouchableOpacity onPress={() => this.chooseCourier(item)}>
-              <View style={{padding: 10, flexDirection: 'row',justifyContent: 'space-around'}}>
-                <Text style={{fontWeight: 'bold',color: '#000'}}>{item.service.toUpperCase()}</Text>
-                <Text>{item.cost[0].etd} Days</Text>
-                <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. {item.cost[0].value},-</Text>
-              </View>
-            </TouchableOpacity>
-          )}
-
-        modalVisiblePickDeliveryService={this.state.modalVisiblePickDeliveryService}
-        toggleModalPickDeliveryService={() => this.setState({modalVisiblePickDeliveryService: !this.state.modalVisiblePickDeliveryService})}
-
-        paymentGuide1Visible={this.state.paymentGuide1Visible}
-        togglePaymentGuide1Visible={() => this.togglePaymentGuide1Visible()}
-
-        bcaGuide={this.state.bcaGuide}
-        toggleBcaGuide={() => this.setState({bcaGuide: !this.state.bcaGuide})}
-
-        paymentGuide2Visible={this.state.paymentGuide2Visible}
-        togglePaymentGuide2Visible={() => this.togglePaymentGuide2Visible()}
-
-        quantity={this.state.quantity}
-        price={this.discountPrice(this.state.price, this.state.discount_percentage)}
-        totalPrice={this.formatPrice(this.totalPrice())}
-
-        onChangeQuantity={(quantity) => this.setState({quantity})}
-        addQty={() => this.addQty()}
-        minQty={() => this.minQty()}
-        handleEditQtyModal={() => this.handleEditQtyModal()}
-        loadingBtn={this.state.loadingBtn}
-
-        onCartProduct={this.props.cartuser}
-        renderOnCartProduct={({item}) => (
-          <OnCart 
-            title={item.product.length == 20 ? item.product : item.product.slice(0,18) + "..."}
-            categories={item.brands[0].brand}
-            quantity={item.qty} 
-            price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
-            image={item.thumbnails[0].thumbnail_url}
-            actionEdit={() => this.toggleModalEditQuantity(item)}
-            actionRemove={() => this.removeCart(item)}
-          />
-        )}
-        goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer")}
-        onCartShippingAddress={this.props.usershipping}
-        renderOnCartShippingAddress={({item}) => 
-        item.address_default ? (
-          <ShippingAddress 
-            name={item.recepient}
-            numberPhone={item.phone}
-            detail_address={item.detail_address}
-            address_default={item.address_default}
-            actionEdit={() => this.toggleModalEditAddress(item)}
-            actionSetdefault={() => this.onChangeDefault(item)}
-            actionDelete={() => this.deteleShipping(item)}
-            goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer")}
-          />
-        ) : (
-          <TouchableOpacity onPress={() => this.props.navigation.navigate("YourShippingAddressContainer")}>
-            <View style={{padding: 10}}>
-              <Text>No default shipping address</Text>
-              <Text>Selected tap here to add</Text>
-            </View>
-          </TouchableOpacity>
-        )}
-
-        product={this.state.product}
-        brand={this.state.brand}
-
-        modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
-        toggleModalEditQuantity={() => this.toggleModalEditQuantity(this.props.cartuser)}
-
-        modalVisibleCheckoutPayment={this.state.modalVisibleCheckoutPayment}
-        toggleCheckoutPayment={() => this.toggleCheckoutPayment()}
-
-        deliverySeriveVisible={this.state.deliverySeriveVisible}
-        toggleDeliverySerive={() => this.setState({deliverySeriveVisible: !this.state.deliverySeriveVisible})}
-
-        navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
-        goback={() => this.props.navigation.goBack()}/>
+render() {
+  console.log('kurir :', this.props.receiveCourier)
+  const courier = this.props.receiveCourier
+  console.log('Good :',this.state.selectedCourier)
+  return (
+    <YourCart 
+      stillLoading={this.state.stillLoading}
+      selectedCourier={this.state.selectedCourier}
+      // estDays={this.state.estDays}
+      selectedServices={this.capitalize(this.state.code)}
+      courierCode={courier}
+      renderCode={({item}) => (
+        <TouchableOpacity style={styles.btnPickDeliveryService} onPress={()=>this.chooseService(item.code, item.costs)}>
+          <Text style={styles.txtChooseDeliveryService}>{item.code.toUpperCase()}</Text>
+        </TouchableOpacity>
+      )}
+      
+      courierMetode={this.state.cost}
+      courierRender={({item}) => (
+        <TouchableOpacity onPress={() => this.chooseCourier(item)}>
+          <View style={{padding: 10, flexDirection: 'row',justifyContent: 'space-around'}}>
+            <Text style={{fontWeight: 'bold',color: '#000'}}>{item.service.toUpperCase()}</Text>
+            <Text>{item.cost[0].etd} Days</Text>
+            <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. {item.cost[0].value},-</Text>
+          </View>
+        </TouchableOpacity>
+      )}
+      modalVisiblePickDeliveryService={this.state.modalVisiblePickDeliveryService}
+      toggleModalPickDeliveryService={() => this.setState({modalVisiblePickDeliveryService: !this.state.modalVisiblePickDeliveryService})}
+      paymentGuide1Visible={this.state.paymentGuide1Visible}
+      togglePaymentGuide1Visible={() => this.togglePaymentGuide1Visible()}
+      bcaGuide={this.state.bcaGuide}
+      toggleBcaGuide={() => this.setState({bcaGuide: !this.state.bcaGuide})}
+      paymentGuide2Visible={this.state.paymentGuide2Visible}
+      togglePaymentGuide2Visible={() => this.togglePaymentGuide2Visible()}
+      quantity={this.state.quantity}
+      price={this.discountPrice(this.state.price, this.state.discount_percentage)}
+      totalPrice={this.formatPrice(this.totalPrice())}
+      onChangeQuantity={(quantity) => this.setState({quantity})}
+      addQty={() => this.addQty()}
+      minQty={() => this.minQty()}
+      handleEditQtyModal={() => this.handleEditQtyModal()}
+      loadingBtn={this.state.loadingBtn}
+      onCartProduct={this.props.cartuser}
+      renderOnCartProduct={({item}) => (
+        <OnCart 
+          title={item.product.length == 20 ? item.product : item.product.slice(0,18) + "..."}
+          categories={item.brands[0].brand}
+          quantity={item.qty} 
+          price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
+          image={item.thumbnails[0].thumbnail_url}
+          actionEdit={() => this.toggleModalEditQuantity(item)}
+          actionRemove={() => this.removeCart(item)}
+        />
+      )}
+      // goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer")}
+      onCartShippingAddress={this.props.usershipping.filter(shp => shp.address_default)}
+      rendersOnCartShippingAddress={({item}) => (
+        <ShippingAddress 
+          name={item.recepient}
+          numberPhone={item.phone}
+          detail_address={item.detail_address}
+          address_default={item.address_default}
+          actionEdit={() => this.toggleModalEditAddress(item)}
+          actionSetdefault={() => this.onChangeDefault(item)}
+          actionDelete={() => this.deteleShipping(item)}
+          goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer")}
+        />
+      )}
+      product={this.state.product}
+      brand={this.state.brand}
+      modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
+      toggleModalEditQuantity={() => this.toggleModalEditQuantity(this.props.cartuser)}
+      modalVisibleCheckoutPayment={this.state.modalVisibleCheckoutPayment}
+      toggleCheckoutPayment={() => this.toggleCheckoutPayment()}
+      deliverySeriveVisible={this.state.deliverySeriveVisible}
+      toggleDeliverySerive={() => this.setState({deliverySeriveVisible: !this.state.deliverySeriveVisible})}
+      navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
+      goback={() => this.props.navigation.goBack()}/>
     );
   }
 }
@@ -410,17 +390,19 @@ const mapStateToProps = (state) => {
 
 const styles = StyleSheet.create({
   btnPickDeliveryService:{
-    height: 25,
+    height: 40,
+    width: 130,
     borderRadius:5,
-    alignSelf:'center',
+    alignItems:'center',
+    justifyContent:'center',
     backgroundColor:'#d11e48',
     margin:5,
   },
   txtChooseDeliveryService:{
+    fontWeight: 'bold',
     color: '#fff',
-    alignSelf: 'center',
     marginHorizontal:  10
-  }
+  },
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(YourCartContainer)

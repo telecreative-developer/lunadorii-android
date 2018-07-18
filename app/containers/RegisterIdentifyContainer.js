@@ -53,7 +53,8 @@ class RegisterIdentifyContainer extends Component {
   }
 
   async componentDidMount(){
-    email = this.props.navigation.state.params
+    console.log('email :', this.props.navigation.state.params)
+    email = await this.props.navigation.state.params
     await this.setState({email: email.email})
     // console.log('isi Session' , this.state )
   }
@@ -65,12 +66,10 @@ class RegisterIdentifyContainer extends Component {
   renderButton(id){
         const { first_name, last_name, email, password } = this.state
         const { loading } = this.props
-        // const regexEmail = /^[^@]+@(yahoo|gmail)\.(com|net)$/i
       
         if (!isEmpty(first_name) &&
             !isEmpty(last_name) &&
             !isEmpty(email) &&
-            // regexEmail.test(email) === true &&
             !isEmpty(password)) {
             return (
               <View style={styles.formRegister}>
@@ -98,23 +97,7 @@ class RegisterIdentifyContainer extends Component {
 
     async handleValidationRegister(id){
       const { email } = this.state
-      // // console.log('id response user: ', id)
-      // if (!isEmail(String(JSON.stringify(email)))) {
-      //   // console.log('Ini email', email)
-      //   Alert.alert('Register gagal', 'Silahkan masukan alamat email yang valid')
-      // } else {
-      //   this.props.register(this.state)
-      //   this.props.navigation.navigate('HomeContainer', {user: this.state})
-      //   this.setState({
-      //     first_name: '',
-      //     last_name: '',
-      //     email: '',
-      //     password: ''
-      //   })
-      // }
-
       await this.props.register(this.state)
-      // await this.props.navigation.navigate('AddPhotoProfileContainer', {user: this.state, id: this.props.registerresult.id})
       await this.props.navigation.navigate("LoginContainer")
       await this.setState({
         first_name: '',

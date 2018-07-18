@@ -43,6 +43,8 @@ const YourShippingAddress = (props) => (
       numberPhoneValue={props.numberPhoneValue}
       onChangeNumberPhone={props.onChangeNumberPhone}
 
+      postalcodeValue={props.postalcodeValue}
+
       dataProvince={props.dataProvince}
       renderDataProvince={props.renderDataProvince}
       visibleProvincePicker={props.visibleProvincePicker}

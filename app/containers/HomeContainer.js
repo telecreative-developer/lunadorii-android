@@ -77,7 +77,7 @@ class HomeContainer extends Component {
   }
 
   async componentDidMount() {
-    this.BackHandler = BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
+    // BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchBanners()
@@ -92,17 +92,16 @@ class HomeContainer extends Component {
     
   }
 
-  // async componentWillUnmount() {
-  //   BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton(this))
-  //   // this.BackHandler.remove();
+  // componentWillUnmount() {
+  //   BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
   // }
 
-  // async handleBackButton() {
-  //   await Alert.alert(
+  // handleBackButton() {
+  //   Alert.alert(
   //     'Exit App',
   //     'Exiting the application?', [{
   //         text: 'Cancel',
-  //         onPress: () => BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton),
+  //         onPress: () => console.log('Cancel Pressed'),
   //         style: 'cancel'
   //     }, {
   //         text: 'OK',
@@ -112,8 +111,6 @@ class HomeContainer extends Component {
   //     }
   //  )
   //  return true;
-
-  //  await BackHandler.removeEventListener('hardwareBackPress',  this.handleBackButton)
   // }
 
   capitalize(string) {
@@ -183,6 +180,7 @@ class HomeContainer extends Component {
             image={item.thumbnail_url} 
             title={this.capitalize(item.subcategory)} 
             total={item.products.length}
+            action={() => this.props.navigation.navigate("RelatedToCategoryProductsContainer", {data: item})}
           />
         )}
 

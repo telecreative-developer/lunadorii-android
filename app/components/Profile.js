@@ -68,15 +68,7 @@ const Profile = (props) => (
         </View>
         <View style={styles.viewRecent}>
           <Text style={styles.txtRecent}>Recent Orders</Text>
-          {props.dataRecentOrders.length == 0 ? 
-            <View>
-              <View style={{alignItems: 'center'}}>
-                <Text>You don't have Recent Orders</Text>
-                <TouchableOpacity onPress={props.navigateToHome}>
-                  <Text style={{color: '#ccc'}}>Go shop now</Text>
-                </TouchableOpacity>
-              </View>
-            </View>:
+          {props.dataRecentOrders.length != 0 ? 
             <View>
               <FlatList
                 horizontal={true}
@@ -85,6 +77,15 @@ const Profile = (props) => (
                 renderItem={props.renderRecentOrders}
                 keyExtractor={(item, index) => JSON.stringify(index)}
               />
+            </View>
+            :
+            <View>
+              <View style={{alignItems: 'center'}}>
+                <Text>You don't have Recent Orders</Text>
+                <TouchableOpacity onPress={props.navigateToHome}>
+                  <Text style={{color: '#ccc'}}>Go shop now</Text>
+                </TouchableOpacity>
+              </View>
             </View>
           }
         </View>
