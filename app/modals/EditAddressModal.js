@@ -119,7 +119,8 @@ const EditAddressModal = (props) => (
               height: 40,
               borderColor: props.postalcodeValue ? '#ccc' : '#c0392b'
             }}>
-              <Input value={props.postalcodeValue} onChangeText={props.onChangePostalcode} keyboardType={'numeric'} maxLength={6}/>
+              {console.log('isi postal code :', props.postalcodeValue, props.numberPhoneValue)}
+              <Input value={props.postalcodeValue} onChangeText={props.onChangePostalcode}  maxLength={6}/>
               <Ionicons name={props.postalcodeValue ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
             </Item>
           </View>

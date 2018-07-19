@@ -2,7 +2,8 @@ import { setLoading, setFailed, setSuccess } from './processor'
 // import { RECEIVE_WISHLIST } from '../constants'
 import { API_SERVER } from '../env'
 
-export const postCheckout = (accessToken, id) => {
+export const postCheckout = (dataUser, accessToken) => {
+	console.log('dataaaaa:',dataUser)
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_CHECKOUT'))
 		try {
@@ -14,18 +15,22 @@ export const postCheckout = (accessToken, id) => {
 					Authorization: accessToken
         },
         body: JSON.stringify({
-          {
-            address:dataUser.address,
-            paid_method:dataUser.paid_method,
-            id:dataUser.id,
-            data: data.product.map(d => d)
-          }
+						delivery_service:dataUser.service,
+            paid_method:dataUser.selectedMethod,
+						id:dataUser.id,
+						address:dataUser.detail_address,
+						delivery_price:dataUser.delivery_price,
+						city_id: dataUser.city_id,
+						province_id: dataUser.province_id,
+						data: dataUser.data
         })
 			})
 			const data = await response.json()
+			console.log(data)
 			await dispatch(setSuccess(true, 'SUCCESS_CHECKOUT'))
     	await dispatch(setLoading(false, 'LOADING_CHECKOUT'))
 		} catch (e) {
+			console.log(e)
 			dispatch(setFailed(true, 'FAILED_CHECKOUT', e))
 			dispatch(setLoading(false, 'LOADING_CHECKOUT'))
 		}
