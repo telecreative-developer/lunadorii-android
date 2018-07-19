@@ -1,11 +1,11 @@
 import React from 'react'
-import { StyleSheet, View, Image, TouchableHighlight } from 'react-native'
+import { StyleSheet, View, Image, TouchableOpacity } from 'react-native'
 
 const Product = (props) => (
   <View style={styles.viewImage}>
-    <TouchableHighlight onPress={props.action}>
+    <TouchableOpacity onPress={props.action}>
       <Image source={{uri: props.image}} style={styles.image}/>
-    </TouchableHighlight>
+    </TouchableOpacity>
   </View>
 )
 const styles = StyleSheet.create({

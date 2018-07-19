@@ -3,6 +3,7 @@ import { Modal, Text, StyleSheet, Dimensions, FlatList } from 'react-native'
 import { Content, Item, Input, Label, Button, Form, View, Spinner } from 'native-base'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import NavbarModal from '../particles/NavbarModal'
+import SearchableFlatlist from '../particles/SearchableFlatlist'
 const { height, width } = Dimensions.get('window')
 
 const EditAddressModal = (props) => (
@@ -53,7 +54,9 @@ const EditAddressModal = (props) => (
 
         <Label style={styles.labels}>Province</Label>
         {props.provinceValue && props.visibleProvincePicker ? (
-          <FlatList
+          <SearchableFlatlist
+            searchTerm={props.provinceValue}
+            searchProperty={"province"}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             data={props.dataProvince}
@@ -74,7 +77,9 @@ const EditAddressModal = (props) => (
 
         <Label style={styles.labels}>City</Label>
         {props.cityValue && props.visibleCityPicker ? (
-          <FlatList
+          <SearchableFlatlist
+            searchTerm={props.cityValue}
+            searchProperty={"city"}
             horizontal={true}
             showsHorizontalScrollIndicator={false}
             data={props.dataCity}

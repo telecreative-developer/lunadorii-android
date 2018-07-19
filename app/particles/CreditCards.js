@@ -12,7 +12,17 @@ const CreditCards = (props) => (
         <Text>EXP: {props.validationDate}</Text>
       </View>
       <View style={styles.wrapRight}>
-        <TouchableOpacity onPress={props.action}>
+        {false ? (
+          <View/>
+        ) : (
+          <TouchableOpacity onPress={props.actionSetDefault}>
+            <Text style={styles.txtAction}>Set Default</Text>
+          </TouchableOpacity>
+        )}
+        <TouchableOpacity onPress={props.actionRemove}>
+          <Text style={styles.txtAction}>Remove</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={props.actionEdit}>
           <Text style={styles.txtAction}>Edit</Text>
         </TouchableOpacity>
       </View>

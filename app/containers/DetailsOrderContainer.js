@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, ToastAndroid } from 'react-native'
 import { connect } from 'react-redux'
 import moment from 'moment'
 
@@ -36,7 +36,8 @@ class DetailsOrderContainer extends Component{
     const { review, ratings } = this.state
     const dataProduct = this.props.navigation.state.params.item
     await this.props.createReview(data.id, {review , ratings} , data.accessToken, dataProduct.product_id)
-    await alert('Succes Add Review')
+    // await alert('Succes Add Review')
+    ToastAndroid.showWithGravity("Thanks for review", ToastAndroid.SHORT, ToastAndroid.CENTER)
     await this.setState({
       modalVisibleAddReviews: false,
       review:'',
@@ -61,7 +62,7 @@ class DetailsOrderContainer extends Component{
         billing_code={this.props.navigation.state.params.billing_code}
         payment_time={moment(data.payment_time).calendar()}
         delivery_time={moment(data.delivery_time).calendar()}
-        status={this.capitalize(data.order_product_status)}
+        status={data.order_product_status == null || data.order_product_status === '' ? data.order_product_status :this.capitalize(data.order_product_status)}
         purchase_number={data.purchase_number}
         receipt_time={moment(data.receipt_time).calendar()}
         delivery_service={data.delivery_service}

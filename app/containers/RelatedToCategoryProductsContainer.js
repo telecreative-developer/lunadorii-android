@@ -80,8 +80,10 @@ class RelatedToCategoryProductsContainer extends Component{
   render(){
     return(
       <RelatedToCategoryProducts    
+        quantityValue={this.state.qty}
         stillLoading={this.state.stillLoading}
         name={this.props.navigation.state.params.data.subcategory}
+        icon={this.props.navigation.state.params.data.thumbnail_url}
         dataProduct={this.props.receiveProductWithCategory}
         renderProduct={({item}) => (
           <Product

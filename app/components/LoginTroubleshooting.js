@@ -20,14 +20,13 @@ const LoginTroubleshooting = (props) => (
             <Text>send you a link to get back into</Text>
             <Text>your account</Text>
           </View>
-          <Form>
+          <Form style={{marginHorizontal: 50}}>
             <Item regular style={styles.item}>
               <Input 
                 placeholder="You email address" 
                 placeholderTextColor="#ccc"
                 value={props.valueEmail}
                 onChangeText={props.onChangeEmail}
-                style={{marginLeft: 5}}
               />
             </Item>
           </Form>
@@ -42,7 +41,12 @@ const LoginTroubleshooting = (props) => (
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{paddingBottom: 10}}>
+        <View style={{borderTopColor: '#979797', borderTopWidth: 1.2, borderBottomColor: '#979797', borderBottomWidth: 1.2, marginHorizontal: 40, alignItems:'center', marginTop: 5}}>
+          <TouchableOpacity style={{flexDirection:'row', alignItems: 'center', paddingVertical: 50}} onPress={props.loginFB}>
+            <Icon type="Entypo" name="facebook" style={{color:"#3B5998"}}/><Text style={{color:"#3B5998", paddingLeft: 5}}>Log in With Facebook</Text>
+          </TouchableOpacity>
+        </View>
+        {/* <View style={{paddingBottom: 10}}>
           <View style={{borderTopColor: "#979797", borderTopWidth: 1.2, borderBottomColor: "#979797", borderBottomWidth: 1.2}}>
             <View style={styles.informationWrapper1}>
               <TouchableOpacity style={styles.alignSelfCenter1}>
@@ -50,7 +54,7 @@ const LoginTroubleshooting = (props) => (
               </TouchableOpacity>
             </View>
           </View>
-        </View>
+        </View> */}
         <View style={styles.informationWrapper2}>
           <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToLogin}>
             <Text style={styles.backToLoginStyle}>Back To Log In</Text>
@@ -73,8 +77,7 @@ const styles = StyleSheet.create({
     width: width
   },
   wrapper: {
-    paddingLeft: 45,
-    paddingRight: 45
+    
   },
   item: {
     borderColor: '#979797',
@@ -99,6 +102,7 @@ const styles = StyleSheet.create({
     paddingBottom: 10
   },
   buttonSendLinkStyle:{
+    marginHorizontal: 50,
     height: 50,
     borderRadius: 10, 
     backgroundColor: '#d11e48'
@@ -112,6 +116,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   informationWrapper2:{
+    marginTop: 5,
     marginBottom: 15,
     flexDirection: 'row', 
     justifyContent: 'center'

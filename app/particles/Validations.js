@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, StyleSheet, Text, Dimensions } from 'react-native'
+import { View, StyleSheet, Text, Dimensions, TouchableOpacity, Image } from 'react-native'
 import { Button } from 'native-base'
 const { height, width } = Dimensions.get('window')
 
@@ -14,6 +14,13 @@ const Validations = (props) => (
       justifyContent: 'center',
       alignContent: 'center',
     }}>
+    {props.showIcon ? (
+      <View>
+        <Image source={{uri: props.icon}} style={styles.imageCategories} />
+      </View>
+    ) : (
+      <View/>
+    )}
     <View style={{padding: 10}}>
       <Text style={{fontSize: 24, color: '#000', textAlign: 'center'}}>{props.title}</Text>
     </View>
@@ -42,4 +49,13 @@ const styles = StyleSheet.create({
     color: '#fff', 
     fontSize: 18 
   },
+
+  imageCategories: {
+    width: 30,
+    height: 30,
+    alignSelf: 'center',
+    justifyContent: 'center',
+    // marginTop: 10,
+    resizeMode: 'contain'
+  }
 })

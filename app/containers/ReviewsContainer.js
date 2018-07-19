@@ -105,7 +105,7 @@ class ReviewsContainer extends Component{
         goback={() => this.props.navigation.goBack()}
         modalVisibleEditReviews={this.state.modalVisibleEditReviews}
         toggleModalEditReviews={() => this.toggleModalEditReviews()}
-        navigateToProfile={() => this.props.navigation.navigate('ProfileContainer')}
+        navigateToProfile={() => this.props.navigation.navigate('HomeContainer')}
         
         stillLoading={this.state.stillLoading}
         image={this.state.image}

@@ -83,6 +83,7 @@ class RelatedToBrandProductsContainer extends Component{
     console.log('dattaa :' , this.props.receiveProductWithBrand)
     return(
       <RelatedToBrandProducts
+        quantityValue={this.state.qty}
         stillLoading={this.state.stillLoading}
         dataProduct={this.props.receiveProductWithBrand}
         name={this.props.navigation.state.params.data.brand}
