@@ -116,7 +116,7 @@ class LoginContainer extends Component {
       this.props.navigation.dispatch(
         StackActions.reset({
           index:0,
-          actions:[NavigationActions.navigate({routeName:'ProfileContainer'})]
+          actions:[NavigationActions.navigate({routeName:'HomeContainer'})]
         })
       )
     }

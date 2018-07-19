@@ -66,10 +66,10 @@ class YourCartContainer extends Component {
       await this.props.fetchUserShipping(data.id, data.accessToken)
       await this.setState({stillLoading: false}) 
     }else{
-    await this.props.fetchCartUser(data.id, data.accessToken)
-    await this.props.fetchUserShipping(data.id, data.accessToken)
-    await this.getCourier()
-    await this.setState({stillLoading: false})
+      await this.props.fetchCartUser(data.id, data.accessToken)
+      await this.props.fetchUserShipping(data.id, data.accessToken)
+      await this.getCourier()
+      await this.setState({stillLoading: false})
     }
   }
 
@@ -177,6 +177,7 @@ class YourCartContainer extends Component {
       ],
       { cancelable: false }
     )
+    await this.validasiCart()
   }
 
   async fetchData(){
@@ -358,7 +359,7 @@ render() {
       ]}
       renderPaymentMethod={({item}) => (
         <View style={{borderColor: this.state.selectedMethod === item.methodAlias ? '#d11e48':'#e2e2e2', margin: 5,borderWidth: 1, width: 150}}>
-          <TouchableOpacity onPress={() => this.setState({selectedMethod: item.methodAlias})} style={{padding: 10, flexDirection: 'row', justifyContent:'space-evenly'}}>
+          <TouchableOpacity onPress={() => this.setState({selectedMethod: item.methodAlias})} style={{padding: 10, flexDirection: 'row', justifyContent:'space-between'}}>
             <Radio selected={this.state.selectedMethod === item.methodAlias} selectedColor={'#d11e48'} onPress={() => this.setState({selectedMethod: item.methodAlias})}/>
             <Image source={item.image} style={{height: 20, width: 20, padding:5}}/>
             <Text>{item.label}</Text>

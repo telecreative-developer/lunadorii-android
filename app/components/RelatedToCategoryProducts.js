@@ -30,6 +30,7 @@ const RelatedToCategoryProducts = (props) => (
       barStyle="light-content"
     />
     <AddToCart
+      quantityValue={props.quantityValue}
       modalVisible={props.modalVisibleAddToCart}
       toggleModalAddToCart={props.toggleModalAddToCart}
       onChangeQty={props.onChangeQty}
@@ -45,13 +46,15 @@ const RelatedToCategoryProducts = (props) => (
           <View>
             <View style={{paddingTop: 5}}>
               {props.dataProduct.length == 0 ? 
-              <Validations
-                title={props.name+" Doesn't has products"}
-                message1={"Please be patient for new products"}
-                message2={props.name}
-                buttonText={"Continue shoping"}
-                buttonAction={props.navigateToHome}
-              />
+                <Validations
+                  title={props.name+" Doesn't has products"}
+                  message1={"Please be patient for new products"}
+                  message2={props.name}
+                  buttonText={"Continue shoping"}
+                  buttonAction={props.navigateToHome}
+                  showIcon={true}
+                  icon={props.icon}
+                />
               :
               <View>
                 <Text style={{fontWeight: 'bold',fontSize: 18, paddingVertical: 5}}>{props.name}</Text>

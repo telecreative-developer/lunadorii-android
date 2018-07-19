@@ -250,6 +250,7 @@ class ProductShowContainer extends Component {
     console.log('asyu',this.state.totalPrice)
     return (
       <ProductShow
+        quantityValue={this.state.qty}
         image={this.state.image}
         images={this.state.images}
         title={this.capitalize(this.state.title)}

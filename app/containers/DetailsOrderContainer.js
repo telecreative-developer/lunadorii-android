@@ -61,7 +61,7 @@ class DetailsOrderContainer extends Component{
         billing_code={this.props.navigation.state.params.billing_code}
         payment_time={moment(data.payment_time).calendar()}
         delivery_time={moment(data.delivery_time).calendar()}
-        status={this.capitalize(data.order_product_status)}
+        status={data.order_product_status == null || data.order_product_status === '' ? data.order_product_status :this.capitalize(data.order_product_status)}
         purchase_number={data.purchase_number}
         receipt_time={moment(data.receipt_time).calendar()}
         delivery_service={data.delivery_service}
