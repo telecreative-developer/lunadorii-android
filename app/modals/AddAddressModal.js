@@ -114,6 +114,7 @@ const AddAddressModal = (props) => (
               height: 40,
               borderColor: props.postalcodeValue ? '#ccc' : '#c0392b'
             }}>
+              {console.log(props.postalcodeValue)}
               <Input value={props.postalcodeValue} onChangeText={props.onChangePostalcode} keyboardType={'numeric'} maxLength={6}/>
               <Ionicons name={props.postalcodeValue ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
             </Item>

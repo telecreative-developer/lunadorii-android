@@ -28,7 +28,7 @@ class YourShippingAddressContainer extends Component{
       province: '',
       province_id:'',
       city: '',
-      postalcode: '',
+      postal_code: 0,
       numberPhone: '',
       address_id:'',
       user_address_id:'',
@@ -53,7 +53,7 @@ class YourShippingAddressContainer extends Component{
         province_id:item.province_id,
         city: item.city,
         city_id:item.city_id,
-        postalcode: item.postal_code,
+        postal_code: item.postal_code,
         numberPhone: item.phone,
         label:item.label,
       })
@@ -64,7 +64,7 @@ class YourShippingAddressContainer extends Component{
         province: '',
         province_id:'',
         city: '',
-        postalcode: '',
+        postal_code: '',
         numberPhone: '',
         label:'',
       })
@@ -77,10 +77,10 @@ class YourShippingAddressContainer extends Component{
 
   async handleSaveAddress(){
     this.setState({loading: true})
-    const { name, address, province_id, city_id, postalcode, numberPhone, label } = this.state
+    const { name, address, province_id, city_id, postal_code, numberPhone, label } = this.state
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.props.createAddress(data.id, {name, address, province_id, city_id, postalcode, numberPhone, label }, data.accessToken)
+    await this.props.createAddress(data.id, {name, address, province_id, city_id, postal_code, numberPhone, label }, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
     await this.toggleModalAddAddress()
     await this.setState({
@@ -89,7 +89,7 @@ class YourShippingAddressContainer extends Component{
       province: '',
       province_id:'',
       city: '',
-      postalcode: '',
+      postal_code: '',
       numberPhone: '',
       label:'',
     })
@@ -104,10 +104,10 @@ class YourShippingAddressContainer extends Component{
 
   async btnUpdateShipping(){
     this.setState({loading: true})
-    const { name, address, province_id, city_id, postalcode, numberPhone, label } = this.state
+    const { name, address, province_id, city_id, postal_code, numberPhone, label } = this.state
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.props.updateShipping(this.state.user_address_id, {name, address, province_id, city_id, postalcode, numberPhone, label}, data.accessToken)
+    await this.props.updateShipping(this.state.user_address_id, {name, address, province_id, city_id, postal_code, numberPhone, label}, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
     await this.toggleModalEditAddress()
     await this.setState({
@@ -117,7 +117,7 @@ class YourShippingAddressContainer extends Component{
       province_id:'',
       city_id:'',
       city: '',
-      postalcode: '',
+      postal_code: '',
       numberPhone: '',
       label:'',
     })
@@ -190,12 +190,12 @@ class YourShippingAddressContainer extends Component{
       city_id: city_id,
       city:city, 
       visibleCityPicker: false,
-      postalcode: postal_code
+      postal_code: postal_code
     })
   }
 
   render(){
-    console.log('cities :' , this.state)
+    console.log('cities :' , this.state.postal_code)
     console.log('usershipping : ', this.props.usershipping)
     return(
       <YourShippingAddress
@@ -226,13 +226,11 @@ class YourShippingAddressContainer extends Component{
         regencyValue={this.state.regency}
         onChangeRegency={(regency) => this.setState({regency, visibleRegencyPicker: true})}
 
-        postalcodeValue={this.state.postalcode.toString()}
-        onChangePostalcode={(postalcode) => this.setState({postalcode})}
+        postalcodeValue={this.state.postal_code.toString()}
+        onChangePostalcode={(postal_code) => this.setState({postal_code})}
 
         numberPhoneValue={this.state.numberPhone}
         onChangeNumberPhone={(numberPhone) => this.setState({numberPhone})}
-
-        postalcodeValue={this.props.usershipping.postal_code}
 
         dataProvince={this.props.receiveProvince}
         renderDataProvince={({item}) => (

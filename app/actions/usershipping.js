@@ -92,7 +92,7 @@ export const createAddress = (id, items, accessToken) => {
     							recepient:items.name,
 									phone:items.numberPhone,
 									label:items.label,
-									postal_code: items.postalcode,
+									postal_code: items.postal_code,
 									detail_address:items.address,
 									province_id:items.province_id,
 									city_id:items.city_id,
@@ -167,7 +167,7 @@ export const updateShipping = (id, items, accessToken) => {
     							recepient:items.name,
 									phone:items.numberPhone,
 									label:items.label,
-									postal_code: items.postalcode,
+									postal_code: items.postal_code,
 									detail_address:items.address,
 									province_id:items.province_id,
 									city_id:items.city_id

@@ -8,6 +8,7 @@ import ImageBank from '../assets/images/icon/bank.png'
 import { connect } from 'react-redux'
 import { fetchCartUser, removeCart, editQty } from '../actions/cart'
 import { fetchUserShipping, updateShipping } from '../actions/usershipping'
+import { postCheckout } from '../actions/checkout'
 import { fetchCourier } from '../actions/shipping'
 import { Radio } from 'native-base';
 
@@ -40,8 +41,21 @@ class YourCartContainer extends Component {
       estDays: "",
       product: "",
       brand: "",
-      selectedMethod: "cc"
+      selectedMethod: "cc",
+      province_id:0,
+      city_id:0,
+      detail_address:''
     }
+  }
+
+  async setAddress(){
+    const data = await this.props.usershipping.filter(shp => shp.address_default == true)
+    console.log('dataaaa', data[0].province_id)
+    await this.setState({
+      province_id:data[0].province_id,
+      city_id:data[0].city_id,
+      detail_address:data[0].detail_address
+    })
   }
 
   togglePaymentGuide1Visible(){
@@ -54,23 +68,15 @@ class YourCartContainer extends Component {
 
   async componentDidMount(){
     // await BackHandler.eve('hardwareBackPress', () => this.props.navigation.goBack());
-    {console.log('prop :', this.props.cartuser.length)}
-    await this.validasiCart()
-  }
-
-  async validasiCart(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    if(this.props.cartuser.length == 0){
-      await this.props.fetchCartUser(data.id, data.accessToken)
-      await this.props.fetchUserShipping(data.id, data.accessToken)
-      await this.setState({stillLoading: false}) 
-    }else{
     await this.props.fetchCartUser(data.id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
-    await this.getCourier()
-    await this.setState({stillLoading: false})
+    if(this.props.cartuser.length){
+      await this.getCourier()
     }
+    await this.setState({stillLoading: false})
+    await this.setAddress()
   }
 
   async getCourier(){
@@ -294,9 +300,28 @@ class YourCartContainer extends Component {
   return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
 }
 
-  handleCheckout
+ async checkout(){
+   const service = await this.state.selectedCourier.service
+   const delivery_price = await this.state.selectedCourier.cost[0].value
+   const { selectedMethod, province_id, city_id, detail_address} = await this.state
+   const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage}))
+   const cartuser = await this.props.cartuser
+   const session = await AsyncStorage.getItem('session')
+   const data = await JSON.parse(session)
+   const id = data.id
+   console.log('data productL:', {...this.props.cartuser.map(d => ({qty:d.qty, product_id:d.product_id, price:d.price, discount_percentage:d.discount_percentage}))})
+   await this.props.postCheckout({selectedMethod, province_id, city_id, delivery_price, service, id, detail_address, data:dataProduct}, data.accessToken)
+
+ }
+
+ setCourier(){
+  const service = this.state.selectedCourier[0].service
+  console.log('service :' , service)
+ }
 
 render() {
+  // const service = this.state.selectedCourier ? this.state.selectedCourier[0].service
+  // console.log('service :' , service)
   console.log('kurir :', this.props.receiveCourier)
   const courier = this.props.receiveCourier
   console.log('Good :',this.state.selectedCourier)
@@ -385,7 +410,7 @@ render() {
       modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
       toggleModalEditQuantity={() => this.toggleModalEditQuantity(this.props.cartuser)}
       modalVisibleCheckoutPayment={this.state.modalVisibleCheckoutPayment}
-      toggleCheckoutPayment={() => this.toggleCheckoutPayment()}
+      toggleCheckoutPayment={() => this.checkout()}
       deliverySeriveVisible={this.state.deliverySeriveVisible}
       toggleDeliverySerive={() => this.setState({deliverySeriveVisible: !this.state.deliverySeriveVisible})}
       navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
@@ -402,7 +427,8 @@ const mapDispatchToProps = (dispatch) =>{
     fetchUserShipping: (id, accessToken) => dispatch(fetchUserShipping(id, accessToken)),
     removeCart: (id, product_id, accessToken) => dispatch(removeCart(id, product_id, accessToken)),
     editQty: (id, product_id, qty, cart_id, accessToken) => dispatch(editQty(id, product_id, qty, cart_id, accessToken)),
-    fetchCourier: (weight_gram, province_id) => dispatch(fetchCourier(weight_gram, province_id))
+    fetchCourier: (weight_gram, province_id) => dispatch(fetchCourier(weight_gram, province_id)),
+    postCheckout: (dataUser, accessToken) => dispatch(postCheckout(dataUser, accessToken))
   }
 }
 
