@@ -42,9 +42,11 @@ class ProfileContainer extends Component {
     }
     await ImagePicker.showImagePicker(options, (responses) => {
       if(responses.didCancel){
-        alert("You've canceled")
+        // alert("You've canceled")
+        ToastAndroid.showWithGravity("Canceled", ToastAndroid.SHORT, ToastAndroid.CENTER)
       }else if(responses.error){
-        alert("An error occured")
+        // alert("An error occured")
+        ToastAndroid.showWithGravity("Error occured", ToastAndroid.SHORT, ToastAndroid.CENTER)
       }else{
         let str = responses.fileName
         let fileExt = str.split(".")
