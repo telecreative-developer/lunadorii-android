@@ -92,6 +92,7 @@ export const createAddress = (id, items, accessToken) => {
     							recepient:items.name,
 									phone:items.numberPhone,
 									label:items.label,
+									bank:'BNI',
 									detail_address:items.address,
 									province_id:items.province_id,
 									city_id:items.city_id,
