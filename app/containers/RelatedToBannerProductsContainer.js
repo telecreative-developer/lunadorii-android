@@ -83,6 +83,7 @@ class RelatedToBannerProductsContainer extends Component{
     console.log('dattaa :' , this.props.receiveProductWithBanner)
     return(
       <RelatedToBannerProducts
+        quantityValue={this.state.qty}
         stillLoading={this.state.stillLoading}
         dataProduct={this.props.receiveProductWithBanner}
         image = {this.state.image}
