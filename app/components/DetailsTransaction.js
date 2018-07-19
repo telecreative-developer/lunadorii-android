@@ -43,19 +43,25 @@ const DetailsTransaction = (props) => (
     </View>
     <Content>
       <View style={styles.grandWrapper}>
-        <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
+        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Bill Number</Text>
-            <Text style={{color: '#ccc'}}>{ props.billing_code }</Text>
+            <Text style={{fontWeight: 'bold',fontSize: 18}}>Transaction Code</Text>
+            <Text style={{color: '#ccc'}}>{props.billing_code}</Text>
           </View>
         </View>
-        <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
+        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+            <Text style={{fontWeight: 'bold',fontSize: 18}}>Shipping Method</Text>
+            <Text style={{color: '#ccc'}}>SHIPPING_METHOD</Text>
+          </View>
+        </View>
+        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Status</Text>
             <Text style={{color: '#ccc'}}>{ props.status }</Text>
           </View>
         </View>
-        <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
+        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18, marginBottom: 5}}>On Cart</Text>
             <FlatList
@@ -64,19 +70,19 @@ const DetailsTransaction = (props) => (
             />
           </View>
         </View>
-        <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
+        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Total Price</Text>
             <Text style={{color: '#ccc'}}>Rp. { props.totalPrice }</Text>
           </View>
         </View>
-        <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
+        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Payment Method</Text>
             <Text style={{color: '#ccc'}}>Transfer</Text>
           </View>
         </View>
-        <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
+        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Address</Text>
             <Text style={{color: '#ccc', textAlign: 'justify'}}>

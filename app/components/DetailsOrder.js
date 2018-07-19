@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { View, Text, StyleSheet, Dimensions, StatusBar } from 'react-native'
-import { Container, Content, Button } from 'native-base'
+import { Text, StyleSheet, Dimensions, StatusBar } from 'react-native'
+import { Container, Content, Button, View } from 'native-base'
 import Navbar from '../particles/Navbar'
 import UnderDevelopment from '../particles/UnderDevelopment'
 import AddReviewsModal from '../modals/AddReviewsModal'
@@ -34,45 +34,51 @@ const DetailsOrder = (props) => (
     />
     <Content>
       <View style={styles.grandWrapper}>
-        <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
+        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Transaction Code</Text>
             <Text style={{color: '#ccc'}}>{props.billing_code}</Text>
           </View>
         </View>
-        <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
+        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Purchase Transaction Number</Text>
             <Text style={{color: '#ccc'}}>{props.purchase_number}</Text>
             {console.log(props.purchase_number)}
           </View>
         </View>
-        <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
+        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+            <Text style={{fontWeight: 'bold',fontSize: 18}}>Shipping Method</Text>
+            <Text style={{color: '#ccc'}}>SHIPPING_METHOD</Text>
+          </View>
+        </View>
+        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Status</Text>
             <Text style={{color: '#ccc'}}>{props.status}</Text>
             {console.log(props.status)}
           </View>
         </View>
-        <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
+        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Payment Successfully Time</Text>
             <Text style={{color: '#ccc'}}>{props.payment_time}</Text>
           </View>
         </View>
-        <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
+        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Delivery Time</Text>
             <Text style={{color: '#ccc'}}>{props.delivery_time}</Text>
           </View>
         </View>
-        <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
+        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Receiptment Time</Text>
             <Text style={{color: '#ccc'}}>{props.receipt_time}</Text>
           </View>
         </View>
-        <View style={{borderBottomColor: '#f6f6f6', borderBottomWidth: 1.5}}>
+        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Delivery Service</Text>
             <Text style={{color: '#ccc'}}>{props.delivery_service}</Text>
