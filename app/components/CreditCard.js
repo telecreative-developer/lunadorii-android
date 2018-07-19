@@ -83,12 +83,10 @@ const styles = StyleSheet.create({
   txtLabel: {
     fontWeight: 'bold',
     fontSize: 16,
-    paddingBottom: 10,
-    paddingLeft: 5
+    paddingBottom: 10
   },
   viewBrand: {
     paddingBottom: 5,
-    paddingLeft: 5
   },
   btnAdd: {
     borderRadius: 5,
