@@ -42,7 +42,7 @@ const Login = (props) => (
               />
               <Icon type="Entypo" name={props.passwordFieldVisibility ? "eye-with-line" : "eye"} style={{fontSize: 18, color:'#ccc', marginRight: 5}} onPress={props.togglePasswordFieldVisibility}/>
             </Item>
-            <View style={{marginBottom: 30}}>
+            <View style={{paddingBottom: 10}}>
               <TouchableOpacity onPress={props.navigateToLoginTroubleshooting}>
                 <Text style={{alignSelf: 'flex-end', color:'#d11e48'}}>Forget Password?</Text>
               </TouchableOpacity>
@@ -53,7 +53,12 @@ const Login = (props) => (
           </View>
         </View>
       </View>
-      <View style={{paddingBottom: 10, paddingTop: 45, paddingLeft: 45, paddingRight: 45}}>
+      <View style={{borderTopColor: '#979797', borderTopWidth: 1.2, borderBottomColor: '#979797', borderBottomWidth: 1.2, marginHorizontal: 40, alignItems:'center', marginTop: 45}}>
+        <TouchableOpacity style={{flexDirection:'row', alignItems: 'center', paddingVertical: 50}} onPress={props.loginFB}>
+          <Icon type="Entypo" name="facebook" style={{color:"#3B5998"}}/><Text style={{color:"#3B5998", paddingLeft: 5}}>Log in With Facebook</Text>
+        </TouchableOpacity>
+      </View>
+      {/* <View style={{paddingBottom: 10, paddingTop: 45, paddingLeft: 45, paddingRight: 45}}>
         <View style={{borderTopColor: "#979797", borderTopWidth: 1.2, borderBottomColor: "#979797", borderBottomWidth: 1.2}}>
           <View style={styles.informationWrapper1}>
             <TouchableOpacity style={styles.alignSelfCenter1} onPress={props.loginFB}>
@@ -61,7 +66,7 @@ const Login = (props) => (
             </TouchableOpacity>
           </View>
         </View>
-      </View>
+      </View> */}
       <View style={styles.informationWrapper2}>
         <Text style={styles.alignSelfCenter}>Don't have account?</Text>
         <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToRegister}>
@@ -105,6 +110,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   informationWrapper2:{
+    marginTop: 5,
     marginBottom: 15,
     flexDirection: 'row', 
     justifyContent: 'center'
