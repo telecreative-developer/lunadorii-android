@@ -82,7 +82,7 @@ class WishlistContainer extends Component{
             handleRemove={() => this.handleRemove({data: item})}
           />
         )}
-        navigateToProfile={() => this.props.navigation.navigate('ProfileContainer')}
+        navigateToProfile={() => this.props.navigation.navigate('HomeContainer')}
         stillLoading={this.state.stillLoading}
         amountOfContent={this.props.wishlist.length}
         goback={() => this.props.navigation.goBack()}
