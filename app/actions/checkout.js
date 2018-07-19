@@ -3,7 +3,7 @@ import { setLoading, setFailed, setSuccess } from './processor'
 import { API_SERVER } from '../env'
 
 export const postCheckout = (dataUser, accessToken) => {
-	console.log('dataaaaa:',dataUser)
+	console.log('dataaaaa:',dataUser.data)
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_CHECKOUT'))
 		try {
