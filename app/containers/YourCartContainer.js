@@ -72,9 +72,9 @@ class YourCartContainer extends Component {
     const data = await JSON.parse(session)
     await this.props.fetchCartUser(data.id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
-    if(this.props.cartuser.length){
-      await this.getCourier()
-    }
+    // if(this.props.cartuser.length){
+    //   await this.getCourier()
+    // }
     await this.setState({stillLoading: false})
     await this.setAddress()
   }
@@ -302,8 +302,8 @@ class YourCartContainer extends Component {
 }
 
  async checkout(){
-   const service = await this.state.selectedCourier.service
-   const delivery_price = await this.state.selectedCourier.cost[0].value
+  //  const service = await this.state.selectedCourier.service
+  //  const delivery_price = await this.state.selectedCourier.cost[0].value
    const { selectedMethod, province_id, city_id, detail_address} = await this.state
    const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage}))
    const cartuser = await this.props.cartuser
@@ -311,7 +311,7 @@ class YourCartContainer extends Component {
    const data = await JSON.parse(session)
    const id = data.id
    console.log('data productL:', {...this.props.cartuser.map(d => ({qty:d.qty, product_id:d.product_id, price:d.price, discount_percentage:d.discount_percentage}))})
-   await this.props.postCheckout({selectedMethod, province_id, city_id, delivery_price, service, id, detail_address, data:dataProduct}, data.accessToken)
+   await this.props.postCheckout({selectedMethod, province_id, city_id, id, detail_address, data:dataProduct}, data.accessToken)
 
  }
 

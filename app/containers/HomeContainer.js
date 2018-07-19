@@ -138,7 +138,7 @@ class HomeContainer extends Component {
 
   render() {
     const { banners } = this.props
-    console.log(this.discountPrice(100000, 100))
+    console.log('dataaa', this.props.productsubcategories)
     return (
       <Home
         stillLoading={this.state.stillLoading}
