@@ -41,7 +41,7 @@ const RelatedToCategoryProducts = (props) => (
         <Spinner color="#d11e48"/>
       </View>
     ) : (
-      <Content>
+      <Content scrollEnabled={props.dataProduct.length == 0?false:true}>
         <View style={styles.viewArrivals}>
           <View>
             <View style={{paddingTop: 5}}>
