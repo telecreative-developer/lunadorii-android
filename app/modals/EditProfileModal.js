@@ -43,7 +43,7 @@ const EditProfileModal = (props) => (
             date={props.bod}
             mode="date"
             placeholder="Birth of Date"
-            format="YYYY-MM-DD"
+            format="DD-MM-YYYY"
             minDate="1960-01-01"
             maxDate="2018-12-30"
             confirmBtnText="Confirm"
