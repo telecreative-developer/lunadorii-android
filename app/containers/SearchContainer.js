@@ -1,4 +1,6 @@
 import React, { Component } from 'react'
+import {Text} from 'react-native'
+import {Button} from 'native-base'
 import Search from '../components/Search'
 import Product from '../particles/Product'
 
@@ -122,6 +124,7 @@ class SearchContainer extends Component {
     lastSearchTitle: "",
     searchResult:"not yet search",
     modalVisibleBrandChooser: false,
+    selectedCategory: [],
     loading: false
   }
 
@@ -177,6 +180,47 @@ class SearchContainer extends Component {
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
           />
         )}
+
+        dataButtonSelectedCategory={this.state.selectedCategory}
+        buttonSelectedCategory={({item}) => (
+          <Button bordered danger style={{
+            height: 30,
+            width: 80,
+            justifyContent: 'center',
+            borderRadius: 5,
+            margin: 5,
+            backgroundColor: '#d11e48'
+          }}
+          >
+            <Text style={{color: '#fff'}}>{item}</Text>
+          </Button>
+        )}
+
+        dataButtonCategory1st={[
+          {categories: 'Lorem'},
+          {categories: 'Ipsum'},
+          {categories: 'Dolor'},
+          {categories: 'Sit'},
+          {categories: 'Amet'}
+        ]}
+        buttonCategory1st={({item, index}) => (
+          <Button bordered danger style={{
+            height: 30,
+            width: 80,
+            justifyContent: 'center',
+            borderColor: '#F7009A',
+            borderRadius: 5,
+            margin: 5
+          }}
+            // onPress={() => this.setState({selectedCategory: [...this.state.selectedCategory, item.categories]})}
+            onPress={() => this.setState({selectedCategory: this.state.selectedCategory.concat(item.categories)})}
+          >
+            <Text style={{color: '#F7009A'}}>{item.categories}</Text>
+          </Button>
+        )}
+        clearCategory={() => this.setState({selectedCategory: []})}
+        handleFilterSearch={() => alert(JSON.stringify(this.state.selectedCategory))}
+
         loading={this.state.loading}
         searchTitle={this.state.searchTitle}
         lastSearchTitle={this.state.lastSearchTitle}
