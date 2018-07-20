@@ -54,7 +54,7 @@ const Reports = (props) => (
     </Content>
     {props.name && props.email && props.subject && props.reports ? (
       <Button full style={styles.btnSend} onPress={props.handleSendReport} disabled={props.buttonReport}>
-        {props.buttonReport ? (<Spinner />): (<Text style={styles.txtSend}>Send Reports</Text>)}
+        {props.buttonReport ? (<Spinner color="#fff"/>): (<Text style={styles.txtSend}>Send Reports</Text>)}
       </Button>
     ) : (
       <Button full style={styles.buttonSaveStyleDisabled} onPress={props.handleSendReport} disabled>

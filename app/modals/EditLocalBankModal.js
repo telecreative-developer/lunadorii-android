@@ -44,7 +44,7 @@ const EditLocalBankModal = (props) => (
       </Form>
     </Content>
     <Button full style={styles.buttonSaveStyle} onPress={props.handleEdit} disabled={props.buttonSave} >
-      {props.buttonSave ? <Spinner /> : 
+      {props.buttonSave ? <Spinner color="#fff"/> : 
       <Text style={styles.buttonSaveTextStyle}>Save</Text>
       }
     </Button>

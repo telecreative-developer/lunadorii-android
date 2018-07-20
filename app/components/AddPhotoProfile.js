@@ -26,7 +26,7 @@ const AddPhotoProfile = (props) => (
     </Content>
     <View style={{alignItems: 'center', padding: 30}}>
       <TouchableOpacity>
-        <Text style={{color: '#d11e48', fontSize: 16}}>Skip</Text>
+        <Text style={{color: '#e48', fontSize: 16}}>Skip</Text>
       </TouchableOpacity>
     </View>
   </Container >
