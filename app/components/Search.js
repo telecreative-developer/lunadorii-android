@@ -43,7 +43,7 @@ const Search = (props) => (
       </View>
       <View style={{ paddingTop: 15 }}>
         {
-          props.loading ? <Spinner /> :
+          props.loading ? <Spinner color="#d11e48"/> :
           props.dateRelatedProducts !== "not yet search"  ?
             props.dateRelatedProducts.data.length != 0 ?
               <View style={{height: '100%', width: '100%'}}>

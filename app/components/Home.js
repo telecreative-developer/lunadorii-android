@@ -116,11 +116,9 @@ const Home = (props) => (
             <View style={styles.viewArrivals}>
               <Text style={styles.txtArrivals}>All Product</Text>
               {props.dataBestSeller.length == 0 ?
-              <View>
-                <View style={{alignItems: 'center'}}>
+                <View style={{alignItems: 'center', paddingBottom: 10}}>
                   <Text>We don't have Recommended Product</Text>
                 </View>
-              </View>
               :
               <FlatList
                 numColumns={2}
