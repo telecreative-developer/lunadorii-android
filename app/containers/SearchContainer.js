@@ -1,12 +1,14 @@
 import React, { Component } from 'react'
-import { Text } from 'react-native'
-import { Button } from 'native-base'
-import { connect } from 'react-redux'
-
+import {Text,View,Image,TouchableOpacity} from 'react-native'
+import {Button} from 'native-base'
 import Search from '../components/Search'
 import Product from '../particles/Product'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
+
+import { connect } from 'react-redux'
 import { fetchSearchProduct } from '../actions/product'
 import { fetchCategoryProduct } from '../actions/categoryproduct'
+import { fetchBrandsProduct } from '../actions/brandsproduct'
 
 class SearchContainer extends Component {
 
@@ -22,6 +24,7 @@ class SearchContainer extends Component {
     maxPrice:'',
     minPrice:'',
     lastFillter:'',
+    selectedBrand: '',
     loading: false
   }
 
@@ -34,9 +37,8 @@ class SearchContainer extends Component {
   async handleSearch(){
     this.setState({loading: true})
     await this.setState({modalVisibleFilters: false})
-    const { searchTitle, subcategory, brand, minPrice, maxPrice, selectedCategory } = await this.state   
-    await console.log('oi:',this.state)
-    await this.props.fetchSearchProduct( searchTitle, subcategory, brand, minPrice, maxPrice )
+    const { searchTitle, brand, subcategory, minPrice, maxPrice, selectedCategory } = await this.state  
+    await this.props.fetchSearchProduct( searchTitle, subcategory, brand, maxPrice, minPrice,  )
     await this.setState({searchResult: this.props.searchproduct})
     await this.setState({lastSearchTitle: searchTitle, selectedCategory, brand, minPrice, maxPrice})
     await this.setState({loading: false})
@@ -55,6 +57,24 @@ class SearchContainer extends Component {
     
   }
 
+  goodBye(index, array){
+    var array;
+    var index = array.indexOf(index);
+    if (index > -1) {
+      array.splice(index, 1);
+      return(array)
+    }
+  }
+
+  removeSelectedCategory(item){
+    this.state.selectedCategory.length == 1 ?
+      this.setState({selectedCategory: [],
+                     subcategory:[]})
+    :
+      this.setState({selectedCategory: this.goodBye(item, this.state.selectedCategory),
+                     subcategory: this.goodBye(item, this.state.subcategory)})            
+  }
+
   capitalize(string) {
     return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
   }
@@ -68,7 +88,7 @@ class SearchContainer extends Component {
   }
 
   render() {
-    console.log('sub:', this.state.lastSearchTitle)
+    console.log('sub:', this.state)
     return (
       <Search
         modalVisibleFilters={this.state.modalVisibleFilters}
@@ -96,13 +116,20 @@ class SearchContainer extends Component {
             borderRadius: 5,
             margin: 5,
             backgroundColor: '#d11e48'
-          }}
-          >
-            <Text style={{color: '#fff', padding:5}}>{item}</Text>
+          }}>
+            <Text style={{color: '#fff',padding: 5}}>{item}</Text>
+            <TouchableOpacity onPress={() => this.removeSelectedCategory(item)}>
+              <EvilIcons name="close" style={{
+                fontSize: 12,
+                padding: 5,
+                color:'#fff'
+              }} />
+            </TouchableOpacity>
           </Button>
         )}
+
         dataButtonCategory1st={this.props.categoryproduct}
-        buttonCategory1st={({item, index}) => (
+        buttonCategory1st={({item}) => (
           <Button bordered danger style={{
             height: 30,
             justifyContent: 'center',
@@ -119,6 +146,28 @@ class SearchContainer extends Component {
             <Text style={{color: '#F7009A' ,padding:5}}>{item.subcategory}</Text>
           </Button>
         )}
+        
+        dataButtonBrands={this.props.brandsproduct}
+        buttonBrads={({item}) => (
+          <View style={{
+            borderWidth: 1, 
+            borderColor: this.state.selectedBrand === item.brand ? '#e2e2e2' : '#d11e48', 
+            width: 150,
+            margin: 5
+          }}>
+            <TouchableOpacity onPress={() => this.setState({selectedBrand: item.brand, brand:item.product_brand_id})}>
+              <Image source={{uri: item.logo_url}} style={{
+                resizeMode: 'contain',
+                width: 100, 
+                height: 60, 
+                margin: 5, 
+                justifyContent: 'center', 
+                alignSelf: 'center'
+              }}/>
+            </TouchableOpacity>
+          </View>
+        )}
+        
         clearCategory={() => this.setState({selectedCategory: []})}
         handleFilterSearch={() => this.handleSearch()}
 
@@ -133,8 +182,8 @@ class SearchContainer extends Component {
         handleSearch={()=>this.handleSearch()}
         handleCategory={()=>this.handleCategory()}
         handleBrand={()=>this.handleBrand()}
-        handleMinPrice={()=>this.handleMinPrice()}
-        handleMaxPrice={()=>this.handleMaxPrice()}
+        handleMinPrice={(minPrice)=>this.setState({minPrice})}
+        handleMaxPrice={(maxPrice)=>this.setState({maxPrice})}
 
         goback={() => this.props.navigation.goBack()} />
     )
@@ -144,6 +193,7 @@ class SearchContainer extends Component {
 const mapDispatchToProps = (dispatch) =>{
   return{
     fetchSearchProduct: (search,subcategories,brand,maxPrice,minPrice) => dispatch(fetchSearchProduct(search,subcategories,brand,maxPrice,minPrice)),
+    fetchBanners: () => dispatch(fetchBanners()),
     fetchCategoryProduct:() => dispatch(fetchCategoryProduct())
   }
 }
@@ -154,7 +204,8 @@ const mapStateToProps = (state) => {
     success: state.success,
     failed: state.failed,
     searchproduct: state.searchproduct,
-    categoryproduct: state.categoryproduct
+    categoryproduct: state.categoryproduct,
+    brandsproduct: state.brandsproduct,
   }
 }
 

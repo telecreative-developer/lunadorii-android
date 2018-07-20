@@ -35,14 +35,8 @@ const FiltersModal = (props) => (
         </TouchableOpacity>
       </Item>
       <View style={styles.flexStart}>
-        <View style={styles.buttonWrapper}>
-          <FlatList
-            horizontal={true}
-            showsHorizontalScrollIndicator={false}
-            data={props.dataButtonCategory1st}
-            renderItem={props.buttonCategory1st}
-          />
-          {/* <Button bordered danger style={styles.mediumButton}>
+        {/* <View style={styles.buttonWrapper}>
+          <Button bordered danger style={styles.mediumButton}>
             <Text style={styles.buttonText}>Makeup</Text>
           </Button>
           <Button bordered danger style={styles.mediumButton}>
@@ -50,8 +44,14 @@ const FiltersModal = (props) => (
           </Button>
           <Button bordered danger style={styles.mediumButton}>
             <Text style={styles.buttonText}>Skincare</Text>
-          </Button> */}
-        </View>
+          </Button>
+        </View> */}
+        <FlatList
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          data={props.dataButtonCategory1st}
+          renderItem={props.buttonCategory1st}
+        />
         <View style={styles.buttonWrapper}>
           <Button bordered danger style={styles.largeButton}>
             <Text style={styles.buttonText}>Tools & Brushes</Text>
@@ -62,10 +62,16 @@ const FiltersModal = (props) => (
         </View>
       </View>
       <Text style={styles.txtLabel}>Brands</Text>
-      <Item regular style={styles.item}>
+      <FlatList
+        horizontal={true}
+        showsHorizontalScrollIndicator={false}
+        data={props.dataButtonBrands}
+        renderItem={props.buttonBrads}
+      />
+      {/* <Item regular style={styles.item}>
         <Input placeholder='Select brand' placeholderTextColor="#ccc" onChangeText={props.handleBrand} />
         <Icon type='Entypo' name="chevron-small-down" style={{color: '#ccc'}}/>
-      </Item>
+      </Item> */}
       <Text style={styles.txtLabel}>Price</Text>
       <View style={styles.inputWrapper}>
         <Item regular style={styles.inputMin}>
@@ -88,7 +94,7 @@ export default FiltersModal
 const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
-    padding: 10
+    padding:10
   },
   searchIcon: {
     fontSize: 26,
