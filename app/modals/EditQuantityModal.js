@@ -49,7 +49,7 @@ const EditQuantityModal = (props) => (
       </View>
     </Content>
     <Button full style={styles.buttonSaveStyle} onPress={props.handleEditQtyModal} disabled={props.loadingBtn} >
-      {props.loadingBtn ? <Spinner /> :
+      {props.loadingBtn ? <Spinner color="#fff"/> :
       <Text style={styles.buttonSaveTextStyle}>Update</Text>
       }
     </Button>
