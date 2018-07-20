@@ -170,10 +170,11 @@ const receiveProductHistory = data => {
 
 //  <---- SEARCH PRODUCT ----> //
 export const fetchSearchProduct = (search,subcategories,brand,maxPrice,minPrice) => {
+	console.log('action :', search,subcategories,brand,maxPrice,minPrice)
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_SEARCH_PRODUCT'))
 		try {
-			const response = await fetch(`${API_SERVER}/search?payload=${search}&subcategories=${subcategories}&productBrand=${brand}&maxPrice=${maxPrice}&minPrice=${minPrice}`, {
+			const response = await fetch(`${API_SERVER}/search?payload=${search}&subcategories=[${subcategories}]&productBrand=${brand}&maxPrice=${maxPrice}&minPrice=${minPrice}`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',

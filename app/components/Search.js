@@ -50,12 +50,13 @@ const Search = (props) => (
         </TouchableOpacity>
       </View>
       <View style={{ paddingTop: 15 }}>
+      {console.log('alo',props.lastSearchTitle)}
         {
           props.loading ? <Spinner color="#d11e48"/> :
           props.dateRelatedProducts !== "not yet search"  ?
             props.dateRelatedProducts.data.length != 0 ?
               <View style={{height: '100%', width: '100%'}}>
-                <Text style={{ fontSize: 16, fontWeight: 'bold', paddingBottom: 5 }}>Result Product for "{props.lastSearchTitle}"</Text>
+                <Text style={{ fontSize: 16, fontWeight: 'bold', paddingBottom: 5 }}>Result Product for "{props.lastSearchTitle}{props.lastFillter}"</Text>
                 <View>
                   <FlatList
                     numColumns={2}
@@ -66,7 +67,7 @@ const Search = (props) => (
                 </View>
               </View>
             :
-            <ResultNotFound amount="0" searchTitle={props.lastSearchTitle} />
+            <ResultNotFound amount="0" searchTitle={props.lastSearchTitle}/>
             :
             <View />
         }
