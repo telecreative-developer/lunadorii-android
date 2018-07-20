@@ -7,134 +7,40 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
 import { connect } from 'react-redux'
 import { fetchSearchProduct } from '../actions/product'
-
-const dateRelatedProducts = [
-  {
-    index: 0,
-    image: 'https://cdns.klimg.com/vemale.com/headline/650x325/2015/09/7-cara-kreatif-menyimpan-menata-kosmetik-dan-alat-kecantikan-anda.jpg',
-    title: 'Paket tools',
-    categories: 'Tools & Brushes',
-    price: '150000',
-    star: 3,
-    descriptions: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum. Nulla et velit at quam elementum sodales. Donec iaculis, urnavel lobortis auctor, nisl elit viverra quam, eget imperdiet metus lacus quis nisl.",
-    productDetails: "Tools & Brushes sangat berkualitas",
-    guide: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum.",
-    reviews: [
-      {
-        user: 'Riska Octaviani',
-        reviews: 'Brush nya lembut saya suka',
-        date: '5',
-        rating: 4
-      },
-      {
-        user: 'Tri Adinda Lestari',
-        reviews: 'Gak rugi beli product ini :D',
-        date: '2',
-        rating: 4
-      },
-      {
-        user: 'Rina Lee',
-        reviews: 'Pesanan lama sampai :(',
-        date: '5',
-        rating: 3
-      },
-    ]
-  },
-  {
-    index: 1,
-    image: 'https://www.wanista.com/wp-content/uploads/2013/10/Modbox-Product-Line-Up2.png',
-    title: 'Paket Modbox',
-    categories: 'Skincare',
-    price: '1200000',
-    star: 5,
-    descriptions: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum. Nulla et velit at quam elementum sodales. Donec iaculis, urnavel lobortis auctor, nisl elit viverra quam, eget imperdiet metus lacus quis nisl.",
-    productDetails: "Skincare sangat berkualitas",
-    guide: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum.",
-    reviews: [
-      {
-        user: 'Lena Margaretha',
-        reviews: 'Skincare nya nyaman untuk wajah',
-        date: '1',
-        rating: 5
-      },
-      {
-        user: 'Regina Sari',
-        reviews: 'Baru pertama kali saya beli di sini, Ternyata bagus',
-        date: '6',
-        rating: 4
-      },
-    ]
-  },
-  {
-    index: 2,
-    image: 'http://www.forgotteninvasion.com/wp-content/uploads/2017/12/1200x800_0_0_1200_800_be71c6e15ae8c6f7bfd6e935b0ab5fcc3c2f98d3.jpg',
-    title: 'Paket Makeup',
-    categories: 'Makeup',
-    price: '250000',
-    star: 4,
-    descriptions: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum. Nulla et velit at quam elementum sodales. Donec iaculis, urnavel lobortis auctor, nisl elit viverra quam, eget imperdiet metus lacus quis nisl.",
-    productDetails: "Makup sangat berkualitas",
-    guide: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum.",
-    reviews: [
-      {
-        user: 'Verina Ressa',
-        reviews: 'Makeup nya murah namun berkualitas',
-        date: '9',
-        rating: 4
-      },
-      {
-        user: 'Adinda Merlin',
-        reviews: 'Ihh suka banget sama packing nya, rapih banget',
-        date: '10',
-        rating: 5
-      },
-    ]
-  },
-  {
-    index: 2,
-    image: 'http://www.forgotteninvasion.com/wp-content/uploads/2017/12/1200x800_0_0_1200_800_be71c6e15ae8c6f7bfd6e935b0ab5fcc3c2f98d3.jpg',
-    title: 'Paket Makeup',
-    categories: 'Makeup',
-    price: '250000',
-    star: 4,
-    descriptions: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum. Nulla et velit at quam elementum sodales. Donec iaculis, urnavel lobortis auctor, nisl elit viverra quam, eget imperdiet metus lacus quis nisl.",
-    productDetails: "Makup sangat berkualitas",
-    guide: "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed mattis libero rhoncusfermentum elementum.",
-    reviews: [
-      {
-        user: 'Verina Ressa',
-        reviews: 'Makeup nya murah namun berkualitas',
-        date: '9',
-        rating: 4
-      },
-      {
-        user: 'Adinda Merlin',
-        reviews: 'Ihh suka banget sama packing nya, rapih banget',
-        date: '10',
-        rating: 5
-      },
-    ]
-  },
-]
+import { fetchCategoryProduct } from '../actions/categoryproduct'
+import { fetchBrandsProduct } from '../actions/brandsproduct'
 
 class SearchContainer extends Component {
 
   state = {
     modalVisibleFilters: false,
     searchTitle: "",
-    lastSearchTitle: "",
+    lastSearchTitle: {},
     searchResult:"not yet search",
     modalVisibleBrandChooser: false,
     selectedCategory: [],
+    subcategory:[],
+    brand:'',
+    maxPrice:'',
+    minPrice:'',
+    lastFillter:'',
     selectedBrand: '',
     loading: false
   }
 
+  componentDidMount(){
+    this.props.fetchCategoryProduct()
+  }
+
+  // this.props.productsubcategories
+
   async handleSearch(){
     this.setState({loading: true})
-    await this.props.fetchSearchProduct(this.state.searchTitle)
+    await this.setState({modalVisibleFilters: false})
+    const { searchTitle, brand, subcategory, minPrice, maxPrice, selectedCategory } = await this.state  
+    await this.props.fetchSearchProduct( searchTitle, subcategory, brand, maxPrice, minPrice,  )
     await this.setState({searchResult: this.props.searchproduct})
-    await this.setState({lastSearchTitle: this.state.searchTitle})
+    await this.setState({lastSearchTitle: searchTitle, selectedCategory, brand, minPrice, maxPrice})
     await this.setState({loading: false})
   }
 
@@ -162,9 +68,11 @@ class SearchContainer extends Component {
 
   removeSelectedCategory(item){
     this.state.selectedCategory.length == 1 ?
-      this.setState({selectedCategory: []})
+      this.setState({selectedCategory: [],
+                     subcategory:[]})
     :
-      this.setState({selectedCategory: this.goodBye(item, this.state.selectedCategory)})            
+      this.setState({selectedCategory: this.goodBye(item, this.state.selectedCategory),
+                     subcategory: this.goodBye(item, this.state.subcategory)})            
   }
 
   capitalize(string) {
@@ -180,6 +88,7 @@ class SearchContainer extends Component {
   }
 
   render() {
+    console.log('sub:', this.state)
     return (
       <Search
         modalVisibleFilters={this.state.modalVisibleFilters}
@@ -219,13 +128,7 @@ class SearchContainer extends Component {
           </Button>
         )}
 
-        dataButtonCategory1st={[
-          {categories: 'Lorem'},
-          {categories: 'Ipsum'},
-          {categories: 'Dolor'},
-          {categories: 'Sit'},
-          {categories: 'Amet'}
-        ]}
+        dataButtonCategory1st={this.props.categoryproduct}
         buttonCategory1st={({item}) => (
           <Button bordered danger style={{
             height: 30,
@@ -235,26 +138,25 @@ class SearchContainer extends Component {
             margin: 5
           }}
             // onPress={() => this.setState({selectedCategory: [...this.state.selectedCategory, item.categories]})}
-            onPress={() => this.setState({selectedCategory: this.state.selectedCategory.concat(item.categories)})}
+            onPress={() => this.setState({selectedCategory: this.state.selectedCategory.concat(item.subcategory), 
+                                          subcategory:this.state.subcategory.concat(item.product_subcategory_id),
+                                          lastFillter:this.state.selectedCategory.concat(item.subcategory)
+                                          })}
           >
-            <Text style={{color: '#F7009A', padding: 5}}>{item.categories}</Text>
+            <Text style={{color: '#F7009A' ,padding:5}}>{item.subcategory}</Text>
           </Button>
         )}
         
-        dataButtonBrands={[
-          {image: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png', brandTitle: 'ASD'},
-          {image: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png', brandTitle: 'QWE'},
-          {image: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png', brandTitle: 'ERT'}
-        ]}
+        dataButtonBrands={this.props.brandsproduct}
         buttonBrads={({item}) => (
           <View style={{
             borderWidth: 1, 
-            borderColor: this.state.selectedBrand === item.brandTitle ? '#d11e48' : '#e2e2e2', 
+            borderColor: this.state.selectedBrand === item.brand ? '#e2e2e2' : '#d11e48', 
             width: 150,
             margin: 5
           }}>
-            <TouchableOpacity onPress={() => this.setState({selectedBrand: item.brandTitle})}>
-              <Image source={{uri: item.image}} style={{
+            <TouchableOpacity onPress={() => this.setState({selectedBrand: item.brand, brand:item.product_brand_id})}>
+              <Image source={{uri: item.logo_url}} style={{
                 resizeMode: 'contain',
                 width: 100, 
                 height: 60, 
@@ -267,9 +169,10 @@ class SearchContainer extends Component {
         )}
         
         clearCategory={() => this.setState({selectedCategory: []})}
-        handleFilterSearch={() => alert(JSON.stringify(this.state.selectedCategory))}
+        handleFilterSearch={() => this.handleSearch()}
 
         loading={this.state.loading}
+        lastFillter={this.state.lastFillter}
         searchTitle={this.state.searchTitle}
         lastSearchTitle={this.state.lastSearchTitle}
         amount={this.state.searchResult.length}
@@ -279,8 +182,8 @@ class SearchContainer extends Component {
         handleSearch={()=>this.handleSearch()}
         handleCategory={()=>this.handleCategory()}
         handleBrand={()=>this.handleBrand()}
-        handleMinPrice={()=>this.handleMinPrice()}
-        handleMaxPrice={()=>this.handleMaxPrice()}
+        handleMinPrice={(minPrice)=>this.setState({minPrice})}
+        handleMaxPrice={(maxPrice)=>this.setState({maxPrice})}
 
         goback={() => this.props.navigation.goBack()} />
     )
@@ -289,7 +192,9 @@ class SearchContainer extends Component {
 
 const mapDispatchToProps = (dispatch) =>{
   return{
-    fetchSearchProduct: (search) => dispatch(fetchSearchProduct(search)),
+    fetchSearchProduct: (search,subcategories,brand,maxPrice,minPrice) => dispatch(fetchSearchProduct(search,subcategories,brand,maxPrice,minPrice)),
+    fetchBanners: () => dispatch(fetchBanners()),
+    fetchCategoryProduct:() => dispatch(fetchCategoryProduct())
   }
 }
 
@@ -299,6 +204,8 @@ const mapStateToProps = (state) => {
     success: state.success,
     failed: state.failed,
     searchproduct: state.searchproduct,
+    categoryproduct: state.categoryproduct,
+    brandsproduct: state.brandsproduct,
   }
 }
 

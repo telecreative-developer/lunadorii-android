@@ -2,6 +2,7 @@ import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_COURIER } from '../constants'
 import { API_SERVER } from '../env'
 
+//<---- GET COURIER ---->
 export const fetchCourier = (weight_gram, province_id) => {
 	console.log('bla bla ' ,weight_gram, province_id)
 	return async dispatch => {
