@@ -35,13 +35,13 @@ const LoginTroubleshooting = (props) => (
               <Text style={styles.buttonSendLinkStyleText}>Send Login Link</Text>
             </Button>
           </View>
-          <View style={{marginBottom: 30, paddingTop: 10}}>
+          <View style={{marginBottom: 25, paddingTop: 10}}>
             <TouchableOpacity onPress={props.navigateToMoreHelp}>
               <Text style={{alignSelf: 'center', color:'#d11e48'}}>Need more help?</Text>
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{borderTopColor: '#979797', borderTopWidth: 1.2, borderBottomColor: '#979797', borderBottomWidth: 1.2, marginHorizontal: 40, alignItems:'center', marginTop: 5}}>
+        <View style={{borderTopColor: '#979797', borderTopWidth: 1.2, borderBottomColor: '#979797', borderBottomWidth: 1.2, marginHorizontal: 45, alignItems:'center'}}>
           <TouchableOpacity style={{flexDirection:'row', alignItems: 'center', paddingVertical: 50}} onPress={props.loginFB}>
             <Icon type="Entypo" name="facebook" style={{color:"#3B5998"}}/><Text style={{color:"#3B5998", paddingLeft: 5}}>Log in With Facebook</Text>
           </TouchableOpacity>
