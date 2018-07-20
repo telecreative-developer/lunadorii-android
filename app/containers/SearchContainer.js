@@ -249,7 +249,7 @@ class SearchContainer extends Component {
         buttonBrads={({item}) => (
           <View style={{
             borderWidth: 1, 
-            borderColor: this.state.selectedBrand === item.brandTitle ? '#d11e48' : '#e2e2e2', 
+            borderColor: this.state.selectedBrand === item.brandTitle ? '#F7009A' : '#e2e2e2', 
             width: 150,
             margin: 5
           }}>
