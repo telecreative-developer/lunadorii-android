@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { Modal, View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
 import { Content, Item, Input, Icon, Button } from 'native-base'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import BrandChooserModal from '../modals/BrandChooserModal'
 import NavbarModal from '../particles/NavbarModal'
 
@@ -22,11 +23,26 @@ const FiltersModal = (props) => (
     <Content style={styles.container}>
       <Text style={styles.txtLabel}>Category</Text>
       <Item regular style={styles.item}>
-        <Input placeholder='Select category below' placeholderTextColor="#ccc" onChangeText={props.handleCategory} />
+        {/* <Input placeholder='Select category below' placeholderTextColor="#ccc" onChangeText={props.handleCategory} value={props.searchCategoryValue}/> */}
+        <FlatList
+          horizontal={true}
+          showsHorizontalScrollIndicator={false}
+          data={props.dataButtonSelectedCategory}
+          renderItem={props.buttonSelectedCategory}
+        />
+        <TouchableOpacity onPress={props.clearCategory}>
+          <EvilIcons name="close" style={styles.searchIcon} />
+        </TouchableOpacity>
       </Item>
       <View style={styles.flexStart}>
         <View style={styles.buttonWrapper}>
-          <Button bordered danger style={styles.mediumButton}>
+          <FlatList
+            horizontal={true}
+            showsHorizontalScrollIndicator={false}
+            data={props.dataButtonCategory1st}
+            renderItem={props.buttonCategory1st}
+          />
+          {/* <Button bordered danger style={styles.mediumButton}>
             <Text style={styles.buttonText}>Makeup</Text>
           </Button>
           <Button bordered danger style={styles.mediumButton}>
@@ -34,7 +50,7 @@ const FiltersModal = (props) => (
           </Button>
           <Button bordered danger style={styles.mediumButton}>
             <Text style={styles.buttonText}>Skincare</Text>
-          </Button>
+          </Button> */}
         </View>
         <View style={styles.buttonWrapper}>
           <Button bordered danger style={styles.largeButton}>
@@ -73,6 +89,10 @@ const styles = StyleSheet.create({
   container: {
     backgroundColor: '#fff',
     padding: 10
+  },
+  searchIcon: {
+    fontSize: 26,
+    paddingRight: 10
   },
   sparator: {
     fontSize: 36,

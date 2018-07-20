@@ -14,6 +14,14 @@ const Search = (props) => (
       navbarIcon="arrow-back"
       actionIcon={props.goback} />
     <FiltersModal
+      clearCategory={props.clearCategory}
+            
+      dataButtonCategory1st={props.dataButtonCategory1st}
+      buttonCategory1st={props.buttonCategory1st}
+
+      dataButtonSelectedCategory={props.dataButtonSelectedCategory}      
+      buttonSelectedCategory={props.buttonSelectedCategory}
+
       navbarTitle="Filters"
       navbarIcon="close"
       modalVisible={props.modalVisibleFilters}
