@@ -1,8 +1,9 @@
 import React, { Component } from 'react'
-import {Text} from 'react-native'
+import {Text,View,Image,TouchableOpacity} from 'react-native'
 import {Button} from 'native-base'
 import Search from '../components/Search'
 import Product from '../particles/Product'
+import EvilIcons from 'react-native-vector-icons/EvilIcons'
 
 import { connect } from 'react-redux'
 import { fetchSearchProduct } from '../actions/product'
@@ -125,6 +126,7 @@ class SearchContainer extends Component {
     searchResult:"not yet search",
     modalVisibleBrandChooser: false,
     selectedCategory: [],
+    selectedBrand: '',
     loading: false
   }
 
@@ -147,6 +149,22 @@ class SearchContainer extends Component {
   }
   handleMaxPrice(){
     
+  }
+
+  goodBye(index, array){
+    var array;
+    var index = array.indexOf(index);
+    if (index > -1) {
+      array.splice(index, 1);
+      return(array)
+    }
+  }
+
+  removeSelectedCategory(item){
+    this.state.selectedCategory.length == 1 ?
+      this.setState({selectedCategory: []})
+    :
+      this.setState({selectedCategory: this.goodBye(item, this.state.selectedCategory)})            
   }
 
   capitalize(string) {
@@ -185,14 +203,19 @@ class SearchContainer extends Component {
         buttonSelectedCategory={({item}) => (
           <Button bordered danger style={{
             height: 30,
-            width: 80,
             justifyContent: 'center',
             borderRadius: 5,
             margin: 5,
             backgroundColor: '#d11e48'
-          }}
-          >
-            <Text style={{color: '#fff'}}>{item}</Text>
+          }}>
+            <Text style={{color: '#fff',padding: 5}}>{item}</Text>
+            <TouchableOpacity onPress={() => this.removeSelectedCategory(item)}>
+              <EvilIcons name="close" style={{
+                fontSize: 12,
+                padding: 5,
+                color:'#fff'
+              }} />
+            </TouchableOpacity>
           </Button>
         )}
 
@@ -203,10 +226,9 @@ class SearchContainer extends Component {
           {categories: 'Sit'},
           {categories: 'Amet'}
         ]}
-        buttonCategory1st={({item, index}) => (
+        buttonCategory1st={({item}) => (
           <Button bordered danger style={{
             height: 30,
-            width: 80,
             justifyContent: 'center',
             borderColor: '#F7009A',
             borderRadius: 5,
@@ -215,9 +237,35 @@ class SearchContainer extends Component {
             // onPress={() => this.setState({selectedCategory: [...this.state.selectedCategory, item.categories]})}
             onPress={() => this.setState({selectedCategory: this.state.selectedCategory.concat(item.categories)})}
           >
-            <Text style={{color: '#F7009A'}}>{item.categories}</Text>
+            <Text style={{color: '#F7009A', padding: 5}}>{item.categories}</Text>
           </Button>
         )}
+        
+        dataButtonBrands={[
+          {image: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png', brandTitle: 'ASD'},
+          {image: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png', brandTitle: 'QWE'},
+          {image: 'https://upload.wikimedia.org/wikipedia/commons/6/6a/JavaScript-logo.png', brandTitle: 'ERT'}
+        ]}
+        buttonBrads={({item}) => (
+          <View style={{
+            borderWidth: 1, 
+            borderColor: this.state.selectedBrand === item.brandTitle ? '#d11e48' : '#e2e2e2', 
+            width: 150,
+            margin: 5
+          }}>
+            <TouchableOpacity onPress={() => this.setState({selectedBrand: item.brandTitle})}>
+              <Image source={{uri: item.image}} style={{
+                resizeMode: 'contain',
+                width: 100, 
+                height: 60, 
+                margin: 5, 
+                justifyContent: 'center', 
+                alignSelf: 'center'
+              }}/>
+            </TouchableOpacity>
+          </View>
+        )}
+        
         clearCategory={() => this.setState({selectedCategory: []})}
         handleFilterSearch={() => alert(JSON.stringify(this.state.selectedCategory))}
 
