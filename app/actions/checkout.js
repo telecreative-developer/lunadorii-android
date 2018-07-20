@@ -2,13 +2,12 @@ import { setLoading, setFailed, setSuccess } from './processor'
 // import { RECEIVE_WISHLIST } from '../constants'
 import { API_SERVER } from '../env'
 
-export const postCheckout = (dataUser, accessToken) => {
-	// const { data } = dataUser
-	// console.log(dataUser)
+export const postCheckout = ( dataUser, accessToken ) => {
+	console.log('action :', dataUser.data)
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_CHECKOUT'))
 		try {
-			const response = await fetch(`http://ec2-52-77-224-133.ap-southeast-1.compute.amazonaws.com/api/v1/order/checkout`, {
+			const response = await fetch(`${API_SERVER}/order/checkout`, {
 				method: 'POST',
 				headers: {
 					Accept: 'application/json',
@@ -16,9 +15,9 @@ export const postCheckout = (dataUser, accessToken) => {
 					Authorization: accessToken
         },
         body: JSON.stringify({
-					"delivery_service": "JNE",
-					"delivery_price": 30000,
-					"paid_method": dataUser.paid_method,
+					"delivery_service": dataUser.service,
+					"delivery_price": dataUser.delivery_price,
+					"paid_method": dataUser.selectedMethod,
 					"bank": "BCA",
 					"address": dataUser.detail_address,
 					"city_id": dataUser.city_id,

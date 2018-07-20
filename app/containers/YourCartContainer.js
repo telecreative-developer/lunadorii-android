@@ -72,9 +72,9 @@ class YourCartContainer extends Component {
     const data = await JSON.parse(session)
     await this.props.fetchCartUser(data.id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
-    // if(this.props.cartuser.length){
-    //   await this.getCourier()
-    // }
+    if(this.props.cartuser.length){
+      await this.getCourier()
+    }
     await this.setState({stillLoading: false})
     await this.setAddress()
   }
@@ -302,17 +302,15 @@ class YourCartContainer extends Component {
 }
 
  async checkout(){
-  //  const service = await this.state.selectedCourier.service
-  //  const delivery_price = await this.state.selectedCourier.cost[0].value
+   const service = await this.state.selectedCourier.service
+   const delivery_price = await this.state.selectedCourier.cost[0].value
    const { selectedMethod, province_id, city_id, detail_address} = await this.state
    const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage}))
    const cartuser = await this.props.cartuser
    const session = await AsyncStorage.getItem('session')
    const data = await JSON.parse(session)
    const id = data.id
-   console.log('data productL:', {...this.props.cartuser.map(d => ({qty:d.qty, product_id:d.product_id, price:d.price, discount_percentage:d.discount_percentage}))})
-   await this.props.postCheckout({selectedMethod, province_id, city_id, id, detail_address, data:dataProduct}, data.accessToken)
-
+   await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, id, city_id, province_id, data:dataProduct} , data.accessToken)
  }
 
  setCourier(){
@@ -423,13 +421,12 @@ render() {
 
 const mapDispatchToProps = (dispatch) =>{
   return{
-
     fetchCartUser: (id, accessToken) => dispatch(fetchCartUser(id, accessToken)),
     fetchUserShipping: (id, accessToken) => dispatch(fetchUserShipping(id, accessToken)),
     removeCart: (id, product_id, accessToken) => dispatch(removeCart(id, product_id, accessToken)),
     editQty: (id, product_id, qty, cart_id, accessToken) => dispatch(editQty(id, product_id, qty, cart_id, accessToken)),
     fetchCourier: (weight_gram, province_id) => dispatch(fetchCourier(weight_gram, province_id)),
-    postCheckout: (dataUser, accessToken) => dispatch(postCheckout(dataUser, accessToken))
+    postCheckout: ( dataUser, accessToken) => dispatch(postCheckout( dataUser, accessToken))
   }
 }
 
