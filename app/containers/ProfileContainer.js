@@ -7,7 +7,7 @@ import ImagePicker from 'react-native-image-picker'
 import moment from 'moment'
 import {connect} from 'react-redux'
 import { fetchSingleUser } from '../actions/getSingleUser'
-import { editName } from '../actions/editprofile'
+import { editName, editAvatar } from '../actions/editprofile'
 import { fetchProductRecent, fetchProductHistory } from '../actions/product'
 
 class ProfileContainer extends Component {
@@ -37,8 +37,11 @@ class ProfileContainer extends Component {
       storageOptions:{
         stillLoading: true,
         cameraRoll: true,
-        path: this.state.photoProfile
-      }
+        path: this.state.imageProfile
+      },
+      quality: 1,
+      maxWidth: 800,
+      maxHeight: 800
     }
     await ImagePicker.showImagePicker(options, (responses) => {
       if(responses.didCancel){
@@ -52,23 +55,26 @@ class ProfileContainer extends Component {
         let fileExt = str.split(".")
 
         this.setState({
-          photoProfile: responses.uri,
+          stillLoading: true,
+          imageProfile: responses.uri,
           photoName: `${Date.now()}.${fileExt[1]}`,
           photoType: `image/${fileExt[1]}`
         })
-        this.uploadToS3(responses.uri, `${Date.now()}.${fileExt[1]}`, `image/${fileExt[1]}`)
+        this.uploadToS3(data.id, data.accessToken, responses.uri, `${Date.now()}.${fileExt[1]}`, `image/${fileExt[1]}`)
+        this.setState({
+          stillLoading: false
+        })
       }
     })
   }
 
-  uploadToS3(uri, name, type){
+  uploadToS3(id, accessToken, uri, name, type){
     const file = {
       // `uri` can also be a file system path (i.e. file://)
       uri,
       name,
       type
     }
-    console.log(file, options)
     
     const options = {
       keyPrefix: "avatars/",
@@ -83,7 +89,9 @@ class ProfileContainer extends Component {
     RNS3.put(file, options).progress((e) => console.log(e.loaded / e.total)).then(response => {
       if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
-      console.log(response);
+      this.props.editAvatar(id, response.body.postResponse.location).then(response1 => {
+        this.props.fetchSingleUser(id, accessToken)
+      })
       /**
        * {
        *   postResponse: {
@@ -123,7 +131,7 @@ class ProfileContainer extends Component {
     }
     await this.setState({
       userData: data,
-      photoProfile: this.props.getsingleuser.avatar_url,
+      imageProfile: this.props.getsingleuser.avatar_url,
       first_name: this.props.getsingleuser.first_name,
       last_name : this.props.getsingleuser.last_name,
       bod: this.props.getsingleuser.bod,
@@ -148,7 +156,7 @@ class ProfileContainer extends Component {
           />
         )}
 
-        photoProfile={this.state.photoProfile}
+        photoProfile={this.props.getsingleuser.avatar_url}
         handleOpenCamera={() => this.handleOpenCamera()}
 
         toggleModalEditProfile={() => this.toggleModalEditProfile()}
@@ -181,7 +189,8 @@ const mapDispatchToProps = (dispatch) =>{
     fetchSingleUser: (id, accessToken) => dispatch(fetchSingleUser(id, accessToken)),
     fetchProductRecent: (id, accessToken) => dispatch(fetchProductRecent(id, accessToken)),
     fetchProductHistory: (id, accessToken) => dispatch(fetchProductHistory(id, accessToken)),
-    editName: (id, firstName, lastName, bod, accessToken) => dispatch(editName(id, firstName, lastName, bod, accessToken))
+    editName: (id, firstName, lastName, bod, accessToken) => dispatch(editName(id, firstName, lastName, bod, accessToken)),
+    editAvatar: (id, avatar_url) => dispatch(editAvatar(id, avatar_url))
   }
 }
 
@@ -192,6 +201,7 @@ const mapStateToProps = (state) => {
     failed: state.failed,
     getsingleuser: state.getsingleuser,
     editname: state.editname,
+    editavatar: state.editavatar,
     productrecent: state.productrecent,
     producthistory: state.producthistory
   }

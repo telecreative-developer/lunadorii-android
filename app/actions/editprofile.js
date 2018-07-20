@@ -1,5 +1,5 @@
 import { setLoading, setFailed, setSuccess } from './processor'
-import { RECEIVE_EDIT_PASSWORD, RECEIVE_EDIT_EMAIL, RECEIVE_EDIT_NAME } from '../constants'
+import { RECEIVE_EDIT_PASSWORD, RECEIVE_EDIT_EMAIL, RECEIVE_EDIT_NAME, RECEIVE_EDIT_AVATAR } from '../constants'
 import { API_SERVER } from '../env'
 
 export const editName = (id, first_name, last_name, bod, accessToken) => {
@@ -70,7 +70,6 @@ const receiveResultEmail = data => {
 	}
 }
 
-
 export const editPassword = (id, old_password, new_password, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_EDIT_PASSWORD'))
@@ -101,6 +100,38 @@ export const editPassword = (id, old_password, new_password, accessToken) => {
 const receiveResultPassword = data => {
 	return{
 		type: RECEIVE_EDIT_PASSWORD,
+		payload: data
+	}
+}
+
+export const editAvatar = (id, avatar_url) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_EDIT_AVATAR'))
+		try {
+			const response = await fetch(`${API_SERVER}/user/update-avatar/${id}`, {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    avatar_url
+                })
+			})
+			const data = await response.json()
+			await dispatch(receiveResultAvatar(data))
+			await dispatch(setSuccess(true, 'SUCCESS_EDIT_AVATAR'))
+      		await dispatch(setLoading(false, 'LOADING_EDIT_AVATAR'))
+		} catch (e) {
+			dispatch(setFailed(true, 'FAILED_EDIT_AVATAR', e))
+			dispatch(setLoading(false, 'LOADING_EDIT_AVATAR'))
+		}
+	}
+}
+
+const receiveResultAvatar = data => {
+	return{
+		type: RECEIVE_EDIT_AVATAR,
 		payload: data
 	}
 }

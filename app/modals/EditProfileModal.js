@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { Content, Item, Input, Icon, Label, Form, Button } from 'native-base'
+import { Content, Item, Input, Icon, Label, Form, Button, Spinner } from 'native-base'
 import defaultPhotoProfile from '../assets/images/icon/photoProfileDefault.png'
 import NavbarModal from '../particles/NavbarModal'
 import DatePicker from 'react-native-datepicker'
@@ -19,7 +19,7 @@ const EditProfileModal = (props) => (
     />
     <Content style={styles.container}>
       <View>
-        <Image source={{uri : props.imageProfile }} style={styles.imageFrame} />
+        <Image source={{ uri: props.photoProfile }} style={styles.imageFrame} />
         <View style={styles.takePhotoButton}>
           <TouchableOpacity onPress={props.handleOpenCamera}>
             <Icon name='camera' style={styles.takePhotoButtonIcon} />
@@ -66,8 +66,10 @@ const EditProfileModal = (props) => (
         </Item>
       </Form>
     </Content>
-    <Button full style={styles.buttonSaveStyleEditProfile} onPress={props.handleSaveEditProfile}>
+    <Button full style={styles.buttonSaveStyleEditProfile} onPress={props.handleSaveEditProfile} disabled={props.stillLoading} >
+      {props.stillLoading ? <Spinner /> :
       <Text style={styles.buttonSaveTextStyleEditProfile}>Save</Text>
+      }
     </Button>
   </Modal >
 )
