@@ -28,7 +28,7 @@ const Profile = (props) => (
       modalVisible={props.modalVisibleEditProfile}
       actionIcon={props.toggleModalEditProfile}
 
-      imageProfile={props.photoProfile}
+      photoProfile={props.photoProfile}
       first_name={props.profile.first_name}
       last_name={props.profile.last_name}
       bod={props.profile.bod}
@@ -38,6 +38,7 @@ const Profile = (props) => (
       onChangeBirthDate={props.onChangeBirthDate}
       handleSaveEditProfile={props.handleSaveEditProfile}
       handleOpenCamera={props.handleOpenCamera}
+      stillLoading={props.stillLoading}
     />
     <StatusBar
       backgroundColor="#f65857"
@@ -53,7 +54,7 @@ const Profile = (props) => (
           <View style={styles.subHeaderProfile}>
             <View style={styles.flexDirectionRow}>
               <View>
-                <Image source={{ uri: props.profile.userData.avatar_url }} style={styles.imageProfile} />
+                <Image source={{ uri: props.photoProfile }} style={styles.imageProfile} />
               </View>
               <View>
                 <View style={styles.viewNameProfile}>
