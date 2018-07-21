@@ -110,3 +110,12 @@ export const receiveProductWithBanner = (state = [], action ) => {
 			return state
 	}
 }
+
+export const productWithoutId = ( state = [], action ) => {
+	switch (action.type){
+		case RECEIVE_PRODUCT_WITHOUT_ID:
+			return action.payload
+		default:
+			return state
+	}
+}

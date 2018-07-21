@@ -5,6 +5,7 @@ import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import Navbar from '../particles/Navbar'
 import FiltersModal from '../modals/FiltersModal'
 import ResultNotFound from '../particles/ResultNotFound'
+import AddToCart from '../modals/AddToCart'
 const { height, width } = Dimensions.get('window')
 
 const Search = (props) => (
@@ -39,6 +40,13 @@ const Search = (props) => (
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content"
+    />
+    <AddToCart
+      quantityValue={props.quantityValue}
+      modalVisible={props.modalVisibleAddToCart}
+      toggleModalAddToCart={props.toggleModalAddToCart}
+      onChangeQty={props.onChangeQty}
+      handleAddToCart={props.handleAddToCart}      
     />
     <Content style={styles.container}>
       <Item regular style={styles.items}>

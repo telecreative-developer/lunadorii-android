@@ -22,6 +22,7 @@ const { width, height } = Dimensions.get('window')
 const bannerWidth = Dimensions.get('window').width
 const bannerHeight = height / 2.8
 
+
 class HomeContainer extends Component {
   constructor(props) {
     super(props);
@@ -34,6 +35,7 @@ class HomeContainer extends Component {
       product_id: 0,
       product_name: '',
       qty: 0,
+      uri:'',
       modalVisibleAddToCart: false
     };
   }
@@ -47,55 +49,60 @@ class HomeContainer extends Component {
   }
 
   async toggleModalAddToCart(item){
-
-    await this.closeModal()
-    if(this.state.modalVisibleAddToCart){
-      const session = await AsyncStorage.getItem('session')
-      const data = await JSON.parse(session)
-      await this.setState({
-        id_user: data.id,
-        product_id: item.product_id,
-        product_name: item.product
-      }) 
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    if( data ==  null ){
+      this.props.navigation.navigate('LoginContainer')
     }else{
-      await this.setState({
-        id_user: 0,
-        product_id: 0,
-        qty: 0,
-      })
+      await this.closeModal()
+      if(this.state.modalVisibleAddToCart){
+        
+        await this.setState({
+          id_user: data.id,
+          product_id: item.product_id,
+          product_name: item.product
+        }) 
+      }else{
+        await this.setState({
+          id_user: 0,
+          product_id: 0,
+          qty: 0,
+        })
+      }
     }
   }
 
   async handleAddToCart(){
-    // console.log('isi state: ', this.state)
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    // await alert('Berhasil Menambahkan ke Kranjang', this.state.product_name.slice(0,10))
-    ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
-    await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
-    await this.closeModal()
-
+    if( data == null ){
+      await this.closeModal()
+      await this.props.navigate.navigation('LoginContainer')
+    }else{
+      ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
+      await this.closeModal()
+    } 
   }
 
   async componentDidMount() {
-    // BackHandler.addEventListener('hardwareBackPress', this.handleBackButton);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    if(data == null){
+      await this.props.fetchProductWithoutId()
+    }else{
+      await this.props.fetchSingleUser(data.id, data.accessToken)
+      await this.props.fetchProduct(data.id)
+    }
     await this.props.fetchBanners()
     await this.props.fetchCategoryProduct()
     await this.props.fetchBrandsProduct()
-    await this.props.fetchProduct(data.id)
     await this.props.fetchProductBestSeller()
-    await this.props.fetchSingleUser(data.id, data.accessToken)
+    await this.person()
     if(this.props.fetchProductSubcategories()){
       await this.setState({stillLoading: false})
     }
-    
   }
-
-  // componentWillUnmount() {
-  //   
-  // }
 
   handleBackButton() {
     Alert.alert(
@@ -130,15 +137,46 @@ class HomeContainer extends Component {
     )
   }
 
+  async toCart(){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    if( data == null ){
+      this.props.navigation.navigate('LoginContainer')
+    }else{
+      this.props.navigation.navigate('YourCartContainer')
+    }
+  }
+
+  async toProfile(){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    if( data == null ){
+      this.props.navigation.navigate('LoginContainer')
+    }else{
+      this.props.navigation.navigate('ProfileContainer')
+    }
+  }
+
   discountPrice(price, discount_percentage){
     let DiscountPrice = price - (price *(discount_percentage/100))
     // const reducer = (accumulator, currentValue) => accumulator + currentValue
     return DiscountPrice
   }
 
+  async person(){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    const dataPerson = await this.props.getsingleuser.avatar_url
+    const uri = await 'https://freeiconshop.com/wp-content/uploads/edd/person-girl-flat.png'
+    if( data == null ){
+      this.setState({uri:uri})
+    }else{
+      this.setState({uri:dataPerson})
+    }
+  }
+
   render() {
     const { banners } = this.props
-    console.log('dataaa', this.props.productsubcategories)
     return (
       <Home
         stillLoading={this.state.stillLoading}
@@ -162,7 +200,7 @@ class HomeContainer extends Component {
           />
         )}
 
-        dataProduct={this.props.product}
+        dataProduct={ this.props.product }
         renderProduct={({ item }) => (
           <Product 
             image={item.thumbnails[0].thumbnail_url} 
@@ -215,10 +253,10 @@ class HomeContainer extends Component {
         quantityValue={this.state.qty}
         handleAddToCart={() => this.handleAddToCart()}
 
-        navigateToYourCart={() => this.props.navigation.navigate("YourCartContainer")}
-        navigateToProfile={() => this.props.navigation.navigate('ProfileContainer')}
+        navigateToYourCart={() => this.toCart()}
+        navigateToProfile={() => this.toProfile()}
         navigateToSearch={() => this.props.navigation.navigate("SearchContainer")}
-        image={ this.props.getsingleuser}
+        image={ this.state.uri }
       />
     )
   }
@@ -242,7 +280,7 @@ const mapDispatchToProps = (dispatch) =>{
     fetchBrandsProduct: () => dispatch(fetchBrandsProduct()),
     fetchProduct: (id) => dispatch(fetchProduct(id)),
     fetchProductBestSeller: () =>dispatch(fetchProductBestSeller()),
-    // fetchProductWithoutId: () =>dispatch(fetchProductWithoutId()),
+    fetchProductWithoutId: () =>dispatch(fetchProductWithoutId()),
     fetchSingleUser:(id, accessToken) => dispatch(fetchSingleUser(id, accessToken)),
     fetchBanners: () => dispatch(fetchBanners()),
     fetchProductSubcategories: () => dispatch(fetchProductSubcategories()),
@@ -253,6 +291,7 @@ const mapDispatchToProps = (dispatch) =>{
 
 const mapStateToProps = (state) => {
   return{
+    logged: state.logged,
     loading: state.loading,
     success: state.success,
     sessionPersistance: state.sessionPersistance,
@@ -262,7 +301,7 @@ const mapStateToProps = (state) => {
     product: state.product,
     productbestseller: state.productbestseller,
     banners: state.banners,
-    productwithoutid: state.productwithoutid,
+    productWithoutId: state.productwithoutid,
     getsingleuser: state.getsingleuser,
     productsubcategories: state.productsubcategories
   }

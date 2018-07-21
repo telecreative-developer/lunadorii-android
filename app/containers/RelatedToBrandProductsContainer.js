@@ -29,22 +29,25 @@ class RelatedToBrandProductsContainer extends Component{
   }
 
   async toggleModalAddToCart(item){
-
-    await this.closeModal()
-    if(this.state.modalVisibleAddToCart){
-      const session = await AsyncStorage.getItem('session')
-      const data = await JSON.parse(session)
-      await this.setState({
-        id_user: data.id,
-        product_id: item.product_id,
-        product_name: item.product
-      }) 
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    if( data == null ){
+      this.props.navigation.navigate('LoginContainer')
     }else{
-      await this.setState({
-        id_user: 0,
-        product_id: 0,
-        qty: 0,
-      })
+      await this.closeModal()
+      if(this.state.modalVisibleAddToCart){
+        await this.setState({
+          id_user: data.id,
+          product_id: item.product_id,
+          product_name: item.product
+        }) 
+      }else{
+        await this.setState({
+          id_user: 0,
+          product_id: 0,
+          qty: 0,
+        })
+      }
     }
   }
 

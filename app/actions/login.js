@@ -1,5 +1,5 @@
 import { AsyncStorage } from 'react-native'
-import { setLoading, setFailed, setSuccess } from './processor'
+import { setLoading, setFailed, setSuccess, setLogged } from './processor'
 import { SAVE_SESSION_PERSISTANCE } from '../constants'
 import { API_SERVER } from '../env'
 
@@ -17,12 +17,14 @@ export const login = (email, password) => {
 				body: JSON.stringify({email, password})
 			})
 			const data = await response.json()
+			console.log('data login :', data)
 			if (data.status === 400 && data.name === 'error') {
 				await dispatch(setFailed(true, 'FAILED_PROCESS_LOGIN', data.message))
 				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 				await dispatch(setFailed(false, 'FAILED_PROCESS_LOGIN'))
 			} else {
 				await dispatch(fetchUserWithId(email, password, data.accessToken, data.id))
+				await dispatch(setLogged(true))
 				await dispatch(setSuccess(true, 'SUCCESS_PROCESS_LOGIN'))
 				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 			}
