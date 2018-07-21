@@ -5,6 +5,7 @@ import { API_SERVER } from '../env'
 
 export const login = (email, password) => {
 	return async dispatch => {
+		interceptInOffline = true;
 		await dispatch(setLoading(true, 'LOADING_PROCESS_LOGIN'))
 		try {
 			const response = await fetch(`${API_SERVER}/auth/user`, {
