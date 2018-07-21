@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Text,View,Image,TouchableOpacity} from 'react-native'
+import {Text,View,Image,TouchableOpacity, AsyncStorage, ToastAndroid} from 'react-native'
 import {Button} from 'native-base'
 import Search from '../components/Search'
 import Product from '../particles/Product'
@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import { fetchSearchProduct } from '../actions/product'
 import { fetchCategoryProduct } from '../actions/categoryproduct'
 import { fetchBrandsProduct } from '../actions/brandsproduct'
+import { addToCart } from '../actions/cart'
 
 class SearchContainer extends Component {
 
@@ -25,7 +26,12 @@ class SearchContainer extends Component {
     minPrice:'',
     lastFillter:'',
     selectedBrand: '',
-    loading: false
+    loading: false,
+    id_user: 0,
+    product_id: 0,
+    product_name: '',
+    qty: 0,
+    modalVisibleAddToCart: false
   }
 
   componentDidMount(){
@@ -42,19 +48,6 @@ class SearchContainer extends Component {
     await this.setState({searchResult: this.props.searchproduct})
     await this.setState({lastSearchTitle: searchTitle, selectedCategory, brand, minPrice, maxPrice})
     await this.setState({loading: false})
-  }
-
-  handleCategory(){
-
-  }
-  handleBrand(){
-    
-  }
-  handleMinPrice(){
-    
-  }
-  handleMaxPrice(){
-    
   }
 
   goodBye(index, array){
@@ -87,6 +80,47 @@ class SearchContainer extends Component {
     this.setState({ modalVisibleBrandChooser: !this.state.modalVisibleBrandChooser })
   }
 
+  closeModal(){    
+    this.setState({modalVisibleAddToCart: !this.state.modalVisibleAddToCart})
+  }
+
+  async toggleModalAddToCart(item){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    if( data ==  null ){
+      this.props.navigation.navigate('LoginContainer')
+    }else{
+      await this.closeModal()
+      if(this.state.modalVisibleAddToCart){
+        
+        await this.setState({
+          id_user: data.id,
+          product_id: item.product_id,
+          product_name: item.product
+        }) 
+      }else{
+        await this.setState({
+          id_user: 0,
+          product_id: 0,
+          qty: 0,
+        })
+      }
+    }
+  }
+
+  async handleAddToCart(){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    if( data == null ){
+      await this.closeModal()
+      await this.props.navigate.navigation('LoginContainer')
+    }else{
+      ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
+      await this.closeModal()
+    } 
+  }
+
   render() {
     console.log('sub:', this.state)
     return (
@@ -105,6 +139,7 @@ class SearchContainer extends Component {
             categories={item.subcategories[0].subcategory} 
             price={item.price} star={item.product_rate} 
             action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+            toggleModalAddToCart={() => this.toggleModalAddToCart(item)}
           />
         )}
 
@@ -171,6 +206,12 @@ class SearchContainer extends Component {
         clearCategory={() => this.setState({selectedCategory: []})}
         handleFilterSearch={() => this.handleSearch()}
 
+        modalVisibleAddToCart={this.state.modalVisibleAddToCart}
+        toggleModalAddToCart={() => this.toggleModalAddToCart()}
+        onChangeQty={(qty) => this.setState({qty: parseInt(qty)})}
+        quantityValue={this.state.qty}
+        handleAddToCart={() => this.handleAddToCart()}
+
         loading={this.state.loading}
         lastFillter={this.state.lastFillter}
         searchTitle={this.state.searchTitle}
@@ -194,7 +235,8 @@ const mapDispatchToProps = (dispatch) =>{
   return{
     fetchSearchProduct: (search,subcategories,brand,maxPrice,minPrice) => dispatch(fetchSearchProduct(search,subcategories,brand,maxPrice,minPrice)),
     fetchBanners: () => dispatch(fetchBanners()),
-    fetchCategoryProduct:() => dispatch(fetchCategoryProduct())
+    fetchCategoryProduct:() => dispatch(fetchCategoryProduct()),
+    addToCart: (id, product_id, qty, accessToken) => dispatch(addToCart(id, product_id, qty, accessToken)),
   }
 }
 

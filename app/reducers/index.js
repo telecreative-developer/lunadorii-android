@@ -1,12 +1,12 @@
 import { combineReducers } from "redux";
 
-import { loading, success, failed } from "./processor";
+import { loading, success, failed, logged } from "./processor";
 import { categoryproduct } from "./categoryproduct";
 import { brandsproduct } from "./brandsproduct"
 import { product, searchproduct,receiveSingleProductWithId, 
          relatedProduct, singleRelatedProdct, receiveProductWithCategory, 
          productbestseller, producthistory, productrecent,
-         receiveProductWithBrand, receiveProductWithBanner } from "./product"
+         receiveProductWithBrand, receiveProductWithBanner, productWithoutId } from "./product"
 import { banners } from "./banners"
 import { productsubcategories } from "./productsubcategories"
 import { getsingleuser } from "./getsingleuser"
@@ -23,6 +23,7 @@ import { receiveCourier } from "./shipping"
 
 const rootReducers = combineReducers({
   loading,
+  logged,
   success,
   failed,
   categoryproduct,
@@ -56,7 +57,8 @@ const rootReducers = combineReducers({
   receiveProductWithCategory,
   receiveProductWithBrand,
   receiveProductWithBanner,
-  receiveCourier
+  receiveCourier,
+  productWithoutId
 //   sessionPersistance
 });
 
