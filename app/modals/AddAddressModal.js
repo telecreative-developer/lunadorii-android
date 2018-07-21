@@ -71,7 +71,7 @@ const AddAddressModal = (props) => (
           height: 40,
           borderColor: props.provinceValue ? '#ccc' : '#c0392b'
         }}>
-          <Input placeholder={props.provinceValue} value={props.provinceValue} onChangeText={props.onChangeProvince}/>
+          <Input placeholder={props.addressValue.length == 0 ? "Please fill address first" : props.provinceValue} placeholderTextColor={"#ccc"} value={props.provinceValue} onChangeText={props.onChangeProvince} disabled={props.addressValue.length == 0 ? true : false}/>
           <Ionicons name={props.provinceValue ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
 
@@ -94,7 +94,7 @@ const AddAddressModal = (props) => (
           height: 40,
           borderColor: props.cityValue ? '#ccc' : '#c0392b'
         }}>
-          <Input placeholder={props.cityValue} value={props.cityValue} onChangeText={props.onChangeCity}/> 
+          <Input placeholder={props.provinceValue.length == 0 ? "Please pick province first" : props.cityValue} placeholderTextColor={"#ccc"} value={props.cityValue} onChangeText={props.onChangeCity} disabled={props.provinceValue.length == 0 ? true : false}/> 
           <Ionicons name={props.cityValue ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
 

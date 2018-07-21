@@ -107,6 +107,7 @@ class RelatedToBannerProductsContainer extends Component{
         toggleModalAddToCart={() => this.toggleModalAddToCart()}
         onChangeQty={(qty) => this.setState({qty: parseInt(qty)})}
         handleAddToCart={() => this.handleAddToCart()}
+        navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
         goback={() => this.props.navigation.goBack()}
       />
     )
