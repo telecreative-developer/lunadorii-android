@@ -16,7 +16,7 @@ import {
 import { API_SERVER } from '../env'
 
 
-//  <---- FETCH PRODUCT WITH ID USER ----> //
+//  <---- FETCH PRODUCT ----> //
 export const fetchProduct = (id) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT'))
@@ -46,25 +46,25 @@ const receiveProduct = data => {
 	}
 }
 
-//  <---- FETCH PRODUCT WITHOUT ID USER ----> //
+// < ----- FETCH PRODUCT WITHOUT ID ----- >
 export const fetchProductWithoutId = () => {
 	return async dispatch => {
-		await dispatch(setLoading(true, 'LOADING_FETCH_WITHOUT_ID'))
+		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT'))
 		try {
-			const response = await fetch(`${API_SERVER}/products`, {
+			const response = await fetch(`${API_SERVER}/products/new-arrivals`, {
 				method: 'GET',
-				headers:{
+				headers: {
 					Accept: 'application/json',
-					'content-Type': 'application/json'
+					'Content-Type': 'application/json',
 				}
 			})
 			const data = await response.json()
-			await dispatch(receiveProductWithoutId(data.data))
-			await dispatch(setSuccess(true, 'SUCESS_FETCH_PRODUCT_WITHOUT_ID'))
-			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITHOUT_ID'))
-		} catch (e){
-			dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT_WITHOUT_ID', e))
-			dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITHOUT_ID'))
+			await dispatch(receiveProduct(data.data))
+			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT'))
+      		await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT'))
+		} catch (e) {
+			dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT', e))
+			dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT'))
 		}
 	}
 }
@@ -170,7 +170,6 @@ const receiveProductHistory = data => {
 
 //  <---- SEARCH PRODUCT ----> //
 export const fetchSearchProduct = (search,subcategories,brand,maxPrice,minPrice) => {
-	console.log('action :', search,subcategories,brand,maxPrice,minPrice)
     if(subcategories.length == 0){
       subcategories = ''
     }else{

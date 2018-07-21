@@ -75,14 +75,18 @@ class ProductShowContainer extends Component {
 
   async addToCart(){
     this.setState({clickCart: true})
-    ToastAndroid.showWithGravity("Added to cart.", ToastAndroid.SHORT, ToastAndroid.CENTER)
-    const dataProduct = this.props.navigation.state.params.data
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.setState({
-      product_id: dataProduct.product_id
-    })
-    await this.props.addToCart(data.id, this.state.product_id, this.state.qty, data.accessToken)
+    if(data == null ){
+      await this.props.navigation.navigate('LoginContainer')
+    }else{
+      ToastAndroid.showWithGravity("Added to cart.", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      const dataProduct = this.props.navigation.state.params.data
+      await this.setState({
+        product_id: dataProduct.product_id
+      })
+      await this.props.addToCart(data.id, this.state.product_id, this.state.qty, data.accessToken)
+    }
     this.setState({clickCart: false})
   }
 
@@ -95,7 +99,8 @@ class ProductShowContainer extends Component {
     // BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton(this))
     const session = await AsyncStorage.getItem('session')
     const dataSession = await JSON.parse(session)
-    const data = this.props.navigation.state.params.data
+    const data = await this.props.navigation.state.params.data
+    await console.log('data', data)
     await this.setState({ 
       data,
       reviews: data.reviews,
@@ -112,7 +117,6 @@ class ProductShowContainer extends Component {
       isDiscount: data.discount_percentage <= 0 ? false : true,
       totalPrice: this.discountPrice(data.price, data.discount_percentage)
     })
-    await this.props.fetchSingleProductWithId(dataSession.id, data.product_id)
     if(this.props.fetchRelatedProduct(data.product_id)){
       await this.setState({stillLoading: false})
     }
@@ -129,30 +133,31 @@ class ProductShowContainer extends Component {
   }
 
   async toggleModalAddToCart(item){
-
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
     await this.closeModal()
-    if(this.state.modalVisibleAddToCart){
-      const session = await AsyncStorage.getItem('session')
-      const data = await JSON.parse(session)
-      await this.setState({
-        id_user: data.id,
-        product_id: item.product_id,
-        product_name: item.product
-      }) 
+    if(data == null ){
+      await this.props.navigate.navigation('LoginContainer')
     }else{
-      await this.setState({
-        id_user: 0,
-        product_id: 0,
-        qty: 0,
-      })
+      if(this.state.modalVisibleAddToCart){
+        await this.setState({
+          id_user: data.id,
+          product_id: item.product_id,
+          product_name: item.product
+        }) 
+      }else{
+        await this.setState({
+          id_user: 0,
+          product_id: 0,
+          qty: 0,
+        })
+      }
     }
   }
 
   async handleAddToCartModal(){
-    // console.log('isi state: ', this.state)
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    // await alert('Berhasil Menambahkan ke Kranjang', this.state.product_name.slice(0,10))
     ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
     await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
     await this.closeModal()
@@ -182,17 +187,21 @@ class ProductShowContainer extends Component {
   }
 
   async AddWishlist(){
-    this.setState({clickWishlist:!this.state.clickWishlist})
-    ToastAndroid.showWithGravity("Added to wishlist.", ToastAndroid.SHORT, ToastAndroid.CENTER)
-    const dataProduct = this.props.navigation.state.params.data
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.setState({
-      product_id: dataProduct.product_id
-    })
-    this.props.fetchProduct(data.id)
-    this.props.fetchwishlist(data.accessToken, data.id)
-    await this.props.addWishlist(data.accessToken, data.id, this.state.product_id)
+    if( data == null ){
+      await this.props.navigation.navigate('LoginContainer')
+    }else{
+      this.setState({clickWishlist:!this.state.clickWishlist})
+      ToastAndroid.showWithGravity("Added to wishlist.", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      const dataProduct = this.props.navigation.state.params.data
+      await this.setState({
+        product_id: dataProduct.product_id
+      })
+      this.props.fetchProduct(data.id)
+      this.props.fetchwishlist(data.accessToken, data.id)
+      await this.props.addWishlist(data.accessToken, data.id, this.state.product_id)
+    }
   }
 
   async deleteWishlistInHome(){

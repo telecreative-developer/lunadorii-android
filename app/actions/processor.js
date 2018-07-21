@@ -1,4 +1,4 @@
-import { SET_LOADING, SET_SUCCESS, SET_FAILED } from '../constants'
+import { SET_LOADING, SET_SUCCESS, SET_FAILED, SET_LOGGED } from '../constants'
 
 export const setLoading = (condition, process_on) => ({
 	type: SET_LOADING,
@@ -18,3 +18,10 @@ export const setFailed = (condition, process_on, message) => ({
 	process_on,
 	message
 })
+
+export const setLogged = condition => {
+	return {
+		type: SET_LOGGED,
+		condition
+	}
+}
