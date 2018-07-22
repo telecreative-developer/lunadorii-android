@@ -1,4 +1,5 @@
 import React from 'react'
+import { ConnectivityRenderer } from 'react-native-offline';
 import { StyleSheet, View, Text, Dimensions, FlatList, StatusBar, Image } from 'react-native'
 import { Container, Tabs, Tab, TabHeading, Icon, Content, Spinner } from 'native-base'
 import LunadoriiPortraitLogo from '../assets/images/icon/lunadorii-highres.png'
@@ -63,12 +64,21 @@ const Home = (props) => (
             </View>
             <View style={styles.viewArrivals}>
               <Text style={styles.txtArrivals}>More New Arrivals</Text>
-              <FlatList
-                numColumns={2}
-                data={props.dataProduct}
-                renderItem={props.renderProduct}
-                keyExtractor={(item, index) => JSON.stringify(index)}
-              />
+              <ConnectivityRenderer>
+                {isConnected => (
+                  isConnected ? (
+                  <FlatList
+                    numColumns={2}
+                    data={props.dataProduct}
+                    renderItem={props.renderProduct}
+                    keyExtractor={(item, index) => JSON.stringify(index)}
+                  />
+                  ) : (
+                    <Text>Nothing to show since you are offline</Text>
+                  )
+                )}
+              </ConnectivityRenderer>
+              
             </View>
           </Content>
         )}

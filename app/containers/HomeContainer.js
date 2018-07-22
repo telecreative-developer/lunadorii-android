@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage, TouchableOpacity, BackHandler, ToastAndroid, Alert } from 'react-native'
+import { ConnectivityRenderer } from 'react-native-offline';
+import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage, TouchableOpacity, BackHandler, ToastAndroid, Alert, NetInfo } from 'react-native'
 import { Radio } from 'native-base'
 import { connect } from 'react-redux'
 
@@ -22,6 +23,22 @@ const { width, height } = Dimensions.get('window')
 const bannerWidth = Dimensions.get('window').width
 const bannerHeight = height / 2.8
 
+const Connection = ''
+NetInfo.getConnectionInfo().then((connectionInfo) => {
+  console.log('Initial, type: ' + connectionInfo.type + ', effectiveType: ' + connectionInfo.effectiveType);
+  Connection = connectionInfo.type
+});
+function handleFirstConnectivityChange(connectionInfo) {
+  console.log('First change, type: ' + connectionInfo.type + ', effectiveType: ' + connectionInfo.effectiveType);
+  NetInfo.removeEventListener(
+    'connectionChange',
+    handleFirstConnectivityChange
+  );
+}
+NetInfo.addEventListener(
+  'connectionChange',
+  handleFirstConnectivityChange
+);
 
 class HomeContainer extends Component {
   constructor(props) {
@@ -36,7 +53,10 @@ class HomeContainer extends Component {
       product_name: '',
       qty: 0,
       uri:'',
-      modalVisibleAddToCart: false
+      modalVisibleAddToCart: false,
+      bannersOffline: [],
+      brandsOffline: [],
+      categoriesOffline: []
     };
   }
 
@@ -88,18 +108,26 @@ class HomeContainer extends Component {
   async componentDidMount() {
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    if(data == null){
-      await this.props.fetchProductWithoutId()
+    if(Connection!=='none'){
+      if(data == null){
+        await this.props.fetchProductWithoutId()
+      }else{
+        await this.props.fetchSingleUser(data.id, data.accessToken)
+        await this.props.fetchProduct(data.id)
+      }
+      await this.props.fetchBanners()
+      await this.props.fetchCategoryProduct()
+      await this.props.fetchBrandsProduct()
+      await this.props.fetchProductBestSeller()
+      await this.person()
+      if(this.props.fetchProductSubcategories()){
+        await this.setState({stillLoading: false})
+      }
     }else{
-      await this.props.fetchSingleUser(data.id, data.accessToken)
-      await this.props.fetchProduct(data.id)
-    }
-    await this.props.fetchBanners()
-    await this.props.fetchCategoryProduct()
-    await this.props.fetchBrandsProduct()
-    await this.props.fetchProductBestSeller()
-    await this.person()
-    if(this.props.fetchProductSubcategories()){
+      await this.person()
+      await this.bannerOffline()
+      await this.categoryOffline()
+      await this.brandOffline()
       await this.setState({stillLoading: false})
     }
   }
@@ -131,7 +159,7 @@ class HomeContainer extends Component {
 
   renderBanners(banner, index) {
     return (
-      <TouchableOpacity key={index} style={styles.banner} onPress={() => this.props.navigation.navigate("RelatedToBannerProductsContainer", {data: banner})}>
+      <TouchableOpacity key={index} style={styles.banner} onPress={() => Connection !== 'none' ? this.props.navigation.navigate("RelatedToBannerProductsContainer", {data: banner}) : null }>
         <Image style={styles.bannerImage} source={{ uri: banner.thumbnail_url }} />
       </TouchableOpacity>
     )
@@ -140,20 +168,24 @@ class HomeContainer extends Component {
   async toCart(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    if( data == null ){
-      this.props.navigation.navigate('LoginContainer')
-    }else{
-      this.props.navigation.navigate('YourCartContainer')
+    if(Connection !== 'none'){
+      if( data == null ){
+        this.props.navigation.navigate('LoginContainer')
+      }else{
+        this.props.navigation.navigate('YourCartContainer')
+      }
     }
   }
 
   async toProfile(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    if( data == null ){
-      this.props.navigation.navigate('LoginContainer')
-    }else{
-      this.props.navigation.navigate('ProfileContainer')
+    if(Connection !== 'none'){
+      if( data == null ){
+        this.props.navigation.navigate('LoginContainer')
+      }else{
+        this.props.navigation.navigate('ProfileContainer')
+      }
     }
   }
 
@@ -170,33 +202,60 @@ class HomeContainer extends Component {
     const uri = await 'https://freeiconshop.com/wp-content/uploads/edd/person-girl-flat.png'
     if( data == null ){
       this.setState({uri:uri})
+    }else if(Connection === 'none'){
+      this.setState({uri:uri})
     }else{
       this.setState({uri:dataPerson})
     }
   }
 
+  async bannerOffline(){
+    const bannersOffline = await AsyncStorage.getItem('banners')
+    const data = await JSON.parse(bannersOffline)
+    this.setState({
+      bannersOffline: data
+    })
+  }
+
+  async categoryOffline(){
+    const categoriesOffline = await AsyncStorage.getItem('categories')
+    const data = await JSON.parse(categoriesOffline)
+    this.setState({
+      categoriesOffline: data
+    })
+  }
+
+  async brandOffline(){
+    const brandsOffline = await AsyncStorage.getItem('brands')
+    const data = await JSON.parse(brandsOffline)
+    this.setState({
+      brandsOffline: data
+    })
+  }
+
   render() {
     const { banners } = this.props
+    
     return (
       <Home
         stillLoading={this.state.stillLoading}
-        banners={banners.map((banner, index) => this.renderBanners(banner, index))}
+        banners={Connection!=='none' ? banners.map((banner, index) => this.renderBanners(banner, index)) : this.state.bannersOffline.map((banner, index) => this.renderBanners(banner, index))}
 
-        dataCategoriesButton={this.props.categoryproduct}
+        dataCategoriesButton={Connection!=='none' ? this.props.categoryproduct : this.state.categoriesOffline}
         renderCategoriesButton={({ item }) => (
           <Categories 
             title={item.subcategory.length <= 10 ? item.subcategory : this.capitalize(item.subcategory).slice(0,8)+'...'} 
             realTitle={item.subcategory}
             icon={item.thumbnail_url}
-            action={() => this.props.navigation.navigate("RelatedToCategoryProductsContainer", {data: item})}
+            action={() => Connection !== 'none' ? this.props.navigation.navigate("RelatedToCategoryProductsContainer", {data: item}) : null}
           />
         )}
 
-        dataBrand={this.props.brandsproduct}
+        dataBrand={Connection!=='none' ? this.props.brandsproduct : this.state.brandsOffline}
         renderBrand={({ item }) => (
           <Brand 
             image={item.logo_url} 
-            action={() => this.props.navigation.navigate("RelatedToBrandProductsContainer", {data: item})}
+            action={() => Connection !== 'none' ? this.props.navigation.navigate("RelatedToBrandProductsContainer", {data: item}): null}
           />
         )}
 
@@ -208,7 +267,7 @@ class HomeContainer extends Component {
             categories={item.brands[0].brand} 
             price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
             star={item.product_rate} 
-            action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+            action={() => Connection !== 'none' ? this.props.navigation.navigate("ProductShowContainer", { data: item }): null}
             toggleModalAddToCart={() => this.toggleModalAddToCart(item)}
           />
         )}
@@ -219,7 +278,7 @@ class HomeContainer extends Component {
             image={item.thumbnail_url} 
             title={this.capitalize(item.subcategory)} 
             total={item.products.length}
-            action={() => this.props.navigation.navigate("RelatedToCategoryProductsContainer", {data: item})}
+            action={() => Connection !== 'none' ? this.props.navigation.navigate("RelatedToCategoryProductsContainer", {data: item}) : null}
           />
         )}
 
@@ -236,7 +295,7 @@ class HomeContainer extends Component {
             price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
             star={item.product_rate} 
             reviews={item.product_rate} 
-            action={() => this.props.navigation.navigate("ProductShowContainer", { data: item })}
+            action={() => Connection !== 'none' ? this.props.navigation.navigate("ProductShowContainer", { data: item }) : null}
             toggleModalAddToCart={() => this.toggleModalAddToCart()}
           />
         )
@@ -255,7 +314,7 @@ class HomeContainer extends Component {
 
         navigateToYourCart={() => this.toCart()}
         navigateToProfile={() => this.toProfile()}
-        navigateToSearch={() => this.props.navigation.navigate("SearchContainer")}
+        navigateToSearch={() => Connection !== 'none' ? this.props.navigation.navigate("SearchContainer") : null}
         image={ this.state.uri }
       />
     )

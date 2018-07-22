@@ -34,12 +34,8 @@ class SplashScreenContainer extends Component {
     const data = await JSON.parse(session)
     
     if(data !== null){
-      try{
-        await this.props.login(data.email, data.password)
-        this.navigateToHome()
-      }catch(e){
-        alert(e)
-      }
+      // await this.props.login(data.email, data.password)
+      this.navigateToHome()
     }else{
       this.navigateToLogin()
     }
