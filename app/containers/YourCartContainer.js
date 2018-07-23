@@ -38,15 +38,17 @@ class YourCartContainer extends Component {
       code:'',
       loadingBtn: false,
       selectedCourier:null,
+      costCourier:0,
       cost:[],
       estDays: "",
       product: "",
       brand: "",
-      selectedMethod: "cc",
+      selectedMethod: "CC",
       province_id:0,
       city_id:0,
       detail_address:'',
       selectedBank: '',
+      checkout:[]
     }
   }
 
@@ -201,8 +203,8 @@ class YourCartContainer extends Component {
 
   totalPrice(){
     let totalPrice = 0
-    const price = this.props.cartuser.map(data => data.qty * (data.price - (data.price *(data.discount_percentage/100)))).map(data => totalPrice += data)
-    const Tprice = price
+    const cost = this.state.costCourier
+    const price = this.props.cartuser.map(data => data.qty * (data.price - (data.price *(data.discount_percentage/100)))).map(data => totalPrice += data + cost)
     return totalPrice
   }
 
@@ -295,6 +297,7 @@ class YourCartContainer extends Component {
  async chooseCourier(item){
   await this.setState({
      selectedCourier: item,
+     costCourier: item.cost[0].value,
      modalVisiblePickDeliveryService: false
    })
  }
@@ -304,16 +307,18 @@ class YourCartContainer extends Component {
 }
 
  async checkout(){
-   const service = await this.state.selectedCourier.service
-   const delivery_price = await this.state.selectedCourier.cost[0].value
-   const { selectedMethod, province_id, city_id, detail_address} = await this.state
-   const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage}))
-   const cartuser = await this.props.cartuser
-   const session = await AsyncStorage.getItem('session')
-   const data = await JSON.parse(session)
-   const id = data.id
-   await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, id, city_id, province_id, data:dataProduct} , data.accessToken)
- }
+  const service = await this.state.selectedCourier.service
+  const delivery_price = await this.state.selectedCourier.cost[0].value
+  const { selectedMethod, province_id, city_id, detail_address, selectedBank} = await this.state
+  const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage}))
+  const session = await AsyncStorage.getItem('session')
+  const data = await JSON.parse(session)
+  const id = data.id
+  await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, selectedBank, id, city_id, province_id, data:dataProduct} , data.accessToken)
+  await this.setState({checkout: this.props.checkout})
+  await this.toggleCheckoutPayment()
+  await console.log(this.state.checkout)
+  }
 
  setCourier(){
   const service = this.state.selectedCourier[0].service
@@ -321,11 +326,9 @@ class YourCartContainer extends Component {
  }
 
 render() {
-  // const service = this.state.selectedCourier ? this.state.selectedCourier[0].service
-  // console.log('service :' , service)
-  console.log('kurir :', this.props.receiveCourier)
+  console.log('kurir :', this.props.receiveCheckout)
   const courier = this.props.receiveCourier
-  console.log('Good :',this.state.selectedCourier)
+  console.log('cost :', this.state.selectedCourier)
   return (
     <YourCart 
       stillLoading={this.state.stillLoading}
@@ -333,7 +336,6 @@ render() {
       isCC={this.state.selectedMethod === 'cc'}
       selectedMethod={this.state.selectedMethod}
       selectedCourier={this.state.selectedCourier}
-      // estDays={this.state.estDays}
       selectedServices={this.capitalize(this.state.code)}
       courierCode={courier}
       renderCode={({item}) => (
@@ -431,11 +433,13 @@ render() {
       modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
       toggleModalEditQuantity={() => this.toggleModalEditQuantity(this.props.cartuser)}
       modalVisibleCheckoutPayment={this.state.modalVisibleCheckoutPayment}
-      toggleCheckoutPayment={() => this.toggleCheckoutPayment()}
+      toggleCheckoutPayment={() => this.checkout()}
       deliverySeriveVisible={this.state.deliverySeriveVisible}
       toggleDeliverySerive={() => this.setState({deliverySeriveVisible: !this.state.deliverySeriveVisible})}
       navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
-      goback={() => this.props.navigation.goBack()}/>
+      goback={() => this.props.navigation.goBack()}
+      checkout={ this.props.receiveCheckout }
+      />
     );
   }
 }
@@ -460,7 +464,8 @@ const mapStateToProps = (state) => {
     cartuser: state.cartuser,
     sessionPersistance: state.sessionPersistance,
     usershipping: state.usershipping,
-    receiveCourier: state.receiveCourier
+    receiveCourier: state.receiveCourier,
+    receiveCheckout: state.receiveCheckout
   }
 }
 

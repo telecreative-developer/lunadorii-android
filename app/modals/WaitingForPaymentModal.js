@@ -28,7 +28,7 @@ const WaitingForPaymentModal = (props) => (
         <Image source={image} style={styles.imageFrame} />
         <Text style={styles.textInfo1}>Waiting for payment</Text>
         <View style={styles.textInfo2Wrapper}>
-          <Text style={styles.textInfo2Content}>Your payment code </Text><Text style={styles.textInfo2Code}>20437278982220</Text>
+          <Text style={styles.textInfo2Content}>Your order number </Text><Text style={styles.textInfo2Code}>20437278982220</Text>
         </View>
       </View>
       <View style={styles.paymentInformation2}>
@@ -53,14 +53,24 @@ const WaitingForPaymentModal = (props) => (
             <View style={styles.viewFlex3}>
               <Image source={require('../assets/images/icon/visa.png')} style={styles.image} />
             </View>
+            {console.log('aaaaa', props.checkout)}
             <View style={styles.wrapLeft}>
-              <Text style={styles.paymentCardInformationTitle}>Payment code BCA</Text>
-              <Text style={styles.paymentCardIformationPaymentCode}>390521106000426</Text>
+              <Text style={styles.paymentCardInformationTitle}>Payment code {props.checkout.billing_code}</Text>
+              <Text style={styles.paymentCardIformationPaymentCode}>Paid Method 
+                {props.checkout.paid_method == 'bank' ? 
+                  <Text> Bank Transfer</Text> :
+                  <Text> Credit Card</Text>
+                }
+              </Text>
+              {props.checkout.bank == null ? 
+              <Text></Text>:
+              <Text>Bank : {props.checkout.bank}</Text>
+              }
             </View>
           </View>
           <View style={styles.contentCard2}>
             <Text style={styles.paymentCardInformationTotalLabel}>Total:</Text>
-            <Text style={styles.paymentCardInformationGrandTotal}>Rp 420,000</Text>
+            <Text style={styles.paymentCardInformationGrandTotal}>Rp {props.totalPrice}</Text>
           </View>
         </View>
         {props.isCC ? (
