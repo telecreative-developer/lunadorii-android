@@ -7,7 +7,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 const NavbarHome = (props) => (
   <Header style={styles.headerTransparent} hasTabs>
     <Left>
-      {console.log('image', props.image)}
       <TouchableOpacity onPress={props.photoProfileAction}>
         <Image source={{ uri: props.image }} style={styles.image} />
       </TouchableOpacity>

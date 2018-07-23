@@ -42,14 +42,24 @@ const WaitingForPaymentModal = (props) => (
             <View style={styles.viewFlex3}>
               <Image source={require('../assets/images/icon/visa.png')} style={styles.image} />
             </View>
+            {console.log('aaaaa', props.checkout)}
             <View style={styles.wrapLeft}>
-              <Text style={styles.paymentCardInformationTitle}>Code pembayaran BCA</Text>
-              <Text style={styles.paymentCardIformationPaymentCode}>390521106000426</Text>
+              <Text style={styles.paymentCardInformationTitle}>Code pembayaran {props.checkout.billing_code}</Text>
+              <Text style={styles.paymentCardIformationPaymentCode}>Paid Method 
+                {props.checkout.paid_method == 'bank' ? 
+                  <Text> Bank Transfer</Text> :
+                  <Text> Credit Card</Text>
+                }
+              </Text>
+              {props.checkout.bank == null ? 
+              <Text></Text>:
+              <Text>Bank : {props.checkout.bank}</Text>
+              }
             </View>
           </View>
           <View style={styles.contentCard2}>
             <Text style={styles.paymentCardInformationTotalLabel}>Total:</Text>
-            <Text style={styles.paymentCardInformationGrandTotal}>Rp 420,000</Text>
+            <Text style={styles.paymentCardInformationGrandTotal}>Rp {props.totalPrice}</Text>
           </View>
         </View>
         {props.isCC ? (
