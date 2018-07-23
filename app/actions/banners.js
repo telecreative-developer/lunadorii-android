@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native'
 import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_BANNERS } from '../constants'
 import { API_SERVER } from '../env'
@@ -15,6 +16,7 @@ export const fetchBanners = () => {
 			})
 			const data = await response.json()
 			await dispatch(receiveBanners(data.data))
+			await dispatch(saveBanners(data.data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_BANNERS'))
       		await dispatch(setLoading(false, 'LOADING_FETCH_BANNERS'))
 		} catch (e) {
@@ -28,5 +30,11 @@ const receiveBanners = data => {
 	return{
 		type: RECEIVE_BANNERS,
 		payload: data
+	}
+}
+
+const saveBanners = data => {
+	return () => {
+		AsyncStorage.setItem('banners', JSON.stringify(data))
 	}
 }

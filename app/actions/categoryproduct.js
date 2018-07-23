@@ -1,3 +1,4 @@
+import { AsyncStorage } from 'react-native'
 import { setLoading, setFailed, setSuccess } from './processor'
 import { RECEIVE_CATEGORY_PRODUCT } from '../constants'
 import { API_SERVER } from '../env'
@@ -15,6 +16,7 @@ export const fetchCategoryProduct = () => {
 			})
 			const data = await response.json()
 			await dispatch(receiveCategoryProduct(data.data))
+			await dispatch(saveCategories(data.data))
 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_CATEGORY_PRODUCT'))
       		await dispatch(setLoading(false, 'LOADING_FETCH_CATEGORY_PRODUCT'))
 		} catch (e) {
@@ -28,5 +30,11 @@ const receiveCategoryProduct = data => {
 	return{
 		type: RECEIVE_CATEGORY_PRODUCT,
 		payload: data
+	}
+}
+
+const saveCategories = data => {
+	return () => {
+		AsyncStorage.setItem('categories', JSON.stringify(data))
 	}
 }
