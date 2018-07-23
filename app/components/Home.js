@@ -5,6 +5,7 @@ import { Container, Tabs, Tab, TabHeading, Icon, Content, Spinner } from 'native
 import LunadoriiPortraitLogo from '../assets/images/icon/lunadorii-highres.png'
 import NavbarHome from '../particles/NavbarHome'
 import Carousel from 'react-native-banner-carousel'
+import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import AddToCart from '../modals/AddToCart'
 const { height, width } = Dimensions.get('window')
 
@@ -31,6 +32,14 @@ const Home = (props) => (
     />
     <Tabs locked={true} style={styles.tabHeight} tabBarUnderlineStyle={styles.tabBarUnderlineStyle}>
       <Tab heading={<TabHeading style={styles.tabHeading} ><Text style={styles.txtHeading}>New Arrivals</Text></TabHeading>}>
+        {props.stillLoading ? (
+          <View/>
+        ) : (
+          <View style={{backgroundColor: 'rgba(255, 130, 130, 0.8)', height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
+            <Text style={{padding: 10, fontSize: 14}}>No internet connection</Text>
+            <SimpleLineIcons name='reload' size={18} style={{padding: 10}}/>
+          </View>
+        )}
         {props.stillLoading ? (
           <View style={styles.style}>
             <Spinner color="#d11e48"/>
