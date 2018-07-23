@@ -7,6 +7,7 @@ import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
 import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
 import PickDeliverySeriveModal from '../modals/PickDeliveryServiceModal'
+import PickBankModal from '../modals/PickBankModal'
 import Validations from '../particles/Validations'
 import { fetchCourier } from '../actions/shipping';
 const shippingAddress = require('../assets/images/icon/shipping-address.png')
@@ -23,6 +24,11 @@ const YourCart = (props) => (
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content" />
+    <PickBankModal
+      modalVisible={props.selectedMethod === 'bank' && props.selectedBank === ''}
+      bankData={props.bankData}
+      bankRender={props.bankRender}
+    />
     <PickDeliverySeriveModal
       modalVisible={props.modalVisiblePickDeliveryService}
       closeIcon={props.toggleModalPickDeliveryService}
@@ -47,11 +53,13 @@ const YourCart = (props) => (
     <WaitingForPaymentModal
       modalVisible={props.modalVisibleCheckoutPayment}
       actionIcon={props.toggleCheckoutPayment}
+      selectedBank={props.selectedBank}
       
+      isCC={props.isCC}
       paymentGuide1Visible={props.paymentGuide1Visible}
       togglePaymentGuide1Visible={props.togglePaymentGuide1Visible}
-      bcaGuide={props.bcaGuide}
-      toggleBcaGuide={props.toggleBcaGuide}
+      guide={props.guide}
+      toggleGuide={props.toggleGuide}
 
       paymentGuide2Visible={props.paymentGuide2Visible}
       togglePaymentGuide2Visible={props.togglePaymentGuide2Visible}
