@@ -27,7 +27,7 @@ export const postCheckout = ( dataUser, accessToken ) => {
 				})
 			})
 			const data = await response.json()
-			console.log(data)
+			console.log('dataaaaaa',data)
 			await dispatch(setSuccess(true, 'SUCCESS_CHECKOUT'))
     	await dispatch(setLoading(false, 'LOADING_CHECKOUT'))
 		} catch (e) {

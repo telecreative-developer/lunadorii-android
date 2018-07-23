@@ -242,7 +242,7 @@ const YourCart = (props) => (
         </View> */}
       </Content>
     )}
-    {props.onCartProduct.length ? (
+    {props.selectedCourier ? (
       <View style={styles.footer}>
         <View style={styles.footerWrapper}>
           <View style={styles.footerInfo}>
