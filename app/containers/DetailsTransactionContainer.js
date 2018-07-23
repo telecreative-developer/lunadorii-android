@@ -16,7 +16,8 @@ export default class DetailsTransactionContainer extends Component{
     const data = this.props.navigation.state.params.data
     this.setState({
       list_produk: data.list,
-      billing_code: data.billing_code
+      billing_code: data.billing_code,
+      status:data.order_status
     })
 
   }
@@ -30,7 +31,8 @@ export default class DetailsTransactionContainer extends Component{
   }
 
   render(){
-    console.log(this.props.navigation.state.params.data)
+    console.log('cok',this.props.navigation.state.params.data)
+    console.log('fuck',this.state)
     const data = this.props.navigation.state.params.data
     return(
       <DetailsTransaction
@@ -48,7 +50,7 @@ export default class DetailsTransactionContainer extends Component{
             quantity={item.qty}
             price={ item.price == null || item.price === '' ? item.price : this.formatPrice(item.price)}
             status={item.status}
-            action={() => this.props.navigation.navigate('DetailsOrderContainer' , {item, billing_code: this.state.billing_code})}
+            action={() => this.props.navigation.navigate('DetailsOrderContainer' , {item, billing_code: this.state.billing_code, status:this.state.status})}
           />
         )}
       />
