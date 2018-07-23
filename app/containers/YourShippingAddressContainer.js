@@ -10,7 +10,6 @@ import { fetchUserShipping, updateShipping, updateSetdefault,
          deleteShipping, createAddress, fetchProvince 
        } from '../actions/usershipping'
 
-
 class YourShippingAddressContainer extends Component{
 
   constructor(){
