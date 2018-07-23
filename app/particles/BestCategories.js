@@ -8,7 +8,7 @@ const BestCategories = (props) => (
     <View style={styles.viewCategories}>
       <View style={styles.viewFlexRow}>
         <View style={styles.viewFlex2}>
-          <Image source={props.image} style={styles.image}/>
+          <Image source={{uri: props.icon}} style={styles.image}/>
         </View>
         <View style={styles.viewFlex8}>
           <View style={styles.viewWrapper}>
