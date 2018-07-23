@@ -2,20 +2,16 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, FlatList, StatusBar, Dimensions, TouchableOpacity, Image } from 'react-native'
 import { Container, Content, Icon, Button, Input, Label, Item, Spinner  } from 'native-base'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
 import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
 import PickDeliverySeriveModal from '../modals/PickDeliveryServiceModal'
 import PickBankModal from '../modals/PickBankModal'
-import Validations from '../particles/Validations'
-import { fetchCourier } from '../actions/shipping';
-const shippingAddress = require('../assets/images/icon/shipping-address.png')
-const tiki = require('../assets/images/icon/tiki.png')
 const { height, width } = Dimensions.get('window')
 
 const YourCart = (props) => (
   <Container style={styles.Container}>
+    {console.log('better',props.checkout)}
     <Navigation 
        navbarTitle="Your Cart"
        navbarIcon="arrow-back"
@@ -55,6 +51,8 @@ const YourCart = (props) => (
       modalVisible={props.modalVisibleCheckoutPayment}
       actionIcon={props.toggleCheckoutPayment}
       selectedBank={props.selectedBank}
+      checkout={props.checkout}
+      totalPrice={props.totalPrice}
       
       isCC={props.isCC}
       paymentGuide1Visible={props.paymentGuide1Visible}
@@ -95,24 +93,6 @@ const YourCart = (props) => (
           <Button style={styles.btnAdd} onPress={props.navigateToHome}>
             <Icon name="add"/><Text style={styles.txtAdd}>Add More Product</Text>
           </Button>
-          {/* <TouchableOpacity style={{
-             height: 40,
-             width: 130,
-             borderRadius:5,
-             alignItems:'center',
-             alignSelf:'center',
-             justifyContent:'space-between',
-             backgroundColor:'#ccc',
-             margin:5,
-             flexDirection: 'row',
-          }}>
-            <Ionicons name="md-add"/>
-            <Text style={{
-              color: '#fff',
-              marginHorizontal:  10
-            }}>Add More Product</Text>
-          </TouchableOpacity> */}
-          
         </View>
         <View style={{
           borderTopWidth:1,

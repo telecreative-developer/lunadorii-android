@@ -15,7 +15,8 @@ class LoginTroubleshootingContainer extends Component{
 
   async forgotpassword(){
     const {email} = await this.state
-    this.props.forgotpassword(email)
+    await this.props.forgotpassword(email)
+    await Alert.alert('Success', 'Please Check Your Email')
   }
   
   render(){
@@ -25,7 +26,6 @@ class LoginTroubleshootingContainer extends Component{
         navigateToLogin={() => this.props.navigation.navigate('LoginContainer')}
         navigateToMoreHelp={() => this.props.navigation.navigate('MoreHelpContainer')}
         forgotpassword={() => this.forgotpassword()}
-
         emailValue={this.state.email}
         onChangeEmail={(email) => this.setState({email})}
       />
