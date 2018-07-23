@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { StyleSheet, StatusBar, Dimensions } from 'react-native'
-import { Container, Content, Text, View } from 'native-base'
+import { StyleSheet, StatusBar, Dimensions, Text } from 'react-native'
+import { Container, Content, View, Button } from 'native-base'
 import Navbar from '../particles/Navbar'
 import InternetConnectionProblem from '../particles/InternetConnectionProblem'
 const { height, width } = Dimensions.get('window')
@@ -16,7 +16,18 @@ const ScreenTest = (props) => (
       barStyle="light-content"
     />
     <Content contentContainerStyle={styles.container}>
-      <InternetConnectionProblem buttonAction={props.buttonAction}/>
+      <Button full style={{
+        marginTop: 20,
+        height: 60,
+        borderRadius: 10, 
+        backgroundColor: '#d11e48'
+      }}>
+        <Text style={{
+          color: '#fff', 
+          fontSize: 18,
+          padding: 10
+        }}>Call modal</Text>
+      </Button>
     </Content>
   </Container>
 )

@@ -20,12 +20,13 @@ class YourCartContainer extends Component {
       stillLoading: true,
       modalVisiblePickDeliveryService: false,
       paymentGuide1Visible: false,
-      bcaGuide: false,
+      guide: false,
       paymentGuide2Visible: false,
       modalVisibleEditQuantity: false,
       modalVisibleCheckoutPayment: false,
       deliverySeriveVisible: false,
       modalVisibleEditAddress: false,
+      modalVisiblePickBank: false,
       deliverySerive: '',
       id: 0,
       product_id: 0,
@@ -44,7 +45,8 @@ class YourCartContainer extends Component {
       selectedMethod: "cc",
       province_id:0,
       city_id:0,
-      detail_address:''
+      detail_address:'',
+      selectedBank: '',
     }
   }
 
@@ -327,6 +329,9 @@ render() {
   return (
     <YourCart 
       stillLoading={this.state.stillLoading}
+      selectedBank={this.state.selectedBank}
+      isCC={this.state.selectedMethod === 'cc'}
+      selectedMethod={this.state.selectedMethod}
       selectedCourier={this.state.selectedCourier}
       // estDays={this.state.estDays}
       selectedServices={this.capitalize(this.state.code)}
@@ -335,6 +340,20 @@ render() {
         <TouchableOpacity style={styles.btnPickDeliveryService} onPress={()=>this.chooseService(item.code, item.costs)}>
           <Text style={styles.txtChooseDeliveryService}>{item.code.toUpperCase()}</Text>
         </TouchableOpacity>
+      )}
+
+      bankData={[
+        {labelBank: 'BCA', value: 'bca'},
+        {labelBank: 'BRI', value: 'bri'},
+        {labelBank: 'Mandiri', value: 'mandiri'},
+        {labelBank: 'Mayapada', value: 'mayapada'},
+      ]}
+      bankRender={({item}) => (
+        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1, padding: 5}}>
+          <TouchableOpacity style={{margin: 10}} onPress={() => this.setState({selectedBank: item.labelBank})}>
+            <Text style={{fontWeight: this.state.selectedBank === item.labelBank ? 'bold' : 'bold'}}>{item.labelBank}</Text>
+          </TouchableOpacity>
+        </View>
       )}
       
       courierMetode={this.state.cost}
@@ -351,8 +370,8 @@ render() {
       toggleModalPickDeliveryService={() => this.setState({modalVisiblePickDeliveryService: !this.state.modalVisiblePickDeliveryService})}
       paymentGuide1Visible={this.state.paymentGuide1Visible}
       togglePaymentGuide1Visible={() => this.togglePaymentGuide1Visible()}
-      bcaGuide={this.state.bcaGuide}
-      toggleBcaGuide={() => this.setState({bcaGuide: !this.state.bcaGuide})}
+      guide={this.state.guide}
+      toggleGuide={() => this.setState({guide: !this.state.guide})}
       paymentGuide2Visible={this.state.paymentGuide2Visible}
       togglePaymentGuide2Visible={() => this.togglePaymentGuide2Visible()}
       quantity={this.state.quantity}
@@ -382,8 +401,10 @@ render() {
       ]}
       renderPaymentMethod={({item}) => (
         <View style={{borderColor: this.state.selectedMethod === item.methodAlias ? '#d11e48':'#e2e2e2', margin: 5,borderWidth: 1, width: 150}}>
-          <TouchableOpacity onPress={() => this.setState({selectedMethod: item.methodAlias})} style={{padding: 10, flexDirection: 'row', justifyContent:'space-between'}}>
-            <Radio selected={this.state.selectedMethod === item.methodAlias} selectedColor={'#d11e48'} onPress={() => this.setState({selectedMethod: item.methodAlias})}/>
+          <TouchableOpacity onPress={() => item.methodAlias === 'bank' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})} style={{padding: 10, flexDirection: 'row', justifyContent:'space-between'}}>
+            <Radio selected={this.state.selectedMethod === item.methodAlias} selectedColor={'#d11e48'} onPress={
+              () => item.methodAlias === 'bank' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})
+            }/>
             <Image source={item.image} style={{height: 20, width: 20, padding:5}}/>
             <Text>{item.label}</Text>
           </TouchableOpacity>
@@ -409,7 +430,7 @@ render() {
       modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
       toggleModalEditQuantity={() => this.toggleModalEditQuantity(this.props.cartuser)}
       modalVisibleCheckoutPayment={this.state.modalVisibleCheckoutPayment}
-      toggleCheckoutPayment={() => this.checkout()}
+      toggleCheckoutPayment={() => this.toggleCheckoutPayment()}
       deliverySeriveVisible={this.state.deliverySeriveVisible}
       toggleDeliverySerive={() => this.setState({deliverySeriveVisible: !this.state.deliverySeriveVisible})}
       navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
