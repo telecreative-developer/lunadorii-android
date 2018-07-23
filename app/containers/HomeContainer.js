@@ -1,5 +1,4 @@
 import React, { Component } from 'react'
-import { ConnectivityRenderer } from 'react-native-offline';
 import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage, TouchableOpacity, BackHandler, ToastAndroid, Alert, NetInfo } from 'react-native'
 import { Radio } from 'native-base'
 import { connect } from 'react-redux'
@@ -315,6 +314,7 @@ class HomeContainer extends Component {
         navigateToYourCart={() => this.toCart()}
         navigateToProfile={() => this.toProfile()}
         navigateToSearch={() => Connection !== 'none' ? this.props.navigation.navigate("SearchContainer") : null}
+        Connection={Connection}
         image={ this.state.uri }
       />
     )

@@ -20,14 +20,14 @@ const Guides = (props) => (
 const Banks = (props) => (
   <View>
     <View style={{borderTopColor: '#e2e2e2', borderTopWidth: 1}}>
-      <TouchableOpacity onPress={props.toggleBcaGuide}>
+      <TouchableOpacity onPress={props.toggleGuide}>
         <View style={{paddingVertical: 10, paddingHorizontal: 20, margin:5, flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={{fontWeight: 'bold',fontSize: 18}}>BCA</Text>
+          <Text style={{fontWeight: 'bold',fontSize: 18}}>{props.bankName}</Text>
           <FontAwesome name="chevron-down" style={{marginTop: 5}}/>
         </View>
       </TouchableOpacity>
     </View>
-    {props.bcaGuide ? (
+    {props.guide ? (
       <View style={{borderTopColor: '#e2e2e2', borderTopWidth: 1, backgroundColor: '#f6f6f6'}}>
         <Guides index={1} contentGuides={"neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia "}/>
         <Guides index={2} contentGuides={"neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia "}/>
@@ -38,22 +38,6 @@ const Banks = (props) => (
     ) : (
       <View/>
     )}
-    <View style={{borderTopColor: '#e2e2e2', borderTopWidth: 1}}>
-      <TouchableOpacity>
-        <View style={{paddingVertical: 10, paddingHorizontal: 20, margin:5, flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={{fontWeight: 'bold',fontSize: 18}}>BRI</Text>
-          <FontAwesome name="chevron-down" style={{marginTop: 5}}/>
-        </View>
-      </TouchableOpacity>
-    </View>
-    <View style={{borderTopColor: '#e2e2e2', borderTopWidth: 1}}>
-      <TouchableOpacity>
-        <View style={{paddingVertical: 10, paddingHorizontal: 20, margin:5, flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Text style={{fontWeight: 'bold',fontSize: 18}}>Mandiri</Text>
-          <FontAwesome name="chevron-down" style={{marginTop: 5}}/>
-        </View>
-      </TouchableOpacity>
-    </View>
   </View>
 )
 

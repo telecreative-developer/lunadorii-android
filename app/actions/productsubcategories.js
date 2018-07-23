@@ -6,7 +6,7 @@ export const fetchProductSubcategories = () => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_SUBCATEGORIES'))
 		try {
-			const response = await fetch(`${API_SERVER}/product-subcategories?with_products=true`, {
+			const response = await fetch(`${API_SERVER}/product-subcategories/best-seller`, {
 				method: 'GET',
 				headers: {
 					Accept: 'application/json',
