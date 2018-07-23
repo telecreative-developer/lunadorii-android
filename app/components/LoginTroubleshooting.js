@@ -31,7 +31,7 @@ const LoginTroubleshooting = (props) => (
             </Item>
           </Form>
           <View style={styles.buttonSendLinkWrapper}>
-            <Button full style={styles.buttonSendLinkStyle}>
+            <Button full style={styles.buttonSendLinkStyle} onPress={props.forgotpassword}>
               <Text style={styles.buttonSendLinkStyleText}>Send Login Link</Text>
             </Button>
           </View>

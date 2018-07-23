@@ -199,7 +199,7 @@ class HomeContainer extends Component {
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     const dataPerson = await this.props.getsingleuser.avatar_url
-    const uri = await 'https://freeiconshop.com/wp-content/uploads/edd/person-girl-flat.png'
+    const uri = await 'https://s3.us-east-2.amazonaws.com/lunadorii/avatar.png'
     if( data == null ){
       this.setState({uri:uri})
     }else if(Connection === 'none'){
