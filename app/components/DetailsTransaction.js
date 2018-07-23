@@ -22,8 +22,8 @@ const DetailsTransaction = (props) => (
     />
     <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 10, backgroundColor: '#f6f6f6'}}>
       <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
-        <MaterialIcons name="monetization-on" size={18} color={props.status === "waiting-for-payment" ? '#d11e48' : ''}/>
-        <Text style={{fontSize: 12, color:props.status === "waiting-for-payment" ? '#d11e48' : ''}}>Checkout</Text>
+        <MaterialIcons name="monetization-on" size={18} color={props.status === "Checkout" ? '#d11e48' : ''}/>
+        <Text style={{fontSize: 12, color:props.status === "Checkout" ? '#d11e48' : ''}}>Checkout</Text>
       </View>
       <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
       <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
@@ -73,7 +73,7 @@ const DetailsTransaction = (props) => (
         <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Total Price</Text>
-            <Text style={{color: '#ccc'}}>Rp. { props.totalPrice }</Text>
+            <Text style={{color: '#ccc'}}>Rp. { props.price }</Text>
           </View>
         </View>
         <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>

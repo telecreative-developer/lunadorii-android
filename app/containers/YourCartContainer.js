@@ -313,6 +313,7 @@ class YourCartContainer extends Component {
   const session = await AsyncStorage.getItem('session')
   const data = await JSON.parse(session)
   const { id, first_name, last_name, email} = data
+  await Alert.alert('Checkout Success', 'Please Check Your Email For Details')
   await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, selectedBank, id, city_id, province_id, data:dataProduct, user:{first_name, last_name, email}} , data.accessToken)
   await this.toggleCheckoutPayment()
   }
