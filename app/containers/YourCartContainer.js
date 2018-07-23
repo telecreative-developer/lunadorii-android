@@ -71,7 +71,6 @@ class YourCartContainer extends Component {
   }
 
   async componentDidMount(){
-    // await BackHandler.eve('hardwareBackPress', () => this.props.navigation.goBack());
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchCartUser(data.id, data.accessToken)
@@ -313,11 +312,9 @@ class YourCartContainer extends Component {
   const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage}))
   const session = await AsyncStorage.getItem('session')
   const data = await JSON.parse(session)
-  const id = data.id
-  await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, selectedBank, id, city_id, province_id, data:dataProduct} , data.accessToken)
-  await this.setState({checkout: this.props.checkout})
+  const { id, first_name, last_name, email} = data
+  await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, selectedBank, id, city_id, province_id, data:dataProduct, user:{first_name, last_name, email}} , data.accessToken)
   await this.toggleCheckoutPayment()
-  await console.log(this.state.checkout)
   }
 
  setCourier(){

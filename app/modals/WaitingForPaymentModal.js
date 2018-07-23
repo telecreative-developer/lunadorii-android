@@ -51,9 +51,9 @@ const WaitingForPaymentModal = (props) => (
                   <Text> Credit Card</Text>
                 }
               </Text>
-              {props.checkout.bank == null ? 
-              <Text></Text>:
-              <Text>Bank : {props.checkout.bank}</Text>
+              {props.checkout.bank ? 
+              <Text>Bank : {props.checkout.bank}</Text>:
+              <Text></Text>
               }
             </View>
           </View>
