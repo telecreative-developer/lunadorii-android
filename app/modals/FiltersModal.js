@@ -47,19 +47,12 @@ const FiltersModal = (props) => (
           </Button>
         </View> */}
         <FlatList
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
+          // horizontal={true}
+          // showsHorizontalScrollIndicator={false}
+          numColumns={3}
           data={props.dataButtonCategory1st}
           renderItem={props.buttonCategory1st}
         />
-        <View style={styles.buttonWrapper}>
-          <Button bordered danger style={styles.largeButton}>
-            <Text style={styles.buttonText}>Tools & Brushes</Text>
-          </Button>
-          <Button bordered danger style={styles.largeButton}>
-            <Text style={styles.buttonText}>Bath & Body</Text>
-          </Button>
-        </View>
       </View>
       <Text style={styles.txtLabel}>Brands</Text>
       <FlatList
@@ -131,7 +124,7 @@ const styles = StyleSheet.create({
     margin: 5
   },
   flexStart: {
-    justifyContent: 'flex-start'
+    justifyContent: 'center',
   },
   buttonWrapper: {
     flexDirection: 'row',

@@ -1,12 +1,11 @@
 import React from 'react'
 import { ConnectivityRenderer } from 'react-native-offline';
-import { StyleSheet, View, Text, Dimensions, FlatList, StatusBar, Image } from 'react-native'
+import { StyleSheet, View, Text, Dimensions, FlatList, StatusBar, TouchableOpacity } from 'react-native'
 import { Container, Tabs, Tab, TabHeading, Icon, Content, Spinner } from 'native-base'
-import LunadoriiPortraitLogo from '../assets/images/icon/lunadorii-highres.png'
 import NavbarHome from '../particles/NavbarHome'
 import Carousel from 'react-native-banner-carousel'
-import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import AddToCart from '../modals/AddToCart'
+import Reloader from '../particles/Reloader'
 const { height, width } = Dimensions.get('window')
 
 const bannerWidth = Dimensions.get('window').width
@@ -35,10 +34,7 @@ const Home = (props) => (
         {props.stillLoading ? (
           <View/>
         ) : (
-          <View style={{backgroundColor: 'rgba(255, 130, 130, 0.8)', height: 50, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center'}}>
-            <Text style={{padding: 10, fontSize: 14}}>No internet connection</Text>
-            <SimpleLineIcons name='reload' size={18} style={{padding: 10}}/>
-          </View>
+          <Reloader reloadAction={() => alert("Reloading ...")}/>
         )}
         {props.stillLoading ? (
           <View style={styles.style}>
