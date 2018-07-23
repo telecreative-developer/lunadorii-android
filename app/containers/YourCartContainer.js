@@ -329,7 +329,7 @@ render() {
   return (
     <YourCart 
       stillLoading={this.state.stillLoading}
-      selectedBank={this.state.selectedBank}
+      selectedBank={this.state.selectedMethod === 'ccc' ? '' : this.state.selectedBank}
       isCC={this.state.selectedMethod === 'cc'}
       selectedMethod={this.state.selectedMethod}
       selectedCourier={this.state.selectedCourier}
@@ -344,9 +344,9 @@ render() {
 
       bankData={[
         {labelBank: 'BCA', value: 'bca'},
-        {labelBank: 'BRI', value: 'bri'},
         {labelBank: 'Mandiri', value: 'mandiri'},
-        {labelBank: 'Mayapada', value: 'mayapada'},
+        {labelBank: 'BNI', value: 'bni'},
+        {labelBank: 'Permata', value: 'permata'},
       ]}
       bankRender={({item}) => (
         <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1, padding: 5}}>
@@ -402,7 +402,7 @@ render() {
       ]}
       renderPaymentMethod={({item}) => (
         <View style={{borderColor: this.state.selectedMethod === item.methodAlias ? '#d11e48':'#e2e2e2', margin: 5,borderWidth: 1, width: 150}}>
-          <TouchableOpacity onPress={() => item.methodAlias === 'bank' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})} style={{padding: 10, flexDirection: 'row', justifyContent:'space-between'}}>
+          <TouchableOpacity onPress={() => item.methodAlias === 'bank' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})} style={{padding: 10, width: 150, flexDirection: 'row', justifyContent:'space-between'}}>
             <Radio selected={this.state.selectedMethod === item.methodAlias} selectedColor={'#d11e48'} onPress={
               () => item.methodAlias === 'bank' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})
             }/>

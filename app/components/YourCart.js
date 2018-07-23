@@ -119,7 +119,10 @@ const YourCart = (props) => (
           borderColor:'#e2e2e2'
         }}>
           <View style={styles.body}>
-            <Text style={styles.title}>Payment Method</Text>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text style={styles.title}>Payment Method</Text>
+              <Text>{props.selectedBank}</Text>
+            </View>
             <View style={{alignItems: 'center'}}>
               <FlatList
                 horizontal={true}

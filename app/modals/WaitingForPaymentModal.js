@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
 import { Container, Content, Icon, Button, Radio } from 'native-base'
+import CountDown from 'react-native-countdown-component';
 import NavbarModal from '../particles/NavbarModal'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Banks from '../particles/Banks'
@@ -27,15 +28,25 @@ const WaitingForPaymentModal = (props) => (
         <Image source={image} style={styles.imageFrame} />
         <Text style={styles.textInfo1}>Waiting for payment</Text>
         <View style={styles.textInfo2Wrapper}>
-          <Text style={styles.textInfo2Content}>Nomor pesanan anda </Text><Text style={styles.textInfo2Code}>20437278982220</Text>
+          <Text style={styles.textInfo2Content}>Your payment code </Text><Text style={styles.textInfo2Code}>20437278982220</Text>
         </View>
       </View>
       <View style={styles.paymentInformation2}>
         <View style={styles.paymentInformation2Wrapper}>
-          <Text style={styles.paymentInformation2title}>Kode bayar akan berakhir pada</Text>
-          <Text style={styles.paymentInformation2timeout}>23 : 52 : 31</Text>
-          <Text style={styles.paymentInformation2warning1}>Mohon menyelesaikan pembayaran sebelum</Text>
-          <Text style={styles.paymentInformation2warning2}>8:21 PM 27 Mei 2018</Text>
+          <Text style={styles.paymentInformation2title}>Payment code will end in</Text>
+          {/* <Text style={styles.paymentInformation2timeout}>23 : 52 : 31</Text> */}
+          <View style={{paddingTop: 10}}>
+            <CountDown
+              until={43200}
+              onFinish={() => alert('finished')}
+              onPress={() => alert('hello')}
+              size={20}
+              digitBgColor={'#f6f6f6'}
+              timeToShow={['H','M','S']}
+            />
+          </View>
+          <Text style={styles.paymentInformation2warning1}>Please pay your bill before</Text>
+          <Text style={styles.paymentInformation2warning2}>8:21 PM 27 May 2018</Text>
         </View>
         <View style={styles.Card}>
           <View style={styles.contentCard}>
@@ -43,7 +54,7 @@ const WaitingForPaymentModal = (props) => (
               <Image source={require('../assets/images/icon/visa.png')} style={styles.image} />
             </View>
             <View style={styles.wrapLeft}>
-              <Text style={styles.paymentCardInformationTitle}>Code pembayaran BCA</Text>
+              <Text style={styles.paymentCardInformationTitle}>Payment code BCA</Text>
               <Text style={styles.paymentCardIformationPaymentCode}>390521106000426</Text>
             </View>
           </View>
@@ -75,7 +86,7 @@ const WaitingForPaymentModal = (props) => (
         ) : (
           <View>
             <View style={styles.paymentGuideSparator}>
-              <Text style={styles.paymentGuideTitle}>Panduan Pembayaran</Text>
+              <Text style={styles.paymentGuideTitle}>Payment Guide</Text>
             </View>
             <TouchableOpacity style={styles.touchableGuidePayment1} onPress={props.togglePaymentGuide1Visible}>
               <View style={styles.paddingLeft20}>
@@ -125,7 +136,7 @@ const WaitingForPaymentModal = (props) => (
         </View>
         <View style={styles.wrapLeft}>
           <Text style={styles.paymentCardInformationTitle}>
-            Kami telah mengirimkan email konfirmasi ke <Text style={styles.boldFont}>muhammadfuaditrockz@gmail.com</Text> dengan detail pesanan.
+            We have sent email information to <Text style={styles.boldFont}>muhammadfuaditrockz@gmail.com</Text> with detail orders.
           </Text>
         </View>
       </View>
@@ -135,7 +146,7 @@ const WaitingForPaymentModal = (props) => (
         </View>
         <View style={styles.wrapLeft}>
           <Text style={styles.paymentCardInformationTitle}>
-            Pesan anda akan dikirimkan pada <Text style={styles.boldFont}>Kamis 31 Mei</Text>.
+            Your orders will send at <Text style={styles.boldFont}>Tuesday 31 May</Text>.
           </Text>
         </View>
       </View>
