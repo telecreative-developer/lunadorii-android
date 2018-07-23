@@ -30,10 +30,10 @@ const Home = (props) => (
     />
     <Tabs locked={true} style={styles.tabHeight} tabBarUnderlineStyle={styles.tabBarUnderlineStyle}>
       <Tab heading={<TabHeading style={styles.tabHeading} ><Text style={styles.txtHeading}>New Arrivals</Text></TabHeading>}>
-        {props.stillLoading ? (
+        {props.isConnected ? (
           <View/>
         ) : (
-          <Reloader reloadAction={() => alert("Reloading ...")}/>
+          <Reloader reloadAction={props.handleRefresh}/>
         )}
         {props.stillLoading ? (
           <View style={styles.style}>
@@ -68,7 +68,7 @@ const Home = (props) => (
             </View>
             <View style={styles.viewArrivals}>
               <Text style={styles.txtArrivals}>More New Arrivals</Text>
-                {props.Connection !== 'none' ? (
+                {props.isConnected? (
                   <FlatList
                     numColumns={2}
                     data={props.dataProduct}

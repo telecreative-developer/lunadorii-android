@@ -28,6 +28,7 @@ const YourCart = (props) => (
       modalVisible={props.selectedMethod === 'bank' && props.selectedBank === ''}
       bankData={props.bankData}
       bankRender={props.bankRender}
+      closePickBankModal={props.closePickBankModal}
     />
     <PickDeliverySeriveModal
       modalVisible={props.modalVisiblePickDeliveryService}

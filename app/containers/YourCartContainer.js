@@ -393,6 +393,7 @@ render() {
         />
       )}
 
+      closePickBankModal={() => alert("Closed")}
       paymentMethod={[
         {methodAlias: 'cc'  , label: 'Credit Card', image: ImageCreditCard},
         {methodAlias: 'bank', label: 'Bank Transfer',  image: ImageBank}
