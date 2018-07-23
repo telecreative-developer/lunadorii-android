@@ -46,7 +46,7 @@ export default class DetailsTransactionContainer extends Component{
             title={item.product}
             categories={item.subcategories[0].stat}
             quantity={item.qty}
-            price={ item.subtotal == null || item.subtotal === '' ? item.subtotal : this.formatPrice(item.subtotal)}
+            price={ item.price == null || item.price === '' ? item.price : this.formatPrice(item.price)}
             status={item.status}
             action={() => this.props.navigation.navigate('DetailsOrderContainer' , {item, billing_code: this.state.billing_code})}
           />

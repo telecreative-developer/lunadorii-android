@@ -70,10 +70,11 @@ const DetailsTransaction = (props) => (
             />
           </View>
         </View>
+        {console.log('price', props.price)}
         <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Total Price</Text>
-            <Text style={{color: '#ccc'}}>Rp. { props.totalPrice }</Text>
+            <Text style={{color: '#ccc'}}>Rp. { props.price }</Text>
           </View>
         </View>
         <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
