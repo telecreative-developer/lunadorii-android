@@ -1,10 +1,10 @@
 import React from 'react'
-import { StyleSheet, View, Text, Dimensions, FlatList, StatusBar, Image } from 'react-native'
+import { StyleSheet, View, Text, Dimensions, FlatList, StatusBar, TouchableOpacity } from 'react-native'
 import { Container, Tabs, Tab, TabHeading, Icon, Content, Spinner } from 'native-base'
-import LunadoriiPortraitLogo from '../assets/images/icon/lunadorii-highres.png'
 import NavbarHome from '../particles/NavbarHome'
 import Carousel from 'react-native-banner-carousel'
 import AddToCart from '../modals/AddToCart'
+import Reloader from '../particles/Reloader'
 const { height, width } = Dimensions.get('window')
 
 const bannerWidth = Dimensions.get('window').width
@@ -30,6 +30,11 @@ const Home = (props) => (
     />
     <Tabs locked={true} style={styles.tabHeight} tabBarUnderlineStyle={styles.tabBarUnderlineStyle}>
       <Tab heading={<TabHeading style={styles.tabHeading} ><Text style={styles.txtHeading}>New Arrivals</Text></TabHeading>}>
+        {props.stillLoading ? (
+          <View/>
+        ) : (
+          <Reloader reloadAction={() => alert("Reloading ...")}/>
+        )}
         {props.stillLoading ? (
           <View style={styles.style}>
             <Spinner color="#d11e48"/>
