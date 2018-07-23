@@ -1,5 +1,4 @@
 import React from 'react'
-import { ConnectivityRenderer } from 'react-native-offline';
 import { StyleSheet, View, Text, Dimensions, FlatList, StatusBar, TouchableOpacity } from 'react-native'
 import { Container, Tabs, Tab, TabHeading, Icon, Content, Spinner } from 'native-base'
 import NavbarHome from '../particles/NavbarHome'
@@ -69,9 +68,7 @@ const Home = (props) => (
             </View>
             <View style={styles.viewArrivals}>
               <Text style={styles.txtArrivals}>More New Arrivals</Text>
-              <ConnectivityRenderer>
-                {isConnected => (
-                  isConnected ? (
+                {props.Connection !== 'none' ? (
                   <FlatList
                     numColumns={2}
                     data={props.dataProduct}
@@ -81,9 +78,7 @@ const Home = (props) => (
                   ) : (
                     <Text>Nothing to show since you are offline</Text>
                   )
-                )}
-              </ConnectivityRenderer>
-              
+                }
             </View>
           </Content>
         )}

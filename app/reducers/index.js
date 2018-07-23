@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import { reducer as network } from 'react-native-offline';
 
 import { loading, success, failed, logged } from "./processor";
 import { categoryproduct } from "./categoryproduct";
@@ -28,7 +27,6 @@ const rootReducers = combineReducers({
   logged,
   success,
   failed,
-  network,
   categoryproduct,
   brandsproduct,
   product,
