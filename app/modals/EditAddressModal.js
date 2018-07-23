@@ -2,8 +2,8 @@ import React, { Component } from 'react'
 import { Modal, Text, StyleSheet, Dimensions, FlatList } from 'react-native'
 import { Content, Item, Input, Label, Button, Form, View, Spinner } from 'native-base'
 import Ionicons from 'react-native-vector-icons/Ionicons'
-import NavbarModal from '../particles/NavbarModal'
 import SearchableFlatlist from '../particles/SearchableFlatlist'
+import NavbarModal from '../particles/NavbarModal'
 const { height, width } = Dimensions.get('window')
 
 const EditAddressModal = (props) => (
@@ -18,7 +18,7 @@ const EditAddressModal = (props) => (
       actionIcon={props.actionIcon} 
     />
     <Content style={styles.container}>
-    <Form style={styles.form}>
+      <Form style={styles.form}>
         <Label style={styles.labels}>Name</Label>
         <Item regular style={{
           marginBottom: 10,
@@ -94,7 +94,7 @@ const EditAddressModal = (props) => (
           height: 40,
           borderColor: props.cityValue ? '#ccc' : '#c0392b'
         }}>
-          <Input placeholder={props.provinceValue.length == 0 ? "Please pick province first" : props.cityValue} placeholderTextColor={"#ccc"} disabled={props.provinceValue.length == 0 ? true : false}/> 
+          <Input placeholder={props.provinceValue.length == 0 ? "Please pick province first" : props.cityValue} placeholderTextColor={"#ccc"} value={props.cityValue} onChangeText={props.onChangeCity} disabled={props.provinceValue.length == 0 ? true : false}/> 
           <Ionicons name={props.cityValue ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
 
@@ -119,8 +119,8 @@ const EditAddressModal = (props) => (
               height: 40,
               borderColor: props.postalcodeValue ? '#ccc' : '#c0392b'
             }}>
-              {console.log('isi postal code :', props.postalcodeValue, props.numberPhoneValue)}
-              <Input value={props.postalcodeValue} onChangeText={props.onChangePostalcode}  maxLength={6}/>
+              {console.log(props.postalcodeValue)}
+              <Input value={props.postalcodeValue} onChangeText={props.onChangePostalcode} keyboardType={'numeric'} maxLength={6}/>
               <Ionicons name={props.postalcodeValue ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
             </Item>
           </View>
@@ -138,7 +138,7 @@ const EditAddressModal = (props) => (
         )}
       </Button>
     ) : (
-      <Button full style={styles.buttonSaveStyleDisabled} disabled>
+      <Button full style={styles.buttonSaveStyleDisabled} onPress={props.handleSaveAddress} disabled>
         <Text style={styles.buttonSaveTextStyleDisabled}>Save</Text>
       </Button>
     )}

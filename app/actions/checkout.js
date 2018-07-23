@@ -23,7 +23,8 @@ export const postCheckout = ( dataUser, accessToken ) => {
 					"city_id": dataUser.city_id,
 					"province_id": dataUser.province_id,
 					"id": dataUser.id,
-					"data": dataUser.data
+					"data": dataUser.data,
+					"user": dataUser.user
 				})
 			})
 			const data = await response.json()
