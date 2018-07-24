@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { register } from '../actions/register';
 import LunadoriiPortraitLogo from '../assets/images/icon/lunadorii-highres.png'
 import LunadoriiCircleLogo from '../assets/images/icon/CircleLogo.png'
+import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 const { height, width } = Dimensions.get('window')
 
 const Register = (props) => (
@@ -18,7 +19,7 @@ const Register = (props) => (
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: '#fff',
-          paddingTop: 50
+          paddingTop: convertWidthPercentToDP('5%'),
         }}>
           <Image source={LunadoriiCircleLogo} style={{height: 90, width: 90}} />    
         </View>
@@ -44,7 +45,7 @@ const Register = (props) => (
           </View>
         </View>
       </View>
-      <View style={{paddingBottom: 10, paddingTop: 100, paddingLeft: 45, paddingRight: 45}}>
+      <View style={{paddingBottom: 10, paddingTop: convertWidthPercentToDP('23%'), paddingLeft: 45, paddingRight: 45}}>
         <View style={{ borderBottomColor: "#979797", borderBottomWidth: 1.2}}>
         </View>
       </View>
