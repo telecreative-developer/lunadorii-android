@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Dimensions, StatusBar } from 'react-native'
-import { Content, Item, Input, Label, Button, Form, Textarea } from 'native-base'
+import { Content, Item, Input, Label, Button, Form, Textarea, Spinner } from 'native-base'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import NavbarModal from '../particles/NavbarModal'
-const { height, width } = Dimensions.get('window')
 
+const regexCC = /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/
 const AddCreditCardModal = (props) => (
   <Modal
     animationType="slide"
@@ -20,28 +20,44 @@ const AddCreditCardModal = (props) => (
       barStyle="light-content"
     />
     <Content style={styles.container}>
-      <Form style={styles.form}>
+    <Form style={styles.form}>
         <Label style={styles.labels}>Card Number</Label>
+        {regexCC.test(props.cardNumber) === true && props.cardNumber !== '' ? 
+          <Text/>:
+          <Text>CC is Not Valid</Text>
+        }
         <Item regular style={{
           marginBottom: 10,
           borderRadius: 5,
           height: 40,
-          borderColor: props.cardNumber ? '#ccc' : '#c0392b'
+          borderColor: regexCC.test(props.cardNumber) === true ? '#ccc' : '#c0392b'
         }}>
-          <Input placeholder={props.cardNumber} placeholderTextColor="#CDCDCD" maxLength={19} keyboardType={'numeric'} onChangeText={props.onChangeCardNumber} value={props.cardNumber}/>
-          <Ionicons name={props.cardNumber ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Input placeholderTextColor="#CDCDCD" maxLength={19} keyboardType={'numeric'} onChangeText={props.onChangeCardNumber} value={props.cardNumber}/>
+          <Ionicons name={regexCC.test(props.cardNumber) === true ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
         <View style={styles.wrapper}>
           <View style={styles.flexDirectionCol}>
-            <Label style={styles.labels}>Validation Date</Label>
+            <Label style={styles.labels}>Month</Label>
             <Item regular style={{
-              width: 160,
+              width: 80,
               borderRadius: 5,
               height: 40,
-              borderColor: props.validationDate ? '#ccc' : '#c0392b'
+              borderColor: props.mm <= 12 && props.mm !== '' ? '#ccc' : '#c0392b'
             }}>
-              <Input placeholder="MM/YY" placeholderTextColor="#CDCDCD" maxLength={5} onChangeText={props.onChangeValidationDate} value={props.validationDate} keyboardType={'numeric'}/>
-              <Ionicons name={props.validationDate ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+              <Input placeholder="MM" placeholderTextColor="#CDCDCD" maxLength={2} onChangeText={props.onChangemm} value={props.mm.toString()} keyboardType={'numeric'}/>
+              <Ionicons name={props.mm <= 12 && props.mm !== '' ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+            </Item>
+          </View>
+          <View style={styles.flexDirectionCol}>
+            <Label style={styles.labels}>Year</Label>
+            <Item regular style={{
+              width: 80,
+              borderRadius: 5,
+              height: 40,
+              borderColor: props.yyyy >= 18 ? '#ccc' : '#c0392b'
+            }}>
+              <Input placeholder="YY" placeholderTextColor="#CDCDCD" maxLength={2} onChangeText={props.onChangeyyyy} value={props.yyyy.toString()} keyboardType={'numeric'}/>
+              <Ionicons name={props.yyyy >= 18 ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
             </Item>
           </View>
           <View style={styles.flexDirectionCol}>
@@ -66,19 +82,19 @@ const AddCreditCardModal = (props) => (
               height: 40,
               borderColor: props.country ? '#ccc' : '#c0392b'
             }}>
-              <Input placeholder="Your country" placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCountry}/>
+              <Input placeholder="Your country" placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCountry} value={props.country} />
               <Ionicons name={props.country ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
             </Item>
           </View>
           <View style={styles.flexDirectionCol}>
-            <Label style={styles.labels}>Postalcode</Label>
+            <Label style={styles.labels}>Postal Code</Label>
             <Item regular style={{
               width: 160,
               borderRadius: 5,
               height: 40,
               borderColor: props.postalCode ? '#ccc' : '#c0392b'
             }}>
-              <Input placeholder="Postalcode" placeholderTextColor="#CDCDCD" maxLength={6} onChangeText={props.onChangePostalCode} keyboardType={'numeric'}/>
+              <Input placeholder="Postal Code" placeholderTextColor="#CDCDCD" maxLength={6} onChangeText={props.onChangePostalCode} keyboardType={'numeric'} value={props.postalCode.toString()} />
               <Ionicons name={props.postalCode ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
             </Item>
           </View>
@@ -90,17 +106,29 @@ const AddCreditCardModal = (props) => (
           height: 40,
           borderColor: props.cardHolderName ? '#ccc' : '#c0392b'
         }}>
-          <Input placeholder="Your name" placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCardHolder}/>
+          <Input placeholder="Your name" placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCardHolder} value={props.cardHolderName}/>
           <Ionicons name={props.cardHolderName ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+        </Item>
+        <Label style={styles.labels}>Password</Label>
+        <Item regular style={{
+          marginBottom: 10,
+          borderRadius: 5,
+          height: 40,
+          borderColor: props.password ? '#ccc' : '#c0392b'
+        }}>
+          <Input placeholderTextColor="#CDCDCD" onChangeText={props.onChangePassword} secureTextEntry/>
+          <Ionicons name={props.password ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
       </Form>
     </Content>
-    {props.cardNumber && props.validationDate && props.cvv && props.country && props.postalCode && props.cardHolderName ? (
-      <Button full style={styles.buttonSaveStyle} onPress={props.handleSaveCreditCard}>
+    {props.cardNumber && props.mm && props.yyyy && props.cvv && props.country && props.postalCode && props.cardHolderName && props.password && regexCC.test(props.cardNumber) === true ? (
+      <Button full style={styles.buttonSaveStyle} onPress={props.handleSaveCreditCard} disabled={props.buttonSave} >
+        {props.buttonSave ? <Spinner />:
         <Text style={styles.buttonSaveTextStyle}>Save</Text>
+        }
       </Button>
     ) : (
-      <Button full style={styles.buttonSaveStyleDisabled} onPress={props.handleSaveCreditCard} disabled>
+      <Button full style={styles.buttonSaveStyleDisabled} disabled>
         <Text style={styles.buttonSaveTextStyleDisabled}>Save</Text>
       </Button>
     )}
