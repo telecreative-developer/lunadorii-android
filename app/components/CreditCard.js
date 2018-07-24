@@ -18,40 +18,50 @@ const CreditCard = (props) => (
       modalVisible={props.modalVisibleEditCreditCard}
       actionIcon={props.toggleModalEditCreditCard} 
       handleUpdateCreditCard={props.handleUpdateCreditCard}
+      buttonSave={props.buttonSave}
       
       cardNumber={props.cardNumber}
-      validationDate={props.validationDate}
+      mm={props.mm}
+      yyyy={props.yyyy}
       cvv={props.cvv}
       cardHolderName={props.cardHolderName}
       country={props.country}
       postalCode={props.postalCode}
+      password={props.password}
 
       onChangeCardNumber={props.onChangeCardNumber}
-      onChangeValidationDate={props.onChangeValidationDate}
+      onChangemm={props.onChangemm}
+      onChangeyyyy={props.onChangeyyyy}
       onChangeCVV={props.onChangeCVV}
       onChangeCardHolder={props.onChangeCardHolder}
       onChangeCountry={props.onChangeCountry}
-      onChangePostalCode={props.onChangePostalCode}/>
+      onChangePostalCode={props.onChangePostalCode}
+      onChangePassword={props.onChangePassword}/>
     <AddCreditCardModal
       navbarTitle="Add Credit Card"
       navbarIcon="close"
       modalVisible={props.modalVisibleAddCreditCard}
       actionIcon={props.toggleModalAddCreditCard} 
       handleSaveCreditCard={props.handleSaveCreditCard}
+      buttonSave={props.buttonSave}
 
       cardNumber={props.cardNumber}
-      validationDate={props.validationDate}
+      mm={props.mm}
+      yyyy={props.yyyy}
       cvv={props.cvv}
       cardHolderName={props.cardHolderName}
       country={props.country}
       postalCode={props.postalCode}
+      password={props.password}
 
       onChangeCardNumber={props.onChangeCardNumber}
-      onChangeValidationDate={props.onChangeValidationDate}
+      onChangemm={props.onChangemm}
+      onChangeyyyy={props.onChangeyyyy}
       onChangeCVV={props.onChangeCVV}
       onChangeCardHolder={props.onChangeCardHolder}
       onChangeCountry={props.onChangeCountry}
-      onChangePostalCode={props.onChangePostalCode}/>
+      onChangePostalCode={props.onChangePostalCode}
+      onChangePassword={props.onChangePassword}/>
     <StatusBar
       backgroundColor="#f65857"
       barStyle="light-content"
