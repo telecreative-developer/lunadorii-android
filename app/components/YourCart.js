@@ -6,6 +6,7 @@ import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
 import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
 import PickDeliverySeriveModal from '../modals/PickDeliveryServiceModal'
+import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 import PickBankModal from '../modals/PickBankModal'
 const { height, width } = Dimensions.get('window')
 
@@ -384,8 +385,8 @@ const styles = StyleSheet.create({
   },
   footerButtonStyling: {
     borderRadius: 5,
-    height: 40,
-    width: 130,
+    height: convertHeightPercentToDP('7%'),
+    width: convertWidthPercentToDP('40%'),
     backgroundColor: '#2ecc71',
     flexDirection: 'row',
     justifyContent: 'space-between',

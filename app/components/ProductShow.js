@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Entypo from 'react-native-vector-icons/Entypo'
 import ImageViewModal from '../modals/ImageViewModal'
+import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 const { height, width } = Dimensions.get('window')
 import AddToCart from '../modals/AddToCart'
 
@@ -429,8 +430,8 @@ const styles = StyleSheet.create({
   touchableOpacity: {
     backgroundColor: 'rgba(202, 202, 202, 0.73)',
     marginRight: 5,
-    width: (width - 130) / 2,
-    height: (height - 580) / 2,
+    width: convertWidthPercentToDP('35%'),
+    height: convertHeightPercentToDP('5%'),
     top: 170,
     alignSelf: 'flex-end',
     borderRadius: 8,
