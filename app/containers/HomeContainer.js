@@ -33,7 +33,7 @@ class HomeContainer extends Component {
       id_user: 0,
       product_id: 0,
       product_name: '',
-      qty: 0,
+      qty: 1,
       uri:'',
       modalVisibleAddToCart: false,
       bannersOffline: [],

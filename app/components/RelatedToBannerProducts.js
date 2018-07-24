@@ -51,6 +51,10 @@ const RelatedToBannerProducts = (props) => (
             navbarTitle={props.title}
             actionIcon={props.goback}
           />
+          <StatusBar
+            backgroundColor="#d11e48"
+            barStyle="light-content"
+          />
           <Validations
             title={props.title+" Doesn't has products"}
             message1={"Please be patient for new products"}
