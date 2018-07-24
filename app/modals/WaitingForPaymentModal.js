@@ -38,10 +38,11 @@ const WaitingForPaymentModal = (props) => (
       <View style={styles.paymentInformation2}>
         <View style={styles.paymentInformation2Wrapper}>
           <Text style={styles.paymentInformation2title}>Payment code will end in</Text>
-          {/* <Text style={styles.paymentInformation2timeout}>23 : 52 : 31</Text> */}
+          {/* <Text style={styles.paymentInformation2timeout}>{props.countDown}</Text> */}
+        
           <View style={{paddingTop: 10}}>
             <CountDown
-              until={43200}
+              until={props.countDown}
               onFinish={() => alert('finished')}
               onPress={() => alert('hello')}
               size={20}

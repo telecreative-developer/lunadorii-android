@@ -2,7 +2,12 @@ import React, { Component } from 'react'
 import { StyleSheet, TouchableOpacity, Text, View, Image } from 'react-native'
 
 const CreditCards = (props) => (
-  <View style={styles.Card}>
+  <View style={{
+    borderRadius:1,
+    borderColor: props.isDefault ? '#d11e48' : '#E2E2E2',
+    borderWidth:1,
+    marginBottom:5
+  }}>
     <View style={styles.contentCard}>
       <View style={styles.viewFlex3}>
         <Image source={require('../assets/images/icon/visa.png')} style={styles.image}/>
