@@ -24,13 +24,13 @@ const AddToCart = (props) => (
       <View>
         <Form style={{paddingVertical:5, paddingHorizontal:20}}>
           <Item style={{borderRadius: 5, borderColor: '#e2e2e2', width: '100%'}} regular>
-            <Input placeholder="Input Quantity" placeholderTextColor="#ccc" keyboardType={'numeric'} onChangeText={props.onChangeQty} maxLength={3}/>
+            <Input value={props.quantityValue} placeholder="Input Quantity" placeholderTextColor="#ccc" keyboardType={'numeric'} onChangeText={props.onChangeQty} maxLength={3}/>
           </Item>
         </Form>
-        {props.quantityValue > 100 ? (
+        {props.quantityValue > 100 || props.quantityValue == 0? (
           <View style={{paddingHorizontal:20, paddingVertical: 10}}>
             <Button full onPress={props.handleAddToCart} style={{borderRadius: 5, backgroundColor: '#f6f6f6'}} disabled>
-              <Text style={{color: '#ccc'}}>You can't buy up to 100 items</Text>
+              <Text style={{color: '#ccc'}}>Order refused</Text>
             </Button>
           </View>
         ) : (

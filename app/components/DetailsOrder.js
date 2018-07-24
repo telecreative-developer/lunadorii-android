@@ -88,7 +88,7 @@ const DetailsOrder = (props) => (
     </Content>
     <View style={{flexDirection: 'row', justifyContent:'space-between', padding: 10}}>
       {props.status !== 'Delivered'? (
-        <Button full style={styles.buttonStyleFotterDisabled} onPress={props.toggleModalAddReviews} disabled>
+        <Button full style={styles.buttonStyleFotterDisabled} onPress={props.status !== 'Delivered' ? props.showToast : props.toggleModalAddReviews}>
           <Text style={styles.textStyleFooterDisabled}>Review</Text>
         </Button>
       ) : (
