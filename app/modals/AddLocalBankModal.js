@@ -16,7 +16,7 @@ const AddLocalBankModal = (props) => (
       actionIcon={props.actionIcon} 
     />
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <Content style={styles.container}>

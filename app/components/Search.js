@@ -38,7 +38,7 @@ const Search = (props) => (
       modalVisibleBrandChooser={props.modalVisibleBrandChooser}
       toggleModalBrandChooser={props.toggleModalBrandChooser}/>
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <AddToCart

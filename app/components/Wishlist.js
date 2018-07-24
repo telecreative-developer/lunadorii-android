@@ -14,7 +14,7 @@ const Wishlist = (props) => (
       actionIcon={props.goback}
     />
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     {/* {props.stillLoading ?
