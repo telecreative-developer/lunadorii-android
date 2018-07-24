@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { Modal, View, Text, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native'
 import { Container, Content, Item, Icon, Button, Form, Textarea } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 import StarRating from 'react-native-star-rating'
@@ -19,6 +19,10 @@ const EditReviewsModal = (props) => {
       navbarTitle="Edit Reviews"
       navbarIcon="close"
       actionIcon={props.actionIcon} />
+    <StatusBar
+      backgroundColor="#f65857"
+      barStyle="light-content"
+    />
     <Content style={styles.container}>
       <ProductReviewed
         image={props.image}

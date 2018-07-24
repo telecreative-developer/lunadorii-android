@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet } from 'react-native'
+import { Modal, View, Text, StyleSheet, StatusBar } from 'react-native'
 import { Content, Item, Input, Label, Button, Form, Textarea } from 'native-base'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import NavbarModal from '../particles/NavbarModal'
@@ -15,7 +15,10 @@ const EditCreditCardModal = (props) => (
       navbarTitle="Edit Credit Card"
       navbarIcon="close"
       actionIcon={props.actionIcon} />
-
+    <StatusBar
+      backgroundColor="#f65857"
+      barStyle="light-content"
+    />
     <Content style={styles.container}>
     <Form style={styles.form}>
         <Label style={styles.labels}>Card Number</Label>

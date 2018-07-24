@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import { Modal, View, Text, StyleSheet, FlatList, TouchableOpacity, StatusBar } from 'react-native'
 import { Content, Item, Input, Icon, Button } from 'native-base'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
 import BrandChooserModal from '../modals/BrandChooserModal'
@@ -15,6 +15,10 @@ const FiltersModal = (props) => (
       navbarTitle="Filters"
       navbarIcon="close"
       actionIcon={props.actionIcon} />
+    <StatusBar
+      backgroundColor="#f65857"
+      barStyle="light-content"
+    />
     <BrandChooserModal
       navbarTitle="Edit Profile"
       navbarIcon="close"

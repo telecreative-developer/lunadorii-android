@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { Modal, View, Text, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native'
 import { Content, Item, Input, Icon, Label, Form, Button, Spinner } from 'native-base'
 import defaultPhotoProfile from '../assets/images/icon/photoProfileDefault.png'
 import NavbarModal from '../particles/NavbarModal'
@@ -16,6 +16,10 @@ const EditProfileModal = (props) => (
       navbarTitle={props.navbarTitle}
       navbarIcon={props.navbarIcon}
       actionIcon={props.actionIcon}
+    />
+    <StatusBar
+      backgroundColor="#f65857"
+      barStyle="light-content"
     />
     <Content style={styles.container}>
       <View>
