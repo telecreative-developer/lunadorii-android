@@ -11,7 +11,7 @@ const PrivacyPolici = (props) => (
       navbarIcon="arrow-back"
       actionIcon={props.goback} />
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <Content style={styles.container}>

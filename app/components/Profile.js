@@ -41,7 +41,7 @@ const Profile = (props) => (
       stillLoading={props.stillLoading}
     />
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     {props.stillLoading ? (

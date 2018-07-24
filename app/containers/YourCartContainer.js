@@ -38,15 +38,17 @@ class YourCartContainer extends Component {
       code:'',
       loadingBtn: false,
       selectedCourier:null,
+      costCourier:0,
       cost:[],
       estDays: "",
       product: "",
       brand: "",
-      selectedMethod: "cc",
+      selectedMethod: "CC",
       province_id:0,
       city_id:0,
       detail_address:'',
       selectedBank: '',
+      checkout:[]
     }
   }
 
@@ -69,7 +71,6 @@ class YourCartContainer extends Component {
   }
 
   async componentDidMount(){
-    // await BackHandler.eve('hardwareBackPress', () => this.props.navigation.goBack());
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchCartUser(data.id, data.accessToken)
@@ -201,8 +202,8 @@ class YourCartContainer extends Component {
 
   totalPrice(){
     let totalPrice = 0
-    const price = this.props.cartuser.map(data => data.qty * (data.price - (data.price *(data.discount_percentage/100)))).map(data => totalPrice += data)
-    const Tprice = price
+    const cost = this.state.costCourier
+    const price = this.props.cartuser.map(data => data.qty * (data.price - (data.price *(data.discount_percentage/100)))).map(data => totalPrice += data + cost)
     return totalPrice
   }
 
@@ -295,6 +296,7 @@ class YourCartContainer extends Component {
  async chooseCourier(item){
   await this.setState({
      selectedCourier: item,
+     costCourier: item.cost[0].value,
      modalVisiblePickDeliveryService: false
    })
  }
@@ -304,16 +306,17 @@ class YourCartContainer extends Component {
 }
 
  async checkout(){
-   const service = await this.state.selectedCourier.service
-   const delivery_price = await this.state.selectedCourier.cost[0].value
-   const { selectedMethod, province_id, city_id, detail_address} = await this.state
-   const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage}))
-   const cartuser = await this.props.cartuser
-   const session = await AsyncStorage.getItem('session')
-   const data = await JSON.parse(session)
-   const id = data.id
-   await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, id, city_id, province_id, data:dataProduct} , data.accessToken)
- }
+  const service = await this.state.selectedCourier.service
+  const delivery_price = await this.state.selectedCourier.cost[0].value
+  const { selectedMethod, province_id, city_id, detail_address, selectedBank} = await this.state
+  const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage}))
+  const session = await AsyncStorage.getItem('session')
+  const data = await JSON.parse(session)
+  const { id, first_name, last_name, email} = data
+  await Alert.alert('Checkout Success', 'Please Check Your Email For Details')
+  await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, selectedBank, id, city_id, province_id, data:dataProduct, user:{first_name, last_name, email}} , data.accessToken)
+  await this.toggleCheckoutPayment()
+  }
 
  setCourier(){
   const service = this.state.selectedCourier[0].service
@@ -321,19 +324,16 @@ class YourCartContainer extends Component {
  }
 
 render() {
-  // const service = this.state.selectedCourier ? this.state.selectedCourier[0].service
-  // console.log('service :' , service)
-  console.log('kurir :', this.props.receiveCourier)
+  console.log('kurir :', this.props.receiveCheckout)
   const courier = this.props.receiveCourier
-  console.log('Good :',this.state.selectedCourier)
+  console.log('cost :', this.state.selectedCourier)
   return (
     <YourCart 
       stillLoading={this.state.stillLoading}
-      selectedBank={this.state.selectedBank}
+      selectedBank={this.state.selectedMethod === 'ccc' ? '' : this.state.selectedBank}
       isCC={this.state.selectedMethod === 'cc'}
       selectedMethod={this.state.selectedMethod}
       selectedCourier={this.state.selectedCourier}
-      // estDays={this.state.estDays}
       selectedServices={this.capitalize(this.state.code)}
       courierCode={courier}
       renderCode={({item}) => (
@@ -344,9 +344,9 @@ render() {
 
       bankData={[
         {labelBank: 'BCA', value: 'bca'},
-        {labelBank: 'BRI', value: 'bri'},
         {labelBank: 'Mandiri', value: 'mandiri'},
-        {labelBank: 'Mayapada', value: 'mayapada'},
+        {labelBank: 'BNI', value: 'bni'},
+        {labelBank: 'Permata', value: 'permata'},
       ]}
       bankRender={({item}) => (
         <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1, padding: 5}}>
@@ -395,13 +395,14 @@ render() {
         />
       )}
 
+      closePickBankModal={() => alert("Closed")}
       paymentMethod={[
         {methodAlias: 'cc'  , label: 'Credit Card', image: ImageCreditCard},
         {methodAlias: 'bank', label: 'Bank Transfer',  image: ImageBank}
       ]}
       renderPaymentMethod={({item}) => (
         <View style={{borderColor: this.state.selectedMethod === item.methodAlias ? '#d11e48':'#e2e2e2', margin: 5,borderWidth: 1, width: 150}}>
-          <TouchableOpacity onPress={() => item.methodAlias === 'bank' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})} style={{padding: 10, flexDirection: 'row', justifyContent:'space-between'}}>
+          <TouchableOpacity onPress={() => item.methodAlias === 'bank' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})} style={{padding: 10, width: 150, flexDirection: 'row', justifyContent:'space-between'}}>
             <Radio selected={this.state.selectedMethod === item.methodAlias} selectedColor={'#d11e48'} onPress={
               () => item.methodAlias === 'bank' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})
             }/>
@@ -430,11 +431,13 @@ render() {
       modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
       toggleModalEditQuantity={() => this.toggleModalEditQuantity(this.props.cartuser)}
       modalVisibleCheckoutPayment={this.state.modalVisibleCheckoutPayment}
-      toggleCheckoutPayment={() => this.toggleCheckoutPayment()}
+      toggleCheckoutPayment={() => this.checkout()}
       deliverySeriveVisible={this.state.deliverySeriveVisible}
       toggleDeliverySerive={() => this.setState({deliverySeriveVisible: !this.state.deliverySeriveVisible})}
       navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
-      goback={() => this.props.navigation.goBack()}/>
+      goback={() => this.props.navigation.goBack()}
+      checkout={ this.props.receiveCheckout }
+      />
     );
   }
 }
@@ -459,7 +462,8 @@ const mapStateToProps = (state) => {
     cartuser: state.cartuser,
     sessionPersistance: state.sessionPersistance,
     usershipping: state.usershipping,
-    receiveCourier: state.receiveCourier
+    receiveCourier: state.receiveCourier,
+    receiveCheckout: state.receiveCheckout
   }
 }
 

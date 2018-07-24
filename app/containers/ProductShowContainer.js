@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ToastAndroid, AsyncStorage } from 'react-native'
+import { ToastAndroid, AsyncStorage, Alert } from 'react-native'
 import ProductShow from '../components/ProductShow'
 import RecommendProduct from '../particles/RecommendProduct'
 import CommentAndRating from '../particles/CommentAndRating'
@@ -190,7 +190,19 @@ class ProductShowContainer extends Component {
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     if( data == null ){
-      await this.props.navigation.navigate('LoginContainer')
+      Alert.alert(
+        'Sorry!',
+        'You Must Login !',
+        [
+          { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+          {
+            text: 'Logi ',
+            onPress: () => this.props.navigation.navigate('LoginContainer')
+            
+          }
+        ],
+        { cancelable: false }
+      )
     }else{
       this.setState({clickWishlist:!this.state.clickWishlist})
       ToastAndroid.showWithGravity("Added to wishlist.", ToastAndroid.SHORT, ToastAndroid.CENTER)

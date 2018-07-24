@@ -10,7 +10,6 @@ import { fetchUserShipping, updateShipping, updateSetdefault,
          deleteShipping, createAddress, fetchProvince 
        } from '../actions/usershipping'
 
-
 class YourShippingAddressContainer extends Component{
 
   constructor(){
@@ -167,7 +166,7 @@ class YourShippingAddressContainer extends Component{
     )
   }
 
-  async fetchData(item){
+  async fetchData(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.deleteShipping(this.state.address_id, data.accessToken)
@@ -195,8 +194,6 @@ class YourShippingAddressContainer extends Component{
   }
 
   render(){
-    console.log('cities :' , this.state.postal_code)
-    console.log('usershipping : ', this.props.usershipping)
     return(
       <YourShippingAddress
         stillLoading={this.state.stillLoading}

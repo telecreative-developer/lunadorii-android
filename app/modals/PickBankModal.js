@@ -21,9 +21,10 @@ const PickBankModal = (props) => (
         borderWidth: 1.5,
         borderRadius: 5
       }}>
-      <View style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor: '#f6f6f6',borderBottomColor: '#e2e2e2', borderBottomWidth:1}}>
+      {/* <View style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor: '#f6f6f6',borderBottomColor: '#e2e2e2', borderBottomWidth:1}}>
+        <Icon name="close" type="EvilIcons" fontSize={12} onPress={props.closePickBankModal} style={{alignSelf: 'flex-start', paddingVertical: 10, paddingHorizontal:5, paddingTop: 10}}/>
         <Text style={{fontWeight: 'bold',color: '#000',alignSelf: 'flex-end', paddingBottom: 13, paddingRight: 10}}>Banks</Text>
-      </View>
+      </View> */}
       <View style={{height: 200}}>
         <FlatList
           data={props.bankData}

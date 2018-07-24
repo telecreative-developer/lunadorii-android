@@ -2,32 +2,30 @@ import React, { Component } from 'react'
 import { View, Text, StyleSheet, FlatList, StatusBar, Dimensions, TouchableOpacity, Image } from 'react-native'
 import { Container, Content, Icon, Button, Input, Label, Item, Spinner  } from 'native-base'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
-import Ionicons from 'react-native-vector-icons/Ionicons'
 import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
 import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
 import PickDeliverySeriveModal from '../modals/PickDeliveryServiceModal'
+import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 import PickBankModal from '../modals/PickBankModal'
-import Validations from '../particles/Validations'
-import { fetchCourier } from '../actions/shipping';
-const shippingAddress = require('../assets/images/icon/shipping-address.png')
-const tiki = require('../assets/images/icon/tiki.png')
 const { height, width } = Dimensions.get('window')
 
 const YourCart = (props) => (
   <Container style={styles.Container}>
+    {console.log('better',props.checkout)}
     <Navigation 
        navbarTitle="Your Cart"
        navbarIcon="arrow-back"
        actionIcon={props.goback}
     />
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content" />
     <PickBankModal
       modalVisible={props.selectedMethod === 'bank' && props.selectedBank === ''}
       bankData={props.bankData}
       bankRender={props.bankRender}
+      closePickBankModal={props.closePickBankModal}
     />
     <PickDeliverySeriveModal
       modalVisible={props.modalVisiblePickDeliveryService}
@@ -54,6 +52,8 @@ const YourCart = (props) => (
       modalVisible={props.modalVisibleCheckoutPayment}
       actionIcon={props.toggleCheckoutPayment}
       selectedBank={props.selectedBank}
+      checkout={props.checkout}
+      totalPrice={props.totalPrice}
       
       isCC={props.isCC}
       paymentGuide1Visible={props.paymentGuide1Visible}
@@ -94,31 +94,16 @@ const YourCart = (props) => (
           <Button style={styles.btnAdd} onPress={props.navigateToHome}>
             <Icon name="add"/><Text style={styles.txtAdd}>Add More Product</Text>
           </Button>
-          {/* <TouchableOpacity style={{
-             height: 40,
-             width: 130,
-             borderRadius:5,
-             alignItems:'center',
-             alignSelf:'center',
-             justifyContent:'space-between',
-             backgroundColor:'#ccc',
-             margin:5,
-             flexDirection: 'row',
-          }}>
-            <Ionicons name="md-add"/>
-            <Text style={{
-              color: '#fff',
-              marginHorizontal:  10
-            }}>Add More Product</Text>
-          </TouchableOpacity> */}
-          
         </View>
         <View style={{
           borderTopWidth:1,
           borderColor:'#e2e2e2'
         }}>
           <View style={styles.body}>
-            <Text style={styles.title}>Payment Method</Text>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text style={styles.title}>Payment Method</Text>
+              <Text>{props.selectedBank}</Text>
+            </View>
             <View style={{alignItems: 'center'}}>
               <FlatList
                 horizontal={true}
@@ -242,7 +227,7 @@ const YourCart = (props) => (
         </View> */}
       </Content>
     )}
-    {props.onCartProduct.length ? (
+    {props.selectedCourier ? (
       <View style={styles.footer}>
         <View style={styles.footerWrapper}>
           <View style={styles.footerInfo}>
@@ -400,8 +385,8 @@ const styles = StyleSheet.create({
   },
   footerButtonStyling: {
     borderRadius: 5,
-    height: 40,
-    width: 130,
+    height: convertHeightPercentToDP('7%'),
+    width: convertWidthPercentToDP('40%'),
     backgroundColor: '#2ecc71',
     flexDirection: 'row',
     justifyContent: 'space-between',

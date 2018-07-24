@@ -77,7 +77,7 @@ const styles = StyleSheet.create({
   },
   txtReviews:{
     fontSize: 12, 
-    color: '#f65857', 
+    color: '#d11e48', 
     paddingLeft: 10
   },
   txtCart:{

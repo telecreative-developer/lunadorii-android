@@ -1,5 +1,5 @@
 import { setLoading, setFailed, setSuccess } from './processor'
-// import { RECEIVE_WISHLIST } from '../constants'
+import { RECEIVE_CHECKOUT_DATA } from '../constants'
 import { API_SERVER } from '../env'
 
 export const postCheckout = ( dataUser, accessToken ) => {
@@ -18,16 +18,17 @@ export const postCheckout = ( dataUser, accessToken ) => {
 					"delivery_service": dataUser.service,
 					"delivery_price": dataUser.delivery_price,
 					"paid_method": dataUser.selectedMethod,
-					"bank": "BCA",
+					"bank": dataUser.selectedBank,
 					"address": dataUser.detail_address,
 					"city_id": dataUser.city_id,
 					"province_id": dataUser.province_id,
 					"id": dataUser.id,
-					"data": dataUser.data
+					"data": dataUser.data,
+					"user": dataUser.user
 				})
 			})
 			const data = await response.json()
-			console.log(data)
+			await dispatch(receiveCheckout(data.data[0]))
 			await dispatch(setSuccess(true, 'SUCCESS_CHECKOUT'))
     	await dispatch(setLoading(false, 'LOADING_CHECKOUT'))
 		} catch (e) {
@@ -38,3 +39,10 @@ export const postCheckout = ( dataUser, accessToken ) => {
 	}
 }
 
+const receiveCheckout = data => {
+	console.log('checkout', data)
+	return{
+		type: RECEIVE_CHECKOUT_DATA,
+		payload: data
+	}
+}

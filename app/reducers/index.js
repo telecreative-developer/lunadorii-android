@@ -21,6 +21,7 @@ import { registerresult } from "./registerresult"
 import { userbank, bank, manipulatebank } from "./bank"
 import { usercredit, manipulatecredit } from "./creditCard"
 import { receiveCourier } from "./shipping"
+import { receiveCheckout } from './checkout'
 
 
 const rootReducers = combineReducers({
@@ -62,8 +63,8 @@ const rootReducers = combineReducers({
   receiveProductWithBrand,
   receiveProductWithBanner,
   receiveCourier,
-  productWithoutId
-//   sessionPersistance
+  productWithoutId,
+  receiveCheckout
 });
 
 export default rootReducers;

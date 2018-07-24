@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import { Modal, View, Text, StyleSheet, FlatList, TouchableOpacity, StatusBar } from 'react-native'
 import { Content, Item, Input, Icon, Button } from 'native-base'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
-import BrandChooserModal from '../modals/BrandChooserModal'
 import NavbarModal from '../particles/NavbarModal'
 
 const FiltersModal = (props) => (
@@ -15,11 +14,10 @@ const FiltersModal = (props) => (
       navbarTitle="Filters"
       navbarIcon="close"
       actionIcon={props.actionIcon} />
-    <BrandChooserModal
-      navbarTitle="Edit Profile"
-      navbarIcon="close"
-      modalVisible={props.modalVisibleBrandChooser}
-      actionIcon={props.toggleModalBrandChooser}/>
+    <StatusBar
+      backgroundColor="#d11e48"
+      barStyle="light-content"
+    />
     <Content style={styles.container}>
       <Text style={styles.txtLabel}>Category</Text>
       <Item regular style={styles.item}>

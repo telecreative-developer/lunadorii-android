@@ -8,7 +8,7 @@ const { height, width } = Dimensions.get('window')
 const RegisterIdentify = (props) => (
   <Container style={styles.backgroundColorWhite}>
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content" />
     <Content style={styles.backgroundColorWhite}>
       <View style={styles.wrapper}>   

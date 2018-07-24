@@ -6,7 +6,7 @@ const { height, width } = Dimensions.get('window')
 const AddPhotoProfile = (props) => (
   <Container style={styles.container}>
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <Content style={styles.content}>

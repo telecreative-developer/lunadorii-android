@@ -7,7 +7,7 @@ const { height, width } = Dimensions.get('window')
 const CreditCardIsEmpty = (props) => (
   <Container style={styles.container}>
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <AddLocalBankModal

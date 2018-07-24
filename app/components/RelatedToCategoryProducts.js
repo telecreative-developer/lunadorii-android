@@ -26,7 +26,7 @@ const RelatedToCategoryProducts = (props) => (
       actionIcon={props.goback}
     />
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <AddToCart
@@ -41,10 +41,10 @@ const RelatedToCategoryProducts = (props) => (
         <Spinner color="#d11e48"/>
       </View>
     ) : (
-      <Content scrollEnabled={props.dataProduct.length == 0?false:true}>
+      <Content >
         <View style={styles.viewArrivals}>
           <View>
-            <View style={{paddingTop: 5}}>
+            <View>
               {props.dataProduct.length == 0 ? 
                 <Validations
                   title={props.name+" Doesn't has products"}
