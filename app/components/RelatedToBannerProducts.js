@@ -23,7 +23,7 @@ const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 const RelatedToBannerProducts = (props) => (
   <Container style={styles.container}>
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <AddToCart
@@ -57,6 +57,10 @@ const RelatedToBannerProducts = (props) => (
             navbarTitle={props.title}
             actionIcon={props.goback}
           />
+          <StatusBar
+            backgroundColor="#d11e48"
+            barStyle="light-content"
+          />
           <Validations
             title={props.title+" Doesn't has products"}
             message1={"Please be patient for new products"}
@@ -74,7 +78,7 @@ const RelatedToBannerProducts = (props) => (
               iconColor
               actionIcon={props.goback} />
             <StatusBar
-              backgroundColor="#f65857"
+              backgroundColor="#d11e48"
               barStyle="light-content"
             />
           </ImageBackground>

@@ -9,7 +9,7 @@ const { height, width } = Dimensions.get('window')
 const Login = (props) => (
   <Container style={styles.backgroundColorWhite}>
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content" />
     {/* <InvalidCredentialModal
       modalVisible={props.modalVisibleInvalidCredentialModal}

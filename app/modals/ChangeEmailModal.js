@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { Modal, View, Text, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native'
 import { Container, Content, Item, Input, Icon, Label, Button, Tabs, Spinner } from 'native-base'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import NavbarModal from '../particles/NavbarModal'
@@ -14,6 +14,10 @@ const ChangeEmailModal = (props) => (
       navbarTitle={props.navbarTitle}
       navbarIcon={props.navbarIcon}
       actionIcon={props.actionIcon}
+    />
+    <StatusBar
+      backgroundColor="#d11e48"
+      barStyle="light-content"
     />
     <Content style={styles.container}>
       <View style={styles.viewInputPassword}>

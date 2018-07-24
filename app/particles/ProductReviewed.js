@@ -37,7 +37,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end', 
     paddingRight: 10, 
     paddingTop: 10, 
-    color: '#f65857'
+    color: '#d11e48'
   },
   image:{
     width: 50, 

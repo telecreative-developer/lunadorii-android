@@ -19,7 +19,7 @@ const Home = (props) => (
       image={props.image}
       photoProfileAction={props.navigateToProfile} />
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <AddToCart

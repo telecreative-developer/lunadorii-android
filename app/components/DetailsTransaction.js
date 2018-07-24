@@ -17,7 +17,7 @@ const DetailsTransaction = (props) => (
       actionIcon={props.goback}
     />
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 10, backgroundColor: '#f6f6f6'}}>

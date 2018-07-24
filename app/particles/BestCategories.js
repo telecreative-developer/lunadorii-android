@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   txtTitle:{
     fontWeight: 'bold', 
-    color: '#f65857'
+    color: '#d11e48'
   },
   viewWrapper:{
     marginLeft: 10

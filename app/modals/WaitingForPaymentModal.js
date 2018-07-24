@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { Modal, View, Text, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native'
 import { Container, Content, Icon, Button, Radio } from 'native-base'
 import CountDown from 'react-native-countdown-component';
 import NavbarModal from '../particles/NavbarModal'
@@ -22,6 +22,10 @@ const WaitingForPaymentModal = (props) => (
       navbarTitle={props.navbarTitle}
       navbarIcon={"close"}
       actionIcon={props.actionIcon}
+    />
+    <StatusBar
+      backgroundColor="#d11e48"
+      barStyle="light-content"
     />
     <Content style={styles.container}>
       <View style={styles.paymentInformation1}>
