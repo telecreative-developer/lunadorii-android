@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, Text, StyleSheet, Dimensions, FlatList } from 'react-native'
+import { Modal, Text, StyleSheet, Dimensions, FlatList, StatusBar } from 'react-native'
 import { Content, Item, Input, Label, Button, Form, View, Spinner } from 'native-base'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import SearchableFlatlist from '../particles/SearchableFlatlist'
@@ -16,6 +16,10 @@ const EditAddressModal = (props) => (
       navbarTitle="Edit Address"
       navbarIcon="close"
       actionIcon={props.actionIcon} 
+    />
+    <StatusBar
+      backgroundColor="#d11e48"
+      barStyle="light-content"
     />
     <Content style={styles.container}>
       <Form style={styles.form}>

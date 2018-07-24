@@ -7,7 +7,7 @@ const { height, width } = Dimensions.get('window')
 const SplashScreen = (props) => (
   <Container>
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <View style={styles.style}>

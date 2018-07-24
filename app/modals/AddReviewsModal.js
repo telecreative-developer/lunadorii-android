@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet } from 'react-native'
+import { Modal, View, Text, StyleSheet, StatusBar } from 'react-native'
 import { Content, Item, Button, Textarea } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 import StarRating from 'react-native-star-rating'
@@ -17,6 +17,10 @@ const AddReviewsModal = (props) => {
       navbarTitle="Reviews"
       navbarIcon="close"
       actionIcon={props.actionIcon} />
+    <StatusBar
+      backgroundColor="#d11e48"
+      barStyle="light-content"
+    />
     <Content style={styles.container}>
       <View style={{ alignSelf: 'center', paddingVertical: 10}}>
         <View style={{alignItems: 'center'}}>

@@ -19,7 +19,7 @@ const HEADER_SCROLL_DISTANCE = HEADER_MAX_HEIGHT - HEADER_MIN_HEIGHT;
 const ProductInCategoryBestSeller = (props) => (
   <Container style={styles.container}>
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <AddToCart
@@ -41,7 +41,7 @@ const ProductInCategoryBestSeller = (props) => (
             iconColor
             actionIcon={props.goback} />
           <StatusBar
-            backgroundColor="#f65857"
+            backgroundColor="#d11e48"
             barStyle="light-content"
           />
         </ImageBackground>

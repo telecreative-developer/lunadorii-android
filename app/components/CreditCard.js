@@ -53,7 +53,7 @@ const CreditCard = (props) => (
       onChangeCountry={props.onChangeCountry}
       onChangePostalCode={props.onChangePostalCode}/>
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <Content style={styles.content}>
