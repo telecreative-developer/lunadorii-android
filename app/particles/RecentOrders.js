@@ -1,5 +1,6 @@
 import React from 'react'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
 
 const RecentOrders = (props) => (
@@ -52,7 +53,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginLeft: 10,
     padding: 10,
-    width: 280
+    width: convertWidthPercentToDP('85%')
   },
   viewOnlyRow: {
     flexDirection: 'row'
