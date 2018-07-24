@@ -22,7 +22,7 @@ const YourCart = (props) => (
       backgroundColor="#d11e48"
       barStyle="light-content" />
     <PickBankModal
-      modalVisible={props.selectedMethod === 'bank' && props.selectedBank === ''}
+      modalVisible={props.selectedMethod === 'bank_transfer' && props.selectedBank === ''}
       bankData={props.bankData}
       bankRender={props.bankRender}
       closePickBankModal={props.closePickBankModal}
@@ -141,7 +141,6 @@ const YourCart = (props) => (
             )}
           </View>
           <View style={{alignItems:'center', paddingBottom: 10}}>
-            {console.log('courier :', props.courierCode)}
             <FlatList
               horizontal={true}
               showsHorizontalScrollIndicator={false}
@@ -150,33 +149,6 @@ const YourCart = (props) => (
             />
           </View>
         </View>
-        {/* <View style={styles.border1}>
-          <View style={styles.body1}>
-            <Text style={styles.title}>Delivery Service</Text>
-            <View>
-              <View>
-                <Label style={styles.label}>Service</Label>
-                <Item regular style={{width: '100%', borderRadius: 5,height: 40,alignItems:'center'}}>
-                  <Input/>
-                </Item>
-              </View>
-              <View style={{flexDirection:'row', justifyContent: 'space-between', paddingVertical: 10}}> 
-                <View>
-                  <Label style={styles.label}>Class</Label>
-                  <Item regular style={{width: 150, borderRadius: 5,height: 40,alignItems:'center'}}>
-                    <Input/>
-                  </Item>
-                </View>
-                <View>
-                  <Label style={styles.label}>Fare</Label>
-                  <Item regular style={{width: 150, borderRadius: 5,height: 40,alignItems:'center'}}>
-                    <Input/>
-                  </Item>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View> */}
       </Content>
     )}
     {props.selectedCourier ? (

@@ -7,6 +7,7 @@ import ImageCreditCard from '../assets/images/icon/credit-card.png'
 import ImageBank from '../assets/images/icon/bank.png'
 import { connect } from 'react-redux'
 import { fetchCartUser, removeCart, editQty } from '../actions/cart'
+import {PropTypes} from 'prop-types';
 import { fetchUserShipping, updateShipping } from '../actions/usershipping'
 import { postCheckout } from '../actions/checkout'
 import { fetchCourier } from '../actions/shipping'
@@ -314,7 +315,7 @@ class YourCartContainer extends Component {
   const data = await JSON.parse(session)
   const { id, first_name, last_name, email} = data
   await Alert.alert('Checkout Success', 'Please Check Your Email For Details')
-  await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, selectedBank, id, city_id, province_id, data:dataProduct, user:{first_name, last_name, email}} , data.accessToken)
+  await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, selectedBank, id, city_id, province_id, data:dataProduct, user:{first_name, last_name, email}, } , data.accessToken)
   await this.toggleCheckoutPayment()
   }
 
@@ -350,11 +351,12 @@ class YourCartContainer extends Component {
 
 render() {
   const courier = this.props.receiveCourier
+  console.log('select method', this.state.selectedMethod)
   return (
     <YourCart 
       stillLoading={this.state.stillLoading}
-      selectedBank={this.state.selectedMethod === 'ccc' ? '' : this.state.selectedBank}
-      isCC={this.state.selectedMethod === 'cc'}
+      selectedBank={this.state.selectedMethod === 'credit_card' ? '' : this.state.selectedBank}
+      isCC={this.state.selectedMethod === 'credit_card'}
       selectedMethod={this.state.selectedMethod}
       selectedCourier={this.state.selectedCourier}
       selectedServices={this.capitalize(this.state.code)}
@@ -420,14 +422,14 @@ render() {
 
       closePickBankModal={() => alert("Closed")}
       paymentMethod={[
-        {methodAlias: 'cc'  , label: 'Credit Card', image: ImageCreditCard},
-        {methodAlias: 'bank', label: 'Bank Transfer',  image: ImageBank}
+        {methodAlias: 'credit_card'  , label: 'Credit Card', image: ImageCreditCard},
+        {methodAlias: 'bank_transfer', label: 'Bank Transfer',  image: ImageBank}
       ]}
       renderPaymentMethod={({item}) => (
         <View style={{borderColor: this.state.selectedMethod === item.methodAlias ? '#d11e48':'#e2e2e2', margin: 5,borderWidth: 1, width: 150}}>
-          <TouchableOpacity onPress={() => item.methodAlias === 'bank' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})} style={{padding: 10, width: 150, flexDirection: 'row', justifyContent:'space-between'}}>
+          <TouchableOpacity onPress={() => item.methodAlias === 'bank_transfer' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})} style={{padding: 10, width: 150, flexDirection: 'row', justifyContent:'space-between'}}>
             <Radio selected={this.state.selectedMethod === item.methodAlias} selectedColor={'#d11e48'} onPress={
-              () => item.methodAlias === 'bank' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})
+              () => item.methodAlias === 'bank_transfer' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})
             }/>
             <Image source={item.image} style={{height: 20, width: 20, padding:5}}/>
             <Text>{item.label}</Text>

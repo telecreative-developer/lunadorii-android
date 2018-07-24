@@ -61,7 +61,7 @@ const WaitingForPaymentModal = (props) => (
             <View style={styles.wrapLeft}>
               <Text style={styles.paymentCardInformationTitle}>Payment code {props.checkout.billing_code}</Text>
               <Text style={styles.paymentCardIformationPaymentCode}>Paid Method 
-                {props.checkout.paid_method == 'bank' ? 
+                {props.checkout.paid_method == 'bank_transfer' ? 
                   <Text> Bank Transfer</Text> :
                   <Text> Credit Card</Text>
                 }

@@ -3,7 +3,11 @@ import { RECEIVE_CHECKOUT_DATA } from '../constants'
 import { API_SERVER } from '../env'
 
 export const postCheckout = ( dataUser, accessToken ) => {
-	console.log('action :', dataUser.data)
+	// if(dataUser.length == 0){
+	// 	subcategories = ''
+	// }else{
+	// 	subcategories = `[${subcategories}]`
+	// }
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_CHECKOUT'))
 		try {
@@ -24,7 +28,8 @@ export const postCheckout = ( dataUser, accessToken ) => {
 					"province_id": dataUser.province_id,
 					"id": dataUser.id,
 					"data": dataUser.data,
-					"user": dataUser.user
+					"user": dataUser.user,
+					
 				})
 			})
 			const data = await response.json()
