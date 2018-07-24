@@ -313,6 +313,7 @@ class YourCartContainer extends Component {
   const session = await AsyncStorage.getItem('session')
   const data = await JSON.parse(session)
   const { id, first_name, last_name, email} = data
+  await Alert.alert('Checkout Success', 'Please Check Your Email For Details')
   await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, selectedBank, id, city_id, province_id, data:dataProduct, user:{first_name, last_name, email}} , data.accessToken)
   await this.toggleCheckoutPayment()
   }
@@ -329,8 +330,8 @@ render() {
   return (
     <YourCart 
       stillLoading={this.state.stillLoading}
-      selectedBank={this.state.selectedBank}
-      isCC={this.state.selectedMethod === 'CC'}
+      selectedBank={this.state.selectedMethod === 'ccc' ? '' : this.state.selectedBank}
+      isCC={this.state.selectedMethod === 'cc'}
       selectedMethod={this.state.selectedMethod}
       selectedCourier={this.state.selectedCourier}
       selectedServices={this.capitalize(this.state.code)}
@@ -343,9 +344,9 @@ render() {
 
       bankData={[
         {labelBank: 'BCA', value: 'bca'},
-        {labelBank: 'BRI', value: 'bri'},
         {labelBank: 'Mandiri', value: 'mandiri'},
-        {labelBank: 'Mayapada', value: 'mayapada'},
+        {labelBank: 'BNI', value: 'bni'},
+        {labelBank: 'Permata', value: 'permata'},
       ]}
       bankRender={({item}) => (
         <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1, padding: 5}}>
@@ -401,7 +402,7 @@ render() {
       ]}
       renderPaymentMethod={({item}) => (
         <View style={{borderColor: this.state.selectedMethod === item.methodAlias ? '#d11e48':'#e2e2e2', margin: 5,borderWidth: 1, width: 150}}>
-          <TouchableOpacity onPress={() => item.methodAlias === 'bank' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})} style={{padding: 10, flexDirection: 'row', justifyContent:'space-between'}}>
+          <TouchableOpacity onPress={() => item.methodAlias === 'bank' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})} style={{padding: 10, width: 150, flexDirection: 'row', justifyContent:'space-between'}}>
             <Radio selected={this.state.selectedMethod === item.methodAlias} selectedColor={'#d11e48'} onPress={
               () => item.methodAlias === 'bank' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})
             }/>

@@ -22,8 +22,8 @@ const DetailsTransaction = (props) => (
     />
     <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 10, backgroundColor: '#f6f6f6'}}>
       <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
-        <MaterialIcons name="monetization-on" size={18} color={props.status === "waiting-for-payment" ? '#d11e48' : ''}/>
-        <Text style={{fontSize: 12, color:props.status === "waiting-for-payment" ? '#d11e48' : ''}}>Checkout</Text>
+        <MaterialIcons name="monetization-on" size={18} color={props.status === "Checkout" ? '#d11e48' : ''}/>
+        <Text style={{fontSize: 12, color:props.status === "Checkout" ? '#d11e48' : ''}}>Checkout</Text>
       </View>
       <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
       <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>

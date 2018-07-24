@@ -51,7 +51,6 @@ class SearchContainer extends Component {
   }
 
   goodBye(index, array){
-    var array;
     var index = array.indexOf(index);
     if (index > -1) {
       array.splice(index, 1);
@@ -60,7 +59,7 @@ class SearchContainer extends Component {
   }
 
   removeSelectedCategory(item){
-    this.state.selectedCategory.length == 1 ?
+    this.state.selectedCategory.length == 0  ?
       this.setState({selectedCategory: [],
                      subcategory:[]})
     :
@@ -153,13 +152,13 @@ class SearchContainer extends Component {
             backgroundColor: '#d11e48'
           }}>
             <Text style={{color: '#fff',padding: 5}}>{item}</Text>
-            <TouchableOpacity onPress={() => this.removeSelectedCategory(item)}>
+            {/* <TouchableOpacity onPress={() => this.removeSelectedCategory(item)}>
               <EvilIcons name="close" style={{
                 fontSize: 12,
                 padding: 5,
                 color:'#fff'
               }} />
-            </TouchableOpacity>
+            </TouchableOpacity> */}
           </Button>
         )}
 
