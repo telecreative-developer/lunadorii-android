@@ -323,10 +323,33 @@ class YourCartContainer extends Component {
   console.log('service :' , service)
  }
 
+ renderShipping(){
+   const dataUser = this.props.usershipping.filter(shp => shp.address_default)
+   const data = dataUser.length && dataUser[0]
+   console.log(data)
+   if( data === null ){
+      return (
+          <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'column',justifyContent: 'space-around', alignItems: 'center'}}>
+            <Text>No Shipping Address selected</Text>
+            <Text>pick one</Text>
+          </View>
+      )
+   }else{
+     return(
+          <ShippingAddress 
+            name={data.recepient}
+            numberPhone={data.phone}
+            detail_address={data.detail_address}
+            address_default={data.address_default}
+            // actionEdit={() => this.toggleModalEditAddress(data)}
+            // actionSetdefault={() => this.onChangeDefault(data)}
+            // actionDelete={() => this.deteleShipping(data)}
+          />
+     )}
+   }
+
 render() {
-  console.log('kurir :', this.props.receiveCheckout)
   const courier = this.props.receiveCourier
-  console.log('cost :', this.state.selectedCourier)
   return (
     <YourCart 
       stillLoading={this.state.stillLoading}
@@ -411,20 +434,8 @@ render() {
           </TouchableOpacity>
         </View>
       )}
-      
+      renderShipping={this.renderShipping()}
       goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer")}
-      onCartShippingAddress={this.props.usershipping.filter(shp => shp.address_default)}
-      rendersOnCartShippingAddress={({item}) => (
-        <ShippingAddress 
-          name={item.recepient}
-          numberPhone={item.phone}
-          detail_address={item.detail_address}
-          address_default={item.address_default}
-          actionEdit={() => this.toggleModalEditAddress(item)}
-          actionSetdefault={() => this.onChangeDefault(item)}
-          actionDelete={() => this.deteleShipping(item)}
-        />
-      )}
       product={this.state.product}
       brand={this.state.brand}
       modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}

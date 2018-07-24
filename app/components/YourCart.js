@@ -119,62 +119,13 @@ const YourCart = (props) => (
           <View style={styles.body}>
             <Text style={styles.title}>Shipping Address</Text>
             <TouchableOpacity onPress={props.goToShipping}>
-              <FlatList
-                data={props.onCartShippingAddress}
-                renderItem={props.rendersOnCartShippingAddress}
-              />
+              {props.renderShipping}
             </TouchableOpacity>
-            {/* <View>
-              <TouchableOpacity style={styles.touchableGuidePayment1} onPress={props.toggleDeliverySerive}>
-                <View>
-                  <Image source={shippingAddress} style={styles.iconSize} />
-                </View>
-                <View style={styles.flexOnly9}>
-                  <View style={styles.viewPaddingLeft}>
-                    <Text style={styles.txtLabel}>Delivery Service</Text>
-                  </View>
-                </View>
-                <View style={styles.flexOnly1}>
-                  <FontAwesome name="chevron-down" style={styles.iconDrop} />
-                </View>
-              </TouchableOpacity>
-              {props.deliverySeriveVisible ? (
-                <View style={styles.contentBottom}>
-                  <Radio/>
-                  <View style={styles.wrapKurir}>
-                    <Text style={styles.txtkurir}>JNE</Text>
-                    <Text style={styles.txtdetilkurir}>Barang akan sampai 2 -3 hari</Text>
-                  </View>
-                  <Text style={styles.txtpcs}>RP 15,000</Text>
-                </View>
-
-                <View style={styles.contentBottom}>
-                  <Radio/>
-                  <View style={styles.wrapKurir}>
-                    <Text style={styles.txtkurir}>YES</Text>
-                    <Text style={styles.txtdetilkurir}>Barang akan sampai 1 hari</Text>
-                  </View>
-                  <Text style={styles.txtpcs}>RP 15,000</Text>
-                </View>
-
-                <View style={styles.contentBottom}>
-                  <Radio/>
-                  <View style={styles.wrapKurir}>
-                    <Text style={styles.txtkurir}>Express</Text>
-                    <Text style={styles.txtdetilkurir}>Barang akan sampai 2 -3 hari</Text>
-                  </View>
-                  <Text style={styles.txtpcs}>RP 15,000</Text>
-                </View> 
-              ) : (
-                <View/>
-              )}
-            </View> */}
           </View>
         </View>
         <View style={styles.border1}>
           <View style={styles.body}>
             <Text style={styles.title}>Delivery Service</Text>
-            {console.log(props.selectedCourier)}
             {props.selectedCourier != null ? (
               
               <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'row',justifyContent: 'space-around'}}>

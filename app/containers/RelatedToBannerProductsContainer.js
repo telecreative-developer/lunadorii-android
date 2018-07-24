@@ -19,7 +19,8 @@ class RelatedToBannerProductsContainer extends Component{
       product_id: 0,
       product_name: '',
       qty: 0,
-      modalVisibleAddToCart: false
+      modalVisibleAddToCart: false,
+      modalVisibleLogin: false
     };
   }
 
@@ -31,7 +32,7 @@ class RelatedToBannerProductsContainer extends Component{
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     if( data == null ){
-      this.props.navigation.navigate('LoginContainer')
+      this.setState({modalVisibleLogin: true})
     }else{
       await this.closeModal()
       if(this.state.modalVisibleAddToCart){
@@ -82,6 +83,11 @@ class RelatedToBannerProductsContainer extends Component{
     return DiscountPrice
   }
 
+  toLogin(){
+    this.props.navigation.navigate("LoginContainer")
+    this.setState({ modalVisibleLogin: false })
+  }
+
   render(){
     console.log('dattaa :' , this.props.receiveProductWithBanner)
     return(
@@ -109,6 +115,10 @@ class RelatedToBannerProductsContainer extends Component{
         handleAddToCart={() => this.handleAddToCart()}
         navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
         goback={() => this.props.navigation.goBack()}
+        modalVisibleLogin={this.state.modalVisibleLogin}
+        loginAction={ () => this.toLogin() }
+        handleRefresh={() => this.handleRefresh()}
+        closeModal={ () => this.setState({modalVisibleLogin: false})}
       />
     )
   }

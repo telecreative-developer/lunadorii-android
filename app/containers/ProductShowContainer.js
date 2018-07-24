@@ -47,7 +47,8 @@ class ProductShowContainer extends Component {
       modalVisibleAddToCart: false,
       id_user: 0,
       product_id: 0,
-      product_name: ''
+      product_name: '',
+      modalVisibleLogin:false
     }
   }
 
@@ -78,7 +79,7 @@ class ProductShowContainer extends Component {
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     if(data == null ){
-      await this.props.navigation.navigate('LoginContainer')
+      await this.setState({modalVisibleLogin: true})
     }else{
       ToastAndroid.showWithGravity("Added to cart.", ToastAndroid.SHORT, ToastAndroid.CENTER)
       const dataProduct = this.props.navigation.state.params.data
@@ -137,7 +138,7 @@ class ProductShowContainer extends Component {
     const data = await JSON.parse(session)
     await this.closeModal()
     if(data == null ){
-      await this.props.navigate.navigation('LoginContainer')
+      await this.setState({modalVisibleLogin: true})
     }else{
       if(this.state.modalVisibleAddToCart){
         await this.setState({
@@ -190,19 +191,7 @@ class ProductShowContainer extends Component {
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     if( data == null ){
-      Alert.alert(
-        'Sorry!',
-        'You Must Login !',
-        [
-          { text: 'Cancel', onPress: () => {}, style: 'cancel' },
-          {
-            text: 'Logi ',
-            onPress: () => this.props.navigation.navigate('LoginContainer')
-            
-          }
-        ],
-        { cancelable: false }
-      )
+      await this.setState({modalVisibleLogin: true})
     }else{
       this.setState({clickWishlist:!this.state.clickWishlist})
       ToastAndroid.showWithGravity("Added to wishlist.", ToastAndroid.SHORT, ToastAndroid.CENTER)
@@ -264,6 +253,11 @@ class ProductShowContainer extends Component {
   discountPrice(price, discount_percentage){
     let DiscountPrice = price - (price *(discount_percentage/100))
     return DiscountPrice
+  }
+
+  toLogin(){
+    this.props.navigation.navigate("LoginContainer")
+    this.setState({ modalVisibleLogin: false })
   }
 
   render() {
@@ -345,6 +339,9 @@ class ProductShowContainer extends Component {
         isReviewsExist={this.state.isReviewsExist}
 
         handleAddToCartModal={() => this.handleAddToCartModal()}
+        modalVisibleLogin={this.state.modalVisibleLogin}
+        closeModal={ () => this.setState({modalVisibleLogin: false})}
+        loginAction={ () => this.toLogin() }
         addToCart={() => this.addToCart()}
         clickCart={this.state.clickCart}
         goback={() => this.deleteState()} />

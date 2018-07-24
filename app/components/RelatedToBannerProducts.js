@@ -13,6 +13,7 @@ import NavbarTransparent from '../particles/NavbarTransparent';
 import Navbar from '../particles/Navbar';
 import Validations from '../particles/Validations'
 import AddToCart from '../modals/AddToCart'
+import LoginRequiredModal from '../modals/LoginRequiredModal'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 
 const HEADER_MAX_HEIGHT = 250;
@@ -31,6 +32,11 @@ const RelatedToBannerProducts = (props) => (
       toggleModalAddToCart={props.toggleModalAddToCart}
       onChangeQty={props.onChangeQty}
       handleAddToCart={props.handleAddToCart}      
+    />
+    <LoginRequiredModal 
+      modalVisibleLogin={props.modalVisibleLogin}
+      closeModal={props.closeModal}
+      loginAction={props.loginAction}
     />
     {props.stillLoading ? (
       <Content contentContainerStyle={{justifyContent: 'center', alignItems:'center'}}>

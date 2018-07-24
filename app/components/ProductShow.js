@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Entypo from 'react-native-vector-icons/Entypo'
 import ImageViewModal from '../modals/ImageViewModal'
+import LoginRequiredModal from '../modals/LoginRequiredModal'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 const { height, width } = Dimensions.get('window')
 import AddToCart from '../modals/AddToCart'
@@ -23,6 +24,11 @@ const ProductShow = (props) => (
     toggleModalAddToCart={props.toggleModalAddToCart}
     onChangeQty={props.onChangeQty}
     handleAddToCart={props.handleAddToCartModal}      
+  />
+  <LoginRequiredModal 
+    modalVisibleLogin={props.modalVisibleLogin}
+    closeModal={props.closeModal}
+    loginAction={props.loginAction}
   />
     {props.stillLoading ? (
       <Content contentContainerStyle={{justifyContent: 'center', alignItems:'center', flex: 1}}>
