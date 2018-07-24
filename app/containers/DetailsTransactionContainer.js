@@ -45,7 +45,7 @@ export default class DetailsTransactionContainer extends Component{
         renderDataOnCart={({item}) => (
           <OrderDetails
             image={item.thumbnails[0].thumbnail_url}
-            title={item.product}
+            title={item.product <= 17 ? this.capitalize(item.product) : this.capitalize(item.product).slice(0,18)+'...'} 
             categories={item.subcategories[0].stat}
             quantity={item.qty}
             price={ item.price == null || item.price === '' ? item.price : this.formatPrice(item.price)}

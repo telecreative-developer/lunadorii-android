@@ -10,6 +10,7 @@ class DetailsOrderContainer extends Component{
 
   state={
     modalVisibleAddReviews: false,
+    modalVisibleImageView: false,
     review:'',
     ratings: 0
   }
@@ -18,6 +19,10 @@ class DetailsOrderContainer extends Component{
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     const dataProduct = this.props.navigation.state.params.item
+  }
+
+  toggleImageViewModal(){
+    this.setState({ modalVisibleImageView: !this.state.modalVisibleImageView })
   }
 
   toggleModalAddReviews(){
@@ -60,7 +65,12 @@ class DetailsOrderContainer extends Component{
     const status = this.props.navigation.state.params.status
     return(
       <DetailsOrder
+        toggleImageViewModal={() => this.toggleImageViewModal()}
+        modalVisibleImageView={this.state.modalVisibleImageView}
         showToast={() => ToastAndroid.showWithGravity("Your order not yet arrived", ToastAndroid.SHORT, ToastAndroid.CENTER)}
+        image={data.thumbnails[0].thumbnail_url}
+        images={data.thumbnails.map(data => ({source:{uri: data.thumbnail_url}}))}
+        amountOfImage={data.thumbnails.length}
         billing_code={this.props.navigation.state.params.billing_code}
         payment_time={moment(data.payment_time).calendar()}
         delivery_time={moment(data.delivery_time).calendar()}
