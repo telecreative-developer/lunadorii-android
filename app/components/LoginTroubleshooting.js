@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View, StyleSheet, StatusBar, Text, Image, TouchableOpacity, Dimensions } from 'react-native'
 import { Container, Content, Button, Form, Item, Input, Icon } from 'native-base'
 import LunadoriiCircleLogo from '../assets/images/icon/CircleLogo.png'
+import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 const { height, width } = Dimensions.get('window')
 
 const LoginTroubleshooting = (props) => (
@@ -42,7 +43,7 @@ const LoginTroubleshooting = (props) => (
           </View>
         </View>
         <View style={{borderTopColor: '#979797', borderTopWidth: 1.2, borderBottomColor: '#979797', borderBottomWidth: 1.2, marginHorizontal: 45, alignItems:'center'}}>
-          <TouchableOpacity style={{flexDirection:'row', alignItems: 'center', paddingVertical: 50}} onPress={props.loginFB}>
+          <TouchableOpacity style={{flexDirection:'row', alignItems: 'center', paddingVertical: convertHeightPercentToDP('5%')}} onPress={props.loginFB}>
             <Icon type="Entypo" name="facebook" style={{color:"#3B5998"}}/><Text style={{color:"#3B5998", paddingLeft: 5}}>Log in With Facebook</Text>
           </TouchableOpacity>
         </View>
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     height: 50
   },
   logoImage: {
-    marginTop: 50,
+    marginTop: convertWidthPercentToDP('8%'),
     marginBottom: 40,
     justifyContent: 'center',
     alignItems: 'center',
