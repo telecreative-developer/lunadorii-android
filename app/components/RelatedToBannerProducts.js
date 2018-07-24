@@ -13,6 +13,7 @@ import NavbarTransparent from '../particles/NavbarTransparent';
 import Navbar from '../particles/Navbar';
 import Validations from '../particles/Validations'
 import AddToCart from '../modals/AddToCart'
+import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 
 const HEADER_MAX_HEIGHT = 250;
 const HEADER_MIN_HEIGHT = 65;
@@ -59,7 +60,7 @@ const RelatedToBannerProducts = (props) => (
           />
         </Content>
       :
-        <Content>
+        <Content style={{width: convertWidthPercentToDP('100%'), height: convertHeightPercentToDP('100%')}}>
           <ImageBackground source={{ uri: props.image }} style={styles.imageBackgroundStyle}>
             <NavbarTransparent
               navbarTitle={props.title}

@@ -41,10 +41,10 @@ const RelatedToCategoryProducts = (props) => (
         <Spinner color="#d11e48"/>
       </View>
     ) : (
-      <Content scrollEnabled={props.dataProduct.length == 0?false:true}>
+      <Content >
         <View style={styles.viewArrivals}>
           <View>
-            <View style={{paddingTop: 5}}>
+            <View>
               {props.dataProduct.length == 0 ? 
                 <Validations
                   title={props.name+" Doesn't has products"}
