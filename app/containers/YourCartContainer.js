@@ -411,7 +411,7 @@ render() {
         </View>
       )}
       
-      // goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer")}
+      goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer")}
       onCartShippingAddress={this.props.usershipping.filter(shp => shp.address_default)}
       rendersOnCartShippingAddress={({item}) => (
         <ShippingAddress 
@@ -422,7 +422,6 @@ render() {
           actionEdit={() => this.toggleModalEditAddress(item)}
           actionSetdefault={() => this.onChangeDefault(item)}
           actionDelete={() => this.deteleShipping(item)}
-          goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer")}
         />
       )}
       product={this.state.product}
