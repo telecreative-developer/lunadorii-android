@@ -6,6 +6,7 @@ import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
 import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
 import PickDeliverySeriveModal from '../modals/PickDeliveryServiceModal'
+import CreditCards from '../particles/CreditCards'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 import PickBankModal from '../modals/PickBankModal'
 const { height, width } = Dimensions.get('window')
@@ -113,6 +114,21 @@ const YourCart = (props) => (
                 renderItem={props.renderPaymentMethod}
               />
             </View>
+            {console.log(props.isCC)}
+            {props.isCreditcard === 'credit_card' ? 
+              <View style={styles.viewBrand}>
+                <Text style={styles.txtLabel}>Your Credit Card</Text>
+                <CreditCards
+                  cardNumberFormated={ 123123 }
+                  cardNumber={123}
+                  mm={12}
+                  yyyy={12}
+                  card_name={12}
+                  card_default={12}/>
+                  <Input placeholder="CVV" placeholderTextColor="#e2e2e2"/>
+              </View>:
+              <View/>
+            }
           </View>
         </View>
         <View style={styles.border}>

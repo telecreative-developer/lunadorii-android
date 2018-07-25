@@ -7,7 +7,7 @@ import ImageCreditCard from '../assets/images/icon/credit-card.png'
 import ImageBank from '../assets/images/icon/bank.png'
 import { connect } from 'react-redux'
 import { fetchCartUser, removeCart, editQty } from '../actions/cart'
-import {PropTypes} from 'prop-types';
+import { fetchUserCredit } from '../actions/creditCard';
 import { fetchUserShipping, updateShipping } from '../actions/usershipping'
 import { postCheckout } from '../actions/checkout'
 import { fetchCourier } from '../actions/shipping'
@@ -44,7 +44,7 @@ class YourCartContainer extends Component {
       estDays: "",
       product: "",
       brand: "",
-      selectedMethod: "CC",
+      selectedMethod: "credit_card",
       province_id:0,
       city_id:0,
       detail_address:'',
@@ -74,6 +74,7 @@ class YourCartContainer extends Component {
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    await this.props.fetchUserCredit(data.id, data.accessToken)
     await this.props.fetchCartUser(data.id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
     if(this.props.cartuser.length){
@@ -307,6 +308,8 @@ class YourCartContainer extends Component {
 }
 
  async checkout(){
+  const creditCard = this.props.usercredit.filter(d => d.card_default === true)
+  const dataCC = creditCard.length && creditCard.map(d => ({card_number: d.card_number, }))
   const service = await this.state.selectedCourier.service
   const delivery_price = await this.state.selectedCourier.cost[0].value
   const { selectedMethod, province_id, city_id, detail_address, selectedBank} = await this.state
@@ -321,7 +324,6 @@ class YourCartContainer extends Component {
 
  setCourier(){
   const service = this.state.selectedCourier[0].service
-  console.log('service :' , service)
  }
 
  renderShipping(){
@@ -351,9 +353,13 @@ class YourCartContainer extends Component {
 
 render() {
   const courier = this.props.receiveCourier
-  console.log('select method', this.state.selectedMethod)
+  console.log('select method', this.props.usercredit)
+  const dataCC = this.props.usercredit.filter(d => d.card_default === true)
+  const CC = dataCC.length && dataCC
   return (
     <YourCart 
+      creditCard={ CC }
+      isCreditcard={this.state.selectedMethod}
       stillLoading={this.state.stillLoading}
       selectedBank={this.state.selectedMethod === 'credit_card' ? '' : this.state.selectedBank}
       isCC={this.state.selectedMethod === 'credit_card'}
@@ -462,7 +468,9 @@ const mapDispatchToProps = (dispatch) =>{
     removeCart: (id, product_id, accessToken) => dispatch(removeCart(id, product_id, accessToken)),
     editQty: (id, product_id, qty, cart_id, accessToken) => dispatch(editQty(id, product_id, qty, cart_id, accessToken)),
     fetchCourier: (weight_gram, province_id) => dispatch(fetchCourier(weight_gram, province_id)),
-    postCheckout: ( dataUser, accessToken) => dispatch(postCheckout( dataUser, accessToken))
+    postCheckout: ( dataUser, accessToken) => dispatch(postCheckout( dataUser, accessToken)),
+    fetchUserCredit: (id, accessToken) => dispatch(fetchUserCredit(id,accessToken)),
+
   }
 }
 
@@ -475,7 +483,8 @@ const mapStateToProps = (state) => {
     sessionPersistance: state.sessionPersistance,
     usershipping: state.usershipping,
     receiveCourier: state.receiveCourier,
-    receiveCheckout: state.receiveCheckout
+    receiveCheckout: state.receiveCheckout,
+    usercredit: state.usercredit
   }
 }
 

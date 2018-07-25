@@ -57,7 +57,6 @@ const WaitingForPaymentModal = (props) => (
             <View style={styles.viewFlex3}>
               <Image source={require('../assets/images/icon/visa.png')} style={styles.image} />
             </View>
-            {console.log('aaaaa', props.checkout)}
             <View style={styles.wrapLeft}>
               <Text style={styles.paymentCardInformationTitle}>Payment code {props.checkout.billing_code}</Text>
               <Text style={styles.paymentCardIformationPaymentCode}>Paid Method 
