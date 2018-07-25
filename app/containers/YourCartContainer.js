@@ -333,7 +333,6 @@ class YourCartContainer extends Component {
 
 async checkout(){
   const creditCard = this.props.usercredit.filter(d => d.card_default === true)
-  const dataCC = creditCard.length && creditCard.map(d => ({card_number: d.card_number, card_exp_month: d.mm.toString(), card_exp_year:d.yyyy.toString(), card_cvv:this.state.CVV.toString() }))
   const service = await this.state.selectedCourier.service
   const delivery_price = await this.state.selectedCourier.cost[0].value
   const { selectedMethod, province_id, city_id, detail_address, selectedBank, CVV} = await this.state
@@ -341,17 +340,41 @@ async checkout(){
   const session = await AsyncStorage.getItem('session')
   const data = await JSON.parse(session)
   const { id, first_name, last_name, email} = data
-  await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, id, city_id, province_id, data:dataProduct, user:{first_name, last_name, email}, dataCC, selectedBank,}, data.accessToken)
-  if(this.props.receiveCheckout.status == 202){
-     await Alert.alert('CVV is Invalid')
-     await console.log('202')
-    }else if( this.props.receiveCheckout.status == 400){
-     await Alert.alert('Your Credit Card is Invalid')
-     await console.log('400')
-    }else{
-      await this.toggleCheckoutPayment()
-      await console.log('200', this.props.receiveCheckout.status)
-    }
+	if(this.state.selectedMethod == 'bank_transfer'){
+		payment_detail = selectedBank
+	}else{
+    const dataCC = creditCard.length && creditCard.map(d => ({card_number: d.card_number, card_exp_month: d.mm.toString(), card_exp_year:d.yyyy.toString(), card_cvv:this.state.CVV.toString() }))
+    const detailCC = dataCC.length && dataCC[0]
+		payment_detail = detailCC
+  }
+  if(this.state.selectedMethod == 'bank_transfer'){
+    await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, id, city_id, province_id, data:dataProduct, user:{first_name, last_name, email}, payment_detail}, data.accessToken)
+	}else{
+    await Alert.alert(
+      'Information',
+      'Are you sure to Use Credit Card ?',
+      [
+        { text: 'No', onPress: () => {}, style: 'cancel' },
+        {
+          text: 'Yes',
+          onPress: () => this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, id, city_id, province_id, data:dataProduct, user:{first_name, last_name, email}, payment_detail}, data.accessToken)        
+        }
+      ],
+      { cancelable: false }
+    )
+	}
+  if(this.state.selectedMethod === 'credit_card'){
+    if(this.props.receiveCheckout.status == 202){
+      await Alert.alert('CVV is Invalid')
+      await console.log('202')
+     }else if( this.props.receiveCheckout.status == 400){
+      await Alert.alert('Your Credit Card is Invalid')
+      await console.log('400')
+     }else{
+       await this.toggleCheckoutPayment()
+     }
+   }
+   await this.toggleCheckoutPayment()
   }
 
 
@@ -490,7 +513,7 @@ render() {
       toggleDeliverySerive={() => this.setState({deliverySeriveVisible: !this.state.deliverySeriveVisible})}
       navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
       goback={() => this.props.navigation.goBack()}
-      checkout={ this.props.receiveCheckout }
+      checkout={ this.props.receiveCheckout.data }
       />
     );
   }

@@ -3,17 +3,8 @@ import { RECEIVE_CHECKOUT_DATA } from '../constants'
 import { API_SERVER } from '../env'
 
 export const postCheckout = ( dataUser, accessToken ) => {
-	const detailCC = dataUser.dataCC.length && dataUser.dataCC[0]
-	if(dataUser.selectedMethod == 'bank'){
-		payment_detail = dataUser.selectedBank
-		console.log('oioi',true)
-	}else{
-		payment_detail = detailCC
-		console.log('ioio',payment_detail)
-	}
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_CHECKOUT'))
-		console.log('acto', dataUser)
 		try {
 			const response = await fetch(`${API_SERVER}/order/checkout`, {
 				method: 'POST',
