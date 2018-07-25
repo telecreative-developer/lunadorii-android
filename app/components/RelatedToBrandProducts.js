@@ -30,6 +30,8 @@ const RelatedToBrandProducts = (props) => (
       barStyle="light-content"
     />
     <AddToCart
+      increaseQty={props.increaseQty}
+      decreaseQty={props.decreaseQty}
       quantityValue={props.quantityValue}
       modalVisible={props.modalVisibleAddToCart}
       toggleModalAddToCart={props.toggleModalAddToCart}

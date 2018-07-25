@@ -19,6 +19,8 @@ const ProductShow = (props) => (
     backgroundColor: '#fff'
   }}>
   <AddToCart
+    increaseQty={props.increaseQty}
+    decreaseQty={props.decreaseQty}
     quantityValue={props.quantityValue}
     modalVisible={props.modalVisibleAddToCart}
     toggleModalAddToCart={props.toggleModalAddToCart}
