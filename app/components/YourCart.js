@@ -55,6 +55,7 @@ const YourCart = (props) => (
       modalVisible={props.modalVisibleCheckoutPayment}
       actionIcon={props.toggleCheckoutPayment}
       selectedBank={props.selectedBank}
+      selectedMethod={props.selectedMethod}
       checkout={props.checkout}
       totalPrice={props.totalPrice}
       

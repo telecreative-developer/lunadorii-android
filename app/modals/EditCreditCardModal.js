@@ -25,7 +25,7 @@ const EditCreditCardModal = (props) => (
         {regexCC.test(props.cardNumber) === true && props.cardNumber !== '' ? 
           <Label style={styles.labels}>Card Number</Label>:
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Label style={styles.labels}>Password</Label><Label style={styles.labelsInfo}>Invalid Credit Card</Label>
+            <Label style={styles.labels}>Card Number</Label><Label style={styles.labelsInfo}>Invalid Credit Card</Label>
           </View>
         }
         <Item regular style={{

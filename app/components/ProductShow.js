@@ -118,8 +118,9 @@ const ProductShow = (props) => (
             maxStars={5}
             rating={props.star}
             starSize={14}
+            fullStarColor={'#ffcc36'}
           />
-          <Text style={styles.reviewsLabel}>{props.star} ratings</Text>
+          <Text style={styles.reviewsLabel}>{props.reviews} Reviews</Text>
         </View>
       </View>
       <View style={styles.borderedSparator}>
@@ -166,7 +167,7 @@ const ProductShow = (props) => (
             <View style={styles.ratingCardContentWrapper}>
               <View>
                 <Text style={styles.ratingReviewsText}>
-                  <Text style={styles.ratingAmountReviewsText}>{props.star}</Text> Ratings
+                  <Text style={styles.ratingAmountReviewsText}>{props.reviews}</Text> Reviews
                 </Text>
                 <View style={{flexDirection: 'row'}}>
                   <StarRating
@@ -174,6 +175,7 @@ const ProductShow = (props) => (
                     maxStars={5}
                     rating={props.star}
                     starSize={14}
+                    fullStarColor={'#ffcc36'}
                   />
                 </View>
               </View>

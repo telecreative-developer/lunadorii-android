@@ -52,13 +52,13 @@ const FiltersModal = (props) => (
           renderItem={props.buttonCategory1st}
         />
       </View>
-      <Text style={styles.txtLabel}>Brands</Text>
+      {/* <Text style={styles.txtLabel}>Brands</Text>
       <FlatList
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         data={props.dataButtonBrands}
         renderItem={props.buttonBrads}
-      />
+      /> */}
       {/* <Item regular style={styles.item}>
         <Input placeholder='Select brand' placeholderTextColor="#ccc" onChangeText={props.handleBrand} />
         <Icon type='Entypo' name="chevron-small-down" style={{color: '#ccc'}}/>

@@ -319,6 +319,7 @@ class ProductShowContainer extends Component {
           />
         )}
 
+        reviews={this.state.reviews.length}
         dataCommentAndRating={this.state.seeMoreReviews ? this.state.reviews : this.state.reviews.slice(0,1)}
         renderCommentAndRating={({ item }) => (
           <CommentAndRating

@@ -16,6 +16,7 @@ const CommentAndRating = (props) => (
           rating={props.rating}
           starSize={12}
           // selectedStar={props.onStarRatingPress}
+          fullStarColor={'#ffcc36'}
         />
       </View>
     </View>
