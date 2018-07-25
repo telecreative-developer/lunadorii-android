@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { Dimensions, Image, StyleSheet, AsyncStorage, TouchableOpacity, BackHandler, ToastAndroid, Alert, NetInfo } from 'react-native'
+import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage, TouchableOpacity, BackHandler, ToastAndroid, Alert, NetInfo } from 'react-native'
+import { Radio } from 'native-base'
 import { connect } from 'react-redux'
 
 import Home from '../components/Home'
@@ -33,7 +34,7 @@ class HomeContainer extends Component {
       id_user: 0,
       product_id: 0,
       product_name: '',
-      qty: 1,
+      qty: 0,
       uri:'',
       modalVisibleAddToCart: false,
       bannersOffline: [],
@@ -58,8 +59,9 @@ class HomeContainer extends Component {
       await this.props.fetchBrandsProduct()
       await this.props.fetchProductBestSeller()
       await this.person()
-      await this.props.fetchProductSubcategories()
-      await this.setState({stillLoading: false})
+      if(this.props.fetchProductSubcategories()){
+        await this.setState({stillLoading: false})
+      }
     } else {
       this.setState({ isConnected: false ,stillLoading: true});
       await this.person()
@@ -213,19 +215,7 @@ class HomeContainer extends Component {
     const data = await JSON.parse(session)
     if(this.state.isConnected){
       if( data == null ){
-        Alert.alert(
-          'Sorry!',
-          'You Must Login !',
-          [
-            { text: 'Cancel', onPress: () => {}, style: 'cancel' },
-            {
-              text: 'Logi ',
-              onPress: () => this.props.navigation.navigate('LoginContainer')
-              
-            }
-          ],
-          { cancelable: false }
-        )
+        this.props.navigation.navigate('LoginContainer')
       }else{
         this.props.navigation.navigate('YourCartContainer')
       }
@@ -237,21 +227,9 @@ class HomeContainer extends Component {
     const data = await JSON.parse(session)
     if(this.state.isConnected){
       if( data == null ){
-        Alert.alert(
-          'Sorry!',
-          'You Must Login !',
-          [
-            { text: 'Cancel', onPress: () => {}, style: 'cancel' },
-            {
-              text: 'Logi ',
-              onPress: () => this.props.navigation.navigate('LoginContainer')
-              
-            }
-          ],
-          { cancelable: false }
-        )
+        this.props.navigation.navigate('LoginContainer')
       }else{
-        this.props.navigation.navigate('ProfileContainer')
+        this.props.navigation.navigate('ProfileContainer', {person: this.person.bind(this)})
       }
     }
   }
@@ -266,7 +244,7 @@ class HomeContainer extends Component {
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     const dataPerson = await this.props.getsingleuser.avatar_url
-    const uri = await 'https://s3.us-east-2.amazonaws.com/lunadorii/avatar.png'
+    const uri = await 'https://freeiconshop.com/wp-content/uploads/edd/person-girl-flat.png'
     if (this.state.isConnected) {
       if( data == null ){
         this.setState({uri:uri})
@@ -304,7 +282,6 @@ class HomeContainer extends Component {
 
   render() {
     const { banners } = this.props
-    
     return (
       <Home
         stillLoading={this.state.stillLoading}
