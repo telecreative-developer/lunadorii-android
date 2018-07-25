@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
-import { StyleSheet, FlatList, StatusBar, Dimensions } from 'react-native'
-import { Container, Content, Text, View, Button, Icon } from 'native-base'
+import { StyleSheet, FlatList, StatusBar, Dimensions, Text } from 'react-native'
+import { Container, Content, View, Button, Icon, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
 import EditCreditCardModal from '../modals/EditCreditCardModal'
 import AddCreditCardModal from '../modals/AddCreditCardModal'
@@ -69,10 +69,18 @@ const CreditCard = (props) => (
     <Content style={styles.content}>
       <View style={styles.viewBrand}>
         <Text style={styles.txtLabel}>Your Credit Card</Text>
+        {props.stillLoading ? <Spinner color="#d11e48" />
+        :
+        props.isEmpty ?
+        <View style={{alignItems: 'center', paddingBottom: 10}}>
+          <Text>You Don't Have Credit Card</Text>
+        </View>
+        :
         <FlatList
           data={props.dataCreditCards}
           renderItem={props.renderCreditCards}
           keyExtractor={(item, index) => JSON.stringify(index)} />
+        }
       </View>
       <Button style={styles.btnAdd} onPress={props.toggleModalAddCreditCard}>
         <Icon name="add" /><Text style={styles.txtAdd}>Add Another Card</Text>
