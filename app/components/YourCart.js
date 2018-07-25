@@ -7,6 +7,7 @@ import EditQuantityModal from '../modals/EditQuantityModal'
 import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
 import PickDeliverySeriveModal from '../modals/PickDeliveryServiceModal'
 import CreditCards from '../particles/CreditCards'
+import Validations from '../particles/Validations'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 import PickBankModal from '../modals/PickBankModal'
 const { height, width } = Dimensions.get('window')
@@ -73,100 +74,99 @@ const YourCart = (props) => (
         </View>
       </Content>
     ) : (
-      <Content>
-        <View style={styles.body}>
-          <Text style={styles.title}>Products</Text>
-          {props.onCartProduct.length > 0 ? (
+      props.onCartProduct.length > 0 ? (
+        <Content>
+          <View style={styles.body}>
+            <Text style={styles.title}>Products</Text>
             <View>
               <FlatList
                 data={props.onCartProduct}
                 renderItem={props.renderOnCartProduct}
               />
             </View>
-          ) : (
-            <View>
-              <View style={{alignItems: 'center'}}>
-                <Text>You don't have Recent Orders</Text>
-                <TouchableOpacity onPress={props.navigateToHome}>
-                  <Text style={{color: '#ccc'}}>Go shop now</Text>
-                </TouchableOpacity>
+            <Button style={styles.btnAdd} onPress={props.navigateToHome}>
+              <Icon name="add"/><Text style={styles.txtAdd}>Add More Product</Text>
+            </Button>
+          </View>
+          <View style={{
+            borderTopWidth:1,
+            borderColor:'#e2e2e2'
+          }}>
+            <View style={styles.body}>
+              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={styles.title}>Payment Method</Text>
+                <Text>{props.selectedBank}</Text>
               </View>
+              <View style={{alignItems: 'center'}}>
+                <FlatList
+                  horizontal={true}
+                  showsHorizontalScrollIndicator={false}
+                  scrollEnabled={false}
+                  data={props.paymentMethod}
+                  renderItem={props.renderPaymentMethod}
+                />
+              </View>
+              {console.log(props.isCC)}
+              {props.isCreditcard === 'credit_card' ? 
+                <View style={styles.viewBrand}>
+                  <Text style={styles.txtLabel}>Your Credit Card</Text>
+                  <CreditCards
+                    cardNumberFormated={ 123123 }
+                    cardNumber={123}
+                    mm={12}
+                    yyyy={12}
+                    card_name={12}
+                    card_default={12}/>
+                    <Input placeholder="CVV" placeholderTextColor="#e2e2e2"/>
+                </View>:
+                <View/>
+              }
             </View>
-          )}
-          <Button style={styles.btnAdd} onPress={props.navigateToHome}>
-            <Icon name="add"/><Text style={styles.txtAdd}>Add More Product</Text>
-          </Button>
-        </View>
-        <View style={{
-          borderTopWidth:1,
-          borderColor:'#e2e2e2'
-        }}>
-          <View style={styles.body}>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <Text style={styles.title}>Payment Method</Text>
-              <Text>{props.selectedBank}</Text>
+          </View>
+          <View style={styles.border}>
+            <View style={styles.body}>
+              <Text style={styles.title}>Shipping Address</Text>
+              <TouchableOpacity onPress={props.goToShipping}>
+                {props.renderShipping}
+              </TouchableOpacity>
             </View>
-            <View style={{alignItems: 'center'}}>
+          </View>
+          <View style={styles.border1}>
+            <View style={styles.body}>
+              <Text style={styles.title}>Delivery Service</Text>
+              {props.selectedCourier != null ? (
+                
+                <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'row',justifyContent: 'space-around'}}>
+                  <Text style={{fontWeight: 'bold',color: '#000'}}>{props.selectedCourier.service}</Text>
+                  <Text>{props.selectedCourier.cost[0].etd} Days</Text>
+                  <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. {props.selectedCourier.cost[0].value},-</Text>
+                </View>
+              ) : (
+                <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'column',justifyContent: 'space-around', alignItems: 'center'}}>
+                  <Text>No delivery service selected</Text>
+                  <Text>pick one</Text>
+                </View>
+              )}
+            </View>
+            <View style={{alignItems:'center', paddingBottom: 10}}>
               <FlatList
                 horizontal={true}
                 showsHorizontalScrollIndicator={false}
-                scrollEnabled={false}
-                data={props.paymentMethod}
-                renderItem={props.renderPaymentMethod}
+                data={props.courierCode}
+                renderItem={props.renderCode}
               />
             </View>
-            {console.log(props.isCC)}
-            {props.isCreditcard === 'credit_card' ? 
-              <View style={styles.viewBrand}>
-                <Text style={styles.txtLabel}>Your Credit Card</Text>
-                <CreditCards
-                  cardNumberFormated={ 123123 }
-                  cardNumber={123}
-                  mm={12}
-                  yyyy={12}
-                  card_name={12}
-                  card_default={12}/>
-                  <Input placeholder="CVV" placeholderTextColor="#e2e2e2"/>
-              </View>:
-              <View/>
-            }
           </View>
-        </View>
-        <View style={styles.border}>
-          <View style={styles.body}>
-            <Text style={styles.title}>Shipping Address</Text>
-            <TouchableOpacity onPress={props.goToShipping}>
-              {props.renderShipping}
-            </TouchableOpacity>
-          </View>
-        </View>
-        <View style={styles.border1}>
-          <View style={styles.body}>
-            <Text style={styles.title}>Delivery Service</Text>
-            {props.selectedCourier != null ? (
-              
-              <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'row',justifyContent: 'space-around'}}>
-                <Text style={{fontWeight: 'bold',color: '#000'}}>{props.selectedCourier.service}</Text>
-                <Text>{props.selectedCourier.cost[0].etd} Days</Text>
-                <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. {props.selectedCourier.cost[0].value},-</Text>
-              </View>
-            ) : (
-              <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'column',justifyContent: 'space-around', alignItems: 'center'}}>
-                <Text>No delivery service selected</Text>
-                <Text>pick one</Text>
-              </View>
-            )}
-          </View>
-          <View style={{alignItems:'center', paddingBottom: 10}}>
-            <FlatList
-              horizontal={true}
-              showsHorizontalScrollIndicator={false}
-              data={props.courierCode}
-              renderItem={props.renderCode}
-            />
-          </View>
-        </View>
-      </Content>
+        </Content>
+      ) : (
+        <Validations
+          title={"Nothing to pay here"}
+          message1={"Add to cart some product"}
+          message2={"to fill your cart"}
+          buttonText={"Continue shoping"}
+          buttonAction={props.navigateToHome}
+        />
+      )
     )}
     {props.selectedCourier ? (
       <View style={styles.footer}>

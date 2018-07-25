@@ -376,6 +376,7 @@ render() {
   const CC = dataCC.length && dataCC
   return (
     <YourCart 
+      navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
       creditCard={ CC }
       isCreditcard={this.state.selectedMethod}
       stillLoading={this.state.stillLoading}

@@ -2,6 +2,7 @@ import React from 'react'
 import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
 import StarRating from 'react-native-star-rating'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
+import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 const { width, height } = Dimensions.get('window')
 
 const RecommendProduct = (props) => {
@@ -50,7 +51,7 @@ const styles = StyleSheet.create({
     paddingTop: 2
   },
   viewRecommend:{
-    width: 260, 
+    width: convertWidthPercentToDP('70%'), 
     marginRight:10,
     marginLeft: 10,
     paddingRight: 5, 
@@ -65,7 +66,7 @@ const styles = StyleSheet.create({
     height: 150
   },
   image:{
-    width: 260, 
+    width: convertWidthPercentToDP('70%'), 
     height: 150
   },
   txtTitle:{

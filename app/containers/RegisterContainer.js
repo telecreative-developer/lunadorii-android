@@ -162,7 +162,8 @@ class RegisterContainer extends Component{
         onChangeEmail={(email) => this.setState({email})}
         renderButton={this.renderButton()}
         navigateToLogin={() => this.props.navigation.navigate('LoginContainer')}
-        handleNext={() => this.props.navigation.navigate('RegisterIdentifyContainer', { email: this.state.email })}/>
+        handleNext={() => this.props.navigation.navigate('RegisterIdentifyContainer', { email: this.state.email })}
+        skipLogin={() => this.props.navigation.navigate("HomeContainer")}/>
     )
   }
 }

@@ -50,11 +50,6 @@ const Login = (props) => (
           </Form>
           <View style={styles.registerButtonWrapper}>
             {props.renderButtons}
-            <View>
-              <TouchableOpacity onPress={props.skipLogin}>
-                <Text>Skip ></Text>
-              </TouchableOpacity>
-            </View>
           </View>
         </View>
       </View>
@@ -76,6 +71,10 @@ const Login = (props) => (
         <Text style={styles.alignSelfCenter}>Don't have account?</Text>
         <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToRegister}>
           <Text style={styles.registerNowColor}> Sign Up</Text>
+        </TouchableOpacity>
+        <Text> or </Text>
+        <TouchableOpacity onPress={props.skipLogin} style={{paddingLeft: 5}}>
+          <Text style={{color: '#d11e48'}}>Login later</Text>
         </TouchableOpacity>
       </View>
     </Content>

@@ -42,12 +42,16 @@ const DetailsOrder = (props) => (
           </TouchableOpacity>
         </ImageBackground>
       </TouchableHighlight>
-      <View style={{backgroundColor: '#f6f6f6', flexDirection: 'row', justifyContent: 'space-between'}}>
-        <View style={{width: convertWidthPercentToDP('70%'), backgroundColor: '#e2e2e2'}}>
-          <Text style={{fontSize: 18, fontWeight: 'bold', padding: 10}}>PRODUCT_TITLE</Text>
-        </View>
-        <View style={{width: convertWidthPercentToDP('30%'), backgroundColor: '#ccc'}}>
-          <Text style={{fontSize: 14, padding: 10}}>ORDER_AMOUNT</Text>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between',borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+        <View>
+          <View style={{width: convertWidthPercentToDP('100%'),padding: 10}}>
+            <Text style={{fontSize: 18, fontWeight: 'bold'}}>{props.brandTitle}</Text>
+            <Text style={{fontSize: 18, paddingBottom: 10}}>{props.category}</Text>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text>Rp {props.price}</Text>
+              <Text>Qty {props.qty}</Text>
+            </View>
+          </View>
         </View>
       </View>
       <ImageViewModal
