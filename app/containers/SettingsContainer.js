@@ -17,6 +17,7 @@ class SettingsContainer extends Component {
     newEmail:"",
     confirmEmail:"",
     buttonEmail: false,
+    changedEmail: '',
 
     password: "",
     currentPassword: "",
@@ -48,8 +49,11 @@ class SettingsContainer extends Component {
   }
 
   async handleChangeEmail(){
+    const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (this.state.newEmail == ""){
       alert("email cannot empty")
+    }else if (regexEmail.test(this.state.newEmail) !== true) {
+      alert("Email Invalid")
     }else if (this.state.newEmail !== this.state.confirmEmail) {
       alert("New Email wasn't comfirmed")
     } else {
@@ -58,9 +62,9 @@ class SettingsContainer extends Component {
       if (this.props.editemail.status === 201){
         this.setState({ modalVisibleChangeEmail: false })
       }
-      this.setState({ buttonEmail: false })
+      this.setState({ buttonEmail: false, changedEmail: this.state.newEmail })
       // await alert(this.props.editemail.message)
-      ToastAndroid.showWithGravity("Change saved", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      ToastAndroid.showWithGravity(this.props.editemail.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
     }
   }
 
@@ -90,7 +94,7 @@ class SettingsContainer extends Component {
         }
         this.setState({ buttonPassword: false })
         // await alert(this.props.editpassword.message)
-        ToastAndroid.showWithGravity("Password changed", ToastAndroid.SHORT, ToastAndroid.CENTER)
+        ToastAndroid.showWithGravity(this.props.editpassword.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
       }
     
   }
@@ -100,7 +104,7 @@ class SettingsContainer extends Component {
     return (
       <Settings
         userEmail={this.state.newEmail}
-        email={this.state.userData.email}
+        email={this.state.changedEmail !== '' ? this.state.changedEmail : this.state.userData.email}
         modalVisibleChangePassword={this.state.modalVisibleChangePassword}
         toggleModalChangePassword={() => this.toggleModalChangePassword()}
         buttonPassword={this.state.buttonPassword}
