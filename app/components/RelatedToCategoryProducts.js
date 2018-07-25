@@ -8,8 +8,8 @@ import {
   RefreshControl,
   FlatList
 } from 'react-native';
-import { Icon, Text, Container, Content, Spinner } from 'native-base';
-import RelatedToCategoryProductsContainer from '../containers/RelatedToCategoryProductsContainer';
+import { Text, Container, Content, Spinner } from 'native-base';
+import LoginRequiredModal from '../modals/LoginRequiredModal'
 import Validations from '../particles/Validations'
 import Navbar from '../particles/Navbar';
 import AddToCart from '../modals/AddToCart'
@@ -35,6 +35,11 @@ const RelatedToCategoryProducts = (props) => (
       toggleModalAddToCart={props.toggleModalAddToCart}
       onChangeQty={props.onChangeQty}
       handleAddToCart={props.handleAddToCart}      
+    />
+    <LoginRequiredModal 
+      modalVisibleLogin={props.modalVisibleLogin}
+      closeModal={props.closeModal}
+      loginAction={props.loginAction}
     />
     {props.stillLoading ? (
       <View style={styles.style}>

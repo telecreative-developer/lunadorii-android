@@ -20,7 +20,8 @@ class RelatedToBrandProductsContainer extends Component{
       product_id: 0,
       product_name: '',
       qty: 0,
-      modalVisibleAddToCart: false
+      modalVisibleAddToCart: false,
+      modalVisibleLogin: false
     };
   }
 
@@ -32,7 +33,7 @@ class RelatedToBrandProductsContainer extends Component{
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     if( data == null ){
-      this.props.navigation.navigate('LoginContainer')
+      this.setState({modalVisibleLogin: true})
     }else{
       await this.closeModal()
       if(this.state.modalVisibleAddToCart){
@@ -82,6 +83,11 @@ class RelatedToBrandProductsContainer extends Component{
     return DiscountPrice
   }
 
+  toLogin(){
+    this.props.navigation.navigate("LoginContainer")
+    this.setState({ modalVisibleLogin: false })
+  }
+
   render(){
     console.log('dattaa :' , this.props.receiveProductWithBrand)
     return(
@@ -110,6 +116,10 @@ class RelatedToBrandProductsContainer extends Component{
 
         image={this.props.navigation.state.params.image}
         goback={() => this.props.navigation.goBack()}
+
+        modalVisibleLogin={this.state.modalVisibleLogin}
+        loginAction={ () => this.toLogin() }
+        closeModal={ () => this.setState({modalVisibleLogin: false})}
       />
     )
   }

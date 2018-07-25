@@ -4,6 +4,7 @@ import { Container, Tabs, Tab, TabHeading, Icon, Content, Spinner } from 'native
 import NavbarHome from '../particles/NavbarHome'
 import Carousel from 'react-native-banner-carousel'
 import AddToCart from '../modals/AddToCart'
+import LoginRequiredModal from '../modals/LoginRequiredModal'
 import Reloader from '../particles/Reloader'
 const { height, width } = Dimensions.get('window')
 
@@ -27,6 +28,11 @@ const Home = (props) => (
       toggleModalAddToCart={props.toggleModalAddToCart}
       onChangeQty={props.onChangeQty}
       handleAddToCart={props.handleAddToCart}      
+    />
+    <LoginRequiredModal 
+      modalVisibleLogin={props.modalVisibleLogin}
+      closeModal={props.closeModal}
+      loginAction={props.loginAction}
     />
     <Tabs locked={true} style={styles.tabHeight} tabBarUnderlineStyle={styles.tabBarUnderlineStyle}>
       <Tab heading={<TabHeading style={styles.tabHeading} ><Text style={styles.txtHeading}>New Arrivals</Text></TabHeading>}>

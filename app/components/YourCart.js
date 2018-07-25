@@ -6,6 +6,7 @@ import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
 import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
 import PickDeliverySeriveModal from '../modals/PickDeliveryServiceModal'
+import CreditCards from '../particles/CreditCards'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 import PickBankModal from '../modals/PickBankModal'
 const { height, width } = Dimensions.get('window')
@@ -22,7 +23,7 @@ const YourCart = (props) => (
       backgroundColor="#d11e48"
       barStyle="light-content" />
     <PickBankModal
-      modalVisible={props.selectedMethod === 'bank' && props.selectedBank === ''}
+      modalVisible={props.selectedMethod === 'bank_transfer' && props.selectedBank === ''}
       bankData={props.bankData}
       bankRender={props.bankRender}
       closePickBankModal={props.closePickBankModal}
@@ -114,67 +115,34 @@ const YourCart = (props) => (
                 renderItem={props.renderPaymentMethod}
               />
             </View>
+            {console.log(props.isCC)}
+            {props.isCreditcard === 'credit_card' ? 
+              <View style={styles.viewBrand}>
+                <Text style={styles.txtLabel}>Your Credit Card</Text>
+                <CreditCards
+                  cardNumberFormated={ 123123 }
+                  cardNumber={123}
+                  mm={12}
+                  yyyy={12}
+                  card_name={12}
+                  card_default={12}/>
+                  <Input placeholder="CVV" placeholderTextColor="#e2e2e2"/>
+              </View>:
+              <View/>
+            }
           </View>
         </View>
         <View style={styles.border}>
           <View style={styles.body}>
             <Text style={styles.title}>Shipping Address</Text>
-            <FlatList
-              data={props.onCartShippingAddress}
-              renderItem={props.rendersOnCartShippingAddress}
-            />
-
-            {/* <View>
-              <TouchableOpacity style={styles.touchableGuidePayment1} onPress={props.toggleDeliverySerive}>
-                <View>
-                  <Image source={shippingAddress} style={styles.iconSize} />
-                </View>
-                <View style={styles.flexOnly9}>
-                  <View style={styles.viewPaddingLeft}>
-                    <Text style={styles.txtLabel}>Delivery Service</Text>
-                  </View>
-                </View>
-                <View style={styles.flexOnly1}>
-                  <FontAwesome name="chevron-down" style={styles.iconDrop} />
-                </View>
-              </TouchableOpacity>
-              {props.deliverySeriveVisible ? (
-                <View style={styles.contentBottom}>
-                  <Radio/>
-                  <View style={styles.wrapKurir}>
-                    <Text style={styles.txtkurir}>JNE</Text>
-                    <Text style={styles.txtdetilkurir}>Barang akan sampai 2 -3 hari</Text>
-                  </View>
-                  <Text style={styles.txtpcs}>RP 15,000</Text>
-                </View>
-
-                <View style={styles.contentBottom}>
-                  <Radio/>
-                  <View style={styles.wrapKurir}>
-                    <Text style={styles.txtkurir}>YES</Text>
-                    <Text style={styles.txtdetilkurir}>Barang akan sampai 1 hari</Text>
-                  </View>
-                  <Text style={styles.txtpcs}>RP 15,000</Text>
-                </View>
-
-                <View style={styles.contentBottom}>
-                  <Radio/>
-                  <View style={styles.wrapKurir}>
-                    <Text style={styles.txtkurir}>Express</Text>
-                    <Text style={styles.txtdetilkurir}>Barang akan sampai 2 -3 hari</Text>
-                  </View>
-                  <Text style={styles.txtpcs}>RP 15,000</Text>
-                </View> 
-              ) : (
-                <View/>
-              )}
-            </View> */}
+            <TouchableOpacity onPress={props.goToShipping}>
+              {props.renderShipping}
+            </TouchableOpacity>
           </View>
         </View>
         <View style={styles.border1}>
           <View style={styles.body}>
             <Text style={styles.title}>Delivery Service</Text>
-            {console.log(props.selectedCourier)}
             {props.selectedCourier != null ? (
               
               <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'row',justifyContent: 'space-around'}}>
@@ -190,7 +158,6 @@ const YourCart = (props) => (
             )}
           </View>
           <View style={{alignItems:'center', paddingBottom: 10}}>
-            {console.log('courier :', props.courierCode)}
             <FlatList
               horizontal={true}
               showsHorizontalScrollIndicator={false}
@@ -199,33 +166,6 @@ const YourCart = (props) => (
             />
           </View>
         </View>
-        {/* <View style={styles.border1}>
-          <View style={styles.body1}>
-            <Text style={styles.title}>Delivery Service</Text>
-            <View>
-              <View>
-                <Label style={styles.label}>Service</Label>
-                <Item regular style={{width: '100%', borderRadius: 5,height: 40,alignItems:'center'}}>
-                  <Input/>
-                </Item>
-              </View>
-              <View style={{flexDirection:'row', justifyContent: 'space-between', paddingVertical: 10}}> 
-                <View>
-                  <Label style={styles.label}>Class</Label>
-                  <Item regular style={{width: 150, borderRadius: 5,height: 40,alignItems:'center'}}>
-                    <Input/>
-                  </Item>
-                </View>
-                <View>
-                  <Label style={styles.label}>Fare</Label>
-                  <Item regular style={{width: 150, borderRadius: 5,height: 40,alignItems:'center'}}>
-                    <Input/>
-                  </Item>
-                </View>
-              </View>
-            </View>
-          </View>
-        </View> */}
       </Content>
     )}
     {props.selectedCourier ? (
