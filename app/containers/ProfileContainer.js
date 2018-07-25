@@ -17,7 +17,7 @@ class ProfileContainer extends Component {
     stillLoading: true,
     first_name: "",
     last_name:"",
-    bod: "",
+    bod: "", 
     email: "",
     photoProfile: '',
     photoName: '',
@@ -122,6 +122,7 @@ class ProfileContainer extends Component {
 
   async componentDidMount(){
     await BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    await BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchProductHistory(data.id, data.accessToken)
@@ -137,6 +138,21 @@ class ProfileContainer extends Component {
       bod: this.props.getsingleuser.bod,
       email: this.props.getsingleuser.email
     })
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  handleBackPress = () => {
+    this.handleGoBack(); // works best when the goBack is async
+    return true;
+  }
+
+  handleGoBack(){
+    const {navigation} = this.props
+    navigation.state.params.person()
+    navigation.goBack()
   }
 
   render() {
@@ -178,7 +194,7 @@ class ProfileContainer extends Component {
         navigateToSettings={() => this.props.navigation.navigate("SettingsContainer")}
         navigateToPrivacyPolicy={() => this.props.navigation.navigate("PrivacyPolicyContainer")}
         stillLoading={this.state.stillLoading}
-        goback={() => this.props.navigation.goBack()}
+        goback={() => this.handleBackPress()}
       />
     )
   }
