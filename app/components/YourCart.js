@@ -50,6 +50,7 @@ const YourCart = (props) => (
       loadingBtn={props.loadingBtn}
     />
     <WaitingForPaymentModal
+      countDown={props.countDown}
       modalVisible={props.modalVisibleCheckoutPayment}
       actionIcon={props.toggleCheckoutPayment}
       selectedBank={props.selectedBank}

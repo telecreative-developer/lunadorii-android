@@ -49,7 +49,8 @@ class YourCartContainer extends Component {
       city_id:0,
       detail_address:'',
       selectedBank: '',
-      checkout:[]
+      checkout:[],
+      countDown: ''
     }
   }
 
@@ -264,6 +265,23 @@ class YourCartContainer extends Component {
     }
   }
 
+  getCountDown(mdDate){
+    const mdTime = new Date(mdDate).getTime() + 12 * 3600 * 1000
+    const now = new Date().getTime()
+    const distance = mdTime - now
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    if(distance < 0){
+      return 0
+    }else{
+      // return `${hours} : ${minutes} : ${seconds}`
+      const hms =  `${hours}:${minutes}:${seconds}`
+      const a = hms.split(':')
+      return (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2])
+    }
+  }
+
   async deteleShipping(item){
     await this.setState({
       address_id: item.user_address_id,
@@ -363,6 +381,7 @@ render() {
       stillLoading={this.state.stillLoading}
       selectedBank={this.state.selectedMethod === 'credit_card' ? '' : this.state.selectedBank}
       isCC={this.state.selectedMethod === 'credit_card'}
+      countDown={this.getCountDown('2018-07-24 15:57:00')}
       selectedMethod={this.state.selectedMethod}
       selectedCourier={this.state.selectedCourier}
       selectedServices={this.capitalize(this.state.code)}
