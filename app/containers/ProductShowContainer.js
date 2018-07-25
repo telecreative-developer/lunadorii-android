@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ToastAndroid, AsyncStorage, Alert } from 'react-native'
+import { ToastAndroid, AsyncStorage, StyleSheet, Dimensions, TouchableOpacity, Image } from 'react-native'
 import ProductShow from '../components/ProductShow'
 import RecommendProduct from '../particles/RecommendProduct'
 import CommentAndRating from '../particles/CommentAndRating'
@@ -10,6 +10,11 @@ import {
   } from '../actions/product'
 import {addToCart} from '../actions/cart'
 import { connect } from 'react-redux'
+const { height, width } = Dimensions.get('window')
+
+const bannerWidth = Dimensions.get('window').width
+const bannerHeight = height / 2.8
+
 import { fetchwishlist, addWishlist, deleteWishlistInHome } from '../actions/wishlist';
 
 class ProductShowContainer extends Component {
@@ -260,11 +265,22 @@ class ProductShowContainer extends Component {
     this.setState({ modalVisibleLogin: false })
   }
 
+  renderBanners(banner, index) {
+    return (
+      <TouchableOpacity key={index} style={styles.banner}>
+        <Image style={styles.bannerImage} source={{ uri: banner.thumbnail_url }} />
+      </TouchableOpacity>
+    )
+  }
+
   render() {
     console.log('dis',this.discountPrice(this.state.price, this.state.discount))
     console.log('asyu',this.state.totalPrice)
     return (
       <ProductShow
+
+        productCarousel={this.state.images.map((banner, index) => this.renderBanners(banner, index))}
+
         qty={this.state.qty}
         quantityValue={this.state.qty}
         increaseQty={() => this.setState({qty: this.state.qty + 1})}
@@ -352,6 +368,17 @@ class ProductShowContainer extends Component {
     )
   }
 }
+
+const styles = StyleSheet.create({
+  banner: {
+    backgroundColor: '#000'
+  },
+  bannerImage: {
+    width: bannerWidth,
+    height: bannerHeight,
+    opacity: 1
+  }
+})
 
 const mapDispatchToProps = (dispatch) =>{
   return{

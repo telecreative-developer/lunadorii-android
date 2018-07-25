@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   touchablePassword: {
     flexDirection: 'row',
-    marginTop: 20,
+    marginTop: 1,
     borderTopWidth: 1,
     borderColor: '#e2e2e2',
     paddingTop: 15
