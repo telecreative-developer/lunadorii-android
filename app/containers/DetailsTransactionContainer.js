@@ -12,7 +12,8 @@ class DetailsTransactionContainer extends Component{
     super(props)
     this.state = {
       list_produk:{},
-      billing_code:''
+      billing_code:'',
+      stillLoading: true
     }
   }
 
@@ -21,6 +22,7 @@ class DetailsTransactionContainer extends Component{
     const dataUser = await JSON.parse(session)
     const data = await this.props.navigation.state.params.data
     await this.props.fetchSingleProductHistory( data.order_id, dataUser.accessToken )
+    await this.setState({stillLoading: false})
   }
 
   capitalize(string) {
@@ -37,6 +39,7 @@ class DetailsTransactionContainer extends Component{
     return(
       <DetailsTransaction
         goback={() => this.props.navigation.goBack()}
+        stillLoading={this.state.stillLoading}
         totalPrice={ data.total == null || data.total === '' ? data.total : this.formatPrice(data.total) }
         address={ data.address }
         status={ data.order_status == null || data.order_status === '' ? data.order_status :this.capitalize(data.order_status) }

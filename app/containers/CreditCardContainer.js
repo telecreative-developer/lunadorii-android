@@ -32,11 +32,6 @@ class CreditCardContainer extends Component {
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchUserCredit(data.id, data.accessToken)
-    if(this.props.usercredit.length === 0){
-      await this.setState({isEmpty: true})
-    }else{
-      await this.setState({isEmpty: false})
-    }
     await this.setState({stillLoading: false})
   }
 
@@ -195,18 +190,14 @@ class CreditCardContainer extends Component {
     const data = await JSON.parse(session)
     await this.props.deleteUserCredit(this.state.userCCId, data.accessToken)
     await this.props.fetchUserCredit(data.id, data.accessToken)
-    if(this.props.usercredit.length === 0){
-      await this.setState({isEmpty: true})
-    }else{
-      await this.setState({isEmpty: false})
-    }
-    await this.setState({stillLoading: false})
+    ToastAndroid.showWithGravity("Removed", ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
 
   render() {
     console.log(this.props.usercredit)
     return (
       <CreditCard
+        stillLoading={this.state.stillLoading}
         goback={() => this.props.navigation.goBack()}
         buttonSave={this.state.buttonSave}
         stillLoading={this.state.stillLoading}
