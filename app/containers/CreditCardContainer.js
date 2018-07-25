@@ -25,7 +25,8 @@ class CreditCardContainer extends Component {
     cardHolderName:'',
     country:'',
     postalCode:'',
-    password:''
+    password:'',
+    CVV:''
   }
 
   async componentDidMount(){
