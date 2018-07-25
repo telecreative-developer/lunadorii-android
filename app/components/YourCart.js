@@ -53,7 +53,7 @@ const YourCart = (props) => (
     <WaitingForPaymentModal
       countDown={props.countDown}
       modalVisible={props.modalVisibleCheckoutPayment}
-      actionIcon={props.toggleCheckoutPayment}
+      closeModal={props.closeModal}
       selectedBank={props.selectedBank}
       checkout={props.checkout}
       totalPrice={props.totalPrice}
@@ -109,7 +109,6 @@ const YourCart = (props) => (
               {props.isCreditcard === 'credit_card' ? 
               <View style={styles.viewBrand}>
                 <Text style={styles.txtLabel}>Your Credit Card</Text>
-                {console.log('asdasd',props.creditCard)}
                 <CreditCards
                   cardNumberFormated={ props.creditCard[0].card_number }
                   cardNumber={ props.creditCard[0].card_number }
