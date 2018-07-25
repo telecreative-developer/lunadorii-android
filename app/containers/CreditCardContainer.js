@@ -96,19 +96,25 @@ class CreditCardContainer extends Component {
     const data = await JSON.parse(session)
     await this.props.editUserCredit({card_number: cardNumber, mm, yyyy, country,card_name: cardHolderName, postal_code: postalCode, id: data.id, password}, userCCId, data.accessToken)
     await this.props.fetchUserCredit(data.id, data.accessToken)
-    ToastAndroid.showWithGravity("Edited", ToastAndroid.SHORT, ToastAndroid.CENTER)
-    await this.setState({
-      buttonSave: false,
-      modalVisibleEditCreditCard: !this.state.modalVisibleEditCreditCard,
-      cardNumber: '',
-      mm: '',
-      yyyy: '',
-      cardHolderName: '',
-      country: '',
-      postalCode: '',
-      cvv: '',
-      password: ''
-    })
+    // await alert(this.props.manipulatecredit.message)
+    if(this.props.manipulatecredit.status === 201){
+      ToastAndroid.showWithGravity("Edited", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      await this.setState({
+        buttonSave: false,
+        modalVisibleEditCreditCard: !this.state.modalVisibleEditCreditCard,
+        cardNumber: '',
+        mm: '',
+        yyyy: '',
+        cardHolderName: '',
+        country: '',
+        postalCode: '',
+        cvv: '',
+        password: ''
+      })
+    }else{
+      ToastAndroid.showWithGravity("Failed, Check Your Data", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      await this.setState({buttonSave: false})
+    }
   }
 
   async handleSaveCreditCard(){
@@ -120,19 +126,29 @@ class CreditCardContainer extends Component {
     await this.props.addUserCredit({card_number: cardNumber, mm, yyyy, country,card_name: cardHolderName, postal_code: postalCode, id: data.id, password}, data.accessToken)
     await this.props.fetchUserCredit(data.id, data.accessToken)
     // await alert(this.props.manipulatecredit.message)
-    ToastAndroid.showWithGravity("Added", ToastAndroid.SHORT, ToastAndroid.CENTER)
-    await this.setState({
-      buttonSave: false,
-      modalVisibleAddCreditCard: !this.state.modalVisibleAddCreditCard,
-      cardNumber: '',
-      mm: '',
-      yyyy: '',
-      cardHolderName: '',
-      country: '',
-      postalCode: '',
-      cvv: '',
-      password: ''
-    })
+    if(this.props.usercredit.length === 0){
+      await this.setState({isEmpty: true})
+    }else{
+      await this.setState({isEmpty: false})
+    }
+    if(this.props.manipulatecredit.status === 201){
+      ToastAndroid.showWithGravity("Added", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      await this.setState({
+        buttonSave: false,
+        modalVisibleAddCreditCard: !this.state.modalVisibleAddCreditCard,
+        cardNumber: '',
+        mm: '',
+        yyyy: '',
+        cardHolderName: '',
+        country: '',
+        postalCode: '',
+        cvv: '',
+        password: ''
+      })
+    }else{
+      ToastAndroid.showWithGravity("Failed, Check Your Data", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      await this.setState({buttonSave: false})
+    }
   }
 
   async onChangeDefault(item){
@@ -142,8 +158,10 @@ class CreditCardContainer extends Component {
     })
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    await this.setState({stillLoading: true})
     await this.props.defaultUserCredit(data.id, this.state.userCCId, data.accessToken)
     await this.props.fetchUserCredit(data.id, data.accessToken)
+    await this.setState({stillLoading: false})
   }
 
   async handleDeleteCreditCard(item){
@@ -167,6 +185,7 @@ class CreditCardContainer extends Component {
   }
 
   async deleteItem(item){
+    await this.setState({stillLoading: true})
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.deleteUserCredit(this.state.userCCId, data.accessToken)
@@ -181,6 +200,8 @@ class CreditCardContainer extends Component {
         stillLoading={this.state.stillLoading}
         goback={() => this.props.navigation.goBack()}
         buttonSave={this.state.buttonSave}
+        stillLoading={this.state.stillLoading}
+        isEmpty={this.state.isEmpty}
         
         cardNumberFormat={this.cardNumberFormatter(this.state.cardNumber)}
         cardNumber={this.state.cardNumber}

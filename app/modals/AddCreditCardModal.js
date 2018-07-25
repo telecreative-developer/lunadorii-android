@@ -32,7 +32,7 @@ const AddCreditCardModal = (props) => (
           height: 40,
           borderColor: regexCC.test(props.cardNumber) === true ? '#ccc' : '#c0392b'
         }}>
-          <Input placeholderTextColor="#CDCDCD" maxLength={19} keyboardType={'numeric'} onChangeText={props.onChangeCardNumber} value={props.cardNumber}/>
+          <Input placeholderTextColor="#CDCDCD" maxLength={16} keyboardType={'numeric'} onChangeText={props.onChangeCardNumber} value={props.cardNumber}/>
           <Ionicons name={regexCC.test(props.cardNumber) === true ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
         <View style={styles.wrapper}>
