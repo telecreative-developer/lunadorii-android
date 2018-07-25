@@ -27,6 +27,7 @@ const Profile = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleEditProfile}
       actionIcon={props.toggleModalEditProfile}
+      buttonSave={props.buttonSave}
 
       photoProfile={props.photoProfile}
       first_name={props.profile.first_name}
