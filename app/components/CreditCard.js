@@ -1,11 +1,6 @@
 import React, { Component } from 'react'
-<<<<<<< HEAD
 import { StyleSheet, FlatList, StatusBar, Dimensions } from 'react-native'
 import { Container, Content, Text, View, Button, Icon, Spinner } from 'native-base'
-=======
-import { StyleSheet, FlatList, StatusBar, Dimensions, Text } from 'react-native'
-import { Container, Content, View, Button, Icon, Spinner } from 'native-base'
->>>>>>> ae028f6d2aa02b1b37d7682ba6606a2003295d21
 import Navbar from '../particles/Navbar'
 import EditCreditCardModal from '../modals/EditCreditCardModal'
 import AddCreditCardModal from '../modals/AddCreditCardModal'
