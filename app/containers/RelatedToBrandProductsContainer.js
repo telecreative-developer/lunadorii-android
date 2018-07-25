@@ -92,7 +92,10 @@ class RelatedToBrandProductsContainer extends Component{
     console.log('dattaa :' , this.props.receiveProductWithBrand)
     return(
       <RelatedToBrandProducts
+        qty={this.state.qty}
         quantityValue={this.state.qty}
+        increaseQty={() => this.setState({qty: this.state.qty + 1})}
+        decreaseQty={() => this.setState({qty: this.state.qty - 1})}
         stillLoading={this.state.stillLoading}
         dataProduct={this.props.receiveProductWithBrand}
         name={this.props.navigation.state.params.data.brand}

@@ -33,7 +33,7 @@ class HomeContainer extends Component {
       id_user: 0,
       product_id: 0,
       product_name: '',
-      qty: 0,
+      qty: 1,
       uri:'',
       modalVisibleAddToCart: false,
       modalVisibleLogin: false,
@@ -275,6 +275,10 @@ class HomeContainer extends Component {
         stillLoading={this.state.stillLoading}
         banners={this.state.isConnected ? banners.map((banner, index) => this.renderBanners(banner, index)) : this.state.bannersOffline.map((banner, index) => this.renderBanners(banner, index))}
 
+        increaseQty={() => this.setState({qty: this.state.qty + 1})}
+        decreaseQty={() => this.setState({qty: this.state.qty - 1})}
+        quantityValue={this.state.qty}
+
         dataCategoriesButton={this.state.isConnected ? this.props.categoryproduct : this.state.categoriesOffline}
         renderCategoriesButton={({ item }) => (
           <Categories 
@@ -343,8 +347,6 @@ class HomeContainer extends Component {
         modalVisibleAddToCart={this.state.modalVisibleAddToCart}
         toggleModalAddToCart={() => this.toggleModalAddToCart()}
         toggleModalLogin={() => this.toggleModalLogin()}
-        onChangeQty={(qty) => this.setState({qty: parseInt(qty)})}
-        quantityValue={this.state.qty}
         handleAddToCart={() => this.handleAddToCart()}
 
         navigateToYourCart={() => this.toCart()}

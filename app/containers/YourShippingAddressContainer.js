@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AsyncStorage, View,Modalx, Text, SmartPicker, Dimensions, ScrollView, Alert, ToastAndroid} from 'react-native'
+import {AsyncStorage, View,Modalx, Text, SmartPicker, Dimensions, ScrollView, Alert, ToastAndroid, BackHandler} from 'react-native'
 import { Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
 import YourShippingAddress from '../components/YourShippingAddress'
 import ShippingAddress from '../particles/ShippingAddress'
@@ -126,12 +126,17 @@ class YourShippingAddressContainer extends Component{
   }
 
   async componentDidMount() {
+    await BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     if(this.props.fetchUserShipping(data.id, data.accessToken)){
       await this.props.fetchProvince()
       await this.setState({stillLoading: false})
     }    
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
   }
 
   async onChangeDefault(item){
@@ -193,12 +198,23 @@ class YourShippingAddressContainer extends Component{
     })
   }
 
+  handleBackPress = () => {
+    this.handleGoBack(); // works best when the goBack is async
+    return true;
+  }
+
+  handleGoBack(){
+    const {navigation} = this.props
+    navigation.state.params.func()
+    navigation.goBack()
+  }
+
   render(){
     return(
       <YourShippingAddress
         stillLoading={this.state.stillLoading}
         loading={this.state.loading}
-        goback={() => this.props.navigation.goBack()}
+        goback={() => this.handleBackPress()}
         modalVisibleAddAddress={this.state.modalVisibleAddAddress}
         toggleModalAddAddress={() => this.toggleModalAddAddress()}
 

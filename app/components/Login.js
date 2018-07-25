@@ -53,9 +53,9 @@ const Login = (props) => (
           </View>
         </View>
       </View>
-      <View style={{borderTopColor: '#979797', borderTopWidth: 1.2, borderBottomColor: '#979797', borderBottomWidth: 1.2, marginHorizontal: 45, alignItems:'center', marginTop: convertWidthPercentToDP('10%')}}>
+      <View style={{borderTopColor: '#fff', borderTopWidth: 1.2, borderBottomColor: '#fff', borderBottomWidth: 1.2, marginHorizontal: 45, alignItems:'center', marginTop: convertWidthPercentToDP('10%')}}>
         <TouchableOpacity style={{flexDirection:'row', alignItems: 'center', paddingVertical: convertHeightPercentToDP('5%')}} onPress={props.loginFB}>
-          <Icon type="Entypo" name="facebook" style={{color:"#3B5998"}}/><Text style={{color:"#3B5998", paddingLeft: 5}}>Log in With Facebook</Text>
+          {/* <Icon type="Entypo" name="facebook" style={{color:"#3B5998"}}/><Text style={{color:"#3B5998", paddingLeft: 5}}>Log in With Facebook</Text> */}
         </TouchableOpacity>
       </View>
       {/* <View style={{paddingBottom: 10, paddingTop: 45, paddingLeft: 45, paddingRight: 45}}>

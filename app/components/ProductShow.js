@@ -19,6 +19,8 @@ const ProductShow = (props) => (
     backgroundColor: '#fff'
   }}>
   <AddToCart
+    increaseQty={props.increaseQty}
+    decreaseQty={props.decreaseQty}
     quantityValue={props.quantityValue}
     modalVisible={props.modalVisibleAddToCart}
     toggleModalAddToCart={props.toggleModalAddToCart}
@@ -117,9 +119,7 @@ const ProductShow = (props) => (
             rating={props.star}
             starSize={14}
           />
-          <View style={{paddingBottom: 5}}>
-            <Text style={styles.reviewsLabel}>{props.star} reviews</Text>
-          </View>
+          <Text style={styles.reviewsLabel}>{props.star} ratings</Text>
         </View>
       </View>
       <View style={styles.borderedSparator}>
@@ -166,7 +166,7 @@ const ProductShow = (props) => (
             <View style={styles.ratingCardContentWrapper}>
               <View>
                 <Text style={styles.ratingReviewsText}>
-                  <Text style={styles.ratingAmountReviewsText}>{props.star}</Text> reviews
+                  <Text style={styles.ratingAmountReviewsText}>{props.star}</Text> Ratings
                 </Text>
                 <View style={{flexDirection: 'row'}}>
                   <StarRating

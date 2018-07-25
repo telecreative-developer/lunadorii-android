@@ -124,6 +124,11 @@ class SearchContainer extends Component {
     console.log('sub:', this.state)
     return (
       <Search
+        qty={this.state.qty}
+        quantityValue={this.state.qty}
+        increaseQty={() => this.setState({qty: this.state.qty + 1})}
+        decreaseQty={() => this.setState({qty: this.state.qty - 1})}
+        
         modalVisibleFilters={this.state.modalVisibleFilters}
         toggleModalFilters={() => this.toggleModalFilters()}
 
