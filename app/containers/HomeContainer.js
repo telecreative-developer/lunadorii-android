@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, View, Text, Image, StyleSheet, AsyncStorage, TouchableOpacity, BackHandler, ToastAndroid, Alert, NetInfo } from 'react-native'
-import { Radio } from 'native-base'
+import { Dimensions, Image, StyleSheet, AsyncStorage, TouchableOpacity, BackHandler, ToastAndroid, Alert, NetInfo } from 'react-native'
 import { connect } from 'react-redux'
 
 import Home from '../components/Home'
@@ -37,6 +36,7 @@ class HomeContainer extends Component {
       qty: 0,
       uri:'',
       modalVisibleAddToCart: false,
+      modalVisibleLogin: false,
       bannersOffline: [],
       brandsOffline: [],
       categoriesOffline: []
@@ -84,7 +84,7 @@ class HomeContainer extends Component {
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     if( data ==  null ){
-      this.props.navigation.navigate('LoginContainer')
+      this.setState({modalVisibleLogin: true})
     }else{
       await this.closeModal()
       if(this.state.modalVisibleAddToCart){
@@ -109,7 +109,7 @@ class HomeContainer extends Component {
     const data = await JSON.parse(session)
     if( data == null ){
       await this.closeModal()
-      await this.props.navigate.navigation('LoginContainer')
+      this.setState({modalVisibleLogin: true})
     }else{
       ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
       await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
@@ -177,23 +177,6 @@ class HomeContainer extends Component {
     }
   }
 
-  handleBackButton() {
-    Alert.alert(
-      'Exit App',
-      'Exiting the application?', [{
-          text: 'Cancel',
-          onPress: () => console.log('Cancel Pressed'),
-          style: 'cancel'
-      }, {
-          text: 'OK',
-          onPress: () => BackHandler.exitApp()
-      }, ], {
-          cancelable: false
-      }
-   )
-   return true;
-  }
-
   capitalize(string) {
     return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
   }
@@ -215,7 +198,7 @@ class HomeContainer extends Component {
     const data = await JSON.parse(session)
     if(this.state.isConnected){
       if( data == null ){
-        this.props.navigation.navigate('LoginContainer')
+        this.setState({modalVisibleLogin: true})
       }else{
         this.props.navigation.navigate('YourCartContainer')
       }
@@ -227,7 +210,7 @@ class HomeContainer extends Component {
     const data = await JSON.parse(session)
     if(this.state.isConnected){
       if( data == null ){
-        this.props.navigation.navigate('LoginContainer')
+        this.setState({modalVisibleLogin: true})
       }else{
         this.props.navigation.navigate('ProfileContainer', {person: this.person.bind(this)})
       }
@@ -278,6 +261,11 @@ class HomeContainer extends Component {
     this.setState({
       brandsOffline: data
     })
+  }
+
+  toLogin(){
+    this.props.navigation.navigate("LoginContainer")
+    this.setState({ modalVisibleLogin: false })
   }
 
   render() {
@@ -354,6 +342,7 @@ class HomeContainer extends Component {
 
         modalVisibleAddToCart={this.state.modalVisibleAddToCart}
         toggleModalAddToCart={() => this.toggleModalAddToCart()}
+        toggleModalLogin={() => this.toggleModalLogin()}
         onChangeQty={(qty) => this.setState({qty: parseInt(qty)})}
         quantityValue={this.state.qty}
         handleAddToCart={() => this.handleAddToCart()}
@@ -362,6 +351,9 @@ class HomeContainer extends Component {
         navigateToProfile={() => this.toProfile()}
         navigateToSearch={() => this.state.isConnected ? this.props.navigation.navigate("SearchContainer") : null}
         isConnected={this.state.isConnected}
+        closeModal={ () => this.setState({modalVisibleLogin: false})}
+        modalVisibleLogin={this.state.modalVisibleLogin}
+        loginAction={ () => this.toLogin() }
         handleRefresh={() => this.handleRefresh()}
         image={ this.state.uri }
       />

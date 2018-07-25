@@ -6,20 +6,6 @@ import CreditCard from '../components/CreditCard'
 import CreditCards from '../particles/CreditCards'
 import { fetchUserCredit, addUserCredit, editUserCredit, defaultUserCredit, deleteUserCredit} from '../actions/creditCard'
 
-const dataCreditCards = [
-  {
-    cardNumber: '**** **** **** 0943',
-    validationDate: '17/11',
-    cvv: '123',
-    cardHolderName: 'Muhammad Isa Wijaya Kusuma'
-  },
-  {
-    cardNumber: '**** **** **** 8724',
-    validationDate: '03/12',
-    cvv: '123',
-    cardHolderName: 'Alfan Hibban Intiyas'
-  },
-]
 
 class CreditCardContainer extends Component {
 
@@ -218,7 +204,7 @@ class CreditCardContainer extends Component {
   }
 
   render() {
-    console.log(this.state)
+    console.log(this.props.usercredit)
     return (
       <CreditCard
         goback={() => this.props.navigation.goBack()}

@@ -7,6 +7,7 @@ import ImageCreditCard from '../assets/images/icon/credit-card.png'
 import ImageBank from '../assets/images/icon/bank.png'
 import { connect } from 'react-redux'
 import { fetchCartUser, removeCart, editQty } from '../actions/cart'
+import { fetchUserCredit } from '../actions/creditCard';
 import { fetchUserShipping, updateShipping } from '../actions/usershipping'
 import { postCheckout } from '../actions/checkout'
 import { fetchCourier } from '../actions/shipping'
@@ -43,12 +44,13 @@ class YourCartContainer extends Component {
       estDays: "",
       product: "",
       brand: "",
-      selectedMethod: "CC",
+      selectedMethod: "credit_card",
       province_id:0,
       city_id:0,
       detail_address:'',
       selectedBank: '',
-      checkout:[]
+      checkout:[],
+      countDown: ''
     }
   }
 
@@ -73,6 +75,7 @@ class YourCartContainer extends Component {
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    await this.props.fetchUserCredit(data.id, data.accessToken)
     await this.props.fetchCartUser(data.id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
     if(this.props.cartuser.length){
@@ -262,6 +265,23 @@ class YourCartContainer extends Component {
     }
   }
 
+  getCountDown(mdDate){
+    const mdTime = new Date(mdDate).getTime() + 12 * 3600 * 1000
+    const now = new Date().getTime()
+    const distance = mdTime - now
+    const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+    const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+    const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    if(distance < 0){
+      return 0
+    }else{
+      // return `${hours} : ${minutes} : ${seconds}`
+      const hms =  `${hours}:${minutes}:${seconds}`
+      const a = hms.split(':')
+      return (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2])
+    }
+  }
+
   async deteleShipping(item){
     await this.setState({
       address_id: item.user_address_id,
@@ -306,6 +326,8 @@ class YourCartContainer extends Component {
 }
 
  async checkout(){
+  const creditCard = this.props.usercredit.filter(d => d.card_default === true)
+  const dataCC = creditCard.length && creditCard.map(d => ({card_number: d.card_number, }))
   const service = await this.state.selectedCourier.service
   const delivery_price = await this.state.selectedCourier.cost[0].value
   const { selectedMethod, province_id, city_id, detail_address, selectedBank} = await this.state
@@ -314,24 +336,52 @@ class YourCartContainer extends Component {
   const data = await JSON.parse(session)
   const { id, first_name, last_name, email} = data
   await Alert.alert('Checkout Success', 'Please Check Your Email For Details')
-  await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, selectedBank, id, city_id, province_id, data:dataProduct, user:{first_name, last_name, email}} , data.accessToken)
+  await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, selectedBank, id, city_id, province_id, data:dataProduct, user:{first_name, last_name, email}, } , data.accessToken)
   await this.toggleCheckoutPayment()
   }
 
  setCourier(){
   const service = this.state.selectedCourier[0].service
-  console.log('service :' , service)
  }
 
+ renderShipping(){
+   const dataUser = this.props.usershipping.filter(shp => shp.address_default)
+   const data = dataUser.length && dataUser[0]
+   console.log(data)
+   if( data === null ){
+      return (
+          <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'column',justifyContent: 'space-around', alignItems: 'center'}}>
+            <Text>No Shipping Address selected</Text>
+            <Text>pick one</Text>
+          </View>
+      )
+   }else{
+     return(
+          <ShippingAddress 
+            name={data.recepient}
+            numberPhone={data.phone}
+            detail_address={data.detail_address}
+            address_default={data.address_default}
+            // actionEdit={() => this.toggleModalEditAddress(data)}
+            // actionSetdefault={() => this.onChangeDefault(data)}
+            // actionDelete={() => this.deteleShipping(data)}
+          />
+     )}
+   }
+
 render() {
-  console.log('kurir :', this.props.receiveCheckout)
   const courier = this.props.receiveCourier
-  console.log('cost :', this.state.selectedCourier)
+  console.log('select method', this.props.usercredit)
+  const dataCC = this.props.usercredit.filter(d => d.card_default === true)
+  const CC = dataCC.length && dataCC
   return (
     <YourCart 
+      creditCard={ CC }
+      isCreditcard={this.state.selectedMethod}
       stillLoading={this.state.stillLoading}
-      selectedBank={this.state.selectedMethod === 'ccc' ? '' : this.state.selectedBank}
-      isCC={this.state.selectedMethod === 'cc'}
+      selectedBank={this.state.selectedMethod === 'credit_card' ? '' : this.state.selectedBank}
+      isCC={this.state.selectedMethod === 'credit_card'}
+      countDown={this.getCountDown('2018-07-24 15:57:00')}
       selectedMethod={this.state.selectedMethod}
       selectedCourier={this.state.selectedCourier}
       selectedServices={this.capitalize(this.state.code)}
@@ -397,35 +447,22 @@ render() {
 
       closePickBankModal={() => alert("Closed")}
       paymentMethod={[
-        {methodAlias: 'cc'  , label: 'Credit Card', image: ImageCreditCard},
-        {methodAlias: 'bank', label: 'Bank Transfer',  image: ImageBank}
+        {methodAlias: 'credit_card'  , label: 'Credit Card', image: ImageCreditCard},
+        {methodAlias: 'bank_transfer', label: 'Bank Transfer',  image: ImageBank}
       ]}
       renderPaymentMethod={({item}) => (
         <View style={{borderColor: this.state.selectedMethod === item.methodAlias ? '#d11e48':'#e2e2e2', margin: 5,borderWidth: 1, width: 150}}>
-          <TouchableOpacity onPress={() => item.methodAlias === 'bank' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})} style={{padding: 10, width: 150, flexDirection: 'row', justifyContent:'space-between'}}>
+          <TouchableOpacity onPress={() => item.methodAlias === 'bank_transfer' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})} style={{padding: 10, width: 150, flexDirection: 'row', justifyContent:'space-between'}}>
             <Radio selected={this.state.selectedMethod === item.methodAlias} selectedColor={'#d11e48'} onPress={
-              () => item.methodAlias === 'bank' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})
+              () => item.methodAlias === 'bank_transfer' ? this.setState({selectedMethod: item.methodAlias, selectedBank: ''}) : this.setState({selectedMethod: item.methodAlias})
             }/>
             <Image source={item.image} style={{height: 20, width: 20, padding:5}}/>
             <Text>{item.label}</Text>
           </TouchableOpacity>
         </View>
       )}
-      
-      // goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer")}
-      onCartShippingAddress={this.props.usershipping.filter(shp => shp.address_default)}
-      rendersOnCartShippingAddress={({item}) => (
-        <ShippingAddress 
-          name={item.recepient}
-          numberPhone={item.phone}
-          detail_address={item.detail_address}
-          address_default={item.address_default}
-          actionEdit={() => this.toggleModalEditAddress(item)}
-          actionSetdefault={() => this.onChangeDefault(item)}
-          actionDelete={() => this.deteleShipping(item)}
-          goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer")}
-        />
-      )}
+      renderShipping={this.renderShipping()}
+      goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer")}
       product={this.state.product}
       brand={this.state.brand}
       modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
@@ -450,7 +487,9 @@ const mapDispatchToProps = (dispatch) =>{
     removeCart: (id, product_id, accessToken) => dispatch(removeCart(id, product_id, accessToken)),
     editQty: (id, product_id, qty, cart_id, accessToken) => dispatch(editQty(id, product_id, qty, cart_id, accessToken)),
     fetchCourier: (weight_gram, province_id) => dispatch(fetchCourier(weight_gram, province_id)),
-    postCheckout: ( dataUser, accessToken) => dispatch(postCheckout( dataUser, accessToken))
+    postCheckout: ( dataUser, accessToken) => dispatch(postCheckout( dataUser, accessToken)),
+    fetchUserCredit: (id, accessToken) => dispatch(fetchUserCredit(id,accessToken)),
+
   }
 }
 
@@ -463,7 +502,8 @@ const mapStateToProps = (state) => {
     sessionPersistance: state.sessionPersistance,
     usershipping: state.usershipping,
     receiveCourier: state.receiveCourier,
-    receiveCheckout: state.receiveCheckout
+    receiveCheckout: state.receiveCheckout,
+    usercredit: state.usercredit
   }
 }
 

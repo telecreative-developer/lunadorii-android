@@ -38,10 +38,11 @@ const WaitingForPaymentModal = (props) => (
       <View style={styles.paymentInformation2}>
         <View style={styles.paymentInformation2Wrapper}>
           <Text style={styles.paymentInformation2title}>Payment code will end in</Text>
-          {/* <Text style={styles.paymentInformation2timeout}>23 : 52 : 31</Text> */}
+          {/* <Text style={styles.paymentInformation2timeout}>{props.countDown}</Text> */}
+        
           <View style={{paddingTop: 10}}>
             <CountDown
-              until={43200}
+              until={props.countDown}
               onFinish={() => alert('finished')}
               onPress={() => alert('hello')}
               size={20}
@@ -57,11 +58,10 @@ const WaitingForPaymentModal = (props) => (
             <View style={styles.viewFlex3}>
               <Image source={require('../assets/images/icon/visa.png')} style={styles.image} />
             </View>
-            {console.log('aaaaa', props.checkout)}
             <View style={styles.wrapLeft}>
               <Text style={styles.paymentCardInformationTitle}>Payment code {props.checkout.billing_code}</Text>
               <Text style={styles.paymentCardIformationPaymentCode}>Paid Method 
-                {props.checkout.paid_method == 'bank' ? 
+                {props.checkout.paid_method == 'bank_transfer' ? 
                   <Text> Bank Transfer</Text> :
                   <Text> Credit Card</Text>
                 }

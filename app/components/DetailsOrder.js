@@ -1,23 +1,17 @@
 import React, { Component } from 'react'
-import { Text, StyleSheet, Dimensions, StatusBar } from 'react-native'
+import { Text, StyleSheet, Dimensions, StatusBar, ImageBackground, TouchableOpacity, TouchableHighlight } from 'react-native'
 import { Container, Content, Button, View } from 'native-base'
-import Navbar from '../particles/Navbar'
+import NavbarTransparent from '../particles/NavbarTransparent'
 import UnderDevelopment from '../particles/UnderDevelopment'
 import AddReviewsModal from '../modals/AddReviewsModal'
+import ImageViewModal from '../modals/ImageViewModal'
+import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 const { height, width } = Dimensions.get('window')
 
 const DetailsOrder = (props) => (
 
   <Container style={styles.container}>
-    <Navbar
-      navbarTitle="Details Order"
-      navbarIcon="arrow-back"
-      actionIcon={props.goback}
-    />
-    <StatusBar
-      backgroundColor="#d11e48"
-      barStyle="light-content"
-    />
     <AddReviewsModal
       navbarTitle="Reviews"
       navbarIcon="close"
@@ -33,6 +27,26 @@ const DetailsOrder = (props) => (
       handleReview={props.handleReview}
     />
     <Content>
+      <TouchableHighlight onPress={props.toggleImageViewModal}>
+        <ImageBackground source={{ uri: props.image }} style={styles.imageBackgroundStyle}>
+          <NavbarTransparent
+            navbarTitle=""
+            navbarIcon="arrow-back"
+            actionIcon={props.goback} />
+          <StatusBar
+            backgroundColor="#d11e48"
+            barStyle="light-content"
+          />
+          <TouchableOpacity style={styles.touchableOpacity} onPress={props.toggleImageViewModal}>
+            <Text style={styles.textPhotos}><FontAwesome name="photo" style={styles.touchableOpacityButtonIcon} /> +{props.amountOfImage} Photos</Text>
+          </TouchableOpacity>
+        </ImageBackground>
+      </TouchableHighlight>
+      <ImageViewModal
+        modalVisible={props.modalVisibleImageView}
+        actionIcon={props.toggleImageViewModal}
+        images={props.images}
+      />
       <View style={styles.grandWrapper}>
         <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
@@ -87,8 +101,8 @@ const DetailsOrder = (props) => (
       </View>
     </Content>
     <View style={{flexDirection: 'row', justifyContent:'space-between', padding: 10}}>
-      {props.status !== 'Delivered'? (
-        <Button full style={styles.buttonStyleFotterDisabled} onPress={props.status !== 'Delivered' ? props.showToast : props.toggleModalAddReviews}>
+      {props.status !== 'delivered'? (
+        <Button full style={styles.buttonStyleFotterDisabled} onPress={props.status !== 'delivered' ? props.showToast : props.toggleModalAddReviews}>
           <Text style={styles.textStyleFooterDisabled}>Review</Text>
         </Button>
       ) : (
@@ -111,6 +125,30 @@ const styles = StyleSheet.create({
     width: width,
     height: height,
     backgroundColor: '#fff'
+  },
+  imageBackgroundStyle: {
+    height: 250,
+    width: '100%'
+  },
+  textPhotos: {
+    padding: 10,
+    justifyContent: 'center',
+    bottom: 5,
+    color: '#000',
+    fontWeight: 'bold'
+  },
+  touchableOpacityButtonIcon: {
+    fontSize: 16
+  },
+  touchableOpacity: {
+    backgroundColor: 'rgba(202, 202, 202, 0.73)',
+    marginRight: 5,
+    width: convertWidthPercentToDP('35%'),
+    height: convertHeightPercentToDP('5%'),
+    top: 170,
+    alignSelf: 'flex-end',
+    borderRadius: 8,
+    alignItems:'center'
   },
   grandWrapper:{
     width: '100%',
