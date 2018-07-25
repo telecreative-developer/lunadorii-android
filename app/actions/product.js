@@ -11,7 +11,8 @@ import {
 		RECEIVE_SINGLE_RELATED_PRODUCT,
 		RECEIVE_PRODUCT_WITH_BRAND,
 		RECEIVE_PRODUCT_WITH_CATEGORY,
-		RECEIVE_PRODUCT_WITH_BANNER
+		RECEIVE_PRODUCT_WITH_BANNER,
+		RECEIVE_SINGLE_HISTORY
 	} from '../constants'
 import { API_SERVER } from '../env'
 
@@ -387,32 +388,33 @@ const receiveProductWithBanner = data => {
 	}
 }
 
-// <----- FETCH PRODUCT WITH CATEGORY IN BEST SELLER ----->
-// export const fetchBestProductWithSubCategory = (banner_id) => {
-// 	return async dispatch => {
-// 		await dispatch(setLoading(true, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
-// 		try {
-// 			const response = await fetch(`${API_SERVER}/product-banners/${banner_id}`,{
-// 				method: 'GET',
-// 				headers:{
-// 					Accept: 'application/json',
-// 					'content-Type' :'application/json'
-// 				}
-// 			})
-// 			const data = await response.json()
-// 			await dispatch(receiveProductWithBanner(data.data))
-// 			await dispatch(setSuccess(true, 'SUCCESS_FETCH_PRODUCT_WITH_CATEGORY'))
-// 			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
-// 		}catch (e){
-// 			await dispatch(setFailed(true, 'FAILED_FETCH_PRODUCT_WITH_CATEGORY'))
-// 			await dispatch(setLoading(false, 'LOADING_FETCH_PRODUCT_WITH_CATEGORY'))
-// 		}
-// 	}
-// }
+//  <---- FETCH SINGLE PRODUCT HISTORY ----> //
+export const fetchSingleProductHistory = (product_id, accessToken) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_FETCH_SINGLE_HISTORY'))
+		try {
+			const response = await fetch(`${API_SERVER}/order/history/single/${product_id}`, {
+				method: 'GET',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+					Authorization: accessToken
+				}
+			})
+			const data = await response.json()
+			await dispatch(receiveSingleProductHistory(data.data[0]))
+			await dispatch(setSuccess(true, 'SUCCESS_FETCH_SINGLE_HISTORY'))
+      		await dispatch(setLoading(false, 'LOADING_FETCH_SINGLE_HISTORY'))
+		} catch (e) {
+			dispatch(setFailed(true, 'FAILED_FETCH_SINGLE_HISTORY', e))
+			dispatch(setLoading(false, 'LOADING_FETCH_SINGLE_HISTORY'))
+		}
+	}
+}
 
-// const receiveProductWithBanner = data => {
-// 	return {
-// 		type: RECEIVE_PRODUCT_WITH_BANNER,
-// 		payload: data
-// 	}
-// }
+const receiveSingleProductHistory = data => {
+	return{
+		type: RECEIVE_SINGLE_HISTORY,
+		payload: data
+	}
+}

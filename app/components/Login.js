@@ -50,6 +50,11 @@ const Login = (props) => (
           </Form>
           <View style={styles.registerButtonWrapper}>
             {props.renderButtons}
+            <View>
+              <TouchableOpacity onPress={props.skipLogin}>
+                <Text>Skip ></Text>
+              </TouchableOpacity>
+            </View>
           </View>
         </View>
       </View>
