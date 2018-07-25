@@ -451,9 +451,9 @@ render() {
       )}
       messageCode={this.props.status}
       bankData={[
-        {labelBank: 'BCA', value: 'bca'},
-        {labelBank: 'Mandiri', value: 'mandiri'},
-        {labelBank: 'BNI', value: 'bni'},
+        // {labelBank: 'BCA', value: 'bca'},
+        // {labelBank: 'Mandiri', value: 'mandiri'},
+        // {labelBank: 'BNI', value: 'bni'},
         {labelBank: 'Permata', value: 'permata'},
       ]}
       bankRender={({item}) => (
