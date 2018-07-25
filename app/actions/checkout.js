@@ -27,7 +27,9 @@ export const postCheckout = ( dataUser, accessToken ) => {
 				})
 			})
 			const data = await response.json()
-			await dispatch(receiveCheckout(data))
+			console.log('red check',data)
+			await dispatch(receiveMessage(data))
+			await dispatch(receiveCheckout(data.data.length && data.data[0]))
 			await dispatch(setSuccess(true, 'SUCCESS_CHECKOUT'))
     	await dispatch(setLoading(false, 'LOADING_CHECKOUT'))
 		} catch (e) {
@@ -38,8 +40,14 @@ export const postCheckout = ( dataUser, accessToken ) => {
 	}
 }
 
+const receiveMessage = data =>{
+	return{
+		type: RECEIVE_CHECKOUT_DATA,
+		payload: data
+	}
+}
+
 const receiveCheckout = data => {
-	console.log('checkout', data)
 	return{
 		type: RECEIVE_CHECKOUT_DATA,
 		payload: data

@@ -406,11 +406,29 @@ async checkout(){
     )}
   }
 
+  closeModal(){
+    this.props.navigation.navigate("HomeContainer")
+    this.setState({modalVisibleCheckoutPayment: false})
+  }
+
 render() {
   const courier = this.props.receiveCourier
-  console.log('select method', this.props.receiveCheckout)
   const dataCC = this.props.usercredit.filter(d => d.card_default === true)
   const CC = dataCC.length && dataCC.map( d => ({card_number: d.card_number, mm: d.mm, yyyy:d.yyyy, card_name: d.card_name}))
+  const  dataCheckout = this.props.receiveCheckout
+  const gross_amount = dataCheckout.midtrans_response && dataCheckout.midtrans_response.gross_amount
+  const payment_type = dataCheckout.midtrans_response && dataCheckout.midtrans_response.payment_type
+  const permata_va_number = dataCheckout.midtrans_response && dataCheckout.midtrans_response.permata_va_number
+  const transaction_status = dataCheckout.midtrans_response && dataCheckout.midtrans_response.transaction_status
+  const status_message = dataCheckout.midtrans_response && dataCheckout.midtrans_response.status_message
+  const transaction_id = dataCheckout.midtrans_response && dataCheckout.midtrans_response.transaction_id
+  const transaction_time = dataCheckout.midtrans_response && dataCheckout.midtrans_response.transaction_time
+  const order_id = dataCheckout.midtrans_response && dataCheckout.midtrans_response.order_id
+
+  const checkout = { gross_amount, payment_type, permata_va_number, transaction_status, status_message, transaction_id, order_id, transaction_time}
+
+  console.log('aaaa', dataCheckout)
+  // const checkout = dataCheckout.map( d=> ({permata_va_number: d.permata_va_number, paid_method:d.paid_method, gross_amount:d.gross_amount}))
   return (
     <YourCart 
       navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
@@ -421,7 +439,7 @@ render() {
       stillLoading={this.state.stillLoading}
       selectedBank={this.state.selectedMethod === 'credit_card' ? '' : this.state.selectedBank}
       isCC={this.state.selectedMethod === 'credit_card'}
-      countDown={this.getCountDown('2018-07-24 15:57:00')}
+      countDown={this.getCountDown(transaction_time)}
       selectedMethod={this.state.selectedMethod}
       selectedCourier={this.state.selectedCourier}
       selectedServices={this.capitalize(this.state.code)}
@@ -433,9 +451,9 @@ render() {
       )}
       messageCode={this.props.status}
       bankData={[
-        {labelBank: 'BCA', value: 'bca'},
-        {labelBank: 'Mandiri', value: 'mandiri'},
-        {labelBank: 'BNI', value: 'bni'},
+        // {labelBank: 'BCA', value: 'bca'},
+        // {labelBank: 'Mandiri', value: 'mandiri'},
+        // {labelBank: 'BNI', value: 'bni'},
         {labelBank: 'Permata', value: 'permata'},
       ]}
       bankRender={({item}) => (
@@ -513,7 +531,8 @@ render() {
       toggleDeliverySerive={() => this.setState({deliverySeriveVisible: !this.state.deliverySeriveVisible})}
       navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
       goback={() => this.props.navigation.goBack()}
-      checkout={ this.props.receiveCheckout.data }
+      closeModal={() => this.closeModal()}
+      checkout={ checkout }
       />
     );
   }
@@ -543,7 +562,8 @@ const mapStateToProps = (state) => {
     usershipping: state.usershipping,
     receiveCourier: state.receiveCourier,
     receiveCheckout: state.receiveCheckout,
-    usercredit: state.usercredit
+    usercredit: state.usercredit,
+    receiveMessage: state.receiveMessage
   }
 }
 

@@ -126,9 +126,10 @@ class RegisterContainer extends Component{
     const { failed, setFailed } = prevProps
   }
 
-  handleValidationCheckEmail(){
-    const {email} = this.state
-    this.props.checkEmail(email)
+  async handleValidationCheckEmail(){
+    const {email} = await this.state
+    await this.props.checkEmail(email)
+    await this.setState({email:""})
   }
 
   renderButton() {

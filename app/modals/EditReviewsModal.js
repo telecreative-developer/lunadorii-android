@@ -34,6 +34,7 @@ const EditReviewsModal = (props) => {
             maxStars={5}
             rating={props.star}
             selectedStar={props.onChangeStar}
+            fullStarColor={'#ffcc36'}
           />
         </View>
       <Item regular style={styles.itemsTextarea}>

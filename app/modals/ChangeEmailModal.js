@@ -31,7 +31,7 @@ const ChangeEmailModal = (props) => (
           <Input placeholder='Enter New Email' placeholderTextColor="#ccc" onChangeText={props.onChangeNewEmail} />
           <Ionicons name={props.newEmail ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
-        <Text style={styles.txtLabel}>Comfirm Email</Text>
+        <Text style={styles.txtLabel}>Confirm Email</Text>
         <Item regular style={{
           marginBottom: 10,
           borderRadius: 5,

@@ -77,7 +77,7 @@ const Settings = (props) => (
           <FontAwesome name="chevron-right" style={styles.iconChange} />
         </View>
       </TouchableOpacity>
-      <TouchableOpacity style={styles.touchableNotif} onPress={props.toggleModalNotifications}>
+      {/* <TouchableOpacity style={styles.touchableNotif} onPress={props.toggleModalNotifications}>
         <View style={styles.viewPaddingLeft}>
           <Text style={styles.txtLabel}>Notifications</Text>
           <View style={{ flexDirection: 'row' }}>
@@ -89,7 +89,7 @@ const Settings = (props) => (
             </View>
           </View>
         </View>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity style={styles.touchableLogout} onPress={props.actionLogout}>
         <View style={styles.viewPaddingLeft}>
           <Text style={styles.txtLabel}>Logout</Text>
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   touchablePassword: {
     flexDirection: 'row',
-    marginTop: 20,
+    marginTop: 1,
     borderTopWidth: 1,
     borderColor: '#e2e2e2',
     paddingTop: 15

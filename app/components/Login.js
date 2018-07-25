@@ -114,7 +114,9 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   informationWrapper2:{
-    marginTop: 5,
+    borderTopColor: '#fff', 
+    borderTopWidth: 1.2,
+    marginTop: convertHeightPercentToDP('8%'),
     marginBottom: 15,
     flexDirection: 'row', 
     justifyContent: 'center'

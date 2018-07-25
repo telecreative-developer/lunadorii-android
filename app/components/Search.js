@@ -32,7 +32,9 @@ const Search = (props) => (
       handleCategory={props.handleCategory}
       handleBrand={props.handleBrand}
       handleMinPrice={props.handleMinPrice}
+      minValue={props.minValue}
       handleMaxPrice={props.handleMaxPrice}
+      maxValue={props.maxValue}
       handleFilterSearch={props.handleFilterSearch}
       actionIcon={props.toggleModalFilters} 
       modalVisibleBrandChooser={props.modalVisibleBrandChooser}
@@ -52,7 +54,7 @@ const Search = (props) => (
     />
     <Content style={styles.container}>
       <Item regular style={styles.items}>
-        <Input placeholder="Search product, brand name, etc.," value={props.searchTitle} returnKeyType="search" placeholderTextColor="#ccc" onChangeText={props.onChangeSearchTitle} onSubmitEditing={props.handleSearch}/>
+        <Input placeholder="Search product or brand name" value={props.searchTitle} returnKeyType="search" placeholderTextColor="#ccc" onChangeText={props.onChangeSearchTitle} onSubmitEditing={props.handleSearch}/>
         <TouchableOpacity onPress={props.clearSearchBar}>
           <EvilIcons name="close" style={styles.searchIcon} />
         </TouchableOpacity>

@@ -9,3 +9,12 @@ export const receiveCheckout = (state = [], action) => {
 			return state
 	}
 }
+
+export const receiveMessage = ( state = [], action ) => {
+	switch (action.type){
+		case RECEIVE_CHECKOUT_DATA:
+			return action.payload
+		default: 
+			return state
+	}
+}
