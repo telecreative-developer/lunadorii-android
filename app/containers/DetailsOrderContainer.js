@@ -63,10 +63,17 @@ class DetailsOrderContainer extends Component{
     console.log('order :' , this.props.navigation.state.params)
     const data = this.props.navigation.state.params.item
     const status = this.props.navigation.state.params.status
+    console.log("isa ",data)
     return(
       <DetailsOrder
         toggleImageViewModal={() => this.toggleImageViewModal()}
         modalVisibleImageView={this.state.modalVisibleImageView}
+
+        brandTitle={data.product}
+        qty={data.qty}
+        price={this.formatPrice(data.price)}
+        category={data.subcategories[0].subcategory}
+
         showToast={() => ToastAndroid.showWithGravity("Your order not yet arrived", ToastAndroid.SHORT, ToastAndroid.CENTER)}
         image={data.thumbnails[0].thumbnail_url}
         images={data.thumbnails.map(data => ({source:{uri: data.thumbnail_url}}))}

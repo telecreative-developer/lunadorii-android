@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View,Text, StyleSheet, Dimensions, StatusBar, FlatList, TouchableOpacity } from 'react-native'
-import { Container, Content } from 'native-base'
+import { Container, Content, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
@@ -41,69 +41,75 @@ const DetailsTransaction = (props) => (
         <Text style={{fontSize: 12, color:props.status === "Delivered" ? '#d11e48' : ''}}>Delivered</Text>
       </View>
     </View>
-    <Content>
-      <View style={styles.grandWrapper}>
-        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Transaction Code</Text>
-            <Text style={{color: '#ccc'}}>{props.billing_code}</Text>
-          </View>
-        </View>
-        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Shipping Method</Text>
-            <Text style={{color: '#ccc'}}>{props.delivery_service}</Text>
-          </View>
-        </View>
-        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Shipping Price</Text>
-            <Text style={{color: '#ccc'}}>{props.delivery_price}</Text>
-          </View>
-        </View>
-        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Status</Text>
-            <Text style={{color: '#ccc'}}>{ props.status }</Text>
-          </View>
-        </View>
-        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18, marginBottom: 5}}>On Cart</Text>
-            <FlatList
-              data={props.dataOnCart}
-              renderItem={props.renderDataOnCart}
-            />
-          </View>
-        </View>
-        {console.log('price', props.price)}
-        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Total Price</Text>
-            <Text style={{color: '#ccc'}}>Rp. { props.price }</Text>
-          </View>
-        </View>
-        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Payment Method</Text>
-            <Text style={{color: '#ccc'}}>
-              {props.paid_method == 'bank' ? 
-                <Text> Bank Transfer</Text> :
-                <Text> Credit Card</Text>
-              }
-            </Text>
-          </View>
-        </View>
-        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Address</Text>
-            <Text style={{color: '#ccc', textAlign: 'justify'}}>
-              { props.address }
-            </Text>
-          </View>
-        </View>
+    {props.stillLoading ? (
+      <View style={styles.style}>
+        <Spinner color="#d11e48"/>
       </View>
-    </Content>
+    ) : (
+      <Content>
+        <View style={styles.grandWrapper}>
+          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>Transaction Code</Text>
+              <Text style={{color: '#ccc'}}>{props.billing_code}</Text>
+            </View>
+          </View>
+          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>Shipping Method</Text>
+              <Text style={{color: '#ccc'}}>{props.delivery_service}</Text>
+            </View>
+          </View>
+          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>Shipping Price</Text>
+              <Text style={{color: '#ccc'}}>{props.delivery_price}</Text>
+            </View>
+          </View>
+          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>Status</Text>
+              <Text style={{color: '#ccc'}}>{ props.status }</Text>
+            </View>
+          </View>
+          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+              <Text style={{fontWeight: 'bold',fontSize: 18, marginBottom: 5}}>On Cart</Text>
+              <FlatList
+                data={props.dataOnCart}
+                renderItem={props.renderDataOnCart}
+              />
+            </View>
+          </View>
+          {console.log('price', props.price)}
+          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>Total Price</Text>
+              <Text style={{color: '#ccc'}}>Rp. { props.price }</Text>
+            </View>
+          </View>
+          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>Payment Method</Text>
+              <Text style={{color: '#ccc'}}>
+                {props.paid_method == 'bank' ? 
+                  <Text> Bank Transfer</Text> :
+                  <Text> Credit Card</Text>
+                }
+              </Text>
+            </View>
+          </View>
+          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>Address</Text>
+              <Text style={{color: '#ccc', textAlign: 'justify'}}>
+                { props.address }
+              </Text>
+            </View>
+          </View>
+        </View>
+      </Content>
+    )}
     {props.status === 'waiting-for-payment' ? 
       <View style={styles.footer}>
         <View style={styles.footerWrapper}>
@@ -135,6 +141,12 @@ const styles = StyleSheet.create({
     width: width,
     height: height,
     backgroundColor: '#fff'
+  },
+  style: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#fff',
   },
   grandWrapper:{
     width: '100%',

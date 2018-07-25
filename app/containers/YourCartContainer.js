@@ -384,6 +384,7 @@ render() {
   const CC = dataCC.length && dataCC.map( d => ({card_number: d.card_number, mm: d.mm, yyyy:d.yyyy, card_name: d.card_name}))
   return (
     <YourCart 
+      navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
       creditCard={ CC }
       onChangeCVV={ (CVV)=> this.setState({CVV})}
       valueCVV={this.state.CVV}

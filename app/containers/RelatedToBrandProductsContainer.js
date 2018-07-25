@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, ToastAndroid } from 'react-native'
 import RelatedToBrandProducts from '../components/RelatedToBrandProducts'
 import Product from '../particles/Product'
 import { connect } from 'react-redux'
@@ -56,7 +56,7 @@ class RelatedToBrandProductsContainer extends Component{
     // console.log('isi state: ', this.state)
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await alert('Berhasil Menambahkan ke Kranjang', this.state.product_name.slice(0,10))
+    await ToastAndroid.showWithGravity("Added to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
     await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
     await this.closeModal()
 

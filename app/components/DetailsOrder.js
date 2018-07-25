@@ -42,6 +42,18 @@ const DetailsOrder = (props) => (
           </TouchableOpacity>
         </ImageBackground>
       </TouchableHighlight>
+      <View style={{flexDirection: 'row', justifyContent: 'space-between',borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+        <View>
+          <View style={{width: convertWidthPercentToDP('100%'),padding: 10}}>
+            <Text style={{fontSize: 18, fontWeight: 'bold'}}>{props.brandTitle}</Text>
+            <Text style={{fontSize: 18, paddingBottom: 10}}>{props.category}</Text>
+            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Text>Rp {props.price}</Text>
+              <Text>Qty {props.qty}</Text>
+            </View>
+          </View>
+        </View>
+      </View>
       <ImageViewModal
         modalVisible={props.modalVisibleImageView}
         actionIcon={props.toggleImageViewModal}

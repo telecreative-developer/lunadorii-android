@@ -54,6 +54,10 @@ const Register = (props) => (
         <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToLogin}>
           <Text style={styles.registerNowColor}> Login</Text>
         </TouchableOpacity>
+        <Text> or </Text>
+        <TouchableOpacity onPress={props.skipLogin} style={{paddingLeft: 5}}>
+          <Text style={{color: '#d11e48'}}>Login later</Text>
+        </TouchableOpacity>
       </View>
     </Content>
   </Container>

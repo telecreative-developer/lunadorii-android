@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, Image, StyleSheet, AsyncStorage, TouchableOpacity, ToastAndroid, NetInfo } from 'react-native'
+import { Dimensions, Image, StyleSheet, AsyncStorage, TouchableOpacity, BackHandler, ToastAndroid, Alert, NetInfo } from 'react-native'
 import { connect } from 'react-redux'
 
 import Home from '../components/Home'
@@ -33,7 +33,7 @@ class HomeContainer extends Component {
       id_user: 0,
       product_id: 0,
       product_name: '',
-      qty: 1,
+      qty: 0,
       uri:'',
       modalVisibleAddToCart: false,
       modalVisibleLogin: false,
@@ -59,8 +59,9 @@ class HomeContainer extends Component {
       await this.props.fetchBrandsProduct()
       await this.props.fetchProductBestSeller()
       await this.person()
-      await this.props.fetchProductSubcategories()
-      await this.setState({stillLoading: false})
+      if(this.props.fetchProductSubcategories()){
+        await this.setState({stillLoading: false})
+      }
     } else {
       this.setState({ isConnected: false ,stillLoading: true});
       await this.person()
@@ -211,7 +212,7 @@ class HomeContainer extends Component {
       if( data == null ){
         this.setState({modalVisibleLogin: true})
       }else{
-        this.props.navigation.navigate('ProfileContainer')
+        this.props.navigation.navigate('ProfileContainer', {person: this.person.bind(this)})
       }
     }
   }
@@ -226,7 +227,7 @@ class HomeContainer extends Component {
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     const dataPerson = await this.props.getsingleuser.avatar_url
-    const uri = await 'https://s3.us-east-2.amazonaws.com/lunadorii/avatar.png'
+    const uri = await 'https://freeiconshop.com/wp-content/uploads/edd/person-girl-flat.png'
     if (this.state.isConnected) {
       if( data == null ){
         this.setState({uri:uri})
@@ -269,7 +270,6 @@ class HomeContainer extends Component {
 
   render() {
     const { banners } = this.props
-    
     return (
       <Home
         stillLoading={this.state.stillLoading}
@@ -324,7 +324,7 @@ class HomeContainer extends Component {
           return (
           <RecommendProduct
             image={item.thumbnails[0].thumbnail_url} 
-            title={this.capitalize(item.product).slice(0,28) + '...'} 
+            title={this.capitalize(item.product).slice(0,20) + '...'} 
             categories={item.brands[0].brand} 
             price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
             star={item.product_rate} 
