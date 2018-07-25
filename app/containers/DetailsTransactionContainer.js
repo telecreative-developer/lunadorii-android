@@ -46,7 +46,7 @@ class DetailsTransactionContainer extends Component{
         billing_code={ data.billing_code }
         paid_method={ data.paid_method }
         delivery_service={ data.delivery_service }
-        delivery_price={ data.delivery_price }
+        delivery_price={ this.formatPrice(data.delivery_price) }
         price={ data.total }
         dataOnCart={ data.list }
         renderDataOnCart={({item}) => (

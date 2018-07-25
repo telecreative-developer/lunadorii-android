@@ -40,7 +40,7 @@ const EditCreditCardModal = (props) => (
           <View style={styles.flexDirectionCol}>
             <Label style={styles.labels}>Month</Label>
             <Item regular style={{
-              width: 80,
+              width: 75,
               borderRadius: 5,
               height: 40,
               borderColor: props.mm <= 12 && props.mm > 0 && props.mm !== '' ? '#ccc' : '#c0392b'
@@ -52,7 +52,7 @@ const EditCreditCardModal = (props) => (
           <View style={styles.flexDirectionCol}>
             <Label style={styles.labels}>Year</Label>
             <Item regular style={{
-              width: 80,
+              width: 75,
               borderRadius: 5,
               height: 40,
               borderColor: props.yyyy >= 18 ? '#ccc' : '#c0392b'
@@ -110,7 +110,9 @@ const EditCreditCardModal = (props) => (
           <Input placeholder="Your name" placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCardHolder} value={props.cardHolderName}/>
           <Ionicons name={props.cardHolderName ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
-        <Label style={styles.labels}>Password</Label>
+        <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+          <Label style={styles.labels}>Password</Label><Label style={styles.labelsInfo}>Lunadorii account password</Label>
+        </View>
         <Item regular style={{
           marginBottom: 10,
           borderRadius: 5,
@@ -158,6 +160,12 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontFamily: 'Avenir Next',
     fontWeight: 'bold',
+    paddingBottom: 10,
+    paddingTop: 10
+  },
+  labelsInfo: {
+    fontSize: 16,
+    fontFamily: 'Avenir Next',
     paddingBottom: 10,
     paddingTop: 10
   },
