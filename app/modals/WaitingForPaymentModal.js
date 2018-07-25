@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native'
-import { Container, Content, Icon, Button, Radio } from 'native-base'
+import { Content, Button } from 'native-base'
+import moment from 'moment'
 import CountDown from 'react-native-countdown-component';
 import NavbarModal from '../particles/NavbarModal'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -17,7 +18,7 @@ const WaitingForPaymentModal = (props) => (
     animationType="slide"
     transparent={false}
     visible={props.modalVisible}
-    onRequestClose={props.actionIcon}>
+    onRequestClose={props.closeModal}>
     <NavbarModal
       navbarTitle={props.navbarTitle}
       navbarIcon={"close"}
@@ -32,7 +33,7 @@ const WaitingForPaymentModal = (props) => (
         <Image source={image} style={styles.imageFrame} />
         <Text style={styles.textInfo1}>Waiting for payment</Text>
         <View style={styles.textInfo2Wrapper}>
-          <Text style={styles.textInfo2Content}>Your order number </Text><Text style={styles.textInfo2Code}>20437278982220</Text>
+          <Text style={styles.textInfo2Content}>Your order number </Text><Text style={styles.textInfo2Code}>{ props.checkout.order_id }</Text>
         </View>
       </View>
       <View style={styles.paymentInformation2}>
@@ -51,7 +52,7 @@ const WaitingForPaymentModal = (props) => (
             />
           </View>
           <Text style={styles.paymentInformation2warning1}>Please pay your bill before</Text>
-          <Text style={styles.paymentInformation2warning2}>8:21 PM 27 May 2018</Text>
+          <Text style={styles.paymentInformation2warning2}>{moment(props.checkout.transaction_time).add(10, 'hours').calendar()}</Text>
         </View>
         <View style={styles.Card}>
           <View style={styles.contentCard}>
@@ -59,12 +60,12 @@ const WaitingForPaymentModal = (props) => (
               <Image source={require('../assets/images/icon/visa.png')} style={styles.image} />
             </View>
             <View style={styles.wrapLeft}>
-              <Text style={styles.paymentCardInformationTitle}>Payment code </Text>
+              <Text style={styles.paymentCardInformationTitle}>Payment code {props.checkout.permata_va_number} </Text>
               <Text style={styles.paymentCardIformationPaymentCode}>Paid Method 
-                {/* {props.checkout.paid_method == 'bank_transfer' ? 
+                {props.checkout.payment_type == 'bank_transfer' ? 
                   <Text> Bank Transfer</Text> :
                   <Text> Credit Card</Text>
-                } */}
+                }
               </Text>
               {/* {props.checkout.bank ? 
               <Text>Bank : </Text>:
@@ -74,7 +75,7 @@ const WaitingForPaymentModal = (props) => (
           </View>
           <View style={styles.contentCard2}>
             <Text style={styles.paymentCardInformationTotalLabel}>Total:</Text>
-            <Text style={styles.paymentCardInformationGrandTotal}>Rp </Text>
+            <Text style={styles.paymentCardInformationGrandTotal}>Rp {props.checkout.gross_amount }</Text>
           </View>
         </View>
         {props.isCC ? (
@@ -165,7 +166,7 @@ const WaitingForPaymentModal = (props) => (
         </View>
       </View>
     </Content>
-    <Button full style={styles.btnSend} onPress={props.backToHome}>
+    <Button full style={styles.btnSend} onPress={() => this.props.navigation.navigate("HomeContainer")}>
       <Text style={styles.txtBtnSend}>Back to Home</Text>
     </Button>
   </Modal>
