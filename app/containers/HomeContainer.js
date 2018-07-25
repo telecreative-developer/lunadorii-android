@@ -119,6 +119,7 @@ class HomeContainer extends Component {
 
   async componentDidMount() {
     NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
+    await this.handleConnectivityChange()
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     if(this.state.isConnected){
