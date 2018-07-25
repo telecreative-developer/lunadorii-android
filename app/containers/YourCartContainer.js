@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AsyncStorage, View, Alert, Button, Text, StyleSheet, TouchableOpacity, Image, BackHandler} from 'react-native'
+import {AsyncStorage, View, Alert, Text, StyleSheet, TouchableOpacity, Image} from 'react-native'
 import YourCart from '../components/YourCart'
 import OnCart from '../particles/OnCart'
 import ShippingAddress from '../particles/ShippingAddress'
@@ -55,12 +55,12 @@ class YourCartContainer extends Component {
   }
 
   async setAddress(){
-    const data = await this.props.usershipping.filter(shp => shp.address_default == true)
-    console.log('dataaaa', data[0].province_id)
+    const dataUser = this.props.usershipping.filter(shp => shp.address_default)
+    const data = dataUser.length && dataUser[0]
     await this.setState({
-      province_id:data[0].province_id,
-      city_id:data[0].city_id,
-      detail_address:data[0].detail_address
+      province_id:data.province_id,
+      city_id:data.city_id,
+      detail_address:data.detail_address
     })
   }
 
@@ -78,16 +78,22 @@ class YourCartContainer extends Component {
     await this.props.fetchUserCredit(data.id, data.accessToken)
     await this.props.fetchCartUser(data.id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
-    if(this.props.cartuser.length){
+    const dataUser = await this.props.usershipping.filter(shp => shp.address_default === true)
+    const dataShipping = await dataUser.length && dataUser[0]
+    await console.log('dataShipping',dataShipping, this.props.cartuser.length)
+    if(this.props.cartuser.length && dataShipping ){
       await this.getCourier()
+      console.log('Anjing')
     }
     await this.setState({stillLoading: false})
     await this.setAddress()
   }
 
   async getCourier(){
-    const data = await this.props.usershipping.filter(data => data.address_default === true)
-    await this.props.fetchCourier(this.totalWeight(),data[0].province_id)
+    const dataUser = this.props.usershipping.filter(shp => shp.address_default)
+    const data = dataUser.length && dataUser[0]
+    console.log('shipping', data)
+    await this.props.fetchCourier(this.totalWeight(),data.province_id)
   }
 
   totalWeight(){
@@ -215,55 +221,55 @@ class YourCartContainer extends Component {
     return DiscountPrice
   }
 
-  async btnUpdateShipping(){
-    const { name, address, province_id, city_id, postalcode, numberPhone, label } = this.state
-    const session = await AsyncStorage.getItem('session')
-    const data = await JSON.parse(session)
-    await this.props.updateShipping(this.state.user_address_id, {name, address, province_id, city_id, postalcode, numberPhone, label}, data.accessToken)
-    await this.props.fetchUserShipping(data.id, data.accessToken)
-    await this.toggleModalEditAddress()
-    await this.setState({
-      name: '',
-      address: '',
-      province: '',
-      province_id:'',
-      city_id:'',
-      city: '',
-      postalcode: '',
-      numberPhone: '',
-      label:'',
-    })
-    Alert.alert('Success Add Address', 'Thanks..')
-  }
+  // async btnUpdateShipping(){
+  //   const { name, address, province_id, city_id, postalcode, numberPhone, label } = this.state
+  //   const session = await AsyncStorage.getItem('session')
+  //   const data = await JSON.parse(session)
+  //   await this.props.updateShipping(this.state.user_address_id, {name, address, province_id, city_id, postalcode, numberPhone, label}, data.accessToken)
+  //   await this.props.fetchUserShipping(data.id, data.accessToken)
+  //   await this.toggleModalEditAddress()
+  //   await this.setState({
+  //     name: '',
+  //     address: '',
+  //     province: '',
+  //     province_id:'',
+  //     city_id:'',
+  //     city: '',
+  //     postalcode: '',
+  //     numberPhone: '',
+  //     label:'',
+  //   })
+  //   Alert.alert('Success Add Address', 'Thanks..')
+  // }
 
-  async toggleModalEditAddress(item){
-    await this.closeModal()
-    if(this.state.modalVisibleEditAddress){
-      await this.setState({
-        user_address_id:item.user_address_id,
-        name: item.recepient,
-        address: item.detail_address,
-        province: item.province,
-        province_id:item.province_id,
-        city: item.city,
-        city_id:item.city_id,
-        postalcode: item.postal_code,
-        numberPhone: item.phone,
-        label:item.label,
-      })
-    }else{
-      await this.setState({
-        name: '',
-        address: '',
-        province: '',
-        province_id:'',
-        city: '',
-        postalcode: '',
-        numberPhone: '',
-        label:'',
-      })
-    }
-  }
+  // async toggleModalEditAddress(item){
+  //   await this.closeModal()
+  //   if(this.state.modalVisibleEditAddress){
+  //     await this.setState({
+  //       user_address_id:item.user_address_id,
+  //       name: item.recepient,
+  //       address: item.detail_address,
+  //       province: item.province,
+  //       province_id:item.province_id,
+  //       city: item.city,
+  //       city_id:item.city_id,
+  //       postalcode: item.postal_code,
+  //       numberPhone: item.phone,
+  //       label:item.label,
+  //     })
+  //   }else{
+  //     await this.setState({
+  //       name: '',
+  //       address: '',
+  //       province: '',
+  //       province_id:'',
+  //       city: '',
+  //       postalcode: '',
+  //       numberPhone: '',
+  //       label:'',
+  //     })
+  //   }
+  // }
 
   getCountDown(mdDate){
     const mdTime = new Date(mdDate).getTime() + 12 * 3600 * 1000
@@ -282,27 +288,27 @@ class YourCartContainer extends Component {
     }
   }
 
-  async deteleShipping(item){
-    await this.setState({
-      address_id: item.user_address_id,
-      address_default: true
-    })
-    const session = await AsyncStorage.getItem('session')
-    const data = await JSON.parse(session)
-    Alert.alert(
-      'Delete',
-      'Are you sure to Delete ?',
-      [
-        { text: 'Cancel', onPress: () => {}, style: 'cancel' },
-        {
-          text: 'Delete',
-          onPress: () => this.fetchData(item)
+  // async deteleShipping(item){
+  //   await this.setState({
+  //     address_id: item.user_address_id,
+  //     address_default: true
+  //   })
+  //   const session = await AsyncStorage.getItem('session')
+  //   const data = await JSON.parse(session)
+  //   Alert.alert(
+  //     'Delete',
+  //     'Are you sure to Delete ?',
+  //     [
+  //       { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+  //       {
+  //         text: 'Delete',
+  //         onPress: () => this.fetchData(item)
           
-        }
-      ],
-      { cancelable: false }
-    )
-  }
+  //       }
+  //     ],
+  //     { cancelable: false }
+  //   )
+  // }
 
  async chooseService(code, cost){
    await this.setState({
@@ -325,7 +331,7 @@ class YourCartContainer extends Component {
   return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
 }
 
- async checkout(){
+async checkout(){
   const creditCard = this.props.usercredit.filter(d => d.card_default === true)
   const dataCC = creditCard.length && creditCard.map(d => ({card_number: d.card_number, card_exp_month: d.mm.toString(), card_exp_year:d.yyyy.toString(), card_cvv:this.state.CVV.toString() }))
   const service = await this.state.selectedCourier.service
@@ -348,34 +354,34 @@ class YourCartContainer extends Component {
     }
   }
 
+
  setCourier(){
   const service = this.state.selectedCourier[0].service
  }
 
  renderShipping(){
-   const dataUser = this.props.usershipping.filter(shp => shp.address_default)
-   const data = dataUser.length && dataUser[0]
-   console.log('fuck', this.props.receiveCheckout.status)
-   if( data === null ){
-      return (
-          <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'column',justifyContent: 'space-around', alignItems: 'center'}}>
-            <Text>No Shipping Address selected</Text>
-            <Text>pick one</Text>
-          </View>
-      )
-   }else{
-     return(
-          <ShippingAddress 
-            name={ data.recepient }
-            numberPhone={ data.phone }
-            detail_address={ data.detail_address }
-            address_default={ data.address_default }
-            // actionEdit={() => this.toggleModalEditAddress(data)}
-            // actionSetdefault={() => this.onChangeDefault(data)}
-            // actionDelete={() => this.deteleShipping(data)}
-          />
-     )}
-   }
+  const dataUser = this.props.usershipping.filter(shp => shp.address_default)
+  const data = dataUser.length && dataUser[0]
+  const cok = dataUser.length
+  console.log('asem' ,cok)
+  console.log('asemBro' ,data )
+  if( data ){
+     return (
+      <ShippingAddress 
+        name={data.recepient}
+        numberPhone={data.phone}
+        detail_address={data.detail_address}
+        address_default={data.address_default}
+      />
+     )
+  }else{
+    return(
+      <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'column',justifyContent: 'space-around', alignItems: 'center'}}>
+        <Text>No Shipping Address selected</Text>
+        <Text>pick one</Text>
+      </View>
+    )}
+  }
 
 render() {
   const courier = this.props.receiveCourier
@@ -473,7 +479,7 @@ render() {
         </View>
       )}
       renderShipping={this.renderShipping()}
-      goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer")}
+      goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer", {func: this.getCourier.bind(this)})}
       product={this.state.product}
       brand={this.state.brand}
       modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}

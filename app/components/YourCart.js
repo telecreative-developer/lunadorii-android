@@ -106,21 +106,20 @@ const YourCart = (props) => (
                   renderItem={props.renderPaymentMethod}
                 />
               </View>
-              {console.log(props.isCC)}
               {props.isCreditcard === 'credit_card' ? 
-                <View style={styles.viewBrand}>
-                  <Text style={styles.txtLabel}>Your Credit Card</Text>
-                  <CreditCards
-                    cardNumberFormated={ 123123 }
-                    cardNumber={123}
-                    mm={12}
-                    yyyy={12}
-                    card_name={12}
-                    card_default={12}/>
-                    <Input placeholder="CVV" placeholderTextColor="#e2e2e2"/>
-                </View>:
-                <View/>
-              }
+              <View style={styles.viewBrand}>
+                <Text style={styles.txtLabel}>Your Credit Card</Text>
+                {console.log('asdasd',props.creditCard)}
+                <CreditCards
+                  cardNumberFormated={ props.creditCard[0].card_number }
+                  cardNumber={ props.creditCard[0].card_number }
+                  mm={ props.creditCard[0].mm }
+                  yyyy={ props.creditCard[0].yyyy }
+                  card_name={ props.creditCard[0].card_name }/>
+                  <Input placeholder="CVV" onChangeText={props.onChangeCVV} value={props.valueCVV} placeholderTextColor="#e2e2e2"/>
+              </View>:
+              <View/>
+            }
             </View>
           </View>
           <View style={styles.border}>
@@ -156,21 +155,6 @@ const YourCart = (props) => (
                 renderItem={props.renderCode}
               />
             </View>
-            {console.log(props.isCC)}
-            {props.isCreditcard === 'credit_card' ? 
-              <View style={styles.viewBrand}>
-                <Text style={styles.txtLabel}>Your Credit Card</Text>
-                {console.log('asdasd',props.creditCard)}
-                <CreditCards
-                  cardNumberFormated={ props.creditCard[0].card_number }
-                  cardNumber={ props.creditCard[0].card_number }
-                  mm={ props.creditCard[0].mm }
-                  yyyy={ props.creditCard[0].yyyy }
-                  card_name={ props.creditCard[0].card_name }/>
-                  <Input placeholder="CVV" onChangeText={props.onChangeCVV} value={props.valueCVV} placeholderTextColor="#e2e2e2"/>
-              </View>:
-              <View/>
-            }
           </View>
         </Content>
       ) : (
@@ -195,7 +179,10 @@ const YourCart = (props) => (
             <TouchableOpacity onPress={props.toggleCheckoutPayment}>
               <View style={styles.footerButtonStyling}> 
                 <FontAwesome name="money" size={20} color="#fff" />
-                <Text style={styles.footerButtonTextStyling}> Go to Payment</Text>
+                {props.isCreditcard === 'credit_card' ? 
+                  <Text style={styles.footerButtonTextStyling}> Pay Now</Text>:
+                  <Text style={styles.footerButtonTextStyling}> Go to Payment</Text>
+                }
               </View>
             </TouchableOpacity>
           </View>

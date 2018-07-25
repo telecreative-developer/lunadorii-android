@@ -3,14 +3,14 @@ import { StyleSheet, Image, View, Text } from 'react-native'
 
 const ResultNotFound = (props) => (
   <View>
-    <View>
+    {/* <View>
       {
         props.amount == 0 || props.amount == 1 ?
           <Text style={styles.title}>Result {props.amount} product by "{props.searchTitle}"</Text>
           :
           <Text style={styles.title}>Results {props.amount} product by "{props.searchTitle}"</Text>
       }
-    </View>
+    </View> */}
     <View style={styles.responseWrapper}>
       <Image source={require("../assets/images/icon/sad.png")} style={styles.images} />
       <Text style={styles.responseMessages}>We're sorry, your search not found</Text>
