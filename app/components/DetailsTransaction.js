@@ -63,7 +63,7 @@ const DetailsTransaction = (props) => (
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
               <Text style={{fontWeight: 'bold',fontSize: 18}}>Shipping Price</Text>
-              <Text style={{color: '#ccc'}}>{props.delivery_price}</Text>
+              <Text style={{color: '#ccc'}}>Rp. {props.delivery_price}</Text>
             </View>
           </View>
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
@@ -93,8 +93,8 @@ const DetailsTransaction = (props) => (
               <Text style={{fontWeight: 'bold',fontSize: 18}}>Payment Method</Text>
               <Text style={{color: '#ccc'}}>
                 {props.paid_method == 'bank' ? 
-                  <Text> Bank Transfer</Text> :
-                  <Text> Credit Card</Text>
+                  <Text>Bank Transfer</Text> :
+                  <Text>Credit Card</Text>
                 }
               </Text>
             </View>

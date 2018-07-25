@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, TouchableOpacity, Image } from 'react-native'
+import { convertWidthPercentToDP } from '../particles/Converter'
 import { View, Text } from 'native-base'
 
 const Categories = (props) => (
@@ -9,7 +10,7 @@ const Categories = (props) => (
         <Image source={{uri: props.icon}} style={styles.imageCategories} />
       </View>
     </TouchableOpacity>
-    <View style={{width: 60}}>
+    <View style={{width: convertWidthPercentToDP('20%')}}>
       <Text style={styles.titleCategories}>{props.title}</Text>
     </View>
   </View>
