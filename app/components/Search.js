@@ -67,7 +67,7 @@ const Search = (props) => (
           props.dateRelatedProducts !== "not yet search"  ?
             props.dateRelatedProducts.data.length != 0 ?
               <View style={{height: '100%', width: '100%'}}>
-                <Text style={{ fontSize: 16, fontWeight: 'bold', paddingBottom: 5 }}>Result Product for "{props.lastSearchTitle}{props.lastFillter}"</Text>
+                {/* <Text style={{ fontSize: 16, fontWeight: 'bold', paddingBottom: 5 }}>Result Product for "{props.lastSearchTitle}{props.lastFillter}"</Text> */}
                 <View>
                   <FlatList
                     numColumns={2}
