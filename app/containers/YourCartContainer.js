@@ -327,17 +327,25 @@ class YourCartContainer extends Component {
 
  async checkout(){
   const creditCard = this.props.usercredit.filter(d => d.card_default === true)
-  const dataCC = creditCard.length && creditCard.map(d => ({card_number: d.card_number, }))
+  const dataCC = creditCard.length && creditCard.map(d => ({card_number: d.card_number, card_exp_month: d.mm.toString(), card_exp_year:d.yyyy.toString(), card_cvv:this.state.CVV.toString() }))
   const service = await this.state.selectedCourier.service
   const delivery_price = await this.state.selectedCourier.cost[0].value
-  const { selectedMethod, province_id, city_id, detail_address, selectedBank} = await this.state
+  const { selectedMethod, province_id, city_id, detail_address, selectedBank, CVV} = await this.state
   const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage}))
   const session = await AsyncStorage.getItem('session')
   const data = await JSON.parse(session)
   const { id, first_name, last_name, email} = data
-  await Alert.alert('Checkout Success', 'Please Check Your Email For Details')
-  await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, selectedBank, id, city_id, province_id, data:dataProduct, user:{first_name, last_name, email}, } , data.accessToken)
-  await this.toggleCheckoutPayment()
+  await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, id, city_id, province_id, data:dataProduct, user:{first_name, last_name, email}, dataCC, selectedBank,}, data.accessToken)
+  if(this.props.receiveCheckout.status == 202){
+     await Alert.alert('CVV is Invalid')
+     await console.log('202')
+    }else if( this.props.receiveCheckout.status == 400){
+     await Alert.alert('Your Credit Card is Invalid')
+     await console.log('400')
+    }else{
+      await this.toggleCheckoutPayment()
+      await console.log('200', this.props.receiveCheckout.status)
+    }
   }
 
  setCourier(){
@@ -347,7 +355,7 @@ class YourCartContainer extends Component {
  renderShipping(){
    const dataUser = this.props.usershipping.filter(shp => shp.address_default)
    const data = dataUser.length && dataUser[0]
-   console.log(data)
+   console.log('fuck', this.props.receiveCheckout.status)
    if( data === null ){
       return (
           <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'column',justifyContent: 'space-around', alignItems: 'center'}}>
@@ -358,10 +366,10 @@ class YourCartContainer extends Component {
    }else{
      return(
           <ShippingAddress 
-            name={data.recepient}
-            numberPhone={data.phone}
-            detail_address={data.detail_address}
-            address_default={data.address_default}
+            name={ data.recepient }
+            numberPhone={ data.phone }
+            detail_address={ data.detail_address }
+            address_default={ data.address_default }
             // actionEdit={() => this.toggleModalEditAddress(data)}
             // actionSetdefault={() => this.onChangeDefault(data)}
             // actionDelete={() => this.deteleShipping(data)}
@@ -371,12 +379,14 @@ class YourCartContainer extends Component {
 
 render() {
   const courier = this.props.receiveCourier
-  console.log('select method', this.props.usercredit)
+  console.log('select method', this.props.receiveCheckout)
   const dataCC = this.props.usercredit.filter(d => d.card_default === true)
-  const CC = dataCC.length && dataCC
+  const CC = dataCC.length && dataCC.map( d => ({card_number: d.card_number, mm: d.mm, yyyy:d.yyyy, card_name: d.card_name}))
   return (
     <YourCart 
       creditCard={ CC }
+      onChangeCVV={ (CVV)=> this.setState({CVV})}
+      valueCVV={this.state.CVV}
       isCreditcard={this.state.selectedMethod}
       stillLoading={this.state.stillLoading}
       selectedBank={this.state.selectedMethod === 'credit_card' ? '' : this.state.selectedBank}
@@ -391,7 +401,7 @@ render() {
           <Text style={styles.txtChooseDeliveryService}>{item.code.toUpperCase()}</Text>
         </TouchableOpacity>
       )}
-
+      messageCode={this.props.status}
       bankData={[
         {labelBank: 'BCA', value: 'bca'},
         {labelBank: 'Mandiri', value: 'mandiri'},

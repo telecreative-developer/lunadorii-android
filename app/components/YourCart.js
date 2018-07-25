@@ -119,14 +119,14 @@ const YourCart = (props) => (
             {props.isCreditcard === 'credit_card' ? 
               <View style={styles.viewBrand}>
                 <Text style={styles.txtLabel}>Your Credit Card</Text>
+                {console.log('asdasd',props.creditCard)}
                 <CreditCards
-                  cardNumberFormated={ 123123 }
-                  cardNumber={123}
-                  mm={12}
-                  yyyy={12}
-                  card_name={12}
-                  card_default={12}/>
-                  <Input placeholder="CVV" placeholderTextColor="#e2e2e2"/>
+                  cardNumberFormated={ props.creditCard[0].card_number }
+                  cardNumber={ props.creditCard[0].card_number }
+                  mm={ props.creditCard[0].mm }
+                  yyyy={ props.creditCard[0].yyyy }
+                  card_name={ props.creditCard[0].card_name }/>
+                  <Input placeholder="CVV" onChangeText={props.onChangeCVV} value={props.valueCVV} placeholderTextColor="#e2e2e2"/>
               </View>:
               <View/>
             }
