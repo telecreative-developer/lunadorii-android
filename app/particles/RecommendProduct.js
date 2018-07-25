@@ -26,7 +26,7 @@ const RecommendProduct = (props) => {
           starSize={12}
         />
         <View>
-          <Text style={styles.txtReviews}>{props.reviews} Reviews</Text>
+          <Text style={styles.txtReviews}>{props.reviews} Ratings</Text>
         </View>
       </View>
       <View style={styles.viewFooterProduct}>
