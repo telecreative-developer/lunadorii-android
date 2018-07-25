@@ -4,6 +4,7 @@ import { Content, Item, Input, Icon, Label, Form, Button, Spinner } from 'native
 import defaultPhotoProfile from '../assets/images/icon/photoProfileDefault.png'
 import NavbarModal from '../particles/NavbarModal'
 import DatePicker from 'react-native-datepicker'
+import moment from 'moment'
 
 const EditProfileModal = (props) => (
   <Modal
@@ -47,9 +48,9 @@ const EditProfileModal = (props) => (
             date={props.bod}
             mode="date"
             placeholder="Birth of Date"
-            format="DD-MM-YYYY"
+            format="YYYY-MM-DD"
             minDate="1960-01-01"
-            maxDate="2018-12-30"
+            maxDate={moment().format('YYYY-MM-DD')}
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{
