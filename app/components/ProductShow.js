@@ -8,8 +8,12 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Entypo from 'react-native-vector-icons/Entypo'
 import ImageViewModal from '../modals/ImageViewModal'
 import LoginRequiredModal from '../modals/LoginRequiredModal'
+import Carousel from 'react-native-banner-carousel'
+
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 const { height, width } = Dimensions.get('window')
+const bannerWidth = Dimensions.get('window').width
+
 import AddToCart from '../modals/AddToCart'
 
 const ProductShow = (props) => (
@@ -54,6 +58,9 @@ const ProductShow = (props) => (
             <Text style={styles.textPhotos}><FontAwesome name="photo" style={styles.touchableOpacityButtonIcon} /> +{props.amountOfImage} Photos</Text>
           </TouchableOpacity>
         </ImageBackground>
+        {/* <Carousel autoplay={true} autoplayTimeout={2000} loop={true} index={0} pageSize={bannerWidth}>
+          {props.productCarousel}
+        </Carousel> */}
       </TouchableHighlight>
       <ImageViewModal
         modalVisible={props.modalVisibleImageView}
@@ -118,8 +125,9 @@ const ProductShow = (props) => (
             maxStars={5}
             rating={props.star}
             starSize={14}
+            fullStarColor={'#ffcc36'}
           />
-          <Text style={styles.reviewsLabel}>{props.star} ratings</Text>
+          <Text style={styles.reviewsLabel}>{props.reviews} Reviews</Text>
         </View>
       </View>
       <View style={styles.borderedSparator}>
@@ -166,7 +174,7 @@ const ProductShow = (props) => (
             <View style={styles.ratingCardContentWrapper}>
               <View>
                 <Text style={styles.ratingReviewsText}>
-                  <Text style={styles.ratingAmountReviewsText}>{props.star}</Text> Ratings
+                  <Text style={styles.ratingAmountReviewsText}>{props.reviews}</Text> Reviews
                 </Text>
                 <View style={{flexDirection: 'row'}}>
                   <StarRating
@@ -174,6 +182,7 @@ const ProductShow = (props) => (
                     maxStars={5}
                     rating={props.star}
                     starSize={14}
+                    fullStarColor={'#ffcc36'}
                   />
                 </View>
               </View>

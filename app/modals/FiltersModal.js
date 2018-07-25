@@ -52,13 +52,13 @@ const FiltersModal = (props) => (
           renderItem={props.buttonCategory1st}
         />
       </View>
-      <Text style={styles.txtLabel}>Brands</Text>
+      {/* <Text style={styles.txtLabel}>Brands</Text>
       <FlatList
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         data={props.dataButtonBrands}
         renderItem={props.buttonBrads}
-      />
+      /> */}
       {/* <Item regular style={styles.item}>
         <Input placeholder='Select brand' placeholderTextColor="#ccc" onChangeText={props.handleBrand} />
         <Icon type='Entypo' name="chevron-small-down" style={{color: '#ccc'}}/>
@@ -66,11 +66,11 @@ const FiltersModal = (props) => (
       <Text style={styles.txtLabel}>Price</Text>
       <View style={styles.inputWrapper}>
         <Item regular style={styles.inputMin}>
-          <Input placeholder='Min' placeholderTextColor="#ccc" onChangeText={props.handleMinPrice} keyboardType={'numeric'}/>
+          <Input placeholder='Min' placeholderTextColor="#ccc" onChangeText={props.handleMinPrice} keyboardType={'numeric'} maxLength={7} value={props.minValue}/>
         </Item>
         <Text style={styles.sparator}>-</Text>
         <Item regular style={styles.inputMax}>
-          <Input placeholder='Max' placeholderTextColor="#ccc" onChangeText={props.handleMaxPrice} keyboardType={'numeric'}/>
+          <Input placeholder='Max' placeholderTextColor="#ccc" onChangeText={props.handleMaxPrice} keyboardType={'numeric'} maxLength={7} value={props.maxValue}/>
         </Item>
       </View>
     </Content>

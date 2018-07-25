@@ -34,6 +34,7 @@ const Product = (props) => (
             maxStars={5}
             rating={props.star}
             starSize={12}
+            fullStarColor={'#ffcc36'}
           />
         </View>
         <Text style={styles.txtPrice}>Rp. {props.price}</Text>

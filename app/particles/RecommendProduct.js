@@ -24,6 +24,7 @@ const RecommendProduct = (props) => {
           maxStars={5}
           rating={props.star}
           starSize={12}
+          fullStarColor={'#ffcc36'}
         />
         <View>
           <Text style={styles.txtReviews}>{props.reviews} Ratings</Text>

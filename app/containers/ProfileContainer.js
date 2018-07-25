@@ -155,6 +155,10 @@ class ProfileContainer extends Component {
     navigation.goBack()
   }
 
+  uselessFunc(){
+
+  }
+
   render() {
     console.log('state :', this.props.getsingleuser)
     return (
@@ -189,7 +193,7 @@ class ProfileContainer extends Component {
         navigateToWhishlist={() => this.props.navigation.navigate("WishlistContainer")}
         navigateToCreditCard={() => this.props.navigation.navigate("CreditCardContainer")}
         navigateToReviews={() => this.props.navigation.navigate("ReviewsContainer")}
-        navigateToShippingAddress={() => this.props.navigation.navigate("YourShippingAddressContainer", {func: null})}
+        navigateToShippingAddress={() => this.props.navigation.navigate("YourShippingAddressContainer", {func: this.uselessFunc.bind(this)})}
         navigateToReports={() => this.props.navigation.navigate("ReportsContainer", {first_name: this.state.first_name, last_name: this.state.last_name, email: this.state.email})}
         navigateToSettings={() => this.props.navigation.navigate("SettingsContainer")}
         navigateToPrivacyPolicy={() => this.props.navigation.navigate("PrivacyPolicyContainer")}

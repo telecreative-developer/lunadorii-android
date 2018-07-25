@@ -32,6 +32,7 @@ const ProductReviews = (props) =>(
               maxStars={5}
               rating={props.star}
               starSize={12}
+              fullStarColor={'#ffcc36'}
             />
           </View>
           {console.log('data', props.date)}
