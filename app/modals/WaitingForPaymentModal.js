@@ -59,22 +59,22 @@ const WaitingForPaymentModal = (props) => (
               <Image source={require('../assets/images/icon/visa.png')} style={styles.image} />
             </View>
             <View style={styles.wrapLeft}>
-              <Text style={styles.paymentCardInformationTitle}>Payment code {props.checkout.billing_code}</Text>
+              <Text style={styles.paymentCardInformationTitle}>Payment code </Text>
               <Text style={styles.paymentCardIformationPaymentCode}>Paid Method 
-                {props.checkout.paid_method == 'bank_transfer' ? 
+                {/* {props.checkout.paid_method == 'bank_transfer' ? 
                   <Text> Bank Transfer</Text> :
                   <Text> Credit Card</Text>
-                }
+                } */}
               </Text>
-              {props.checkout.bank ? 
-              <Text>Bank : {props.checkout.bank}</Text>:
+              {/* {props.checkout.bank ? 
+              <Text>Bank : </Text>:
               <Text></Text>
-              }
+              } */}
             </View>
           </View>
           <View style={styles.contentCard2}>
             <Text style={styles.paymentCardInformationTotalLabel}>Total:</Text>
-            <Text style={styles.paymentCardInformationGrandTotal}>Rp {props.totalPrice}</Text>
+            <Text style={styles.paymentCardInformationGrandTotal}>Rp </Text>
           </View>
         </View>
         {props.isCC ? (
