@@ -89,7 +89,10 @@ class RelatedToCategoryProductsContainer extends Component{
   render(){
     return(
       <RelatedToCategoryProducts    
+        qty={this.state.qty}
         quantityValue={this.state.qty}
+        increaseQty={() => this.setState({qty: this.state.qty + 1})}
+        decreaseQty={() => this.setState({qty: this.state.qty - 1})}
         stillLoading={this.state.stillLoading}
         name={this.props.navigation.state.params.data.subcategory}
         icon={this.props.navigation.state.params.data.thumbnail_url}

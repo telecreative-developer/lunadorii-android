@@ -159,7 +159,7 @@ class ProfileContainer extends Component {
     console.log('state :', this.props.getsingleuser)
     return (
       <Profile
-        dataRecentOrders={this.props.productrecent}
+        dataRecentOrders={this.props.productrecent.slice(0,5)}
         renderRecentOrders={({ item, key }) => (
           <RecentOrders
             image={item.list[0].thumbnails[0].thumbnail_url}

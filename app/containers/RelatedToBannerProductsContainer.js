@@ -93,6 +93,10 @@ class RelatedToBannerProductsContainer extends Component{
     return(
       <RelatedToBannerProducts
         quantityValue={this.state.qty}
+        qty={this.state.qty}
+        increaseQty={() => this.setState({qty: this.state.qty + 1})}
+        decreaseQty={() => this.setState({qty: this.state.qty - 1})}
+
         stillLoading={this.state.stillLoading}
         dataProduct={this.props.receiveProductWithBanner}
         image = {this.state.image}

@@ -265,7 +265,11 @@ class ProductShowContainer extends Component {
     console.log('asyu',this.state.totalPrice)
     return (
       <ProductShow
+        qty={this.state.qty}
         quantityValue={this.state.qty}
+        increaseQty={() => this.setState({qty: this.state.qty + 1})}
+        decreaseQty={() => this.setState({qty: this.state.qty - 1})}
+
         image={this.state.image}
         images={this.state.images}
         title={this.capitalize(this.state.title)}
@@ -277,7 +281,6 @@ class ProductShowContainer extends Component {
         productDetails={this.state.data.detail}
         guide={this.state.data.to_use}
         isDiscount={this.state.isDiscount}
-        qty={this.state.qty}
         totalPrice={this.formatPrice(this.state.totalPrice)}
         amountOfImage={this.state.amountOfImage}
         wishlisted={this.props.receiveSingleProductWithId.map(data => data.wishlisted)}
@@ -298,7 +301,7 @@ class ProductShowContainer extends Component {
         renderRelatedProducts={({ item }) => (
           <RecommendProduct 
             image={item.thumbnails[0].thumbnail_url} 
-            title={this.capitalize(item.product)} 
+            title={item.product <= 17 ? this.capitalize(item.product) : this.capitalize(item.product).slice(0,18)+'...'}
             categories={item.brands[0].brand} 
             price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
             star={item.product_rate} 
