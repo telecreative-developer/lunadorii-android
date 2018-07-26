@@ -107,13 +107,16 @@ const YourCart = (props) => (
                   renderItem={props.renderPaymentMethod}
                 />
               </View> 
+              {props.selectedMethod === 'credit_card' ? 
               <View style={styles.viewBrand}>
                 <Text style={styles.txtLabel}>Your Credit Card</Text>
                   <TouchableOpacity onPress={props.goToCC}>
                       {props.renderCC}
                   </TouchableOpacity>
                 <Input placeholder="CVV" onChangeText={props.onChangeCVV} value={props.valueCVV} placeholderTextColor="#e2e2e2"/>
-              </View>
+              </View>:
+              <View/>
+              }
             </View>
           </View>
           <View style={styles.border}>
