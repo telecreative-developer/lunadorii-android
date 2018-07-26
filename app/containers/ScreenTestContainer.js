@@ -4,20 +4,19 @@ import ScreenTest from '../components/ScreenTest'
 export default class ScreenTestContainer extends Component{
 
   state={
-    loginRequiredModalVisible: false
+    paymentCCModalVisible: false
   }
 
-  toggleVisbleLoginRequiredModal(){
-    this.setState({loginRequiredModalVisible: !this.state.loginRequiredModalVisible})
+  toggleVisiblePaymentCCModal(){
+    this.setState({paymentCCModalVisible: !this.state.paymentCCModalVisible})
   }
 
   render(){
     return(
       <ScreenTest
         goback={() => alert("Hello World")}
-        buttonAction={() => alert("Connection reloaded")}
-        loginRequiredModalVisible={this.state.loginRequiredModalVisible}
-        toggleVisbleLoginRequiredModal={() => this.toggleVisbleLoginRequiredModal()}
+        paymentCCModalVisible={this.state.paymentCCModalVisible}
+        toggleVisiblePaymentCCModal={() => this.toggleVisiblePaymentCCModal()}
       />
     )
   }
