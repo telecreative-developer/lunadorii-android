@@ -16,6 +16,7 @@ class YourShippingAddressContainer extends Component{
     super()
     this.state = {
       stillLoading:true,
+      setDefaultLoading:false,
       visibleProvincePicker:true,
       visibleCityPicker: true,
       visibleRegencyPicker: true,
@@ -145,8 +146,10 @@ class YourShippingAddressContainer extends Component{
     })
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    await this.setState({setDefaultLoading: true})
     await this.props.updateSetdefault(data.id, this.state.address_id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
+    await this.setState({setDefaultLoading: false})
   }
 
   async deteleShipping(item){
@@ -212,6 +215,7 @@ class YourShippingAddressContainer extends Component{
     return(
       <YourShippingAddress
         stillLoading={this.state.stillLoading}
+        setDefaultLoading={this.state.setDefaultLoading}
         loading={this.state.loading}
         goback={() => this.handleBackPress()}
         modalVisibleAddAddress={this.state.modalVisibleAddAddress}
@@ -260,7 +264,8 @@ class YourShippingAddressContainer extends Component{
 
         handleSaveAddress={() => this.handleSaveAddress()}
         handleUpdateAddress={() => this.btnUpdateShipping()}
-        dataShippingAddress={this.props.usershipping}
+        dataShippingAddressDefault={this.props.usershipping.filter(item => item.address_default === true)}
+        dataShippingAddress={this.props.usershipping.filter(item => item.address_default === false)}
         renderShippingAddress={({item}) => (
           <ShippingAddress
             name={item.recepient}
