@@ -13,6 +13,7 @@ import { fetchProductRecent, fetchProductHistory } from '../actions/product'
 class ProfileContainer extends Component {
 
   state = {
+    buttonSave: false,
     userData: {},
     stillLoading: true,
     first_name: "",
@@ -22,6 +23,7 @@ class ProfileContainer extends Component {
     photoProfile: '',
     photoName: '',
     photoType: '',
+    fileExt: '',
     modalVisibleEditProfile: false,
     imageProfile: 'https://avatars0.githubusercontent.com/u/38149346?s=400&u=7db8195dd7b4436cbf6d0575915ca6b198d116cc&v=4',
   }
@@ -58,9 +60,9 @@ class ProfileContainer extends Component {
           stillLoading: true,
           imageProfile: responses.uri,
           photoName: `${Date.now()}.${fileExt[1]}`,
-          photoType: `image/${fileExt[1]}`
+          photoType: `image/${fileExt[1]}`,
+          fileExt: fileExt[1]
         })
-        this.uploadToS3(data.id, data.accessToken, responses.uri, `${Date.now()}.${fileExt[1]}`, `image/${fileExt[1]}`)
         this.setState({
           stillLoading: false
         })
@@ -106,6 +108,7 @@ class ProfileContainer extends Component {
   }
 
   async handleSaveEditProfile() {
+    this.setState({stillLoading: true})
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.editName(
@@ -114,9 +117,11 @@ class ProfileContainer extends Component {
         this.state.last_name,
         this.state.bod, 
         this.state.userData.accessToken)
+    this.uploadToS3(data.id, data.accessToken, this.state.imageProfile, `${Date.now()}.${this.state.fileExt}`, this.state.photoType)
     await this.props.fetchSingleUser(data.id, data.accessToken)
     await this.setState({modalVisibleEditProfile: false })
     // await alert(this.props.editname.message)
+    this.setState({stillLoading: false})
     ToastAndroid.showWithGravity("Edited", ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
 
@@ -155,10 +160,15 @@ class ProfileContainer extends Component {
     navigation.goBack()
   }
 
+  uselessFunc(){
+
+  }
+
   render() {
     console.log('state :', this.props.getsingleuser)
     return (
       <Profile
+        buttonSave={this.state.buttonSave}
         dataRecentOrders={this.props.productrecent.slice(0,5)}
         renderRecentOrders={({ item, key }) => (
           <RecentOrders
@@ -172,7 +182,7 @@ class ProfileContainer extends Component {
           />
         )}
 
-        photoProfile={this.props.getsingleuser.avatar_url}
+        photoProfile={this.state.imageProfile}
         handleOpenCamera={() => this.handleOpenCamera()}
 
         toggleModalEditProfile={() => this.toggleModalEditProfile()}
@@ -189,7 +199,7 @@ class ProfileContainer extends Component {
         navigateToWhishlist={() => this.props.navigation.navigate("WishlistContainer")}
         navigateToCreditCard={() => this.props.navigation.navigate("CreditCardContainer")}
         navigateToReviews={() => this.props.navigation.navigate("ReviewsContainer")}
-        navigateToShippingAddress={() => this.props.navigation.navigate("YourShippingAddressContainer", {func: null})}
+        navigateToShippingAddress={() => this.props.navigation.navigate("YourShippingAddressContainer", {func: this.uselessFunc.bind(this)})}
         navigateToReports={() => this.props.navigation.navigate("ReportsContainer", {first_name: this.state.first_name, last_name: this.state.last_name, email: this.state.email})}
         navigateToSettings={() => this.props.navigation.navigate("SettingsContainer")}
         navigateToPrivacyPolicy={() => this.props.navigation.navigate("PrivacyPolicyContainer")}

@@ -39,17 +39,22 @@ const WaitingForPaymentModal = (props) => (
       <View style={styles.paymentInformation2}>
         <View style={styles.paymentInformation2Wrapper}>
           <Text style={styles.paymentInformation2title}>Payment code will end in</Text>
-          {/* <Text style={styles.paymentInformation2timeout}>{props.countDown}</Text> */}
-        
           <View style={{paddingTop: 10}}>
-            <CountDown
-              until={props.countDown}
-              onFinish={() => alert('finished')}
-              onPress={() => alert('hello')}
-              size={20}
-              digitBgColor={'#f6f6f6'}
-              timeToShow={['H','M','S']}
-            />
+            {
+            props.selectedMethod === 'credit_card' ? 
+              <View>
+                <Text style={{fontSize: 24}}>Thank You</Text>
+              </View>
+            :
+              <CountDown
+                until={props.countDown}
+                onFinish={() => alert('finished')}
+                onPress={() => alert('hello')}
+                size={20}
+                digitBgColor={'#f6f6f6'}
+                timeToShow={['H','M','S']}
+              />
+            }
           </View>
           <Text style={styles.paymentInformation2warning1}>Please pay your bill before</Text>
           <Text style={styles.paymentInformation2warning2}>{moment(props.checkout.transaction_time).add(10, 'hours').calendar()}</Text>

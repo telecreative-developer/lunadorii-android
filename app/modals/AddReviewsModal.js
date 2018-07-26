@@ -46,6 +46,7 @@ const AddReviewsModal = (props) => {
           maxStars={5}
           rating={props.ratings}
           selectedStar={props.onChangeRatings}
+          fullStarColor={'#ffcc36'}
         />
       </View>
     </Content>

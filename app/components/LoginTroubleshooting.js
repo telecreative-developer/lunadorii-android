@@ -42,11 +42,11 @@ const LoginTroubleshooting = (props) => (
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{borderTopColor: '#979797', borderTopWidth: 1.2, borderBottomColor: '#979797', borderBottomWidth: 1.2, marginHorizontal: 45, alignItems:'center'}}>
+        {/* <View style={{borderTopColor: '#979797', borderTopWidth: 1.2, borderBottomColor: '#979797', borderBottomWidth: 1.2, marginHorizontal: 45, alignItems:'center'}}>
           <TouchableOpacity style={{flexDirection:'row', alignItems: 'center', paddingVertical: convertHeightPercentToDP('5%')}} onPress={props.loginFB}>
             <Icon type="Entypo" name="facebook" style={{color:"#3B5998"}}/><Text style={{color:"#3B5998", paddingLeft: 5}}>Log in With Facebook</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
         {/* <View style={{paddingBottom: 10}}>
           <View style={{borderTopColor: "#979797", borderTopWidth: 1.2, borderBottomColor: "#979797", borderBottomWidth: 1.2}}>
             <View style={styles.informationWrapper1}>
