@@ -3,6 +3,7 @@ import {AsyncStorage, View, Alert, Text, StyleSheet, TouchableOpacity, Image} fr
 import YourCart from '../components/YourCart'
 import OnCart from '../particles/OnCart'
 import ShippingAddress from '../particles/ShippingAddress'
+import CreditCardsInCart from '../particles/CreditCardsInCart'
 import ImageCreditCard from '../assets/images/icon/credit-card.png'
 import ImageBank from '../assets/images/icon/bank.png'
 import { connect } from 'react-redux'
@@ -75,15 +76,15 @@ class YourCartContainer extends Component {
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.props.fetchUserCredit(data.id, data.accessToken)
     await this.props.fetchCartUser(data.id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
     const dataUser = await this.props.usershipping.filter(shp => shp.address_default === true)
     const dataShipping = await dataUser.length && dataUser[0]
-    await console.log('dataShipping',dataShipping, this.props.cartuser.length)
+    const dataCC = await this.props.usercredit.filter(d => d.card_default)
+    const CC = await dataCC.length && dataCC[0]
     if(this.props.cartuser.length && dataShipping ){
       await this.getCourier()
-      console.log('Anjing')
+      await this.getCreditCard()
     }
     await this.setState({stillLoading: false})
     await this.setAddress()
@@ -92,8 +93,15 @@ class YourCartContainer extends Component {
   async getCourier(){
     const dataUser = this.props.usershipping.filter(shp => shp.address_default)
     const data = dataUser.length && dataUser[0]
-    console.log('shipping', data)
     await this.props.fetchCourier(this.totalWeight(),data.province_id)
+  }
+
+  async getCreditCard(){
+    const dataCC = await this.props.usercredit.filter(d => d.card_default)
+    const CC = await dataCC.length && dataCC.map( d => ({card_number: d.card_number, mm: d.mm, yyyy:d.yyyy, card_name: d.card_name}))
+    const session = await AsyncStorage.getItem('session')
+    const dataUser = await JSON.parse(session)
+    await this.props.fetchUserCredit(dataUser.id, dataUser.accessToken)
   }
 
   totalWeight(){
@@ -385,9 +393,6 @@ async checkout(){
  renderShipping(){
   const dataUser = this.props.usershipping.filter(shp => shp.address_default)
   const data = dataUser.length && dataUser[0]
-  const cok = dataUser.length
-  console.log('asem' ,cok)
-  console.log('asemBro' ,data )
   if( data ){
      return (
       <ShippingAddress 
@@ -406,6 +411,30 @@ async checkout(){
     )}
   }
 
+  renderCC(){
+    const dataCC = this.props.usercredit.filter(d => d.card_default)
+    const CC = dataCC.length && dataCC.map( d => ({card_number: d.card_number, mm: d.mm, yyyy:d.yyyy, card_name: d.card_name}))
+    console.log(CC)
+    if( CC ){
+      return(
+          <CreditCardsInCart
+            cardNumberFormated={ CC[0].card_number }
+            cardNumber={ CC[0].card_number }
+            mm={ CC[0].mm }
+            yyyy={ CC[0].yyyy }
+            card_name={ CC[0].card_name }
+            />
+      )
+    }else{
+      return(
+        <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'column',justifyContent: 'space-around', alignItems: 'center'}}>
+          <Text>No CreditCard selected</Text>
+          <Text>pick one</Text>
+        </View>
+      )
+    }
+  }
+
   closeModal(){
     this.props.navigation.navigate("HomeContainer")
     this.setState({modalVisibleCheckoutPayment: false})
@@ -413,9 +442,9 @@ async checkout(){
 
 render() {
   const courier = this.props.receiveCourier
-  const dataCC = this.props.usercredit.filter(d => d.card_default === true)
-  const CC = dataCC.length && dataCC.map( d => ({card_number: d.card_number, mm: d.mm, yyyy:d.yyyy, card_name: d.card_name}))
   const  dataCheckout = this.props.receiveCheckout
+  
+  // <----- FETCH BANK PERMATA RESPONSE ----->
   const gross_amount = dataCheckout.midtrans_response && dataCheckout.midtrans_response.gross_amount
   const payment_type = dataCheckout.midtrans_response && dataCheckout.midtrans_response.payment_type
   const permata_va_number = dataCheckout.midtrans_response && dataCheckout.midtrans_response.permata_va_number
@@ -424,21 +453,23 @@ render() {
   const transaction_id = dataCheckout.midtrans_response && dataCheckout.midtrans_response.transaction_id
   const transaction_time = dataCheckout.midtrans_response && dataCheckout.midtrans_response.transaction_time
   const order_id = dataCheckout.midtrans_response && dataCheckout.midtrans_response.order_id
-
   const checkout = { gross_amount, payment_type, permata_va_number, transaction_status, status_message, transaction_id, order_id, transaction_time}
 
-  console.log('aaaa', dataCheckout)
-  // const checkout = dataCheckout.map( d=> ({permata_va_number: d.permata_va_number, paid_method:d.paid_method, gross_amount:d.gross_amount}))
   return (
     <YourCart 
       navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
-      creditCard={ CC }
+      
+      // <----- FUNCTION FOR CREDIT CARD ----->
+      creditCard={ this.renderCC() }
       onChangeCVV={ (CVV)=> this.setState({CVV})}
       valueCVV={this.state.CVV}
       isCreditcard={this.state.selectedMethod}
-      stillLoading={this.state.stillLoading}
       selectedBank={this.state.selectedMethod === 'credit_card' ? '' : this.state.selectedBank}
       isCC={this.state.selectedMethod === 'credit_card'}
+      renderCC={ this.renderCC() }
+      goToCC={() => this.props.navigation.navigate("CreditCardContainer", {func: this.getCreditCard.bind(this)}) }
+
+      stillLoading={this.state.stillLoading}
       countDown={this.getCountDown(transaction_time)}
       selectedMethod={this.state.selectedMethod}
       selectedCourier={this.state.selectedCourier}

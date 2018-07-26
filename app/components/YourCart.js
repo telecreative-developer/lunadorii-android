@@ -6,7 +6,7 @@ import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
 import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
 import PickDeliverySeriveModal from '../modals/PickDeliveryServiceModal'
-import CreditCards from '../particles/CreditCards'
+import CreditCardsInCart from '../particles/CreditCardsInCart'
 import Validations from '../particles/Validations'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 import PickBankModal from '../modals/PickBankModal'
@@ -106,20 +106,14 @@ const YourCart = (props) => (
                   data={props.paymentMethod}
                   renderItem={props.renderPaymentMethod}
                 />
-              </View>
-              {props.isCreditcard === 'credit_card' ? 
+              </View> 
               <View style={styles.viewBrand}>
                 <Text style={styles.txtLabel}>Your Credit Card</Text>
-                <CreditCards
-                  cardNumberFormated={ props.creditCard[0].card_number }
-                  cardNumber={ props.creditCard[0].card_number }
-                  mm={ props.creditCard[0].mm }
-                  yyyy={ props.creditCard[0].yyyy }
-                  card_name={ props.creditCard[0].card_name }/>
-                  <Input placeholder="CVV" onChangeText={props.onChangeCVV} value={props.valueCVV} placeholderTextColor="#e2e2e2"/>
-              </View>:
-              <View/>
-            }
+                  <TouchableOpacity onPress={props.goToCC}>
+                      {props.renderCC}
+                  </TouchableOpacity>
+                <Input placeholder="CVV" onChangeText={props.onChangeCVV} value={props.valueCVV} placeholderTextColor="#e2e2e2"/>
+              </View>
             </View>
           </View>
           <View style={styles.border}>

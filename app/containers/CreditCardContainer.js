@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, ToastAndroid, Alert } from 'react-native'
+import { AsyncStorage, ToastAndroid, Alert, BackHandler } from 'react-native'
 import { connect } from 'react-redux'
 
 import CreditCard from '../components/CreditCard'
@@ -30,10 +30,15 @@ class CreditCardContainer extends Component {
   }
 
   async componentDidMount(){
+    await BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchUserCredit(data.id, data.accessToken)
     await this.setState({stillLoading: false})
+  }
+
+  componentWillUnmount() {
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
   }
 
   cardNumberFormatter(value){
@@ -194,12 +199,23 @@ class CreditCardContainer extends Component {
     ToastAndroid.showWithGravity("Removed", ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
 
+  handleBackPress = () => {
+    this.handleGoBack(); // works best when the goBack is async
+    return true;
+  }
+
+  handleGoBack(){
+    const {navigation} = this.props
+    navigation.state.params.func()
+    navigation.goBack()
+  }
+
   render() {
     console.log(this.props.usercredit)
     return (
       <CreditCard
         stillLoading={this.state.stillLoading}
-        goback={() => this.props.navigation.goBack()}
+        goback={() => this.handleBackPress()}
         buttonSave={this.state.buttonSave}
         stillLoading={this.state.stillLoading}
         isEmpty={this.state.isEmpty}
