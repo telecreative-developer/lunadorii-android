@@ -2,8 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, StatusBar, Dimensions, Text } from 'react-native'
 import { Container, Content, View, Button } from 'native-base'
 import Navbar from '../particles/Navbar'
-import InternetConnectionProblem from '../particles/InternetConnectionProblem'
-import LoginRequiredModal from '../modals/LoginRequiredModal'
+import CreditCardPaymentModal from '../modals/CreditCardPaymentModal'
 const { height, width } = Dimensions.get('window')
 
 const ScreenTest = (props) => (
@@ -16,10 +15,10 @@ const ScreenTest = (props) => (
       backgroundColor="#d11e48"
       barStyle="light-content"
     />
-    <LoginRequiredModal
-      toggleModal={props.toggleVisbleLoginRequiredModal}
-      modalVisible={props.loginRequiredModalVisible}
-      iconClose={props.toggleVisbleLoginRequiredModal}
+    <CreditCardPaymentModal
+      toggleModal={props.toggleVisiblePaymentCCModal}
+      modalVisible={props.paymentCCModalVisible}
+      total={'100,000'}
     />
     <Content contentContainerStyle={styles.container}>
       <Button full style={{
@@ -27,7 +26,7 @@ const ScreenTest = (props) => (
         height: 60,
         borderRadius: 10, 
         backgroundColor: '#d11e48'
-      }} onPress={props.toggleVisbleLoginRequiredModal}>
+      }} onPress={props.toggleVisiblePaymentCCModal}>
         <Text style={{
           color: '#fff', 
           fontSize: 18,
