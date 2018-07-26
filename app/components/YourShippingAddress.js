@@ -3,6 +3,7 @@ import { StyleSheet, TouchableOpacity, FlatList, StatusBar, Dimensions, Text } f
 import { Container, Content, View, Button, Icon, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
 import Validations from '../particles/Validations'
+import LoadingModal from '../modals/LoadingModal'
 // import UnderDevelopment from '../particles/UnderDevelopment'
 import ImageShippingAddress from '../assets/images/icon/shipping-address.png'
 import EditAddressModal from '../modals/EditAddressModal'
@@ -11,6 +12,9 @@ const { height, width } = Dimensions.get('window')
 
 const YourShippingAddress = (props) => (
   <Container style={styles.container}>
+    <LoadingModal 
+      modalVisibleLoading={props.setDefaultLoading}
+    />
     <Navbar
       navbarTitle="Shipping Address"
       navbarIcon="arrow-back"
@@ -135,6 +139,11 @@ const YourShippingAddress = (props) => (
           <View>
             <View style={{paddingHorizontal: 10}}>
               <Text style={styles.txtShippingAddress}>Your Shipping Address</Text>
+              <FlatList
+                data={props.dataShippingAddressDefault}
+                renderItem={props.renderShippingAddress}
+                keyExtractor={(item, index) => JSON.stringify(index)}
+              />
               <FlatList
                 data={props.dataShippingAddress}
                 renderItem={props.renderShippingAddress}

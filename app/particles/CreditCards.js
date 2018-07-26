@@ -6,10 +6,10 @@ const RegexMasterCard = /^(5[1-5]\d{4}|677189)\d{10}$/
 
 const CreditCards = (props) => (
   <View style={{
-    borderRadius:1,
+    borderRadius:1.5,
     borderColor: props.card_default ? '#d11e48' : '#E2E2E2',
     borderWidth:1,
-    marginBottom:5
+    marginBottom: props.card_default ? 15 : 5
   }}>
     <View style={styles.contentCard}>
       <View style={styles.viewFlex3}>

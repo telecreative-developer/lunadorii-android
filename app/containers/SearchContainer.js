@@ -52,7 +52,7 @@ class SearchContainer extends Component {
 
   goodBye(index, array){
     var index = array.indexOf(index);
-    if (index > -1) {
+    if (index >= -1) {
       array.splice(index, 1);
       return(array)
     }
@@ -157,17 +157,17 @@ class SearchContainer extends Component {
             backgroundColor: '#d11e48'
           }}>
             <Text style={{color: '#fff',padding: 5}}>{item}</Text>
-            {/* <TouchableOpacity onPress={() => this.removeSelectedCategory(item)}>
+            <TouchableOpacity onPress={() => this.removeSelectedCategory(item)}>
               <EvilIcons name="close" style={{
                 fontSize: 12,
                 padding: 5,
                 color:'#fff'
               }} />
-            </TouchableOpacity> */}
+            </TouchableOpacity>
           </Button>
         )}
 
-        dataButtonCategory1st={this.props.categoryproduct}
+        dataButtonCategory1st={this.props.categoryproduct.filter(item => !this.state.selectedCategory.includes(item.subcategory))}
         buttonCategory1st={({item}) => (
           <Button bordered danger style={{
             height: 30,
@@ -186,11 +186,13 @@ class SearchContainer extends Component {
           </Button>
         )}
         
-        dataButtonBrands={this.props.brandsproduct}
+        clearBrand={() => this.setState({selectedBrand: ''})}
+        selectedBrand={this.state.selectedBrand}
+        dataButtonBrands={this.props.brandsproduct.filter(item => item.brand !== this.state.selectedBrand)}
         buttonBrads={({item}) => (
           <View style={{
             borderWidth: 1, 
-            borderColor: this.state.selectedBrand === item.brand ? '#e2e2e2' : '#d11e48', 
+            borderColor: this.state.selectedBrand === item.brand ? '#d11e48' : '#e2e2e2', 
             width: 150,
             margin: 5
           }}>
