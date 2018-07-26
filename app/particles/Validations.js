@@ -15,9 +15,9 @@ const Validations = (props) => (
       justifyContent: 'center',
       alignContent: 'center',
     }}>
-    {props.showIcon ? (
+    {props.showIcon || props.showImportedImage ? (
       <View>
-        <Image source={{uri: props.icon}} style={styles.imageCategories} />
+        <Image source={props.showImportedImage ? props.image : {uri: props.icon}} style={styles.imageCategories} />
       </View>
     ) : (
       <View style={{width: 30,height: 30}}/>
@@ -52,11 +52,10 @@ const styles = StyleSheet.create({
   },
 
   imageCategories: {
-    width: 30,
-    height: 30,
+    width: 50,
+    height: 50,
     alignSelf: 'center',
     justifyContent: 'center',
-    // marginTop: 10,
     resizeMode: 'contain'
   }
 })

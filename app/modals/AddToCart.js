@@ -27,8 +27,8 @@ const AddToCart = (props) => (
           <Button style={{borderRadius: 30, height: 50, width: 50, backgroundColor: '#ccc', alignItems: 'center', justifyContent: 'center'}} disabled={props.quantityValue == 0} onPress={props.decreaseQty}>
             <Text style={{fontSize: 24, color:'fff'}}>-</Text>
           </Button>
-          <View style={{borderRadius: 5, borderColor: '#e2e2e2', width: convertWidthPercentToDP('45%'), height:50, backgroundColor: '#f6f6f6', alignItems: 'center'}}>
-            <Text style={{fontSize: 24}}>{props.quantityValue}</Text>
+          <View style={{borderRadius: 5, borderColor: '#e2e2e2', width: convertWidthPercentToDP('45%'), height:50, backgroundColor: '#f6f6f6', alignItems: 'center', justifyContent: 'center'}}>
+            <Text style={{fontSize: 24, justifyContent: 'center'}}>{props.quantityValue}</Text>
           </View>
           <Button style={{borderRadius: 30, height: 50, width: 50, backgroundColor: '#ccc', alignItems: 'center', justifyContent: 'center'}} disabled={props.quantityValue == 100} onPress={props.increaseQty}>
             <Text style={{fontSize: 24, color:'fff'}}>+</Text>

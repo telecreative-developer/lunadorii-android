@@ -6,10 +6,11 @@ import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
 import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
 import PickDeliverySeriveModal from '../modals/PickDeliveryServiceModal'
-import CreditCardsInCart from '../particles/CreditCardsInCart'
+import Ionicons from 'react-native-vector-icons/Ionicons'
 import Validations from '../particles/Validations'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 import PickBankModal from '../modals/PickBankModal'
+import ShopingCart from '../assets/images/icon/shopping-cart.png'
 const { height, width } = Dimensions.get('window')
 
 const YourCart = (props) => (
@@ -114,7 +115,21 @@ const YourCart = (props) => (
                   <TouchableOpacity onPress={props.goToCC}>
                       {props.renderCC}
                   </TouchableOpacity>
-                <Input placeholder="CVV" onChangeText={props.onChangeCVV} value={props.valueCVV} placeholderTextColor="#e2e2e2"/>
+                <Label style={{
+                  fontSize: 16,
+                  fontFamily: 'Avenir Next',
+                  fontWeight: 'bold',
+                  paddingVertical: 10
+                }}>CVV</Label>
+                <Item regular style={{
+                  marginBottom: 10,
+                  borderRadius: 5,
+                  height: 40,
+                  borderColor: props.valueCVV ? '#ccc' : '#c0392b'
+                }}>
+                  <Input placeholder="CVV" onChangeText={props.onChangeCVV} value={props.valueCVV} placeholderTextColor="#e2e2e2" maxLength={3}/>
+                  <Ionicons name={props.valueCVV ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+                </Item>
               </View>:
               <View/>
               }
@@ -157,6 +172,8 @@ const YourCart = (props) => (
         </Content>
       ) : (
         <Validations
+          showImportedImage={true}
+          image={ShopingCart}
           title={"Nothing to pay here"}
           message1={"Add to cart some product"}
           message2={"to fill your cart"}
@@ -383,6 +400,7 @@ const styles = StyleSheet.create({
     paddingLeft: 20
   },
   txtLabel: {
+    paddingVertical: 10,
     fontSize: 16,
     fontWeight: 'bold'
   },

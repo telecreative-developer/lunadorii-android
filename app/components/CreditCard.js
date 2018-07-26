@@ -4,6 +4,7 @@ import { Container, Content, Text, View, Button, Icon, Spinner } from 'native-ba
 import Navbar from '../particles/Navbar'
 import EditCreditCardModal from '../modals/EditCreditCardModal'
 import AddCreditCardModal from '../modals/AddCreditCardModal'
+import ImageCreditCard from '../assets/images/icon/credit-card.png'
 import Validations from '../particles/Validations'
 const { height, width } = Dimensions.get('window')
 
@@ -87,7 +88,9 @@ const CreditCard = (props) => (
         </View>
       </Content>:
       <Validations 
-        title="No Credit Card" 
+        showImportedImage={true}
+        image={ImageCreditCard}
+        title="No Credit Card"
         message1="Please set your credit card" 
         message2="credential to shop with credit card" 
         buttonText="Add Credit Card"

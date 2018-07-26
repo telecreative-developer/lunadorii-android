@@ -4,6 +4,7 @@ import { Container, Content, View, Button, Icon, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
 import Validations from '../particles/Validations'
 // import UnderDevelopment from '../particles/UnderDevelopment'
+import ImageShippingAddress from '../assets/images/icon/shipping-address.png'
 import EditAddressModal from '../modals/EditAddressModal'
 import AddAddressModal from '../modals/AddAddressModal'
 import CreditCardPaymentModal from '../modals/CreditCardPaymentModal'
@@ -25,6 +26,9 @@ const YourShippingAddress = (props) => (
       modalVisible={props.modalVisibleAddAddress}
       actionIcon={props.toggleModalAddAddress} 
       loading={props.loading}
+
+      province_id={props.province_id}
+      city_id={props.city_id}
 
       nameValue={props.nameValue}
       onChangeName={props.onChangeName}
@@ -69,6 +73,9 @@ const YourShippingAddress = (props) => (
       modalVisible={props.modalVisibleEditAddress}
       actionIcon={props.toggleModalEditAddress} 
       loading={props.loading}
+
+      province_id={props.province_id}
+      city_id={props.city_id}
 
       nameValue={props.nameValue}
       onChangeName={props.onChangeName}
@@ -122,6 +129,8 @@ const YourShippingAddress = (props) => (
       <Content style={styles.container}>
         {props.dataShippingAddress <= 0 ? 
           <Validations 
+            showImportedImage={true}
+            image={ImageShippingAddress}
             title={"Shipping address is empty"} 
             message1={"You don't set shipping address"} 
             message2={"press button bellow to add one"}
