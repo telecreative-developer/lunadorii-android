@@ -51,7 +51,8 @@ class YourCartContainer extends Component {
       detail_address:'',
       selectedBank: '',
       checkout:[],
-      countDown: ''
+      countDown: '',
+      email:''
     }
   }
 
@@ -76,6 +77,7 @@ class YourCartContainer extends Component {
   async componentDidMount(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    await this.setState({email:data.email})
     await this.props.fetchCartUser(data.id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
     const dataUser = await this.props.usershipping.filter(shp => shp.address_default === true)
@@ -357,7 +359,8 @@ async checkout(){
   }
   if(this.state.selectedMethod == 'bank_transfer'){
     await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, id, city_id, province_id, data:dataProduct, user:{first_name, last_name, email}, payment_detail}, data.accessToken)
-	}else{
+    await this.toggleCheckoutPayment()
+  }else{
     await Alert.alert(
       'Information',
       'Are you sure to Use Credit Card ?',
@@ -365,51 +368,65 @@ async checkout(){
         { text: 'No', onPress: () => {}, style: 'cancel' },
         {
           text: 'Yes',
-          onPress: () => this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, id, city_id, province_id, data:dataProduct, user:{first_name, last_name, email}, payment_detail}, data.accessToken)        
+          onPress: () => this.checkoutCC()
         }
       ],
       { cancelable: false }
     )
-	}
-  if(this.state.selectedMethod === 'credit_card'){
-    if(this.props.receiveCheckout.status == 202){
-      await Alert.alert('CVV is Invalid')
-      await console.log('202')
-     }else if( this.props.receiveCheckout.status == 400){
-      await Alert.alert('Your Credit Card is Invalid')
-      await console.log('400')
-     }else{
-       await this.toggleCheckoutPayment()
+	  }
+  }
+
+  async checkoutCC(){
+    const creditCard = this.props.usercredit.filter(d => d.card_default === true)
+    const dataCC = creditCard.length && creditCard.map(d => ({card_number: d.card_number, card_exp_month: d.mm.toString(), card_exp_year:d.yyyy.toString(), card_cvv:this.state.CVV.toString() }))
+    const detailCC = dataCC.length && dataCC[0]
+		payment_detail = detailCC
+    const service = await this.state.selectedCourier.service
+    const delivery_price = await this.state.selectedCourier.cost[0].value
+    const { selectedMethod, province_id, city_id, detail_address, CVV} = await this.state
+    const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage}))
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    const { id, first_name, last_name, email} = data
+    await this.props.postCheckout( {service, delivery_price, selectedMethod, detail_address, id, city_id, province_id, data:dataProduct, user:{first_name, last_name, email}, payment_detail}, data.accessToken)        
+    if(this.state.selectedMethod === 'credit_card'){
+      console.log(this.props.receiveCheckout)
+      if(this.props.receiveCheckout.status == 202){
+        await Alert.alert('CVV is Invalid')
+        await console.log('202')
+       }else if( this.props.receiveCheckout.status == 400){
+        await Alert.alert('Your Credit Card is Invalid')
+        await console.log('400')
+       }else{
+         await this.toggleCheckoutPayment()
+       }
      }
-   }
-   await this.toggleCheckoutPayment()
   }
 
-
- setCourier(){
-  const service = this.state.selectedCourier[0].service
- }
-
- renderShipping(){
-  const dataUser = this.props.usershipping.filter(shp => shp.address_default)
-  const data = dataUser.length && dataUser[0]
-  if( data ){
-     return (
-      <ShippingAddress 
-        name={data.recepient}
-        numberPhone={data.phone}
-        detail_address={data.detail_address}
-        address_default={data.address_default}
-      />
-     )
-  }else{
-    return(
-      <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'column',justifyContent: 'space-around', alignItems: 'center'}}>
-        <Text>No Shipping Address selected</Text>
-        <Text>pick one</Text>
-      </View>
-    )}
+  setCourier(){
+    const service = this.state.selectedCourier[0].service
   }
+
+  renderShipping(){
+    const dataUser = this.props.usershipping.filter(shp => shp.address_default)
+    const data = dataUser.length && dataUser[0]
+    if( data ){
+      return (
+        <ShippingAddress 
+          name={data.recepient}
+          numberPhone={data.phone}
+          detail_address={data.detail_address}
+          address_default={data.address_default}
+        />
+      )
+    }else{
+      return(
+        <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'column',justifyContent: 'space-around', alignItems: 'center'}}>
+          <Text>No Shipping Address selected</Text>
+          <Text>pick one</Text>
+        </View>
+      )}
+    }
 
   renderCC(){
     const dataCC = this.props.usercredit.filter(d => d.card_default)
@@ -440,6 +457,12 @@ async checkout(){
     this.setState({modalVisibleCheckoutPayment: false})
   }
 
+  async getUser(){
+    const session = await AsyncStorage.getItem('session')
+    const data = await JSON.parse(session)
+    return data
+  }
+
 render() {
   const courier = this.props.receiveCourier
   const  dataCheckout = this.props.receiveCheckout
@@ -453,7 +476,8 @@ render() {
   const transaction_id = dataCheckout.midtrans_response && dataCheckout.midtrans_response.transaction_id
   const transaction_time = dataCheckout.midtrans_response && dataCheckout.midtrans_response.transaction_time
   const order_id = dataCheckout.midtrans_response && dataCheckout.midtrans_response.order_id
-  const checkout = { gross_amount, payment_type, permata_va_number, transaction_status, status_message, transaction_id, order_id, transaction_time}
+  const email = this.state.email
+  const checkout = { gross_amount, payment_type, permata_va_number, transaction_status, status_message, transaction_id, order_id, transaction_time, email}
 
   return (
     <YourCart 
