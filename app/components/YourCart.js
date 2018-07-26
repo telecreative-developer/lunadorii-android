@@ -58,6 +58,7 @@ const YourCart = (props) => (
       selectedMethod={props.selectedMethod}
       checkout={props.checkout}
       totalPrice={props.totalPrice}
+      goHome={props.navigateToHome}
       
       isCC={props.isCC}
       paymentGuide1Visible={props.paymentGuide1Visible}

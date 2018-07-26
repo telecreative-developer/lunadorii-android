@@ -21,8 +21,6 @@ const WaitingForPaymentModal = (props) => (
     onRequestClose={props.closeModal}>
     <NavbarModal
       navbarTitle={props.navbarTitle}
-      navbarIcon={"close"}
-      actionIcon={props.actionIcon}
     />
     <StatusBar
       backgroundColor="#d11e48"
@@ -30,15 +28,19 @@ const WaitingForPaymentModal = (props) => (
     />
     <Content style={styles.container}>
       <View style={styles.paymentInformation1}>
-        <Image source={image} style={styles.imageFrame} />
-        <Text style={styles.textInfo1}>Waiting for payment</Text>
-        <View style={styles.textInfo2Wrapper}>
-          <Text style={styles.textInfo2Content}>Your order number </Text><Text style={styles.textInfo2Code}>{ props.checkout.order_id }</Text>
-        </View>
+        {props.selectedMethod === 'bank_transfer' ? 
+          <View>
+            <Image source={image} style={styles.imageFrame} />
+            <Text style={styles.textInfo1}>Waiting for payment</Text>
+            <View style={styles.textInfo2Wrapper}>
+              <Text style={styles.textInfo2Content}>Your order number </Text><Text style={styles.textInfo2Code}>{ props.checkout.order_id }</Text>
+            </View>
+          </View>:
+          <View/>
+        }
       </View>
       <View style={styles.paymentInformation2}>
         <View style={styles.paymentInformation2Wrapper}>
-          <Text style={styles.paymentInformation2title}>Payment code will end in</Text>
           <View style={{paddingTop: 10}}>
             {
             props.selectedMethod === 'credit_card' ? 
@@ -46,6 +48,8 @@ const WaitingForPaymentModal = (props) => (
                 <Text style={{fontSize: 24}}>Thank You</Text>
               </View>
             :
+            <View>
+              <Text style={styles.paymentInformation2title}>Payment code will end in</Text>
               <CountDown
                 until={props.countDown}
                 onFinish={() => alert('finished')}
@@ -54,10 +58,16 @@ const WaitingForPaymentModal = (props) => (
                 digitBgColor={'#f6f6f6'}
                 timeToShow={['H','M','S']}
               />
+            </View>
             }
           </View>
-          <Text style={styles.paymentInformation2warning1}>Please pay your bill before</Text>
-          <Text style={styles.paymentInformation2warning2}>{moment(props.checkout.transaction_time).add(10, 'hours').calendar()}</Text>
+          {props.selectedMethod === 'bank_transfer' ? 
+            <View>
+              <Text style={styles.paymentInformation2warning1}>Please pay your bill before</Text>
+              <Text style={styles.paymentInformation2warning2}>{new Date(props.checkout.transaction_time).getTime() + 12 * 3600 * 1000}</Text>
+            </View>:
+            <View/>
+          }
         </View>
         <View style={styles.Card}>
           <View style={styles.contentCard}>
@@ -85,18 +95,11 @@ const WaitingForPaymentModal = (props) => (
         </View>
         {props.isCC ? (
           <View style={{padding: 10}}>
-            <Button full style={{
-              height: 45,
-              width: 200,
-              borderRadius: 5,
-              backgroundColor: '#d11e48',
-              alignSelf: 'center'
-            }}>
+            
               <Text style={{
-                color: '#fff', 
+                color: '#e2e2e2', 
                 fontSize: 18 
-              }}>Pay With Credit Card</Text>
-            </Button>
+              }}>Pay With Credit Card SUCCESS</Text>
           </View>
         ) : (
           <View/>
@@ -156,7 +159,7 @@ const WaitingForPaymentModal = (props) => (
         </View>
         <View style={styles.wrapLeft}>
           <Text style={styles.paymentCardInformationTitle}>
-            We have sent email information to <Text style={styles.boldFont}>muhammadfuaditrockz@gmail.com</Text> with detail orders.
+            We have sent email information to <Text style={styles.boldFont}>{props.checkout.email}</Text> with detail orders.
           </Text>
         </View>
       </View>
@@ -171,7 +174,7 @@ const WaitingForPaymentModal = (props) => (
         </View>
       </View>
     </Content>
-    <Button full style={styles.btnSend} onPress={() => this.props.navigation.navigate("HomeContainer")}>
+    <Button full style={styles.btnSend} onPress={props.goHome}>
       <Text style={styles.txtBtnSend}>Back to Home</Text>
     </Button>
   </Modal>
