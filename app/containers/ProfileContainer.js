@@ -207,7 +207,7 @@ class ProfileContainer extends Component {
         navigateToHome={() => this.props.navigation.navigate("HomeContainer")}
         navigateToPurchaseHistory={() => this.props.navigation.navigate("PurchaseHistoryContainer")}
         navigateToWhishlist={() => this.props.navigation.navigate("WishlistContainer")}
-        navigateToCreditCard={() => this.props.navigation.navigate("CreditCardContainer")}
+        navigateToCreditCard={() => this.props.navigation.navigate("CreditCardContainer", {func: this.uselessFunc.bind(this)})}
         navigateToReviews={() => this.props.navigation.navigate("ReviewsContainer")}
         navigateToShippingAddress={() => this.props.navigation.navigate("YourShippingAddressContainer", {func: this.uselessFunc.bind(this)})}
         navigateToReports={() => this.props.navigation.navigate("ReportsContainer", {first_name: this.state.first_name, last_name: this.state.last_name, email: this.state.email})}

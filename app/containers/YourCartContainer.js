@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {AsyncStorage, View, Alert, Text, StyleSheet, TouchableOpacity, Image} from 'react-native'
 import YourCart from '../components/YourCart'
 import OnCart from '../particles/OnCart'
+import moment from 'moment'
 import ShippingAddress from '../particles/ShippingAddress'
 import CreditCardsInCart from '../particles/CreditCardsInCart'
 import ImageCreditCard from '../assets/images/icon/credit-card.png'
@@ -52,7 +53,8 @@ class YourCartContainer extends Component {
       selectedBank: '',
       checkout:[],
       countDown: '',
-      email:''
+      email:'',
+      modalPayCC:false
     }
   }
 
@@ -282,7 +284,7 @@ class YourCartContainer extends Component {
   // }
 
   getCountDown(mdDate){
-    const mdTime = new Date(mdDate).getTime() + 12 * 3600 * 1000
+    const mdTime = moment(mdDate).add(12, 'hours')
     const now = new Date().getTime()
     const distance = mdTime - now
     const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
@@ -296,6 +298,7 @@ class YourCartContainer extends Component {
       const a = hms.split(':')
       return (+a[0]) * 60 * 60 + (+a[1]) * 60 + (+a[2])
     }
+    
   }
 
   // async deteleShipping(item){
@@ -398,7 +401,7 @@ async checkout(){
         await Alert.alert('Your Credit Card is Invalid')
         await console.log('400')
        }else{
-         await this.toggleCheckoutPayment()
+         await this.setState({modalPayCC:true})
        }
      }
   }
@@ -461,6 +464,11 @@ async checkout(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     return data
+  }
+
+  async ModalPayCC(){
+    await this.setState({modalPayCC:false})
+    await this.props.navigation.navigate("HomeContainer")
   }
 
 render() {
@@ -588,6 +596,8 @@ render() {
       goback={() => this.props.navigation.goBack()}
       closeModal={() => this.closeModal()}
       checkout={ checkout }
+      toggleModal={ () => this.ModalPayCC() }
+      modalVisible={ this.state.modalPayCC}
       />
     );
   }

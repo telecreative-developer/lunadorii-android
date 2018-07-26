@@ -26,10 +26,10 @@ const ChangeEmailModal = (props) => (
           marginBottom: 10,
           borderRadius: 5,
           height: 40,
-          borderColor:  props.newEmail ? '#ccc' : '#c0392b'
+          borderColor:  props.newEmail.length == 0 ? '#c0392b' : '#ccc'
         }}>
           <Input placeholder='Enter New Email' placeholderTextColor="#ccc" onChangeText={props.onChangeNewEmail} />
-          <Ionicons name={props.newEmail ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Ionicons name={props.newEmail.length == 0 ? 'ios-alert-outline' : '' } size={18} style={{padding: 10}}/>
         </Item>
         <Text style={styles.txtLabel}>Confirm Email</Text>
         <Item regular style={{
@@ -39,7 +39,7 @@ const ChangeEmailModal = (props) => (
           borderColor:  props.confirmEmail ? '#ccc' : '#c0392b'
         }}>
           <Input placeholder='Enter New Email' placeholderTextColor="#ccc" onChangeText={props.onChangeConfirmEmail} />
-          <Ionicons name={props.confirmEmail ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Ionicons name={props.confirmEmail ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
       </View>
     </Content>

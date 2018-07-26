@@ -4,6 +4,8 @@ import { Container, Content, View, Button, Icon, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
 import Validations from '../particles/Validations'
 import LoadingModal from '../modals/LoadingModal'
+// import UnderDevelopment from '../particles/UnderDevelopment'
+import ImageShippingAddress from '../assets/images/icon/shipping-address.png'
 import EditAddressModal from '../modals/EditAddressModal'
 import AddAddressModal from '../modals/AddAddressModal'
 const { height, width } = Dimensions.get('window')
@@ -17,13 +19,15 @@ const YourShippingAddress = (props) => (
       navbarTitle="Shipping Address"
       navbarIcon="arrow-back"
       actionIcon={props.goback} />
-    
     <AddAddressModal
       navbarTitle="Add Addresss"
       navbarIcon="close"
       modalVisible={props.modalVisibleAddAddress}
       actionIcon={props.toggleModalAddAddress} 
       loading={props.loading}
+
+      province_id={props.province_id}
+      city_id={props.city_id}
 
       nameValue={props.nameValue}
       onChangeName={props.onChangeName}
@@ -69,6 +73,9 @@ const YourShippingAddress = (props) => (
       actionIcon={props.toggleModalEditAddress} 
       loading={props.loading}
 
+      province_id={props.province_id}
+      city_id={props.city_id}
+
       nameValue={props.nameValue}
       onChangeName={props.onChangeName}
 
@@ -111,29 +118,6 @@ const YourShippingAddress = (props) => (
       backgroundColor="#d11e48"
       barStyle="light-content"
     />
-    {console.log('panjang data :', props.dataShippingAddress.length)}
-    {console.log('is data :', props.dataShippingAddress)}
-    {/* {props.stillLoading ? (
-      <Content contentContainerStyle={{justifyContent: 'center', alignItems:'center', flex: 1}}>
-        <View stryle={styles.style}>
-          <Spinner color="#d11e48"/>
-        </View>
-      </Content>
-    ) : (
-      <Content style={styles.container}>
-        <View style={{paddingHorizontal: 10}}>
-          <Text style={styles.txtShippingAddress}>Your Shipping Address</Text>
-          <FlatList
-            data={props.dataShippingAddress}
-            renderItem={props.renderShippingAddress}
-            keyExtractor={(item, index) => JSON.stringify(index)}
-          />
-        </View>
-        <Button style={styles.btnAddAddress} onPress={props.toggleModalAddAddress}>
-          <Icon name="add" /><Text style={styles.txtAddAddress}>Add Another Address</Text>
-        </Button>
-      </Content>
-    )} */}
 
     {props.stillLoading ? 
       <Content contentContainerStyle={{justifyContent: 'center', alignItems:'center', flex: 1}}>
@@ -144,6 +128,8 @@ const YourShippingAddress = (props) => (
       <Content style={styles.container}>
         {props.dataShippingAddress <= 0 ? 
           <Validations 
+            showImportedImage={true}
+            image={ImageShippingAddress}
             title={"Shipping address is empty"} 
             message1={"You don't set shipping address"} 
             message2={"press button bellow to add one"}

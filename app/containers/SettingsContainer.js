@@ -32,7 +32,7 @@ class SettingsContainer extends Component {
     console.log(data)
     await this.setState({
       userData: data,
-      newEmail: data.email
+      newEmail: ''
     })
   }
 
@@ -103,7 +103,6 @@ class SettingsContainer extends Component {
     console.log(this.state.userData)
     return (
       <Settings
-        userEmail={this.state.newEmail}
         email={this.state.changedEmail !== '' ? this.state.changedEmail : this.state.userData.email}
         modalVisibleChangePassword={this.state.modalVisibleChangePassword}
         toggleModalChangePassword={() => this.toggleModalChangePassword()}
@@ -117,10 +116,10 @@ class SettingsContainer extends Component {
         modalVisibleNotifications={this.state.modalVisibleNotifications}
         toggleModalNotifications={() => this.toggleModalNotifications()}
 
-        onChangeNewEmail={(newEmail) => this.setState({newEmail})}
         onChangeConfirmEmail={(confirmEmail) => this.setState({confirmEmail})}
-        newEmail={this.state.newEmail}
+        onChangeNewEmail={(newEmail) => this.setState({newEmail})}
         confirmEmail={this.state.confirmEmail}
+        newEmail={this.state.newEmail}
         handleChangeEmail={() => this.handleChangeEmail()}
 
         onChangeCurrentPassword={(currentPassword) => this.setState({ currentPassword })}

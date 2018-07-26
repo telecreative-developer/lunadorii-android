@@ -22,7 +22,20 @@ class DetailsTransactionContainer extends Component{
     const dataUser = await JSON.parse(session)
     const data = await this.props.navigation.state.params.data
     await this.props.fetchSingleProductHistory( data.order_id, dataUser.accessToken )
+    await this.responseBankPermata()
     await this.setState({stillLoading: false})
+  }
+
+  responseBankPermata(){
+    const midtransResponse = this.props.receiveSingleProductHistory.midtrans_response
+    const fraud_status = midtransResponse && midtransResponse.fraud_status
+    const gross_amount = midtransResponse && midtransResponse.gross_amount
+    const payment_type = midtransResponse && midtransResponse.payment_type
+    const permata_va_number = midtransResponse && midtransResponse.permata_va_number
+    const transaction_status = midtransResponse && midtransResponse.transaction_status
+    const transaction_time = midtransResponse && midtransResponse.transaction_time
+    const dataPermata = { fraud_status, gross_amount, payment_type, permata_va_number, transaction_status, transaction_time}
+    return dataPermata
   }
 
   capitalize(string) {
@@ -34,6 +47,7 @@ class DetailsTransactionContainer extends Component{
   }
 
   render(){
+    console.log(this.responseBankPermata())
     console.log(this.props.receiveSingleProductHistory)
     const data = this.props.receiveSingleProductHistory
     return(

@@ -28,6 +28,8 @@ class YourShippingAddressContainer extends Component{
       province: '',
       province_id:'',
       city: '',
+      city_with_type: '',
+      city_id: '',
       postal_code: 0,
       numberPhone: '',
       address_id:'',
@@ -191,12 +193,13 @@ class YourShippingAddressContainer extends Component{
       cities: this.props.receiveProvince.filter(p => p.province === this.state.province).map(m => m.cities)})
   }
 
-  async handleCity(city,city_id, postal_code){
+  async handleCity(city,city_id, postal_code, city_with_type){
     await this.setState({
       city_id: city_id,
       city:city, 
       visibleCityPicker: false,
-      postal_code: postal_code
+      postal_code: postal_code,
+      city_with_type
     })
   }
 
@@ -212,12 +215,17 @@ class YourShippingAddressContainer extends Component{
   }
 
   render(){
+    console.log('city ', this.state.cities[0])
     return(
       <YourShippingAddress
         stillLoading={this.state.stillLoading}
         setDefaultLoading={this.state.setDefaultLoading}
         loading={this.state.loading}
         goback={() => this.handleBackPress()}
+        
+        province_id={this.state.province_id}
+        city_id={this.state.city_id}
+
         modalVisibleAddAddress={this.state.modalVisibleAddAddress}
         toggleModalAddAddress={() => this.toggleModalAddAddress()}
 
@@ -234,10 +242,10 @@ class YourShippingAddressContainer extends Component{
         onChangeAddress={(address) => this.setState({address})}
 
         provinceValue={this.state.province}
-        onChangeProvince={(province) => this.setState({province, visibleProvincePicker: true})}
+        onChangeProvince={(province) => this.setState({province, visibleProvincePicker: true, province_id:''})}
 
-        cityValue={this.state.city}
-        onChangeCity={(city) => this.setState({city, visibleCityPicker: true})}
+        cityValue={this.state.city_with_type}
+        onChangeCity={(city_with_type) => this.setState({city_with_type, visibleCityPicker: true, city_id:''})}
         
         regencyValue={this.state.regency}
         onChangeRegency={(regency) => this.setState({regency, visibleRegencyPicker: true})}
@@ -256,7 +264,7 @@ class YourShippingAddressContainer extends Component{
 
         dataCity={this.state.cities[0]}
         renderDataCity={({item}) => (
-          <Picker data={item.city} onSelect={() => this.handleCity(item.city, item.city_id, item.postal_code)}/>
+          <Picker data={item.city_with_type} onSelect={() => this.handleCity(item.city, item.city_id, item.postal_code, item.city_with_type)}/>
         )}
         visibleCityPicker={this.state.visibleCityPicker ? true : false}
 

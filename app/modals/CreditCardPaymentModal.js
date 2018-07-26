@@ -30,7 +30,7 @@ const CreditCardPaymentModal = (props) => (
           <Text style={{fontSize: 20, fontWeight: 'bold', padding: 5}}>Credit Card Payemt</Text>
           <Text style={{fontSize: 18}}>You have pay with Credit Card</Text>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Text style={{fontSize: 18}}>Total </Text><Text style={{fontWeight:'bold', fontSize: 18}}>Rp. {props.total}</Text>
+            <Text style={{fontSize: 18}}>Total </Text><Text style={{fontWeight:'bold', fontSize: 18}}>Rp. {props.totalPrice}</Text>
           </View>
         </View>
       </View>

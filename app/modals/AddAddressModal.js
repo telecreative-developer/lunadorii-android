@@ -31,7 +31,7 @@ const AddAddressModal = (props) => (
           borderColor: props.nameValue ? '#ccc' : '#c0392b'
         }}>
           <Input placeholder={props.nameValue} value={props.nameValue} onChangeText={props.onChangeName}/>
-          <Ionicons name={props.nameValue ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Ionicons name={props.nameValue ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
 
         <Label style={styles.labels}>Label</Label>
@@ -42,7 +42,7 @@ const AddAddressModal = (props) => (
           borderColor: props.labelValue ? '#ccc' : '#c0392b'
         }}>
           <Input placeholder={props.labelValue} value={props.labelValue} onChangeText={props.onChangeLabel}/>
-          <Ionicons name={props.labelValue ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Ionicons name={props.labelValue ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
 
         <Label style={styles.labels}>Address</Label>
@@ -53,7 +53,7 @@ const AddAddressModal = (props) => (
           borderColor: props.addressValue ? '#ccc' : '#c0392b'
         }}>
           <Input placeholder={props.addressValue} value={props.addressValue} onChangeText={props.onChangeAddress}/>
-          <Ionicons name={props.addressValue ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Ionicons name={props.addressValue ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
 
         <Label style={styles.labels}>Province</Label>
@@ -73,10 +73,10 @@ const AddAddressModal = (props) => (
           marginBottom: 10,
           borderRadius: 5,
           height: 40,
-          borderColor: props.provinceValue ? '#ccc' : '#c0392b'
+          borderColor: props.provinceValue && props.province_id ? '#ccc' : '#c0392b'
         }}>
           <Input placeholder={props.addressValue.length == 0 ? "Please fill address first" : props.provinceValue} placeholderTextColor={"#ccc"} value={props.provinceValue} onChangeText={props.onChangeProvince} disabled={props.addressValue.length == 0 ? true : false}/>
-          <Ionicons name={props.provinceValue ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Ionicons name={props.provinceValue && props.province_id? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
 
         <Label style={styles.labels}>City</Label>
@@ -96,10 +96,10 @@ const AddAddressModal = (props) => (
           marginBottom: 10,
           borderRadius: 5,
           height: 40,
-          borderColor: props.cityValue ? '#ccc' : '#c0392b'
+          borderColor: props.cityValue && props.city_id ? '#ccc' : '#c0392b'
         }}>
-          <Input placeholder={props.provinceValue.length == 0 ? "Please pick province first" : props.cityValue} placeholderTextColor={"#ccc"} value={props.cityValue} onChangeText={props.onChangeCity} disabled={props.provinceValue.length == 0 ? true : false}/> 
-          <Ionicons name={props.cityValue ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Input placeholder={props.provinceValue.length == 0 ? "Please pick province first" : props.city_with_type} placeholderTextColor={"#ccc"} value={props.cityValue} onChangeText={props.onChangeCity} disabled={props.provinceValue.length == 0 ? true : false}/> 
+          <Ionicons name={props.cityValue && props.city_id? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
 
         <View style={styles.wrapper}>
@@ -112,7 +112,7 @@ const AddAddressModal = (props) => (
               borderColor: props.numberPhoneValue ? '#ccc' : '#c0392b'
             }}>
               <Input placeholder={props.numberPhoneValue} value={props.numberPhoneValue} onChangeText={props.onChangeNumberPhone} keyboardType={'numeric'} maxLength={13}/>
-              <Ionicons name={props.numberPhoneValue ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+              <Ionicons name={props.numberPhoneValue ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
             </Item>
           </View>
           <View style={styles.flexDirectionCol}>
@@ -125,13 +125,13 @@ const AddAddressModal = (props) => (
             }}>
               {console.log(props.postalcodeValue)}
               <Input value={props.postalcodeValue} onChangeText={props.onChangePostalcode} keyboardType={'numeric'} maxLength={6}/>
-              <Ionicons name={props.postalcodeValue ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+              <Ionicons name={props.postalcodeValue ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
             </Item>
           </View>
         </View>
       </Form>
     </Content>
-    {props.nameValue && props.labelValue && props.addressValue && props.provinceValue && props.cityValue && props.numberPhoneValue && props.postalcodeValue ? (
+    {props.nameValue && props.labelValue && props.addressValue && props.provinceValue && props.cityValue && props.numberPhoneValue && props.postalcodeValue && props.province_id && props.city_id ? (
       <Button full style={styles.buttonSaveStyle} onPress={props.handleSaveAddress} disabled={props.loading} >
         {props.loading ? (
           <View stryle={styles.style}>

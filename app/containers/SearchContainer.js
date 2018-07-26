@@ -22,8 +22,8 @@ class SearchContainer extends Component {
     selectedCategory: [],
     subcategory:[],
     brand:'',
-    maxPrice:0,
-    minPrice:0,
+    maxPrice:'',
+    minPrice:'',
     lastFillter:'',
     selectedBrand: '',
     loading: false,
@@ -230,8 +230,8 @@ class SearchContainer extends Component {
         handleCategory={()=>this.handleCategory()}
         handleBrand={()=>this.handleBrand()}
 
-        maxValue={this.state.maxPrice == 0 ? this.setState({maxPrice: 1}) : this.state.maxPrice}
-        minValue={this.state.minPrice == 0 ? this.setState({minPrice: 1}) : this.state.minPrice}
+        maxValue={this.state.maxPrice}
+        minValue={this.state.minPrice}
 
         handleMinPrice={(minPrice)=>this.setState({minPrice})}
         handleMaxPrice={(maxPrice)=>this.setState({maxPrice})}
