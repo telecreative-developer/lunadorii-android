@@ -64,7 +64,7 @@ const WaitingForPaymentModal = (props) => (
           {props.selectedMethod === 'bank_transfer' ? 
             <View>
               <Text style={styles.paymentInformation2warning1}>Please pay your bill before</Text>
-              <Text style={styles.paymentInformation2warning2}>{new Date(props.checkout.transaction_time).getTime() + 12 * 3600 * 1000}</Text>
+              <Text style={styles.paymentInformation2warning2}>{new Date(props.checkout.transaction_time).getTime()}</Text>
             </View>:
             <View/>
           }

@@ -4,6 +4,7 @@ import { Container, Content, Icon, Button, Input, Label, Item, Spinner  } from '
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Navigation from '../particles/Navbar'
 import EditQuantityModal from '../modals/EditQuantityModal'
+import CreditCardPaymentModal from '../modals/CreditCardPaymentModal'
 import WaitingForPaymentModal from '../modals/WaitingForPaymentModal'
 import PickDeliverySeriveModal from '../modals/PickDeliveryServiceModal'
 import Ionicons from 'react-native-vector-icons/Ionicons'
@@ -20,6 +21,12 @@ const YourCart = (props) => (
        navbarTitle="Your Cart"
        navbarIcon="arrow-back"
        actionIcon={props.goback}
+    />
+    <CreditCardPaymentModal 
+      modalVisible={props.modalVisible}
+      total={props.total}
+      toggleModal={props.toggleModal}
+      totalPrice={props.totalPrice}
     />
     <StatusBar
       backgroundColor="#d11e48"
@@ -70,6 +77,7 @@ const YourCart = (props) => (
       paymentGuide2Visible={props.paymentGuide2Visible}
       togglePaymentGuide2Visible={props.togglePaymentGuide2Visible}
     />
+    
     {props.stillLoading ? (
       <Content contentContainerStyle={{justifyContent: 'center', alignItems:'center', flex: 1}}>
         <View stryle={styles.style}>

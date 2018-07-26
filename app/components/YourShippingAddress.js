@@ -15,8 +15,6 @@ const YourShippingAddress = (props) => (
       navbarTitle="Shipping Address"
       navbarIcon="arrow-back"
       actionIcon={props.goback} />
-    
-    {console.log('Xiii : ',props.city_id)}
     <AddAddressModal
       navbarTitle="Add Addresss"
       navbarIcon="close"
@@ -116,29 +114,6 @@ const YourShippingAddress = (props) => (
       backgroundColor="#d11e48"
       barStyle="light-content"
     />
-    {console.log('panjang data :', props.dataShippingAddress.length)}
-    {console.log('is data :', props.dataShippingAddress)}
-    {/* {props.stillLoading ? (
-      <Content contentContainerStyle={{justifyContent: 'center', alignItems:'center', flex: 1}}>
-        <View stryle={styles.style}>
-          <Spinner color="#d11e48"/>
-        </View>
-      </Content>
-    ) : (
-      <Content style={styles.container}>
-        <View style={{paddingHorizontal: 10}}>
-          <Text style={styles.txtShippingAddress}>Your Shipping Address</Text>
-          <FlatList
-            data={props.dataShippingAddress}
-            renderItem={props.renderShippingAddress}
-            keyExtractor={(item, index) => JSON.stringify(index)}
-          />
-        </View>
-        <Button style={styles.btnAddAddress} onPress={props.toggleModalAddAddress}>
-          <Icon name="add" /><Text style={styles.txtAddAddress}>Add Another Address</Text>
-        </Button>
-      </Content>
-    )} */}
 
     {props.stillLoading ? 
       <Content contentContainerStyle={{justifyContent: 'center', alignItems:'center', flex: 1}}>

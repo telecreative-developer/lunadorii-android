@@ -92,7 +92,7 @@ const DetailsTransaction = (props) => (
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
               <Text style={{fontWeight: 'bold',fontSize: 18}}>Payment Method</Text>
               <Text style={{color: '#ccc'}}>
-                {props.paid_method == 'bank' ? 
+                {props.paid_method == 'bank_transfer' ? 
                   <Text>Bank Transfer</Text> :
                   <Text>Credit Card</Text>
                 }
