@@ -20,7 +20,6 @@ const ChangeEmailModal = (props) => (
       barStyle="light-content"
     />
     <Content style={styles.container}>
-    {/*  */}
       <View style={styles.viewInputPassword}>
         <Text style={styles.txtLabel}>New Email</Text>
         <Item regular style={{
