@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet, StatusBar, Dimensions } from 'react-n
 import { Container, Content, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
 import EditReviewsModal from '../modals/EditReviewsModal'
+import ImageYourReviews from '../assets/images/icon/your-reviews.png'
 import Validations from '../particles/Validations'
 const { height, width } = Dimensions.get('window')
 
@@ -41,6 +42,8 @@ const Reviews = (props) => {
       <Content>
         {props.dataReviews <= 0 ? (
           <Validations 
+            showImportedImage={true}
+            image={ImageYourReviews}
             title={"Your Review is empty"} 
             message1={"Please review your product"} 
             message2={"have purchased"}

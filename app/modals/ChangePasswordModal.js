@@ -29,7 +29,7 @@ const ChangePasswordModal = (props) => (
           borderColor: props.currentPassword ? '#ccc' : '#c0392b'
         }}>
           <Input placeholder='Enter Current Password' secureTextEntry placeholderTextColor="#ccc" onChangeText={props.onChangeCurrentPassword} />
-          <Ionicons name={props.currentPassword ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Ionicons name={props.currentPassword ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
         <Text style={styles.txtLabel}>New Password</Text>
         <Item regular style={{
@@ -39,7 +39,7 @@ const ChangePasswordModal = (props) => (
           borderColor: props.newPassword ? '#ccc' : '#c0392b'
         }}>
           <Input placeholder='Enter New Password' secureTextEntry placeholderTextColor="#ccc" onChangeText={props.onChangeNewPassword} />
-          <Ionicons name={props.newPassword ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Ionicons name={props.newPassword ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
         <Text style={styles.txtLabel}>Confirm Password</Text>
         <Item regular style={{
@@ -49,7 +49,7 @@ const ChangePasswordModal = (props) => (
           borderColor:  props.newConfirmPassword ? '#ccc' : '#c0392b'
         }}>
           <Input placeholder='Confirm New Password' secureTextEntry placeholderTextColor="#ccc" onChangeText={props.onChangeConfirmPassword} />
-          <Ionicons name={props.newConfirmPassword == props.newPassword && props.newConfirmPassword != '' ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Ionicons name={props.newConfirmPassword == props.newPassword && props.newConfirmPassword != '' ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
       </View>
     </Content>

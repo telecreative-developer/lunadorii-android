@@ -92,6 +92,11 @@ const Home = (props) => (
         )}
       </Tab>
       <Tab heading={<TabHeading style={styles.tabHeading}><Text style={styles.txtHeading}>Best Sellers</Text></TabHeading>}>
+        {props.isConnected ? (
+          <View/>
+        ) : (
+          <Reloader reloadAction={props.handleRefresh}/>
+        )}
         {props.stillLoading ? (
           <View stryle={styles.style}>
             <Spinner color="#d11e48"/>

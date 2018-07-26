@@ -27,6 +27,7 @@ class YourShippingAddressContainer extends Component{
       province: '',
       province_id:'',
       city: '',
+      city_id: '',
       postal_code: 0,
       numberPhone: '',
       address_id:'',
@@ -209,11 +210,16 @@ class YourShippingAddressContainer extends Component{
   }
 
   render(){
+    console.log('This is city_id : ',this.state.city_id)
     return(
       <YourShippingAddress
         stillLoading={this.state.stillLoading}
         loading={this.state.loading}
         goback={() => this.handleBackPress()}
+        
+        province_id={this.state.province_id}
+        city_id={this.state.city_id}
+
         modalVisibleAddAddress={this.state.modalVisibleAddAddress}
         toggleModalAddAddress={() => this.toggleModalAddAddress()}
 
@@ -230,10 +236,10 @@ class YourShippingAddressContainer extends Component{
         onChangeAddress={(address) => this.setState({address})}
 
         provinceValue={this.state.province}
-        onChangeProvince={(province) => this.setState({province, visibleProvincePicker: true})}
+        onChangeProvince={(province) => this.setState({province, visibleProvincePicker: true, province_id:''})}
 
         cityValue={this.state.city}
-        onChangeCity={(city) => this.setState({city, visibleCityPicker: true})}
+        onChangeCity={(city) => this.setState({city, visibleCityPicker: true, city_id:''})}
         
         regencyValue={this.state.regency}
         onChangeRegency={(regency) => this.setState({regency, visibleRegencyPicker: true})}
