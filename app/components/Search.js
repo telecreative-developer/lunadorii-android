@@ -16,6 +16,7 @@ const Search = (props) => (
       actionIcon={props.goback} />
     <FiltersModal
       clearCategory={props.clearCategory}
+      clearBrand={props.clearBrand}
 
       dataButtonCategory1st={props.dataButtonCategory1st}
       buttonCategory1st={props.buttonCategory1st}
@@ -23,6 +24,7 @@ const Search = (props) => (
       dataButtonSelectedCategory={props.dataButtonSelectedCategory}      
       buttonSelectedCategory={props.buttonSelectedCategory}
 
+      selectedBrand={props.selectedBrand}
       dataButtonBrands={props.dataButtonBrands}
       buttonBrads={props.buttonBrads}
 
