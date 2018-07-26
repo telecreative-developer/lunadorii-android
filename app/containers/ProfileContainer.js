@@ -28,8 +28,18 @@ class ProfileContainer extends Component {
     imageProfile: 'https://avatars0.githubusercontent.com/u/38149346?s=400&u=7db8195dd7b4436cbf6d0575915ca6b198d116cc&v=4',
   }
 
-  toggleModalEditProfile() {
-    this.setState({ modalVisibleEditProfile: !this.state.modalVisibleEditProfile })
+  async toggleModalEditProfile() {
+    const session = await AsyncStorage.getItem('session')
+    const data = await  JSON.parse(session)
+    await this.setState({
+      modalVisibleEditProfile: !this.state.modalVisibleEditProfile,
+      userData: data,
+      imageProfile: this.props.getsingleuser.avatar_url,
+      first_name: this.props.getsingleuser.first_name,
+      last_name : this.props.getsingleuser.last_name,
+      bod: this.props.getsingleuser.bod,
+      email: this.props.getsingleuser.email
+    })
   }
 
   async handleOpenCamera(){
