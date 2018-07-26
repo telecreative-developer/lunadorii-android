@@ -99,7 +99,7 @@ const AddAddressModal = (props) => (
           borderColor: props.cityValue && props.city_id ? '#ccc' : '#c0392b'
         }}>
           <Input placeholder={props.provinceValue.length == 0 ? "Please pick province first" : props.city_with_type} placeholderTextColor={"#ccc"} value={props.cityValue} onChangeText={props.onChangeCity} disabled={props.provinceValue.length == 0 ? true : false}/> 
-          <Ionicons name={props.cityValue ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Ionicons name={props.cityValue && props.city_id? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
 
         <View style={styles.wrapper}>

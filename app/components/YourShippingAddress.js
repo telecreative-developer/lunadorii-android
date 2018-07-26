@@ -7,7 +7,6 @@ import Validations from '../particles/Validations'
 import ImageShippingAddress from '../assets/images/icon/shipping-address.png'
 import EditAddressModal from '../modals/EditAddressModal'
 import AddAddressModal from '../modals/AddAddressModal'
-import CreditCardPaymentModal from '../modals/CreditCardPaymentModal'
 const { height, width } = Dimensions.get('window')
 
 const YourShippingAddress = (props) => (
@@ -16,10 +15,6 @@ const YourShippingAddress = (props) => (
       navbarTitle="Shipping Address"
       navbarIcon="arrow-back"
       actionIcon={props.goback} />
-    <CreditCardPaymentModal 
-      modalVisible={prop.modalVisible}
-      toggleModal={props.toggleModal}
-    />
     <AddAddressModal
       navbarTitle="Add Addresss"
       navbarIcon="close"

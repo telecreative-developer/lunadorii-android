@@ -466,6 +466,11 @@ async checkout(){
     return data
   }
 
+  async ModalPayCC(){
+    await this.setState({modalPayCC:false})
+    await this.props.navigation.navigate("HomeContainer")
+  }
+
 render() {
   const courier = this.props.receiveCourier
   const  dataCheckout = this.props.receiveCheckout
@@ -591,7 +596,7 @@ render() {
       goback={() => this.props.navigation.goBack()}
       closeModal={() => this.closeModal()}
       checkout={ checkout }
-      toggleModal={ () => this.setState({modalPayCC:false})}
+      toggleModal={ () => this.ModalPayCC() }
       modalVisible={ this.state.modalPayCC}
       />
     );
