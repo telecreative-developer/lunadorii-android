@@ -32,7 +32,7 @@ class SettingsContainer extends Component {
     console.log(data)
     await this.setState({
       userData: data,
-      newEmail: data.email
+      newEmail: ''
     })
   }
 
