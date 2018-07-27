@@ -22,11 +22,13 @@ const DetailsTransaction = (props) => (
       backgroundColor="#d11e48"
       barStyle="light-content"
     />
-    <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 10, backgroundColor: '#f6f6f6'}}>
+    <View>
       { props.transaction_status === "deny" ?
-      <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
-        <Entypo name="cross" size={18} color={'#d11e48'}/>
-        <Text style={{fontSize: 12, color:'#d11e48'}}>Order Failed</Text>
+      <View style={{flexDirection: 'row', justifyContent: 'center', padding: 10, backgroundColor: 'rgba(255, 130, 130, 0.75)'}}>
+        <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
+          <Entypo name="cross" size={18}/>
+          <Text style={{fontSize: 12, justifyContent:'center'}}>Order Failed</Text>
+        </View>
       </View>:
       <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 10, backgroundColor: '#f6f6f6'}}>
         <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
@@ -53,7 +55,7 @@ const DetailsTransaction = (props) => (
           <MaterialIcons name="check" size={18} color={props.status === "Delivered" ? '#d11e48' : ''}/>
           <Text style={{fontSize: 12, color:props.status === "Delivered" ? '#d11e48' : ''}}>Delivered</Text>
         </View>
-        </View>
+      </View>
       }
     </View>
     {props.stillLoading ? (
@@ -63,6 +65,17 @@ const DetailsTransaction = (props) => (
     ) : (
       <Content>
         <View style={styles.grandWrapper}>
+
+          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+              <Text style={{fontWeight: 'bold',fontSize: 18, marginBottom: 5}}>On Cart</Text>
+              <FlatList
+                data={props.dataOnCart}
+                renderItem={props.renderDataOnCart}
+              />
+            </View>
+          </View>
+
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
               <Text style={{fontWeight: 'bold',fontSize: 18}}>Transaction Code</Text>
@@ -135,16 +148,6 @@ const DetailsTransaction = (props) => (
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
               <Text style={{fontWeight: 'bold',fontSize: 18}}>Expired Payment</Text>
               <Text style={{color: '#d11e48'}}>{moment(props.transaction_time).add(12, 'hours').format('LLLL')}</Text>
-            </View>
-          </View>
-
-          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-              <Text style={{fontWeight: 'bold',fontSize: 18, marginBottom: 5}}>On Cart</Text>
-              <FlatList
-                data={props.dataOnCart}
-                renderItem={props.renderDataOnCart}
-              />
             </View>
           </View>
           
