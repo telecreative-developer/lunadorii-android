@@ -54,24 +54,25 @@ const DetailsTransaction = (props) => (
               <Text style={{color: '#ccc'}}>{props.billing_code}</Text>
             </View>
           </View>
+        
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-              <Text style={{fontWeight: 'bold',fontSize: 18}}>Shipping Method</Text>
-              <Text style={{color: '#ccc'}}>{props.delivery_service}</Text>
-            </View>
-          </View>
-          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-              <Text style={{fontWeight: 'bold',fontSize: 18}}>Shipping Price</Text>
-              <Text style={{color: '#ccc'}}>Rp. {props.delivery_price}</Text>
-            </View>
-          </View>
-          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-              <Text style={{fontWeight: 'bold',fontSize: 18}}>Status</Text>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>Order Status</Text>
+              { props.paid_method === "bank_transfer" ?
+                <View>
+                  { props.status === 'Checkout' ?
+                    <Text style={{color: '#ccc'}}>Waiting For Payment</Text>:
+                    <Text style={{color: '#ccc'}}>{ props.status }</Text>
+                  }
+                </View>:
+                <View>
+                  
+                </View>
+              }
               <Text style={{color: '#ccc'}}>{ props.status }</Text>
             </View>
           </View>
+
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
               <Text style={{fontWeight: 'bold',fontSize: 18, marginBottom: 5}}>On Cart</Text>
@@ -81,13 +82,28 @@ const DetailsTransaction = (props) => (
               />
             </View>
           </View>
-          {console.log('price', props.price)}
+          
+          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>Shipping Method</Text>
+              <Text style={{color: '#ccc'}}>{props.delivery_service}</Text>
+            </View>
+          </View>
+
+          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>Shipping Price</Text>
+              <Text style={{color: '#ccc'}}>Rp. {props.delivery_price}</Text>
+            </View>
+          </View>
+
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
               <Text style={{fontWeight: 'bold',fontSize: 18}}>Total Price</Text>
               <Text style={{color: '#ccc'}}>Rp. { props.price }</Text>
             </View>
           </View>
+
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
               <Text style={{fontWeight: 'bold',fontSize: 18}}>Payment Method</Text>
@@ -110,7 +126,7 @@ const DetailsTransaction = (props) => (
         </View>
       </Content>
     )}
-    {props.status === 'waiting-for-payment' ? 
+    {props.status === 'Checkout' ? 
       <View style={styles.footer}>
         <View style={styles.footerWrapper}>
           <View style={styles.footerInfo}>
