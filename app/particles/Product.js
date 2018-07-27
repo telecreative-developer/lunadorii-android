@@ -37,7 +37,10 @@ const Product = (props) => (
             fullStarColor={'#ffcc36'}
           />
         </View>
+      </View>
+      <View style={{flexDirection: 'row', justifyContent: 'center', marginVertical: 5, alignItems:'center'}}>
         <Text style={styles.txtPrice}>Rp. {props.price}</Text>
+        <Text style={styles.txtDiscount}>Rp. {props.price}</Text>
       </View>
     </View>
   </View>
@@ -71,6 +74,13 @@ const styles = StyleSheet.create({
   txtPrice: {
     fontWeight: 'bold',
     fontSize: 16,
+    maxWidth: width / 2.6
+  },
+  txtDiscount: {
+    textDecorationLine: 'line-through',
+    justifyContent: 'center',
+    paddingLeft: 5,
+    fontSize: 12,
     maxWidth: width / 2.6
   },
   txtAddCart: {
