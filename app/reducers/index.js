@@ -6,7 +6,8 @@ import { brandsproduct } from "./brandsproduct"
 import { product, searchproduct,receiveSingleProductWithId, 
          relatedProduct, singleRelatedProdct, receiveProductWithCategory, 
          productbestseller, producthistory, productrecent,
-         receiveProductWithBrand, receiveProductWithBanner, productWithoutId, receiveSingleProductHistory } from "./product"
+         receiveProductWithBrand, receiveProductWithBanner, productWithoutId, receiveSingleProductHistory,
+         receiveSingleProductRecent, } from "./product"
 import { banners } from "./banners"
 import { productsubcategories } from "./productsubcategories"
 import { getsingleuser } from "./getsingleuser"
@@ -66,7 +67,8 @@ const rootReducers = combineReducers({
   productWithoutId,
   receiveCheckout,
   receiveMessage,
-  receiveSingleProductHistory
+  receiveSingleProductHistory,
+  receiveSingleProductRecent
 });
 
 export default rootReducers;

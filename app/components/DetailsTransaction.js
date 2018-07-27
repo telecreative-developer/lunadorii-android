@@ -27,8 +27,8 @@ const DetailsTransaction = (props) => (
       </View>
       <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
       <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
-        <FontAwesome name="handshake-o" size={18} color={props.status === "Deal" ? '#d11e48' : ''}/>
-        <Text style={{fontSize: 12, color:props.status === "Deal" ? '#d11e48' : ''}}>Deal</Text>
+        <FontAwesome name="handshake-o" size={18} color={props.status === "Accepted_payment" ? '#d11e48' : ''}/>
+        <Text style={{fontSize: 12, color:props.status === "Accepted_payment" ? '#d11e48' : ''}}>Deal</Text>
       </View>
       <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
       <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
@@ -67,14 +67,43 @@ const DetailsTransaction = (props) => (
                 <View>
                   { props.status === 'Checkout' ?
                     <Text style={{color: '#ccc'}}>Waiting For Payment</Text>:
-                    <Text style={{color: '#ccc'}}>{ props.status }</Text>
+                    <View>
+                      { props.status === 'Accepted_payment' ? 
+                      <Text style={{color: '#ccc'}}>Waiting For Accepted Payment</Text>: 
+                        <View>
+                          { props.status === 'Packing' ? 
+                            <Text style={{color: '#ccc'}}>Packing Your Product</Text>:
+                            <View>
+                              { props.status === 'Shipping' ? 
+                                <Text style={{color: '#ccc'}}>Products In Shipping</Text>:
+                                <Text style={{color: '#ccc'}}>Your Products Is Delivered</Text>
+                              }
+                            </View>
+                          }
+                        </View>
+                      }
+                    </View>
                   }
                 </View>:
                 <View>
-                  
+                  <View>
+                    { props.status === 'Accepted_payment' ? 
+                      <Text style={{color: '#ccc'}}>Waiting For Accepted Payment</Text>: 
+                        <View>
+                          { props.status === 'Packing' ? 
+                            <Text style={{color: '#ccc'}}>Packing Your Product</Text>:
+                            <View>
+                              { props.status === 'Shipping' ? 
+                                <Text style={{color: '#ccc'}}>Products In Shipping</Text>:
+                                <Text style={{color: '#ccc'}}>Your Products Is Delivered</Text>
+                              }
+                            </View>
+                          }
+                        </View>
+                      }
+                    </View>
                 </View>
               }
-              <Text style={{color: '#ccc'}}>{ props.status }</Text>
             </View>
           </View>
 

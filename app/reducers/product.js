@@ -11,7 +11,8 @@ import {
 		RECEIVE_PRODUCT_WITH_CATEGORY,
 		RECEIVE_PRODUCT_WITH_BRAND,
 		RECEIVE_PRODUCT_WITH_BANNER,
-		RECEIVE_SINGLE_HISTORY
+		RECEIVE_SINGLE_HISTORY,
+		RECEIVE_SINGLE_RECENT,
 	} from '../constants'
 
 export const product = (state = [], action) => {
@@ -124,6 +125,15 @@ export const productWithoutId = ( state = [], action ) => {
 export const receiveSingleProductHistory = ( state = [], action ) => {
 	switch (action.type){
 		case RECEIVE_SINGLE_HISTORY:
+			return action.payload
+		default:
+			return state
+	}
+}
+
+export const receiveSingleProductRecent = ( state = [], action ) => {
+	switch (action.type){
+		case RECEIVE_SINGLE_RECENT:
 			return action.payload
 		default:
 			return state
