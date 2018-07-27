@@ -354,7 +354,9 @@ async checkout(){
   const data = await JSON.parse(session)
   const { id, first_name, last_name, email} = data
 	if(this.state.selectedMethod == 'bank_transfer'){
-		payment_detail = selectedBank
+		payment_detail = {
+      bank: selectedBank
+    }
 	}else{
     const dataCC = creditCard.length && creditCard.map(d => ({card_number: d.card_number, card_exp_month: d.mm.toString(), card_exp_year:d.yyyy.toString(), card_cvv:this.state.CVV.toString() }))
     const detailCC = dataCC.length && dataCC[0]
@@ -523,7 +525,7 @@ render() {
       ]}
       bankRender={({item}) => (
         <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1, padding: 5}}>
-          <TouchableOpacity style={{margin: 10}} onPress={() => this.setState({selectedBank: item.labelBank})}>
+          <TouchableOpacity style={{margin: 10}} onPress={() => this.setState({selectedBank: item.value})}>
             <Text style={{fontWeight: this.state.selectedBank === item.labelBank ? 'bold' : 'bold'}}>{item.labelBank}</Text>
           </TouchableOpacity>
         </View>

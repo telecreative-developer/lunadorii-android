@@ -70,7 +70,7 @@ class DetailsTransactionContainer extends Component{
         // visibleModalPayment={this.state.visibleModalPayment}
         // modalPayment={() => this.setState({visibleModalPayment:true})}
         // backRecent={() => this.setState({visibleModalPayment:false})}
-
+        transaction_time={ BankPermata.transaction_time }
         permata_va_number={ BankPermata.permata_va_number }
         delivery_service={ data.delivery_service }
         delivery_price={ data.delivery_price == null || data.delivery_price === '' ? data.delivery_price : this.formatPrice(data.delivery_price) }

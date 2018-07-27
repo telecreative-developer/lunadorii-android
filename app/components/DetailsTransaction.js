@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { View,Text, StyleSheet, Dimensions, StatusBar, FlatList, TouchableOpacity } from 'react-native'
 import { Container, Content, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
+import moment from 'moment'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Feather from 'react-native-vector-icons/Feather'
@@ -111,6 +112,13 @@ const DetailsTransaction = (props) => (
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
               <Text style={{fontWeight: 'bold',fontSize: 18}}>Virtual Account</Text>
               <Text style={{color: '#ccc'}}>{props.permata_va_number}</Text>
+            </View>
+          </View>
+
+          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>Expired Payment</Text>
+              <Text style={{color: '#ccc'}}>{moment(props.transaction_time).add(12, 'hours').format('LLLL')}</Text>
             </View>
           </View>
 

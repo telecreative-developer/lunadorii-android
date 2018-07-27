@@ -28,27 +28,18 @@ const WaitingForPaymentModal = (props) => (
     />
     <Content style={styles.container}>
       <View style={styles.paymentInformation1}>
-        {props.selectedMethod === 'bank_transfer' ? 
           <View>
             <Image source={image} style={styles.imageFrame} />
             <Text style={styles.textInfo1}>Waiting for payment</Text>
             <View style={styles.textInfo2Wrapper}>
               <Text style={styles.textInfo2Content}>Your order number </Text><Text style={styles.textInfo2Code}>{ props.checkout.order_id }</Text>
             </View>
-          </View>:
-          <View/>
-        }
+          </View>
       </View>
       <View style={styles.paymentInformation2}>
         <View style={styles.paymentInformation2Wrapper}>
           <View style={{paddingTop: 10}}>
-            {
-            props.selectedMethod === 'credit_card' ? 
-              <View>
-                <Text style={{fontSize: 24}}>Thank You</Text>
-              </View>
-            :
-            <View>
+            
               <Text style={styles.paymentInformation2title}>Payment code will end in</Text>
               <CountDown
                 until={props.countDown}
@@ -58,16 +49,11 @@ const WaitingForPaymentModal = (props) => (
                 digitBgColor={'#f6f6f6'}
                 timeToShow={['H','M','S']}
               />
-            </View>
-            }
           </View>
-          {props.selectedMethod === 'bank_transfer' ? 
             <View>
               <Text style={styles.paymentInformation2warning1}>Please pay your bill before</Text>
-              <Text style={styles.paymentInformation2warning2}>{new Date(props.checkout.transaction_time).getTime()}</Text>
-            </View>:
-            <View/>
-          }
+              <Text style={styles.paymentInformation2warning2}>{moment(props.transaction_time).add(12, 'hours').format('LLLL')}</Text>
+            </View>
         </View>
         <View style={styles.Card}>
           <View style={styles.contentCard}>
