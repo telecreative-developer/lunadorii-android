@@ -61,7 +61,7 @@ const WaitingForPaymentModal = (props) => (
               <Image source={require('../assets/images/icon/visa.png')} style={styles.image} />
             </View>
             <View style={styles.wrapLeft}>
-              <Text style={styles.paymentCardInformationTitle}>Payment code {props.checkout.permata_va_number} </Text>
+              <Text style={styles.paymentCardInformationTitle}>Payment code {props.va_number} </Text>
               <Text style={styles.paymentCardIformationPaymentCode}>Paid Method 
                 {props.checkout.payment_type == 'bank_transfer' ? 
                   <Text> Bank Transfer</Text> :

@@ -16,7 +16,6 @@ const { height, width } = Dimensions.get('window')
 
 const YourCart = (props) => (
   <Container style={styles.Container}>
-    {console.log('better',props.checkout)}
     <Navigation 
        navbarTitle="Your Cart"
        navbarIcon="arrow-back"
@@ -68,6 +67,8 @@ const YourCart = (props) => (
       checkout={props.checkout}
       totalPrice={props.totalPrice}
       goHome={props.navigateToHome}
+      va_number={props.va_number}
+      typeBank={props.typeBank}
       
       isCC={props.isCC}
       paymentGuide1Visible={props.paymentGuide1Visible}
