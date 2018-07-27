@@ -133,21 +133,21 @@ const DetailsTransaction = (props) => (
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
               <Text style={{fontWeight: 'bold',fontSize: 18}}>Payment Status</Text>
-              <Text style={{color: '#ccc'}}>{props.transaction_status}</Text>
+              <Text style={{color: '#ccc'}}>{props.midtransResponse.transaction_status}</Text>
             </View>
           </View>
 
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
               <Text style={{fontWeight: 'bold',fontSize: 18}}>Virtual Account</Text>
-              <Text style={{color: '#d11e48'}}>{props.permata_va_number}</Text>
+              <Text style={{color: '#d11e48'}}>{props.va_number}</Text>
             </View>
           </View>
 
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
               <Text style={{fontWeight: 'bold',fontSize: 18}}>Expired Payment</Text>
-              <Text style={{color: '#d11e48'}}>{moment(props.transaction_time).add(12, 'hours').format('LLLL')}</Text>
+              <Text style={{color: '#d11e48'}}>{moment(props.midtransResponse.transaction_time).add(12, 'hours').format('LLLL')}</Text>
             </View>
           </View>
           

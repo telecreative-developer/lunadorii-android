@@ -23,20 +23,30 @@ class DetailsTransactionContainer extends Component{
     const dataUser = await JSON.parse(session)
     const data = await this.props.navigation.state.params.data
     await this.props.fetchSingleProductRecent( data.order_id, dataUser.accessToken )
-    await this.responseBankPermata()
     await this.setState({stillLoading: false})
   }
 
-  responseBankPermata(){
+  responeMidtrans(){
     const midtransResponse = this.props.receiveSingleProductRecent.midtrans_response
     const fraud_status = midtransResponse && midtransResponse.fraud_status
     const gross_amount = midtransResponse && midtransResponse.gross_amount
     const payment_type = midtransResponse && midtransResponse.payment_type
-    const permata_va_number = midtransResponse && midtransResponse.permata_va_number
     const transaction_status = midtransResponse && midtransResponse.transaction_status
     const transaction_time = midtransResponse && midtransResponse.transaction_time
     const dataPermata = { fraud_status, gross_amount, payment_type, permata_va_number, transaction_status, transaction_time}
     return dataPermata
+  }
+
+  permata_va_number(){
+    const midtransResponse = this.props.receiveSingleProductRecent.midtrans_response
+    const va_permata = midtransResponse && midtransResponse.permata_va_number
+    return va_permata    
+  }
+
+  bca_va_number(){
+    const va_numbers = dataCheckout.midtrans_response && dataCheckout.midtrans_response.va_numbers
+    const va_bca = va_numbers && va_numbers[0].va_number
+    return va_bca   
   }
 
   capitalize(string) {
@@ -53,9 +63,27 @@ class DetailsTransactionContainer extends Component{
   }
 
   render(){
-    const BankPermata = this.responseBankPermata()
-    console.log('asem',this.props.receiveSingleProductRecent)
     const data = this.props.receiveSingleProductRecent
+
+      //  <----- FETCH RESPONE MIDTRANS ----->
+    const dataCheckout = this.props.receiveSingleProductRecent
+    const gross_amount = dataCheckout.midtrans_response && dataCheckout.midtrans_response.gross_amount
+    const payment_type = dataCheckout.midtrans_response && dataCheckout.midtrans_response.payment_type
+    const transaction_status = dataCheckout.midtrans_response && dataCheckout.midtrans_response.transaction_status
+    const status_message = dataCheckout.midtrans_response && dataCheckout.midtrans_response.status_message
+    const transaction_id = dataCheckout.midtrans_response && dataCheckout.midtrans_response.transaction_id
+    const transaction_time = dataCheckout.midtrans_response && dataCheckout.midtrans_response.transaction_time
+    const order_id = dataCheckout.midtrans_response && dataCheckout.midtrans_response.order_id
+    const checkout = { gross_amount, payment_type, transaction_status, status_message, transaction_id, order_id, transaction_time}
+    
+    
+    // <----- FETCH BANK PERMATA RESPONSE ----->
+    const permata_va_number = dataCheckout.midtrans_response && dataCheckout.midtrans_response.permata_va_number
+    
+    //  <---- FETCH BANK BCA RESPONSE ----->
+    const va_numbers = dataCheckout.midtrans_response && dataCheckout.midtrans_response.va_numbers
+    const va_bca = va_numbers && va_numbers[0].va_number
+
     return(
       <DetailsTransaction
         goback={() => this.props.navigation.goBack()}
@@ -71,10 +99,9 @@ class DetailsTransactionContainer extends Component{
         // modalPayment={() => this.setState({visibleModalPayment:true})}
         // backRecent={() => this.setState({visibleModalPayment:false})}
 
-        // <----- Midtrans Response
-        transaction_time={ BankPermata.transaction_time }
-        permata_va_number={ BankPermata.permata_va_number }
-        transaction_status={ BankPermata.transaction_status }
+        // <----- Midtrans Response ----->
+        va_number={ dataCheckout.bank === 'bca' ? va_bca : permata_va_number }
+        midtransResponse={ checkout }
 
         delivery_service={ data.delivery_service }
         delivery_price={ data.delivery_price == null || data.delivery_price === '' ? data.delivery_price : this.formatPrice(data.delivery_price) }

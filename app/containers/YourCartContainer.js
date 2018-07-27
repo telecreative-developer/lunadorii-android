@@ -349,7 +349,7 @@ async checkout(){
   const service = await this.state.selectedCourier.service
   const delivery_price = await this.state.selectedCourier.cost[0].value
   const { selectedMethod, province_id, city_id, detail_address, selectedBank, CVV} = await this.state
-  const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage}))
+  const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, product:d.product, price: d.price, discount_percentage: d.discount_percentage}))
   const session = await AsyncStorage.getItem('session')
   const data = await JSON.parse(session)
   const { id, first_name, last_name, email} = data
@@ -389,7 +389,7 @@ async checkout(){
     const service = await this.state.selectedCourier.service
     const delivery_price = await this.state.selectedCourier.cost[0].value
     const { selectedMethod, province_id, city_id, detail_address, CVV} = await this.state
-    const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage}))
+    const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage, product:d.product}))
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     const { id, first_name, last_name, email} = data
@@ -475,21 +475,27 @@ async checkout(){
 
 render() {
   const courier = this.props.receiveCourier
-  const  dataCheckout = this.props.receiveCheckout
-  
-  // <----- FETCH BANK PERMATA RESPONSE ----->
+  const email = this.state.email
+
+  //  <----- FETCH RESPONE MIDTRANS ----->
+  const dataCheckout = this.props.receiveCheckout
   const gross_amount = dataCheckout.midtrans_response && dataCheckout.midtrans_response.gross_amount
   const payment_type = dataCheckout.midtrans_response && dataCheckout.midtrans_response.payment_type
-  const permata_va_number = dataCheckout.midtrans_response && dataCheckout.midtrans_response.permata_va_number
   const transaction_status = dataCheckout.midtrans_response && dataCheckout.midtrans_response.transaction_status
   const status_message = dataCheckout.midtrans_response && dataCheckout.midtrans_response.status_message
   const transaction_id = dataCheckout.midtrans_response && dataCheckout.midtrans_response.transaction_id
   const transaction_time = dataCheckout.midtrans_response && dataCheckout.midtrans_response.transaction_time
   const order_id = dataCheckout.midtrans_response && dataCheckout.midtrans_response.order_id
-  const email = this.state.email
-  const checkout = { gross_amount, payment_type, permata_va_number, transaction_status, status_message, transaction_id, order_id, transaction_time, email}
-
-  console.log('respone ', this.props.receiveCheckout)
+  const checkout = { gross_amount, payment_type, transaction_status, status_message, transaction_id, order_id, transaction_time, email}
+  
+  
+  // <----- FETCH BANK PERMATA RESPONSE ----->
+  const permata_va_number = dataCheckout.midtrans_response && dataCheckout.midtrans_response.permata_va_number
+  
+  //  <---- FETCH BANK BCA RESPONSE ----->
+  const va_numbers = dataCheckout.midtrans_response && dataCheckout.midtrans_response.va_numbers
+  const va_bca = va_numbers && va_numbers[0].va_number
+  
 
   return (
     <YourCart 
@@ -518,9 +524,9 @@ render() {
       )}
       messageCode={this.props.status}
       bankData={[
-        // {labelBank: 'BCA', value: 'bca'},
+        {labelBank: 'BCA', value: 'bca'},
         // {labelBank: 'Mandiri', value: 'mandiri'},
-        // {labelBank: 'BNI', value: 'bni'},
+        // {labelBank: 'BNI', value: 'bni'}, status_message: "Payment channel is not activated."
         {labelBank: 'Permata', value: 'permata'},
       ]}
       bankRender={({item}) => (
@@ -599,7 +605,9 @@ render() {
       navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
       goback={() => this.props.navigation.goBack()}
       closeModal={() => this.closeModal()}
+      typeBank={ dataCheckout.bank }
       checkout={ checkout }
+      va_number={ dataCheckout.bank === 'bca' ? va_bca : permata_va_number}
       toggleModal={ () => this.ModalPayCC() }
       modalVisible={ this.state.modalPayCC}
       />
