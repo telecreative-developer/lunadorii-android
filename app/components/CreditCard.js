@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { StyleSheet, FlatList, StatusBar, Dimensions } from 'react-native'
 import { Container, Content, Text, View, Button, Icon, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
+import LoadingModal from '../modals/LoadingModal'
 import EditCreditCardModal from '../modals/EditCreditCardModal'
 import AddCreditCardModal from '../modals/AddCreditCardModal'
 import ImageCreditCard from '../assets/images/icon/credit-card.png'
@@ -10,6 +11,9 @@ const { height, width } = Dimensions.get('window')
 
 const CreditCard = (props) => (
   <Container style={styles.container}>
+    <LoadingModal 
+      modalVisibleLoading={props.setDefaultLoading}
+    />
     <Navbar
       navbarTitle="Credit Card"
       navbarIcon="arrow-back"
@@ -77,6 +81,10 @@ const CreditCard = (props) => (
         <View>
           <View style={styles.viewBrand}>
             <Text style={styles.txtLabel}>Your Credit Card</Text>
+            <FlatList
+              data={props.dataCreditCardsDefault}
+              renderItem={props.renderCreditCards}
+              keyExtractor={(item, index) => JSON.stringify(index)} />
             <FlatList
               data={props.dataCreditCards}
               renderItem={props.renderCreditCards}

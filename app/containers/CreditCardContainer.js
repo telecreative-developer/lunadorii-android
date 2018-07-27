@@ -12,6 +12,7 @@ class CreditCardContainer extends Component {
   state = {
     isEmpty:false,
     stillLoading: true,
+    setDefaultLoading: false,
     buttonSave: false,
     modalVisibleEditCreditCard: false,
     modalVisibleAddCreditCard: false,
@@ -164,10 +165,10 @@ class CreditCardContainer extends Component {
     })
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    await this.setState({stillLoading: true})
+    await this.setState({setDefaultLoading: true})
     await this.props.defaultUserCredit(data.id, this.state.userCCId, data.accessToken)
     await this.props.fetchUserCredit(data.id, data.accessToken)
-    await this.setState({stillLoading: false})
+    await this.setState({setDefaultLoading: false})
   }
 
   async handleDeleteCreditCard(item){
@@ -215,9 +216,9 @@ class CreditCardContainer extends Component {
     return (
       <CreditCard
         stillLoading={this.state.stillLoading}
+        setDefaultLoading={this.state.setDefaultLoading}
         goback={() => this.handleBackPress()}
         buttonSave={this.state.buttonSave}
-        stillLoading={this.state.stillLoading}
         isEmpty={this.state.isEmpty}
         
         cardNumberFormat={this.cardNumberFormatter(this.state.cardNumber)}
@@ -249,7 +250,8 @@ class CreditCardContainer extends Component {
         toggleModalEditCreditCard={() => this.toggleModalEditCreditCard()}
         handleUpdateCreditCard={() => this.handleUpdateCreditCard()}
 
-        dataCreditCards={this.props.usercredit}
+        dataCreditCardsDefault={this.props.usercredit.filter(item => item.card_default === true)}
+        dataCreditCards={this.props.usercredit.filter(item => item.card_default === false)}
         renderCreditCards={({ item }) => (
           <CreditCards
             cardNumberFormated={this.cardNumberFormatter(item.card_number)}

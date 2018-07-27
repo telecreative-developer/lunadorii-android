@@ -9,7 +9,7 @@ const convertHeightPercentToDP = heightPercent => {
   const screenHeight = Dimensions.get('window').height;
   // Convert string input to decimal number
   const elemHeight = parseFloat(heightPercent);
-return PixelRatio.roundToNearestPixel(screenHeight * elemHeight / 100);
+  return PixelRatio.roundToNearestPixel(screenHeight * elemHeight / 100);
 };
 export {
   convertWidthPercentToDP,
