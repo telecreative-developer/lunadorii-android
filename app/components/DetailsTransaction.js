@@ -6,6 +6,7 @@ import moment from 'moment'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Feather from 'react-native-vector-icons/Feather'
+import Entypo from 'react-native-vector-icons/Entypo'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 const { height, width } = Dimensions.get('window')
 
@@ -22,30 +23,38 @@ const DetailsTransaction = (props) => (
       barStyle="light-content"
     />
     <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 10, backgroundColor: '#f6f6f6'}}>
+      { props.transaction_status === "deny" ?
       <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
-        <MaterialIcons name="monetization-on" size={18} color={props.status === "Checkout" ? '#d11e48' : ''}/>
-        <Text style={{fontSize: 12, color:props.status === "Checkout" ? '#d11e48' : ''}}>Checkout</Text>
-      </View>
-      <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
-      <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
-        <FontAwesome name="handshake-o" size={18} color={props.status === "Accepted_payment" ? '#d11e48' : ''}/>
-        <Text style={{fontSize: 12, color:props.status === "Accepted_payment" ? '#d11e48' : ''}}>Deal</Text>
-      </View>
-      <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
-      <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
-        <Feather name="package" size={18} color={props.status === "Packing" ? '#d11e48' : ''}/>
-        <Text style={{fontSize: 12, color:props.status === "Packing" ? '#d11e48' : ''}}>Packing</Text>
-      </View>
-      <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
-      <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>      
-        <MaterialIcons name="local-shipping" size={18} color={props.status === "Shipping" ? '#d11e48' : ''}/>
-        <Text style={{fontSize: 12, color:props.status === "Shipping" ? '#d11e48' : ''}}>Shipping</Text>
-      </View>
-      <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
-      <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
-        <MaterialIcons name="check" size={18} color={props.status === "Delivered" ? '#d11e48' : ''}/>
-        <Text style={{fontSize: 12, color:props.status === "Delivered" ? '#d11e48' : ''}}>Delivered</Text>
-      </View>
+        <Entypo name="cross" size={18} color={'#d11e48'}/>
+        <Text style={{fontSize: 12, color:'#d11e48'}}>Order Failed</Text>
+      </View>:
+      <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 10, backgroundColor: '#f6f6f6'}}>
+        <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
+          <MaterialIcons name="monetization-on" size={18} color={props.status === "Checkout" ? '#d11e48' : ''}/>
+          <Text style={{fontSize: 12, color:props.status === "Checkout" ? '#d11e48' : ''}}>Checkout</Text>
+        </View>
+        <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
+        <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
+          <FontAwesome name="handshake-o" size={18} color={props.status === "Accepted_payment" ? '#d11e48' : ''}/>
+          <Text style={{fontSize: 12, color:props.status === "Accepted_payment" ? '#d11e48' : ''}}>Deal</Text>
+        </View>
+        <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
+        <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
+          <Feather name="package" size={18} color={props.status === "Packing" ? '#d11e48' : ''}/>
+          <Text style={{fontSize: 12, color:props.status === "Packing" ? '#d11e48' : ''}}>Packing</Text>
+        </View>
+        <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
+        <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>      
+          <MaterialIcons name="local-shipping" size={18} color={props.status === "Shipping" ? '#d11e48' : ''}/>
+          <Text style={{fontSize: 12, color:props.status === "Shipping" ? '#d11e48' : ''}}>Shipping</Text>
+        </View>
+        <SimpleLineIcons name="arrow-right" size={12} style={{marginLeft: 5, marginTop: 10}}/>
+        <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
+          <MaterialIcons name="check" size={18} color={props.status === "Delivered" ? '#d11e48' : ''}/>
+          <Text style={{fontSize: 12, color:props.status === "Delivered" ? '#d11e48' : ''}}>Delivered</Text>
+        </View>
+        </View>
+      }
     </View>
     {props.stillLoading ? (
       <View style={styles.style}>
@@ -105,6 +114,13 @@ const DetailsTransaction = (props) => (
                     </View>
                 </View>
               }
+            </View>
+          </View>
+
+          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>Payment Status</Text>
+              <Text style={{color: '#ccc'}}>{props.transaction_status}</Text>
             </View>
           </View>
 
@@ -177,7 +193,7 @@ const DetailsTransaction = (props) => (
         </View>
       </Content>
     )}
-    {props.status === 'Checkout' ? 
+    {/* {props.status === 'Checkout' ? 
       <View style={styles.footer}>
         <View style={styles.footerWrapper}>
           <View style={styles.footerInfo}>
@@ -196,7 +212,7 @@ const DetailsTransaction = (props) => (
         </View>
       </View>:
       <View/>
-    }
+    } */}
   </Container>
 
 )

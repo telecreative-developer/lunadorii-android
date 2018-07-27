@@ -32,7 +32,7 @@ const RecentOrders = (props) => (
     </View>
     <View style={styles.viewFooter}>
       <View style={{flexDirection: 'row'}}>
-        <Text>Status Payment : </Text>
+        <Text>Status Order : </Text>
         <TouchableOpacity onPress={props.action}>
         {props.paid_method === "credit_card" ? 
           <Text style={{fontWeight: 'bold', color: '#d11e47' }}> Payment Success </Text>:
