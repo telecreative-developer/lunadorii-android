@@ -13,7 +13,8 @@ class DetailsTransactionContainer extends Component{
     this.state = {
       list_produk:{},
       billing_code:'',
-      stillLoading: true
+      stillLoading: true,
+      visibleModalPayment:false
     }
   }
 
@@ -52,8 +53,8 @@ class DetailsTransactionContainer extends Component{
   }
 
   render(){
-    console.log(this.responseBankPermata())
-    console.log('asem',this.props.receiveSingleProductRecent)
+    const BankPermata = this.responseBankPermata()
+    console.log('asem',BankPermata)
     const data = this.props.receiveSingleProductRecent
     return(
       <DetailsTransaction
@@ -64,6 +65,13 @@ class DetailsTransactionContainer extends Component{
         status={ data.order_status == null || data.order_status === '' ? data.order_status :this.capitalize(data.order_status) }
         billing_code={ data.billing_code }
         paid_method={ data.paid_method }
+
+        // // <----- Modal Payment ----->
+        // visibleModalPayment={this.state.visibleModalPayment}
+        // modalPayment={() => this.setState({visibleModalPayment:true})}
+        // backRecent={() => this.setState({visibleModalPayment:false})}
+
+        permata_va_number={ BankPermata.permata_va_number }
         delivery_service={ data.delivery_service }
         delivery_price={ data.delivery_price == null || data.delivery_price === '' ? data.delivery_price : this.formatPrice(data.delivery_price) }
         price={ data.total }

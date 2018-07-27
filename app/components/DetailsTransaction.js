@@ -109,6 +109,13 @@ const DetailsTransaction = (props) => (
 
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>Virtual Account</Text>
+              <Text style={{color: '#ccc'}}>{props.permata_va_number}</Text>
+            </View>
+          </View>
+
+          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
               <Text style={{fontWeight: 'bold',fontSize: 18, marginBottom: 5}}>On Cart</Text>
               <FlatList
                 data={props.dataOnCart}
@@ -130,6 +137,8 @@ const DetailsTransaction = (props) => (
               <Text style={{color: '#ccc'}}>Rp. {props.delivery_price}</Text>
             </View>
           </View>
+
+          
 
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
