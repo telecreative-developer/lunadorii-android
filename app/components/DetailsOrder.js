@@ -78,12 +78,6 @@ const DetailsOrder = (props) => (
         </View>
         <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Shipping Method</Text>
-            <Text style={{color: '#ccc'}}>SHIPPING_METHOD</Text>
-          </View>
-        </View>
-        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Status</Text>
             <Text style={{color: '#ccc'}}>{props.status}</Text>
             {console.log(props.status)}
@@ -105,12 +99,6 @@ const DetailsOrder = (props) => (
           <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
             <Text style={{fontWeight: 'bold',fontSize: 18}}>Receiptment Time</Text>
             <Text style={{color: '#ccc'}}>{props.receipt_time}</Text>
-          </View>
-        </View>
-        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Delivery Service</Text>
-            <Text style={{color: '#ccc'}}>{props.delivery_service}</Text>
           </View>
         </View>
       </View>
