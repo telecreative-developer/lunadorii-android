@@ -51,7 +51,6 @@ class YourShippingAddressContainer extends Component{
         user_address_id:item.user_address_id,
         name: item.recepient,
         address: item.detail_address,
-        province: item.province,
         province_id:item.province_id,
         city_id:item.city_id,
         postal_code: item.postal_code,

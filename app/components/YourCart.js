@@ -29,11 +29,6 @@ const YourCart = (props) => (
       totalPrice={props.totalPrice}
     />
 
-    <WaitingForPaymentInRecent 
-      visibleModalPayment={ props.visibleModalPayment }
-      toggleModal={ props.toggleModal }
-    />
-
     <StatusBar
       backgroundColor="#d11e48"
       barStyle="light-content" />

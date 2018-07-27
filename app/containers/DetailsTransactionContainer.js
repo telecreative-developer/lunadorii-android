@@ -54,7 +54,7 @@ class DetailsTransactionContainer extends Component{
 
   render(){
     const BankPermata = this.responseBankPermata()
-    console.log('asem',BankPermata)
+    console.log('asem',this.props.receiveSingleProductRecent)
     const data = this.props.receiveSingleProductRecent
     return(
       <DetailsTransaction
@@ -71,7 +71,11 @@ class DetailsTransactionContainer extends Component{
         // modalPayment={() => this.setState({visibleModalPayment:true})}
         // backRecent={() => this.setState({visibleModalPayment:false})}
 
+        // <----- Midtrans Response
+        transaction_time={ BankPermata.transaction_time }
         permata_va_number={ BankPermata.permata_va_number }
+        transaction_status={ BankPermata.transaction_status }
+
         delivery_service={ data.delivery_service }
         delivery_price={ data.delivery_price == null || data.delivery_price === '' ? data.delivery_price : this.formatPrice(data.delivery_price) }
         price={ data.total }
