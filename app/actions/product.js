@@ -12,7 +12,8 @@ import {
 		RECEIVE_PRODUCT_WITH_BRAND,
 		RECEIVE_PRODUCT_WITH_CATEGORY,
 		RECEIVE_PRODUCT_WITH_BANNER,
-		RECEIVE_SINGLE_HISTORY
+		RECEIVE_SINGLE_HISTORY,
+		RECEIVE_SINGLE_RECENT
 	} from '../constants'
 import { API_SERVER } from '../env'
 
@@ -415,6 +416,37 @@ export const fetchSingleProductHistory = (product_id, accessToken) => {
 const receiveSingleProductHistory = data => {
 	return{
 		type: RECEIVE_SINGLE_HISTORY,
+		payload: data
+	}
+}
+
+//  <---- FETCH SINGLE PRODUCT RECENT ----> //
+export const fetchSingleProductRecent = (product_id, accessToken) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_FETCH_SINGLE_RECENT'))
+		try {
+			const response = await fetch(`${API_SERVER}/order/recent/single/${product_id}`, {
+				method: 'GET',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+					Authorization: accessToken
+				}
+			})
+			const data = await response.json()
+			await dispatch(receiveSingleProductRecent(data.data[0]))
+			await dispatch(setSuccess(true, 'SUCCESS_FETCH_SINGLE_RECENT'))
+      		await dispatch(setLoading(false, 'LOADING_FETCH_SINGLE_RECENT'))
+		} catch (e) {
+			dispatch(setFailed(true, 'FAILED_FETCH_SINGLE_RECENT', e))
+			dispatch(setLoading(false, 'LOADING_FETCH_SINGLE_RECENT'))
+		}
+	}
+}
+
+const receiveSingleProductRecent = data => {
+	return{
+		type: RECEIVE_SINGLE_RECENT,
 		payload: data
 	}
 }

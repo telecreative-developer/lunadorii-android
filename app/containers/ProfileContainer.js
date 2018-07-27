@@ -171,11 +171,10 @@ class ProfileContainer extends Component {
   }
 
   uselessFunc(){
-
   }
 
   render() {
-    console.log('state :', this.props.getsingleuser)
+    console.log('state :', this.props.productrecent)
     return (
       <Profile
         buttonSave={this.state.buttonSave}
@@ -185,6 +184,7 @@ class ProfileContainer extends Component {
             image={item.list[0].thumbnails[0].thumbnail_url}
             amountOfItem={item.list.length}
             billing_code={item.billing_code}
+            paid_method={item.paid_method}
             status={item.order_status}
             total={item.total == null ? item.total : item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             date={moment(item.created_at).calendar()}

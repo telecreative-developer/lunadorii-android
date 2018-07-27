@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { AsyncStorage } from 'react-native'
 import { connect } from 'react-redux'
-import { fetchSingleProductHistory } from '../actions/product'
+import { fetchSingleProductRecent } from '../actions/product'
 
 import DetailsTransaction from '../components/DetailsTransaction'
 import OrderDetails from '../particles/OrderDetails'
@@ -21,13 +21,13 @@ class DetailsTransactionContainer extends Component{
     const session = await AsyncStorage.getItem('session')
     const dataUser = await JSON.parse(session)
     const data = await this.props.navigation.state.params.data
-    await this.props.fetchSingleProductHistory( data.order_id, dataUser.accessToken )
+    await this.props.fetchSingleProductRecent( data.order_id, dataUser.accessToken )
     await this.responseBankPermata()
     await this.setState({stillLoading: false})
   }
 
   responseBankPermata(){
-    const midtransResponse = this.props.receiveSingleProductHistory.midtrans_response
+    const midtransResponse = this.props.receiveSingleProductRecent.midtrans_response
     const fraud_status = midtransResponse && midtransResponse.fraud_status
     const gross_amount = midtransResponse && midtransResponse.gross_amount
     const payment_type = midtransResponse && midtransResponse.payment_type
@@ -46,10 +46,15 @@ class DetailsTransactionContainer extends Component{
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }
 
+  discountPrice(price, discount_percentage){
+    let DiscountPrice = price - (price *(discount_percentage/100))
+    return DiscountPrice
+  }
+
   render(){
     console.log(this.responseBankPermata())
-    console.log(this.props.receiveSingleProductHistory)
-    const data = this.props.receiveSingleProductHistory
+    console.log('asem',this.props.receiveSingleProductRecent)
+    const data = this.props.receiveSingleProductRecent
     return(
       <DetailsTransaction
         goback={() => this.props.navigation.goBack()}
@@ -69,7 +74,7 @@ class DetailsTransactionContainer extends Component{
             title={item.product <= 17 ? this.capitalize(item.product) : this.capitalize(item.product).slice(0,18)+'...'} 
             categories={item.subcategories[0].stat}
             quantity={item.qty}
-            price={ item.price == null || item.price === '' ? item.price : this.formatPrice(item.price)}
+            price={ item.price == null || item.price === '' ? item.price : this.formatPrice(this.discountPrice(item.price, item.discount_percentage))}
             status={item.status}
             action={() => this.props.navigation.navigate('DetailsOrderContainer' , {item, billing_code: this.state.billing_code, status:this.state.status})}
           />
@@ -81,7 +86,7 @@ class DetailsTransactionContainer extends Component{
 
 const mapDispatchToProps = (dispatch) =>{
   return{
-    fetchSingleProductHistory: ( product_id, accessToken ) => dispatch(fetchSingleProductHistory( product_id, accessToken ))
+    fetchSingleProductRecent: ( product_id, accessToken ) => dispatch(fetchSingleProductRecent( product_id, accessToken ))
   }
 }
 
@@ -90,7 +95,7 @@ const mapStateToProps = (state) => {
     loading: state.loading,
     success: state.success,
     failed: state.failed,
-    receiveSingleProductHistory: state.receiveSingleProductHistory
+    receiveSingleProductRecent: state.receiveSingleProductRecent
   }
 }
 

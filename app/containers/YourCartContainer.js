@@ -487,6 +487,8 @@ render() {
   const email = this.state.email
   const checkout = { gross_amount, payment_type, permata_va_number, transaction_status, status_message, transaction_id, order_id, transaction_time, email}
 
+  console.log('respone ', this.props.receiveCheckout)
+
   return (
     <YourCart 
       navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
