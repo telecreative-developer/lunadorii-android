@@ -57,50 +57,26 @@ const DetailsOrder = (props) => (
           </View>
         </View>
       </View>
+      <View style={styles.borderedSparator}>
+        <View style={styles.borderedSparatorFirst}>
+          <Text style={styles.borderedSparatorFirstTitle}>Description</Text>
+          <View style={{width: (width - 20) / 1 }}>
+            <Text style={styles.borderedSparatorFirstContent}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed egestas ut turpis 
+              ac pulvinar. Class aptent taciti sociosqu ad litora torquent per conubia nostra, 
+              per inceptos himenaeos. Phasellus euismod metus sapien, ac condimentum augue feugiat 
+              vehicula. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+            </Text>
+          </View>
+        </View>
+      </View>
       <ImageViewModal
         modalVisible={props.modalVisibleImageView}
         actionIcon={props.toggleImageViewModal}
         images={props.images}
       />
       <View style={styles.grandWrapper}>
-        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Transaction Code</Text>
-            <Text style={{color: '#ccc'}}>{props.billing_code}</Text>
-          </View>
-        </View>
-        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Purchase Transaction Number</Text>
-            <Text style={{color: '#ccc'}}>{props.purchase_number}</Text>
-            {console.log(props.purchase_number)}
-          </View>
-        </View>
-        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Status</Text>
-            <Text style={{color: '#ccc'}}>{props.status}</Text>
-            {console.log(props.status)}
-          </View>
-        </View>
-        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Payment Successfully Time</Text>
-            <Text style={{color: '#ccc'}}>{props.payment_time}</Text>
-          </View>
-        </View>
-        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Delivery Time</Text>
-            <Text style={{color: '#ccc'}}>{props.delivery_time}</Text>
-          </View>
-        </View>
-        <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-          <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-            <Text style={{fontWeight: 'bold',fontSize: 18}}>Receiptment Time</Text>
-            <Text style={{color: '#ccc'}}>{props.receipt_time}</Text>
-          </View>
-        </View>
+        
       </View>
     </Content>
     <View style={{flexDirection: 'row', justifyContent:'space-between', padding: 10}}>
@@ -128,6 +104,27 @@ const styles = StyleSheet.create({
     width: width,
     height: height,
     backgroundColor: '#fff'
+  },
+  borderedSparator: {
+    borderBottomWidth: 1,
+    borderColor: '#e2e2e2'
+  },
+  borderedSparatorFirst: {
+    // padding: 10,
+    marginTop: 10,
+    marginBottom: 10
+  },
+  borderedSparatorFirstTitle: {
+    fontWeight: 'bold',
+    fontSize: 18,
+    paddingHorizontal: 10
+  },
+  borderedSparatorFirstContent: {
+    paddingHorizontal: 10,
+    fontSize: 16,
+    marginTop: 10,
+    color: '#848484',
+    textAlign: 'justify'
   },
   imageBackgroundStyle: {
     height: 250,
