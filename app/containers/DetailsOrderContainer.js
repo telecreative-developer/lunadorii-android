@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, ToastAndroid } from 'react-native'
+import { AsyncStorage, ToastAndroid, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import moment from 'moment'
 
@@ -41,8 +41,11 @@ class DetailsOrderContainer extends Component{
     const { review, ratings } = this.state
     const dataProduct = this.props.navigation.state.params.item
     await this.props.createReview(data.id, {review , ratings} , data.accessToken, dataProduct.product_id)
-    // await alert('Succes Add Review')
-    ToastAndroid.showWithGravity("Thanks for review", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    if(Platform.OS==='android'){
+      ToastAndroid.showWithGravity("Thanks for review", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }else{
+      await alert('Succes Add Review')
+    }
     await this.setState({
       modalVisibleAddReviews: false,
       review:'',
@@ -68,13 +71,12 @@ class DetailsOrderContainer extends Component{
       <DetailsOrder
         toggleImageViewModal={() => this.toggleImageViewModal()}
         modalVisibleImageView={this.state.modalVisibleImageView}
-
         brandTitle={data.product}
         qty={data.qty}
         price={this.formatPrice(data.price)}
         category={data.subcategories[0].subcategory}
 
-        showToast={() => ToastAndroid.showWithGravity("Your order not yet arrived", ToastAndroid.SHORT, ToastAndroid.CENTER)}
+        showToast={() => Platform.OS==='android'?ToastAndroid.showWithGravity("Your order not yet arrived", ToastAndroid.SHORT, ToastAndroid.CENTER):alert('Your order not yet arrived')}
         image={data.thumbnails[0].thumbnail_url}
         images={data.thumbnails.map(data => ({source:{uri: data.thumbnail_url}}))}
         amountOfImage={data.thumbnails.length}

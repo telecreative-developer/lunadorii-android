@@ -49,10 +49,11 @@ const DetailsOrder = (props) => (
             <Text style={{fontSize: 18, paddingBottom: 10}}>{props.category}</Text>
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={{fontWeight: 'bold'}}>Rp {props.price}</Text>
                 <Text style={{textDecorationLine:'line-through', paddingLeft: 5}}>Rp {props.price}</Text>
+                <Text style={{fontWeight: 'bold'}}>Rp {props.price}</Text>
               </View>
               <Text>Qty {props.qty}</Text>
+              <Text>{props.status}</Text>
             </View>
           </View>
         </View>
@@ -80,8 +81,8 @@ const DetailsOrder = (props) => (
       </View>
     </Content>
     <View style={{flexDirection: 'row', justifyContent:'space-between', padding: 10}}>
-      {props.status !== 'delivered'? (
-        <Button full style={styles.buttonStyleFotterDisabled} onPress={props.status !== 'delivered' ? props.showToast : props.toggleModalAddReviews}>
+      {props.status !== 'Delivered'? (
+        <Button full style={styles.buttonStyleFotterDisabled} onPress={props.status !== 'Delivered' ? props.showToast : props.toggleModalAddReviews}>
           <Text style={styles.textStyleFooterDisabled}>Review</Text>
         </Button>
       ) : (
