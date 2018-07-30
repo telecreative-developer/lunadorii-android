@@ -238,6 +238,7 @@ class CreditCardContainer extends Component {
     if(Platform.OS==='android'){
       ToastAndroid.showWithGravity("Removed", ToastAndroid.SHORT, ToastAndroid.CENTER)
     }
+    await this.setState({stillLoading: false})
   }
 
   handleBackPress = () => {

@@ -112,14 +112,14 @@ class HomeContainer extends Component {
       await this.closeModal()
       this.setState({modalVisibleLogin: true})
     }else{
-      // ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
       await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
-      await this.closeModal()
-    } 
-    await Toast.show({
-      text: "Added to cart!",
-      duration: 1000
-    })
+        if(Platform.OS === 'android'){
+          ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+          await this.closeModal()
+        }else{
+          await this.closeModal()
+        }
+    }
   }
 
   async componentDidMount() {
