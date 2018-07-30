@@ -1,5 +1,5 @@
 import React from 'react'
-import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions } from 'react-native'
+import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, Platform } from 'react-native'
 import StarRating from 'react-native-star-rating'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'

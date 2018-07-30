@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
-import { Dimensions, Image, StyleSheet, AsyncStorage, TouchableOpacity, BackHandler, ToastAndroid, Alert, NetInfo } from 'react-native'
+import { Dimensions, Image, StyleSheet, AsyncStorage, TouchableOpacity, BackHandler, ToastAndroid, Alert, NetInfo, Platform } from 'react-native'
 import { connect } from 'react-redux'
-
+import { Toast } from 'native-base'
 import Home from '../components/Home'
 import Product from '../particles/Product'
 import Brand from '../particles/Brand'
@@ -25,6 +25,7 @@ class HomeContainer extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      showToast: false,
       stillLoading: true,
       isConnected: true,
       loadingModal: false,
@@ -111,10 +112,14 @@ class HomeContainer extends Component {
       await this.closeModal()
       this.setState({modalVisibleLogin: true})
     }else{
-      ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      // ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
       await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
       await this.closeModal()
     } 
+    await Toast.show({
+      text: "Added to cart!",
+      duration: 1000
+    })
   }
 
   async componentDidMount() {
@@ -328,7 +333,7 @@ class HomeContainer extends Component {
           return (
           <RecommendProduct
             image={item.thumbnails[0].thumbnail_url} 
-            title={this.capitalize(item.product).slice(0,20) + '...'} 
+            title={this.capitalize(item.product).slice(0,Platform.OS==="android"?28:100) + '...'} 
             categories={item.brands[0].brand} 
             price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
             star={item.product_rate} 

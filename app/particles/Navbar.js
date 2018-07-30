@@ -1,5 +1,5 @@
 import React from 'react'
-import { Text, Dimensions, StyleSheet } from 'react-native'
+import { Text, Dimensions, StyleSheet, Platform } from 'react-native'
 import { Header, Left, Button, Icon, Body, Right } from 'native-base'
 const width = Dimensions.get('window').width;
 
@@ -19,8 +19,8 @@ const Navbar = (props) => (
 
 const styles = StyleSheet.create({
   headerStyle: {
-    backgroundColor: '#fff',
-    height: 45,
+    backgroundColor: Platform.OS==='android'  ? '#fff' : '#ccc',
+    height: Platform.OS==='android' ? 45 : 55,
     width: "100%",
   },
   navbarTitles: {

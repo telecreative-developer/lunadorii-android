@@ -115,7 +115,7 @@ class DetailsTransactionContainer extends Component{
             quantity={item.qty}
             price={ item.price == null || item.price === '' ? item.price : this.formatPrice(this.discountPrice(item.price, item.discount_percentage))}
             status={item.status}
-            action={() => this.props.navigation.navigate('DetailsOrderContainer' , {item, billing_code: this.state.billing_code, status:this.state.status})}
+            action={() => this.props.navigation.navigate('DetailsOrderContainer' , {item, billing_code: this.state.billing_code, status:data.order_status})}
           />
         )}
       />

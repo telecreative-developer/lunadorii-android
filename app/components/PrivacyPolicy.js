@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, StatusBar, Dimensions } from 'react-native'
-import { Container, Content, Text, View } from 'native-base'
+import { Container, Content, Text, View, Button, Toast } from 'native-base'
 import Navbar from '../particles/Navbar'
 const { height, width } = Dimensions.get('window')
 
@@ -15,6 +15,7 @@ const PrivacyPolici = (props) => (
       barStyle="light-content"
     />
     <Content style={styles.container}>
+      
       <View style={styles.textContentWrapper}>
         <Text style={styles.bigText}>Personal Data collected for the following</Text>
         <Text style={styles.bigText}>purposes and using the following services</Text>

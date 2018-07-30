@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, ToastAndroid, Alert, BackHandler } from 'react-native'
+import { AsyncStorage, ToastAndroid, Alert, BackHandler, Platform } from 'react-native'
 import { connect } from 'react-redux'
 
 import CreditCard from '../components/CreditCard'
@@ -105,22 +105,41 @@ class CreditCardContainer extends Component {
     await this.props.fetchUserCredit(data.id, data.accessToken)
     // await alert(this.props.manipulatecredit.message)
     if(this.props.manipulatecredit.status === 201){
-      ToastAndroid.showWithGravity("Edited", ToastAndroid.SHORT, ToastAndroid.CENTER)
-      await this.setState({
-        buttonSave: false,
-        modalVisibleEditCreditCard: !this.state.modalVisibleEditCreditCard,
-        cardNumber: '',
-        mm: '',
-        yyyy: '',
-        cardHolderName: '',
-        country: '',
-        postalCode: '',
-        cvv: '',
-        password: ''
-      })
+      if(Platform.OS === 'android'){
+        await ToastAndroid.showWithGravity("Edited", ToastAndroid.SHORT, ToastAndroid.CENTER) 
+        await this.setState({
+          buttonSave: false,
+          modalVisibleEditCreditCard: !this.state.modalVisibleEditCreditCard,
+          cardNumber: '',
+          mm: '',
+          yyyy: '',
+          cardHolderName: '',
+          country: '',
+          postalCode: '',
+          cvv: '',
+          password: ''
+        })
+      }else{
+        await this.setState({
+          buttonSave: false,
+          modalVisibleEditCreditCard: !this.state.modalVisibleEditCreditCard,
+          cardNumber: '',
+          mm: '',
+          yyyy: '',
+          cardHolderName: '',
+          country: '',
+          postalCode: '',
+          cvv: '',
+          password: ''
+        })
+      }
     }else{
-      ToastAndroid.showWithGravity("Failed, Check Your Data", ToastAndroid.SHORT, ToastAndroid.CENTER)
-      await this.setState({buttonSave: false})
+      if(Platform.OS==="android"){
+        await ToastAndroid.showWithGravity("Failed, Check Your Data", ToastAndroid.SHORT, ToastAndroid.CENTER)
+        await this.setState({buttonSave: false})  
+      }else{
+        await this.setState({buttonSave: false})  
+      }
     }
   }
 
@@ -139,22 +158,41 @@ class CreditCardContainer extends Component {
       await this.setState({isEmpty: false})
     }
     if(this.props.manipulatecredit.status === 201){
-      ToastAndroid.showWithGravity("Added", ToastAndroid.SHORT, ToastAndroid.CENTER)
-      await this.setState({
-        buttonSave: false,
-        modalVisibleAddCreditCard: !this.state.modalVisibleAddCreditCard,
-        cardNumber: '',
-        mm: '',
-        yyyy: '',
-        cardHolderName: '',
-        country: '',
-        postalCode: '',
-        cvv: '',
-        password: ''
-      })
+      if(Platform.OS==='android'){
+        ToastAndroid.showWithGravity("Added", ToastAndroid.SHORT, ToastAndroid.CENTER)
+        await this.setState({
+          buttonSave: false,
+          modalVisibleAddCreditCard: !this.state.modalVisibleAddCreditCard,
+          cardNumber: '',
+          mm: '',
+          yyyy: '',
+          cardHolderName: '',
+          country: '',
+          postalCode: '',
+          cvv: '',
+          password: ''
+        })
+      }else{
+        await this.setState({
+          buttonSave: false,
+          modalVisibleAddCreditCard: !this.state.modalVisibleAddCreditCard,
+          cardNumber: '',
+          mm: '',
+          yyyy: '',
+          cardHolderName: '',
+          country: '',
+          postalCode: '',
+          cvv: '',
+          password: ''
+        })
+      }
     }else{
-      ToastAndroid.showWithGravity("Failed, Check Your Data", ToastAndroid.SHORT, ToastAndroid.CENTER)
-      await this.setState({buttonSave: false})
+      if(Platform.OS==='android'){
+        ToastAndroid.showWithGravity("Failed, Check Your Data", ToastAndroid.SHORT, ToastAndroid.CENTER)
+        await this.setState({buttonSave: false})
+      }else{
+        await this.setState({buttonSave: false})
+      }
     }
   }
 
@@ -197,7 +235,9 @@ class CreditCardContainer extends Component {
     const data = await JSON.parse(session)
     await this.props.deleteUserCredit(this.state.userCCId, data.accessToken)
     await this.props.fetchUserCredit(data.id, data.accessToken)
-    ToastAndroid.showWithGravity("Removed", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    if(Platform.OS==='android'){
+      ToastAndroid.showWithGravity("Removed", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }
   }
 
   handleBackPress = () => {
