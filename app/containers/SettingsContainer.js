@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { editPassword, editEmail } from '../actions/editprofile'
 import { StackActions, NavigationActions} from 'react-navigation'
-import {AsyncStorage, ToastAndroid} from 'react-native'
+import {AsyncStorage, ToastAndroid, Platform} from 'react-native'
 
 import Settings from '../components/Settings'
 
@@ -64,7 +64,9 @@ class SettingsContainer extends Component {
       }
       this.setState({ buttonEmail: false, changedEmail: this.state.newEmail })
       // await alert(this.props.editemail.message)
-      ToastAndroid.showWithGravity(this.props.editemail.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
+      if(Platform.OS === 'android'){
+        ToastAndroid.showWithGravity(this.props.editemail.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
+      }
     }
   }
 
@@ -94,7 +96,9 @@ class SettingsContainer extends Component {
         }
         this.setState({ buttonPassword: false })
         // await alert(this.props.editpassword.message)
-        ToastAndroid.showWithGravity(this.props.editpassword.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
+        if(Platform.OS === 'android'){
+          ToastAndroid.showWithGravity(this.props.editpassword.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
+        }
       }
     
   }

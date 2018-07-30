@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, Alert, ToastAndroid } from 'react-native'
+import { AsyncStorage, Alert, ToastAndroid, Platform } from 'react-native'
 import LocalBank from '../components/LocalBank'
 import LocalBanks from '../particles/LocalBanks'
 import Picker from '../particles/Picker'
@@ -47,9 +47,18 @@ class LocalBankContainer extends Component{
     await this.props.addUserBank(this.state.bill, this.state.name, this.state.bank_id, data.id, this.state.password, data.accessToken)
     await this.props.fetchUserBank(data.id, data.accessToken)
     // await alert(this.props.manipulatebank.message)
-    ToastAndroid.showWithGravity("Added", ToastAndroid.SHORT, ToastAndroid.CENTER)
-    await this.setState({buttonSave: false})
-    await this.setState({ modalVisibleAddLocalBank: !this.state.modalVisibleAddLocalBank})
+    if(Platform.OS === 'android'){
+      ToastAndroid.showWithGravity("Added", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      await this.setState({
+        buttonSave: false,
+        modalVisibleAddLocalBank: !this.state.modalVisibleAddLocalBank
+      })
+    }else{
+      await this.setState({
+        buttonSave: false,
+        modalVisibleAddLocalBank: !this.state.modalVisibleAddLocalBank
+      })
+    }
   }
 
   async handleEditBank(){
@@ -59,9 +68,18 @@ class LocalBankContainer extends Component{
     await this.props.editUserBank(this.state.user_bank_id, this.state.bill, this.state.name, this.state.bank_id, data.id, this.state.password, data.accessToken)
     await this.props.fetchUserBank(data.id, data.accessToken)
     // await alert(this.props.manipulatebank.message)
-    ToastAndroid.showWithGravity("Edited", ToastAndroid.SHORT, ToastAndroid.CENTER)
-    await this.setState({buttonSave: false})
-    await this.setState({ modalVisibleEditLocalBank: !this.state.modalVisibleEditLocalBank})
+    if(Platform.OS === 'android'){
+      ToastAndroid.showWithGravity("Edited", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      await this.setState({
+        buttonSave: false,
+        modalVisibleEditLocalBank: !this.state.modalVisibleEditLocalBank
+      })
+    }else{
+      await this.setState({
+        buttonSave: false,
+        modalVisibleEditLocalBank: !this.state.modalVisibleEditLocalBank
+      })
+    }
   }
 
   async handleDeleteBank(item){
@@ -88,7 +106,7 @@ class LocalBankContainer extends Component{
     await this.props.deleteUserBank(item.user_bank_id, data.accessToken)
     await this.props.fetchUserBank(data.id, data.accessToken)
     // await alert(this.props.manipulatebank.message)
-    ToastAndroid.showWithGravity("Fetching", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    // ToastAndroid.showWithGravity("Fetching", ToastAndroid.SHORT, ToastAndroid.CENTER)
   }
 
   toggleModalAddLocalBank(){

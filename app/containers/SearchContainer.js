@@ -114,7 +114,9 @@ class SearchContainer extends Component {
       await this.closeModal()
       await this.props.navigate.navigation('LoginContainer')
     }else{
-      ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      if(Platform.OS === 'android'){
+        ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      }
       await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
       await this.closeModal()
     } 
