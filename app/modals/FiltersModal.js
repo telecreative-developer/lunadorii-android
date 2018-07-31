@@ -68,11 +68,11 @@ const FiltersModal = (props) => (
       <Text style={styles.txtLabel}>Price</Text>
       <View style={styles.inputWrapper}>
         <Item regular style={styles.inputMin}>
-          <Input placeholder='Min' placeholderTextColor="#ccc" onChangeText={props.handleMinPrice} keyboardType={'numeric'} maxLength={9}/>
+          <Input value={props.minValue} placeholder='Min' placeholderTextColor="#ccc" onChangeText={props.handleMinPrice} keyboardType={'numeric'} maxLength={10}/>
         </Item>
         <Text style={styles.sparator}>-</Text>
         <Item regular style={styles.inputMax}>
-          <Input placeholder='Max' placeholderTextColor="#ccc" onChangeText={props.handleMaxPrice} keyboardType={'numeric'} maxLength={9}/>
+          <Input value={props.maxValue} placeholder='Max' placeholderTextColor="#ccc" onChangeText={props.handleMaxPrice} keyboardType={'numeric'} maxLength={10}/>
         </Item>
       </View>
     </Content>
