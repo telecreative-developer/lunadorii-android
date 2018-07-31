@@ -88,6 +88,8 @@ class YourShippingAddressContainer extends Component{
       address: '',
       province: '',
       province_id:'',
+      city_id:'',
+      city_with_type: '',
       city: '',
       postal_code: '',
       numberPhone: '',
@@ -118,6 +120,7 @@ class YourShippingAddressContainer extends Component{
       province: '',
       province_id:'',
       city_id:'',
+      city_with_type: '',
       city: '',
       postal_code: '',
       numberPhone: '',
@@ -245,7 +248,7 @@ class YourShippingAddressContainer extends Component{
         onChangeAddress={(address) => this.setState({address})}
 
         provinceValue={this.state.province}
-        onChangeProvince={(province) => this.setState({province, visibleProvincePicker: true, province_id:''})}
+        onChangeProvince={(province) => this.setState({province, visibleProvincePicker: true, province_id:'', city_with_type: ''})}
 
         cityValue={this.state.city_with_type}
         onChangeCity={(city_with_type) => this.setState({city_with_type, visibleCityPicker: true, city_id:''})}
