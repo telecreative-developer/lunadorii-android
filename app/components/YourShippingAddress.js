@@ -126,16 +126,7 @@ const YourShippingAddress = (props) => (
         </View>
       </Content>:
       <Content style={styles.container}>
-        {props.dataShippingAddressDefault == 0 ? 
-          <Validations 
-            showImportedImage={true}
-            image={ImageShippingAddress}
-            title={"Shipping address is empty"} 
-            message1={"You don't set shipping address"} 
-            message2={"press button bellow to add one"}
-            buttonText={"Add shipping address"}
-            buttonAction={props.toggleModalAddAddress}
-          />:
+        {props.dataShippingAddressDefault != 0 || props.dataShippingAddress != 0 ? 
           <View>
             <View style={{paddingHorizontal: 10}}>
               <Text style={styles.txtShippingAddress}>Your Shipping Address</Text>
@@ -153,7 +144,16 @@ const YourShippingAddress = (props) => (
             <Button style={styles.btnAddAddress} onPress={props.toggleModalAddAddress}>
               <Icon name="add" /><Text style={styles.txtAddAddress}>Add Another Address</Text>
             </Button>
-          </View>
+          </View>:
+          <Validations 
+          showImportedImage={true}
+          image={ImageShippingAddress}
+          title={"Shipping address is empty"} 
+          message1={"You don't set shipping address"} 
+          message2={"press button bellow to add one"}
+          buttonText={"Add shipping address"}
+          buttonAction={props.toggleModalAddAddress}
+        />
         }        
       </Content>
     }
