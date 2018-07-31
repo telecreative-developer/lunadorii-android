@@ -184,7 +184,7 @@ class SearchContainer extends Component {
                                           lastFillter:this.state.selectedCategory.concat(item.subcategory)
                                           })}
           >
-            <Text style={{color: '#F7009A' ,padding:Platform.OS==="android" ? 5 : 0, paddingHorizontal:Platform.OS==="android"?0:5}}>{item.subcategory}</Text>
+            <Text style={{color: '#F7009A' ,padding:Platform.OS==="android" ? 5 : 0, paddingHorizontal:Platform.OS==="android"?5:5}}>{item.subcategory}</Text>
           </Button>
         )}
         
@@ -232,8 +232,10 @@ class SearchContainer extends Component {
         handleCategory={()=>this.handleCategory()}
         handleBrand={()=>this.handleBrand()}
 
-        maxValue={this.state.maxPrice}
-        minValue={this.state.minPrice}
+        // 
+        // 
+        maxValue={this.state.maxPrice.toString().replace(/^0+/, '')}
+        minValue={this.state.minPrice.toString().replace(/^0+/, '')}
 
         handleMinPrice={(minPrice)=>this.setState({minPrice})}
         handleMaxPrice={(maxPrice)=>this.setState({maxPrice})}
