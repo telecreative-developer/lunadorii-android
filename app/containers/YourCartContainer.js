@@ -417,12 +417,27 @@ async checkout(){
     const data = dataUser.length && dataUser[0]
     if( data ){
       return (
-        <ShippingAddress 
-          name={data.recepient}
-          numberPhone={data.phone}
-          detail_address={data.detail_address}
-          address_default={data.address_default}
-        />
+        // <ShippingAddress 
+        //   name={data.recepient}
+        //   numberPhone={data.phone}
+        //   detail_address={data.detail_address}
+        //   address_default={data.address_default}
+        // />
+        <View style={{
+          borderRadius: 1.5,
+          borderColor: data.address_default ? '#d11e48' : '#E2E2E2',
+          borderWidth: 1,
+          marginBottom: data.address_default ? 15 : 5
+        }}>
+          <View style={styles.contentCard}>
+            <View style={styles.wrapLeft}>
+              <Text style={styles.txtHeader}>{data.recepient}</Text>
+              <Text>{data.phone}</Text>
+              <Text>{data.detail_address}</Text>
+            </View>
+            
+          </View>
+        </View>
       )
     }else{
       return(
@@ -659,6 +674,26 @@ const styles = StyleSheet.create({
     color: '#fff',
     marginHorizontal:  10
   },
+  contentCard: {
+    margin: 10,
+    flexDirection: 'row',
+    flex: 1,
+  },
+  wrapLeft: {
+    flex: 1,
+  },
+  wrapRight: {
+    alignItems: 'flex-end'
+  },
+  txtHeader: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  txtAction: {
+    fontSize: 14,
+    color: '#d11e48',
+    marginBottom: 5
+  }
 })
 
 export default connect(mapStateToProps, mapDispatchToProps)(YourCartContainer)
