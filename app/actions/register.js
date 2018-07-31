@@ -26,15 +26,15 @@ export const register = item => {
       })
       
       const data = await response.json()
-      await dispatch(receiveRegister(data.data[0]))
+      await dispatch(receiveRegister(data))
       if (data.status === 401) {
         await dispatch(setFailed(true, 'FAILED_REGISTER', data.message))
         await dispatch(setFailed(false, 'FAILED_REGISTER', data.message))
         await dispatch(setLoading(false, 'LOADING_REGISTER'))
       } else {
         await dispatch(setSuccess(true, 'SUCCESS_REGISTER'))
-        await dispatch(setSuccess(false, 'SUCCESS_REGISTER'))
         await dispatch(setLoading(false, 'LOADING_REGISTER'))
+        await dispatch(setSuccess(false, 'SUCCESS_REGISTER'))
       }
     } catch (e) {
       // console.log('error: ', e)
@@ -60,11 +60,12 @@ export const checkEmail = (email) => {
 			const data = await response.json()
 			if (data.status === 409 && data.name === 'error') {
         await dispatch(setFailed(true, 'FAILED_PROCESS_CHECK_EMAIL', data.message))
+				await dispatch(setLoading(false, 'LOADING_PROCESS_CHECK_EMAIL'))
         await dispatch(setFailed(false, 'FAILED_PROCESS_CHECK_EMAIL'))
-				await dispatch(setLoading(false, 'LOADING_PROCESS_CHECK_EMAIL'))
 			} else {
-				await dispatch(setSuccess(true, 'SUCCESS_PROCESS_CHECK_EMAIL'))
+        await dispatch(setSuccess(true, 'SUCCESS_PROCESS_CHECK_EMAIL'))
 				await dispatch(setLoading(false, 'LOADING_PROCESS_CHECK_EMAIL'))
+        await dispatch(setSuccess(false, 'SUCCESS_REGISTER'))
 			}
 		} catch (e) {
 			dispatch(setFailed(true, 'FAILED_PROCESS_CHECK_EMAIL', e))

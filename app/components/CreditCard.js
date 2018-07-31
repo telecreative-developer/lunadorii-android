@@ -76,7 +76,7 @@ const CreditCard = (props) => (
       <View style={styles.style}>
         <Spinner color="#d11e48"/>
       </View>:
-      props.dataCreditCardsDefault != 0 ?
+      props.dataCreditCardsDefault != 0 || props.dataCreditCards != 0  ?
       <Content style={styles.content}>
         <View>
           <View style={styles.viewBrand}>

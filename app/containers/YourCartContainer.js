@@ -95,9 +95,11 @@ class YourCartContainer extends Component {
   }
 
   async getCourier(){
-    const dataUser = this.props.usershipping.filter(shp => shp.address_default)
-    const data = dataUser.length && dataUser[0]
-    await this.props.fetchCourier(this.totalWeight(),data.province_id)
+    const dataUser = await this.props.usershipping.filter(shp => shp.address_default === true)
+    const data = await dataUser.length && dataUser[0]
+    if(this.props.cartuser.length && data ){
+      await this.props.fetchCourier(this.totalWeight(),data.province_id)
+    }
   }
 
   async getCreditCard(){
@@ -531,6 +533,7 @@ render() {
       selectedMethod={this.state.selectedMethod}
       selectedCourier={this.state.selectedCourier}
       selectedServices={this.capitalize(this.state.code)}
+      isShippingAddress={this.props.usershipping.filter(shp => shp.address_default === true).length}
       courierCode={courier}
       renderCode={({item}) => (
         <TouchableOpacity style={styles.btnPickDeliveryService} onPress={()=>this.chooseService(item.code, item.costs)}>
