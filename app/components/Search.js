@@ -56,7 +56,7 @@ const Search = (props) => (
     />
     <Content style={styles.container}>
       <Item regular style={styles.items}>
-        <Input placeholder="Search product or brand name" value={props.searchTitle} returnKeyType="search" placeholderTextColor="#ccc" onChangeText={props.onChangeSearchTitle} onSubmitEditing={props.handleSearch}/>
+        <Input placeholder="Type here what you are looking for" value={props.searchTitle} returnKeyType="search" placeholderTextColor="#ccc" onChangeText={props.onChangeSearchTitle} onSubmitEditing={props.handleSearch}/>
         <TouchableOpacity onPress={props.clearSearchBar}>
           <EvilIcons name="close" style={styles.searchIcon} />
         </TouchableOpacity>
