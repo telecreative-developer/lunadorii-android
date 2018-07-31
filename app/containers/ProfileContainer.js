@@ -20,7 +20,7 @@ class ProfileContainer extends Component {
     last_name:"",
     bod: "", 
     email: "",
-    photoProfile: '',
+    photoProfile: false,
     photoName: '',
     photoType: '',
     fileExt: '',
@@ -49,7 +49,8 @@ class ProfileContainer extends Component {
       storageOptions:{
         stillLoading: true,
         cameraRoll: true,
-        path: this.state.imageProfile
+        path: this.state.imageProfile,
+        photoProfile: true
       },
       quality: 1,
       maxWidth: 800,
@@ -57,9 +58,11 @@ class ProfileContainer extends Component {
     }
     await ImagePicker.showImagePicker(options, (responses) => {
       if(responses.didCancel){
+        this.setState({photoProfile: false})
         // alert("You've canceled")
         // ToastAndroid.showWithGravity("Canceled", ToastAndroid.SHORT, ToastAndroid.CENTER)
       }else if(responses.error){
+        this.setState({photoProfile: false})
         // alert("An error occured")
         // ToastAndroid.showWithGravity("Error occured", ToastAndroid.SHORT, ToastAndroid.CENTER)
       }else{
@@ -67,14 +70,11 @@ class ProfileContainer extends Component {
         let fileExt = str.split(".")
 
         this.setState({
-          stillLoading: true,
+          photoProfile: true,
           imageProfile: responses.uri,
           photoName: `${Date.now()}.${fileExt[1]}`,
           photoType: `image/${fileExt[1]}`,
           fileExt: fileExt[1]
-        })
-        this.setState({
-          stillLoading: false
         })
       }
     })
@@ -101,7 +101,7 @@ class ProfileContainer extends Component {
     RNS3.put(file, options).progress((e) => console.log(e.loaded / e.total)).then(response => {
       if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
-      this.props.editAvatar(id, response.body.postResponse.location).then(response1 => {
+      this.props.editAvatar(id, response.body.postResponse.location, accessToken).then(response1 => {
         this.props.fetchSingleUser(id, accessToken)
       })
       /**
@@ -127,7 +127,9 @@ class ProfileContainer extends Component {
         this.state.last_name,
         this.state.bod, 
         this.state.userData.accessToken)
-    this.uploadToS3(data.id, data.accessToken, this.state.imageProfile, `${Date.now()}.${this.state.fileExt}`, this.state.photoType)
+    if (this.state.photoProfile) {
+      this.uploadToS3(data.id, data.accessToken, this.state.imageProfile, `${Date.now()}.${this.state.fileExt}`, this.state.photoType)
+    }
     await this.props.fetchSingleUser(data.id, data.accessToken)
     await this.setState({modalVisibleEditProfile: false })
     // await alert(this.props.editname.message)
@@ -228,7 +230,7 @@ const mapDispatchToProps = (dispatch) =>{
     fetchProductRecent: (id, accessToken) => dispatch(fetchProductRecent(id, accessToken)),
     fetchProductHistory: (id, accessToken) => dispatch(fetchProductHistory(id, accessToken)),
     editName: (id, firstName, lastName, bod, accessToken) => dispatch(editName(id, firstName, lastName, bod, accessToken)),
-    editAvatar: (id, avatar_url) => dispatch(editAvatar(id, avatar_url))
+    editAvatar: (id, avatar_url, accessToken) => dispatch(editAvatar(id, avatar_url, accessToken))
   }
 }
 
