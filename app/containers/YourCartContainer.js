@@ -118,12 +118,12 @@ class YourCartContainer extends Component {
     this.setState({modalVisibleCheckoutPayment: !this.state.modalVisibleCheckoutPayment})
   }
 
-  closeModal(){
+  closeModalEdit(){
     this.setState({modalVisibleEditQuantity: !this.state.modalVisibleEditQuantity})
   }
 
   async toggleModalEditQuantity(item){
-    await this.closeModal()
+    await this.closeModalEdit()
     if(this.state.modalVisibleEditQuantity){
       const session = await AsyncStorage.getItem('session')
       const data = await JSON.parse(session)
@@ -158,7 +158,7 @@ class YourCartContainer extends Component {
     const data = await JSON.parse(session)
     await this.props.editQty(data.id, this.state.product_id, this.state.quantity, this.state.cart_id, data.accessToken)
     await this.props.fetchCartUser(data.id, data.accessToken)
-    await this.closeModal()
+    await this.closeModalEdit()
     this.setState({loadingBtn: false})
   }
 

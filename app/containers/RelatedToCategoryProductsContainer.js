@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, ToastAndroid } from 'react-native'
+import { AsyncStorage, ToastAndroid, Platform } from 'react-native'
 import RelatedToCategoryProducts from '../components/RelatedToCategoryProducts'
 import Product from '../particles/Product'
 import { connect } from 'react-redux'
@@ -56,7 +56,9 @@ class RelatedToCategoryProductsContainer extends Component{
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     // await alert('Berhasil Menambahkan ke Kranjang', this.state.product_name.slice(0,10))
-    ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    if(Platform.OS === 'android'){
+      ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }
     await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
     await this.closeModal()
 

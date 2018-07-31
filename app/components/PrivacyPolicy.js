@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, StatusBar, Dimensions } from 'react-native'
-import { Container, Content, Text, View } from 'native-base'
+import { Container, Content, Text, View, Button, Toast } from 'native-base'
 import Navbar from '../particles/Navbar'
 const { height, width } = Dimensions.get('window')
 

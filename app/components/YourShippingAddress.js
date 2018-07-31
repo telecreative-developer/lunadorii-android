@@ -126,7 +126,7 @@ const YourShippingAddress = (props) => (
         </View>
       </Content>:
       <Content style={styles.container}>
-        {props.dataShippingAddress <= 0 ? 
+        {props.dataShippingAddressDefault == 0 ? 
           <Validations 
             showImportedImage={true}
             image={ImageShippingAddress}

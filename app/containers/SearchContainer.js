@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Text,View,Image,TouchableOpacity, AsyncStorage, ToastAndroid} from 'react-native'
+import {Text,View,Image,TouchableOpacity, AsyncStorage, ToastAndroid, Platform} from 'react-native'
 import {Button} from 'native-base'
 import Search from '../components/Search'
 import Product from '../particles/Product'
@@ -114,7 +114,9 @@ class SearchContainer extends Component {
       await this.closeModal()
       await this.props.navigate.navigation('LoginContainer')
     }else{
-      ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      if(Platform.OS === 'android'){
+        ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      }
       await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
       await this.closeModal()
     } 
@@ -156,11 +158,11 @@ class SearchContainer extends Component {
             margin: 5,
             backgroundColor: '#d11e48'
           }}>
-            <Text style={{color: '#fff',padding: 5}}>{item}</Text>
+            <Text style={{color: '#fff',padding:Platform.OS==="android" ? 5 : 0, paddingLeft:Platform.OS==="android"?0:5}}>{item}</Text>
             <TouchableOpacity onPress={() => this.removeSelectedCategory(item)}>
               <EvilIcons name="close" style={{
                 fontSize: 12,
-                padding: 5,
+                padding: Platform.OS==="android" ? 5 : 5,
                 color:'#fff'
               }} />
             </TouchableOpacity>
@@ -182,7 +184,7 @@ class SearchContainer extends Component {
                                           lastFillter:this.state.selectedCategory.concat(item.subcategory)
                                           })}
           >
-            <Text style={{color: '#F7009A' ,padding:5}}>{item.subcategory}</Text>
+            <Text style={{color: '#F7009A' ,padding:Platform.OS==="android" ? 5 : 0, paddingHorizontal:Platform.OS==="android"?0:5}}>{item.subcategory}</Text>
           </Button>
         )}
         

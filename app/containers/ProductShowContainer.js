@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ToastAndroid, AsyncStorage, StyleSheet, Dimensions, TouchableOpacity, Image } from 'react-native'
+import { ToastAndroid, AsyncStorage, StyleSheet, Dimensions, TouchableOpacity, Image, Platform } from 'react-native'
 import ProductShow from '../components/ProductShow'
 import RecommendProduct from '../particles/RecommendProduct'
 import CommentAndRating from '../particles/CommentAndRating'
@@ -83,11 +83,13 @@ class ProductShowContainer extends Component {
     this.setState({clickCart: true})
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    const dataProduct = this.props.navigation.state.params.data
     if(data == null ){
       await this.setState({modalVisibleLogin: true})
     }else{
-      ToastAndroid.showWithGravity("Added to cart.", ToastAndroid.SHORT, ToastAndroid.CENTER)
-      const dataProduct = this.props.navigation.state.params.data
+      if(Platform.OS === 'android'){
+        ToastAndroid.showWithGravity("Added to cart.", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      }
       await this.setState({
         product_id: dataProduct.product_id
       })
@@ -164,10 +166,13 @@ class ProductShowContainer extends Component {
   async handleAddToCartModal(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
     await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
-    await this.closeModal()
-
+    if(Platform.OS === 'android'){
+      ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      await this.closeModal()
+    }else{
+      await this.closeModal()
+    }
   }
 
   async addQty(){
@@ -195,12 +200,14 @@ class ProductShowContainer extends Component {
   async AddWishlist(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    const dataProduct = this.props.navigation.state.params.data
     if( data == null ){
       await this.setState({modalVisibleLogin: true})
     }else{
       this.setState({clickWishlist:!this.state.clickWishlist})
+      if(Platform.OS === 'android'){
       ToastAndroid.showWithGravity("Added to wishlist.", ToastAndroid.SHORT, ToastAndroid.CENTER)
-      const dataProduct = this.props.navigation.state.params.data
+      }
       await this.setState({
         product_id: dataProduct.product_id
       })
@@ -212,7 +219,9 @@ class ProductShowContainer extends Component {
 
   async deleteWishlistInHome(){
     this.setState({clickWishlist:!this.state.clickWishlist})
+    if(Platform.OS === 'android'){
     ToastAndroid.showWithGravity("Delete wishlist.", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }
     const dataProduct = this.props.navigation.state.params.data
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)

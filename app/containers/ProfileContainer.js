@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, ToastAndroid, BackHandler } from 'react-native'
+import { AsyncStorage, ToastAndroid, BackHandler, Platform } from 'react-native'
 import { RNS3 } from 'react-native-aws3';
 import Profile from '../components/Profile'
 import RecentOrders from '../particles/RecentOrders'
@@ -58,10 +58,10 @@ class ProfileContainer extends Component {
     await ImagePicker.showImagePicker(options, (responses) => {
       if(responses.didCancel){
         // alert("You've canceled")
-        ToastAndroid.showWithGravity("Canceled", ToastAndroid.SHORT, ToastAndroid.CENTER)
+        // ToastAndroid.showWithGravity("Canceled", ToastAndroid.SHORT, ToastAndroid.CENTER)
       }else if(responses.error){
         // alert("An error occured")
-        ToastAndroid.showWithGravity("Error occured", ToastAndroid.SHORT, ToastAndroid.CENTER)
+        // ToastAndroid.showWithGravity("Error occured", ToastAndroid.SHORT, ToastAndroid.CENTER)
       }else{
         let str = responses.fileName
         let fileExt = str.split(".")
@@ -132,7 +132,9 @@ class ProfileContainer extends Component {
     await this.setState({modalVisibleEditProfile: false })
     // await alert(this.props.editname.message)
     this.setState({stillLoading: false})
-    ToastAndroid.showWithGravity("Edited", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    if(Platform.OS === 'android'){
+      ToastAndroid.showWithGravity("Edited", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }
   }
 
   async componentDidMount(){
@@ -150,7 +152,7 @@ class ProfileContainer extends Component {
       imageProfile: this.props.getsingleuser.avatar_url,
       first_name: this.props.getsingleuser.first_name,
       last_name : this.props.getsingleuser.last_name,
-      bod: this.props.getsingleuser.bod,
+      bod: this.props.getsingleuser.bod, 
       email: this.props.getsingleuser.email
     })
   }
