@@ -171,12 +171,14 @@ const YourCart = (props) => (
               )}
             </View>
             <View style={{alignItems:'center', paddingBottom: 10}}>
+            {console.log(props.isShippingAddress)}
+              {props.isShippingAddress != 0 ? 
               <FlatList
-                horizontal={true}
-                showsHorizontalScrollIndicator={false}
-                data={props.courierCode}
-                renderItem={props.renderCode}
-              />
+              horizontal={true}
+              showsHorizontalScrollIndicator={false}
+              data={props.courierCode}
+              renderItem={props.renderCode}
+            />: null }
             </View>
           </View>
         </Content>
