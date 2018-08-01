@@ -76,13 +76,13 @@ const GuidePermata = () => {
 export default class Banks extends Component{
   
   renderGuides = (bankName) => {
-    if(bankName === 'BCA'){
+    if(bankName === 'bca'){
       return <GuideBCA/>
     }else if(bankName === 'BNI'){
       return <GuideBNI/>
     }else if(bankName === 'Mandiri'){
       return <GuideMandiri/>
-    }else if(bankName === 'Permata'){
+    }else if(bankName === 'permata'){
       return <GuidePermata/>
     }
   }
