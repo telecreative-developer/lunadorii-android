@@ -84,7 +84,9 @@ const Home = (props) => (
                     keyExtractor={(item, index) => JSON.stringify(index)}
                   />
                   ) : (
-                    <Text>Nothing to show since you are offline</Text>
+                    <View style={{alignItems: 'center', marginBottom: 20}}>
+                      <Text>Nothing to show since you are offline</Text>
+                    </View>
                   )
                 }
             </View>
