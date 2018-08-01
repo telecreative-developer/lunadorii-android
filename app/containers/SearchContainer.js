@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Text,View,Image,TouchableOpacity, AsyncStorage, ToastAndroid, Platform} from 'react-native'
+import {Text,View,Image,TouchableOpacity, AsyncStorage, ToastAndroid, Platform, NetInfo} from 'react-native'
 import {Button} from 'native-base'
 import Search from '../components/Search'
 import Product from '../particles/Product'
@@ -35,10 +35,22 @@ class SearchContainer extends Component {
   }
 
   componentDidMount(){
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
     this.props.fetchCategoryProduct()
   }
 
-  // this.props.productsubcategories
+  componentWillUnmount(){
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+  }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
 
   async handleSearch(){
     this.setState({loading: true})

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AsyncStorage, Alert, ToastAndroid} from 'react-native'
+import {AsyncStorage, Alert, ToastAndroid, NetInfo} from 'react-native'
 import { connect } from 'react-redux'
 
 import Wishlist from '../components/Wishlist'
@@ -15,6 +15,7 @@ class WishlistContainer extends Component{
   }
 
   async componentDidMount(){
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.setState({
@@ -25,6 +26,19 @@ class WishlistContainer extends Component{
     await this.setState({stillLoading: false})
     
   }
+
+  componentWillUnmount(){
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+  }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
 
   capitalize(string) {
     return string.replace(/(^|\s)\S/g, l => l.toUpperCase())

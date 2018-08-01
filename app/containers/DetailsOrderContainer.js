@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, ToastAndroid, Platform } from 'react-native'
+import { AsyncStorage, ToastAndroid, Platform, NetInfo } from 'react-native'
 import { connect } from 'react-redux'
 import moment from 'moment'
 
@@ -16,10 +16,24 @@ class DetailsOrderContainer extends Component{
   }
 
   async componentDidMount(){
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     const dataProduct = this.props.navigation.state.params.item
   }
+
+  componentWillUnmount(){
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+  }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
 
   toggleImageViewModal(){
     this.setState({ modalVisibleImageView: !this.state.modalVisibleImageView })

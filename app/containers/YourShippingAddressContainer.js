@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AsyncStorage, View,Modalx, Text, SmartPicker, Dimensions, ScrollView, Alert, ToastAndroid, BackHandler, Platform} from 'react-native'
+import {AsyncStorage, View,Modalx, Text, SmartPicker, Dimensions, ScrollView, Alert, ToastAndroid, BackHandler, Platform, NetInfo} from 'react-native'
 import { Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
 import YourShippingAddress from '../components/YourShippingAddress'
 import ShippingAddress from '../particles/ShippingAddress'
@@ -134,6 +134,7 @@ class YourShippingAddressContainer extends Component{
   }
 
   async componentDidMount() {
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
     await BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
@@ -144,8 +145,18 @@ class YourShippingAddressContainer extends Component{
   }
 
   componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
   }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
 
   async onChangeDefault(item){
     await this.setState({

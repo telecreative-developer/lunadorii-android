@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage } from 'react-native'
+import { AsyncStorage, NetInfo } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchSingleProductRecent } from '../actions/product'
 
@@ -19,12 +19,26 @@ class DetailsTransactionContainer extends Component{
   }
 
   async componentDidMount(){
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
     const session = await AsyncStorage.getItem('session')
     const dataUser = await JSON.parse(session)
     const data = await this.props.navigation.state.params.data
     await this.props.fetchSingleProductRecent( data.order_id, dataUser.accessToken )
     await this.setState({stillLoading: false})
   }
+
+  componentWillUnmount(){
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+  }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
 
   responeMidtrans(){
     const midtransResponse = this.props.receiveSingleProductRecent.midtrans_response
