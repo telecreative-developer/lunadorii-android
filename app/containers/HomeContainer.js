@@ -339,7 +339,7 @@ class HomeContainer extends Component {
             star={item.product_rate} 
             reviews={item.product_rate}
             action={() => this.state.isConnected ? this.props.navigation.navigate("ProductShowContainer", { data: item }) : null}
-            toggleModalAddToCart={() => this.toggleModalAddToCart()}
+            toggleModalAddToCart={() => this.toggleModalAddToCart(item)}
           />
         )
         }}
