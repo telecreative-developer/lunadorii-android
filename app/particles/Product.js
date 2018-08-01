@@ -38,9 +38,9 @@ const Product = (props) => (
           />
         </View>
       </View>
-      <View style={{flexDirection: 'row', justifyContent: 'center', marginVertical: 5, alignItems:'center'}}>
+      <View style={{flexDirection: 'row', justifyContent: 'flex-start', marginVertical: 5, alignItems:'center'}}>
         <Text style={styles.txtPrice}>Rp. {props.price}</Text>
-        <Text style={styles.txtDiscount}>Rp. {props.price}</Text>
+        {/* <Text style={styles.txtDiscount}>Rp. {props.price}</Text> */}
       </View>
     </View>
   </View>

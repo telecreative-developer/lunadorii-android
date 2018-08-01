@@ -28,7 +28,7 @@ const WaitingForPaymentModal = (props) => (
     />
     <Content style={styles.container}>
       <View style={styles.paymentInformation1}>
-          <View>
+          <View style={{alignItems:'center'}}>
             <Image source={image} style={styles.imageFrame} />
             <Text style={styles.textInfo1}>Waiting for payment</Text>
             <View style={styles.textInfo2Wrapper}>
@@ -43,14 +43,13 @@ const WaitingForPaymentModal = (props) => (
               <Text style={styles.paymentInformation2title}>Payment code will end in</Text>
               <CountDown
                 until={props.countDown}
-                onFinish={() => alert('finished')}
-                onPress={() => alert('hello')}
+                onFinish={() => alert('Your payment is ends')}
                 size={20}
                 digitBgColor={'#f6f6f6'}
                 timeToShow={['H','M','S']}
               />
           </View>
-            <View>
+            <View style={{alignItems:'center'}}>
               <Text style={styles.paymentInformation2warning1}>Please pay your bill before</Text>
               <Text style={styles.paymentInformation2warning2}>{moment(props.transaction_time).add(12, 'hours').format('LLLL')}</Text>
             </View>
@@ -76,7 +75,7 @@ const WaitingForPaymentModal = (props) => (
           </View>
           <View style={styles.contentCard2}>
             <Text style={styles.paymentCardInformationTotalLabel}>Total:</Text>
-            <Text style={styles.paymentCardInformationGrandTotal}>Rp {props.checkout.gross_amount }</Text>
+            <Text style={styles.paymentCardInformationGrandTotal}>Rp {props.checkout.gross_amount}</Text>
           </View>
         </View>
         {props.isCC ? (
