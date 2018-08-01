@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AsyncStorage, View, Alert, Text, StyleSheet, TouchableOpacity, Image} from 'react-native'
+import {AsyncStorage, View, Alert, Text, StyleSheet, TouchableOpacity, Image, NetInfo} from 'react-native'
 import YourCart from '../components/YourCart'
 import OnCart from '../particles/OnCart'
 import moment from 'moment'
@@ -77,6 +77,7 @@ class YourCartContainer extends Component {
   }
 
   async componentDidMount(){
+    await NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.setState({email:data.email})
@@ -93,6 +94,19 @@ class YourCartContainer extends Component {
     await this.setState({stillLoading: false})
     await this.setAddress()
   }
+
+  componentWillUnmount(){
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+  }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
 
   async getCourier(){
     const dataUser = await this.props.usershipping.filter(shp => shp.address_default === true)

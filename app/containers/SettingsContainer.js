@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { editPassword, editEmail } from '../actions/editprofile'
 import { StackActions, NavigationActions} from 'react-navigation'
-import {AsyncStorage, ToastAndroid, Platform} from 'react-native'
+import {AsyncStorage, ToastAndroid, Platform, NetInfo} from 'react-native'
 
 import Settings from '../components/Settings'
 
@@ -27,6 +27,7 @@ class SettingsContainer extends Component {
   };
 
   async componentDidMount(){
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     console.log(data)
@@ -35,6 +36,19 @@ class SettingsContainer extends Component {
       newEmail: ''
     })
   }
+
+  componentWillUnmount(){
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+  }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
 
   toggleModalChangePassword() {
     this.setState({ modalVisibleChangePassword: !this.state.modalVisibleChangePassword })

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, ToastAndroid, Alert, BackHandler, Platform } from 'react-native'
+import { AsyncStorage, ToastAndroid, Alert, BackHandler, Platform, NetInfo } from 'react-native'
 import { connect } from 'react-redux'
 
 import CreditCard from '../components/CreditCard'
@@ -31,6 +31,7 @@ class CreditCardContainer extends Component {
   }
 
   async componentDidMount(){
+    await NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
     await BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
@@ -39,8 +40,18 @@ class CreditCardContainer extends Component {
   }
 
   componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
   }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
 
   cardNumberFormatter(value){
     var v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '')

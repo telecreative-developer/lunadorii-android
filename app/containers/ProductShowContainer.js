@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ToastAndroid, AsyncStorage, StyleSheet, Dimensions, TouchableOpacity, Image, Platform } from 'react-native'
+import { ToastAndroid, AsyncStorage, StyleSheet, Dimensions, TouchableOpacity, Image, Platform, NetInfo } from 'react-native'
 import ProductShow from '../components/ProductShow'
 import RecommendProduct from '../particles/RecommendProduct'
 import CommentAndRating from '../particles/CommentAndRating'
@@ -104,7 +104,7 @@ class ProductShowContainer extends Component {
   }
 
   async componentDidMount() {
-    // BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton(this))
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
     const session = await AsyncStorage.getItem('session')
     const dataSession = await JSON.parse(session)
     const data = await this.props.navigation.state.params.data
@@ -135,6 +135,19 @@ class ProductShowContainer extends Component {
     }
     
   }
+
+  componentWillUnmount(){
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+  }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
 
   closeModal(){    
     this.setState({modalVisibleAddToCart: !this.state.modalVisibleAddToCart})

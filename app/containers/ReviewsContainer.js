@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AsyncStorage, Alert} from 'react-native'
+import {AsyncStorage, Alert, NetInfo} from 'react-native'
 import Reviews from '../components/Reviews'
 import ProductReviews from '../particles/ProductReviews'
 import { connect } from 'react-redux'
@@ -47,12 +47,26 @@ class ReviewsContainer extends Component{
   }
 
   async componentDidMount(){
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
     console.log(this.props.userreview.length)
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchUserReview(data.id, data.accessToken)
     await this.setState({stillLoading: false})
   }
+
+  componentWillUnmount(){
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+  }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
 
   async btnUpdateRating(){
     alert('updated')

@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, ToastAndroid, BackHandler, Platform } from 'react-native'
+import { AsyncStorage, ToastAndroid, BackHandler, Platform, NetInfo } from 'react-native'
 import { RNS3 } from 'react-native-aws3';
 import Profile from '../components/Profile'
 import RecentOrders from '../particles/RecentOrders'
@@ -140,6 +140,7 @@ class ProfileContainer extends Component {
   }
 
   async componentDidMount(){
+    await NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
     await BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     await BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     const session = await AsyncStorage.getItem('session')
@@ -160,8 +161,18 @@ class ProfileContainer extends Component {
   }
 
   componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
   }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
 
   handleBackPress = () => {
     this.handleGoBack(); // works best when the goBack is async
