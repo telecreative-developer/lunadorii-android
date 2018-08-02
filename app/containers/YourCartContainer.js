@@ -54,7 +54,8 @@ class YourCartContainer extends Component {
       checkout:[],
       countDown: '',
       email:'',
-      modalPayCC:false
+      modalPayCC:false,
+      isCCAvailable: false
     }
   }
 
@@ -117,11 +118,16 @@ class YourCartContainer extends Component {
   }
 
   async getCreditCard(){
-    const dataCC = await this.props.usercredit.filter(d => d.card_default)
-    const CC = await dataCC.length && dataCC.map( d => ({card_number: d.card_number, mm: d.mm, yyyy:d.yyyy, card_name: d.card_name}))
     const session = await AsyncStorage.getItem('session')
     const dataUser = await JSON.parse(session)
     await this.props.fetchUserCredit(dataUser.id, dataUser.accessToken)
+    const dataCC = await this.props.usercredit.filter(d => d.card_default)
+    const CC = await dataCC.length && dataCC.map( d => ({card_number: d.card_number, mm: d.mm, yyyy:d.yyyy, card_name: d.card_name}))
+    if(CC){
+      this.setState({isCCAvailable:true})
+    }else{
+      this.setState({isCCAvailable:false})
+    }
   }
 
   totalWeight(){
@@ -467,7 +473,7 @@ async checkout(){
   renderCC(){
     const dataCC = this.props.usercredit.filter(d => d.card_default)
     const CC = dataCC.length && dataCC.map( d => ({card_number: d.card_number, mm: d.mm, yyyy:d.yyyy, card_name: d.card_name}))
-    console.log(CC)
+    
     if( CC ){
       return(
           <CreditCardsInCart
@@ -540,6 +546,7 @@ render() {
       selectedBank={this.state.selectedMethod === 'credit_card' ? '' : this.state.selectedBank}
       isCC={this.state.selectedMethod === 'credit_card'}
       renderCC={ this.renderCC() }
+      isCCAvailable={this.state.isCCAvailable}
       goToCC={() => this.props.navigation.navigate("CreditCardContainer", {func: this.getCreditCard.bind(this)}) }
 
       stillLoading={this.state.stillLoading}
