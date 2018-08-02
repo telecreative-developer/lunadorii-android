@@ -125,21 +125,24 @@ const YourCart = (props) => (
                   <TouchableOpacity onPress={props.goToCC}>
                       {props.renderCC}
                   </TouchableOpacity>
-                <Label style={{
-                  fontSize: 16,
-                  fontFamily: 'Avenir Next',
-                  fontWeight: 'bold',
-                  paddingVertical: 10
-                }}>CVV</Label>
-                <Item regular style={{
-                  marginBottom: 10,
-                  borderRadius: 5,
-                  height: 40,
-                  borderColor: props.valueCVV ? '#ccc' : '#c0392b'
-                }}>
-                  <Input placeholder="CVV" onChangeText={props.onChangeCVV} value={props.valueCVV} placeholderTextColor="#e2e2e2" maxLength={3} keyboardType={"numeric"}/>
-                  <Ionicons name={props.valueCVV ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
-                </Item>
+                {props.isCCAvailable ?
+                <View>
+                  <Label style={{
+                    fontSize: 16,
+                    fontFamily: 'Avenir Next',
+                    fontWeight: 'bold',
+                    paddingVertical: 10
+                  }}>CVV</Label>
+                  <Item regular style={{
+                    marginBottom: 10,
+                    borderRadius: 5,
+                    height: 40,
+                    borderColor: props.valueCVV ? '#ccc' : '#c0392b'
+                  }}>
+                    <Input placeholder="CVV" onChangeText={props.onChangeCVV} value={props.valueCVV} placeholderTextColor="#e2e2e2" maxLength={3} keyboardType={"numeric"}/>
+                    <Ionicons name={props.valueCVV ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+                  </Item>
+                </View>: null }
               </View>:
               <View/>
               }

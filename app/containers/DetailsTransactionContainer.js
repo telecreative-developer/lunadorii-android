@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, NetInfo } from 'react-native'
+import { AsyncStorage, NetInfo, BackHandler } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchSingleProductRecent } from '../actions/product'
 
@@ -20,6 +20,7 @@ class DetailsTransactionContainer extends Component{
 
   async componentDidMount(){
     NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     const session = await AsyncStorage.getItem('session')
     const dataUser = await JSON.parse(session)
     const data = await this.props.navigation.state.params.data
@@ -29,6 +30,7 @@ class DetailsTransactionContainer extends Component{
 
   componentWillUnmount(){
     NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
   }
 
   handleConnectivityChange = isConnected => {
@@ -39,6 +41,11 @@ class DetailsTransactionContainer extends Component{
       this.props.navigation.navigate("HomeContainer")
     }
   };
+
+  handleBackPress = () => {
+    this.props.navigation.goBack() // works best when the goBack is async
+    return true;
+  }
 
   responeMidtrans(){
     const midtransResponse = this.props.receiveSingleProductRecent.midtrans_response
@@ -127,7 +134,8 @@ class DetailsTransactionContainer extends Component{
             title={item.product <= 17 ? this.capitalize(item.product) : this.capitalize(item.product).slice(0,18)+'...'} 
             categories={item.subcategories[0].stat}
             quantity={item.qty}
-            price={ item.price == null || item.price === '' ? item.price : this.formatPrice(this.discountPrice(item.price, item.discount_percentage))}
+            priceDisc={ item.price == null || item.price === '' ? item.price : this.formatPrice(this.discountPrice(item.price, item.discount_percentage))}
+            price={ item.price == null || item.price === '' ? item.price : this.formatPrice(item.price)}
             status={item.status}
             action={() => this.props.navigation.navigate('DetailsOrderContainer' , {item, billing_code: this.state.billing_code, status:data.order_status})}
           />
