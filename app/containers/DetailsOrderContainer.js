@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, ToastAndroid, Platform, NetInfo } from 'react-native'
+import { AsyncStorage, ToastAndroid, Platform, NetInfo, BackHandler } from 'react-native'
 import { connect } from 'react-redux'
 import moment from 'moment'
 
@@ -17,6 +17,7 @@ class DetailsOrderContainer extends Component{
 
   async componentDidMount(){
     NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     const dataProduct = this.props.navigation.state.params.item
@@ -24,6 +25,7 @@ class DetailsOrderContainer extends Component{
 
   componentWillUnmount(){
     NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
   }
 
   handleConnectivityChange = isConnected => {
@@ -34,6 +36,11 @@ class DetailsOrderContainer extends Component{
       this.props.navigation.navigate("HomeContainer")
     }
   };
+
+  handleBackPress = () => {
+    this.props.navigation.goBack() // works best when the goBack is async
+    return true;
+  }
 
   toggleImageViewModal(){
     this.setState({ modalVisibleImageView: !this.state.modalVisibleImageView })

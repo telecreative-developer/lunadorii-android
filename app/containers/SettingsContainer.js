@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { editPassword, editEmail } from '../actions/editprofile'
 import { StackActions, NavigationActions} from 'react-navigation'
-import {AsyncStorage, ToastAndroid, Platform, NetInfo} from 'react-native'
+import {AsyncStorage, ToastAndroid, Platform, NetInfo, BackHandler} from 'react-native'
 
 import Settings from '../components/Settings'
 
@@ -28,6 +28,7 @@ class SettingsContainer extends Component {
 
   async componentDidMount(){
     NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     console.log(data)
@@ -39,6 +40,7 @@ class SettingsContainer extends Component {
 
   componentWillUnmount(){
     NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
   }
 
   handleConnectivityChange = isConnected => {
@@ -49,6 +51,11 @@ class SettingsContainer extends Component {
       this.props.navigation.navigate("HomeContainer")
     }
   };
+
+  handleBackPress = () => {
+    this.props.navigation.goBack() // works best when the goBack is async
+    return true;
+  }
 
   toggleModalChangePassword() {
     this.setState({ modalVisibleChangePassword: !this.state.modalVisibleChangePassword })

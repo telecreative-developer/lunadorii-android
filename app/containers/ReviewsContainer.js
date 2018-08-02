@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AsyncStorage, Alert, NetInfo} from 'react-native'
+import {AsyncStorage, Alert, NetInfo, BackHandler} from 'react-native'
 import Reviews from '../components/Reviews'
 import ProductReviews from '../particles/ProductReviews'
 import { connect } from 'react-redux'
@@ -48,6 +48,7 @@ class ReviewsContainer extends Component{
 
   async componentDidMount(){
     NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     console.log(this.props.userreview.length)
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
@@ -57,6 +58,7 @@ class ReviewsContainer extends Component{
 
   componentWillUnmount(){
     NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
   }
 
   handleConnectivityChange = isConnected => {
@@ -67,6 +69,11 @@ class ReviewsContainer extends Component{
       this.props.navigation.navigate("HomeContainer")
     }
   };
+
+  handleBackPress = () => {
+    this.props.navigation.goBack() // works best when the goBack is async
+    return true;
+  }
 
   async btnUpdateRating(){
     alert('updated')

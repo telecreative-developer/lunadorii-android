@@ -141,7 +141,6 @@ class ProfileContainer extends Component {
 
   async componentDidMount(){
     await NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
-    await BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
     await BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)

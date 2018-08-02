@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {ToastAndroid, Platform} from 'react-native'
+import {ToastAndroid, Platform, BackHandler} from 'react-native'
 import Reports from '../components/Reports'
 
 import { connect } from 'react-redux'
@@ -16,13 +16,21 @@ class ReportsContainer extends Component {
   }
 
   componentDidMount(){
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     const {first_name, last_name, email } = this.props.navigation.state.params
-    // const session = await AsyncStorage.getItem('session')
-    // const data = await JSON.parse(session)
     this.setState({
       name: `${first_name} ${last_name}`,
       email: email
     })
+  }
+
+  componentWillUnmount(){
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  handleBackPress = () => {
+    this.props.navigation.goBack() // works best when the goBack is async
+    return true;
   }
 
   async handleSendReport(){

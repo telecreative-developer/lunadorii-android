@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Dimensions, Image, StyleSheet, AsyncStorage, TouchableOpacity, BackHandler, ToastAndroid, Alert, NetInfo, Platform } from 'react-native'
+import { Dimensions, Image, StyleSheet, AsyncStorage, TouchableOpacity, ToastAndroid, Alert, NetInfo, Platform } from 'react-native'
 import { connect } from 'react-redux'
 import { Toast } from 'native-base'
 import Home from '../components/Home'
