@@ -155,7 +155,13 @@ const YourCart = (props) => (
           </View>
           <View style={styles.border1}>
             <View style={styles.body}>
-              <Text style={styles.title}>Delivery Service</Text>
+              <View style={{flexDirection:'row', justifyContent:'space-between'}}>
+                <Text style={styles.title}>Delivery Service</Text>
+                <Text style={{
+                  fontSize:16,
+                  marginBottom:5
+                }}>{props.courierName}</Text>
+              </View>
               {props.selectedCourier != null ? (
                 
                 <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'row',justifyContent: 'space-around'}}>
