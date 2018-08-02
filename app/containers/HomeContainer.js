@@ -99,7 +99,7 @@ class HomeContainer extends Component {
         await this.setState({
           id_user: 0,
           product_id: 0,
-          qty: 0,
+          qty: 1,
         })
       }
     }
@@ -115,8 +115,18 @@ class HomeContainer extends Component {
       await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
         if(Platform.OS === 'android'){
           ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+          await this.setState({
+            id_user: 0,
+            product_id: 0,
+            qty: 1,
+          })
           await this.closeModal()
         }else{
+          await this.setState({
+            id_user: 0,
+            product_id: 0,
+            qty: 1,
+          })
           await this.closeModal()
         }
     }
