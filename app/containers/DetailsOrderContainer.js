@@ -83,6 +83,11 @@ class DetailsOrderContainer extends Component{
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }
 
+  discountPrice(price, discount_percentage){
+    let DiscountPrice = price - (price *(discount_percentage/100))
+    return DiscountPrice
+  }
+
   render(){
     console.log('order :' , this.props.navigation.state.params)
     const data = this.props.navigation.state.params.item
@@ -94,6 +99,7 @@ class DetailsOrderContainer extends Component{
         modalVisibleImageView={this.state.modalVisibleImageView}
         brandTitle={data.product}
         qty={data.qty}
+        priceDisc={this.formatPrice(this.discountPrice(data.price, data.discount_percentage))}
         price={this.formatPrice(data.price)}
         category={data.subcategories[0].subcategory}
 

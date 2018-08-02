@@ -50,7 +50,7 @@ const DetailsOrder = (props) => (
             <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
               <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <Text style={{textDecorationLine:'line-through', paddingLeft: 5}}>Rp {props.price}</Text>
-                <Text style={{fontWeight: 'bold'}}>Rp {props.price}</Text>
+                <Text style={{fontWeight: 'bold'}}>Rp {props.priceDisc}</Text>
               </View>
               <Text>Qty {props.qty}</Text>
               <Text>{props.status}</Text>

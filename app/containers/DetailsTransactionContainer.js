@@ -134,7 +134,8 @@ class DetailsTransactionContainer extends Component{
             title={item.product <= 17 ? this.capitalize(item.product) : this.capitalize(item.product).slice(0,18)+'...'} 
             categories={item.subcategories[0].stat}
             quantity={item.qty}
-            price={ item.price == null || item.price === '' ? item.price : this.formatPrice(this.discountPrice(item.price, item.discount_percentage))}
+            priceDisc={ item.price == null || item.price === '' ? item.price : this.formatPrice(this.discountPrice(item.price, item.discount_percentage))}
+            price={ item.price == null || item.price === '' ? item.price : this.formatPrice(item.price)}
             status={item.status}
             action={() => this.props.navigation.navigate('DetailsOrderContainer' , {item, billing_code: this.state.billing_code, status:data.order_status})}
           />
