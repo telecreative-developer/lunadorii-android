@@ -509,11 +509,9 @@ async checkout(){
     await this.setState({modalPayCC:false})
     await this.props.navigation.navigate("HomeContainer")
   }
-
 render() {
   const courier = this.props.receiveCourier
   const email = this.state.email
-
   //  <----- FETCH RESPONE MIDTRANS ----->
   const dataCheckout = this.props.receiveCheckout
   const gross_amount = dataCheckout.midtrans_response && dataCheckout.midtrans_response.gross_amount
@@ -561,6 +559,7 @@ render() {
           <Text style={styles.txtChooseDeliveryService}>{item.code.toUpperCase()}</Text>
         </TouchableOpacity>
       )}
+      courierName={this.state.code === '' || this.state.code === null ? this.state.code : this.state.code.toUpperCase()}
       messageCode={this.props.status}
       bankData={[
         {labelBank: 'BCA', value: 'bca'},

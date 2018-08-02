@@ -143,13 +143,17 @@ const DetailsTransaction = (props) => (
               <Text style={{color: '#d11e48'}}>{props.va_number}</Text>
             </View>
           </View>
-
-          <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-            <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-              <Text style={{fontWeight: 'bold',fontSize: 18}}>Expired Payment</Text>
-              <Text style={{color: '#d11e48'}}>{moment(props.midtransResponse.transaction_time).add(12, 'hours').format('LLLL')}</Text>
+          
+          {props.status === 'Checkout' ? (
+            <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+              <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+                <Text style={{fontWeight: 'bold',fontSize: 18}}>Expired Payment</Text>
+                <Text style={{color: '#d11e48'}}>{moment(props.midtransResponse.transaction_time).add(12, 'hours').format('LLLL')}</Text>
+              </View>
             </View>
-          </View>
+          ) : (
+            <View/>
+          )}
           
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>

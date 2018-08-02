@@ -57,7 +57,7 @@ const WaitingForPaymentModal = (props) => (
         <View style={styles.Card}>
           <View style={styles.contentCard}>
             <View style={styles.viewFlex3}>
-              <Image source={require('../assets/images/icon/visa.png')} style={styles.image} />
+              <Image source={atmIcon} style={styles.image} />
             </View>
             <View style={styles.wrapLeft}>
               <Text style={styles.paymentCardInformationTitle}>Payment code {props.va_number} </Text>
