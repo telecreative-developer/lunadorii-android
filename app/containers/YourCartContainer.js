@@ -371,7 +371,7 @@ async checkout(){
   const service = await this.state.selectedCourier.service
   const delivery_price = await this.state.selectedCourier.cost[0].value
   const { selectedMethod, province_id, city_id, detail_address, selectedBank, CVV} = await this.state
-  const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, product:d.product, price: d.price, discount_percentage: d.discount_percentage}))
+  const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage}))
   const session = await AsyncStorage.getItem('session')
   const data = await JSON.parse(session)
   const { id, first_name, last_name, email} = data
@@ -411,7 +411,7 @@ async checkout(){
     const service = await this.state.selectedCourier.service
     const delivery_price = await this.state.selectedCourier.cost[0].value
     const { selectedMethod, province_id, city_id, detail_address, CVV} = await this.state
-    const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage, product:d.product}))
+    const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage}))
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     const { id, first_name, last_name, email} = data
