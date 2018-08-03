@@ -105,6 +105,8 @@ class DetailsTransactionContainer extends Component{
     const va_numbers = dataCheckout.midtrans_response && dataCheckout.midtrans_response.va_numbers
     const va_bca = va_numbers && va_numbers[0].va_number
 
+    console.log("THIS IS AMERICA : " ,data)
+
     return(
       <DetailsTransaction
         goback={() => this.props.navigation.goBack()}

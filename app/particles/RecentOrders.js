@@ -35,8 +35,8 @@ const RecentOrders = (props) => (
         <Text>Status Order : </Text>
         <TouchableOpacity onPress={props.action}>
         {props.paid_method === "credit_card" ? 
-          <Text style={{fontWeight: 'bold', color: '#d11e47' }}> Payment Success </Text>:
-          <Text style={{fontWeight: 'bold', color: '#d11e47' }}>{props.status == null || props.status == '' ? props.status : props.status.replace(/(^|\s)\S/g, l => l.toUpperCase())}</Text>
+          <Text style={{fontWeight: 'bold', color: '#d11e47' }}> Success</Text>:
+          <Text style={{fontWeight: 'bold', color: '#d11e47', fontSize:12 }}>{props.status == null || props.status == '' ? props.status : props.status.replace(/(^|\s)\S/g, l => l.toUpperCase())}</Text>
         }
         </TouchableOpacity>
       </View>
