@@ -46,6 +46,7 @@ class YourCartContainer extends Component {
       estDays: "",
       product: "",
       brand: "",
+      image: "",
       selectedMethod: "credit_card",
       province_id:0,
       city_id:0,
@@ -158,7 +159,8 @@ class YourCartContainer extends Component {
         totalPrice: item.totalPrice,
         cart_id: item.cart_id,
         product: item.product,
-        brand: item.brands[0].brand
+        brand: item.brands[0].brand,
+        image: item.thumbnails[0].thumbnail_url
       }) 
     }else{
       await this.setState({
@@ -169,7 +171,8 @@ class YourCartContainer extends Component {
         totalPrice: 0,
         cart_id: 0,
         product: "",
-        brand: ""
+        brand: "",
+        image: ""
       })
     }
   }
@@ -368,7 +371,7 @@ class YourCartContainer extends Component {
 
 async checkout(){
   const creditCard = this.props.usercredit.filter(d => d.card_default === true)
-  const service = await this.state.selectedCourier.service
+  const service = await this.state.code.toUpperCase() + " " + this.state.selectedCourier.service
   const delivery_price = await this.state.selectedCourier.cost[0].value
   const { selectedMethod, province_id, city_id, detail_address, selectedBank, CVV} = await this.state
   const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage}))
@@ -408,7 +411,7 @@ async checkout(){
     const dataCC = creditCard.length && creditCard.map(d => ({card_number: d.card_number, card_exp_month: d.mm.toString(), card_exp_year:d.yyyy.toString(), card_cvv:this.state.CVV.toString() }))
     const detailCC = dataCC.length && dataCC[0]
 		payment_detail = detailCC
-    const service = await this.state.selectedCourier.service
+    const service = await this.state.code.toUpperCase() + " " + this.state.selectedCourier.service
     const delivery_price = await this.state.selectedCourier.cost[0].value
     const { selectedMethod, province_id, city_id, detail_address, CVV} = await this.state
     const dataProduct = await this.props.cartuser.map(d => ({qty: d.qty, product_id: d.product_id, price: d.price, discount_percentage: d.discount_percentage}))
@@ -634,6 +637,7 @@ render() {
       goToShipping={() => this.props.navigation.navigate("YourShippingAddressContainer", {func: this.getCourier.bind(this)})}
       product={this.state.product}
       brand={this.state.brand}
+      image={this.state.image}
       modalVisibleEditQuantity={this.state.modalVisibleEditQuantity}
       toggleModalEditQuantity={() => this.toggleModalEditQuantity(this.props.cartuser)}
       modalVisibleCheckoutPayment={this.state.modalVisibleCheckoutPayment}
