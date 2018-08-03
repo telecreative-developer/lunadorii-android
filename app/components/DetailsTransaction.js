@@ -174,7 +174,7 @@ const DetailsTransaction = (props) => (
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
               <Text style={{fontWeight: 'bold',fontSize: 18}}>Total Price</Text>
-              <Text style={{color: '#ccc'}}>Rp. { props.price }</Text>
+              <Text style={{color: '#ccc'}}>Rp. { String(props.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")) }</Text>
             </View>
           </View>
 
