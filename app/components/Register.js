@@ -5,12 +5,13 @@ import PropTypes from 'prop-types'
 import { register } from '../actions/register';
 import LunadoriiPortraitLogo from '../assets/images/icon/lunadorii-highres.png'
 import LunadoriiCircleLogo from '../assets/images/icon/CircleLogo.png'
+import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 const { height, width } = Dimensions.get('window')
 
 const Register = (props) => (
   <Container style={styles.backgroundColorWhite}>
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content" />
     <Content style={styles.backgroundColorWhite}>
       <View style={styles.wrapper}>    
@@ -18,7 +19,7 @@ const Register = (props) => (
           justifyContent: 'center',
           alignItems: 'center',
           backgroundColor: '#fff',
-          paddingTop: 50
+          paddingTop: convertWidthPercentToDP('5%'),
         }}>
           <Image source={LunadoriiCircleLogo} style={{height: 90, width: 90}} />    
         </View>
@@ -44,7 +45,7 @@ const Register = (props) => (
           </View>
         </View>
       </View>
-      <View style={{paddingBottom: 10, paddingTop: 100, paddingLeft: 45, paddingRight: 45}}>
+      <View style={{paddingBottom: 10, paddingTop: convertWidthPercentToDP('23%'), paddingLeft: 45, paddingRight: 45}}>
         <View style={{ borderBottomColor: "#979797", borderBottomWidth: 1.2}}>
         </View>
       </View>
@@ -52,6 +53,10 @@ const Register = (props) => (
         <Text style={styles.alignSelfCenter}>Already have account?</Text>
         <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToLogin}>
           <Text style={styles.registerNowColor}> Login</Text>
+        </TouchableOpacity>
+        <Text> or </Text>
+        <TouchableOpacity onPress={props.skipLogin} style={{paddingLeft: 5}}>
+          <Text style={{color: '#d11e48'}}>Login later</Text>
         </TouchableOpacity>
       </View>
     </Content>

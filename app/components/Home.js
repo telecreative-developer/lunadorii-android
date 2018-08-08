@@ -1,11 +1,11 @@
 import React from 'react'
-import { ConnectivityRenderer } from 'react-native-offline';
-import { StyleSheet, View, Text, Dimensions, FlatList, StatusBar, Image } from 'react-native'
+import { StyleSheet, View, Text, Dimensions, FlatList, StatusBar, TouchableOpacity } from 'react-native'
 import { Container, Tabs, Tab, TabHeading, Icon, Content, Spinner } from 'native-base'
-import LunadoriiPortraitLogo from '../assets/images/icon/lunadorii-highres.png'
 import NavbarHome from '../particles/NavbarHome'
 import Carousel from 'react-native-banner-carousel'
 import AddToCart from '../modals/AddToCart'
+import LoginRequiredModal from '../modals/LoginRequiredModal'
+import Reloader from '../particles/Reloader'
 const { height, width } = Dimensions.get('window')
 
 const bannerWidth = Dimensions.get('window').width
@@ -19,18 +19,30 @@ const Home = (props) => (
       image={props.image}
       photoProfileAction={props.navigateToProfile} />
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <AddToCart
+      increaseQty={props.increaseQty}
+      decreaseQty={props.decreaseQty}
       quantityValue={props.quantityValue}
       modalVisible={props.modalVisibleAddToCart}
       toggleModalAddToCart={props.toggleModalAddToCart}
       onChangeQty={props.onChangeQty}
       handleAddToCart={props.handleAddToCart}      
     />
+    <LoginRequiredModal 
+      modalVisibleLogin={props.modalVisibleLogin}
+      closeModal={props.closeModal}
+      loginAction={props.loginAction}
+    />
     <Tabs locked={true} style={styles.tabHeight} tabBarUnderlineStyle={styles.tabBarUnderlineStyle}>
       <Tab heading={<TabHeading style={styles.tabHeading} ><Text style={styles.txtHeading}>New Arrivals</Text></TabHeading>}>
+        {props.isConnected ? (
+          <View/>
+        ) : (
+          <Reloader reloadAction={props.handleRefresh}/>
+        )}
         {props.stillLoading ? (
           <View style={styles.style}>
             <Spinner color="#d11e48"/>
@@ -64,9 +76,7 @@ const Home = (props) => (
             </View>
             <View style={styles.viewArrivals}>
               <Text style={styles.txtArrivals}>More New Arrivals</Text>
-              <ConnectivityRenderer>
-                {isConnected => (
-                  isConnected ? (
+                {props.isConnected? (
                   <FlatList
                     numColumns={2}
                     data={props.dataProduct}
@@ -74,16 +84,21 @@ const Home = (props) => (
                     keyExtractor={(item, index) => JSON.stringify(index)}
                   />
                   ) : (
-                    <Text>Nothing to show since you are offline</Text>
+                    <View style={{alignItems: 'center', marginBottom: 20}}>
+                      <Text>Nothing to show since you are offline</Text>
+                    </View>
                   )
-                )}
-              </ConnectivityRenderer>
-              
+                }
             </View>
           </Content>
         )}
       </Tab>
       <Tab heading={<TabHeading style={styles.tabHeading}><Text style={styles.txtHeading}>Best Sellers</Text></TabHeading>}>
+        {props.isConnected ? (
+          <View/>
+        ) : (
+          <Reloader reloadAction={props.handleRefresh}/>
+        )}
         {props.stillLoading ? (
           <View stryle={styles.style}>
             <Spinner color="#d11e48"/>

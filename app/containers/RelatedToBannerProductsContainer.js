@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, ToastAndroid } from 'react-native'
+import { AsyncStorage, ToastAndroid, Platform, NetInfo } from 'react-native'
 import RelatedToBannerProducts from '../components/RelatedToBannerProducts'
 import Product from '../particles/Product'
 import { connect } from 'react-redux'
@@ -19,7 +19,8 @@ class RelatedToBannerProductsContainer extends Component{
       product_id: 0,
       product_name: '',
       qty: 0,
-      modalVisibleAddToCart: false
+      modalVisibleAddToCart: false,
+      modalVisibleLogin: false
     };
   }
 
@@ -31,7 +32,7 @@ class RelatedToBannerProductsContainer extends Component{
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     if( data == null ){
-      this.props.navigation.navigate('LoginContainer')
+      this.setState({modalVisibleLogin: true})
     }else{
       await this.closeModal()
       if(this.state.modalVisibleAddToCart){
@@ -55,19 +56,35 @@ class RelatedToBannerProductsContainer extends Component{
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     // await alert('Berhasil Menambahkan ke Kranjang', this.state.product_name.slice(0,10))
-    ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    if(Platform.OS === 'android'){
+      ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }
     await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
     await this.closeModal()
 
   }
 
   async componentDidMount(){
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
     console.log('Banner :',this.props.navigation.state.params.data )
     const data = await this.props.navigation.state.params.data
     await this.props.fetchProductWithBanner(data.banner_id)
     await this.setState({image: data.thumbnail_url})
     await this.setState({stillLoading: false})
   }
+
+  componentWillUnmount(){
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+  }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
 
   capitalize(string) {
     return string.replace(/(^|\s)\S/g, l => l.toUpperCase())
@@ -82,11 +99,20 @@ class RelatedToBannerProductsContainer extends Component{
     return DiscountPrice
   }
 
+  toLogin(){
+    this.props.navigation.navigate("LoginContainer")
+    this.setState({ modalVisibleLogin: false })
+  }
+
   render(){
     console.log('dattaa :' , this.props.receiveProductWithBanner)
     return(
       <RelatedToBannerProducts
         quantityValue={this.state.qty}
+        qty={this.state.qty}
+        increaseQty={() => this.setState({qty: this.state.qty + 1})}
+        decreaseQty={() => this.setState({qty: this.state.qty - 1})}
+
         stillLoading={this.state.stillLoading}
         dataProduct={this.props.receiveProductWithBanner}
         image = {this.state.image}
@@ -109,6 +135,10 @@ class RelatedToBannerProductsContainer extends Component{
         handleAddToCart={() => this.handleAddToCart()}
         navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
         goback={() => this.props.navigation.goBack()}
+        modalVisibleLogin={this.state.modalVisibleLogin}
+        loginAction={ () => this.toLogin() }
+        handleRefresh={() => this.handleRefresh()}
+        closeModal={ () => this.setState({modalVisibleLogin: false})}
       />
     )
   }

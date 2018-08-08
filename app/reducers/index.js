@@ -1,5 +1,4 @@
 import { combineReducers } from "redux";
-import { reducer as network } from 'react-native-offline';
 
 import { loading, success, failed, logged } from "./processor";
 import { categoryproduct } from "./categoryproduct";
@@ -7,7 +6,8 @@ import { brandsproduct } from "./brandsproduct"
 import { product, searchproduct,receiveSingleProductWithId, 
          relatedProduct, singleRelatedProdct, receiveProductWithCategory, 
          productbestseller, producthistory, productrecent,
-         receiveProductWithBrand, receiveProductWithBanner, productWithoutId } from "./product"
+         receiveProductWithBrand, receiveProductWithBanner, productWithoutId, receiveSingleProductHistory,
+         receiveSingleProductRecent, } from "./product"
 import { banners } from "./banners"
 import { productsubcategories } from "./productsubcategories"
 import { getsingleuser } from "./getsingleuser"
@@ -20,7 +20,9 @@ import { cartuser } from "./cart"
 import { usershipping, receiveProvince } from "./usershipping"
 import { registerresult } from "./registerresult"
 import { userbank, bank, manipulatebank } from "./bank"
+import { usercredit, manipulatecredit } from "./creditCard"
 import { receiveCourier } from "./shipping"
+import { receiveCheckout, receiveMessage } from './checkout'
 
 
 const rootReducers = combineReducers({
@@ -28,7 +30,6 @@ const rootReducers = combineReducers({
   logged,
   success,
   failed,
-  network,
   categoryproduct,
   brandsproduct,
   product,
@@ -53,6 +54,8 @@ const rootReducers = combineReducers({
   userbank,
   bank,
   manipulatebank,
+  usercredit,
+  manipulatecredit,
   receiveSingleProductWithId,
   relatedProduct,
   singleRelatedProdct,
@@ -61,8 +64,11 @@ const rootReducers = combineReducers({
   receiveProductWithBrand,
   receiveProductWithBanner,
   receiveCourier,
-  productWithoutId
-//   sessionPersistance
+  productWithoutId,
+  receiveCheckout,
+  receiveMessage,
+  receiveSingleProductHistory,
+  receiveSingleProductRecent
 });
 
 export default rootReducers;

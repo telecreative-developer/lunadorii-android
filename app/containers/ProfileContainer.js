@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, ToastAndroid, BackHandler } from 'react-native'
+import { AsyncStorage, ToastAndroid, BackHandler, Platform, NetInfo } from 'react-native'
 import { RNS3 } from 'react-native-aws3';
 import Profile from '../components/Profile'
 import RecentOrders from '../particles/RecentOrders'
@@ -13,21 +13,33 @@ import { fetchProductRecent, fetchProductHistory } from '../actions/product'
 class ProfileContainer extends Component {
 
   state = {
+    buttonSave: false,
     userData: {},
     stillLoading: true,
     first_name: "",
     last_name:"",
-    bod: "",
+    bod: "", 
     email: "",
-    photoProfile: '',
+    photoProfile: false,
     photoName: '',
     photoType: '',
+    fileExt: '',
     modalVisibleEditProfile: false,
     imageProfile: 'https://avatars0.githubusercontent.com/u/38149346?s=400&u=7db8195dd7b4436cbf6d0575915ca6b198d116cc&v=4',
   }
 
-  toggleModalEditProfile() {
-    this.setState({ modalVisibleEditProfile: !this.state.modalVisibleEditProfile })
+  async toggleModalEditProfile() {
+    const session = await AsyncStorage.getItem('session')
+    const data = await  JSON.parse(session)
+    await this.setState({
+      modalVisibleEditProfile: !this.state.modalVisibleEditProfile,
+      userData: data,
+      imageProfile: this.props.getsingleuser.avatar_url,
+      first_name: this.props.getsingleuser.first_name,
+      last_name : this.props.getsingleuser.last_name,
+      bod: this.props.getsingleuser.bod,
+      email: this.props.getsingleuser.email
+    })
   }
 
   async handleOpenCamera(){
@@ -37,7 +49,8 @@ class ProfileContainer extends Component {
       storageOptions:{
         stillLoading: true,
         cameraRoll: true,
-        path: this.state.imageProfile
+        path: this.state.imageProfile,
+        photoProfile: true
       },
       quality: 1,
       maxWidth: 800,
@@ -45,24 +58,23 @@ class ProfileContainer extends Component {
     }
     await ImagePicker.showImagePicker(options, (responses) => {
       if(responses.didCancel){
+        this.setState({photoProfile: false})
         // alert("You've canceled")
-        ToastAndroid.showWithGravity("Canceled", ToastAndroid.SHORT, ToastAndroid.CENTER)
+        // ToastAndroid.showWithGravity("Canceled", ToastAndroid.SHORT, ToastAndroid.CENTER)
       }else if(responses.error){
+        this.setState({photoProfile: false})
         // alert("An error occured")
-        ToastAndroid.showWithGravity("Error occured", ToastAndroid.SHORT, ToastAndroid.CENTER)
+        // ToastAndroid.showWithGravity("Error occured", ToastAndroid.SHORT, ToastAndroid.CENTER)
       }else{
         let str = responses.fileName
         let fileExt = str.split(".")
 
         this.setState({
-          stillLoading: true,
+          photoProfile: true,
           imageProfile: responses.uri,
           photoName: `${Date.now()}.${fileExt[1]}`,
-          photoType: `image/${fileExt[1]}`
-        })
-        this.uploadToS3(data.id, data.accessToken, responses.uri, `${Date.now()}.${fileExt[1]}`, `image/${fileExt[1]}`)
-        this.setState({
-          stillLoading: false
+          photoType: `image/${fileExt[1]}`,
+          fileExt: fileExt[1]
         })
       }
     })
@@ -80,8 +92,8 @@ class ProfileContainer extends Component {
       keyPrefix: "avatars/",
       bucket: "lunadorii-dev",
       region: "ap-southeast-1",
-      accessKey: "AKIAIDZ3JEHIHGIIFKDA",
-      secretKey: "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",
+      accessKey: "AKIAJXM3WEMNC56VPJXQ",
+      secretKey: "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",
       successActionStatus: 201,
       awsUrl: "s3.ap-southeast-1.amazonaws.com"
     }
@@ -89,7 +101,7 @@ class ProfileContainer extends Component {
     RNS3.put(file, options).progress((e) => console.log(e.loaded / e.total)).then(response => {
       if (response.status !== 201)
         throw new Error("Failed to upload image to S3");
-      this.props.editAvatar(id, response.body.postResponse.location).then(response1 => {
+      this.props.editAvatar(id, response.body.postResponse.location, accessToken).then(response1 => {
         this.props.fetchSingleUser(id, accessToken)
       })
       /**
@@ -106,6 +118,7 @@ class ProfileContainer extends Component {
   }
 
   async handleSaveEditProfile() {
+    this.setState({stillLoading: true})
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.editName(
@@ -114,14 +127,21 @@ class ProfileContainer extends Component {
         this.state.last_name,
         this.state.bod, 
         this.state.userData.accessToken)
+    if (this.state.photoProfile) {
+      this.uploadToS3(data.id, data.accessToken, this.state.imageProfile, `${Date.now()}.${this.state.fileExt}`, this.state.photoType)
+    }
     await this.props.fetchSingleUser(data.id, data.accessToken)
     await this.setState({modalVisibleEditProfile: false })
     // await alert(this.props.editname.message)
-    ToastAndroid.showWithGravity("Edited", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    this.setState({stillLoading: false})
+    if(Platform.OS === 'android'){
+      ToastAndroid.showWithGravity("Edited", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }
   }
 
   async componentDidMount(){
-    await BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton);
+    await NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
+    await BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.fetchProductHistory(data.id, data.accessToken)
@@ -134,21 +154,51 @@ class ProfileContainer extends Component {
       imageProfile: this.props.getsingleuser.avatar_url,
       first_name: this.props.getsingleuser.first_name,
       last_name : this.props.getsingleuser.last_name,
-      bod: this.props.getsingleuser.bod,
+      bod: this.props.getsingleuser.bod, 
       email: this.props.getsingleuser.email
     })
   }
 
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
+
+  handleBackPress = () => {
+    this.handleGoBack(); // works best when the goBack is async
+    return true;
+  }
+
+  handleGoBack(){
+    const {navigation} = this.props
+    navigation.state.params.person()
+    navigation.goBack()
+  }
+
+  uselessFunc(){
+  }
+
   render() {
-    console.log('state :', this.props.getsingleuser)
+    console.log('state :', this.props.productrecent)
     return (
       <Profile
-        dataRecentOrders={this.props.productrecent}
+        buttonSave={this.state.buttonSave}
+        dataRecentOrders={this.props.productrecent.slice(0,5)}
         renderRecentOrders={({ item, key }) => (
           <RecentOrders
             image={item.list[0].thumbnails[0].thumbnail_url}
             amountOfItem={item.list.length}
             billing_code={item.billing_code}
+            paid_method={item.paid_method}
             status={item.order_status}
             total={item.total == null ? item.total : item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
             date={moment(item.created_at).calendar()}
@@ -156,7 +206,7 @@ class ProfileContainer extends Component {
           />
         )}
 
-        photoProfile={this.props.getsingleuser.avatar_url}
+        photoProfile={this.state.imageProfile}
         handleOpenCamera={() => this.handleOpenCamera()}
 
         toggleModalEditProfile={() => this.toggleModalEditProfile()}
@@ -171,14 +221,14 @@ class ProfileContainer extends Component {
         navigateToHome={() => this.props.navigation.navigate("HomeContainer")}
         navigateToPurchaseHistory={() => this.props.navigation.navigate("PurchaseHistoryContainer")}
         navigateToWhishlist={() => this.props.navigation.navigate("WishlistContainer")}
-        navigateToCreditCard={() => this.props.navigation.navigate("CreditCardContainer")}
+        navigateToCreditCard={() => this.props.navigation.navigate("CreditCardContainer", {func: this.uselessFunc.bind(this)})}
         navigateToReviews={() => this.props.navigation.navigate("ReviewsContainer")}
-        navigateToShippingAddress={() => this.props.navigation.navigate("YourShippingAddressContainer")}
+        navigateToShippingAddress={() => this.props.navigation.navigate("YourShippingAddressContainer", {func: this.uselessFunc.bind(this)})}
         navigateToReports={() => this.props.navigation.navigate("ReportsContainer", {first_name: this.state.first_name, last_name: this.state.last_name, email: this.state.email})}
         navigateToSettings={() => this.props.navigation.navigate("SettingsContainer")}
         navigateToPrivacyPolicy={() => this.props.navigation.navigate("PrivacyPolicyContainer")}
         stillLoading={this.state.stillLoading}
-        goback={() => this.props.navigation.goBack()}
+        goback={() => this.handleBackPress()}
       />
     )
   }
@@ -190,7 +240,7 @@ const mapDispatchToProps = (dispatch) =>{
     fetchProductRecent: (id, accessToken) => dispatch(fetchProductRecent(id, accessToken)),
     fetchProductHistory: (id, accessToken) => dispatch(fetchProductHistory(id, accessToken)),
     editName: (id, firstName, lastName, bod, accessToken) => dispatch(editName(id, firstName, lastName, bod, accessToken)),
-    editAvatar: (id, avatar_url) => dispatch(editAvatar(id, avatar_url))
+    editAvatar: (id, avatar_url, accessToken) => dispatch(editAvatar(id, avatar_url, accessToken))
   }
 }
 

@@ -13,7 +13,7 @@ const Reports = (props) => (
       actionIcon={props.goback}
     />
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <Content>
@@ -26,7 +26,7 @@ const Reports = (props) => (
           borderColor: props.name ? '#ccc' : '#c0392b'
         }}>
           <Input value={props.name} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeName}/>
-          <Ionicons name={props.name ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Ionicons name={props.name ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
         <Text style={styles.label}>Email</Text>
         <Item regular style={{
@@ -36,7 +36,7 @@ const Reports = (props) => (
           borderColor: props.email ? '#ccc' : '#c0392b'
         }}>
           <Input value={props.email} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeEmail}/>
-          <Ionicons name={props.email ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Ionicons name={props.email ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
         <Text style={styles.label}>Subject</Text>
         <Item regular style={{
@@ -46,7 +46,7 @@ const Reports = (props) => (
           borderColor: props.subject ? '#ccc' : '#c0392b'
         }}>
           <Input placeholder='Subject' value={props.subject} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeSubject}/>
-          <Ionicons name={props.subject ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Ionicons name={props.subject ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
         <Text style={styles.label}>Reports</Text>
         <Textarea rowSpan={5} bordered placeholder="Write Here.." value={props.reports} placeholderTextColor="#ccc" style={{marginTop: 10, marginBottom: 10, borderRadius: 5,borderColor: props.reports ? '#ccc' : '#c0392b'}} onChangeText={props.onChangeReports}/>

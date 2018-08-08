@@ -8,7 +8,7 @@ const BestCategories = (props) => (
     <View style={styles.viewCategories}>
       <View style={styles.viewFlexRow}>
         <View style={styles.viewFlex2}>
-          <Image source={imageSkinCare} style={styles.image}/>
+          <Image source={{uri: props.icon}} style={styles.image}/>
         </View>
         <View style={styles.viewFlex8}>
           <View style={styles.viewWrapper}>
@@ -46,7 +46,7 @@ const styles = StyleSheet.create({
   },
   txtTitle:{
     fontWeight: 'bold', 
-    color: '#f65857'
+    color: '#d11e48'
   },
   viewWrapper:{
     marginLeft: 10

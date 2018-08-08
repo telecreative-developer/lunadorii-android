@@ -53,7 +53,7 @@ const Settings = (props) => (
       actionIcon={props.toggleModalNotifications}
     />
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <Content>
@@ -122,7 +122,7 @@ const styles = StyleSheet.create({
   },
   touchablePassword: {
     flexDirection: 'row',
-    marginTop: 20,
+    marginTop: 1,
     borderTopWidth: 1,
     borderColor: '#e2e2e2',
     paddingTop: 15

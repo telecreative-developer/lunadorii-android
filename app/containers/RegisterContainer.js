@@ -126,9 +126,10 @@ class RegisterContainer extends Component{
     const { failed, setFailed } = prevProps
   }
 
-  handleValidationCheckEmail(){
-    const {email} = this.state
-    this.props.checkEmail(email)
+  async handleValidationCheckEmail(){
+    const {email} = await this.state
+    await this.props.checkEmail(email)
+    await this.setState({email:""})
   }
 
   renderButton() {
@@ -162,7 +163,8 @@ class RegisterContainer extends Component{
         onChangeEmail={(email) => this.setState({email})}
         renderButton={this.renderButton()}
         navigateToLogin={() => this.props.navigation.navigate('LoginContainer')}
-        handleNext={() => this.props.navigation.navigate('RegisterIdentifyContainer', { email: this.state.email })}/>
+        handleNext={() => this.props.navigation.navigate('RegisterIdentifyContainer', { email: this.state.email })}
+        skipLogin={() => this.props.navigation.navigate("HomeContainer")}/>
     )
   }
 }

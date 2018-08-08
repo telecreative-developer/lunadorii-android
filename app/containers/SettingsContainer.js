@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import {connect} from 'react-redux'
 import { editPassword, editEmail } from '../actions/editprofile'
 import { StackActions, NavigationActions} from 'react-navigation'
-import {AsyncStorage, ToastAndroid} from 'react-native'
+import {AsyncStorage, ToastAndroid, Platform, NetInfo, BackHandler} from 'react-native'
 
 import Settings from '../components/Settings'
 
@@ -17,6 +17,7 @@ class SettingsContainer extends Component {
     newEmail:"",
     confirmEmail:"",
     buttonEmail: false,
+    changedEmail: '',
 
     password: "",
     currentPassword: "",
@@ -26,13 +27,34 @@ class SettingsContainer extends Component {
   };
 
   async componentDidMount(){
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     console.log(data)
     await this.setState({
       userData: data,
-      newEmail: data.email
+      newEmail: ''
     })
+  }
+
+  componentWillUnmount(){
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
+
+  handleBackPress = () => {
+    this.props.navigation.goBack() // works best when the goBack is async
+    return true;
   }
 
   toggleModalChangePassword() {
@@ -48,8 +70,11 @@ class SettingsContainer extends Component {
   }
 
   async handleChangeEmail(){
+    const regexEmail = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
     if (this.state.newEmail == ""){
       alert("email cannot empty")
+    }else if (regexEmail.test(this.state.newEmail) !== true) {
+      alert("Email Invalid")
     }else if (this.state.newEmail !== this.state.confirmEmail) {
       alert("New Email wasn't comfirmed")
     } else {
@@ -58,9 +83,11 @@ class SettingsContainer extends Component {
       if (this.props.editemail.status === 201){
         this.setState({ modalVisibleChangeEmail: false })
       }
-      this.setState({ buttonEmail: false })
+      this.setState({ buttonEmail: false, changedEmail: this.state.newEmail })
       // await alert(this.props.editemail.message)
-      ToastAndroid.showWithGravity("Change saved", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      if(Platform.OS === 'android'){
+        ToastAndroid.showWithGravity(this.props.editemail.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
+      }
     }
   }
 
@@ -90,7 +117,9 @@ class SettingsContainer extends Component {
         }
         this.setState({ buttonPassword: false })
         // await alert(this.props.editpassword.message)
-        ToastAndroid.showWithGravity("Password changed", ToastAndroid.SHORT, ToastAndroid.CENTER)
+        if(Platform.OS === 'android'){
+          ToastAndroid.showWithGravity(this.props.editpassword.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
+        }
       }
     
   }
@@ -99,8 +128,7 @@ class SettingsContainer extends Component {
     console.log(this.state.userData)
     return (
       <Settings
-        userEmail={this.state.newEmail}
-        email={this.state.userData.email}
+        email={this.state.changedEmail !== '' ? this.state.changedEmail : this.state.userData.email}
         modalVisibleChangePassword={this.state.modalVisibleChangePassword}
         toggleModalChangePassword={() => this.toggleModalChangePassword()}
         buttonPassword={this.state.buttonPassword}
@@ -113,10 +141,10 @@ class SettingsContainer extends Component {
         modalVisibleNotifications={this.state.modalVisibleNotifications}
         toggleModalNotifications={() => this.toggleModalNotifications()}
 
-        onChangeNewEmail={(newEmail) => this.setState({newEmail})}
         onChangeConfirmEmail={(confirmEmail) => this.setState({confirmEmail})}
-        newEmail={this.state.newEmail}
+        onChangeNewEmail={(newEmail) => this.setState({newEmail})}
         confirmEmail={this.state.confirmEmail}
+        newEmail={this.state.newEmail}
         handleChangeEmail={() => this.handleChangeEmail()}
 
         onChangeCurrentPassword={(currentPassword) => this.setState({ currentPassword })}

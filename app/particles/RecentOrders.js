@@ -1,5 +1,6 @@
 import React from 'react'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
+import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
 
 const RecentOrders = (props) => (
@@ -31,9 +32,12 @@ const RecentOrders = (props) => (
     </View>
     <View style={styles.viewFooter}>
       <View style={{flexDirection: 'row'}}>
-        <Text>Status : </Text>
+        <Text>Status Order : </Text>
         <TouchableOpacity onPress={props.action}>
-          <Text style={{fontWeight: 'bold', color: '#d11e47' }}>{props.status == null || props.status == '' ? props.status : props.status.replace(/(^|\s)\S/g, l => l.toUpperCase())}</Text>
+        {props.paid_method === "credit_card" ? 
+          <Text style={{fontWeight: 'bold', color: '#d11e47' }}> Success</Text>:
+          <Text style={{fontWeight: 'bold', color: '#d11e47', fontSize:12 }}>{props.status == null || props.status == '' ? props.status : props.status.replace(/(^|\s)\S/g, l => l.toUpperCase())}</Text>
+        }
         </TouchableOpacity>
       </View>
       <View style={{flexDirection: 'row'}}>
@@ -52,7 +56,7 @@ const styles = StyleSheet.create({
     marginRight: 10,
     marginLeft: 10,
     padding: 10,
-    width: 280
+    width: convertWidthPercentToDP('90%')
   },
   viewOnlyRow: {
     flexDirection: 'row'

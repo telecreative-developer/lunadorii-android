@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AsyncStorage, View,Modalx, Text, SmartPicker, Dimensions, ScrollView, Alert, ToastAndroid} from 'react-native'
+import {AsyncStorage, View,Modalx, Text, SmartPicker, Dimensions, ScrollView, Alert, ToastAndroid, BackHandler, Platform, NetInfo} from 'react-native'
 import { Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
 import YourShippingAddress from '../components/YourShippingAddress'
 import ShippingAddress from '../particles/ShippingAddress'
@@ -10,13 +10,13 @@ import { fetchUserShipping, updateShipping, updateSetdefault,
          deleteShipping, createAddress, fetchProvince 
        } from '../actions/usershipping'
 
-
 class YourShippingAddressContainer extends Component{
 
   constructor(){
     super()
     this.state = {
       stillLoading:true,
+      setDefaultLoading:false,
       visibleProvincePicker:true,
       visibleCityPicker: true,
       visibleRegencyPicker: true,
@@ -28,6 +28,8 @@ class YourShippingAddressContainer extends Component{
       province: '',
       province_id:'',
       city: '',
+      city_with_type: '',
+      city_id: '',
       postal_code: 0,
       numberPhone: '',
       address_id:'',
@@ -49,9 +51,7 @@ class YourShippingAddressContainer extends Component{
         user_address_id:item.user_address_id,
         name: item.recepient,
         address: item.detail_address,
-        province: item.province,
         province_id:item.province_id,
-        city: item.city,
         city_id:item.city_id,
         postal_code: item.postal_code,
         numberPhone: item.phone,
@@ -88,13 +88,17 @@ class YourShippingAddressContainer extends Component{
       address: '',
       province: '',
       province_id:'',
+      city_id:'',
+      city_with_type: '',
       city: '',
       postal_code: '',
       numberPhone: '',
       label:'',
     })
     // Alert.alert('Success Add Address', 'Thanks..')
-    ToastAndroid.showWithGravity("Added", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    if(Platform.OS === 'android'){
+      ToastAndroid.showWithGravity("Added", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }
     this.setState({loading: false})
   }
 
@@ -116,17 +120,22 @@ class YourShippingAddressContainer extends Component{
       province: '',
       province_id:'',
       city_id:'',
+      city_with_type: '',
       city: '',
       postal_code: '',
       numberPhone: '',
       label:'',
     })
     // Alert.alert('Success Add Address', 'Thanks..')
-    ToastAndroid.showWithGravity("Updated", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    if(Platform.OS === 'android'){
+      ToastAndroid.showWithGravity("Updated", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }
     this.setState({loading: false})
   }
 
   async componentDidMount() {
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
+    await BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     if(this.props.fetchUserShipping(data.id, data.accessToken)){
@@ -135,6 +144,20 @@ class YourShippingAddressContainer extends Component{
     }    
   }
 
+  componentWillUnmount() {
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
+
   async onChangeDefault(item){
     await this.setState({
       address_id: item.user_address_id,
@@ -142,8 +165,10 @@ class YourShippingAddressContainer extends Component{
     })
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    await this.setState({setDefaultLoading: true})
     await this.props.updateSetdefault(data.id, this.state.address_id, data.accessToken)
     await this.props.fetchUserShipping(data.id, data.accessToken)
+    await this.setState({setDefaultLoading: false})
   }
 
   async deteleShipping(item){
@@ -167,7 +192,7 @@ class YourShippingAddressContainer extends Component{
     )
   }
 
-  async fetchData(item){
+  async fetchData(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.props.deleteShipping(this.state.address_id, data.accessToken)
@@ -185,23 +210,39 @@ class YourShippingAddressContainer extends Component{
       cities: this.props.receiveProvince.filter(p => p.province === this.state.province).map(m => m.cities)})
   }
 
-  async handleCity(city,city_id, postal_code){
+  async handleCity(city,city_id, postal_code, city_with_type){
     await this.setState({
       city_id: city_id,
       city:city, 
       visibleCityPicker: false,
-      postal_code: postal_code
+      postal_code: postal_code,
+      city_with_type
     })
   }
 
+  handleBackPress = () => {
+    this.handleGoBack(); // works best when the goBack is async
+    return true;
+  }
+
+  handleGoBack(){
+    const {navigation} = this.props
+    navigation.state.params.func()
+    navigation.goBack()
+  }
+
   render(){
-    console.log('cities :' , this.state.postal_code)
-    console.log('usershipping : ', this.props.usershipping)
+    console.log('city ', this.state.cities[0])
     return(
       <YourShippingAddress
         stillLoading={this.state.stillLoading}
+        setDefaultLoading={this.state.setDefaultLoading}
         loading={this.state.loading}
-        goback={() => this.props.navigation.goBack()}
+        goback={() => this.handleBackPress()}
+        
+        province_id={this.state.province_id}
+        city_id={this.state.city_id}
+
         modalVisibleAddAddress={this.state.modalVisibleAddAddress}
         toggleModalAddAddress={() => this.toggleModalAddAddress()}
 
@@ -218,10 +259,10 @@ class YourShippingAddressContainer extends Component{
         onChangeAddress={(address) => this.setState({address})}
 
         provinceValue={this.state.province}
-        onChangeProvince={(province) => this.setState({province, visibleProvincePicker: true})}
+        onChangeProvince={(province) => this.setState({province, visibleProvincePicker: true, province_id:'', city_with_type: ''})}
 
-        cityValue={this.state.city}
-        onChangeCity={(city) => this.setState({city, visibleCityPicker: true})}
+        cityValue={this.state.city_with_type}
+        onChangeCity={(city_with_type) => this.setState({city_with_type, visibleCityPicker: true, city_id:''})}
         
         regencyValue={this.state.regency}
         onChangeRegency={(regency) => this.setState({regency, visibleRegencyPicker: true})}
@@ -240,7 +281,7 @@ class YourShippingAddressContainer extends Component{
 
         dataCity={this.state.cities[0]}
         renderDataCity={({item}) => (
-          <Picker data={item.city} onSelect={() => this.handleCity(item.city, item.city_id, item.postal_code)}/>
+          <Picker data={item.city_with_type} onSelect={() => this.handleCity(item.city, item.city_id, item.postal_code, item.city_with_type)}/>
         )}
         visibleCityPicker={this.state.visibleCityPicker ? true : false}
 
@@ -248,7 +289,8 @@ class YourShippingAddressContainer extends Component{
 
         handleSaveAddress={() => this.handleSaveAddress()}
         handleUpdateAddress={() => this.btnUpdateShipping()}
-        dataShippingAddress={this.props.usershipping}
+        dataShippingAddressDefault={this.props.usershipping.filter(item => item.address_default === true)}
+        dataShippingAddress={this.props.usershipping.filter(item => item.address_default === false)}
         renderShippingAddress={({item}) => (
           <ShippingAddress
             name={item.recepient}

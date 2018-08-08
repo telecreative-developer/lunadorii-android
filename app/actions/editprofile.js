@@ -104,18 +104,19 @@ const receiveResultPassword = data => {
 	}
 }
 
-export const editAvatar = (id, avatar_url) => {
+export const editAvatar = (id, avatar, accessToken) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_EDIT_AVATAR'))
 		try {
 			const response = await fetch(`${API_SERVER}/user/update-avatar/${id}`, {
-				method: 'POST',
+				method: 'PUT',
 				headers: {
 					Accept: 'application/json',
-                    'Content-Type': 'application/json'
+					'Content-Type': 'application/json',
+					Authorization: accessToken
                 },
                 body: JSON.stringify({
-                    avatar_url
+                    avatar
                 })
 			})
 			const data = await response.json()

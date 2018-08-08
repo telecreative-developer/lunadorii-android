@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {Text,View,Image,TouchableOpacity, AsyncStorage, ToastAndroid} from 'react-native'
+import {Text,View,Image,TouchableOpacity, AsyncStorage, ToastAndroid, Platform, NetInfo} from 'react-native'
 import {Button} from 'native-base'
 import Search from '../components/Search'
 import Product from '../particles/Product'
@@ -35,10 +35,22 @@ class SearchContainer extends Component {
   }
 
   componentDidMount(){
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
     this.props.fetchCategoryProduct()
   }
 
-  // this.props.productsubcategories
+  componentWillUnmount(){
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+  }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
 
   async handleSearch(){
     this.setState({loading: true})
@@ -51,16 +63,15 @@ class SearchContainer extends Component {
   }
 
   goodBye(index, array){
-    var array;
     var index = array.indexOf(index);
-    if (index > -1) {
+    if (index >= -1) {
       array.splice(index, 1);
       return(array)
     }
   }
 
   removeSelectedCategory(item){
-    this.state.selectedCategory.length == 1 ?
+    this.state.selectedCategory.length == 0  ?
       this.setState({selectedCategory: [],
                      subcategory:[]})
     :
@@ -115,7 +126,9 @@ class SearchContainer extends Component {
       await this.closeModal()
       await this.props.navigate.navigation('LoginContainer')
     }else{
-      ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      if(Platform.OS === 'android'){
+        ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      }
       await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
       await this.closeModal()
     } 
@@ -125,6 +138,11 @@ class SearchContainer extends Component {
     console.log('sub:', this.state)
     return (
       <Search
+        qty={this.state.qty}
+        quantityValue={this.state.qty}
+        increaseQty={() => this.setState({qty: this.state.qty + 1})}
+        decreaseQty={() => this.setState({qty: this.state.qty - 1})}
+        
         modalVisibleFilters={this.state.modalVisibleFilters}
         toggleModalFilters={() => this.toggleModalFilters()}
 
@@ -152,18 +170,18 @@ class SearchContainer extends Component {
             margin: 5,
             backgroundColor: '#d11e48'
           }}>
-            <Text style={{color: '#fff',padding: 5}}>{item}</Text>
+            <Text style={{color: '#fff',padding:Platform.OS==="android" ? 5 : 0, paddingLeft:Platform.OS==="android"?0:5}}>{item}</Text>
             <TouchableOpacity onPress={() => this.removeSelectedCategory(item)}>
               <EvilIcons name="close" style={{
                 fontSize: 12,
-                padding: 5,
+                padding: Platform.OS==="android" ? 5 : 5,
                 color:'#fff'
               }} />
             </TouchableOpacity>
           </Button>
         )}
 
-        dataButtonCategory1st={this.props.categoryproduct}
+        dataButtonCategory1st={this.props.categoryproduct.filter(item => !this.state.selectedCategory.includes(item.subcategory))}
         buttonCategory1st={({item}) => (
           <Button bordered danger style={{
             height: 30,
@@ -178,15 +196,17 @@ class SearchContainer extends Component {
                                           lastFillter:this.state.selectedCategory.concat(item.subcategory)
                                           })}
           >
-            <Text style={{color: '#F7009A' ,padding:5}}>{item.subcategory}</Text>
+            <Text style={{color: '#F7009A' ,padding:Platform.OS==="android" ? 5 : 0, paddingHorizontal:Platform.OS==="android"?5:5}}>{item.subcategory}</Text>
           </Button>
         )}
         
-        dataButtonBrands={this.props.brandsproduct}
+        clearBrand={() => this.setState({selectedBrand: ''})}
+        selectedBrand={this.state.selectedBrand}
+        dataButtonBrands={this.props.brandsproduct.filter(item => item.brand !== this.state.selectedBrand)}
         buttonBrads={({item}) => (
           <View style={{
             borderWidth: 1, 
-            borderColor: this.state.selectedBrand === item.brand ? '#e2e2e2' : '#d11e48', 
+            borderColor: this.state.selectedBrand === item.brand ? '#d11e48' : '#e2e2e2', 
             width: 150,
             margin: 5
           }}>
@@ -223,6 +243,12 @@ class SearchContainer extends Component {
         handleSearch={()=>this.handleSearch()}
         handleCategory={()=>this.handleCategory()}
         handleBrand={()=>this.handleBrand()}
+
+        // 
+        // 
+        maxValue={this.state.maxPrice.toString().replace(/^0+/, '')}
+        minValue={this.state.minPrice.toString().replace(/^0+/, '')}
+
         handleMinPrice={(minPrice)=>this.setState({minPrice})}
         handleMaxPrice={(maxPrice)=>this.setState({maxPrice})}
 

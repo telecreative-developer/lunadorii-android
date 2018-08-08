@@ -3,10 +3,10 @@ import { StyleSheet, TouchableOpacity, Text, View, Alert } from 'react-native'
 
 const ShippingAddress = (props) => (
   <View style={{
-    borderRadius: 1,
+    borderRadius: 1.5,
     borderColor: props.address_default ? '#d11e48' : '#E2E2E2',
     borderWidth: 1,
-    marginBottom: 5
+    marginBottom: props.address_default ? 15 : 5
   }}>
     <View style={styles.contentCard}>
       <View style={styles.wrapLeft}>

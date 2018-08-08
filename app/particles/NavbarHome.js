@@ -7,7 +7,6 @@ import FontAwesome from 'react-native-vector-icons/FontAwesome'
 const NavbarHome = (props) => (
   <Header style={styles.headerTransparent} hasTabs>
     <Left>
-      {console.log('image', props.image)}
       <TouchableOpacity onPress={props.photoProfileAction}>
         <Image source={{ uri: props.image }} style={styles.image} />
       </TouchableOpacity>
@@ -31,7 +30,7 @@ const styles = StyleSheet.create({
   image: {
     width: 40,
     height: 40,
-    borderRadius: 45 / 2,
+    borderRadius: 40 / 2,
     marginTop: 5
   },
   btn: {

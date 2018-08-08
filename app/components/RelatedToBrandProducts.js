@@ -9,6 +9,7 @@ import {
   FlatList
 } from 'react-native';
 import { Icon, Text, Container, Content, Spinner } from 'native-base';
+import LoginRequiredModal from '../modals/LoginRequiredModal'
 import Navbar from '../particles/Navbar';
 import Validations from '../particles/Validations'
 import AddToCart from '../modals/AddToCart'
@@ -25,15 +26,22 @@ const RelatedToBrandProducts = (props) => (
       actionIcon={props.goback}
     />
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <AddToCart
+      increaseQty={props.increaseQty}
+      decreaseQty={props.decreaseQty}
       quantityValue={props.quantityValue}
       modalVisible={props.modalVisibleAddToCart}
       toggleModalAddToCart={props.toggleModalAddToCart}
       onChangeQty={props.onChangeQty}
       handleAddToCart={props.handleAddToCart}      
+    />
+    <LoginRequiredModal 
+      modalVisibleLogin={props.modalVisibleLogin}
+      closeModal={props.closeModal}
+      loginAction={props.loginAction}
     />
     {props.stillLoading ? (
       <View style={styles.style}>

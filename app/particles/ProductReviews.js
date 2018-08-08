@@ -32,6 +32,7 @@ const ProductReviews = (props) =>(
               maxStars={5}
               rating={props.star}
               starSize={12}
+              fullStarColor={'#ffcc36'}
             />
           </View>
           {console.log('data', props.date)}
@@ -61,7 +62,7 @@ const styles = StyleSheet.create({
     alignSelf: 'flex-end', 
     paddingRight: 10, 
     paddingTop: 10, 
-    color: '#f65857'
+    color: '#d11e48'
   },
   image:{
     width: 50, 

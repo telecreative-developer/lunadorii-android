@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, Dimensions, FlatList } from 'react-native'
+import { Modal, View, Text, StyleSheet, Dimensions, FlatList, StatusBar } from 'react-native'
 import { Content, Item, Input, Label, Button, Form, Spinner } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 const { height, width } = Dimensions.get('window')
@@ -14,6 +14,10 @@ const EditLocalBankModal = (props) => (
       navbarTitle="Edit Local Bank"
       navbarIcon="close"
       actionIcon={props.actionIcon} 
+    />
+    <StatusBar
+      backgroundColor="#d11e48"
+      barStyle="light-content"
     />
     <Content style={styles.container}>
       <Form style={styles.form}>

@@ -3,6 +3,7 @@ import { View, Text, FlatList, StyleSheet, StatusBar, Dimensions } from 'react-n
 import { Container, Content, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
 import Validations from '../particles/Validations'
+import ImageWhislist from '../assets/images/icon/wishlist.png'
 const { height, width } = Dimensions.get('window')
 
 const Wishlist = (props) => (
@@ -14,7 +15,7 @@ const Wishlist = (props) => (
       actionIcon={props.goback}
     />
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     {/* {props.stillLoading ?
@@ -83,6 +84,8 @@ const Wishlist = (props) => (
       <Content>
         {props.dataProduct <= 0 ? 
           <Validations 
+            showImportedImage={true}
+            image={ImageWhislist}
             title="Your Wishlist is empty" 
             message1="Go shop to find what you need " 
             message2="and add it to wishlist" 

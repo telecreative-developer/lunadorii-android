@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import { View, StyleSheet, StatusBar, Text, Image, TouchableOpacity, Dimensions } from 'react-native'
 import { Container, Content, Button, Form, Item, Input, Icon } from 'native-base'
 import LunadoriiCircleLogo from '../assets/images/icon/CircleLogo.png'
+import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 const { height, width } = Dimensions.get('window')
 
 const LoginTroubleshooting = (props) => (
   <Container style={styles.container}>
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <Content style={styles.content}>
@@ -31,7 +32,7 @@ const LoginTroubleshooting = (props) => (
             </Item>
           </Form>
           <View style={styles.buttonSendLinkWrapper}>
-            <Button full style={styles.buttonSendLinkStyle}>
+            <Button full style={styles.buttonSendLinkStyle} onPress={props.forgotpassword}>
               <Text style={styles.buttonSendLinkStyleText}>Send Login Link</Text>
             </Button>
           </View>
@@ -41,11 +42,11 @@ const LoginTroubleshooting = (props) => (
             </TouchableOpacity>
           </View>
         </View>
-        <View style={{borderTopColor: '#979797', borderTopWidth: 1.2, borderBottomColor: '#979797', borderBottomWidth: 1.2, marginHorizontal: 45, alignItems:'center'}}>
-          <TouchableOpacity style={{flexDirection:'row', alignItems: 'center', paddingVertical: 50}} onPress={props.loginFB}>
+        {/* <View style={{borderTopColor: '#979797', borderTopWidth: 1.2, borderBottomColor: '#979797', borderBottomWidth: 1.2, marginHorizontal: 45, alignItems:'center'}}>
+          <TouchableOpacity style={{flexDirection:'row', alignItems: 'center', paddingVertical: convertHeightPercentToDP('5%')}} onPress={props.loginFB}>
             <Icon type="Entypo" name="facebook" style={{color:"#3B5998"}}/><Text style={{color:"#3B5998", paddingLeft: 5}}>Log in With Facebook</Text>
           </TouchableOpacity>
-        </View>
+        </View> */}
         {/* <View style={{paddingBottom: 10}}>
           <View style={{borderTopColor: "#979797", borderTopWidth: 1.2, borderBottomColor: "#979797", borderBottomWidth: 1.2}}>
             <View style={styles.informationWrapper1}>
@@ -87,7 +88,7 @@ const styles = StyleSheet.create({
     height: 50
   },
   logoImage: {
-    marginTop: 50,
+    marginTop: convertWidthPercentToDP('8%'),
     marginBottom: 40,
     justifyContent: 'center',
     alignItems: 'center',

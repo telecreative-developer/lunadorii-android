@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { Modal, View, Text, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native'
 import { Container, Content, Item, Input, Icon, Label, Button, Tabs, Spinner } from 'native-base'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import NavbarModal from '../particles/NavbarModal'
@@ -15,6 +15,10 @@ const ChangeEmailModal = (props) => (
       navbarIcon={props.navbarIcon}
       actionIcon={props.actionIcon}
     />
+    <StatusBar
+      backgroundColor="#d11e48"
+      barStyle="light-content"
+    />
     <Content style={styles.container}>
       <View style={styles.viewInputPassword}>
         <Text style={styles.txtLabel}>New Email</Text>
@@ -22,12 +26,12 @@ const ChangeEmailModal = (props) => (
           marginBottom: 10,
           borderRadius: 5,
           height: 40,
-          borderColor:  props.newEmail ? '#ccc' : '#c0392b'
+          borderColor:  props.newEmail.length == 0 ? '#c0392b' : '#ccc'
         }}>
           <Input placeholder='Enter New Email' placeholderTextColor="#ccc" onChangeText={props.onChangeNewEmail} />
-          <Ionicons name={props.newEmail ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Ionicons name={props.newEmail.length == 0 ? 'ios-alert-outline' : '' } size={18} style={{padding: 10}}/>
         </Item>
-        <Text style={styles.txtLabel}>Comfirm Email</Text>
+        <Text style={styles.txtLabel}>Confirm Email</Text>
         <Item regular style={{
           marginBottom: 10,
           borderRadius: 5,
@@ -35,7 +39,7 @@ const ChangeEmailModal = (props) => (
           borderColor:  props.confirmEmail ? '#ccc' : '#c0392b'
         }}>
           <Input placeholder='Enter New Email' placeholderTextColor="#ccc" onChangeText={props.onChangeConfirmEmail} />
-          <Ionicons name={props.confirmEmail ? 'md-checkmark' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
+          <Ionicons name={props.confirmEmail ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
       </View>
     </Content>

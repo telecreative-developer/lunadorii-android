@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, ToastAndroid } from 'react-native'
+import { AsyncStorage, ToastAndroid, Platform, NetInfo } from 'react-native'
 import ProductInCategoryBestSeller from '../components/ProductInCategoryBestSeller'
 import Product from '../particles/Product'
 import { connect } from 'react-redux'
@@ -52,19 +52,36 @@ class ProductInCategoryBestSellerContainer extends Component{
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     // await alert('Berhasil Menambahkan ke Kranjang', this.state.product_name.slice(0,10))
-    ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
     await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
-    await this.closeModal()
-
+    if(Platform.OS === 'android'){
+      ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      await this.closeModal()
+    }else{
+      await this.closeModal()
+    }
   }
 
   async componentDidMount(){
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
     const data = this.props.navigation.state.params.data
     if(this.props.fetchProductWithCategory(data.product_subcategory_id)){
       await this.setState({stillLoading: false})
     }
     console.log('data :', data.product_subcategory_id)
   }
+
+  componentWillUnmount(){
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+  }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
 
   capitalize(string) {
     return string.replace(/(^|\s)\S/g, l => l.toUpperCase())

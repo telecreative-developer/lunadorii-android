@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import {AsyncStorage, Alert, ToastAndroid} from 'react-native'
+import {AsyncStorage, Alert, ToastAndroid, NetInfo, BackHandler} from 'react-native'
 import { connect } from 'react-redux'
 
 import Wishlist from '../components/Wishlist'
@@ -15,6 +15,8 @@ class WishlistContainer extends Component{
   }
 
   async componentDidMount(){
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.setState({
@@ -24,6 +26,25 @@ class WishlistContainer extends Component{
     await this.props.fetchwishlist(data.accessToken, data.id)
     await this.setState({stillLoading: false})
     
+  }
+
+  componentWillUnmount(){
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
+
+  handleBackPress = () => {
+    this.props.navigation.goBack() // works best when the goBack is async
+    return true;
   }
 
   capitalize(string) {

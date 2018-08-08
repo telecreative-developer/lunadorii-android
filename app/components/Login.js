@@ -3,13 +3,13 @@ import { StyleSheet, View, Image, TouchableOpacity, Text, StatusBar, Dimensions 
 import { Container, Content, Icon, Form, Item, Input } from 'native-base'
 import PropTypes from 'prop-types'
 import LunadoriiPortraitLogo from '../assets/images/icon/lunadorii-highres.png'
-import InvalidCredentialModal from '../modals/InvalidCredentialModal'
+import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 const { height, width } = Dimensions.get('window')
 
 const Login = (props) => (
   <Container style={styles.backgroundColorWhite}>
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content" />
     {/* <InvalidCredentialModal
       modalVisible={props.modalVisibleInvalidCredentialModal}
@@ -53,9 +53,9 @@ const Login = (props) => (
           </View>
         </View>
       </View>
-      <View style={{borderTopColor: '#979797', borderTopWidth: 1.2, borderBottomColor: '#979797', borderBottomWidth: 1.2, marginHorizontal: 45, alignItems:'center', marginTop: 35}}>
-        <TouchableOpacity style={{flexDirection:'row', alignItems: 'center', paddingVertical: 50}} onPress={props.loginFB}>
-          <Icon type="Entypo" name="facebook" style={{color:"#3B5998"}}/><Text style={{color:"#3B5998", paddingLeft: 5}}>Log in With Facebook</Text>
+      <View style={{borderTopColor: '#fff', borderTopWidth: 1.2, borderBottomColor: '#fff', borderBottomWidth: 1.2, marginHorizontal: 45, alignItems:'center', marginTop: convertWidthPercentToDP('10%')}}>
+        <TouchableOpacity style={{flexDirection:'row', alignItems: 'center', paddingVertical: convertHeightPercentToDP('5%')}} onPress={props.loginFB}>
+          {/* <Icon type="Entypo" name="facebook" style={{color:"#3B5998"}}/><Text style={{color:"#3B5998", paddingLeft: 5}}>Log in With Facebook</Text> */}
         </TouchableOpacity>
       </View>
       {/* <View style={{paddingBottom: 10, paddingTop: 45, paddingLeft: 45, paddingRight: 45}}>
@@ -71,6 +71,10 @@ const Login = (props) => (
         <Text style={styles.alignSelfCenter}>Don't have account?</Text>
         <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToRegister}>
           <Text style={styles.registerNowColor}> Sign Up</Text>
+        </TouchableOpacity>
+        <Text> or </Text>
+        <TouchableOpacity onPress={props.skipLogin} style={{paddingLeft: 5}}>
+          <Text style={{color: '#d11e48'}}>Login later</Text>
         </TouchableOpacity>
       </View>
     </Content>
@@ -89,7 +93,7 @@ export default Login
 
 const styles = StyleSheet.create({
   logoImage: {
-    marginTop: 60,
+    marginTop: convertWidthPercentToDP('10%'),
     marginBottom: 40,
     height: 75,
     justifyContent: 'center',
@@ -110,7 +114,9 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   informationWrapper2:{
-    marginTop: 5,
+    borderTopColor: '#fff', 
+    borderTopWidth: 1.2,
+    marginTop: convertHeightPercentToDP('8%'),
     marginBottom: 15,
     flexDirection: 'row', 
     justifyContent: 'center'

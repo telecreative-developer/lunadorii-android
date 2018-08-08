@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { Modal, View, Text, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native'
 import { Container, Content, Item, Input, Icon, Label, Button, Form, Textarea, Spinner } from 'native-base'
 import NavbarModal from '../particles/NavbarModal'
 
@@ -13,6 +13,10 @@ const EditQuantityModal = (props) => (
       navbarTitle="Edit Quantity"
       navbarIcon="close"
       actionIcon={props.actionIcon} />
+    <StatusBar
+      backgroundColor="#d11e48"
+      barStyle="light-content"
+    />
     <Content style={styles.container}>
       <View style={styles.Card}>
         <View style={styles.contentCard}>
@@ -24,7 +28,7 @@ const EditQuantityModal = (props) => (
             <Text style={styles.txtDetail}>Quantity: <Text style={styles.txtpcs}>{props.quantity} pcs</Text></Text>
           </View>
           <View style={styles.wrapRight}>
-            <Text style={styles.txtHeader}>Rp {props.price * props.quantity}</Text>
+            <Text style={styles.txtHeader}>Rp {`${props.price * props.quantity}`.replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Text>
           </View>
         </View>
       </View>

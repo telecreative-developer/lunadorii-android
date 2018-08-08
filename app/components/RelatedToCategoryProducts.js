@@ -8,8 +8,8 @@ import {
   RefreshControl,
   FlatList
 } from 'react-native';
-import { Icon, Text, Container, Content, Spinner } from 'native-base';
-import RelatedToCategoryProductsContainer from '../containers/RelatedToCategoryProductsContainer';
+import { Text, Container, Content, Spinner } from 'native-base';
+import LoginRequiredModal from '../modals/LoginRequiredModal'
 import Validations from '../particles/Validations'
 import Navbar from '../particles/Navbar';
 import AddToCart from '../modals/AddToCart'
@@ -26,25 +26,32 @@ const RelatedToCategoryProducts = (props) => (
       actionIcon={props.goback}
     />
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <AddToCart
+      increaseQty={props.increaseQty}
+      decreaseQty={props.decreaseQty}
       quantityValue={props.quantityValue}
       modalVisible={props.modalVisibleAddToCart}
       toggleModalAddToCart={props.toggleModalAddToCart}
       onChangeQty={props.onChangeQty}
       handleAddToCart={props.handleAddToCart}      
     />
+    <LoginRequiredModal 
+      modalVisibleLogin={props.modalVisibleLogin}
+      closeModal={props.closeModal}
+      loginAction={props.loginAction}
+    />
     {props.stillLoading ? (
       <View style={styles.style}>
         <Spinner color="#d11e48"/>
       </View>
     ) : (
-      <Content scrollEnabled={props.dataProduct.length == 0?false:true}>
+      <Content >
         <View style={styles.viewArrivals}>
           <View>
-            <View style={{paddingTop: 5}}>
+            <View>
               {props.dataProduct.length == 0 ? 
                 <Validations
                   title={props.name+" Doesn't has products"}

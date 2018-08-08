@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import { BackHandler } from 'react-native'
 import PurchaseHistory from '../components/PurchaseHistory'
 import RecentOrders from '../particles/RecentOrders'
 import HistoryOrders from '../particles/HistoryOrders'
@@ -81,6 +82,19 @@ class PurchaseHistoryContainer extends Component{
 
   state = {
     modalVisibleEditQuantity : false
+  }
+
+  componentDidMount(){
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  componentWillUnmount(){
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  handleBackPress = () => {
+    this.props.navigation.goBack() // works best when the goBack is async
+    return true;
   }
 
   render(){

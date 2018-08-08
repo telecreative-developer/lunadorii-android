@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { AsyncStorage, ToastAndroid } from 'react-native'
+import { AsyncStorage, ToastAndroid, Platform, NetInfo, BackHandler } from 'react-native'
 import { connect } from 'react-redux'
 import moment from 'moment'
 
@@ -10,14 +10,40 @@ class DetailsOrderContainer extends Component{
 
   state={
     modalVisibleAddReviews: false,
+    modalVisibleImageView: false,
     review:'',
     ratings: 0
   }
 
   async componentDidMount(){
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
+    BackHandler.addEventListener('hardwareBackPress', this.handleBackPress);
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     const dataProduct = this.props.navigation.state.params.item
+  }
+
+  componentWillUnmount(){
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+    BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
+  }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
+
+  handleBackPress = () => {
+    this.props.navigation.goBack() // works best when the goBack is async
+    return true;
+  }
+
+  toggleImageViewModal(){
+    this.setState({ modalVisibleImageView: !this.state.modalVisibleImageView })
   }
 
   toggleModalAddReviews(){
@@ -36,8 +62,11 @@ class DetailsOrderContainer extends Component{
     const { review, ratings } = this.state
     const dataProduct = this.props.navigation.state.params.item
     await this.props.createReview(data.id, {review , ratings} , data.accessToken, dataProduct.product_id)
-    // await alert('Succes Add Review')
-    ToastAndroid.showWithGravity("Thanks for review", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    if(Platform.OS==='android'){
+      ToastAndroid.showWithGravity("Thanks for review", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }else{
+      await alert('Succes Add Review')
+    }
     await this.setState({
       modalVisibleAddReviews: false,
       review:'',
@@ -54,15 +83,34 @@ class DetailsOrderContainer extends Component{
     return price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
   }
 
+  discountPrice(price, discount_percentage){
+    let DiscountPrice = price - (price *(discount_percentage/100))
+    return DiscountPrice
+  }
+
   render(){
     console.log('order :' , this.props.navigation.state.params)
     const data = this.props.navigation.state.params.item
+    const status = this.props.navigation.state.params.status
+    console.log("isa ",data)
     return(
       <DetailsOrder
+        toggleImageViewModal={() => this.toggleImageViewModal()}
+        modalVisibleImageView={this.state.modalVisibleImageView}
+        brandTitle={data.product}
+        qty={data.qty}
+        priceDisc={this.formatPrice(this.discountPrice(data.price, data.discount_percentage))}
+        price={this.formatPrice(data.price)}
+        category={data.subcategories[0].subcategory}
+
+        showToast={() => Platform.OS==='android'?ToastAndroid.showWithGravity("Your order not yet arrived", ToastAndroid.SHORT, ToastAndroid.CENTER):alert('Your order not yet arrived')}
+        image={data.thumbnails[0].thumbnail_url}
+        images={data.thumbnails.map(data => ({source:{uri: data.thumbnail_url}}))}
+        amountOfImage={data.thumbnails.length}
         billing_code={this.props.navigation.state.params.billing_code}
         payment_time={moment(data.payment_time).calendar()}
         delivery_time={moment(data.delivery_time).calendar()}
-        status={data.order_product_status == null || data.order_product_status === '' ? data.order_product_status :this.capitalize(data.order_product_status)}
+        status={status == null || status === '' ? status :this.capitalize(status)}
         purchase_number={data.purchase_number}
         receipt_time={moment(data.receipt_time).calendar()}
         delivery_service={data.delivery_service}

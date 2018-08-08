@@ -29,9 +29,11 @@ import DetailsTransactionContainer from './app/containers/DetailsTransactionCont
 import DetailsOrderContainer from './app/containers/DetailsOrderContainer'
 import PaymentContainer from './app/containers/PaymentContainer'
 import MoreHelpContainer from './app/containers/MoreHelpContainer'
+import ScreenTestContainer from './app/containers/ScreenTestContainer'
 
 const AppNavigator = StackNavigator(
   {
+    ScreenTestContainer: {screen : ScreenTestContainer },
     PaymentContainer: { screen: PaymentContainer },
     MoreHelpContainer: { screen: MoreHelpContainer },
     DetailsOrderContainer: { screen: DetailsOrderContainer },

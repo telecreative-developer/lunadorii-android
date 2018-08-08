@@ -2,13 +2,14 @@ import React from 'react'
 import { StyleSheet, View, Image, TouchableOpacity, Text, StatusBar, Dimensions } from 'react-native'
 import { Container, Content, Icon, Button, Footer, Form, Label, Item, Input } from 'native-base'
 import PropTypes from 'prop-types'
+import { convertHeightPercentToDP, } from '../particles/Converter'
 import { register } from '../actions/register';
 const { height, width } = Dimensions.get('window')
 
 const RegisterIdentify = (props) => (
   <Container style={styles.backgroundColorWhite}>
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content" />
     <Content style={styles.backgroundColorWhite}>
       <View style={styles.wrapper}>   

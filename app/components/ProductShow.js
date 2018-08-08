@@ -7,7 +7,13 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Entypo from 'react-native-vector-icons/Entypo'
 import ImageViewModal from '../modals/ImageViewModal'
+import LoginRequiredModal from '../modals/LoginRequiredModal'
+import Carousel from 'react-native-banner-carousel'
+
+import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 const { height, width } = Dimensions.get('window')
+const bannerWidth = Dimensions.get('window').width
+
 import AddToCart from '../modals/AddToCart'
 
 const ProductShow = (props) => (
@@ -17,11 +23,18 @@ const ProductShow = (props) => (
     backgroundColor: '#fff'
   }}>
   <AddToCart
+    increaseQty={props.increaseQty}
+    decreaseQty={props.decreaseQty}
     quantityValue={props.quantityValue}
     modalVisible={props.modalVisibleAddToCart}
     toggleModalAddToCart={props.toggleModalAddToCart}
     onChangeQty={props.onChangeQty}
     handleAddToCart={props.handleAddToCartModal}      
+  />
+  <LoginRequiredModal 
+    modalVisibleLogin={props.modalVisibleLogin}
+    closeModal={props.closeModal}
+    loginAction={props.loginAction}
   />
     {props.stillLoading ? (
       <Content contentContainerStyle={{justifyContent: 'center', alignItems:'center', flex: 1}}>
@@ -38,13 +51,16 @@ const ProductShow = (props) => (
             navbarIcon="arrow-back"
             actionIcon={props.goback} />
           <StatusBar
-            backgroundColor="#f65857"
+            backgroundColor="#d11e48"
             barStyle="light-content"
           />
           <TouchableOpacity style={styles.touchableOpacity} onPress={props.toggleImageViewModal}>
             <Text style={styles.textPhotos}><FontAwesome name="photo" style={styles.touchableOpacityButtonIcon} /> +{props.amountOfImage} Photos</Text>
           </TouchableOpacity>
         </ImageBackground>
+        {/* <Carousel autoplay={true} autoplayTimeout={2000} loop={true} index={0} pageSize={bannerWidth}>
+          {props.productCarousel}
+        </Carousel> */}
       </TouchableHighlight>
       <ImageViewModal
         modalVisible={props.modalVisibleImageView}
@@ -109,10 +125,9 @@ const ProductShow = (props) => (
             maxStars={5}
             rating={props.star}
             starSize={14}
+            fullStarColor={'#ffcc36'}
           />
-          <View style={{paddingBottom: 5}}>
-            <Text style={styles.reviewsLabel}>{props.star} reviews</Text>
-          </View>
+          <Text style={styles.reviewsLabel}>{props.reviews} Reviews</Text>
         </View>
       </View>
       <View style={styles.borderedSparator}>
@@ -159,7 +174,7 @@ const ProductShow = (props) => (
             <View style={styles.ratingCardContentWrapper}>
               <View>
                 <Text style={styles.ratingReviewsText}>
-                  <Text style={styles.ratingAmountReviewsText}>{props.star}</Text> reviews
+                  <Text style={styles.ratingAmountReviewsText}>{props.reviews}</Text> Reviews
                 </Text>
                 <View style={{flexDirection: 'row'}}>
                   <StarRating
@@ -167,6 +182,7 @@ const ProductShow = (props) => (
                     maxStars={5}
                     rating={props.star}
                     starSize={14}
+                    fullStarColor={'#ffcc36'}
                   />
                 </View>
               </View>
@@ -429,8 +445,8 @@ const styles = StyleSheet.create({
   touchableOpacity: {
     backgroundColor: 'rgba(202, 202, 202, 0.73)',
     marginRight: 5,
-    width: (width - 130) / 2,
-    height: (height - 580) / 2,
+    width: convertWidthPercentToDP('35%'),
+    height: convertHeightPercentToDP('5%'),
     top: 170,
     alignSelf: 'flex-end',
     borderRadius: 8,

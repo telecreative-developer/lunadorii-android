@@ -1,5 +1,5 @@
 import React from 'react'
-import { StyleSheet, View, Text, Image, FlatList, TouchableOpacity, StatusBar, Dimensions } from 'react-native'
+import { StyleSheet, View, Text, Image, FlatList, TouchableOpacity, StatusBar, Dimensions, Platform } from 'react-native'
 import { Container, Button, Content, Spinner } from 'native-base'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import PropTypes from 'prop-types'
@@ -27,6 +27,7 @@ const Profile = (props) => (
       navbarIcon="close"
       modalVisible={props.modalVisibleEditProfile}
       actionIcon={props.toggleModalEditProfile}
+      buttonSave={props.buttonSave}
 
       photoProfile={props.photoProfile}
       first_name={props.profile.first_name}
@@ -41,7 +42,7 @@ const Profile = (props) => (
       stillLoading={props.stillLoading}
     />
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     {props.stillLoading ? (
@@ -59,9 +60,15 @@ const Profile = (props) => (
               <View>
                 <View style={styles.viewNameProfile}>
                   <Text style={styles.txtNameProfile}>Hello, {props.profile.first_name}</Text>
-                  <Button style={styles.btnProfile}><Text style={styles.txtBtnProfile} onPress={props.toggleModalEditProfile}>
-                    <MaterialCommunityIcons name="pencil" size={15} /> Edit Profile</Text>
-                  </Button>
+                  {Platform.OS === 'android' ? (
+                    <Button style={styles.btnProfile}><Text style={styles.txtBtnProfile} onPress={props.toggleModalEditProfile}>
+                      <MaterialCommunityIcons name="pencil" size={15} /> Edit Profile</Text>
+                    </Button>
+                  ) : (
+                    <Button style={styles.btnProfileiOS}><Text style={styles.txtBtnProfileiOS} onPress={props.toggleModalEditProfile}>
+                      <MaterialCommunityIcons name="pencil" size={15} /> Edit Profile</Text>
+                    </Button>
+                  )}
                 </View>
               </View>
             </View>
@@ -190,15 +197,26 @@ const styles = StyleSheet.create({
     height: 30,
     marginTop: 10
   },
+  btnProfileiOS: {
+    backgroundColor: '#c0c0bf',
+    alignItems: 'center',
+    height: 30,
+    marginTop: 10
+  },
   txtBtnProfile: {
     justifyContent: 'center',
     padding: 20,
     color: '#fff'
   },
+  txtBtnProfileiOS: {
+    justifyContent: 'center',
+    paddingHorizontal: 10,
+    color: '#fff'
+  },
   imageProfile: {
     width: 70,
     height: 70,
-    borderRadius: 40
+    borderRadius: 70/2
   },
   flexDirectionRow: {
     flexDirection: 'row'

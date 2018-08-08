@@ -12,7 +12,7 @@ const Payment = (props) => (
       navbarIcon="arrow-back"
     />
     <StatusBar
-      backgroundColor="#f65857"
+      backgroundColor="#d11e48"
       barStyle="light-content"
     />
     <Content style={styles.content}>

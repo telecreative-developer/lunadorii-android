@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { ToastAndroid, AsyncStorage } from 'react-native'
+import { ToastAndroid, AsyncStorage, StyleSheet, Dimensions, TouchableOpacity, Image, Platform, NetInfo } from 'react-native'
 import ProductShow from '../components/ProductShow'
 import RecommendProduct from '../particles/RecommendProduct'
 import CommentAndRating from '../particles/CommentAndRating'
@@ -10,6 +10,11 @@ import {
   } from '../actions/product'
 import {addToCart} from '../actions/cart'
 import { connect } from 'react-redux'
+const { height, width } = Dimensions.get('window')
+
+const bannerWidth = Dimensions.get('window').width
+const bannerHeight = height / 2.8
+
 import { fetchwishlist, addWishlist, deleteWishlistInHome } from '../actions/wishlist';
 
 class ProductShowContainer extends Component {
@@ -47,7 +52,8 @@ class ProductShowContainer extends Component {
       modalVisibleAddToCart: false,
       id_user: 0,
       product_id: 0,
-      product_name: ''
+      product_name: '',
+      modalVisibleLogin:false
     }
   }
 
@@ -77,11 +83,13 @@ class ProductShowContainer extends Component {
     this.setState({clickCart: true})
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    const dataProduct = this.props.navigation.state.params.data
     if(data == null ){
-      await this.props.navigation.navigate('LoginContainer')
+      await this.setState({modalVisibleLogin: true})
     }else{
-      ToastAndroid.showWithGravity("Added to cart.", ToastAndroid.SHORT, ToastAndroid.CENTER)
-      const dataProduct = this.props.navigation.state.params.data
+      if(Platform.OS === 'android'){
+        ToastAndroid.showWithGravity("Added to cart.", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      }
       await this.setState({
         product_id: dataProduct.product_id
       })
@@ -96,7 +104,7 @@ class ProductShowContainer extends Component {
   }
 
   async componentDidMount() {
-    // BackHandler.removeEventListener('hardwareBackPress', this.handleBackButton(this))
+    NetInfo.isConnected.addEventListener('connectionChange', this.handleConnectivityChange);
     const session = await AsyncStorage.getItem('session')
     const dataSession = await JSON.parse(session)
     const data = await this.props.navigation.state.params.data
@@ -128,6 +136,19 @@ class ProductShowContainer extends Component {
     
   }
 
+  componentWillUnmount(){
+    NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
+  }
+
+  handleConnectivityChange = isConnected => {
+    if (isConnected) {
+      this.setState({ isConnected });
+    } else {
+      this.setState({ isConnected });
+      this.props.navigation.navigate("HomeContainer")
+    }
+  };
+
   closeModal(){    
     this.setState({modalVisibleAddToCart: !this.state.modalVisibleAddToCart})
   }
@@ -137,7 +158,7 @@ class ProductShowContainer extends Component {
     const data = await JSON.parse(session)
     await this.closeModal()
     if(data == null ){
-      await this.props.navigate.navigation('LoginContainer')
+      await this.setState({modalVisibleLogin: true})
     }else{
       if(this.state.modalVisibleAddToCart){
         await this.setState({
@@ -158,10 +179,13 @@ class ProductShowContainer extends Component {
   async handleAddToCartModal(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
-    ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
     await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
-    await this.closeModal()
-
+    if(Platform.OS === 'android'){
+      ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      await this.closeModal()
+    }else{
+      await this.closeModal()
+    }
   }
 
   async addQty(){
@@ -189,12 +213,14 @@ class ProductShowContainer extends Component {
   async AddWishlist(){
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
+    const dataProduct = this.props.navigation.state.params.data
     if( data == null ){
-      await this.props.navigation.navigate('LoginContainer')
+      await this.setState({modalVisibleLogin: true})
     }else{
       this.setState({clickWishlist:!this.state.clickWishlist})
+      if(Platform.OS === 'android'){
       ToastAndroid.showWithGravity("Added to wishlist.", ToastAndroid.SHORT, ToastAndroid.CENTER)
-      const dataProduct = this.props.navigation.state.params.data
+      }
       await this.setState({
         product_id: dataProduct.product_id
       })
@@ -206,7 +232,9 @@ class ProductShowContainer extends Component {
 
   async deleteWishlistInHome(){
     this.setState({clickWishlist:!this.state.clickWishlist})
+    if(Platform.OS === 'android'){
     ToastAndroid.showWithGravity("Delete wishlist.", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }
     const dataProduct = this.props.navigation.state.params.data
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
@@ -254,12 +282,32 @@ class ProductShowContainer extends Component {
     return DiscountPrice
   }
 
+  toLogin(){
+    this.props.navigation.navigate("LoginContainer")
+    this.setState({ modalVisibleLogin: false })
+  }
+
+  renderBanners(banner, index) {
+    return (
+      <TouchableOpacity key={index} style={styles.banner}>
+        <Image style={styles.bannerImage} source={{ uri: banner.thumbnail_url }} />
+      </TouchableOpacity>
+    )
+  }
+
   render() {
     console.log('dis',this.discountPrice(this.state.price, this.state.discount))
     console.log('asyu',this.state.totalPrice)
     return (
       <ProductShow
+
+        productCarousel={this.state.images.map((banner, index) => this.renderBanners(banner, index))}
+
+        qty={this.state.qty}
         quantityValue={this.state.qty}
+        increaseQty={() => this.setState({qty: this.state.qty + 1})}
+        decreaseQty={() => this.setState({qty: this.state.qty - 1})}
+
         image={this.state.image}
         images={this.state.images}
         title={this.capitalize(this.state.title)}
@@ -271,7 +319,6 @@ class ProductShowContainer extends Component {
         productDetails={this.state.data.detail}
         guide={this.state.data.to_use}
         isDiscount={this.state.isDiscount}
-        qty={this.state.qty}
         totalPrice={this.formatPrice(this.state.totalPrice)}
         amountOfImage={this.state.amountOfImage}
         wishlisted={this.props.receiveSingleProductWithId.map(data => data.wishlisted)}
@@ -292,7 +339,7 @@ class ProductShowContainer extends Component {
         renderRelatedProducts={({ item }) => (
           <RecommendProduct 
             image={item.thumbnails[0].thumbnail_url} 
-            title={this.capitalize(item.product)} 
+            title={item.product <= 17 ? this.capitalize(item.product) : this.capitalize(item.product).slice(0,18)+'...'}
             categories={item.brands[0].brand} 
             price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
             star={item.product_rate} 
@@ -310,6 +357,7 @@ class ProductShowContainer extends Component {
           />
         )}
 
+        reviews={this.state.reviews.length}
         dataCommentAndRating={this.state.seeMoreReviews ? this.state.reviews : this.state.reviews.slice(0,1)}
         renderCommentAndRating={({ item }) => (
           <CommentAndRating
@@ -333,12 +381,26 @@ class ProductShowContainer extends Component {
         isReviewsExist={this.state.isReviewsExist}
 
         handleAddToCartModal={() => this.handleAddToCartModal()}
+        modalVisibleLogin={this.state.modalVisibleLogin}
+        closeModal={ () => this.setState({modalVisibleLogin: false})}
+        loginAction={ () => this.toLogin() }
         addToCart={() => this.addToCart()}
         clickCart={this.state.clickCart}
         goback={() => this.deleteState()} />
     )
   }
 }
+
+const styles = StyleSheet.create({
+  banner: {
+    backgroundColor: '#000'
+  },
+  bannerImage: {
+    width: bannerWidth,
+    height: bannerHeight,
+    opacity: 1
+  }
+})
 
 const mapDispatchToProps = (dispatch) =>{
   return{

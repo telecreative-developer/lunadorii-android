@@ -2,29 +2,30 @@ import React from 'react'
 import { View, StyleSheet, Text, Dimensions, TouchableOpacity, Image } from 'react-native'
 import { Button } from 'native-base'
 const { height, width } = Dimensions.get('window')
+import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 
 const Validations = (props) => (
   <View 
     style={{
-      marginVertical: 150,
+      marginVertical: convertWidthPercentToDP('25%'),
       padding: 10, 
       alignItems: 'center',
       backgroundColor: '#fff',
-      flex: 1,
+      
       justifyContent: 'center',
       alignContent: 'center',
     }}>
-    {props.showIcon ? (
+    {props.showIcon || props.showImportedImage ? (
       <View>
-        <Image source={{uri: props.icon}} style={styles.imageCategories} />
+        <Image source={props.showImportedImage ? props.image : {uri: props.icon}} style={styles.imageCategories} />
       </View>
     ) : (
-      <View/>
+      <View style={{width: 30,height: 30}}/>
     )}
-    <View style={{padding: 10}}>
+    <View style={{padding: convertHeightPercentToDP('1%')}}>
       <Text style={{fontSize: 24, color: '#000', textAlign: 'center'}}>{props.title}</Text>
     </View>
-    <View style={{padding: 10}}>
+    <View style={{padding: convertHeightPercentToDP('1%')}}> 
       <Text style={{fontSize: 20, color: '#ccc', textAlign: 'center'}}>{props.message1}</Text>
       <Text style={{fontSize: 20, color: '#ccc', textAlign: 'center'}}>{props.message2}</Text>
     </View>
@@ -51,11 +52,10 @@ const styles = StyleSheet.create({
   },
 
   imageCategories: {
-    width: 30,
-    height: 30,
+    width: 50,
+    height: 50,
     alignSelf: 'center',
     justifyContent: 'center',
-    // marginTop: 10,
     resizeMode: 'contain'
   }
 })

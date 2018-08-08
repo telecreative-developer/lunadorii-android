@@ -1,9 +1,10 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
+import { Modal, View, Text, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native'
 import { Content, Item, Input, Icon, Label, Form, Button, Spinner } from 'native-base'
 import defaultPhotoProfile from '../assets/images/icon/photoProfileDefault.png'
 import NavbarModal from '../particles/NavbarModal'
 import DatePicker from 'react-native-datepicker'
+import moment from 'moment'
 
 const EditProfileModal = (props) => (
   <Modal
@@ -16,6 +17,10 @@ const EditProfileModal = (props) => (
       navbarTitle={props.navbarTitle}
       navbarIcon={props.navbarIcon}
       actionIcon={props.actionIcon}
+    />
+    <StatusBar
+      backgroundColor="#d11e48"
+      barStyle="light-content"
     />
     <Content style={styles.container}>
       <View>
@@ -43,9 +48,9 @@ const EditProfileModal = (props) => (
             date={props.bod}
             mode="date"
             placeholder="Birth of Date"
-            format="DD-MM-YYYY"
+            format="YYYY-MM-DD"
             minDate="1960-01-01"
-            maxDate="2018-12-30"
+            maxDate={moment().format('YYYY-MM-DD')}
             confirmBtnText="Confirm"
             cancelBtnText="Cancel"
             customStyles={{

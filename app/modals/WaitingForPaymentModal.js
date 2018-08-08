@@ -1,6 +1,8 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native'
-import { Container, Content, Icon, Button, Radio } from 'native-base'
+import { Modal, View, Text, StyleSheet, Image, TouchableOpacity, StatusBar } from 'react-native'
+import { Content, Button } from 'native-base'
+import moment from 'moment'
+import CountDown from 'react-native-countdown-component';
 import NavbarModal from '../particles/NavbarModal'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import Banks from '../particles/Banks'
@@ -16,94 +18,121 @@ const WaitingForPaymentModal = (props) => (
     animationType="slide"
     transparent={false}
     visible={props.modalVisible}
-    onRequestClose={props.actionIcon}>
+    onRequestClose={props.closeModal}>
     <NavbarModal
       navbarTitle={props.navbarTitle}
-      navbarIcon={"close"}
-      actionIcon={props.actionIcon}
+    />
+    <StatusBar
+      backgroundColor="#d11e48"
+      barStyle="light-content"
     />
     <Content style={styles.container}>
       <View style={styles.paymentInformation1}>
-        <Image source={image} style={styles.imageFrame} />
-        <Text style={styles.textInfo1}>Waiting for payment</Text>
-        <View style={styles.textInfo2Wrapper}>
-          <Text style={styles.textInfo2Content}>Nomor pesanan anda </Text><Text style={styles.textInfo2Code}>20437278982220</Text>
-        </View>
+          <View style={{alignItems:'center'}}>
+            <Image source={image} style={styles.imageFrame} />
+            <Text style={styles.textInfo1}>Waiting for payment</Text>
+            <View style={styles.textInfo2Wrapper}>
+              <Text style={styles.textInfo2Content}>Your order number </Text><Text style={styles.textInfo2Code}>{ props.checkout.order_id }</Text>
+            </View>
+          </View>
       </View>
       <View style={styles.paymentInformation2}>
         <View style={styles.paymentInformation2Wrapper}>
-          <Text style={styles.paymentInformation2title}>Kode bayar akan berakhir pada</Text>
-          <Text style={styles.paymentInformation2timeout}>23 : 52 : 31</Text>
-          <Text style={styles.paymentInformation2warning1}>Mohon menyelesaikan pembayaran sebelum</Text>
-          <Text style={styles.paymentInformation2warning2}>8:21 PM 27 Mei 2018</Text>
+          <View style={{paddingTop: 10}}>
+            
+              <Text style={styles.paymentInformation2title}>Payment code will end in</Text>
+              <CountDown
+                until={props.countDown}
+                onFinish={() => alert('Your payment is ends')}
+                size={20}
+                digitBgColor={'#f6f6f6'}
+                timeToShow={['H','M','S']}
+              />
+          </View>
+            <View style={{alignItems:'center'}}>
+              <Text style={styles.paymentInformation2warning1}>Please pay your bill before</Text>
+              <Text style={styles.paymentInformation2warning2}>{moment(props.transaction_time).add(12, 'hours').format('LLLL')}</Text>
+            </View>
         </View>
         <View style={styles.Card}>
           <View style={styles.contentCard}>
             <View style={styles.viewFlex3}>
-              <Image source={require('../assets/images/icon/visa.png')} style={styles.image} />
+              <Image source={atmIcon} style={styles.image} />
             </View>
             <View style={styles.wrapLeft}>
-              <Text style={styles.paymentCardInformationTitle}>Code pembayaran BCA</Text>
-              <Text style={styles.paymentCardIformationPaymentCode}>390521106000426</Text>
+              <Text style={styles.paymentCardInformationTitle}>Payment code {props.va_number} </Text>
+              <Text style={styles.paymentCardIformationPaymentCode}>Paid Method 
+                {props.checkout.payment_type == 'bank_transfer' ? 
+                  <Text> Bank Transfer</Text> :
+                  <Text> Credit Card</Text>
+                }
+              </Text>
+              {/* {props.checkout.bank ? 
+              <Text>Bank : </Text>:
+              <Text></Text>
+              } */}
             </View>
           </View>
           <View style={styles.contentCard2}>
             <Text style={styles.paymentCardInformationTotalLabel}>Total:</Text>
-            <Text style={styles.paymentCardInformationGrandTotal}>Rp 420,000</Text>
+            <Text style={styles.paymentCardInformationGrandTotal}>Rp {props.checkout.gross_amount}</Text>
           </View>
         </View>
-        <View style={{padding: 10}}>
-          <Button full style={{
-            height: 45,
-            width: 200,
-            borderRadius: 5,
-            backgroundColor: '#d11e48',
-            alignSelf: 'center'
-          }}>
-            <Text style={{
-              color: '#fff', 
-              fontSize: 18 
-            }}>Pay With Credit Card</Text>
-          </Button>
-        </View>
-        <View style={styles.paymentGuideSparator}>
-          <Text style={styles.paymentGuideTitle}>Panduan Pembayaran</Text>
-        </View>
-        <TouchableOpacity style={styles.touchableGuidePayment1} onPress={props.togglePaymentGuide1Visible}>
-          <View style={styles.paddingLeft20}>
-            <Image source={atmIcon} style={styles.iconSize} />
+        {props.isCC ? (
+          <View style={{padding: 10}}>
+            
+              <Text style={{
+                color: '#e2e2e2', 
+                fontSize: 18 
+              }}>Pay With Credit Card SUCCESS</Text>
           </View>
-          <View style={styles.flexOnly9}>
-            <View style={styles.viewPaddingLeft}>
-              <Text style={styles.txtLabel}>ATM</Text>
-            </View>
-          </View>
-          <View style={styles.flexOnly1}>
-            <FontAwesome name="chevron-down" style={styles.iconDrop} />
-          </View>
-        </TouchableOpacity>
-        {props.paymentGuide1Visible ? (
-          <Banks bcaGuide={props.bcaGuide} toggleBcaGuide={props.toggleBcaGuide}/>
         ) : (
           <View/>
         )}
-        <TouchableOpacity style={styles.touchableGuidePayment1} onPress={props.togglePaymentGuide2Visible}>
-          <View style={styles.paddingLeft20}>
-            <Image source={bankIcon} style={styles.iconSize} />
-          </View>
-          <View style={styles.flexOnly9}>
-            <View style={styles.viewPaddingLeft}>
-              <Text style={styles.txtLabel}>Internet Banking (App & Web)</Text>
-            </View>
-          </View>
-          <View style={styles.flexOnly1}>
-            <FontAwesome name="chevron-down" style={styles.iconDrop} />
-          </View>
-        </TouchableOpacity>
-        {props.paymentGuide2Visible ? (
-          <Banks/>
-        ) : (
+        {props.isCC ? (
           <View/>
+        ) : (
+          <View>
+            <View style={styles.paymentGuideSparator}>
+              <Text style={styles.paymentGuideTitle}>Payment Guide</Text>
+            </View>
+            <TouchableOpacity style={styles.touchableGuidePayment1} onPress={props.togglePaymentGuide1Visible}>
+              <View style={styles.paddingLeft20}>
+                <Image source={atmIcon} style={styles.iconSize} />
+              </View>
+              <View style={styles.flexOnly9}>
+                <View style={styles.viewPaddingLeft}>
+                  <Text style={styles.txtLabel}>ATM</Text>
+                </View>
+              </View>
+              <View style={styles.flexOnly1}>
+                <FontAwesome name="chevron-down" style={styles.iconDrop} />
+              </View>
+            </TouchableOpacity>
+            {props.paymentGuide1Visible ? (
+              <Banks guide={props.guide} toggleGuide={props.toggleGuide} bankName={props.selectedBank}/>
+            ) : (
+              <View/>
+            )}
+            <TouchableOpacity style={styles.touchableGuidePayment1} onPress={props.togglePaymentGuide2Visible}>
+              <View style={styles.paddingLeft20}>
+                <Image source={bankIcon} style={styles.iconSize} />
+              </View>
+              <View style={styles.flexOnly9}>
+                <View style={styles.viewPaddingLeft}>
+                  <Text style={styles.txtLabel}>Internet Banking (App & Web)</Text>
+                </View>
+              </View>
+              <View style={styles.flexOnly1}>
+                <FontAwesome name="chevron-down" style={styles.iconDrop} />
+              </View>
+            </TouchableOpacity>
+            {props.paymentGuide2Visible ? (
+              <Banks/>
+            ) : (
+              <View/>
+            )}
+          </View>
         )}
       </View>
       <View style={styles.paymentGuideSparator}>
@@ -115,7 +144,7 @@ const WaitingForPaymentModal = (props) => (
         </View>
         <View style={styles.wrapLeft}>
           <Text style={styles.paymentCardInformationTitle}>
-            Kami telah mengirimkan email konfirmasi ke <Text style={styles.boldFont}>muhammadfuaditrockz@gmail.com</Text> dengan detail pesanan.
+            We have sent email information to <Text style={styles.boldFont}>{props.checkout.email}</Text> with detail orders.
           </Text>
         </View>
       </View>
@@ -125,12 +154,12 @@ const WaitingForPaymentModal = (props) => (
         </View>
         <View style={styles.wrapLeft}>
           <Text style={styles.paymentCardInformationTitle}>
-            Pesan anda akan dikirimkan pada <Text style={styles.boldFont}>Kamis 31 Mei</Text>.
+            Your orders will send at <Text style={styles.boldFont}>Tuesday 31 May</Text>.
           </Text>
         </View>
       </View>
     </Content>
-    <Button full style={styles.btnSend} onPress={props.backToHome}>
+    <Button full style={styles.btnSend} onPress={props.goHome}>
       <Text style={styles.txtBtnSend}>Back to Home</Text>
     </Button>
   </Modal>

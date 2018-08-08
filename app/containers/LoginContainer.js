@@ -133,6 +133,7 @@ class LoginContainer extends Component {
         passwordFieldVisibility={this.state.passwordFieldVisibility}
         togglePasswordFieldVisibility={() => this.togglePasswordFieldVisibility()} 
         loginFB={this.loginFB}
+        skipLogin={() => this.props.navigation.navigate("HomeContainer")}
       />
     )
   }

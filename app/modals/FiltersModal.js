@@ -1,8 +1,7 @@
 import React, { Component } from 'react'
-import { Modal, View, Text, StyleSheet, FlatList, TouchableOpacity } from 'react-native'
+import { Modal, View, Text, StyleSheet, FlatList, TouchableOpacity, StatusBar } from 'react-native'
 import { Content, Item, Input, Icon, Button } from 'native-base'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
-import BrandChooserModal from '../modals/BrandChooserModal'
 import NavbarModal from '../particles/NavbarModal'
 
 const FiltersModal = (props) => (
@@ -15,11 +14,10 @@ const FiltersModal = (props) => (
       navbarTitle="Filters"
       navbarIcon="close"
       actionIcon={props.actionIcon} />
-    <BrandChooserModal
-      navbarTitle="Edit Profile"
-      navbarIcon="close"
-      modalVisible={props.modalVisibleBrandChooser}
-      actionIcon={props.toggleModalBrandChooser}/>
+    <StatusBar
+      backgroundColor="#d11e48"
+      barStyle="light-content"
+    />
     <Content style={styles.container}>
       <Text style={styles.txtLabel}>Category</Text>
       <Item regular style={styles.item}>
@@ -47,39 +45,34 @@ const FiltersModal = (props) => (
           </Button>
         </View> */}
         <FlatList
-          horizontal={true}
-          showsHorizontalScrollIndicator={false}
+          // horizontal={true}
+          // showsHorizontalScrollIndicator={false}
+          numColumns={3}
           data={props.dataButtonCategory1st}
           renderItem={props.buttonCategory1st}
         />
-        <View style={styles.buttonWrapper}>
-          <Button bordered danger style={styles.largeButton}>
-            <Text style={styles.buttonText}>Tools & Brushes</Text>
-          </Button>
-          <Button bordered danger style={styles.largeButton}>
-            <Text style={styles.buttonText}>Bath & Body</Text>
-          </Button>
-        </View>
       </View>
       <Text style={styles.txtLabel}>Brands</Text>
+      <Item regular style={styles.item}>
+        <Input placeholder='Select brand' placeholderTextColor="#ccc" onChangeText={props.handleBrand} value={props.selectedBrand} disabled />
+        <TouchableOpacity onPress={props.clearBrand}>
+          <EvilIcons name="close" style={styles.searchIcon} />
+        </TouchableOpacity>
+      </Item>
       <FlatList
         horizontal={true}
         showsHorizontalScrollIndicator={false}
         data={props.dataButtonBrands}
         renderItem={props.buttonBrads}
       />
-      {/* <Item regular style={styles.item}>
-        <Input placeholder='Select brand' placeholderTextColor="#ccc" onChangeText={props.handleBrand} />
-        <Icon type='Entypo' name="chevron-small-down" style={{color: '#ccc'}}/>
-      </Item> */}
       <Text style={styles.txtLabel}>Price</Text>
       <View style={styles.inputWrapper}>
         <Item regular style={styles.inputMin}>
-          <Input placeholder='Min' placeholderTextColor="#ccc" onChangeText={props.handleMinPrice} keyboardType={'numeric'}/>
+          <Input value={props.minValue} placeholder='Min' placeholderTextColor="#ccc" onChangeText={props.handleMinPrice} keyboardType={'numeric'} maxLength={10}/>
         </Item>
         <Text style={styles.sparator}>-</Text>
         <Item regular style={styles.inputMax}>
-          <Input placeholder='Max' placeholderTextColor="#ccc" onChangeText={props.handleMaxPrice} keyboardType={'numeric'}/>
+          <Input value={props.maxValue} placeholder='Max' placeholderTextColor="#ccc" onChangeText={props.handleMaxPrice} keyboardType={'numeric'} maxLength={10}/>
         </Item>
       </View>
     </Content>
@@ -131,7 +124,7 @@ const styles = StyleSheet.create({
     margin: 5
   },
   flexStart: {
-    justifyContent: 'flex-start'
+    justifyContent: 'center',
   },
   buttonWrapper: {
     flexDirection: 'row',
