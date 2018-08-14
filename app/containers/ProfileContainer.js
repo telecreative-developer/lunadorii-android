@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { AsyncStorage, ToastAndroid, BackHandler, Platform, NetInfo } from 'react-native'
 import { RNS3 } from 'react-native-aws3';
 import Profile from '../components/Profile'
+import { Toast } from 'native-base'
 import RecentOrders from '../particles/RecentOrders'
 import ImagePicker from 'react-native-image-picker'
 import moment from 'moment'
@@ -136,6 +137,10 @@ class ProfileContainer extends Component {
     this.setState({stillLoading: false})
     if(Platform.OS === 'android'){
       ToastAndroid.showWithGravity("Edited", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }else{
+      Toast.show({
+        text: 'Edited'
+      })
     }
   }
 

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import {AsyncStorage, Alert, NetInfo, BackHandler} from 'react-native'
+import {AsyncStorage, Alert, NetInfo, BackHandler, ToastAndroid, Platform} from 'react-native'
 import Reviews from '../components/Reviews'
+import { Toast } from 'native-base'
 import ProductReviews from '../particles/ProductReviews'
 import { connect } from 'react-redux'
 import { fetchUserReview, updateReview, deleteReview } from '../actions/userreview'
@@ -76,12 +77,18 @@ class ReviewsContainer extends Component{
   }
 
   async btnUpdateRating(){
-    alert('updated')
     const session = await AsyncStorage.getItem('session')
     const data = await JSON.parse(session)
     await this.closeModal()
     await this.props.updateReview(this.state.id, this.state, data.accessToken)
     await this.props.fetchUserReview(data.id, data.accessToken)
+    if(Platform.OS === 'ios'){
+      Toast.show({
+        text: 'Updated'
+      })
+    }else{
+      ToastAndroid.showWithGravity('Updated', ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }
   }
 
   async deleteReview(item){
@@ -92,10 +99,27 @@ class ReviewsContainer extends Component{
       'Delete',
       'Are you sure to Delete ?',
       [
-        { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+        { text: 'Cancel', onPress: () => {
+          Platform.OS === 'ios'
+          ?
+          Toast.show({
+            text: 'Canceled'
+          })
+          :
+          ToastAndroid.showWithGravity('Canceled', ToastAndroid.SHORT, ToastAndroid.CENTER)
+        }, style: 'cancel' },
         {
           text: 'Delete',
-          onPress: () => this.fetchData(item)
+          onPress: () => {
+            Platform.OS === 'ios'
+            ?
+            Toast.show({
+              text: 'Deleted'
+            })
+            :
+            ToastAndroid.showWithGravity('Deleted', ToastAndroid.SHORT, ToastAndroid.CENTER)
+            this.fetchData(item)
+          }
           
         }
       ],

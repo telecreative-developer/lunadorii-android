@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { AsyncStorage, ToastAndroid, Platform, NetInfo } from 'react-native'
 import RelatedToBrandProducts from '../components/RelatedToBrandProducts'
 import Product from '../particles/Product'
+import { Toast } from 'native-base'
 import { connect } from 'react-redux'
 import { fetchProductWithBrand } from '../actions/product'
 import { addToCart } from '../actions/cart'
@@ -58,6 +59,10 @@ class RelatedToBrandProductsContainer extends Component{
     const data = await JSON.parse(session)
     if(Platform.OS === 'android'){
       ToastAndroid.showWithGravity("Added to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }else{
+      Toast.show({
+        text: "Added to cart"
+      })
     }
     await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
     await this.closeModal()

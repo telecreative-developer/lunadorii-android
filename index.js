@@ -1,5 +1,6 @@
 import React from 'react'
 import { AppRegistry } from 'react-native'
+import { Root } from 'native-base'
 import { createStore, applyMiddleware } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
@@ -12,7 +13,9 @@ const store = Reactotron.createStore(rootReducers, applyMiddleware(thunk))
 
 const App = () => (
 	<Provider store={store}>
-		<AppNavigator />
+		<Root>
+			<AppNavigator />
+		</Root>
 	</Provider>
 )
 

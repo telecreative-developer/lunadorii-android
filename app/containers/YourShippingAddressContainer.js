@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import {AsyncStorage, View,Modalx, Text, SmartPicker, Dimensions, ScrollView, Alert, ToastAndroid, BackHandler, Platform, NetInfo} from 'react-native'
-import { Content, Item, Input, Icon, Label, Button, Form, Textarea } from 'native-base'
+import { Content, Item, Input, Icon, Label, Button, Form, Textarea, Toast } from 'native-base'
 import YourShippingAddress from '../components/YourShippingAddress'
 import ShippingAddress from '../particles/ShippingAddress'
 import Picker from '../particles/Picker'
@@ -98,6 +98,10 @@ class YourShippingAddressContainer extends Component{
     // Alert.alert('Success Add Address', 'Thanks..')
     if(Platform.OS === 'android'){
       ToastAndroid.showWithGravity("Added", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }else{
+      Toast.show({
+        text: "Added"
+      }) 
     }
     this.setState({loading: false})
   }
@@ -129,6 +133,10 @@ class YourShippingAddressContainer extends Component{
     // Alert.alert('Success Add Address', 'Thanks..')
     if(Platform.OS === 'android'){
       ToastAndroid.showWithGravity("Updated", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }else{
+      Toast.show({
+        text: "Updated"
+      })
     }
     this.setState({loading: false})
   }
@@ -182,10 +190,27 @@ class YourShippingAddressContainer extends Component{
       'Delete',
       'Are you sure to Delete ?',
       [
-        { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+        { text: 'Cancel', onPress: () => {
+          Platform.OS === 'ios'
+          ?
+          Toast.show({
+            text: 'Canceled'
+          })
+          :
+          ToastAndroid.showWithGravity("Canceled", ToastAndroid.SHORT, ToastAndroid.CENTER)
+        }, style: 'cancel' },
         {
           text: 'Delete',
-          onPress: () => this.fetchData(item),
+          onPress: () => {
+            this.fetchData(item)
+            Platform.OS === 'ios'
+            ?
+            Toast.show({
+              text: "Deleted"
+            })
+            :
+            ToastAndroid.showWithGravity("Delete", ToastAndroid.SHORT, ToastAndroid.CENTER)
+          },
         }
       ],
       { cancelable: false }

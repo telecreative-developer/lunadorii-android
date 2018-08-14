@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { AsyncStorage, ToastAndroid, Alert, BackHandler, Platform, NetInfo } from 'react-native'
 import { connect } from 'react-redux'
-
+import { Toast } from 'native-base'
 import CreditCard from '../components/CreditCard'
 import CreditCards from '../particles/CreditCards'
 import { fetchUserCredit, addUserCredit, editUserCredit, defaultUserCredit, deleteUserCredit} from '../actions/creditCard'
@@ -131,6 +131,9 @@ class CreditCardContainer extends Component {
           password: ''
         })
       }else{
+        Toast.show({
+          text: "Edited"
+        })
         await this.setState({
           buttonSave: false,
           modalVisibleEditCreditCard: !this.state.modalVisibleEditCreditCard,
@@ -184,6 +187,9 @@ class CreditCardContainer extends Component {
           password: ''
         })
       }else{
+        Toast.show({
+          text: "Added"
+        })
         await this.setState({
           buttonSave: false,
           modalVisibleAddCreditCard: !this.state.modalVisibleAddCreditCard,
@@ -230,10 +236,18 @@ class CreditCardContainer extends Component {
       'Delete',
       'Are you sure to Delete ?',
       [
-        { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+        { text: 'Cancel', onPress: () => {
+          Platform.OS === 'ios'
+          ?
+          Toast.show({
+            text: "Canceled"
+          })
+          :
+          ToastAndroid.showWithGravity("Canceled", ToastAndroid.SHORT, ToastAndroid.CENTER)
+        }, style: 'cancel' },
         {
           text: 'Delete',
-          onPress: () => this.deleteItem(item),
+          onPress: () => {this.deleteItem(item)}
         }
       ],
       { cancelable: false }
@@ -248,6 +262,10 @@ class CreditCardContainer extends Component {
     await this.props.fetchUserCredit(data.id, data.accessToken)
     if(Platform.OS==='android'){
       ToastAndroid.showWithGravity("Removed", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }else{
+      Toast.show({
+        text: 'Removed'
+      })
     }
     await this.setState({stillLoading: false})
   }

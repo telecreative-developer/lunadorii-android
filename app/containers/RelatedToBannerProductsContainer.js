@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { AsyncStorage, ToastAndroid, Platform, NetInfo } from 'react-native'
 import RelatedToBannerProducts from '../components/RelatedToBannerProducts'
 import Product from '../particles/Product'
+import { Toast } from 'native-base' 
 import { connect } from 'react-redux'
 import { fetchProductWithBanner } from '../actions/product'
 import { addToCart } from '../actions/cart'
@@ -58,6 +59,10 @@ class RelatedToBannerProductsContainer extends Component{
     // await alert('Berhasil Menambahkan ke Kranjang', this.state.product_name.slice(0,10))
     if(Platform.OS === 'android'){
       ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }else{
+      Toast.show({
+        text: "Success add to cart"
+      })
     }
     await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
     await this.closeModal()
