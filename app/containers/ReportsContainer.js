@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import {ToastAndroid, Platform, BackHandler} from 'react-native'
 import Reports from '../components/Reports'
-
+import { Toast } from 'native-base'
 import { connect } from 'react-redux'
 import { report } from '../actions/report'
 
@@ -39,7 +39,11 @@ class ReportsContainer extends Component {
     await this.props.report(name, email, subject, content)
     // await alert(this.props.getResultReport.message)
     if(Platform.OS === 'android'){
-      ToastAndroid.showWithGravity("Save", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      ToastAndroid.showWithGravity("Saved", ToastAndroid.SHORT, ToastAndroid.CENTER)
+    }else{
+      Toast.show({
+        text: 'Saved'
+      })
     }
     this.setState({buttonReport: false})
     await this.props.navigation.goBack()

@@ -4,7 +4,7 @@ import {Button} from 'native-base'
 import Search from '../components/Search'
 import Product from '../particles/Product'
 import EvilIcons from 'react-native-vector-icons/EvilIcons'
-
+import {Toast} from 'native-base'
 import { connect } from 'react-redux'
 import { fetchSearchProduct } from '../actions/product'
 import { fetchCategoryProduct } from '../actions/categoryproduct'
@@ -103,7 +103,6 @@ class SearchContainer extends Component {
     }else{
       await this.closeModal()
       if(this.state.modalVisibleAddToCart){
-        
         await this.setState({
           id_user: data.id,
           product_id: item.product_id,
@@ -128,6 +127,10 @@ class SearchContainer extends Component {
     }else{
       if(Platform.OS === 'android'){
         ToastAndroid.showWithGravity("Success add to cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      }else{
+        Toast.show({
+          text: 'Success add to cart'
+        })
       }
       await this.props.addToCart(this.state.id_user, this.state.product_id, this.state.qty, data.accessToken )
       await this.closeModal()

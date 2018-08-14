@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { ToastAndroid, AsyncStorage, StyleSheet, Dimensions, TouchableOpacity, Image, Platform, NetInfo } from 'react-native'
 import ProductShow from '../components/ProductShow'
+import { Toast } from 'native-base'
 import RecommendProduct from '../particles/RecommendProduct'
 import CommentAndRating from '../particles/CommentAndRating'
 import { 
@@ -219,7 +220,11 @@ class ProductShowContainer extends Component {
     }else{
       this.setState({clickWishlist:!this.state.clickWishlist})
       if(Platform.OS === 'android'){
-      ToastAndroid.showWithGravity("Added to wishlist.", ToastAndroid.SHORT, ToastAndroid.CENTER)
+        ToastAndroid.showWithGravity("Added to wishlist.", ToastAndroid.SHORT, ToastAndroid.CENTER)
+      }else{
+        Toast.show({
+          text: 'Added to wishlist'
+        })
       }
       await this.setState({
         product_id: dataProduct.product_id

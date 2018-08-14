@@ -122,6 +122,9 @@ class HomeContainer extends Component {
           })
           await this.closeModal()
         }else{
+          Toast.show({
+            text: 'Success add to cart'
+          })
           await this.setState({
             id_user: 0,
             product_id: 0,

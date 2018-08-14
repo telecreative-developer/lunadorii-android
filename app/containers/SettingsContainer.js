@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import {connect} from 'react-redux'
+import { Toast } from 'native-base'
 import { editPassword, editEmail } from '../actions/editprofile'
 import { StackActions, NavigationActions} from 'react-navigation'
 import {AsyncStorage, ToastAndroid, Platform, NetInfo, BackHandler} from 'react-native'
@@ -87,6 +88,10 @@ class SettingsContainer extends Component {
       // await alert(this.props.editemail.message)
       if(Platform.OS === 'android'){
         ToastAndroid.showWithGravity(this.props.editemail.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
+      }else{
+        Toast.show({
+          text: this.props.editemail.message
+        })
       }
     }
   }
@@ -119,6 +124,10 @@ class SettingsContainer extends Component {
         // await alert(this.props.editpassword.message)
         if(Platform.OS === 'android'){
           ToastAndroid.showWithGravity(this.props.editpassword.message, ToastAndroid.SHORT, ToastAndroid.CENTER)
+        }else{
+          Toast.show({
+            text: this.props.editpassword.message
+          })
         }
       }
     

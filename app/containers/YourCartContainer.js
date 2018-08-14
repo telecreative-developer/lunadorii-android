@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import {AsyncStorage, View, Alert, Text, StyleSheet, TouchableOpacity, Image, NetInfo} from 'react-native'
+import {AsyncStorage, View, Alert, Text, StyleSheet, TouchableOpacity, Image, NetInfo, ToastAndroid, Platform} from 'react-native'
 import YourCart from '../components/YourCart'
+import { Toast } from 'native-base'
 import OnCart from '../particles/OnCart'
 import moment from 'moment'
 import ShippingAddress from '../particles/ShippingAddress'
@@ -223,11 +224,27 @@ class YourCartContainer extends Component {
       'Delete',
       'Are you sure to Delete ?',
       [
-        { text: 'Cancel', onPress: () => {}, style: 'cancel' },
+        { text: 'Cancel', onPress: () => {
+          Platform.OS === 'ios'
+          ?
+          Toast.show({
+            text: 'Canceled'
+          })
+          :
+          ToastAndroid.showWithGravity("Canceled", ToastAndroid.SHORT, ToastAndroid.CENTER)
+        }, style: 'cancel' },
         {
           text: 'Delete',
-          onPress: () => this.fetchData()
-          
+          onPress: () => {
+            Platform.OS === 'ios'
+            ?
+            Toast.show({
+              text: 'Removed from cart'
+            })
+            :
+            ToastAndroid.showWithGravity("Removed from cart", ToastAndroid.SHORT, ToastAndroid.CENTER)
+            this.fetchData()
+          }
         }
       ],
       { cancelable: false }
@@ -559,7 +576,7 @@ render() {
       courierCode={courier}
       renderCode={({item}) => (
         <TouchableOpacity style={styles.btnPickDeliveryService} onPress={()=>this.chooseService(item.code, item.costs)}>
-          <Text style={styles.txtChooseDeliveryService}>{item.code.toUpperCase()}</Text>
+          <Text style={styles.txtChooseDeliveryService}>{item.code}</Text>
         </TouchableOpacity>
       )}
       courierName={this.state.code === '' || this.state.code === null ? this.state.code : this.state.code.toUpperCase()}
