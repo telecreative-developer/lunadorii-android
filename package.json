@@ -19,6 +19,7 @@
     "react-native-datepicker": "^1.7.2",
     "react-native-image-gallery": "^2.1.5",
     "react-native-image-picker": "^0.26.10",
+    "react-native-rescomponent": "^1.0.4",
     "react-native-star-rating": "^1.0.9",
     "react-native-svg-image": "^2.0.1",
     "react-native-vector-icons": "^4.6.0",
