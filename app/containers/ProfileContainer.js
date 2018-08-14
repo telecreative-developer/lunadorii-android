@@ -92,8 +92,8 @@ class ProfileContainer extends Component {
       keyPrefix: "avatars/",
       bucket: "lunadorii-dev",
       region: "ap-southeast-1",
-      accessKey: "AKIAJXM3WEMNC56VPJXQ",
-      secretKey: "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",
+      accessKey: "AKIAI4OW4BHZTESG7N4Q",
+      secretKey: "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",
       successActionStatus: 201,
       awsUrl: "s3.ap-southeast-1.amazonaws.com"
     }
