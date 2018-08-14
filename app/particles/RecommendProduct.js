@@ -3,46 +3,104 @@ import { View, Text, Image, TouchableOpacity, StyleSheet, Dimensions, Platform }
 import StarRating from 'react-native-star-rating'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
+import { responsiveSize as sizes, responsiveFontSize as rfs } from 'react-native-rescomponent'
 const { width, height } = Dimensions.get('window')
 
 const RecommendProduct = (props) => {
   return(
-  <View style={styles.viewRecommend}>
-    <TouchableOpacity onPress={props.action} style={styles.imageWrapper}>
-      <Image source={{uri: props.image}} style={styles.image}/> 
-    </TouchableOpacity>
-    <View style={styles.viewWrapper}>
-      <View style={{width: (width - 1000) / 2, height: (height - 530) / 2 }}>
-        <TouchableOpacity onPress={props.action}>
-          <Text style={styles.txtTitle}>{props.title}</Text>
-        </TouchableOpacity>
-      </View>
-      <Text style={styles.txtCategories}>{props.categories}</Text>
-      <View style={styles.viewFlexRow}>
-        <StarRating
-          disabled={true}
-          maxStars={5}
-          rating={props.star}
-          starSize={12}
-          fullStarColor={'#ffcc36'}
-        />
-        <View>
+    <View style={{
+      height: sizes(26),
+      width: sizes(25),
+      backgroundColor: "#fff",
+      borderColor:"#e2e2e2",
+      borderWidth: 1,
+      marginHorizontal: 10
+    }}>
+      <TouchableOpacity style={{
+        height: sizes(10),
+        width: sizes(24.6),
+        backgroundColor: "#ccc",
+        alignItems:'center',
+        justifyContent:'center'
+      }}>
+        <Image source={{uri: props.image}} style={{
+          height: sizes(10),
+          width: sizes(24.6)
+        }}/>
+      </TouchableOpacity>
+      <TouchableOpacity style={{paddingTop:5, paddingLeft: 10,height: sizes(4),width: sizes(25)}}>
+        <Text style={{fontWeight: 'bold', fontSize: rfs(2)}}>{props.title}</Text>
+      </TouchableOpacity>
+      <View style={{paddingTop:5, paddingLeft: 10,height: sizes(6),width: sizes(25), flexDirection: 'column'}}>
+        <Text style={{fontSize:rfs(1.5)}}>{props.categories}</Text>
+        <View style={{paddingTop:5,height: sizes(5),width: sizes(15), flexDirection: 'row'}}>
+          <StarRating
+            disabled={true}
+            maxStars={5}
+            rating={props.star}
+            starSize={12}
+            fullStarColor={'#ffcc36'}
+          />
           <Text style={styles.txtReviews}>{props.reviews} Ratings</Text>
         </View>
       </View>
-      <View style={styles.viewFooterProduct}>
-        <View>
-          <TouchableOpacity style={styles.touchableOpacity} onPress={props.toggleModalAddToCart}>
-            <Text style={styles.txtCart}><MaterialCommunityIcons name='cart' /> Add to cart</Text>
-          </TouchableOpacity>
-        </View>
-        <View>
-          <Text style={styles.txtPrice}>Rp. {props.price}</Text>
-        </View>
+      <View style={{paddingTop:15, paddingLeft: 10,height: sizes(5),width: sizes(25), flexDirection: 'row', justifyContent:'space-between'}}>
+        <Text style={{fontSize:rfs(1.5), fontWeight:'bold'}}>{props.price}</Text>
+        <TouchableOpacity style={{
+          height: sizes(2.5),
+          width: sizes(13),
+          backgroundColor: 'rgba(202, 202, 202, 0.43)',
+          borderRadius:5,
+          marginRight:10,
+          alignItems:'center',
+          justifyContent:'center'
+        }} onPress={props.toggleModalAddToCart}>
+          <Text style={{padding: Platform.OS === 'android' ? 5 : 0}}><MaterialCommunityIcons name='cart' /> Add to cart</Text>
+        </TouchableOpacity>
       </View>
     </View>
-  </View>
-)}
+  )
+}
+
+// const RecommendProduct = (props) => {
+//   return(
+//   <View style={styles.viewRecommend}>
+//     <TouchableOpacity onPress={props.action} style={styles.imageWrapper}>
+//       <Image source={{uri: props.image}} style={styles.image}/> 
+//     </TouchableOpacity>
+//     <View style={styles.viewWrapper}>
+//       <View style={{width: (width - 1000) / 2, height: (height - 530) / 2 }}>
+//         <TouchableOpacity onPress={props.action}>
+//           <Text style={styles.txtTitle}>{props.title}</Text>
+//         </TouchableOpacity>
+//       </View>
+//       <Text style={styles.txtCategories}>{props.categories}</Text>
+//       <View style={styles.viewFlexRow}>
+//         <StarRating
+//           disabled={true}
+//           maxStars={5}
+//           rating={props.star}
+//           starSize={12}
+//           fullStarColor={'#ffcc36'}
+//         />
+//         <View>
+//           <Text style={styles.txtReviews}>{props.reviews} Ratings</Text>
+//         </View>
+//       </View>
+//       <View style={styles.viewFooterProduct}>
+//         <View>
+//           <TouchableOpacity style={styles.touchableOpacity} onPress={props.toggleModalAddToCart}>
+//             <Text style={styles.txtCart}><MaterialCommunityIcons name='cart' /> Add to cart</Text>
+//           </TouchableOpacity>
+//         </View>
+//         <View>
+//           <Text style={styles.txtPrice}>Rp. {props.price}</Text>
+//         </View>
+//       </View>
+//     </View>
+//   </View>
+// )}
+
 const styles = StyleSheet.create({
   viewFlexRow:{
     flexDirection: 'row',
