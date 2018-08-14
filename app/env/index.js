@@ -1,4 +1,4 @@
-export const API_SERVER='http://ec2-52-77-224-133.ap-southeast-1.compute.amazonaws.com/api/v1'
+export const API_SERVER='http://ec2-18-136-126-168.ap-southeast-1.compute.amazonaws.com/api/v1'
 export const API_SHIPPING ='https://api.rajaongkir.com/starter/cost'
 // export const API_SERVER_AUTH    ="https://42619ba8.ngrok.io"
 // export const API_SERVER_USER    ="https://2cb61b70.ngrok.io"
