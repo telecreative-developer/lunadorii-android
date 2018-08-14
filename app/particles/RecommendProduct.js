@@ -22,13 +22,13 @@ const RecommendProduct = (props) => {
         backgroundColor: "#ccc",
         alignItems:'center',
         justifyContent:'center'
-      }}>
+      }} onPress={props.action}> 
         <Image source={{uri: props.image}} style={{
           height: sizes(10),
           width: sizes(24.6)
         }}/>
       </TouchableOpacity>
-      <TouchableOpacity style={{paddingTop:5, paddingLeft: 10,height: sizes(4),width: sizes(25)}}>
+      <TouchableOpacity style={{paddingTop:5, paddingLeft: 10,height: sizes(4),width: sizes(25)}} onPress={props.action}>
         <Text style={{fontWeight: 'bold', fontSize: rfs(2)}}>{props.title}</Text>
       </TouchableOpacity>
       <View style={{paddingTop:5, paddingLeft: 10,height: sizes(6),width: sizes(25), flexDirection: 'column'}}>
