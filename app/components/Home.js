@@ -100,9 +100,11 @@ const Home = (props) => (
           <Reloader reloadAction={props.handleRefresh}/>
         )}
         {props.stillLoading ? (
-          <View stryle={styles.style}>
-            <Spinner color="#d11e48"/>
-          </View>
+          <Content contentContainerStyle={styles.style}>
+            <View>
+              <Spinner color="#d11e48"/>
+            </View>
+          </Content>
         ) : (
           <Content style={{width: width,height: height}}>
             <View style={styles.recommededProductWrapper}>
