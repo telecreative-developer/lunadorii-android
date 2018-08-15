@@ -9,23 +9,25 @@ const { width, height } = Dimensions.get('window')
 const RecommendProduct = (props) => {
   return(
     <View style={{
-      height: sizes(26),
+      height: sizes(31),
       width: sizes(25),
       backgroundColor: "#fff",
       borderColor:"#e2e2e2",
       borderWidth: 1,
-      marginHorizontal: 10
+      marginHorizontal: 10,
+      alignItems:'center'
     }}>
       <TouchableOpacity style={{
-        height: sizes(10),
+        height: sizes(15),
         width: sizes(24.6),
         backgroundColor: "#ccc",
         alignItems:'center',
         justifyContent:'center'
       }} onPress={props.action}> 
         <Image source={{uri: props.image}} style={{
-          height: sizes(10),
-          width: sizes(24.6)
+          height: sizes(15),
+          width: sizes(24.6),
+          alignSelf:'center'
         }}/>
       </TouchableOpacity>
       <TouchableOpacity style={{paddingTop:5, paddingLeft: 10,height: sizes(4),width: sizes(25)}} onPress={props.action}>
@@ -45,18 +47,17 @@ const RecommendProduct = (props) => {
         </View>
       </View>
       <View style={{paddingTop:15, paddingLeft: 10,height: sizes(5),width: sizes(25), flexDirection: 'row', justifyContent:'space-between'}}>
-        <Text style={{fontSize:rfs(1.5), fontWeight:'bold'}}>{props.price}</Text>
         <TouchableOpacity style={{
           height: sizes(2.5),
           width: sizes(13),
           backgroundColor: 'rgba(202, 202, 202, 0.43)',
           borderRadius:5,
-          marginRight:10,
           alignItems:'center',
           justifyContent:'center'
         }} onPress={props.toggleModalAddToCart}>
-          <Text style={{padding: Platform.OS === 'android' ? 5 : 0}}><MaterialCommunityIcons name='cart' /> Add to cart</Text>
+          <Text style={{padding: Platform.OS === 'android' ? 5 : 0, fontWeight: 'bold'}}><MaterialCommunityIcons name='cart' /> Add to cart</Text>
         </TouchableOpacity>
+        <Text style={{fontSize:rfs(1.5), fontWeight:'bold',marginRight:10}}>{props.price}</Text>
       </View>
     </View>
   )
