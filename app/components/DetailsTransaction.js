@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View,Text, StyleSheet, Dimensions, StatusBar, FlatList, TouchableOpacity } from 'react-native'
-import { Container, Content, Spinner } from 'native-base'
+import { Container, Content, Spinner, Button } from 'native-base'
 import Navbar from '../particles/Navbar'
 import moment from 'moment'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -8,6 +8,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Feather from 'react-native-vector-icons/Feather'
 import Entypo from 'react-native-vector-icons/Entypo'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
+import { responsiveWidth as w } from 'react-native-rescomponent'
 const { height, width } = Dimensions.get('window')
 
 const DetailsTransaction = (props) => (
@@ -73,6 +74,18 @@ const DetailsTransaction = (props) => (
                 data={props.dataOnCart}
                 renderItem={props.renderDataOnCart}
               />
+              {props.status === 'Shipping' ? (
+                <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingTop: 10}}>
+                  <Button full style={{width: w('45%'), backgroundColor: "#e2e2e2", borderRadius:5}}>
+                    <Text style={{color: "#ccc"}}>Complain</Text>
+                  </Button>
+                  <Button full style={{width: w('45%'), backgroundColor: "#d11e48", borderRadius:5}}>
+                    <Text style={{color: "#fff"}}>Accept</Text>
+                  </Button>
+                </View>
+              ) : (
+                <View/>
+              )}
             </View>
           </View>
 
