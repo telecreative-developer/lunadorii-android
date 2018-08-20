@@ -17,6 +17,7 @@
     "react-native-banner-carousel": "^1.0.3",
     "react-native-countdown-component": "^1.7.1",
     "react-native-datepicker": "^1.7.2",
+    "react-native-fbsdk": "^0.7.0",
     "react-native-image-gallery": "^2.1.5",
     "react-native-image-picker": "git+https://github.com/abartolo/react-native-image-picker#UpgradeToRNv56",
     "react-native-rescomponent": "^1.0.4",
@@ -31,7 +32,7 @@
   },
   "devDependencies": {
     "babel-jest": "23.0.1",
-    "babel-preset-react-native": "4.0.0",
+    "babel-preset-react-native": "5.0.0",
     "jest": "23.0.1",
     "react-test-renderer": "16.3.1",
     "reactotron-react-native": "^1.14.0",
