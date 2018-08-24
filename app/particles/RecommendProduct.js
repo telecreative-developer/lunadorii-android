@@ -55,7 +55,7 @@ const RecommendProduct = (props) => {
           alignItems:'center',
           justifyContent:'center'
         }} onPress={props.toggleModalAddToCart}>
-          <Text style={{padding: Platform.OS === 'android' ? 5 : 0, fontWeight: 'bold'}}><MaterialCommunityIcons name='cart' /> Add to cart</Text>
+          <Text style={{padding: Platform.OS === 'android' ? 5 : 0, fontWeight: 'bold', fontSize: rfs(1.5)}}><MaterialCommunityIcons name='cart' /> Add to cart</Text>
         </TouchableOpacity>
         <Text style={{fontSize:rfs(1.5), fontWeight:'bold',marginRight:10}}>{props.price}</Text>
       </View>

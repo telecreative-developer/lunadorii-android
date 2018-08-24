@@ -34,7 +34,15 @@ const EditAddressModal = (props) => (
           <Ionicons name={props.nameValue ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
 
-        <Label style={styles.labels}>Label</Label>
+        <Label style={styles.labels}>Address Label</Label>
+        {props.labelValue ? (
+          <View/>
+        ) : (
+          <View style={{ backgroundColor: '#e2e2e2', borderRadius: 5, marginBottom: 5}}>
+            <Text style={{fontSize: 12,padding:10}}>e.g House, Office, Apartment</Text>
+          </View>
+        )}
+
         <Item regular style={{
           marginBottom: 10,
           borderRadius: 5,
