@@ -134,7 +134,7 @@ class YourCartContainer extends Component {
 
   totalWeight(){
     let totalWeight = 0
-    const data = this.props.cartuser.map(data=> totalWeight+=data.wight_gram)
+    const data = this.props.cartuser.map(data=> totalWeight+=data.weight_gram)
     return totalWeight
   }
 
@@ -565,7 +565,7 @@ render() {
       isCC={this.state.selectedMethod === 'credit_card'}
       renderCC={ this.renderCC() }
       isCCAvailable={this.state.isCCAvailable}
-      goToCC={() => this.props.navigation.navigate("CreditCardContainer", {func: this.getCreditCard.bind(this)}) }
+      goToCCc={() => this.props.navigation.navigate("CreditCardContainer", {func: this.getCreditCard.bind(this)}) }
 
       stillLoading={this.state.stillLoading}
       countDown={this.getCountDown(transaction_time)}

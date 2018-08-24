@@ -347,7 +347,7 @@ class HomeContainer extends Component {
           <RecommendProduct
             image={item.thumbnails[0].thumbnail_url} 
             // title={this.capitalize(item.product).slice(0,Platform.OS==="android"?24:100) + '...'} 
-            title={item.product} 
+            title={this.capitalize(item.product).slice(0,20)}
             categories={item.brands[0].brand} 
             price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
             star={item.product_rate} 
