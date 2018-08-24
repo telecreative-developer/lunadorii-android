@@ -4,6 +4,7 @@ import StarRating from 'react-native-star-rating'
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 import { responsiveSize as sizes, responsiveFontSize as rfs } from 'react-native-rescomponent'
+import I18n from '../i18n'
 const { width, height } = Dimensions.get('window')
 
 const RecommendProduct = (props) => {
@@ -55,7 +56,7 @@ const RecommendProduct = (props) => {
           alignItems:'center',
           justifyContent:'center'
         }} onPress={props.toggleModalAddToCart}>
-          <Text style={{padding: Platform.OS === 'android' ? 5 : 0, fontWeight: 'bold', fontSize: rfs(1.5)}}><MaterialCommunityIcons name='cart' /> Add to cart</Text>
+          <Text style={{padding: Platform.OS === 'android' ? 5 : 0, fontWeight: 'bold', fontSize: rfs(1.5)}}><MaterialCommunityIcons name='cart' /> {I18n.t('add_to_cart_modal')}</Text>
         </TouchableOpacity>
         <Text style={{fontSize:rfs(1.5), fontWeight:'bold',marginRight:10}}>{props.price}</Text>
       </View>
