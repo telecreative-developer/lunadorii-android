@@ -9,6 +9,7 @@ import { connect } from 'react-redux'
 import { fetchUserShipping, updateShipping, updateSetdefault, 
          deleteShipping, createAddress, fetchProvince 
        } from '../actions/usershipping'
+import { getLanguages } from 'react-native-i18n'
 
 class YourShippingAddressContainer extends Component{
 
@@ -36,7 +37,8 @@ class YourShippingAddressContainer extends Component{
       user_address_id:'',
       label:'',
       cities:[],
-      loading: false
+      loading: false,
+      language: ''
     }
   }
 
@@ -149,7 +151,11 @@ class YourShippingAddressContainer extends Component{
     if(this.props.fetchUserShipping(data.id, data.accessToken)){
       await this.props.fetchProvince()
       await this.setState({stillLoading: false})
-    }    
+    }
+    getLanguages().then(lang => {
+      this.setState({language: lang})
+    })
+    await alert(this.state.language)
   }
 
   componentWillUnmount() {

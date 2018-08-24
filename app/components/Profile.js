@@ -15,10 +15,12 @@ import ImagePrivacyPolicy from '../assets/images/icon/privacy-policy.png'
 import EditProfileModal from '../modals/EditProfileModal'
 const { height, width } = Dimensions.get('window')
 
+import I18n from '../i18n'
+
 const Profile = (props) => (
   <Container style={styles.container}>
     <Navbar
-      navbarTitle="Profile"
+      navbarTitle={I18n.t('profile_title')}
       navbarIcon="arrow-back"
       actionIcon={props.goback}
     />
@@ -59,14 +61,14 @@ const Profile = (props) => (
               </View>
               <View>
                 <View style={styles.viewNameProfile}>
-                  <Text style={styles.txtNameProfile}>Hello, {props.profile.first_name}</Text>
+                  <Text style={styles.txtNameProfile}>{I18n.t('greeting')}, {props.profile.first_name}</Text>
                   {Platform.OS === 'android' ? (
                     <Button style={styles.btnProfile}><Text style={styles.txtBtnProfile} onPress={props.toggleModalEditProfile}>
-                      <MaterialCommunityIcons name="pencil" size={15} /> Edit Profile</Text>
+                      <MaterialCommunityIcons name="pencil" size={15} /> {I18n.t('edit_profile')}</Text>
                     </Button>
                   ) : (
                     <Button style={styles.btnProfileiOS}><Text style={styles.txtBtnProfileiOS} onPress={props.toggleModalEditProfile}>
-                      <MaterialCommunityIcons name="pencil" size={15} /> Edit Profile</Text>
+                      <MaterialCommunityIcons name="pencil" size={15} /> {I18n.t('edit_profile')}</Text>
                     </Button>
                   )}
                 </View>
@@ -75,7 +77,7 @@ const Profile = (props) => (
           </View>
         </View>
         <View style={styles.viewRecent}>
-          <Text style={styles.txtRecent}>Recent Orders</Text>
+          <Text style={styles.txtRecent}>{I18n.t('recent_order')}</Text>
           {props.dataRecentOrders.length != 0 ? 
             <View>
               <FlatList
@@ -89,9 +91,9 @@ const Profile = (props) => (
             :
             <View>
               <View style={{alignItems: 'center'}}>
-                <Text>You don't have Recent Orders</Text>
+                <Text>{I18n.t('empty_recent_order')}</Text>
                 <TouchableOpacity onPress={props.navigateToHome}>
-                  <Text style={{color: '#ccc'}}>Go shop now</Text>
+                  <Text style={{color: '#ccc'}}>{I18n.t('go_shop_now')}</Text>
                 </TouchableOpacity>
               </View>
             </View>
@@ -104,7 +106,7 @@ const Profile = (props) => (
               <TouchableOpacity onPress={props.navigateToPurchaseHistory}>
                 <View style={styles.viewSubBoxMenu}>
                   <Image source={ImagePurchaseHistory} style={styles.imageIcon} />
-                  <Text style={styles.txtMenu}>Purchase History</Text>
+                  <Text style={styles.txtMenu}>{I18n.t('purchase_history')}</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -112,7 +114,7 @@ const Profile = (props) => (
               <TouchableOpacity onPress={props.navigateToWhishlist}>
                 <View style={styles.viewSubBoxMenu}>
                   <Image source={ImageWhislist} style={styles.imageIcon} />
-                  <Text style={styles.txtMenu}>Wishlist</Text>
+                  <Text style={styles.txtMenu}>{I18n.t('wishlist')}</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -120,7 +122,7 @@ const Profile = (props) => (
               <TouchableOpacity onPress={props.navigateToCreditCard}>
                 <View style={styles.viewSubBoxMenu}>
                   <Image source={ImageCreditCard} style={styles.imageIcon} />
-                  <Text style={styles.txtMenu}>Credit Card</Text>
+                  <Text style={styles.txtMenu}>{I18n.t('credit_card')}</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -128,7 +130,7 @@ const Profile = (props) => (
               <TouchableOpacity onPress={props.navigateToReviews}>
                 <View style={styles.viewSubBoxMenu}>
                   <Image source={ImageYourReviews} style={styles.imageIcon} />
-                  <Text style={styles.txtMenu}>Your Reviews</Text>
+                  <Text style={styles.txtMenu}>{I18n.t('your_reviews')}</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -138,7 +140,7 @@ const Profile = (props) => (
               <TouchableOpacity onPress={props.navigateToShippingAddress}>
                 <View style={styles.viewSubBoxMenu}>
                   <Image source={ImageShippingAddress} style={styles.imageIcon} />
-                  <Text style={styles.txtMenu}>Shipping Address</Text>
+                  <Text style={styles.txtMenu}>{I18n.t('shipping_address')}</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -146,7 +148,7 @@ const Profile = (props) => (
               <TouchableOpacity onPress={props.navigateToReports}>
                 <View style={styles.viewSubBoxMenu}>
                   <Image source={ImageReport} style={styles.imageIcon} />
-                  <Text style={styles.txtMenu}>Report</Text>
+                  <Text style={styles.txtMenu}>{I18n.t('report')}</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -154,7 +156,7 @@ const Profile = (props) => (
               <TouchableOpacity onPress={props.navigateToSettings}>
                 <View style={styles.viewSubBoxMenu}>
                   <Image source={ImageSettings} style={styles.imageIcon} />
-                  <Text style={styles.txtMenu}>Settings</Text>
+                  <Text style={styles.txtMenu}>{I18n.t('settings')}</Text>
                 </View>
               </TouchableOpacity>
             </View>
@@ -162,7 +164,7 @@ const Profile = (props) => (
               <TouchableOpacity onPress={props.navigateToPrivacyPolicy}>
                 <View style={styles.viewSubBoxMenu}>
                   <Image source={ImagePrivacyPolicy} style={styles.imageIcon} />
-                  <Text style={styles.txtMenu}>Privacy Policy</Text>
+                  <Text style={styles.txtMenu}>{I18n.t('privacy_police')}</Text>
                 </View>
               </TouchableOpacity>
             </View>

@@ -6,12 +6,13 @@ import Navbar from '../particles/Navbar'
 import FiltersModal from '../modals/FiltersModal'
 import ResultNotFound from '../particles/ResultNotFound'
 import AddToCart from '../modals/AddToCart'
+import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
 const Search = (props) => (
   <Container style={{ backgroundColor: '#fff' }}>
     <Navbar
-      navbarTitle="Search"
+      navbarTitle={I18n.t('search_title')}
       navbarIcon="arrow-back"
       actionIcon={props.goback} />
     <FiltersModal
@@ -56,14 +57,14 @@ const Search = (props) => (
     />
     <Content style={styles.container}>
       <Item regular style={styles.items}>
-        <Input placeholder="Type here what you are looking for" value={props.searchTitle} returnKeyType="search" placeholderTextColor="#ccc" onChangeText={props.onChangeSearchTitle} onSubmitEditing={props.handleSearch}/>
+        <Input placeholder={I18n.t('placeholder_search')} value={props.searchTitle} returnKeyType="search" placeholderTextColor="#ccc" onChangeText={props.onChangeSearchTitle} onSubmitEditing={props.handleSearch}/>
         <TouchableOpacity onPress={props.clearSearchBar}>
           <EvilIcons name="close" style={styles.searchIcon} />
         </TouchableOpacity>
       </Item>
       <View style={styles.moreFilters}>
         <TouchableOpacity onPress={props.toggleModalFilters}>
-          <Text style={styles.moreFiltersText}>More Filters</Text>
+          <Text style={styles.moreFiltersText}>{I18n.t('filter')}</Text>
         </TouchableOpacity>
       </View>
       <View style={{ paddingTop: 15 }}>

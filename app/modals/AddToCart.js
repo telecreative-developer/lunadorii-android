@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Dimensions } from 'react-native'
 import { Icon, Button, Form, Input, Item, Label } from 'native-base'
 import { convertWidthPercentToDP } from '../particles/Converter'
+import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
 const AddToCart = (props) => (
@@ -37,13 +38,13 @@ const AddToCart = (props) => (
         {props.quantityValue > 100 || props.quantityValue == 0? (
           <View style={{paddingHorizontal:20, paddingVertical: 10}}>
             <Button full onPress={props.handleAddToCart} style={{borderRadius: 5, backgroundColor: '#f6f6f6'}} disabled>
-              <Text style={{color: '#ccc'}}>Order refused</Text>
+              <Text style={{color: '#ccc'}}>{I18n.t('add_to_cart_modal_refused')}</Text>
             </Button>
           </View>
         ) : (
           <View style={{paddingHorizontal:20, paddingVertical: 10}}>
             <Button full onPress={props.handleAddToCart} style={{borderRadius: 5, backgroundColor: '#d11e48'}}>
-              <Text style={{color: '#fff'}}>Add to cart</Text>
+              <Text style={{color: '#fff'}}>{I18n.t('add_to_cart_modal')}</Text>
             </Button>
           </View>
         )}

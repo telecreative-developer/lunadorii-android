@@ -1,6 +1,6 @@
 import React from 'react'
 import { View, Image, Text, Dimensions, StyleSheet, TouchableOpacity } from 'react-native'
-import imageSkinCare from '../assets/images/icon/skincare.png'
+import I18n from '../i18n'
 const { width, height } = Dimensions.get('window')
 
 const BestCategories = (props) => (
@@ -13,7 +13,7 @@ const BestCategories = (props) => (
         <View style={styles.viewFlex8}>
           <View style={styles.viewWrapper}>
             <Text style={styles.txtTitle}>{props.title}</Text>
-            <Text>{props.total} Product</Text>
+            <Text>{props.total} {I18n.t('categories_product')}</Text>
           </View>
         </View>
       </View>
