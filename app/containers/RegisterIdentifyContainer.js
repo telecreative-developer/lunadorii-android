@@ -8,6 +8,7 @@ import { isEmpty } from 'validator'
 import Register from '../components/Register'
 import { setNavigate } from '../actions/processor'
 import { register} from '../actions/register'
+import I18n from '../i18n'
 
 class RegisterIdentifyContainer extends Component {
 
@@ -79,7 +80,7 @@ class RegisterIdentifyContainer extends Component {
                   </Button>
                   ) : (
                   <Button full style={styles.buttonRegisterActive} onPress={() => this.handleValidationRegister(id)} rounded center>
-                    <Text style={styles.buttonRegisterActiveText}>Register</Text>
+                    <Text style={styles.buttonRegisterActiveText}>{I18n.t('register_identify_button_daftar')}</Text>
                   </Button>
                   )}
               </View>
@@ -87,8 +88,14 @@ class RegisterIdentifyContainer extends Component {
         } else {
           return (
             <View style={styles.formRegister}>
-              <Button bordered full style={styles.buttonRegisterInactivedisabled} disabled>
+              {/* <Button bordered full style={styles.buttonRegisterInactivedisabled} disabled>
                 <Text style={styles.buttonRegisterInactiveText}>Register</Text>
+              </Button> */}
+              <Button bordered full style={{
+                borderRadius: 10,
+                borderColor: "#d11e48"
+              }} disabled>
+                <Text style={styles.buttonRegisterInactiveText}>{I18n.t('register_identify_button_daftar')}</Text>
               </Button>
             </View>
           )
