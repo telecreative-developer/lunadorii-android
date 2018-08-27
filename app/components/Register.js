@@ -6,6 +6,7 @@ import { register } from '../actions/register';
 import LunadoriiPortraitLogo from '../assets/images/icon/lunadorii-highres.png'
 import LunadoriiCircleLogo from '../assets/images/icon/CircleLogo.png'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
+import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
 const Register = (props) => (
@@ -30,7 +31,7 @@ const Register = (props) => (
           <Form>
             <Item regular style={styles.item}>
               <Input 
-                placeholder="Email address" 
+                placeholder={I18n.t('register_email_address_placeholder')}
                 placeholderTextColor="#ccc" 
                 value={props.email}
                 onChangeText={props.onChangeEmail}
@@ -50,13 +51,13 @@ const Register = (props) => (
         </View>
       </View>
       <View style={styles.informationWrapper2}>
-        <Text style={styles.alignSelfCenter}>Already have account?</Text>
+        <Text style={styles.alignSelfCenter}>{I18n.t('register_clues1')}</Text>
         <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToLogin}>
-          <Text style={styles.registerNowColor}> Login</Text>
+          <Text style={styles.registerNowColor}> {I18n.t('register_clues2')}</Text>
         </TouchableOpacity>
-        <Text> or </Text>
+        <Text> {I18n.t('register_clues3')} </Text>
         <TouchableOpacity onPress={props.skipLogin} style={{paddingLeft: 5}}>
-          <Text style={{color: '#d11e48'}}>Login later</Text>
+          <Text style={{color: '#d11e48'}}>{I18n.t('register_clues4')}</Text>
         </TouchableOpacity>
       </View>
     </Content>
