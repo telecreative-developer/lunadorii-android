@@ -3,6 +3,7 @@ import {connect} from 'react-redux'
 import { StyleSheet, Alert } from "react-native"
 import { Button, Spinner, Text} from 'native-base'
 import {isEmpty, isEmail} from 'validator'
+import I18n from '../i18n'
 
 import Register from '../components/Register'
 import { checkEmail } from '../actions/register'
@@ -143,14 +144,14 @@ class RegisterContainer extends Component{
           {loading.condition === true && loading.process_on === 'LOADING_PROCESS_CHECK_EMAIL' ? (
             <Spinner color="#FFFFFF" />
           ) : (
-            <Text style={styles.buttonLoginActiveText}>NEXT</Text>
+            <Text style={styles.buttonLoginActiveText}>{I18n.t('register_button_next')}</Text>
           )}
         </Button>
 			)
 		} else {
 			return (
 				<Button bordered full style={styles.buttonLoginInactive} disabled>
-					<Text style={styles.buttonLoginInactiveText}>NEXT</Text>
+					<Text style={styles.buttonLoginInactiveText}>{I18n.t('register_button_next')}</Text>
 				</Button>
 			)
 		}

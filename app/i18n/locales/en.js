@@ -74,4 +74,12 @@ export default {
   login_clues2: "Sign Up",
   login_clues3: "or",
   login_clues4: "Login later",
+
+  // Register Screen
+  register_email_address_placeholder: 'Email Address',
+  register_button_next: 'Next',
+  register_clues1: "Already have account?",
+  register_clues2: "Login",
+  register_clues3: "or",
+  register_clues4: "Login later",
 }

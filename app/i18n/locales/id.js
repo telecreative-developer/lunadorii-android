@@ -74,4 +74,12 @@ export default {
   login_clues2: "Daftar",
   login_clues3: "atau",
   login_clues4: "Masuk nanti",
+
+  // Register Screen
+  register_email_address_placeholder: 'Alamat Email',
+  register_button_next: 'Lanjut',
+  register_clues1: "Sudah punya akun?",
+  register_clues2: "Masuk",
+  register_clues3: "atau",
+  register_clues4: "Masuk nanti",
 }
