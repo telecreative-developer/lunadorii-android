@@ -82,4 +82,13 @@ export default {
   register_clues2: "Login",
   register_clues3: "or",
   register_clues4: "Login later",
+
+  // Register Identify Screen
+  register_identify_title: 'Name and Password',
+  register_identify_first_name_placeholder: 'Fist Name',
+  register_identify_last_name_placeholder: 'Last Name',
+  register_identify_password_placeholder: 'Password',
+  register_identify_button_daftar: 'Register',
+  register_identify_clues1: "Already have account?",
+  register_identify_clues2: "Login",
 }

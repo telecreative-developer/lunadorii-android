@@ -82,4 +82,13 @@ export default {
   register_clues2: "Masuk",
   register_clues3: "atau",
   register_clues4: "Masuk nanti",
+
+  // Register Identify Screen
+  register_identify_title: 'Nama dan Katasandi',
+  register_identify_first_name_placeholder: 'Nama Depan',
+  register_identify_last_name_placeholder: 'Nama Akhir',
+  register_identify_password_placeholder: 'Katasandi',
+  register_identify_button_daftar: 'Daftar',
+  register_identify_clues1: "Sudah punya akun?",
+  register_identify_clues2: "Masuk",
 }

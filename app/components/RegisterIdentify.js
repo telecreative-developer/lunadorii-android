@@ -5,6 +5,7 @@ import PropTypes from 'prop-types'
 import { convertHeightPercentToDP, } from '../particles/Converter'
 import { register } from '../actions/register';
 const { height, width } = Dimensions.get('window')
+import I18n from '../i18n'
 
 const RegisterIdentify = (props) => (
   <Container style={styles.backgroundColorWhite}>
@@ -14,13 +15,13 @@ const RegisterIdentify = (props) => (
     <Content style={styles.backgroundColorWhite}>
       <View style={styles.wrapper}>   
         <View style={{alignItems: 'center', paddingTop: 35, paddingBottom: 100}}>
-          <Text style={{fontSize: 26}}>Name and Password</Text>
+          <Text style={{fontSize: 26}}>{I18n.t('register_identify_title')}</Text>
         </View>
         <View>
           <Form>
             <Item regular style={styles.item}>
               <Input 
-                placeholder="First Name" 
+                placeholder={I18n.t('register_identify_first_name_placeholder')} 
                 placeholderTextColor="#ccc" 
                 value={props.first_name}
                 onChangeText={props.onChangeFirstName}
@@ -28,7 +29,7 @@ const RegisterIdentify = (props) => (
             </Item>
             <Item regular style={styles.item}>
               <Input 
-                placeholder="Last Name" 
+                placeholder={I18n.t('register_identify_last_name_placeholder')} 
                 placeholderTextColor="#ccc" 
                 value={props.last_name}
                 onChangeText={props.onChangeLastName}
@@ -36,7 +37,7 @@ const RegisterIdentify = (props) => (
             </Item>
             <Item regular style={styles.item}>
               <Input 
-                placeholder="Password" 
+                placeholder={I18n.t('register_identify_password_placeholder')} 
                 placeholderTextColor="#ccc" 
                 value={props.password}
                 onChangeText={props.onChangePassword}
@@ -59,9 +60,9 @@ const RegisterIdentify = (props) => (
         </View>
       </View>
       <View style={styles.informationWrapper2}>
-        <Text style={styles.alignSelfCenter}>Already have account?</Text>
+        <Text style={styles.alignSelfCenter}>{I18n.t('register_identify_clues1')}</Text>
         <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToLogin}>
-          <Text style={styles.registerNowColor}> Login</Text>
+          <Text style={styles.registerNowColor}> {I18n.t('register_identify_clues2')}</Text>
         </TouchableOpacity>
       </View>
     </Content>
