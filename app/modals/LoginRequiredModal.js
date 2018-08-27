@@ -3,6 +3,7 @@ import { Modal, View, StyleSheet, Dimensions, Text, Image } from 'react-native'
 import { Icon, Button, Form, Input, Item, Label } from 'native-base'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 import locker from '../assets/images/icon/locker.png'
+import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
 const LoginRequiredModal = (props) => (
@@ -27,17 +28,17 @@ const LoginRequiredModal = (props) => (
           <Image source={locker} style={{width: 70, height: 90}}/>
         </View>
         <View style={{alignItems: 'center'}}>
-          <Text style={{fontSize: 20, fontWeight: 'bold', padding: 5}}>Login please</Text>
-          <Text style={{fontSize: 18}}>You must login to perform</Text>
-          <Text style={{fontSize: 18}}>this action</Text>
+          <Text style={{fontSize: 20, fontWeight: 'bold', padding: 5}}>{I18n.t('login_required_modal_title')}</Text>
+          <Text style={{fontSize: 18}}>{I18n.t('login_required_modal_message1')}</Text>
+          <Text style={{fontSize: 18}}>{I18n.t('login_required_modal_message2')}</Text>
         </View>
       </View>
       <View style={{flexDirection: 'row',justifyContent: 'space-between', padding: 10, alignItems: 'center'}}>
         <Button style={{height: 50, width: convertWidthPercentToDP('40%'), borderRadius: 5, backgroundColor: '#d11e48', justifyContent: 'center'}} onPress={props.closeModal}>
-          <Text style={{fontSize: 18, color: '#fff'}}>Cancel</Text>
+          <Text style={{fontSize: 18, color: '#fff'}}>{I18n.t('login_required_modal_button_cancel')}</Text>
         </Button>
         <Button style={{height: 50, width: convertWidthPercentToDP('40%'), borderRadius: 5, backgroundColor: '#d11e48', justifyContent: 'center'}} onPress={props.loginAction}>
-          <Text style={{fontSize: 18, color: '#fff'}}>Login</Text>
+          <Text style={{fontSize: 18, color: '#fff'}}>{I18n.t('login_required_modal_button_login')}</Text>
         </Button>
       </View>
     </View>

@@ -51,5 +51,17 @@ export default {
   cart_no_credit_card1: 'Tidak ada Kartu Kredit',
   cart_no_credit_card2: 'pilih salah satu',
   cart_credit_cart: 'Kartu Kredit',
-  cart_bank_transfer: 'Transfer Bank'
+  cart_bank_transfer: 'Transfer Bank',
+
+  // Related To Brand, Cetegories, Banner
+  empty_rbcb: " Tidak mempunyai produk",
+  empty_rbcb_description1:"Mohon bersabar untuk produk terbaru",
+  button_empty_rbcb: 'Lanjut Berbelanja',
+
+  // Login Required Modal
+  login_required_modal_title: 'Silahkan Masuk',
+  login_required_modal_message1: 'Anda harus login untuk melakukan',
+  login_required_modal_message2: 'tindakan ini',
+  login_required_modal_button_cancel: 'Batal',
+  login_required_modal_button_login: 'Masuk'
 }

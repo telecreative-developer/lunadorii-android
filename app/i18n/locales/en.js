@@ -51,5 +51,17 @@ export default {
   cart_no_credit_card1: 'No CreditCard selected',
   cart_no_credit_card2: 'pick one',
   cart_credit_cart: 'Credit Cart',
-  cart_bank_transfer: 'Bank Transfer'
+  cart_bank_transfer: 'Bank Transfer',
+
+  // Related To Brand, Cetegories, Banner
+  empty_rbcb: " Doesn't has products",
+  empty_rbcb_description1:"Please be patient for new products",
+  button_empty_rbcb: 'Continue shoping',
+
+  // Login Required Modal
+  login_required_modal_title: 'Login Please',
+  login_required_modal_message1: 'You must login to perform',
+  login_required_modal_message2: 'this action',
+  login_required_modal_button_cancel: 'Cancel',
+  login_required_modal_button_login: 'Login'
 }
