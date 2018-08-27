@@ -63,5 +63,15 @@ export default {
   login_required_modal_message1: 'Anda harus login untuk melakukan',
   login_required_modal_message2: 'tindakan ini',
   login_required_modal_button_cancel: 'Batal',
-  login_required_modal_button_login: 'Masuk'
+  login_required_modal_button_login: 'Masuk',
+
+  // Login Screen
+  login_email_address_placeholder: 'Alamat Email Anda',
+  login_password_placeholder: 'Katasandi',
+  login_forgot_password: 'Lupa Katasandi?',
+  login_button_login: 'Masuk',
+  login_clues1: "Tidak punya akun?",
+  login_clues2: "Daftar",
+  login_clues3: "atau",
+  login_clues4: "Masuk nanti",
 }
