@@ -63,5 +63,15 @@ export default {
   login_required_modal_message1: 'You must login to perform',
   login_required_modal_message2: 'this action',
   login_required_modal_button_cancel: 'Cancel',
-  login_required_modal_button_login: 'Login'
+  login_required_modal_button_login: 'Login',
+
+  // Login Screen
+  login_email_address_placeholder: 'Your email address',
+  login_password_placeholder: 'Password',
+  login_forgot_password: 'Forget Password?',
+  login_button_login: 'Login',
+  login_clues1: "Don't have account?",
+  login_clues2: "Sign Up",
+  login_clues3: "or",
+  login_clues4: "Login later",
 }
