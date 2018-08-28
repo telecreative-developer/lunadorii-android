@@ -3,6 +3,7 @@ import { StyleSheet, View, Text, Dimensions, TouchableOpacity, ImageBackground }
 import StarRating from 'react-native-star-rating';
 import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityIcons'
 import Entypo from 'react-native-vector-icons/Entypo'
+import I18n from '../i18n'
 
 const { width, height } = Dimensions.get('window')
 const Product = (props) => (
@@ -15,7 +16,7 @@ const Product = (props) => (
           </TouchableOpacity>
         ) : (
           <TouchableOpacity style={styles.touchableOpacity} onPress={props.toggleModalAddToCart}>
-            <Text style={styles.txtAddCart}><MaterialCommunityIcons name="cart" size={12}/> Add to Cart</Text>
+            <Text style={styles.txtAddCart}><MaterialCommunityIcons name="cart" size={12}/> {I18n.t('add_to_cart_modal')}</Text>
           </TouchableOpacity>
         )}
       </ImageBackground>
@@ -26,7 +27,7 @@ const Product = (props) => (
           <Text style={styles.txtTitle}>{props.title}</Text>
         </TouchableOpacity>
       </View>
-      <View style={{ marginTop: 10,  }}>
+      <View style={{ marginTop: 10 }}>
         <Text style={styles.txtCategories}>{props.categories}</Text>
         <View style={{flexDirection: 'row', paddingTop: 5}}>
           <StarRating

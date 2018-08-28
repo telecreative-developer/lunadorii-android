@@ -6,6 +6,7 @@ import Carousel from 'react-native-banner-carousel'
 import AddToCart from '../modals/AddToCart'
 import LoginRequiredModal from '../modals/LoginRequiredModal'
 import Reloader from '../particles/Reloader'
+import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
 const bannerWidth = Dimensions.get('window').width
@@ -37,7 +38,7 @@ const Home = (props) => (
       loginAction={props.loginAction}
     />
     <Tabs locked={true} style={styles.tabHeight} tabBarUnderlineStyle={styles.tabBarUnderlineStyle}>
-      <Tab heading={<TabHeading style={styles.tabHeading} ><Text style={styles.txtHeading}>New Arrivals</Text></TabHeading>}>
+      <Tab heading={<TabHeading style={styles.tabHeading} ><Text style={styles.txtHeading}>{I18n.t('new_arrivals')}</Text></TabHeading>}>
         {props.isConnected ? (
           <View/>
         ) : (
@@ -53,7 +54,7 @@ const Home = (props) => (
               {props.banners}
             </Carousel>
             <View style={styles.viewCategory}>
-              <Text style={styles.txtCategories}>Categories</Text>
+              <Text style={styles.txtCategories}>{I18n.t('categories')}</Text>
               <View style={styles.viewWrapperCategories}>
                 <FlatList
                   horizontal={true}
@@ -63,7 +64,7 @@ const Home = (props) => (
               </View>
             </View>
             <View style={styles.viewBrand}>
-              <Text style={styles.txtCategories}>Brands</Text>
+              <Text style={styles.txtCategories}>{I18n.t('brands')}</Text>
               <View style={styles.viewWrapperCategories}>
                 <FlatList
                   horizontal={true}
@@ -75,7 +76,7 @@ const Home = (props) => (
               </View>  
             </View>
             <View style={styles.viewArrivals}>
-              <Text style={styles.txtArrivals}>More New Arrivals</Text>
+              <Text style={styles.txtArrivals}>{I18n.t('more_new_arrivals')}</Text>
                 {props.isConnected? (
                   <FlatList
                     numColumns={2}
@@ -85,7 +86,7 @@ const Home = (props) => (
                   />
                   ) : (
                     <View style={{alignItems: 'center', marginBottom: 20}}>
-                      <Text>Nothing to show since you are offline</Text>
+                      <Text>{I18n.t('offline_message')}</Text>
                     </View>
                   )
                 }
@@ -93,7 +94,7 @@ const Home = (props) => (
           </Content>
         )}
       </Tab>
-      <Tab heading={<TabHeading style={styles.tabHeading}><Text style={styles.txtHeading}>Best Sellers</Text></TabHeading>}>
+      <Tab heading={<TabHeading style={styles.tabHeading}><Text style={styles.txtHeading}>{I18n.t('best_sellers')}</Text></TabHeading>}>
         {props.isConnected ? (
           <View/>
         ) : (
@@ -111,7 +112,7 @@ const Home = (props) => (
             {props.dataProduct.length == 0 ?
               <View>
                 <View style={{alignItems: 'center'}}>
-                  <Text>We don't have Recommended Product</Text>
+                  <Text>{I18n.t('empty')}</Text>
                 </View>
               </View>
             :
@@ -125,11 +126,11 @@ const Home = (props) => (
             }
             </View>
             <View style={styles.moreNewArrivalsWrapper}>
-              <Text style={styles.txtArrivals}>All Categories</Text>
+              <Text style={styles.txtArrivals}>{I18n.t('all_categories')}</Text>
               {props.dataCategories.length == 0 ?
               <View>
                 <View style={{alignItems: 'center'}}>
-                  <Text>We don't have Recommended Product</Text>
+                  <Text>{I18n.t('empty')}</Text>
                 </View>
               </View>
               :
@@ -142,10 +143,10 @@ const Home = (props) => (
               }
             </View>
             <View style={styles.viewArrivals}>
-              <Text style={styles.txtArrivals}>All Product</Text>
+              <Text style={styles.txtArrivals}>{I18n.t('all_product')}</Text>
               {props.dataBestSeller.length == 0 ?
                 <View style={{alignItems: 'center', paddingBottom: 10}}>
-                  <Text>We don't have Recommended Product</Text>
+                  <Text>{I18n.t('empty')}</Text>
                 </View>
               :
               <FlatList

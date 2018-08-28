@@ -13,6 +13,7 @@ import LoginRequiredModal from '../modals/LoginRequiredModal'
 import Navbar from '../particles/Navbar';
 import Validations from '../particles/Validations'
 import AddToCart from '../modals/AddToCart'
+import I18n from '../i18n'
 
 const HEADER_MAX_HEIGHT = 250;
 const HEADER_MIN_HEIGHT = 65;
@@ -54,10 +55,10 @@ const RelatedToBrandProducts = (props) => (
             <View>
               {props.dataProduct.length == 0 ?
               <Validations
-                title={props.name+" Doesn't has products"}
-                message1={"Please be patient for new products"}
+                title={props.name+I18n.t('empty_rbcb')}
+                message1={I18n.t('empty_rbcb_description1')}
                 message2={props.name}
-                buttonText={"Continue shoping"}
+                buttonText={I18n.t('button_empty_rbcb')}
                 buttonAction={props.navigateToHome}
               />
               :

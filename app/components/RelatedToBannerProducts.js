@@ -15,6 +15,7 @@ import Validations from '../particles/Validations'
 import AddToCart from '../modals/AddToCart'
 import LoginRequiredModal from '../modals/LoginRequiredModal'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
+import I18n from '../i18n'
 
 const HEADER_MAX_HEIGHT = 250;
 const HEADER_MIN_HEIGHT = 65;
@@ -64,10 +65,10 @@ const RelatedToBannerProducts = (props) => (
             barStyle="light-content"
           />
           <Validations
-            title={props.title+" Doesn't has products"}
-            message1={"Please be patient for new products"}
+            title={props.title+ I18n.t('empty_rbcb')}
+            message1={I18n.t('empty_rbcb_description1')}
             message2={props.name}
-            buttonText={"Continue shoping"}
+            buttonText={I18n.t('button_empty_rbcb')}
             buttonAction={props.navigateToHome}
           />
         </Content>

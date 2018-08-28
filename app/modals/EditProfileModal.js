@@ -72,8 +72,8 @@ const EditProfileModal = (props) => (
       </Form>
     </Content>
     <Button full style={styles.buttonSaveStyleEditProfile} onPress={props.handleSaveEditProfile} disabled={props.stillLoading} >
-      {props.stillLoading ? <Spinner /> :
-      <Text style={styles.buttonSaveTextStyleEditProfile}>Save</Text>
+      {props.stillLoading ? <Spinner color="#fff"/> :
+        <Text style={styles.buttonSaveTextStyleEditProfile}>Save</Text>
       }
     </Button>
   </Modal >

@@ -4,6 +4,7 @@ import { isEmpty, isEmail } from 'validator'
 import { connect } from 'react-redux'
 import { StackActions, NavigationActions } from 'react-navigation';
 import { Button, Spinner } from 'native-base'
+import I18n from '../i18n'
 
 import Login from '../components/Login'
 import { login, loginFB } from '../actions/login'
@@ -106,14 +107,14 @@ class LoginContainer extends Component {
           {loading.condition === true && loading.process_on === 'LOADING_PROCESS_LOGIN' ? (
             <Spinner color="#FFFFFF" />
           ) : (
-            <Text style={styles.buttonLoginActiveText}>Login</Text>
+            <Text style={styles.buttonLoginActiveText}>{I18n.t('login_button_login')}</Text>
           )}
         </Button>
 			)
 		} else {
 			return (
 				<Button bordered full style={styles.buttonLoginInactive} disabled>
-					<Text style={styles.buttonLoginInactiveText}>Login</Text>
+					<Text style={styles.buttonLoginInactiveText}>{I18n.t('login_button_login')}</Text>
 				</Button>
 			)
 		}

@@ -15,6 +15,7 @@ import { fetchUserShipping, updateShipping } from '../actions/usershipping'
 import { postCheckout } from '../actions/checkout'
 import { fetchCourier } from '../actions/shipping'
 import { Radio } from 'native-base';
+import I18n from '../i18n'
 
 class YourCartContainer extends Component {
 
@@ -507,8 +508,8 @@ async checkout(){
     }else{
       return(
         <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'column',justifyContent: 'space-around', alignItems: 'center'}}>
-          <Text>No CreditCard selected</Text>
-          <Text>pick one</Text>
+          <Text>{I18n.t('cart_no_credit_card1')}</Text>
+          <Text>{I18n.t('cart_no_credit_card2')}</Text>
         </View>
       )
     }
@@ -532,6 +533,7 @@ async checkout(){
 render() {
   const courier = this.props.receiveCourier
   const email = this.state.email
+  
   //  <----- FETCH RESPONE MIDTRANS ----->
   const dataCheckout = this.props.receiveCheckout
   const gross_amount = dataCheckout.midtrans_response && dataCheckout.midtrans_response.gross_amount
@@ -542,7 +544,6 @@ render() {
   const transaction_time = dataCheckout.midtrans_response && dataCheckout.midtrans_response.transaction_time
   const order_id = dataCheckout.midtrans_response && dataCheckout.midtrans_response.order_id
   const checkout = { gross_amount, payment_type, transaction_status, status_message, transaction_id, order_id, transaction_time, email}
-  
   
   // <----- FETCH BANK PERMATA RESPONSE ----->
   const permata_va_number = dataCheckout.midtrans_response && dataCheckout.midtrans_response.permata_va_number
@@ -565,7 +566,7 @@ render() {
       isCC={this.state.selectedMethod === 'credit_card'}
       renderCC={ this.renderCC() }
       isCCAvailable={this.state.isCCAvailable}
-      goToCC={() => this.props.navigation.navigate("CreditCardContainer", {func: this.getCreditCard.bind(this)}) }
+      goToCCc={() => this.props.navigation.navigate("CreditCardContainer", {func: this.getCreditCard.bind(this)}) }
 
       stillLoading={this.state.stillLoading}
       countDown={this.getCountDown(transaction_time)}
@@ -636,8 +637,8 @@ render() {
 
       closePickBankModal={() => alert("Closed")}
       paymentMethod={[
-        {methodAlias: 'credit_card'  , label: 'Credit Card', image: ImageCreditCard},
-        {methodAlias: 'bank_transfer', label: 'Bank Transfer',  image: ImageBank}
+        {methodAlias: 'credit_card'  , label: I18n.t('cart_credit_cart'), image: ImageCreditCard},
+        {methodAlias: 'bank_transfer', label: I18n.t('cart_bank_transfer'),  image: ImageBank}
       ]}
       renderPaymentMethod={({item}) => (
         <View style={{borderColor: this.state.selectedMethod === item.methodAlias ? '#d11e48':'#e2e2e2', margin: 5,borderWidth: 1, width: 150}}>

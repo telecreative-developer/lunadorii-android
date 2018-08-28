@@ -12,12 +12,13 @@ import Validations from '../particles/Validations'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 import PickBankModal from '../modals/PickBankModal'
 import ShopingCart from '../assets/images/icon/shopping-cart.png'
+import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
 const YourCart = (props) => (
   <Container style={styles.Container}>
     <Navigation 
-       navbarTitle="Your Cart"
+       navbarTitle={I18n.t('your_cart_title')}
        navbarIcon="arrow-back"
        actionIcon={props.goback}
     />
@@ -91,7 +92,7 @@ const YourCart = (props) => (
       props.onCartProduct.length > 0 ? (
         <Content>
           <View style={styles.body}>
-            <Text style={styles.title}>Products</Text>
+            <Text style={styles.title}>{I18n.t('cart_product')}</Text>
             <View>
               <FlatList
                 data={props.onCartProduct}
@@ -99,7 +100,7 @@ const YourCart = (props) => (
               />
             </View>
             <Button style={styles.btnAdd} onPress={props.navigateToHome}>
-              <Icon name="add"/><Text style={styles.txtAdd}>Add More Product</Text>
+              <Icon name="add"/><Text style={styles.txtAdd}>{I18n.t('cart_add_more_product')}</Text>
             </Button>
           </View>
           <View style={{
@@ -108,7 +109,7 @@ const YourCart = (props) => (
           }}>
             <View style={styles.body}>
               <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-                <Text style={styles.title}>Payment Method</Text>
+                <Text style={styles.title}>{I18n.t('cart_payment_method')}</Text>
                 <Text>{props.selectedBank}</Text>
               </View>
               <View style={{alignItems: 'center'}}>
@@ -122,7 +123,7 @@ const YourCart = (props) => (
               </View> 
               {props.selectedMethod === 'credit_card' ? 
               <View style={styles.viewBrand}>
-                <Text style={styles.txtLabel}>Your Credit Card</Text>
+                <Text style={styles.txtLabel}>{I18n.t('cart_your_credit_card')}</Text>
                   <TouchableOpacity onPress={props.goToCC}>
                       {props.renderCC}
                   </TouchableOpacity>
@@ -151,7 +152,7 @@ const YourCart = (props) => (
           </View>
           <View style={styles.border}>
             <View style={styles.body}>
-              <Text style={styles.title}>Shipping Address</Text>
+              <Text style={styles.title}>{I18n.t('cart_shipping_address')}</Text>
               <TouchableOpacity onPress={props.goToShipping}>
                 {props.renderShipping}
               </TouchableOpacity>
@@ -160,7 +161,7 @@ const YourCart = (props) => (
           <View style={styles.border1}>
             <View style={styles.body}>
               <View style={{flexDirection:'row', justifyContent:'space-between'}}>
-                <Text style={styles.title}>Delivery Service</Text>
+                <Text style={styles.title}>{I18n.t('cart_delivery_service')}</Text>
                 <Text style={{
                   fontSize:16,
                   marginBottom:5
@@ -175,8 +176,8 @@ const YourCart = (props) => (
                 </View>
               ) : (
                 <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'column',justifyContent: 'space-around', alignItems: 'center'}}>
-                  <Text>No delivery service selected</Text>
-                  <Text>pick one</Text>
+                  <Text>{I18n.t('cart_no_delivery_service1')}</Text>
+                  <Text>{I18n.t('cart_no_delivery_service2')}</Text>
                 </View>
               )}
             </View>
@@ -196,10 +197,10 @@ const YourCart = (props) => (
         <Validations
           showImportedImage={true}
           image={ShopingCart}
-          title={"Nothing to pay here"}
-          message1={"Add to cart some product"}
-          message2={"to fill your cart"}
-          buttonText={"Continue shoping"}
+          title={I18n.t('empty_cart')}
+          message1={I18n.t('empty_cart_description1')}
+          message2={I18n.t('empty_cart_description2')}
+          buttonText={I18n.t('button_empty_cart')}
           buttonAction={props.navigateToHome}
         />
       )

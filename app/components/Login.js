@@ -4,6 +4,7 @@ import { Container, Content, Icon, Form, Item, Input } from 'native-base'
 import PropTypes from 'prop-types'
 import LunadoriiPortraitLogo from '../assets/images/icon/lunadorii-highres.png'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
+import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
 const Login = (props) => (
@@ -24,7 +25,7 @@ const Login = (props) => (
           <Form>
             <Item regular style={styles.item}>
               <Input 
-                placeholder="You email address" 
+                placeholder={I18n.t('login_email_address_placeholder')}
                 placeholderTextColor="#ccc"
                 value={props.valueEmail}
                 onChangeText={props.onChangeEmail}
@@ -33,7 +34,7 @@ const Login = (props) => (
             </Item>
             <Item regular style={styles.item}>
               <Input 
-                placeholder="Password" 
+                placeholder={I18n.t('login_password_placeholder')}
                 placeholderTextColor="#ccc" 
                 secureTextEntry={props.passwordFieldVisibility}
                 value={props.valuePassword}
@@ -44,7 +45,7 @@ const Login = (props) => (
             </Item>
             <View style={{paddingBottom: 10}}>
               <TouchableOpacity onPress={props.navigateToLoginTroubleshooting}>
-                <Text style={{alignSelf: 'flex-end', color:'#d11e48'}}>Forget Password?</Text>
+                <Text style={{alignSelf: 'flex-end', color:'#d11e48'}}>{I18n.t('login_forgot_password')}</Text>
               </TouchableOpacity>
             </View>
           </Form>
@@ -77,13 +78,13 @@ const Login = (props) => (
         </View>
       </View>
       <View style={styles.informationWrapper2}>
-        <Text style={styles.alignSelfCenter}>Don't have account?</Text>
+        <Text style={styles.alignSelfCenter}>{I18n.t('login_clues1')}</Text>
         <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToRegister}>
-          <Text style={styles.registerNowColor}> Sign Up</Text>
+          <Text style={styles.registerNowColor}> {I18n.t('login_clues2')}</Text>
         </TouchableOpacity>
-        <Text> or </Text>
+        <Text> {I18n.t('login_clues3')} </Text>
         <TouchableOpacity onPress={props.skipLogin} style={{paddingLeft: 5}}>
-          <Text style={{color: '#d11e48'}}>Login later</Text>
+          <Text style={{color: '#d11e48'}}>{I18n.t('login_clues4')}</Text>
         </TouchableOpacity>
       </View>
     </Content>

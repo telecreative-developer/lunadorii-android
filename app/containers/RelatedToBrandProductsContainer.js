@@ -121,6 +121,7 @@ class RelatedToBrandProductsContainer extends Component{
         dataProduct={this.props.receiveProductWithBrand}
         name={this.props.navigation.state.params.data.brand}
         title={this.state.title}
+        navigateToHome={() => this.props.navigation.navigate('HomeContainer')}
         renderProduct={({item}) => (
           <Product
             image={item.thumbnails[0].thumbnail_url} 
