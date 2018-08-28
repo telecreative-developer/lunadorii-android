@@ -91,4 +91,18 @@ export default {
   register_identify_button_daftar: 'Register',
   register_identify_clues1: "Already have account?",
   register_identify_clues2: "Login",
+
+  // Product Show
+  product_show_photos: 'Photos',
+  product_show_reviews: 'Reviews',
+  product_show_description: 'Description',
+  product_show_productDetails: 'Product Details',
+  product_show_guide: 'How to Use',
+  product_show_seeMore: 'See More',
+  product_show_seeLess: 'See Less',
+  product_show_reviewsAndRating: 'Reviews & Rating',
+  product_show_validationReview1: 'No reviews yet.',
+  product_show_validationReview2: 'be the first to review this product',
+  product_show_relatedProduct: 'Related Products',
+  product_show_addToCart: 'Add to Cart',
 }

@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
   informationWrapper2:{
     borderTopColor: '#fff', 
     borderTopWidth: 1.2,
-    marginTop: convertHeightPercentToDP('8%'),
+    marginTop: convertHeightPercentToDP('2%'),
     marginBottom: 15,
     flexDirection: 'row', 
     justifyContent: 'center'

@@ -122,9 +122,18 @@ class LoginContainer extends Component {
 			)
 		} else {
 			return (
-				<Button bordered full style={styles.buttonLoginInactive} disabled>
-					<Text style={styles.buttonLoginInactiveText}>{I18n.t('login_button_login')}</Text>
-				</Button>
+        <View style={{flexDirection: 'column', justifyContent: 'space-between',width: '100%'}}>
+          <View style={{padding: 5, backgroundColor: '#e2e2e2',  borderRadius: 5, marginBottom: 10, alignItems:'center'}}>
+            {password ? (
+              <Text>Invalid Email</Text>
+            ) : (
+              <Text>Invalid Password</Text>
+            )}
+          </View>
+          <Button bordered full style={styles.buttonLoginInactive} disabled>
+            <Text style={styles.buttonLoginInactiveText}>{I18n.t('login_button_login')}</Text>
+          </Button>
+        </View>
 			)
 		}
   }

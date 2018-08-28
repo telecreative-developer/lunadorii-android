@@ -12,6 +12,7 @@ import Carousel from 'react-native-banner-carousel'
 
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 const { height, width } = Dimensions.get('window')
+import I18n from '../i18n';
 const bannerWidth = Dimensions.get('window').width
 
 import AddToCart from '../modals/AddToCart'
@@ -55,7 +56,7 @@ const ProductShow = (props) => (
             barStyle="light-content"
           />
           <TouchableOpacity style={styles.touchableOpacity} onPress={props.toggleImageViewModal}>
-            <Text style={styles.textPhotos}><FontAwesome name="photo" style={styles.touchableOpacityButtonIcon} /> +{props.amountOfImage} Photos</Text>
+            <Text style={styles.textPhotos}><FontAwesome name="photo" style={styles.touchableOpacityButtonIcon} /> +{props.amountOfImage} {I18n.t('product_show_photos')}</Text>
           </TouchableOpacity>
         </ImageBackground>
         {/* <Carousel autoplay={true} autoplayTimeout={2000} loop={true} index={0} pageSize={bannerWidth}>
@@ -127,12 +128,12 @@ const ProductShow = (props) => (
             starSize={14}
             fullStarColor={'#ffcc36'}
           />
-          <Text style={styles.reviewsLabel}>{props.reviews} Reviews</Text>
+          <Text style={styles.reviewsLabel}>{props.reviews} {I18n.t('product_show_reviews')}</Text>
         </View>
       </View>
       <View style={styles.borderedSparator}>
         <View style={styles.borderedSparatorFirst}>
-          <Text style={styles.borderedSparatorFirstTitle}>Description</Text>
+          <Text style={styles.borderedSparatorFirstTitle}>{I18n.t('product_show_description')}</Text>
           <View style={{width: (width - 20) / 1 }}>
             <Text style={styles.borderedSparatorFirstContent}>
               {props.descriptions}
@@ -142,7 +143,7 @@ const ProductShow = (props) => (
         {props.seeMoreDetails ? (
           <View>
             <View style={styles.borderedSparatorSecond}>
-              <Text style={styles.borderedSparatorSecondTitle}>Product Details</Text>
+              <Text style={styles.borderedSparatorSecondTitle}>{I18n.t('product_show_productDetails')}</Text>
               <View style={{width: (width - 20) / 1 }}>
                 <Text style={styles.borderedSparatorSecondPointedContent}>
                   {props.productDetails}
@@ -150,7 +151,7 @@ const ProductShow = (props) => (
               </View>
             </View>
             <View style={styles.borderedSparatorThird}>
-              <Text style={styles.borderedSparatorThirdTitle}>How to Use</Text>
+              <Text style={styles.borderedSparatorThirdTitle}>{I18n.t('product_show_guide')}</Text>
               <View style={{width: (width -20) / 1 }}>
                 <Text style={styles.borderedSparatorThirdContent}>
                   {props.guide}
@@ -163,18 +164,18 @@ const ProductShow = (props) => (
         )}
         <View style={styles.seeMore}>
           <TouchableOpacity onPress={props.toggleMoreDetails}>
-            <Text style={styles.seeMoreText}>{props.seeMoreDetails ? "See Less" : "See More"}</Text>
+            <Text style={styles.seeMoreText}>{props.seeMoreDetails ? I18n.t('product_show_seeLess') : I18n.t('product_show_seeMore')}</Text>
           </TouchableOpacity>
         </View>
       </View>
       <View style={styles.borderedSparator1}>
         <View style={styles.borderedSparatorFirst}>
-          <Text style={styles.borderedSparatorFirstTitle}>Reviews & Rating</Text>
+          <Text style={styles.borderedSparatorFirstTitle}>{I18n.t('product_show_reviewsAndRating')}</Text>
           <View style={styles.ratingCard}>
             <View style={styles.ratingCardContentWrapper}>
               <View>
                 <Text style={styles.ratingReviewsText}>
-                  <Text style={styles.ratingAmountReviewsText}>{props.reviews}</Text> Reviews
+                  <Text style={styles.ratingAmountReviewsText}>{props.reviews}</Text> {I18n.t('product_show_reviews')}
                 </Text>
                 <View style={{flexDirection: 'row'}}>
                   <StarRating
@@ -200,8 +201,8 @@ const ProductShow = (props) => (
             ) : (
               <View style={{padding: 10}}>
                 <View style={{alignItems: 'center', padding: 10, backgroundColor: 'transparent', borderColor: '#e2e2e2', borderWidth:1}}>
-                  <Text style={{textAlign: 'center', color: '#848484'}}>No reviews yet.</Text>
-                  <Text style={{textAlign: 'center', color: '#848484'}}>be the first to review this product</Text>
+                  <Text style={{textAlign: 'center', color: '#848484'}}>{I18n.t('product_show_validationReview1')}</Text>
+                  <Text style={{textAlign: 'center', color: '#848484'}}>{I18n.t('product_show_validationReview2')}</Text>
                 </View>
               </View>
             )}
@@ -210,14 +211,14 @@ const ProductShow = (props) => (
         {props.isReviewsExist ? (
           <View style={styles.seeMore2}>
             <TouchableOpacity onPress={props.toggleMoreReviews} style={{paddingBottom: 10}}>
-              <Text style={styles.seeMoreText}>{props.seeMoreReviews ? "See Less" : "See More"}</Text>
+              <Text style={styles.seeMoreText}>{props.seeMoreReviews ? I18n.t('product_show_seeLess') : I18n.t('product_show_seeMore')}</Text>
             </TouchableOpacity>
           </View>
         ) : (
           <View/>
         )}
         <View style={styles.borderedSparator1}>
-          <Text style={styles.borderedSparatorFirstTitle2}>Related Products</Text>
+          <Text style={styles.borderedSparatorFirstTitle2}>{I18n.t('product_show_relatedProduct')}</Text>
           <View style={styles.borderedSparatorFirst}>
             <View>
               <FlatList
@@ -265,7 +266,7 @@ const ProductShow = (props) => (
               <TouchableOpacity onPress={props.addToCart} disabled={props.clickCart} >
                 <View style={styles.footerButtonStyling}>
                   <MaterialCommunityIcons name="cart" size={16} />
-                  <Text style={styles.footerButtonTextStyling}>Add to Cart</Text>
+                  <Text style={styles.footerButtonTextStyling}>{I18n.t('product_show_addToCart')}</Text>
                 </View>
               </TouchableOpacity>
             </View>
