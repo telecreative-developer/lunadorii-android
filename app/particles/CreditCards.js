@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, TouchableOpacity, Text, View, Image } from 'react-native'
+// import SecurityText from 'react-native-smart-security-text'
 
 const RegexVisa = /^4\d{12}(\d{3})?$/
 const RegexMasterCard = /^(5[1-5]\d{4}|677189)\d{10}$/
@@ -21,7 +22,24 @@ const CreditCards = (props) => (
       </View>
       <View style={styles.wrapLeft}>
         <Text style={styles.txtHeader}>{props.card_name}</Text>
-        <Text style={styles.txtHeader}>{props.cardNumberFormated}</Text>
+        {/* <SecurityText
+            securityOptions={{
+                isSecurity: true,
+                startIndex: 3,
+                endIndex: 11,
+            }}
+            style={{margin:10, fontSize:16, fontWeight:'bold',}}>
+            {props.cardNumberFormated}
+        </SecurityText> */}
+
+        <View style={{flexDirection: 'row', justifyContent:'flex-start'}}>
+          <Text style={{fontSize:16,fontWeight:'bold'}}>{props.cardNumberFormated.slice(0,4)} </Text>
+          <Text style={{fontSize:16,fontWeight:'bold'}}>{props.cardNumberFormated.slice(5,9).replace(/^\d+$/, '****')} </Text>
+          <Text style={{fontSize:16,fontWeight:'bold'}}>{props.cardNumberFormated.slice(10,14).replace(/^\d+$/, '****')} </Text>
+          <Text style={{fontSize:16,fontWeight:'bold'}}>{props.cardNumberFormated.slice(15,19)}</Text>
+          {/* <Text style={styles.txtHeader}>{props.cardNumberFormated.length}</Text> */}
+        </View>
+
         <Text>EXP: {props.mm} / {props.yyyy}</Text>
       </View>
       <View style={styles.wrapRight}>

@@ -67,8 +67,8 @@ export default {
 
   // Login Screen
   login_email_address_placeholder: 'Alamat Email Anda',
-  login_password_placeholder: 'Katasandi',
-  login_forgot_password: 'Lupa Katasandi?',
+  login_password_placeholder: 'kata sandi',
+  login_forgot_password: 'Lupa kata sandi?',
   login_button_login: 'Masuk',
   login_clues1: "Tidak punya akun?",
   login_clues2: "Daftar",
@@ -84,11 +84,26 @@ export default {
   register_clues4: "Masuk nanti",
 
   // Register Identify Screen
-  register_identify_title: 'Nama dan Katasandi',
+  register_identify_title: 'Nama dan kata sandi',
   register_identify_first_name_placeholder: 'Nama Depan',
   register_identify_last_name_placeholder: 'Nama Akhir',
-  register_identify_password_placeholder: 'Katasandi',
+  register_identify_password_placeholder: 'kata sandi',
   register_identify_button_daftar: 'Daftar',
   register_identify_clues1: "Sudah punya akun?",
   register_identify_clues2: "Masuk",
+
+  // Product Show
+  product_show_photos: 'Foto',
+  product_show_reviews: 'Ulasan',
+  product_show_description: 'Deskripsi',
+  product_show_productDetails: 'Detail Produk',
+  product_show_guide: 'Cara Penggunaan',
+  product_show_seeMore: 'Lihat Lebih Banyak',
+  product_show_seeLess: 'Lihat Lebih Sedikit',
+  product_show_reviewsAndRating: 'Ulasan & Penilaian',
+  product_show_validationReview1: 'Belum ada ulasan.',
+  product_show_validationReview2: 'Jadilah yang pertama untuk mengulas produk ini',
+  product_show_relatedProduct: 'Produk yang mungkin disukai',
+  product_show_addToCart: 'Masukan ke keranjang',
+
 }
