@@ -70,7 +70,7 @@ const EditCreditCardModal = (props) => (
               height: 40,
               borderColor: props.cvv ? '#ccc' : '#c0392b'
             }}>
-              <Input placeholder="3 digits" placeholderTextColor="#CDCDCD" maxLength={3} onChangeText={props.onChangeCVV} keyboardType={'numeric'}/>
+              <Input placeholder="3 digits" placeholderTextColor="#CDCDCD" maxLength={3} onChangeText={props.onChangeCVV} keyboardType={'numeric'} secureTextEntry/>
               <Ionicons name={props.cvv ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
             </Item>
           </View>
@@ -123,6 +123,9 @@ const EditCreditCardModal = (props) => (
           <Input placeholderTextColor="#CDCDCD" onChangeText={props.onChangePassword} secureTextEntry/>
           <Ionicons name={props.password ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
+        <View style={{justifyContent:'center', alignItems:'center', marginTop:10, borderColor:'#3498db', borderWidth:1, borderRadius: 5}}>
+          <Text style={{padding:10, textAlign:'center'}}>We will not save information about your credit card</Text>
+        </View>
       </Form>
     </Content>
     {props.cardNumber && props.mm && props.yyyy && props.cvv && props.country && props.postalCode && props.cardHolderName && props.password && regexCC.test(props.cardNumber) === true ? (
