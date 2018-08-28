@@ -6,11 +6,11 @@ import { StackActions, NavigationActions } from 'react-navigation';
 import { Button, Spinner } from 'native-base'
 
 import Login from '../components/Login'
-import { login } from '../actions/login'
+import { login, loginFB } from '../actions/login'
 import { setFailed } from '../actions/processor'
-// import FBSDK from 'react-native-fbsdk';
+import FBSDK from 'react-native-fbsdk';
 
-// const { LoginButton, LoginManager, AccessToken } = FBSDK;
+const { LoginButton, LoginManager, AccessToken } = FBSDK;
 
 class LoginContainer extends Component {
 
@@ -23,6 +23,10 @@ class LoginContainer extends Component {
       passwordFieldVisibility: true,
       modalVisibleInvalidCredentialModal: false
     }
+  }
+
+  logoutFB(){
+    LoginManager.logOut()
   }
 
   togglePasswordFieldVisibility(){
@@ -117,7 +121,6 @@ class LoginContainer extends Component {
 
   render() {
     const { navigate } = this.props.navigation
-    console.log('state:', this.state.email)
     return (
       <Login 
         modalVisibleInvalidCredentialModal={this.state.modalVisibleInvalidCredentialModal}
@@ -132,7 +135,8 @@ class LoginContainer extends Component {
         renderButtons={this.renderButtons()}
         passwordFieldVisibility={this.state.passwordFieldVisibility}
         togglePasswordFieldVisibility={() => this.togglePasswordFieldVisibility()} 
-        loginFB={this.loginFB}
+        loginFB={this.props.loginFB}
+        logoutFB={this.logoutFB}
         skipLogin={() => this.props.navigation.navigate("HomeContainer")}
       />
     )
@@ -178,6 +182,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   login: (email, password) => dispatch(login(email, password)),
+  loginFB: () => dispatch(loginFB()),
   setFailed: (condition, process_on, message) => dispatch(setFailed(condition, process_on, message))
 })
 

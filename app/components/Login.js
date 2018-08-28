@@ -58,7 +58,7 @@ const Login = (props) => (
           {/* <Icon type="Entypo" name="facebook" style={{color:"#3B5998"}}/><Text style={{color:"#3B5998", paddingLeft: 5}}>Log in With Facebook</Text> */}
         </TouchableOpacity>
       </View>
-      {/* <View style={{paddingBottom: 10, paddingTop: 45, paddingLeft: 45, paddingRight: 45}}>
+      <View style={{paddingBottom: 10, paddingTop: 45, paddingLeft: 45, paddingRight: 45}}>
         <View style={{borderTopColor: "#979797", borderTopWidth: 1.2, borderBottomColor: "#979797", borderBottomWidth: 1.2}}>
           <View style={styles.informationWrapper1}>
             <TouchableOpacity style={styles.alignSelfCenter1} onPress={props.loginFB}>
@@ -66,7 +66,16 @@ const Login = (props) => (
             </TouchableOpacity>
           </View>
         </View>
-      </View> */}
+      </View>
+      <View style={{paddingBottom: 10, paddingTop: 45, paddingLeft: 45, paddingRight: 45}}>
+        <View style={{borderTopColor: "#979797", borderTopWidth: 1.2, borderBottomColor: "#979797", borderBottomWidth: 1.2}}>
+          <View style={styles.informationWrapper1}>
+            <TouchableOpacity style={styles.alignSelfCenter1} onPress={props.logoutFB}>
+              <Icon type="Entypo" name="facebook" style={{color:"#3B5998"}}/><Text style={{color:"#3B5998"}}>Logout From Facebook</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </View>
       <View style={styles.informationWrapper2}>
         <Text style={styles.alignSelfCenter}>Don't have account?</Text>
         <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToRegister}>
