@@ -134,7 +134,7 @@ class YourCartContainer extends Component {
 
   totalWeight(){
     let totalWeight = 0
-    const data = this.props.cartuser.map(data=> totalWeight+=data.wight_gram)
+    const data = this.props.cartuser.map(data=> totalWeight+=data.weight_gram)
     return totalWeight
   }
 
