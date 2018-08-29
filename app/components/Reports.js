@@ -3,12 +3,13 @@ import { View, Text, StyleSheet, StatusBar, Dimensions } from 'react-native'
 import { Container, Content, Button, Item, Input, Textarea, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
 const Reports = (props) => (
   <Container style={styles.container}>
     <Navbar
-      navbarTitle="Reports"
+      navbarTitle={I18n.t('report_title')}
       navbarIcon="arrow-back"
       actionIcon={props.goback}
     />
@@ -18,47 +19,47 @@ const Reports = (props) => (
     />
     <Content>
       <View style={styles.padding}>
-        <Text style={styles.label}>Name</Text>
+        <Text style={styles.label}>{I18n.t('report_label_name')}</Text>
         <Item regular style={{
           marginBottom: 10,
           borderRadius: 5,
           height: 40,
           borderColor: props.name ? '#ccc' : '#c0392b'
         }}>
-          <Input value={props.name} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeName}/>
+          <Input value={props.name} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeName} placeholder={I18n.t('report_label_name_placeholder')}/>
           <Ionicons name={props.name ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
-        <Text style={styles.label}>Email</Text>
+        <Text style={styles.label}>{I18n.t('report_label_email')}</Text>
         <Item regular style={{
           marginBottom: 10,
           borderRadius: 5,
           height: 40,
           borderColor: props.email ? '#ccc' : '#c0392b'
         }}>
-          <Input value={props.email} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeEmail}/>
+          <Input value={props.email} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeEmail} placeholder={I18n.t('report_label_email_placeholder')}/>
           <Ionicons name={props.email ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
-        <Text style={styles.label}>Subject</Text>
+        <Text style={styles.label}>{I18n.t('report_label_subject')}</Text>
         <Item regular style={{
           marginBottom: 10,
           borderRadius: 5,
           height: 40,
           borderColor: props.subject ? '#ccc' : '#c0392b'
         }}>
-          <Input placeholder='Subject' value={props.subject} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeSubject}/>
+          <Input placeholder={I18n.t('report_label_subject_placeholder')} value={props.subject} placeholderTextColor="#ccc" placeholderTextSize={12} onChangeText={props.onChangeSubject}/>
           <Ionicons name={props.subject ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
-        <Text style={styles.label}>Reports</Text>
-        <Textarea rowSpan={5} bordered placeholder="Write Here.." value={props.reports} placeholderTextColor="#ccc" style={{marginTop: 10, marginBottom: 10, borderRadius: 5,borderColor: props.reports ? '#ccc' : '#c0392b'}} onChangeText={props.onChangeReports}/>
+        <Text style={styles.label}>{I18n.t('report_label_report')}</Text>
+        <Textarea rowSpan={5} bordered placeholder={I18n.t('report_label_report_placeholder')} value={props.reports} placeholderTextColor="#ccc" style={{marginTop: 10, marginBottom: 10, borderRadius: 5,borderColor: props.reports ? '#ccc' : '#c0392b'}} onChangeText={props.onChangeReports}/>
       </View>
     </Content>
     {props.name && props.email && props.subject && props.reports ? (
       <Button full style={styles.btnSend} onPress={props.handleSendReport} disabled={props.buttonReport}>
-        {props.buttonReport ? (<Spinner color="#fff"/>): (<Text style={styles.txtSend}>Send Reports</Text>)}
+        {props.buttonReport ? (<Spinner color="#fff"/>): (<Text style={styles.txtSend}>{I18n.t('report_button')}</Text>)}
       </Button>
     ) : (
       <Button full style={styles.buttonSaveStyleDisabled} onPress={props.handleSendReport} disabled>
-        <Text style={styles.buttonSaveTextStyleDisabled}>Send Reports</Text>
+        <Text style={styles.buttonSaveTextStyleDisabled}>{I18n.t('report_button')}</Text>
       </Button>
     )}
   </Container>

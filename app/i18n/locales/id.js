@@ -133,5 +133,31 @@ export default {
   credit_card_validation_title:'Tidak ada Kartu Kredit',
   credit_card_validation_message1:'Silahkan masukan kartu kredit',
   credit_card_validation_message2:'untuk belanja dengan kartu kredit',
-  credit_card_validation_button:'Tambah Kartu Kredit'
+  credit_card_validation_button:'Tambah Kartu Kredit',
+
+  // Shipping Address
+  shipping_address_title: 'Alamat Pengiriman',
+  shipping_address_add_address_modal: 'Tambah Alamat',
+  shipping_address_edit_address_modal: 'Edit Alamat',
+  shipping_address_address_title: 'Alamat Pengiriman Anda',
+  shipping_address_add_button: 'Tambah Alamat Pengiriman',
+  shipping_address_validation_title:'Tidak ada alamat pengiriman',
+  shipping_address_validation_message1:"Anda belum memasukan alamat pengiriman",
+  shipping_address_validation_message2:'tekan tombol di bawah untuk menambahkan',
+  shipping_address_validation_button:'Tambah Alamat Pengiriman',
+  shipping_address_address_particle_setdefault: 'Utama',
+  shipping_address_address_particle_edit_address: 'Sunting Alamat',
+  shipping_address_address_particle_remove: 'Hapus',
+
+  // Report
+  report_title: 'Laporkan',
+  report_label_name: 'Nama',
+  report_label_name_placeholder: 'Nama',
+  report_label_email: 'Email',
+  report_label_email_placeholder: 'Email',
+  report_label_subject: 'Subjek',
+  report_label_subject_placeholder: 'Subjek',
+  report_label_report: 'Laporan',
+  report_label_report_placeholder: 'Tulis disini...',
+  report_button: 'Laporkan',
 }
