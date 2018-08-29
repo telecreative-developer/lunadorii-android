@@ -28,11 +28,14 @@ export default {
   report: 'Laporan',
   settings: 'Pengaturan',
   privacy_police: 'Kebijakan Pribadi',
+  items_on_cart: 'item di keranjang',
+  status_order: 'Status pesanan',
 
   // Search
   search_title:'Pencarian',
   placeholder_search: 'Tulis apa yang ingin kamu cari',
   filter: 'Filter Lainnya',
+  result_notfound_filter: "Maaf yang anda cari belum tersedia",
 
   // Your Cart
   your_cart_title: 'Keranjang Anda',
@@ -106,4 +109,29 @@ export default {
   product_show_relatedProduct: 'Produk yang mungkin disukai',
   product_show_addToCart: 'Masukan ke keranjang',
 
+  // Purchase History
+  purchase_history_title:"Riwayat Pembayaran",
+  purchase_history_recent_order: "Pesan Terbaru",
+  purchase_history_history: "Riwayat",
+
+  // Wishlist
+  wishlist_title: 'Harapan',
+  wishlist_flatlist_title: 'Daftar Harapan',
+  remove_wishlist: 'Hapus',
+  wishlist_validation_title: 'Anda tidak mempunyai harapan',
+  wishlist_validation_message1:"Pergi belanja untuk menemukan yang anda butuh ",
+  wishlist_validation_message2:"dan tambahkan ke wishlist",
+  wishlist_validation_button:"Lanjur Berbelanja",
+
+  // Credit Card
+  credit_card_title: 'Kartu Kredit',
+  credit_card_your_credit_card: 'Kartu Kredit Anda',
+  credit_card_add_credit_card: 'Tambakan Kartu',
+  credit_card_set_default: 'Utama',
+  credit_card_remove: 'Hapus',
+  credit_card_edit: 'Sunting',
+  credit_card_validation_title:'Tidak ada Kartu Kredit',
+  credit_card_validation_message1:'Silahkan masukan kartu kredit',
+  credit_card_validation_message2:'untuk belanja dengan kartu kredit',
+  credit_card_validation_button:'Tambah Kartu Kredit'
 }

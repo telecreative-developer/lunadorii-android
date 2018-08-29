@@ -28,11 +28,14 @@ export default {
   report: 'Report',
   settings: 'Settings',
   privacy_police: 'Privacy Policy',
+  items_on_cart: 'items On Cart',
+  status_order: 'Status Order',
 
   // Search
   search_title:'Search',
   placeholder_search: 'Type here what you are looking for',
   filter: 'More Filters',
+  result_notfound_filter: "We're sorry, your search not found",
 
   // Your Cart
   your_cart_title: 'Your Cart',
@@ -105,4 +108,30 @@ export default {
   product_show_validationReview2: 'be the first to review this product',
   product_show_relatedProduct: 'Related Products',
   product_show_addToCart: 'Add to Cart',
+
+  // Purchase History
+  purchase_history_title:"Purchase History",
+  purchase_history_recent_order: "Recent Orders",
+  purchase_history_history: "History",
+
+  // Wishlist
+  wishlist_title: 'Wishlist',
+  wishlist_flatlist_title: 'Your Wishlist',
+  remove_wishlist: 'Remove',
+  wishlist_validation_title: 'Your Wishlist is empty',
+  wishlist_validation_message1:"Go shop to find what you need ",
+  wishlist_validation_message2:"and add it to wishlist",
+  wishlist_validation_button:"Lanjur Berbelanja",
+
+  // Credit Card
+  credit_card_title: 'Credit Card',
+  credit_card_your_credit_card: 'Your Credit Card',
+  credit_card_add_credit_card: 'Add Another Card',
+  credit_card_set_default: 'Set Default',
+  credit_card_remove: 'Remove',
+  credit_card_edit: 'Edit',
+  credit_card_validation_title:'No Credit Card',
+  credit_card_validation_message1:'Please set your credit card',
+  credit_card_validation_message2:'credential to shop with credit card',
+  credit_card_validation_button:'Add Credit Card'
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { StyleSheet, TouchableOpacity, Text, View, Image } from 'react-native'
 // import SecurityText from 'react-native-smart-security-text'
+import I18n from '../i18n'
 
 const RegexVisa = /^4\d{12}(\d{3})?$/
 const RegexMasterCard = /^(5[1-5]\d{4}|677189)\d{10}$/
@@ -47,14 +48,14 @@ const CreditCards = (props) => (
           <View/>
         ) : (
           <TouchableOpacity onPress={props.actionSetDefault}>
-            <Text style={styles.txtAction}>Set Default</Text>
+            <Text style={styles.txtAction}>{I18n.t('credit_card_set_default')}</Text>
           </TouchableOpacity>
         )}
         <TouchableOpacity onPress={props.actionRemove}>
-          <Text style={styles.txtAction}>Remove</Text>
+          <Text style={styles.txtAction}>{I18n.t('credit_card_remove')}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={props.actionEdit}>
-          <Text style={styles.txtAction}>Edit</Text>
+          <Text style={styles.txtAction}>{I18n.t('credit_card_edit')}</Text>
         </TouchableOpacity>
       </View>
     </View>

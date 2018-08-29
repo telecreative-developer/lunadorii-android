@@ -7,6 +7,7 @@ import EditCreditCardModal from '../modals/EditCreditCardModal'
 import AddCreditCardModal from '../modals/AddCreditCardModal'
 import ImageCreditCard from '../assets/images/icon/credit-card.png'
 import Validations from '../particles/Validations'
+import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
 const CreditCard = (props) => (
@@ -15,7 +16,7 @@ const CreditCard = (props) => (
       modalVisibleLoading={props.setDefaultLoading}
     />
     <Navbar
-      navbarTitle="Credit Card"
+      navbarTitle={I18n.t('credit_card_title')}
       navbarIcon="arrow-back"
       actionIcon={props.goback} />
     <EditCreditCardModal
@@ -80,7 +81,7 @@ const CreditCard = (props) => (
       <Content style={styles.content}>
         <View>
           <View style={styles.viewBrand}>
-            <Text style={styles.txtLabel}>Your Credit Card</Text>
+            <Text style={styles.txtLabel}>{I18n.t('credit_card_your_credit_card')}</Text>
             <FlatList
               data={props.dataCreditCardsDefault}
               renderItem={props.renderCreditCards}
@@ -91,17 +92,17 @@ const CreditCard = (props) => (
               keyExtractor={(item, index) => JSON.stringify(index)} />
           </View>
           <Button style={styles.btnAdd} onPress={props.toggleModalAddCreditCard}>
-            <Icon name="add" /><Text style={styles.txtAdd}>Add Another Card</Text>
+            <Icon name="add" /><Text style={styles.txtAdd}>{I18n.t('credit_card_add_credit_card')}</Text>
           </Button>
         </View>
       </Content>:
       <Validations 
         showImportedImage={true}
         image={ImageCreditCard}
-        title="No Credit Card"
-        message1="Please set your credit card" 
-        message2="credential to shop with credit card" 
-        buttonText="Add Credit Card"
+        title={I18n.t('credit_card_validation_title')}
+        message1={I18n.t('credit_card_validation_message1')}
+        message2={I18n.t('credit_card_validation_message2')}
+        buttonText={I18n.t('credit_card_validation_button')}
         buttonAction={props.toggleModalAddCreditCard}
       />
     }
