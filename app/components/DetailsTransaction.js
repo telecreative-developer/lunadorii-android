@@ -9,6 +9,7 @@ import Feather from 'react-native-vector-icons/Feather'
 import Entypo from 'react-native-vector-icons/Entypo'
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons'
 import { responsiveWidth as w } from 'react-native-rescomponent'
+import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
 const DetailsTransaction = (props) => (
@@ -28,7 +29,7 @@ const DetailsTransaction = (props) => (
       <View style={{flexDirection: 'row', justifyContent: 'center', padding: 10, backgroundColor: 'rgba(255, 130, 130, 0.75)'}}>
         <View style={{flexDirection: 'column', alignItems: 'center', marginLeft: 5}}>
           <Entypo name="cross" size={18}/>
-          <Text style={{fontSize: 12, justifyContent:'center'}}>Order Failed</Text>
+          <Text style={{fontSize: 12, justifyContent:'center'}}>}>{I18n.t('detail_transaction_order_failed')}</Text>
         </View>
       </View>:
       <View style={{flexDirection: 'row', justifyContent: 'space-between', padding: 10, backgroundColor: '#f6f6f6'}}>
@@ -69,7 +70,7 @@ const DetailsTransaction = (props) => (
 
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-              <Text style={{fontWeight: 'bold',fontSize: 18, marginBottom: 5}}>On Cart</Text>
+              <Text style={{fontWeight: 'bold',fontSize: 18, marginBottom: 5}}>{I18n.t('detail_transaction_on_cart')}</Text>
               <FlatList
                 data={props.dataOnCart}
                 renderItem={props.renderDataOnCart}
@@ -77,10 +78,10 @@ const DetailsTransaction = (props) => (
               {props.status === 'Shipping' ? (
                 <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingTop: 10}}>
                   <Button full style={{width: w('45%'), backgroundColor: "#e2e2e2", borderRadius:5}}>
-                    <Text style={{color: "#ccc"}}>Complain</Text>
+                    <Text style={{color: "#ccc"}}>{I18n.t('detail_transaction_complain')}</Text>
                   </Button>
                   <Button full style={{width: w('45%'), backgroundColor: "#d11e48", borderRadius:5}}>
-                    <Text style={{color: "#fff"}}>Accept</Text>
+                    <Text style={{color: "#fff"}}>{I18n.t('detail_transaction_accept')}</Text>
                   </Button>
                 </View>
               ) : (
@@ -91,28 +92,28 @@ const DetailsTransaction = (props) => (
 
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-              <Text style={{fontWeight: 'bold',fontSize: 18}}>Transaction Code</Text>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>{I18n.t('detail_transaction_transaction_code')}</Text>
               <Text style={{color: '#ccc'}}>{props.billing_code}</Text>
             </View>
           </View>
         
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-              <Text style={{fontWeight: 'bold',fontSize: 18}}>Order Status</Text>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>{I18n.t('detail_transaction_order_status')}</Text>
               { props.paid_method === "bank_transfer" ?
                 <View>
                   { props.status === 'Checkout' ?
-                    <Text style={{color: '#ccc'}}>Waiting For Payment</Text>:
+                    <Text style={{color: '#ccc'}}>{I18n.t('detail_transaction_waiting_for_payment')}</Text>:
                     <View>
                       { props.status === 'Accepted_payment' ? 
-                      <Text style={{color: '#ccc'}}>Waiting For Accepted Payment</Text>: 
+                      <Text style={{color: '#ccc'}}>{I18n.t('detail_transaction_waiting_for_accepted_payment')}</Text>: 
                         <View>
                           { props.status === 'Packing' ? 
-                            <Text style={{color: '#ccc'}}>Packing Your Product</Text>:
+                            <Text style={{color: '#ccc'}}>{I18n.t('detail_transaction_packing_your_product')}</Text>:
                             <View>
                               { props.status === 'Shipping' ? 
-                                <Text style={{color: '#ccc'}}>Products In Shipping</Text>:
-                                <Text style={{color: '#ccc'}}>Your Products Is Delivered</Text>
+                                <Text style={{color: '#ccc'}}>{I18n.t('detail_transaction_products_in_shipping')}</Text>:
+                                <Text style={{color: '#ccc'}}>{I18n.t('detail_transaction_your_product_is_delivered')}</Text>
                               }
                             </View>
                           }
@@ -124,14 +125,14 @@ const DetailsTransaction = (props) => (
                 <View>
                   <View>
                     { props.status === 'Accepted_payment' ? 
-                      <Text style={{color: '#ccc'}}>Waiting For Accepted Payment</Text>: 
+                      <Text style={{color: '#ccc'}}>{I18n.t('detail_transaction_waiting_for_accepted_payment')}</Text>: 
                         <View>
                           { props.status === 'Packing' ? 
-                            <Text style={{color: '#ccc'}}>Packing Your Product</Text>:
+                            <Text style={{color: '#ccc'}}>{I18n.t('detail_transaction_packing_your_product')}</Text>:
                             <View>
                               { props.status === 'Shipping' ? 
-                                <Text style={{color: '#ccc'}}>Products In Shipping</Text>:
-                                <Text style={{color: '#ccc'}}>Your Products Is Delivered</Text>
+                                <Text style={{color: '#ccc'}}>{I18n.t('detail_transaction_products_in_shipping')}</Text>:
+                                <Text style={{color: '#ccc'}}>{I18n.t('detail_transaction_your_product_is_delivered')}</Text>
                               }
                             </View>
                           }
@@ -145,7 +146,7 @@ const DetailsTransaction = (props) => (
 
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-              <Text style={{fontWeight: 'bold',fontSize: 18}}>Payment Status</Text>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>{I18n.t('detail_transaction_payment_status')}</Text>
               <Text style={{color: '#ccc'}}>{props.midtransResponse.transaction_status}</Text>
             </View>
           </View>
@@ -161,7 +162,7 @@ const DetailsTransaction = (props) => (
           
             <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
               <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-                <Text style={{fontWeight: 'bold',fontSize: 18}}>Expired Payment</Text>
+                <Text style={{fontWeight: 'bold',fontSize: 18}}>{I18n.t('detail_transaction_expired_payment')}</Text>
                 <Text style={{color: '#d11e48'}}>{moment(props.midtransResponse.transaction_time).add(12, 'hours').format('LLLL')}</Text>
               </View>
             </View>
@@ -172,14 +173,14 @@ const DetailsTransaction = (props) => (
           
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-              <Text style={{fontWeight: 'bold',fontSize: 18}}>Shipping Method</Text>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>{I18n.t('detail_transaction_shipping_method')}</Text>
               <Text style={{color: '#ccc'}}>{props.delivery_service}</Text>
             </View>
           </View>
 
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-              <Text style={{fontWeight: 'bold',fontSize: 18}}>Shipping Price</Text>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>{I18n.t('detail_transaction_shipping_price')}</Text>
               <Text style={{color: '#ccc'}}>Rp. {props.delivery_price}</Text>
             </View>
           </View>
@@ -188,14 +189,14 @@ const DetailsTransaction = (props) => (
 
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-              <Text style={{fontWeight: 'bold',fontSize: 18}}>Total Price</Text>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>{I18n.t('detail_transaction_total_price')}</Text>
               <Text style={{color: '#ccc'}}>Rp. { String(props.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")) }</Text>
             </View>
           </View>
 
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-              <Text style={{fontWeight: 'bold',fontSize: 18}}>Payment Method</Text>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>{I18n.t('detail_transaction_payment_method')}</Text>
               <Text style={{color: '#ccc'}}>
                 {props.paid_method == 'bank_transfer' ? 
                   <Text>Bank Transfer</Text> :
@@ -206,7 +207,7 @@ const DetailsTransaction = (props) => (
           </View>
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-              <Text style={{fontWeight: 'bold',fontSize: 18}}>Address</Text>
+              <Text style={{fontWeight: 'bold',fontSize: 18}}>{I18n.t('detail_transaction_address')}</Text>
               <Text style={{color: '#ccc', textAlign: 'justify'}}>
                 { props.address }
               </Text>
