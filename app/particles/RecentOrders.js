@@ -2,6 +2,7 @@ import React from 'react'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
+import I18n from '../i18n'
 
 const RecentOrders = (props) => (
   <View style={styles.viewBox}>
@@ -21,7 +22,7 @@ const RecentOrders = (props) => (
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <View style={styles.viewOnlyRow2}>
               <FontAwesome name="shopping-cart" size={12} style={{paddingRight: 5}} />
-              <Text style={{fontSize: 12, fontWeight: 'bold'}}>{props.amountOfItem} items On Cart</Text>
+              <Text style={{fontSize: 12, fontWeight: 'bold'}}>{props.amountOfItem} {I18n.t('items_on_cart')}</Text>
             </View>
             <View style={styles.viewOnlyColumn}>
               <Text style={{fontSize: 12}}>{props.billing_code}</Text>
@@ -32,7 +33,7 @@ const RecentOrders = (props) => (
     </View>
     <View style={styles.viewFooter}>
       <View style={{flexDirection: 'row'}}>
-        <Text>Status Order : </Text>
+        <Text>{I18n.t('status_order')} : </Text>
         <TouchableOpacity onPress={props.action}>
         {props.paid_method === "credit_card" ? 
           <Text style={{fontWeight: 'bold', color: '#d11e47' }}> Success</Text>:

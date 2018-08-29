@@ -4,6 +4,7 @@ import { Container, Content, Spinner } from 'native-base'
 import Navbar from '../particles/Navbar'
 import Validations from '../particles/Validations'
 import ImageWhislist from '../assets/images/icon/wishlist.png'
+import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
 const Wishlist = (props) => (
@@ -11,7 +12,7 @@ const Wishlist = (props) => (
     {console.log(props.isEmpty)}
     <Navbar
       navbarIcon="arrow-back"
-      navbarTitle="Wishlist"
+      navbarTitle={I18n.t('wishlist_title')}
       actionIcon={props.goback}
     />
     <StatusBar
@@ -86,13 +87,13 @@ const Wishlist = (props) => (
           <Validations 
             showImportedImage={true}
             image={ImageWhislist}
-            title="Your Wishlist is empty" 
-            message1="Go shop to find what you need " 
-            message2="and add it to wishlist" 
-            buttonText="Go shop"
+            title={I18n.t('wishlist_validation_title')}
+            message1={I18n.t('wishlist_validation_message1')}
+            message2={I18n.t('wishlist_validation_message2')}
+            buttonText={I18n.t('wishlist_validation_button')}
             buttonAction={props.navigateToProfile}/>:
           <View style={styles.viewArrivals}>
-            <Text style={styles.yourWhisListTextTitle}>Your Wishlist</Text>
+            <Text style={styles.yourWhisListTextTitle}>{I18n.t('wishlist_flatlist_title')}</Text>
             <FlatList
               numColumns={2}
               data={props.dataProduct}

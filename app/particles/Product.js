@@ -12,7 +12,7 @@ const Product = (props) => (
       <ImageBackground source={{ uri: props.image }} style={styles.ImageBackground}>
         {props.isOnWishlist ? (
           <TouchableOpacity style={styles.touchableOpacity} onPress={props.handleRemove}>
-            <Text style={styles.txtAddCart}><Entypo name="trash" size={12}/> Remove</Text>
+            <Text style={styles.txtAddCart}><Entypo name="trash" size={12}/> {I18n.t('remove_wishlist')}</Text>
           </TouchableOpacity>
         ) : (
           <TouchableOpacity style={styles.touchableOpacity} onPress={props.toggleModalAddToCart}>

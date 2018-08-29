@@ -5,12 +5,13 @@ import Navbar from '../particles/Navbar'
 import Validations from '../particles/Validations'
 import ImagePurchaseHistory from '../assets/images/icon/purchase-history.png'
 import { Container, Content, CheckBox, Item, Title, Subtitle, Button } from 'native-base';
+import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
 const PurchaseHistory = (props) => (
   <Container style={styles.container}>
     <Navbar
-      navbarTitle="Purchase History"
+      navbarTitle={I18n.t('purchase_history_title')}
       navbarIcon="arrow-back"
       actionIcon={props.goback} />
     <StatusBar
@@ -30,7 +31,7 @@ const PurchaseHistory = (props) => (
         />:
         <View>
           <View style={styles.viewBrand}>
-            <Text style={styles.txtBrand}>Recent Orders</Text>
+            <Text style={styles.txtBrand}>{I18n.t('purchase_history_recent_order')}</Text>
             <View>
               <FlatList
                 horizontal={true}
@@ -42,7 +43,7 @@ const PurchaseHistory = (props) => (
             </View>
           </View>
           <View style={styles.viewBrandHistory}>
-            <Text style={styles.txtBrand}>History</Text>
+            <Text style={styles.txtBrand}>{I18n.t('purchase_history_history')}</Text>
             <View>
               <FlatList
                 data={props.dataHistoryOrders}

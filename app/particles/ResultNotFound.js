@@ -1,5 +1,6 @@
 import React from 'react'
 import { StyleSheet, Image, View, Text } from 'react-native'
+import I18n from '../i18n'
 
 const ResultNotFound = (props) => (
   <View>
@@ -13,7 +14,7 @@ const ResultNotFound = (props) => (
     </View> */}
     <View style={styles.responseWrapper}>
       <Image source={require("../assets/images/icon/sad.png")} style={styles.images} />
-      <Text style={styles.responseMessages}>We're sorry, your search not found</Text>
+      <Text style={styles.responseMessages}>{I18n.t('result_notfound_filter')}</Text>
     </View>
   </View>
 )
