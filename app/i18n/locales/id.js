@@ -15,7 +15,7 @@ export default {
 
   // Profile,
   profile_title: 'Profil',
-  greeting: 'Salam',
+  greeting: 'halo',
   edit_profile: 'Sunting Profil',
   empty_recent_order: "Kamu tidak punya pesanan",
   recent_order: 'Pesanan Terbaru',
@@ -135,6 +135,26 @@ export default {
   credit_card_validation_message2:'untuk belanja dengan kartu kredit',
   credit_card_validation_button:'Tambah Kartu Kredit',
 
+  // Details transaction
+  detail_transaction_order_failed:'Pesanan Gagal',
+  detail_transaction_on_cart:'Keranjang',
+  detail_transaction_complain:'komplain',
+  detail_transaction_accept:'Terima',
+  detail_transaction_transaction_code:'Kode Transaksi',
+  detail_transaction_order_status:'Status Pesanan',
+  detail_transaction_waiting_for_payment:'Menunggu Pembayaran',
+  detail_transaction_waiting_for_accepted_payment:'Menunggu Pembayaran Diterima',
+  detail_transaction_packing_your_product:'Produk Dalam Pengemasan',
+  detail_transaction_products_in_shipping:'Produk Sedang Dikirim',
+  detail_transaction_your_product_is_delivered:'Produk Telah Diterima',
+  detail_transaction_payment_status:'Status Pembayaran',
+  detail_transaction_expired_payment:'Pembayaran Berakhir',
+  detail_transaction_shipping_method:'Metode Pengiriman',
+  detail_transaction_shipping_price:'Biaya Pengiriman',
+  detail_transaction_total_price:'Total Harga',
+  detail_transaction_payment_method:'Metode Pembayaran',
+  detail_transaction_address:'Alamat',
+  
   // Shipping Address
   shipping_address_title: 'Alamat Pengiriman',
   shipping_address_add_address_modal: 'Tambah Alamat',

@@ -135,6 +135,26 @@ export default {
   credit_card_validation_message2:'credential to shop with credit card',
   credit_card_validation_button:'Add Credit Card',
 
+  // Details transaction
+  detail_transaction_order_failed:'Order Failed',
+  detail_transaction_on_cart:'On Cart',
+  detail_transaction_complain:'complain',
+  detail_transaction_accept:'Accept',
+  detail_transaction_transaction_code:'Transaction Code',
+  detail_transaction_order_status:'Order Status',
+  detail_transaction_waiting_for_payment:'Waiting for Payment',
+  detail_transaction_waiting_for_accepted_payment:'Waiting for Accepted Payment',
+  detail_transaction_packing_your_product:'Packing Your Product',
+  detail_transaction_products_in_shipping:'Products in Shipping',
+  detail_transaction_your_product_is_delivered:'Your Product is Delivered',
+  detail_transaction_payment_status:'Payment Status',
+  detail_transaction_expired_payment:'Expired Payment',
+  detail_transaction_shipping_method:'Shipping Method',
+  detail_transaction_shipping_price:'Shipping Price',
+  detail_transaction_total_price:'Total Price',
+  detail_transaction_payment_method:'Payment Method',
+  detail_transaction_address:'Address',
+  
   // Shipping Address
   shipping_address_title: 'Shipping Address',
   shipping_address_add_address_modal: 'Add Address',
