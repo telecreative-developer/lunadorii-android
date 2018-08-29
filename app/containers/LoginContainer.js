@@ -1,18 +1,19 @@
 import React, { Component } from 'react'
-import { Alert, AsyncStorage, StyleSheet, Text, BackAndroid, Platform, BackHandler } from 'react-native'
-import { View } from 'react-native'
+import { Alert, AsyncStorage, StyleSheet, Text, BackAndroid, Platform, BackHandler, View, TouchableOpacity } from 'react-native'
 import { isEmpty, isEmail } from 'validator'
 import { connect } from 'react-redux'
 import { StackActions, NavigationActions } from 'react-navigation';
 import { Button, Spinner } from 'native-base'
+import { GoogleSignin, GoogleSigninButton, statusCodes } from 'react-native-google-signin';
 import I18n from '../i18n'
 
 import Login from '../components/Login'
-import { login } from '../actions/login'
+import { login, loginFB } from '../actions/login'
 import { setFailed } from '../actions/processor'
-// import FBSDK from 'react-native-fbsdk';
 
-// const { LoginButton, LoginManager, AccessToken } = FBSDK;
+import FBSDK from 'react-native-fbsdk';
+
+const { LoginButton, LoginManager, AccessToken } = FBSDK;
 
 class LoginContainer extends Component {
 
@@ -20,11 +21,17 @@ class LoginContainer extends Component {
     super()
 
     this.state = {
+      userInfo: null,
+      error: null,
       email: '',
       password: '',
       passwordFieldVisibility: true,
       modalVisibleInvalidCredentialModal: false
     }
+  }
+
+  logoutFB(){
+    LoginManager.logOut()
   }
 
   togglePasswordFieldVisibility(){
@@ -66,6 +73,11 @@ class LoginContainer extends Component {
     } 
 
     return null
+  }
+
+  async componentDidMount() {
+    this._configureGoogleSignIn();
+    await this._getCurrentUser();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -126,9 +138,116 @@ class LoginContainer extends Component {
 		}
   }
 
+  _configureGoogleSignIn() {
+    const configPlatform = {
+      ...Platform.select({
+        ios: {
+          iosClientId: "87885804671-n4iihjgh90vtks4cp2229fbd5r975n0f.apps.googleusercontent.com",
+        },
+        android: {},
+      }),
+    };
+
+    GoogleSignin.configure({
+      ...configPlatform,
+      webClientId: "87885804671-4spoagki6vvi6fc1l5pcm5an32lth8u8.apps.googleusercontent.com",
+      offlineAccess: false,
+    });
+  }
+
+  async _getCurrentUser() {
+    try {
+      const userInfo = await GoogleSignin.signInSilently();
+      this.setState({ userInfo, error: null });
+    } catch (error) {
+      this.setState({
+        error,
+      });
+    }
+  }
+
+  googleButton(){
+    const { userInfo } = this.state;
+    if (!userInfo) {
+      return (
+        <View>
+          <GoogleSigninButton
+            style={{ width: 212, height: 48 }}
+            size={GoogleSigninButton.Size.Standard}
+            color={GoogleSigninButton.Color.Auto}
+            onPress={this._signIn}
+          />
+          {this.renderError()}
+        </View>
+      );
+    } else {
+      return (
+        <View>
+          <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 20 }}>
+            Welcome {userInfo.user.name}
+          </Text>
+          <Text>Your user info: {JSON.stringify(userInfo.user)}</Text>
+
+          <TouchableOpacity onPress={this._signOut}>
+            <View style={{ marginTop: 50, padding: 20 }}>
+              <Text>Log out</Text>
+            </View>
+          </TouchableOpacity>
+          {this.renderError()}
+        </View>
+      );
+    }
+  }
+
+  renderError() {
+    const { error } = this.state;
+    return (
+      !!error && (
+        <Text>
+          {error.toString()} code: {error.code}
+        </Text>
+      )
+    );
+  }
+
+  _signIn = async () => {
+    try {
+      await GoogleSignin.hasPlayServices();
+      const userInfo = await GoogleSignin.signIn();
+      this.setState({ userInfo, error: null });
+    } catch (error) {
+      if (error.code === statusCodes.SIGN_IN_CANCELLED) {
+        // sign in was cancelled
+        alert('cancelled');
+      } else if (error.code === statusCodes.IN_PROGRESS) {
+        // operation in progress already
+        alert('in progress');
+      } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
+        alert('play services not available or outdated');
+      } else {
+        Alert.alert('Something went wrong', error.toString());
+        this.setState({
+          error,
+        });
+      }
+    }
+  };
+
+  _signOut = async () => {
+    try {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+
+      this.setState({ userInfo: null, error: null });
+    } catch (error) {
+      this.setState({
+        error,
+      });
+    }
+  };
+
   render() {
     const { navigate } = this.props.navigation
-    console.log('state:', this.state.email)
     return (
       <Login 
         modalVisibleInvalidCredentialModal={this.state.modalVisibleInvalidCredentialModal}
@@ -143,7 +262,9 @@ class LoginContainer extends Component {
         renderButtons={this.renderButtons()}
         passwordFieldVisibility={this.state.passwordFieldVisibility}
         togglePasswordFieldVisibility={() => this.togglePasswordFieldVisibility()} 
-        loginFB={this.loginFB}
+        loginFB={this.props.loginFB}
+        logoutFB={this.logoutFB}
+        googleButton={this.googleButton()}
         skipLogin={() => this.props.navigation.navigate("HomeContainer")}
       />
     )
@@ -189,6 +310,7 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   login: (email, password) => dispatch(login(email, password)),
+  loginFB: () => dispatch(loginFB()),
   setFailed: (condition, process_on, message) => dispatch(setFailed(condition, process_on, message))
 })
 

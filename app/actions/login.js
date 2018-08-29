@@ -1,8 +1,12 @@
 import { AsyncStorage } from 'react-native'
+import FBSDK from 'react-native-fbsdk';
+const { LoginButton, LoginManager, AccessToken } = FBSDK;
+
 import { setLoading, setFailed, setSuccess, setLogged } from './processor'
 import { SAVE_SESSION_PERSISTANCE } from '../constants'
 import { API_SERVER } from '../env'
 
+//Function Login
 export const login = (email, password) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_PROCESS_LOGIN'))
@@ -22,7 +26,7 @@ export const login = (email, password) => {
 				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
 				await dispatch(setFailed(false, 'FAILED_PROCESS_LOGIN'))
 			} else {
-				await dispatch(fetchUserWithId(email, password, data.accessToken, data.id))
+				await dispatch(fetchUserWithId(data.accessToken, data.id))
 				await dispatch(setLogged(true))
 				await dispatch(setSuccess(true, 'SUCCESS_PROCESS_LOGIN'))
 				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
@@ -34,7 +38,97 @@ export const login = (email, password) => {
 	}
 }
 
-export const fetchUserWithId = (email, password, accessToken, users_id) => {
+//Authentication Using Facebook
+export const loginFB = () => {
+	return async dispatch => {
+		AccessToken.getCurrentAccessToken()
+		.then((data) => {
+			if (data !== null) {
+				console.log("loginfb", data)
+				dispatch(initUser(data.accessToken));
+			} else {
+				dispatch(loginFBWithPermission());
+			}
+		})
+		.catch(err => {
+			console.log(err);
+		});
+	}
+}
+
+const loginFBWithPermission = () => {
+	return async dispatch => {
+		LoginManager.logInWithReadPermissions(["public_profile", "email", "user_photos"])
+		.then(
+			function (result) {
+				if (result.isCancelled) {
+					console.log('Login cancelled', result)
+				} else {
+					console.log('Login success with permissions: ' + result.grantedPermissions.toString())
+					console.log('Login hahaha', result)
+					AccessToken.getCurrentAccessToken().then((data) => {
+						dispatch(initUser(data.accessToken));
+						console.log("fb with permission",data)
+					}).catch(err => {
+						console.log(err)
+					})
+				}
+			},
+			function (error) {
+				console.log('Login fail with error: ' + error)
+				Alert.alert('Error', 'Login fail with error: ' + error);
+			}
+		)
+		.catch((err) => console.log(err));
+	}
+}
+
+const initUser = (token1) => {
+	return async dispatch => {
+		fetch('https://graph.facebook.com/v3.1/me?fields=id,name,email,picture{url}&access_token=' + token1) //--> parameter graph bisa diganti sesuai keinginan mengacu pada graph API Facebook
+		.then((response) => response.json())
+		.then((data) => {
+			console.log("initUser", data);
+			dispatch(authFB(data.id, data.email, token1))
+		})
+		.catch((err) => console.log(err));
+	}
+}
+
+//send id, email & accessToken to server (authentication at server)
+const authFB = (id, email, accessToken) => {
+	return async dispatch => {
+		console.log("hahaha")
+		await dispatch(setLoading(true, 'LOADING_PROCESS_LOGIN'))
+		try {
+			const response = await fetch(`${API_SERVER}/auth/user/facebook`, {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({id, email, accessToken})
+			})
+			const data = await response.json()
+			console.log('data login fb :', data)
+			if (data.status === 400 && data.name === 'error') {
+				await dispatch(setFailed(true, 'FAILED_PROCESS_LOGIN', data.message))
+				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
+				await dispatch(setFailed(false, 'FAILED_PROCESS_LOGIN'))
+			} else {
+				await dispatch(fetchUserWithId(data.accessToken, data.id))
+				await dispatch(setLogged(true))
+				await dispatch(setSuccess(true, 'SUCCESS_PROCESS_LOGIN'))
+				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
+			}
+		} catch (e) {
+			dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
+			dispatch(setFailed(true, 'FAILED_PROCESS_LOGIN', e))
+		}
+	}
+}
+
+const fetchUserWithId = (accessToken, users_id) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_USER_WITH_ID'))
 		try {

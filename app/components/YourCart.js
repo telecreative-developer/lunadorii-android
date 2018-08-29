@@ -214,7 +214,7 @@ const YourCart = (props) => (
             <Text style={styles.footerTotalInfo}>Termasuk PPN, jika berlaku.</Text>
           </View>
           <View style={styles.footerButton}>
-            <TouchableOpacity onPress={props.toggleCheckoutPayment}>
+            <TouchableOpacity onPress={props.toggleCheckoutPayment} disabled={props.loadingBtn} >
               <View style={styles.footerButtonStyling}> 
                 <FontAwesome name="money" size={20} color="#fff" />
                 {props.isCreditcard === 'credit_card' ? 
