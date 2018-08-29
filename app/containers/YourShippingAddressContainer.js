@@ -152,10 +152,6 @@ class YourShippingAddressContainer extends Component{
       await this.props.fetchProvince()
       await this.setState({stillLoading: false})
     }
-    getLanguages().then(lang => {
-      this.setState({language: lang})
-    })
-    await alert(this.state.language)
   }
 
   componentWillUnmount() {
