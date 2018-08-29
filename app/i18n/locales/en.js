@@ -133,5 +133,31 @@ export default {
   credit_card_validation_title:'No Credit Card',
   credit_card_validation_message1:'Please set your credit card',
   credit_card_validation_message2:'credential to shop with credit card',
-  credit_card_validation_button:'Add Credit Card'
+  credit_card_validation_button:'Add Credit Card',
+
+  // Shipping Address
+  shipping_address_title: 'Shipping Address',
+  shipping_address_add_address_modal: 'Add Address',
+  shipping_address_edit_address_modal: 'Add Address',
+  shipping_address_address_title: 'Your Shipping Address',
+  shipping_address_add_button: 'Add Another Address',
+  shipping_address_validation_title:'Shipping address is empty',
+  shipping_address_validation_message1:"You don't set shipping address",
+  shipping_address_validation_message2:'press button bellow to add one',
+  shipping_address_validation_button:'Add shipping address',
+  shipping_address_address_particle_setdefault: 'Set as Default',
+  shipping_address_address_particle_edit_address: 'Edit Address',
+  shipping_address_address_particle_remove: 'Remove',
+
+  // Report
+  report_title: 'Report',
+  report_label_name: 'Name',
+  report_label_name_placeholder: 'Name',
+  report_label_email: 'Email',
+  report_label_email_placeholder: 'Email',
+  report_label_subject: 'Subject',
+  report_label_subject_placeholder: 'Subject',
+  report_label_report: 'Reports',
+  report_label_report_placeholder: 'Write Here...',
+  report_button: 'Report',
 }

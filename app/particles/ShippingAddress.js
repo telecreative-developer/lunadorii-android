@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
 import { StyleSheet, TouchableOpacity, Text, View, Alert } from 'react-native'
+import I18n from '../i18n'
 
 const ShippingAddress = (props) => (
   <View style={{
@@ -19,15 +20,15 @@ const ShippingAddress = (props) => (
           <View/>
         ) : (
           <TouchableOpacity onPress={props.actionSetdefault}>
-            <Text style={styles.txtAction}>Set as Default</Text>
+            <Text style={styles.txtAction}>{I18n.t('shipping_address_address_particle_setdefault')}</Text>
           </TouchableOpacity>
           
         )}
         <TouchableOpacity onPress={props.actionEdit}>
-          <Text style={styles.txtAction}>Edit Address</Text>
+          <Text style={styles.txtAction}>{I18n.t('shipping_address_address_particle_edit_address')}</Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={props.actionDelete}>
-          <Text style={styles.txtAction}>Remove</Text>
+          <Text style={styles.txtAction}>{I18n.t('shipping_address_address_particle_remove')}</Text>
         </TouchableOpacity>
       </View>
     </View>
