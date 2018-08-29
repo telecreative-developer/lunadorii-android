@@ -388,6 +388,7 @@ class YourCartContainer extends Component {
 }
 
 async checkout(){
+  this.setState({loadingBtn: true})
   const creditCard = this.props.usercredit.filter(d => d.card_default === true)
   const service = await this.state.code.toUpperCase() + " " + this.state.selectedCourier.service
   const delivery_price = await this.state.selectedCourier.cost[0].value
@@ -421,10 +422,12 @@ async checkout(){
       ],
       { cancelable: false }
     )
-	  }
+    }
+  this.setState({loadingBtn: false})
   }
 
   async checkoutCC(){
+    this.setState({loadingBtn: true})
     const creditCard = this.props.usercredit.filter(d => d.card_default === true)
     const dataCC = creditCard.length && creditCard.map(d => ({card_number: d.card_number, card_exp_month: d.mm.toString(), card_exp_year:d.yyyy.toString(), card_cvv:this.state.CVV.toString() }))
     const detailCC = dataCC.length && dataCC[0]
@@ -449,6 +452,7 @@ async checkout(){
          await this.setState({modalPayCC:true})
        }
      }
+    this.setState({loadingBtn: false})
   }
 
   setCourier(){

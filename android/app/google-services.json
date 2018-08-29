@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "87885804671",
+    "firebase_url": "https://lunadorii-41bdd.firebaseio.com",
+    "project_id": "lunadorii-41bdd",
+    "storage_bucket": "lunadorii-41bdd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:87885804671:android:afbf712baac957ab",
+        "android_client_info": {
+          "package_name": "com.lunadorii"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "87885804671-n4iihjgh90vtks4cp2229fbd5r975n0f.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lunadorii",
+            "certificate_hash": "e0f30453e66c9c89b8833f33c55aed1741e88dc3"
+          }
+        },
+        {
+          "client_id": "87885804671-4spoagki6vvi6fc1l5pcm5an32lth8u8.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCXw3_rvIcX3m7chug9lZhh2pY2yx40xHY"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "87885804671-4spoagki6vvi6fc1l5pcm5an32lth8u8.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
