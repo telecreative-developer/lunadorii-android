@@ -6,6 +6,7 @@ import Carousel from 'react-native-banner-carousel'
 import AddToCart from '../modals/AddToCart'
 import LoginRequiredModal from '../modals/LoginRequiredModal'
 import Reloader from '../particles/Reloader'
+import InternetConnectionProblem  from '../particles/InternetConnectionProblem'
 import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
@@ -39,12 +40,13 @@ const Home = (props) => (
     />
     <Tabs locked={true} style={styles.tabHeight} tabBarUnderlineStyle={styles.tabBarUnderlineStyle}>
       <Tab heading={<TabHeading style={styles.tabHeading} ><Text style={styles.txtHeading}>{I18n.t('new_arrivals')}</Text></TabHeading>}>
-        {props.isConnected ? (
-          <View/>
-        ) : (
-          <Reloader reloadAction={props.handleRefresh}/>
-        )}
-        {props.stillLoading ? (
+        {props.isConnected == false ? (
+          // <Reloader reloadAction={props.handleRefresh}/>
+          <View style={styles.style}>
+            <InternetConnectionProblem buttonAction={props.handleRefresh} />
+          </View>
+        ) :
+        props.stillLoading ? (
           <View style={styles.style}>
             <Spinner color="#d11e48"/>
           </View>
@@ -95,12 +97,13 @@ const Home = (props) => (
         )}
       </Tab>
       <Tab heading={<TabHeading style={styles.tabHeading}><Text style={styles.txtHeading}>{I18n.t('best_sellers')}</Text></TabHeading>}>
-        {props.isConnected ? (
-          <View/>
-        ) : (
-          <Reloader reloadAction={props.handleRefresh}/>
-        )}
-        {props.stillLoading ? (
+        {props.isConnected == false ? (
+          // <Reloader reloadAction={props.handleRefresh}/>
+          <View style={styles.style}>
+            <InternetConnectionProblem buttonAction={props.handleRefresh} />
+          </View>
+        ) :
+        props.stillLoading ? (
           <Content contentContainerStyle={styles.style}>
             <View>
               <Spinner color="#d11e48"/>
