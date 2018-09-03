@@ -85,20 +85,20 @@ const loginFBWithPermission = () => {
 
 const initUser = (token1) => {
 	return async dispatch => {
-		fetch('https://graph.facebook.com/v3.1/me?fields=id,name,email,picture{url}&access_token=' + token1) //--> parameter graph bisa diganti sesuai keinginan mengacu pada graph API Facebook
+		fetch('https://graph.facebook.com/v3.1/me?fields=id,first_name,last_name,email,picture{url}&access_token=' + token1) //--> parameter graph bisa diganti sesuai keinginan mengacu pada graph API Facebook
 		.then((response) => response.json())
 		.then((data) => {
 			console.log("initUser", data);
-			dispatch(authFB(data.id, data.email, token1))
+			dispatch(authFB(data.id, data.first_name, data.last_name, data.picture.data.url, data.email, token1))
 		})
 		.catch((err) => console.log(err));
 	}
 }
 
 //send id, email & accessToken to server (authentication at server)
-const authFB = (id, email, accessToken) => {
+const authFB = (id, first_name, last_name, avatar_url, email, accessToken) => {
 	return async dispatch => {
-		console.log("hahaha")
+		console.log("hahaha", first_name, last_name, avatar_url, email, accessToken)
 		await dispatch(setLoading(true, 'LOADING_PROCESS_LOGIN'))
 		try {
 			const response = await fetch(`${API_SERVER}/auth/user/facebook`, {
@@ -107,10 +107,10 @@ const authFB = (id, email, accessToken) => {
 					Accept: 'application/json',
 					'Content-Type': 'application/json'
 				},
-				body: JSON.stringify({id, email, accessToken})
+				body: JSON.stringify({id, first_name, last_name, avatar_url, email, accessToken})
 			})
 			const data = await response.json()
-			console.log('data login fb :', data)
+			await console.log('data login fb hahah :', data)
 			if (data.status === 400 && data.name === 'error') {
 				await dispatch(setFailed(true, 'FAILED_PROCESS_LOGIN', data.message))
 				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
