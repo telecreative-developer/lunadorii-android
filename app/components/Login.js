@@ -54,18 +54,15 @@ const Login = (props) => (
           </View>
         </View>
       </View>
-      <View style={{borderTopColor: '#fff', borderTopWidth: 1.2, borderBottomColor: '#fff', borderBottomWidth: 1.2, marginHorizontal: 45, alignItems:'center', marginTop: convertWidthPercentToDP('10%')}}>
-        <TouchableOpacity style={{flexDirection:'row', alignItems: 'center', paddingVertical: convertHeightPercentToDP('5%')}} onPress={props.loginFB}>
-          {/* <Icon type="Entypo" name="facebook" style={{color:"#3B5998"}}/><Text style={{color:"#3B5998", paddingLeft: 5}}>Log in With Facebook</Text> */}
-        </TouchableOpacity>
-      </View>
-      <View style={{paddingBottom: 10, paddingTop: 45, paddingLeft: 45, paddingRight: 45}}>
+      <View style={{paddingBottom: 10, paddingTop: 10, paddingLeft: 45, paddingRight: 45}}>
         <View style={{borderTopColor: "#979797", borderTopWidth: 1.2, borderBottomColor: "#979797", borderBottomWidth: 1.2}}>
           <View style={styles.informationWrapper1}>
             <TouchableOpacity style={styles.alignSelfCenter1} onPress={props.loginFB}>
               <Icon type="Entypo" name="facebook" style={{color:"#3B5998"}}/><Text style={{color:"#3B5998"}}>Log in With Facebook</Text>
             </TouchableOpacity>
-            {props.googleButton}
+            <View style={styles.alignSelfCenter1}>
+              {props.googleButton}
+            </View>
           </View>
         </View>
       </View>
@@ -133,12 +130,13 @@ const styles = StyleSheet.create({
     justifyContent: 'center'
   },
   informationWrapper1:{
-    marginTop: 40,
-    marginBottom: 30,
+    marginTop: 5,
+    marginBottom: 15,
   },
   alignSelfCenter1:{
     marginLeft: 40,
     marginRight: 40,
+    marginTop: 10,
     alignItems: 'center',
     flexDirection: 'row', 
     justifyContent: 'space-evenly'
