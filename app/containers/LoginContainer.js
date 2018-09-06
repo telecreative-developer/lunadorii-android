@@ -8,12 +8,8 @@ import { GoogleSignin, GoogleSigninButton, statusCodes } from 'react-native-goog
 import I18n from '../i18n'
 
 import Login from '../components/Login'
-import { login, loginFB } from '../actions/login'
+import { login, loginFB, loginGoogle } from '../actions/login'
 import { setFailed } from '../actions/processor'
-
-import FBSDK from 'react-native-fbsdk';
-
-const { LoginButton, LoginManager, AccessToken } = FBSDK;
 
 class LoginContainer extends Component {
 
@@ -21,17 +17,11 @@ class LoginContainer extends Component {
     super()
 
     this.state = {
-      userInfo: null,
-      error: null,
       email: '',
       password: '',
       passwordFieldVisibility: true,
       modalVisibleInvalidCredentialModal: false
     }
-  }
-
-  logoutFB(){
-    LoginManager.logOut()
   }
 
   togglePasswordFieldVisibility(){
@@ -77,7 +67,6 @@ class LoginContainer extends Component {
 
   async componentDidMount() {
     this._configureGoogleSignIn();
-    await this._getCurrentUser();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -155,73 +144,32 @@ class LoginContainer extends Component {
     });
   }
 
-  async _getCurrentUser() {
-    try {
-      const userInfo = await GoogleSignin.signInSilently();
-      this.setState({ userInfo, error: null });
-    } catch (error) {
-      this.setState({
-        error,
-      });
-    }
-  }
-
   googleButton(){
-    const { userInfo } = this.state;
-    if (!userInfo) {
-      return (
-        <View>
-          <GoogleSigninButton
-            style={{ width: 212, height: 48 }}
-            size={GoogleSigninButton.Size.Standard}
-            color={GoogleSigninButton.Color.Auto}
-            onPress={this._signIn}
-          />
-          {this.renderError()}
-        </View>
-      );
-    } else {
-      return (
-        <View>
-          <Text style={{ fontSize: 18, fontWeight: 'bold', marginBottom: 20 }}>
-            Welcome {userInfo.user.name}
-          </Text>
-          <Text>Your user info: {JSON.stringify(userInfo.user)}</Text>
-
-          <TouchableOpacity onPress={this._signOut}>
-            <View style={{ marginTop: 50, padding: 20 }}>
-              <Text>Log out</Text>
-            </View>
-          </TouchableOpacity>
-          {this.renderError()}
-        </View>
-      );
-    }
-  }
-
-  renderError() {
-    const { error } = this.state;
     return (
-      !!error && (
-        <Text>
-          {error.toString()} code: {error.code}
-        </Text>
-      )
-    );
+      <View>
+        <GoogleSigninButton
+          style={{ width: 212, height: 48 }}
+          size={GoogleSigninButton.Size.Standard}
+          color={GoogleSigninButton.Color.Auto}
+          onPress={this._signIn}
+        />
+      </View>
+    )
   }
 
   _signIn = async () => {
     try {
       await GoogleSignin.hasPlayServices();
       const userInfo = await GoogleSignin.signIn();
-      this.setState({ userInfo, error: null });
+      await this.props.loginGoogle(userInfo.user.givenName, userInfo.user.familyName, userInfo.user.photo, userInfo.user.email)
+      this.setState({ error: null });
     } catch (error) {
       if (error.code === statusCodes.SIGN_IN_CANCELLED) {
         // sign in was cancelled
-        alert('cancelled');
+        alert('sign in was cancelled');
       } else if (error.code === statusCodes.IN_PROGRESS) {
         // operation in progress already
-        alert('in progress');
+        alert('operation in progress already');
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         alert('play services not available or outdated');
       } else {
@@ -230,19 +178,6 @@ class LoginContainer extends Component {
           error,
         });
       }
-    }
-  };
-
-  _signOut = async () => {
-    try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
-
-      this.setState({ userInfo: null, error: null });
-    } catch (error) {
-      this.setState({
-        error,
-      });
     }
   };
 
@@ -311,6 +246,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = dispatch => ({
   login: (email, password) => dispatch(login(email, password)),
   loginFB: () => dispatch(loginFB()),
+  loginGoogle: (first_name, last_name, avatar_url, email) => dispatch(loginGoogle(first_name, last_name, avatar_url, email)),
   setFailed: (condition, process_on, message) => dispatch(setFailed(condition, process_on, message))
 })
 

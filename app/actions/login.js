@@ -128,6 +128,38 @@ const authFB = (id, first_name, last_name, avatar_url, email, accessToken) => {
 	}
 }
 
+export const loginGoogle = (first_name, last_name, avatar_url, email) => {
+	return async dispatch => {
+		console.log("hahaha", first_name, last_name, avatar_url, email)
+		await dispatch(setLoading(true, 'LOADING_PROCESS_LOGIN'))
+		try {
+			const response = await fetch(`${API_SERVER}/auth/user/google`, {
+				method: 'POST',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json'
+				},
+				body: JSON.stringify({first_name, last_name, avatar_url, email})
+			})
+			const data = await response.json()
+			await console.log('data login google hahah :', data)
+			if (data.status === 400 && data.name === 'error') {
+				await dispatch(setFailed(true, 'FAILED_PROCESS_LOGIN', data.message))
+				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
+				await dispatch(setFailed(false, 'FAILED_PROCESS_LOGIN'))
+			} else {
+				await dispatch(fetchUserWithId(data.accessToken, data.id))
+				await dispatch(setLogged(true))
+				await dispatch(setSuccess(true, 'SUCCESS_PROCESS_LOGIN'))
+				await dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
+			}
+		} catch (e) {
+			dispatch(setLoading(false, 'LOADING_PROCESS_LOGIN'))
+			dispatch(setFailed(true, 'FAILED_PROCESS_LOGIN', e))
+		}
+	}
+}
+
 const fetchUserWithId = (accessToken, users_id) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_USER_WITH_ID'))
