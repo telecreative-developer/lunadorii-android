@@ -11,27 +11,17 @@ import Login from '../components/Login'
 import { login, loginFB, loginGoogle } from '../actions/login'
 import { setFailed } from '../actions/processor'
 
-import FBSDK from 'react-native-fbsdk';
-
-const { LoginButton, LoginManager, AccessToken } = FBSDK;
-
 class LoginContainer extends Component {
 
   constructor() {
     super()
 
     this.state = {
-      userInfo: null,
-      error: null,
       email: '',
       password: '',
       passwordFieldVisibility: true,
       modalVisibleInvalidCredentialModal: false
     }
-  }
-
-  logoutFB(){
-    LoginManager.logOut()
   }
 
   togglePasswordFieldVisibility(){
@@ -77,7 +67,6 @@ class LoginContainer extends Component {
 
   async componentDidMount() {
     this._configureGoogleSignIn();
-    await this._getCurrentUser();
   }
 
   componentDidUpdate(prevProps, prevState, snapshot) {
@@ -155,17 +144,6 @@ class LoginContainer extends Component {
     });
   }
 
-  async _getCurrentUser() {
-    try {
-      const userInfo = await GoogleSignin.signInSilently();
-      this.setState({ userInfo, error: null });
-    } catch (error) {
-      this.setState({
-        error,
-      });
-    }
-  }
-
   googleButton(){
     return (
       <View>
@@ -177,17 +155,6 @@ class LoginContainer extends Component {
         />
       </View>
     )
-  }
-
-  renderError() {
-    const { error } = this.state;
-    return (
-      !!error && (
-        <Text>
-          {error.toString()} code: {error.code}
-        </Text>
-      )
-    );
   }
 
   _signIn = async () => {
@@ -211,19 +178,6 @@ class LoginContainer extends Component {
           error,
         });
       }
-    }
-  };
-
-  _signOut = async () => {
-    try {
-      await GoogleSignin.revokeAccess();
-      await GoogleSignin.signOut();
-
-      this.setState({ userInfo: null, error: null });
-    } catch (error) {
-      this.setState({
-        error,
-      });
     }
   };
 

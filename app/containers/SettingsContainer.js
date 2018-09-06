@@ -4,7 +4,9 @@ import { Toast } from 'native-base'
 import { editPassword, editEmail } from '../actions/editprofile'
 import { StackActions, NavigationActions} from 'react-navigation'
 import {AsyncStorage, ToastAndroid, Platform, NetInfo, BackHandler} from 'react-native'
-
+import { GoogleSignin, GoogleSigninButton, statusCodes } from 'react-native-google-signin';
+import FBSDK from 'react-native-fbsdk';
+const { LoginManager } = FBSDK;
 import Settings from '../components/Settings'
 
 class SettingsContainer extends Component {
@@ -96,8 +98,19 @@ class SettingsContainer extends Component {
     }
   }
 
-  handleLogout() {
+  _signOutGoogle = async () => {
+    try {
+      await GoogleSignin.revokeAccess();
+      await GoogleSignin.signOut();
+    } catch (error) {
+      console.log(error)
+    }
+  };
+
+  handleLogout = async () => {
     AsyncStorage.removeItem('session')
+    await LoginManager.logOut()
+    await this._signOutGoogle
     this.props.navigation.dispatch(
       StackActions.reset({
         index:0,
