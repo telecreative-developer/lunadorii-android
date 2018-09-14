@@ -205,9 +205,9 @@ class HomeContainer extends Component {
 
   renderBanners(banner, index) {
     return (
-      <TouchableOpacity key={index} style={styles.banner} onPress={() => this.state.isConnected ? this.props.navigation.navigate("RelatedToBannerProductsContainer", {data: banner}) : null }>
+      // <TouchableOpacity key={index} style={styles.banner} onPress={() => this.state.isConnected ? this.props.navigation.navigate("RelatedToBannerProductsContainer", {data: banner}) : null }>
         <Image style={styles.bannerImage} source={{ uri: banner.thumbnail_url }} />
-      </TouchableOpacity>
+      // </TouchableOpacity>
     )
   }
 

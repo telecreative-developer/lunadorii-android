@@ -60,9 +60,9 @@ const Login = (props) => (
             <TouchableOpacity style={styles.alignSelfCenter1} onPress={props.loginFB}>
               <Icon type="Entypo" name="facebook" style={{color:"#3B5998"}}/><Text style={{color:"#3B5998"}}>Log in With Facebook</Text>
             </TouchableOpacity>
-            <View style={styles.alignSelfCenter1}>
+            {/* <View style={styles.alignSelfCenter1}>
               {props.googleButton}
-            </View>
+            </View> */}
           </View>
         </View>
       </View>
