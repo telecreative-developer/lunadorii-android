@@ -58,7 +58,7 @@ export const loginFB = () => {
 
 const loginFBWithPermission = () => {
 	return async dispatch => {
-		LoginManager.logInWithReadPermissions(["public_profile", "email", "user_photos"])
+		LoginManager.logInWithReadPermissions(["public_profile", "email"])
 		.then(
 			function (result) {
 				if (result.isCancelled) {
