@@ -18,7 +18,7 @@ const HistoryOrders = (props) => (
     </View>
     <View style={styles.viewFooter}>
       <View>
-        <Text>Status: <Text style={styles.txtBold}>{props.status}</Text></Text>
+        <Text>Status Order: <Text style={styles.txtBold}>{props.status}</Text></Text>
       </View>
       <View>
         <Text>Total : <Text style={styles.txtBold}>Rp. {props.total}</Text></Text>

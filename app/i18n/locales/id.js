@@ -29,7 +29,7 @@ export default {
   settings: 'Pengaturan',
   privacy_police: 'Kebijakan Pribadi',
   items_on_cart: 'item di keranjang',
-  status_order: 'Status pesanan',
+  status_order: 'Status Pesanan',
 
   // Search
   search_title:'Pencarian',
