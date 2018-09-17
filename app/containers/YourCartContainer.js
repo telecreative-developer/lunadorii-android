@@ -570,7 +570,7 @@ render() {
       isCC={this.state.selectedMethod === 'credit_card'}
       renderCC={ this.renderCC() }
       isCCAvailable={this.state.isCCAvailable}
-      goToCCc={() => this.props.navigation.navigate("CreditCardContainer", {func: this.getCreditCard.bind(this)}) }
+      goToCC={() => this.props.navigation.navigate("CreditCardContainer", {func: this.getCreditCard.bind(this)}) }
 
       stillLoading={this.state.stillLoading}
       countDown={this.getCountDown(transaction_time)}

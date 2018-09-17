@@ -106,6 +106,7 @@ class PurchaseHistoryContainer extends Component{
         renderRecentOrders={({item}) => (
           <RecentOrders 
             image={item.list[0].thumbnails[0].thumbnail_url}
+            amountOfItem={item.list.length}
             billing_code={item.billing_code}
             status={item.order_status}
             total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
@@ -114,8 +115,9 @@ class PurchaseHistoryContainer extends Component{
         )}
         dataHistoryOrders={this.props.producthistory}
         renderHistoryOrders={({item}) => (
-          <HistoryOrders
+          <RecentOrders
             image={item.list[0].thumbnails[0].thumbnail_url}
+            amountOfItem={item.list.length}
             billing_code={item.billing_code}
             status={item.order_status}
             total={item.total.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}

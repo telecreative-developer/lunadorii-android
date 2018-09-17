@@ -21,7 +21,12 @@ const CreditCardsInCard = (props) => (
       </View>
       <View style={styles.wrapLeft}>
         <Text style={styles.txtHeader}>{props.card_name}</Text>
-        <Text style={styles.txtHeader}>{props.cardNumberFormated}</Text>
+        <View style={{flexDirection: 'row', justifyContent:'flex-start'}}>
+          <Text style={{fontSize:16,fontWeight:'bold'}}>{props.cardNumberFormated.slice(0,4)} </Text>
+          <Text style={{fontSize:16,fontWeight:'bold'}}>{props.cardNumberFormated.slice(5,9).replace(/^\d+$/, '****')} </Text>
+          <Text style={{fontSize:16,fontWeight:'bold'}}>{props.cardNumberFormated.slice(10,14).replace(/^\d+$/, '****')} </Text>
+          <Text style={{fontSize:16,fontWeight:'bold'}}>{props.cardNumberFormated.slice(15,19)}</Text>
+        </View>
         <Text>EXP: {props.mm} / {props.yyyy}</Text>
       </View>
       <View style={styles.wrapRight}>
