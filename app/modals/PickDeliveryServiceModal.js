@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { Modal, View, Text, StyleSheet, Dimensions, FlatList, TouchableOpacity } from 'react-native'
 import { Icon, Button, Form, Input, Item, Label } from 'native-base'
-import moment from 'moment'
+import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
 const PickDeliveryServiceModal = (props) => (
@@ -23,7 +23,7 @@ const PickDeliveryServiceModal = (props) => (
       }}>
       <View style={{flexDirection: 'row', justifyContent: 'space-between', backgroundColor: '#f6f6f6',borderBottomColor: '#e2e2e2', borderBottomWidth:1}}>
         <Icon name="close" type="EvilIcons" fontSize={12} onPress={props.closeIcon} style={{alignSelf: 'flex-start', paddingVertical: 10, paddingHorizontal:5, paddingTop: 10}}/>
-        <Text style={{fontWeight: 'bold',color: '#000',alignSelf: 'flex-end', paddingBottom: 13, paddingRight: 10}}>{props.selectedServices} Services</Text>
+        <Text style={{fontWeight: 'bold',color: '#000',alignSelf: 'flex-end', paddingBottom: 13, paddingRight: 10}}>{props.selectedServices} {I18n.t('pick_service')}</Text>
       </View>
       <View style={{height: 200}}>
         <FlatList

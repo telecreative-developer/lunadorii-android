@@ -7,6 +7,7 @@ import MaterialCommunityIcons from 'react-native-vector-icons/MaterialCommunityI
 import ChangePasswordModal from '../modals/ChangePasswordModal'
 import ChangeEmailModal from '../modals/ChangeEmailModal'
 import NotificationsModal from '../modals/NotificationsModal'
+import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
 const Settings = (props) => (
@@ -60,7 +61,7 @@ const Settings = (props) => (
       <TouchableOpacity style={styles.touchablePassword} onPress={props.toggleModalChangePassword}>
         <View style={styles.flexOnly9}>
           <View style={styles.viewPaddingLeft}>
-            <Text style={styles.txtLabel}>Change Password</Text>
+            <Text style={styles.txtLabel}>{I18n.t('setting_change_password')}</Text>
           </View>
         </View>
         <View style={styles.flexOnly1}>
@@ -70,7 +71,7 @@ const Settings = (props) => (
       <TouchableOpacity style={styles.touchableEmail} onPress={props.toggleModalChangeEmail}>
         <View style={styles.flexOnly9}>
           <View style={styles.viewPaddingLeft}>
-            <Text style={styles.txtLabel}>Change Email</Text>
+            <Text style={styles.txtLabel}>{I18n.t('setting_change_emailaddress')}</Text>
           </View>
         </View>
         <View style={styles.flexOnly1}>
@@ -92,7 +93,7 @@ const Settings = (props) => (
       </TouchableOpacity> */}
       <TouchableOpacity style={styles.touchableLogout} onPress={props.actionLogout}>
         <View style={styles.viewPaddingLeft}>
-          <Text style={styles.txtLabel}>Logout</Text>
+          <Text style={styles.txtLabel}>{I18n.t('setting_logout')}</Text>
           <View style={{ flexDirection: 'row' }}>
             <View style={styles.flexOnly9}>
               <Text note>{props.email}</Text>

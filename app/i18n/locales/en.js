@@ -180,4 +180,53 @@ export default {
   report_label_report: 'Reports',
   report_label_report_placeholder: 'Write Here...',
   report_button: 'Report',
+
+  // Add or Edit Address Modal
+  address_modal_title_add: "Add Address",
+  address_modal_title_edit: "Sunting Alamat",
+  address_modal_name: 'Name',
+  address_modal_addresslabel: 'Address Label',
+  address_modal_example_addresslabel:'e.g House, Office, Apartment',
+  address_modal_address: 'Address',
+  address_modal_province: 'Province',
+  address_modal_province_placeholder: 'Silahkan isi alamat terlebih dahulu',
+  address_modal_city: 'City',
+  address_modal_city_placeholder: 'Silahkan pilih provinsi terlebih dahulu',
+  address_modal_numberphone: 'Number Phone',
+  address_modal_save: 'Save',
+
+  // Setting
+  setting_change_password: 'Change Password',
+  setting_change_emailaddress: 'Change Email Address',
+  setting_logout: 'Log Out',
+
+  // Pick Service
+  pick_service: 'Service',
+
+  // Review
+  review_title: 'Reviews',
+  review_message: 'Your Reviews is empty',
+  reviews_description1: 'Please review your product',
+  reviews_description2: 'have purchased',
+  reviews_button: 'Go to mart',
+  reviews_your_reviews: 'Your Reviews',
+
+  // Add or Edit Credit Card
+  creditcard_modal_title_add: "Add Credit Card",
+  creditcard_modal_title_edit: "Edit Credit Card",
+  creditcard_modal_card_number: "Nomor Kartu",
+  creditcard_modal_validation: "Invalid Credit Card",
+  creditcard_modal_month: "Month",
+  creditcard_modal_year: "Year",
+  creditcard_modal_CVV: "CVV",
+  creditcard_modal_country: "Country",
+  creditcard_modal_country_placeholder: "Your country",
+  creditcard_modal_postalcode: "Postal Code",
+  creditcard_modal_postalcode_placeholder: "Postal Code",
+  creditcard_modal_cardholdername: "Cardholde Name",
+  creditcard_modal_cardholdername_placeholder: "Your name",
+  creditcard_modal_password: "Password",
+  creditcard_password_validation: "Lunadori Account Password",
+  creditcard_modal_information: "We will not save information about your credit card",
+  creditcard_modal_save: "Save"
 }

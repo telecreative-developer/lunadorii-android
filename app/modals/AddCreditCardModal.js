@@ -3,6 +3,7 @@ import { Modal, View, Text, StyleSheet, Dimensions, StatusBar } from 'react-nati
 import { Content, Item, Input, Label, Button, Form, Textarea, Spinner } from 'native-base'
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import NavbarModal from '../particles/NavbarModal'
+import I18n from '../i18n'
 
 const regexCC = /^(?:4[0-9]{12}(?:[0-9]{3})?|[25][1-7][0-9]{14}|6(?:011|5[0-9][0-9])[0-9]{12}|3[47][0-9]{13}|3(?:0[0-5]|[68][0-9])[0-9]{11}|(?:2131|1800|35\d{3})\d{11})$/
 const AddCreditCardModal = (props) => (
@@ -12,7 +13,7 @@ const AddCreditCardModal = (props) => (
     visible={props.modalVisible}
     onRequestClose={props.actionIcon}>
     <NavbarModal
-      navbarTitle="Add Credit Card"
+      navbarTitle={I18n.t('creditcard_modal_title_add')}
       navbarIcon="close"
       actionIcon={props.actionIcon} />
     <StatusBar
@@ -22,9 +23,9 @@ const AddCreditCardModal = (props) => (
     <Content style={styles.container}>
     <Form style={styles.form}>
         {regexCC.test(props.cardNumber) === true && props.cardNumber !== '' ? 
-          <Label style={styles.labels}>Card Number</Label>:
+          <Label style={styles.labels}>{I18n.t('creditcard_modal_card_number')}</Label>:
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-            <Label style={styles.labels}>Card Number</Label><Label style={styles.labelsInfo}>Invalid Credit Card</Label>
+            <Label style={styles.labels}>{I18n.t('creditcard_modal_card_number')}</Label><Label style={styles.labelsInfo}>{I18n.t('creditcard_modal_validation')}</Label>
           </View>
         }
         <Item regular style={{
@@ -38,7 +39,7 @@ const AddCreditCardModal = (props) => (
         </Item>
         <View style={styles.wrapper}>
           <View style={styles.flexDirectionCol}>
-            <Label style={styles.labels}>Month</Label>
+            <Label style={styles.labels}>{I18n.t('creditcard_modal_month')}</Label>
             <Item regular style={{
               width: 75,
               borderRadius: 5,
@@ -50,7 +51,7 @@ const AddCreditCardModal = (props) => (
             </Item>
           </View>
           <View style={styles.flexDirectionCol}>
-            <Label style={styles.labels}>Year</Label>
+            <Label style={styles.labels}>{I18n.t('creditcard_modal_year')}</Label>
             <Item regular style={{
               width: 75,
               borderRadius: 5,
@@ -62,7 +63,7 @@ const AddCreditCardModal = (props) => (
             </Item>
           </View>
           <View style={styles.flexDirectionCol}>
-            <Label style={styles.labels}>CVV</Label>
+            <Label style={styles.labels}>{I18n.t('creditcard_modal_CVV')}</Label>
             <Item regular style={{
               width: 160,
               borderRadius: 5,
@@ -76,42 +77,42 @@ const AddCreditCardModal = (props) => (
         </View>
         <View style={styles.wrapper}>
           <View style={styles.flexDirectionCol}>
-            <Label style={styles.labels}>Country</Label>
+            <Label style={styles.labels}>{I18n.t('creditcard_modal_country')}</Label>
             <Item regular style={{
               width: 160,
               borderRadius: 5,
               height: 40,
               borderColor: props.country ? '#ccc' : '#c0392b'
             }}>
-              <Input placeholder="Your country" placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCountry} value={props.country} />
+              <Input placeholder={I18n.t('creditcard_modal_country_placeholder')} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCountry} value={props.country} />
               <Ionicons name={props.country ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
             </Item>
           </View>
           <View style={styles.flexDirectionCol}>
-            <Label style={styles.labels}>Postal Code</Label>
+            <Label style={styles.labels}>{I18n.t('creditcard_modal_postalcode')}</Label>
             <Item regular style={{
               width: 160,
               borderRadius: 5,
               height: 40,
               borderColor: props.postalCode ? '#ccc' : '#c0392b'
             }}>
-              <Input placeholder="Postal Code" placeholderTextColor="#CDCDCD" maxLength={6} onChangeText={props.onChangePostalCode} keyboardType={'numeric'} value={props.postalCode.toString()} />
+              <Input placeholder={I18n.t('creditcard_modal_postalcode_placeholder')} placeholderTextColor="#CDCDCD" maxLength={6} onChangeText={props.onChangePostalCode} keyboardType={'numeric'} value={props.postalCode.toString()} />
               <Ionicons name={props.postalCode ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
             </Item>
           </View>
         </View>
-        <Label style={styles.labels}>Cardholder Name</Label>
+        <Label style={styles.labels}>{I18n.t('creditcard_modal_cardholdername')}</Label>
         <Item regular style={{
           marginBottom: 10,
           borderRadius: 5,
           height: 40,
           borderColor: props.cardHolderName ? '#ccc' : '#c0392b'
         }}>
-          <Input placeholder="Your name" placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCardHolder} value={props.cardHolderName}/>
+          <Input placeholder={I18n.t('creditcard_modal_cardholdername_placeholder')} placeholderTextColor="#CDCDCD" onChangeText={props.onChangeCardHolder} value={props.cardHolderName}/>
           <Ionicons name={props.cardHolderName ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
         <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-          <Label style={styles.labels}>Password</Label><Label style={styles.labelsInfo}>Lunadorii account password</Label>
+          <Label style={styles.labels}>{I18n.t('creditcard_modal_password')}</Label><Label style={styles.labelsInfo}>{I18n.t('creditcard_password_validation')}</Label>
         </View>
         <Item regular style={{
           marginBottom: 10,
@@ -123,19 +124,19 @@ const AddCreditCardModal = (props) => (
           <Ionicons name={props.password ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
         <View style={{justifyContent:'center', alignItems:'center', marginTop:10, borderColor:'#3498db', borderWidth:1, borderRadius: 5}}>
-          <Text style={{padding:10, textAlign:'center'}}>We will not save information about your credit card</Text>
+          <Text style={{padding:10, textAlign:'center'}}>{I18n.t('creditcard_modal_information')}</Text>
         </View>
       </Form>
     </Content>
     {props.cardNumber && props.mm && props.yyyy && props.cvv && props.country && props.postalCode && props.cardHolderName && props.password && regexCC.test(props.cardNumber) === true ? (
       <Button full style={styles.buttonSaveStyle} onPress={props.handleSaveCreditCard} disabled={props.buttonSave} >
         {props.buttonSave ?<Spinner color="#fff"/>:
-        <Text style={styles.buttonSaveTextStyle}>Save</Text>
+        <Text style={styles.buttonSaveTextStyle}>{I18n.t('creditcard_modal_save')}</Text>
         }
       </Button>
     ) : (
       <Button full style={styles.buttonSaveStyleDisabled} disabled>
-        <Text style={styles.buttonSaveTextStyleDisabled}>Save</Text>
+        <Text style={styles.buttonSaveTextStyleDisabled}>{I18n.t('creditcard_modal_save')}</Text>
       </Button>
     )}
   </Modal>

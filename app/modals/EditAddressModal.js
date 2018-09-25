@@ -4,6 +4,7 @@ import { Content, Item, Input, Label, Button, Form, View, Spinner } from 'native
 import Ionicons from 'react-native-vector-icons/Ionicons'
 import SearchableFlatlist from '../particles/SearchableFlatlist'
 import NavbarModal from '../particles/NavbarModal'
+import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
 const EditAddressModal = (props) => (
@@ -13,7 +14,7 @@ const EditAddressModal = (props) => (
     visible={props.modalVisible}
     onRequestClose={props.actionIcon}>
     <NavbarModal
-      navbarTitle="Edit Address"
+      navbarTitle={I18n.t('address_modal_title_edit')}
       navbarIcon="close"
       actionIcon={props.actionIcon} 
     />
@@ -23,7 +24,7 @@ const EditAddressModal = (props) => (
     />
     <Content style={styles.container}>
       <Form style={styles.form}>
-        <Label style={styles.labels}>Name</Label>
+        <Label style={styles.labels}>{I18n.t('address_modal_name')}</Label>
         <Item regular style={{
           marginBottom: 10,
           borderRadius: 5,
@@ -34,12 +35,12 @@ const EditAddressModal = (props) => (
           <Ionicons name={props.nameValue ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
 
-        <Label style={styles.labels}>Address Label</Label>
+        <Label style={styles.labels}>{I18n.t('address_modal_addresslabel')}</Label>
         {props.labelValue ? (
           <View/>
         ) : (
           <View style={{ backgroundColor: '#e2e2e2', borderRadius: 5, marginBottom: 5}}>
-            <Text style={{fontSize: 12,padding:10}}>e.g House, Office, Apartment</Text>
+            <Text style={{fontSize: 12,padding:10}}>{I18n.t('address_modal_example_addresslabel')}</Text>
           </View>
         )}
 
@@ -53,7 +54,7 @@ const EditAddressModal = (props) => (
           <Ionicons name={props.labelValue ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
 
-        <Label style={styles.labels}>Address</Label>
+        <Label style={styles.labels}>{I18n.t('address_modal_address')}</Label>
         <Item regular style={{
           marginBottom: 10,
           borderRadius: 5,
@@ -64,7 +65,7 @@ const EditAddressModal = (props) => (
           <Ionicons name={props.addressValue ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
 
-        <Label style={styles.labels}>Province</Label>
+        <Label style={styles.labels}>{I18n.t('address_modal_province')}</Label>
         {props.provinceValue && props.visibleProvincePicker ? (
           <SearchableFlatlist
             searchTerm={props.provinceValue}
@@ -83,11 +84,11 @@ const EditAddressModal = (props) => (
           height: 40,
           borderColor: props.provinceValue && props.province_id ? '#ccc' : '#c0392b'
         }}>
-          <Input placeholder={props.addressValue.length == 0 ? "Please fill address first" : props.provinceValue} placeholderTextColor={"#ccc"} value={props.provinceValue} onChangeText={props.onChangeProvince} disabled={props.addressValue.length == 0 ? true : false}/>
+          <Input placeholder={props.addressValue.length == 0 ? I18n.t('address_modal_province_placeholder') : props.provinceValue} placeholderTextColor={"#ccc"} value={props.provinceValue} onChangeText={props.onChangeProvince} disabled={props.addressValue.length == 0 ? true : false}/>
           <Ionicons name={props.provinceValue && props.province_id ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
 
-        <Label style={styles.labels}>City</Label>
+        <Label style={styles.labels}>{I18n.t('address_modal_city')}</Label>
         {props.cityValue && props.visibleCityPicker ? (
           <SearchableFlatlist
             searchTerm={props.cityValue}
@@ -106,13 +107,13 @@ const EditAddressModal = (props) => (
           height: 40,
           borderColor: props.cityValue && props.city_id ? '#ccc' : '#c0392b'
         }}>
-          <Input placeholder={props.provinceValue.length == 0 ? "Please pick province first" : props.city_with_type} placeholderTextColor={"#ccc"} value={props.cityValue} onChangeText={props.onChangeCity} disabled={props.provinceValue.length == 0 ? true : false}/> 
+          <Input placeholder={props.provinceValue.length == 0 ? I18n.t('address_modal_city_placeholder') : props.city_with_type} placeholderTextColor={"#ccc"} value={props.cityValue} onChangeText={props.onChangeCity} disabled={props.provinceValue.length == 0 ? true : false}/> 
           <Ionicons name={props.cityValue && props.city_id ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
         </Item>
 
         <View style={styles.wrapper}>
           <View style={styles.flexDirectionCol}>
-            <Label style={styles.labels}>Number Phone</Label>
+            <Label style={styles.labels}>{I18n.t('address_modal_numberphone')}</Label>
             <Item regular style={{
               width: 180,
               borderRadius: 5,
@@ -124,7 +125,7 @@ const EditAddressModal = (props) => (
             </Item>
           </View>
           <View style={styles.flexDirectionCol}>
-            <Label style={styles.labels}>Postalcode</Label>
+            <Label style={styles.labels}>{I18n.t('address_modal_postalcode')}</Label>
             <Item regular style={{
               width: 140,
               borderRadius: 5,
@@ -146,12 +147,12 @@ const EditAddressModal = (props) => (
             <Spinner color="#fff"/>
           </View>
         ) : (
-          <Text style={styles.buttonSaveTextStyle}>Save</Text>
+          <Text style={styles.buttonSaveTextStyle}>{I18n.t('address_modal_save')}</Text>
         )}
       </Button>
     ) : (
       <Button full style={styles.buttonSaveStyleDisabled} onPress={props.handleSaveAddress} disabled>
-        <Text style={styles.buttonSaveTextStyleDisabled}>Save</Text>
+        <Text style={styles.buttonSaveTextStyleDisabled}>{I18n.t('address_modal_save')}</Text>
       </Button>
     )}
   </Modal>

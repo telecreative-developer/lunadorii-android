@@ -180,4 +180,54 @@ export default {
   report_label_report: 'Laporan',
   report_label_report_placeholder: 'Tulis disini...',
   report_button: 'Laporkan',
+
+  // Add or Edit Address Modal
+  address_modal_title_add: "Tambah Alamat",
+  address_modal_title_edit: "Sunting Alamat",
+  address_modal_name: 'Nama',
+  address_modal_addresslabel: 'Label Alamat',
+  address_modal_example_addresslabel:'contoh Rumah, Kantor, Apartermen',
+  address_modal_address: 'Alamat',
+  address_modal_province: 'Provinsi',
+  address_modal_province_placeholder: 'Silahkan isi alamat terlebih dahulu',
+  address_modal_city: 'Kota',
+  address_modal_city_placeholder: 'Silahkan pilih provinsi terlebih dahulu',
+  address_modal_numberphone: 'Nomor Telepon',
+  address_modal_postalcode: 'Kode Pos',
+  address_modal_save: 'Simpan',
+
+  // Setting
+  setting_change_password: 'Ubah Katasandi',
+  setting_change_emailaddress: 'Udab Alamat Email',
+  setting_logout: 'Keluar',
+
+  // Pick Service
+  pick_service: 'Jasa',
+
+  // Review
+  review_title: 'Ulasan',
+  review_message: 'Ulasanmu tidak ada',
+  reviews_description1: 'Silahkan ulas produk yang',
+  reviews_description2: 'sudah anda beli',
+  reviews_button: 'Pergi Belanja',
+  reviews_your_reviews: 'Ulasan Anda',
+
+  // Add or Edit Credit Card
+  creditcard_modal_title_add: "Tambah Kartu Kredit",
+  creditcard_modal_title_edit: "Sunting Kartu Kredit",
+  creditcard_modal_card_number: "Nomor Kartu",
+  creditcard_modal_validation: "Kartu Kredit Tidak Valid",
+  creditcard_modal_month: "Bulan",
+  creditcard_modal_year: "Tahun",
+  creditcard_modal_CVV: "CVV",
+  creditcard_modal_country: "Negara",
+  creditcard_modal_country_placeholder: "Negara",
+  creditcard_modal_postalcode: "Kode Pos",
+  creditcard_modal_postalcode_placeholder: "Kode Pos",
+  creditcard_modal_cardholdername: "Nama Cardholder",
+  creditcard_modal_cardholdername_placeholder: "Nama",
+  creditcard_modal_password: "Kata Sandi",
+  creditcard_password_validation: "Kata Sandi Akun Lunadorii",
+  creditcard_modal_information: "Kami tidak akan menyimpan tentang kartu kredit anda",
+  creditcard_modal_save: "Simpan"
 }
