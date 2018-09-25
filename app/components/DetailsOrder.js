@@ -47,27 +47,24 @@ const DetailsOrder = (props) => (
           <View style={{width: convertWidthPercentToDP('100%'),padding: 10}}>
             <Text style={{fontSize: 18, fontWeight: 'bold'}}>{props.brandTitle}</Text>
             <Text style={{fontSize: 18, paddingBottom: 10}}>{props.category}</Text>
-            <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
-              <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
+            <View style={{flexDirection: 'column', justifyContent: 'space-between'}}>
+              <View style={{backgroundColor: "#f6f6f6", marginVertical:5, borderRadius: 5, padding:5, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontWeight: 'bold'}}>Price</Text>
                 <Text style={{textDecorationLine:'line-through', paddingLeft: 5}}>Rp {props.price}</Text>
+              </View>
+              <View style={{backgroundColor: "#f6f6f6", marginVertical:5, borderRadius: 5, padding:5, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontWeight: 'bold'}}>Discount</Text>
                 <Text style={{fontWeight: 'bold'}}>Rp {props.priceDisc}</Text>
               </View>
-              <Text>Qty {props.qty}</Text>
-              <Text>{props.status}</Text>
+              <View style={{backgroundColor: "#f6f6f6", marginVertical:5, borderRadius: 5, padding:5, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontWeight: 'bold'}}>Quantity</Text>
+                <Text>{props.qty}</Text>
+              </View>
+              <View style={{backgroundColor: "#f6f6f6", marginVertical:5, borderRadius: 5, padding:5, flexDirection: 'row', justifyContent: 'space-between'}}>
+                <Text style={{fontWeight: 'bold'}}>Status Order</Text>
+                <Text>{props.status}</Text>
+              </View>
             </View>
-          </View>
-        </View>
-      </View>
-      <View style={styles.borderedSparator}>
-        <View style={styles.borderedSparatorFirst}>
-          <Text style={styles.borderedSparatorFirstTitle}>Description</Text>
-          <View style={{width: (width - 20) / 1 }}>
-            <Text style={styles.borderedSparatorFirstContent}>
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed egestas ut turpis 
-              ac pulvinar. Class aptent taciti sociosqu ad litora torquent per conubia nostra, 
-              per inceptos himenaeos. Phasellus euismod metus sapien, ac condimentum augue feugiat 
-              vehicula. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            </Text>
           </View>
         </View>
       </View>

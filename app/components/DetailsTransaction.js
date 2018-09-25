@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { View,Text, StyleSheet, Dimensions, StatusBar, FlatList, TouchableOpacity } from 'react-native'
-import { Container, Content, Spinner, Button } from 'native-base'
+import { Container, Content, Spinner, Button, CheckBox, ListItem, Body, Item } from 'native-base'
 import Navbar from '../particles/Navbar'
 import moment from 'moment'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
@@ -75,6 +75,13 @@ const DetailsTransaction = (props) => (
                 data={props.dataOnCart}
                 renderItem={props.renderDataOnCart}
               />
+              <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems:'center', padding:10, borderRadius:5, borderColor:"#ccc"}}>
+                <CheckBox checked={props.isSure} style={{backgroundColor:  props.isSure ? "#d11e48" : "#fff", borderColor: '#d11e48', paddingRight:5}} onPress={props.onChangeSure}/>
+                <Text>I have receive my order and</Text>
+                <Button style={{backgroundColor: props.isSure ? "#d11e48" : "#f6f6f6", width: 100, height: 30, alignItems:'center', justifyContent:'center'}}>  
+                  <Text style={{color: props.isSure ? "#fff" : "#ccc"}}>Yes I'm Sure</Text>
+                </Button>
+              </View>
               {props.status === 'Shipping' ? (
                 <View style={{flexDirection: 'row', justifyContent: 'space-between', paddingTop: 10}}>
                   <Button full style={{width: w('45%'), backgroundColor: "#e2e2e2", borderRadius:5}}>

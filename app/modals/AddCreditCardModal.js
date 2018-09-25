@@ -129,7 +129,7 @@ const AddCreditCardModal = (props) => (
     </Content>
     {props.cardNumber && props.mm && props.yyyy && props.cvv && props.country && props.postalCode && props.cardHolderName && props.password && regexCC.test(props.cardNumber) === true ? (
       <Button full style={styles.buttonSaveStyle} onPress={props.handleSaveCreditCard} disabled={props.buttonSave} >
-        {props.buttonSave ? <Spinner />:
+        {props.buttonSave ?<Spinner color="#fff"/>:
         <Text style={styles.buttonSaveTextStyle}>Save</Text>
         }
       </Button>
