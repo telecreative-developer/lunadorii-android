@@ -50,7 +50,7 @@ const RecommendProduct = (props) => {
       <View style={{paddingTop:15, paddingLeft: 10,height: sizes(5),width: sizes(25), flexDirection: 'row', justifyContent:'space-between'}}>
         <TouchableOpacity style={{
           height: sizes(2.5),
-          width: sizes(13),
+          width: sizes(14),
           backgroundColor: 'rgba(202, 202, 202, 0.43)',
           borderRadius:5,
           alignItems:'center',

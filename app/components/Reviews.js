@@ -5,6 +5,7 @@ import Navbar from '../particles/Navbar'
 import EditReviewsModal from '../modals/EditReviewsModal'
 import ImageYourReviews from '../assets/images/icon/your-reviews.png'
 import Validations from '../particles/Validations'
+import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
 const Reviews = (props) => {
@@ -17,7 +18,7 @@ const Reviews = (props) => {
       actionIcon={props.goback}
     />
     <EditReviewsModal
-      navbarTitle="Edit Reviews"
+      navbarTitle={I18n.t('review_title')}
       navbarIcon="close"
       modalVisible={props.modalVisibleEditReviews}
       actionIcon={props.toggleModalEditReviews}
@@ -44,15 +45,15 @@ const Reviews = (props) => {
           <Validations 
             showImportedImage={true}
             image={ImageYourReviews}
-            title={"Your Review is empty"} 
-            message1={"Please review your product"} 
-            message2={"have purchased"}
-            buttonText={"Go to mart"}
+            title={I18n.t('review_message')}
+            message1={I18n.t('reviews_description1')}
+            message2={I18n.t('reviews_description2')}
+            buttonText={I18n.t('reviews_button')}
             buttonAction={props.navigateToProfile}
           />
         ) : (
           <View style={styles.viewReviews}>
-            <Text style={styles.txtReviews}>Your Reviews</Text>
+            <Text style={styles.txtReviews}>{I18n.t('reviews_your_reviews')}</Text>
             <FlatList
               data={props.dataReviews}
               renderItem={props.renderReviews}
