@@ -71,7 +71,7 @@ class SearchContainer extends Component {
   }
 
   removeSelectedCategory(item){
-    this.state.selectedCategory.length == 0  ?
+    this.state.selectedCategory.length == 1 ?
       this.setState({selectedCategory: [],
                      subcategory:[]})
     :
