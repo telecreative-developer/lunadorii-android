@@ -89,10 +89,8 @@ class DetailsOrderContainer extends Component{
   }
 
   render(){
-    console.log('order :' , this.props.navigation.state.params)
     const data = this.props.navigation.state.params.item
     const status = this.props.navigation.state.params.status
-    console.log("isa ",data)
     return(
       <DetailsOrder
         toggleImageViewModal={() => this.toggleImageViewModal()}

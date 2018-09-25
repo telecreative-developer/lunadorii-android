@@ -14,7 +14,8 @@ class DetailsTransactionContainer extends Component{
       list_produk:{},
       billing_code:'',
       stillLoading: true,
-      visibleModalPayment:false
+      visibleModalPayment:false,
+      isSure: false
     }
   }
 
@@ -109,6 +110,8 @@ class DetailsTransactionContainer extends Component{
 
     return(
       <DetailsTransaction
+        isSure={this.state.isSure}
+        onChangeSure={() => this.setState({isSure: !this.state.isSure})}
         goback={() => this.props.navigation.goBack()}
         stillLoading={this.state.stillLoading}
         totalPrice={ data.total == null || data.total === '' ? data.total : this.formatPrice(data.total) }
