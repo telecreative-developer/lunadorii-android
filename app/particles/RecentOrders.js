@@ -2,6 +2,7 @@ import React from 'react'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 import { StyleSheet, View, Image, Text, TouchableOpacity } from 'react-native'
+import {change} from '../lib/StatusChanger'
 import I18n from '../i18n'
 
 const RecentOrders = (props) => (
@@ -37,7 +38,7 @@ const RecentOrders = (props) => (
         <TouchableOpacity onPress={props.action}>
         {props.paid_method === "credit_card" ? 
           <Text style={{fontWeight: 'bold', color: '#d11e47' }}> Success</Text>:
-          <Text style={{fontWeight: 'bold', color: '#d11e47' }}>{props.status == null || props.status == '' ? props.status : props.status}</Text>
+          <Text style={{fontWeight: 'bold', color: '#d11e47' }}>{props.status == null || props.status == '' ? change(props.status) : change(props.status)}</Text>
         }
         </TouchableOpacity>
       </View>
