@@ -36,10 +36,11 @@ const RecentOrders = (props) => (
       <View style={{flexDirection: 'row'}}>
         <Text>{I18n.t('status_order')} : </Text>
         <TouchableOpacity onPress={props.action}>
-        {props.paid_method === "credit_card" ? 
+        {/* {props.paid_method === "credit_card" ? 
           <Text style={{fontWeight: 'bold', color: '#d11e47' }}> Success</Text>:
           <Text style={{fontWeight: 'bold', color: '#d11e47' }}>{props.status == null || props.status == '' ? change(props.status) : change(props.status)}</Text>
-        }
+        } */}
+          <Text style={{fontWeight: 'bold', color: '#d11e47' }}>{props.status == null || props.status == '' ? change(props.status) : change(props.status)}</Text>
         </TouchableOpacity>
       </View>
       <View style={{flexDirection: 'row'}}>
