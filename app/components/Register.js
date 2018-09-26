@@ -46,21 +46,21 @@ const Register = (props) => (
           </View>
         </View>
       </View>
-      <View style={{paddingBottom: 10, paddingTop: convertWidthPercentToDP('23%'), paddingLeft: 45, paddingRight: 45}}>
-        <View style={{ borderBottomColor: "#979797", borderBottomWidth: 1.2}}>
-        </View>
-      </View>
-      <View style={styles.informationWrapper2}>
-        <Text style={styles.alignSelfCenter}>{I18n.t('register_clues1')}</Text>
-        <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToLogin}>
-          <Text style={styles.registerNowColor}> {I18n.t('register_clues2')}</Text>
-        </TouchableOpacity>
-        <Text> {I18n.t('register_clues3')} </Text>
-        <TouchableOpacity onPress={props.skipLogin} style={{paddingLeft: 5}}>
-          <Text style={{color: '#d11e48'}}>{I18n.t('register_clues4')}</Text>
-        </TouchableOpacity>
-      </View>
     </Content>
+    <View style={{paddingBottom: 10, paddingLeft: 45, paddingRight: 45}}>
+      <View style={{ borderBottomColor: "#979797", borderBottomWidth: 1.2}}>
+      </View>
+    </View>
+    <View style={styles.informationWrapper2}>
+      <Text style={styles.alignSelfCenter}>{I18n.t('register_clues1')}</Text>
+      <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToLogin}>
+        <Text style={styles.registerNowColor}> {I18n.t('register_clues2')}</Text>
+      </TouchableOpacity>
+      <Text> {I18n.t('register_clues3')} </Text>
+      <TouchableOpacity onPress={props.skipLogin} style={{paddingLeft: 5}}>
+        <Text style={{color: '#d11e48'}}>{I18n.t('register_clues4')}</Text>
+      </TouchableOpacity>
+    </View>
   </Container>
 )
 
