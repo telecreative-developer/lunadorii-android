@@ -75,17 +75,17 @@ const Login = (props) => (
           </View>
         </View>
       </View> */}
-      <View style={styles.informationWrapper2}>
-        <Text style={styles.alignSelfCenter}>{I18n.t('login_clues1')}</Text>
-        <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToRegister}>
-          <Text style={styles.registerNowColor}> {I18n.t('login_clues2')}</Text>
-        </TouchableOpacity>
-        <Text> {I18n.t('login_clues3')} </Text>
-        <TouchableOpacity onPress={props.skipLogin} style={{paddingLeft: 5}}>
-          <Text style={{color: '#d11e48'}}>{I18n.t('login_clues4')}</Text>
-        </TouchableOpacity>
-      </View>
     </Content>
+    <View style={styles.informationWrapper2}>
+      <Text style={styles.alignSelfCenter}>{I18n.t('login_clues1')}</Text>
+      <TouchableOpacity style={styles.alignSelfCenter} onPress={props.navigateToRegister}>
+        <Text style={styles.registerNowColor}> {I18n.t('login_clues2')}</Text>
+      </TouchableOpacity>
+      <Text> {I18n.t('login_clues3')} </Text>
+      <TouchableOpacity onPress={props.skipLogin} style={{paddingLeft: 5}}>
+        <Text style={{color: '#d11e48'}}>{I18n.t('login_clues4')}</Text>
+      </TouchableOpacity>
+    </View>
   </Container>
 )
 
@@ -136,7 +136,7 @@ const styles = StyleSheet.create({
   alignSelfCenter1:{
     marginLeft: 40,
     marginRight: 40,
-    marginTop: 10,
+    marginTop: 5,
     alignItems: 'center',
     flexDirection: 'row', 
     justifyContent: 'space-evenly'
