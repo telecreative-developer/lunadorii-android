@@ -110,7 +110,14 @@ const YourCart = (props) => (
             <View style={styles.body}>
               <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
                 <Text style={styles.title}>{I18n.t('cart_payment_method')}</Text>
-                <Text>{props.selectedBank}</Text>
+                <View style={{flexDirection: 'row', justifyContent:'space-between'}}>
+                  {props.selectedBank ? (
+                    <Text style={{paddingRight: 5}}>Bank</Text>
+                  ) : (
+                    <View/>
+                  )}
+                  <Text style={{fontWeight: 'bold'}}>{props.selectedBank.toUpperCase()}</Text>
+                </View>
               </View>
               <View style={{alignItems: 'center'}}>
                 <FlatList
@@ -141,7 +148,7 @@ const YourCart = (props) => (
                     height: 40,
                     borderColor: props.valueCVV ? '#ccc' : '#c0392b'
                   }}>
-                    <Input placeholder="CVV" onChangeText={props.onChangeCVV} value={props.valueCVV} placeholderTextColor="#e2e2e2" maxLength={3} keyboardType={"numeric"}/>
+                    <Input placeholder="CVV" onChangeText={props.onChangeCVV} value={props.valueCVV} placeholderTextColor="#e2e2e2" maxLength={3} keyboardType={"numeric"} secureTextEntry={true}/>
                     <Ionicons name={props.valueCVV ? '' : 'ios-alert-outline' } size={18} style={{padding: 10}}/>
                   </Item>
                 </View>: null }
@@ -209,17 +216,17 @@ const YourCart = (props) => (
       <View style={styles.footer}>
         <View style={styles.footerWrapper}>
           <View style={styles.footerInfo}>
-            <Text style={styles.footerTotalText}>Total</Text>
+            <Text style={styles.footerTotalText}>{I18n.t('cart_start_pay_description1')}</Text>
             <Text style={styles.footerTotalPriceText}>Rp. {props.totalPrice}</Text>
-            <Text style={styles.footerTotalInfo}>Termasuk PPN, jika berlaku.</Text>
+            <Text style={styles.footerTotalInfo}>{I18n.t('cart_start_pay_description2')}</Text>
           </View>
           <View style={styles.footerButton}>
             <TouchableOpacity onPress={props.toggleCheckoutPayment} disabled={props.loadingBtn} >
               <View style={styles.footerButtonStyling}> 
-                <FontAwesome name="money" size={20} color="#fff" />
+                <FontAwesome name="money" size={20} color="#fff" style={{paddingRight: 5}}/>
                 {props.isCreditcard === 'credit_card' ? 
-                  <Text style={styles.footerButtonTextStyling}> Pay Now</Text>:
-                  <Text style={styles.footerButtonTextStyling}> Go to Payment</Text>
+                  <Text style={styles.footerButtonTextStyling}>{I18n.t('cart_start_pay_button_cc')}</Text>:
+                  <Text style={styles.footerButtonTextStyling}>{I18n.t('cart_start_pay_button_bank')}</Text>
                 }
               </View>
             </TouchableOpacity>
@@ -370,7 +377,7 @@ const styles = StyleSheet.create({
     width: convertWidthPercentToDP('40%'),
     backgroundColor: '#2ecc71',
     flexDirection: 'row',
-    justifyContent: 'space-between',
+    justifyContent: 'center',
     alignItems: 'center',
     paddingRight: 10,
     paddingLeft: 10
@@ -380,14 +387,14 @@ const styles = StyleSheet.create({
     color: '#fff'
   },
   footerTotalText: {
-    fontSize: 16
+    fontSize: 14
   },
   footerTotalPriceText: {
     fontSize: 18,
     fontWeight: 'bold'
   },
   footerTotalInfo: {
-    fontSize: 16
+    fontSize: 14
   },
   items: {
     width: '100%',
