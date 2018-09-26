@@ -145,6 +145,7 @@ export default {
   detail_transaction_complain:'Komplain',
   detail_transaction_accept:'Terima',
   detail_transaction_transaction_code:'Kode Transaksi',
+  detail_transaction_tracking_code:'Kode Lacak',
   detail_transaction_order_status:'Status Pesanan',
   detail_transaction_waiting_for_payment:'Menunggu Pembayaran',
   detail_transaction_waiting_for_accepted_payment:'Menunggu Pembayaran Diterima',

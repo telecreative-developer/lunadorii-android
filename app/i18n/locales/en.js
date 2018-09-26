@@ -145,6 +145,7 @@ export default {
   detail_transaction_complain:'complain',
   detail_transaction_accept:'Accept',
   detail_transaction_transaction_code:'Transaction Code',
+  detail_transaction_tracking_code:'Tracking Code',
   detail_transaction_order_status:'Order Status',
   detail_transaction_waiting_for_payment:'Waiting for Payment',
   detail_transaction_waiting_for_accepted_payment:'Waiting for Accepted Payment',
