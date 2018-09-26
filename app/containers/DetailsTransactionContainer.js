@@ -112,6 +112,7 @@ class DetailsTransactionContainer extends Component{
       <DetailsTransaction
         isSure={this.state.isSure}
         acceptOrder={() => alert("Anjay")}
+        tracking_code={"SV973MDP0248"}
         onChangeSure={() => this.setState({isSure: !this.state.isSure})}
         goback={() => this.props.navigation.goBack()}
         stillLoading={this.state.stillLoading}
