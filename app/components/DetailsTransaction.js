@@ -89,6 +89,17 @@ const DetailsTransaction = (props) => (
             </View>
           </View>
 
+          {props.status === 'Shipping' ? (
+            <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+              <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+                <Text style={{fontWeight: 'bold',fontSize: 18}}>{I18n.t('detail_transaction_tracking_code')}</Text>
+                <Text style={{color: '#ccc'}}>{props.tracking_code}</Text>
+              </View>
+            </View>
+          ) : (
+            <View/>
+          )}
+
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
               <Text style={{fontWeight: 'bold',fontSize: 18}}>{I18n.t('detail_transaction_transaction_code')}</Text>

@@ -123,6 +123,7 @@ class DetailsTransactionContainer extends Component{
       <DetailsTransaction
         isSure={this.state.isSure}
         acceptOrder={() => this.handleAcceptOrder()}
+        tracking_code={ data.receipt_number ? receipt_number : "Not Yet" }
         onChangeSure={() => this.setState({isSure: !this.state.isSure})}
         goback={() => this.props.navigation.goBack()}
         stillLoading={this.state.stillLoading}
