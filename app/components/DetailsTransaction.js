@@ -116,7 +116,7 @@ const DetailsTransaction = (props) => (
                   { props.status === 'Checkout' ?
                     <Text style={{color: '#ccc'}}>{I18n.t('detail_transaction_waiting_for_payment')}</Text>:
                     <View>
-                      { props.status === 'Accepted_payment' ? 
+                      { props.status === 'Deal' ? 
                       <Text style={{color: '#ccc'}}>{I18n.t('detail_transaction_waiting_for_accepted_payment')}</Text>: 
                         <View>
                           { props.status === 'Packing' ? 
@@ -135,7 +135,7 @@ const DetailsTransaction = (props) => (
                 </View>:
                 <View>
                   <View>
-                    { props.status === 'Accepted_payment' ? 
+                    { props.status === 'Deal' ? 
                       <Text style={{color: '#ccc'}}>{I18n.t('detail_transaction_waiting_for_accepted_payment')}</Text>: 
                         <View>
                           { props.status === 'Packing' ? 
