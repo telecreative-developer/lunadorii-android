@@ -58,6 +58,7 @@ const styles = StyleSheet.create({
     borderColor: '#e2e2e2',
     marginRight: 10,
     marginLeft: 10,
+    marginVertical: 5,
     padding: 10,
     width: convertWidthPercentToDP('90%')
   },
