@@ -142,7 +142,7 @@ export default {
   // Details transaction
   detail_transaction_order_failed:'Pesanan Gagal',
   detail_transaction_on_cart:'Keranjang',
-  detail_transaction_complain:'komplain',
+  detail_transaction_complain:'Komplain',
   detail_transaction_accept:'Terima',
   detail_transaction_transaction_code:'Kode Transaksi',
   detail_transaction_order_status:'Status Pesanan',
