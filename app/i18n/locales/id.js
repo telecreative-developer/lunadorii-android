@@ -203,7 +203,7 @@ export default {
 
   // Setting
   setting_change_password: 'Ubah Katasandi',
-  setting_change_emailaddress: 'Udab Alamat Email',
+  setting_change_emailaddress: 'Ubah Alamat Email',
   setting_logout: 'Keluar',
 
   // Pick Service
