@@ -450,3 +450,26 @@ const receiveSingleProductRecent = data => {
 		payload: data
 	}
 }
+
+//function Accept Order
+export const acceptOrder = (billing_code, accessToken) => {
+	return async dispatch => {
+		await dispatch(setLoading(true, 'LOADING_ACCEPT_ORDER'))
+		try {
+			const response = await fetch(`${API_SERVER}/order/status/delivered/${billing_code}`, {
+				method: 'PUT',
+				headers: {
+					Accept: 'application/json',
+					'Content-Type': 'application/json',
+					Authorization: accessToken
+				}
+			})
+			const data = await response.json()
+			await dispatch(setSuccess(true, 'SUCCESS_ACCEPT_ORDER'))
+      await dispatch(setLoading(false, 'LOADING_ACCEPT_ORDER'))
+		} catch (e) {
+			dispatch(setFailed(true, 'FAILED_ACCEPT_ORDER', e))
+			dispatch(setLoading(false, 'LOADING_ACCEPT_ORDER'))
+		}
+	}
+}

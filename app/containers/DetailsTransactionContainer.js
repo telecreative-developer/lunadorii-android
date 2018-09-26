@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { AsyncStorage, NetInfo, BackHandler } from 'react-native'
 import { connect } from 'react-redux'
-import { fetchSingleProductRecent } from '../actions/product'
+import { fetchSingleProductRecent, acceptOrder } from '../actions/product'
 
 import DetailsTransaction from '../components/DetailsTransaction'
 import OrderDetails from '../particles/OrderDetails'
@@ -84,6 +84,17 @@ class DetailsTransactionContainer extends Component{
     return DiscountPrice
   }
 
+  async handleAcceptOrder(){
+    this.setState({stillLoading: true})
+    const session = await AsyncStorage.getItem('session')
+    const dataUser = await JSON.parse(session)
+    const dataTransaction = this.props.receiveSingleProductRecent
+    const data = await this.props.navigation.state.params.data
+    await this.props.acceptOrder( dataTransaction.billing_code, dataUser.accessToken )
+    await this.props.fetchSingleProductRecent( data.order_id, dataUser.accessToken )
+    await this.setState({stillLoading: false})
+  }
+
   render(){
     const data = this.props.receiveSingleProductRecent
 
@@ -111,7 +122,7 @@ class DetailsTransactionContainer extends Component{
     return(
       <DetailsTransaction
         isSure={this.state.isSure}
-        acceptOrder={() => alert("Anjay")}
+        acceptOrder={() => this.handleAcceptOrder()}
         onChangeSure={() => this.setState({isSure: !this.state.isSure})}
         goback={() => this.props.navigation.goBack()}
         stillLoading={this.state.stillLoading}
@@ -153,7 +164,8 @@ class DetailsTransactionContainer extends Component{
 
 const mapDispatchToProps = (dispatch) =>{
   return{
-    fetchSingleProductRecent: ( product_id, accessToken ) => dispatch(fetchSingleProductRecent( product_id, accessToken ))
+    fetchSingleProductRecent: ( product_id, accessToken ) => dispatch(fetchSingleProductRecent( product_id, accessToken )),
+    acceptOrder: (billing_code, accessToken) => dispatch(acceptOrder(billing_code, accessToken))
   }
 }
 
