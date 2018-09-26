@@ -4,6 +4,7 @@ import { Icon, Button, Form, Input, Item, Label } from 'native-base'
 import { convertWidthPercentToDP, convertHeightPercentToDP } from '../particles/Converter'
 import CreditCard from '../assets/images/icon/credit-card.png'
 import Ionicons from 'react-native-vector-icons/Ionicons'
+import I18n from '../i18n'
 const { height, width } = Dimensions.get('window')
 
 const CreditCardPaymentModal = (props) => (
@@ -27,8 +28,8 @@ const CreditCardPaymentModal = (props) => (
           <Ionicons name="ios-checkmark-circle-outline" size={128} color={'#2ecc71'}/>
         </View>
         <View style={{alignItems: 'center'}}>
-          <Text style={{fontSize: 20, fontWeight: 'bold', padding: 5}}>Credit Card Payemt</Text>
-          <Text style={{fontSize: 18}}>You have pay with Credit Card</Text>
+          <Text style={{fontSize: 20, fontWeight: 'bold', padding: 5}}>{I18n.t('cc_payment_title')}</Text>
+          <Text style={{fontSize: 18}}>{I18n.t('cc_payment_message')}</Text>
           <View style={{flexDirection: 'row', justifyContent: 'space-between'}}>
             <Text style={{fontSize: 18}}>Total </Text><Text style={{fontWeight:'bold', fontSize: 18}}>Rp. {props.totalPrice}</Text>
           </View>
@@ -36,7 +37,7 @@ const CreditCardPaymentModal = (props) => (
       </View>
       <View style={{flexDirection: 'row',justifyContent: 'space-between', padding: 10, alignItems: 'center'}}>
         <Button style={{height: 50, width: '100%', borderRadius: 5, backgroundColor: '#d11e48', justifyContent: 'center'}} onPress={props.toggleModal}>
-          <Text style={{fontSize: 18, color: '#fff'}}>Ok</Text>
+          <Text style={{fontSize: 18, color: '#fff'}}>{I18n.t('cc_payment_button')}</Text>
         </Button>
       </View>
     </View>

@@ -581,7 +581,7 @@ render() {
       courierCode={courier}
       renderCode={({item}) => (
         <TouchableOpacity style={styles.btnPickDeliveryService} onPress={()=>this.chooseService(item.code, item.costs)}>
-          <Text style={styles.txtChooseDeliveryService}>{item.code}</Text>
+          <Text style={styles.txtChooseDeliveryService}>{item.code.toUpperCase()}</Text>
         </TouchableOpacity>
       )}
       courierName={this.state.code === '' || this.state.code === null ? this.state.code : this.state.code.toUpperCase()}

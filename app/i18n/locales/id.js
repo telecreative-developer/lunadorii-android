@@ -55,6 +55,10 @@ export default {
   cart_no_credit_card2: 'pilih salah satu',
   cart_credit_cart: 'Kartu Kredit',
   cart_bank_transfer: 'Transfer Bank',
+  cart_start_pay_description1: "Total",
+  cart_start_pay_description2: "Termasuk PPN, Jika berlaku.",
+  cart_start_pay_button_bank: "Ke Pembayaran",
+  cart_start_pay_button_cc: "Bayar Sekarang",
 
   // Related To Brand, Cetegories, Banner
   empty_rbcb: " Tidak mempunyai produk",
@@ -229,5 +233,10 @@ export default {
   creditcard_modal_password: "Kata Sandi",
   creditcard_password_validation: "Kata Sandi Akun Lunadorii",
   creditcard_modal_information: "Kami tidak akan menyimpan tentang kartu kredit anda",
-  creditcard_modal_save: "Simpan"
+  creditcard_modal_save: "Simpan",
+
+  // Credit Card Payment Success
+  cc_payment_title: "Pembayaran dengan Kartu Kredit",
+  cc_payment_message: "Anda membayar dengan Kartu Kredit",
+  cc_payment_button: "OK",
 }

@@ -55,6 +55,10 @@ export default {
   cart_no_credit_card2: 'pick one',
   cart_credit_cart: 'Credit Cart',
   cart_bank_transfer: 'Bank Transfer',
+  cart_start_pay_description1: "Total",
+  cart_start_pay_description2: "Include PPN, if applicable",
+  cart_start_pay_button_bank: "Go to Payment",
+  cart_start_pay_button_cc: "Pay Now",
 
   // Related To Brand, Cetegories, Banner
   empty_rbcb: " Doesn't has products",
@@ -228,5 +232,10 @@ export default {
   creditcard_modal_password: "Password",
   creditcard_password_validation: "Lunadori Account Password",
   creditcard_modal_information: "We will not save information about your credit card",
-  creditcard_modal_save: "Save"
+  creditcard_modal_save: "Save",
+
+  // Credit Card Payment Success
+  cc_payment_title: "Credit Card Payment",
+  cc_payment_message: "You have pay with credit card",
+  cc_payment_button: "OK",
 }
