@@ -148,6 +148,7 @@ export default {
   detail_transaction_tracking_code:'Kode Lacak',
   detail_transaction_order_status:'Status Pesanan',
   detail_transaction_waiting_for_payment:'Menunggu Pembayaran',
+  detail_transaction_deal:'Disetujui',
   detail_transaction_waiting_for_accepted_payment:'Menunggu Pembayaran Diterima',
   detail_transaction_packing_your_product:'Produk Dalam Pengemasan',
   detail_transaction_products_in_shipping:'Produk Sedang Dikirim',

@@ -179,7 +179,7 @@ const YourCart = (props) => (
                 <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'row',justifyContent: 'space-around'}}>
                   <Text style={{fontWeight: 'bold',color: '#000'}}>{props.selectedCourier.service}</Text>
                   <Text>{props.selectedCourier.cost[0].etd} Days</Text>
-                  <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. {props.selectedCourier.cost[0].value},-</Text>
+                  <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. {props.selectedCourier.cost[0].value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")},-</Text>
                 </View>
               ) : (
                 <View style={{borderColor: '#e2e2e2', borderWidth: 1, padding: 10,marginVertical: 10, flexDirection: 'column',justifyContent: 'space-around', alignItems: 'center'}}>

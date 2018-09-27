@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
-import { AsyncStorage, NetInfo, BackHandler } from 'react-native'
+import { AsyncStorage, NetInfo, BackHandler, Text } from 'react-native'
 import { connect } from 'react-redux'
 import { fetchSingleProductRecent, acceptOrder } from '../actions/product'
 
 import DetailsTransaction from '../components/DetailsTransaction'
 import OrderDetails from '../particles/OrderDetails'
+import I18n from '../i18n'
+import { View } from 'native-base';
 
 class DetailsTransactionContainer extends Component{
 
@@ -15,7 +17,8 @@ class DetailsTransactionContainer extends Component{
       billing_code:'',
       stillLoading: true,
       visibleModalPayment:false,
-      isSure: false
+      isSure: false,
+      orderStatus: ""
     }
   }
 
@@ -27,9 +30,12 @@ class DetailsTransactionContainer extends Component{
     const data = await this.props.navigation.state.params.data
     await this.props.fetchSingleProductRecent( data.order_id, dataUser.accessToken )
     await this.setState({stillLoading: false})
+    let { order_status } = this.props.receiveSingleProductRecent
+    await this.setState({orderStatus: order_status})
   }
 
   componentWillUnmount(){
+    this.setState({orderStatus: ""})
     NetInfo.isConnected.removeEventListener('connectionChange', this.handleConnectivityChange);
     BackHandler.removeEventListener('hardwareBackPress', this.handleBackPress);
   }
@@ -95,6 +101,41 @@ class DetailsTransactionContainer extends Component{
     await this.setState({stillLoading: false})
   }
 
+  renderStatusMessage(status) {
+    switch(status){
+      case "checkout":
+        return (
+          <Text style={{color: "#ccc"}}>{I18n.t('detail_transaction_waiting_for_payment')}</Text>
+        )
+        break
+      case "accepted_payment":
+        return (
+          <Text style={{color: "#ccc"}}>{I18n.t('detail_transaction_deal')}</Text>
+        )
+        break
+      case "Packing":
+        return (
+          <Text style={{color: "#ccc"}}>{I18n.t('detail_transaction_packing_your_product')}</Text>
+        )
+        break
+      case "Shipping":
+        return (
+          <Text style={{color: "#ccc"}}>{I18n.t('detail_transaction_products_in_shipping')}</Text>
+        )
+        break
+      case "Delivered":
+        return (
+          <Text style={{color: "#ccc"}}>{I18n.t('detail_transaction_your_product_is_delivered')}</Text>
+        )
+        break
+      default:
+        return (
+          <Text style={{color: "#ccc"}}>Untracked / Tidak Terlacak</Text>
+        )
+        break
+    }
+  }
+
   render(){
     const data = this.props.receiveSingleProductRecent
 
@@ -123,13 +164,14 @@ class DetailsTransactionContainer extends Component{
       <DetailsTransaction
         isSure={this.state.isSure}
         acceptOrder={() => this.handleAcceptOrder()}
+        renderStatusMessage={this.renderStatusMessage(this.state.orderStatus)}
         tracking_code={ data.receipt_number ? data.receipt_number : "Not Yet" }
         onChangeSure={() => this.setState({isSure: !this.state.isSure})}
         goback={() => this.props.navigation.goBack()}
         stillLoading={this.state.stillLoading}
         totalPrice={ data.total == null || data.total === '' ? data.total : this.formatPrice(data.total) }
         address={ data.address }
-        status={ data.order_status == null || data.order_status === '' ? data.order_status :this.capitalize(data.order_status) }
+        status={ this.state.orderStatus == null || this.state.orderStatus === '' ? this.state.orderStatus :this.capitalize(this.state.orderStatus) }
         billing_code={ data.billing_code }
         paid_method={ data.paid_method }
 

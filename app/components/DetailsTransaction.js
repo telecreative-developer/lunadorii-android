@@ -110,7 +110,8 @@ const DetailsTransaction = (props) => (
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
             <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
               <Text style={{fontWeight: 'bold',fontSize: 18}}>{I18n.t('detail_transaction_order_status')}</Text>
-              { props.paid_method === "bank_transfer" ?
+                {props.renderStatusMessage}
+              {/* { props.paid_method === "bank_transfer" ?
                 <View>
                   { props.status === 'Checkout' ?
                     <Text style={{color: '#ccc'}}>{I18n.t('detail_transaction_waiting_for_payment')}</Text>:
@@ -150,7 +151,7 @@ const DetailsTransaction = (props) => (
                       }
                     </View>
                 </View>
-              }
+              } */}
             </View>
           </View>
 
