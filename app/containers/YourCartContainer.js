@@ -501,13 +501,13 @@ async checkout(){
     
     if( CC ){
       return(
-          <CreditCardsInCart
-            cardNumberFormated={ CC[0].card_number }
-            cardNumber={ CC[0].card_number }
-            mm={ CC[0].mm }
-            yyyy={ CC[0].yyyy }
-            card_name={ CC[0].card_name }
-            />
+        <CreditCardsInCart
+          cardNumberFormated={ CC[0].card_number }
+          cardNumber={ CC[0].card_number }
+          mm={ CC[0].mm }
+          yyyy={ CC[0].yyyy }
+          card_name={ CC[0].card_name }
+        />
       )
     }else{
       return(
@@ -606,7 +606,7 @@ render() {
           <View style={{padding: 10, flexDirection: 'row',justifyContent: 'space-around'}}>
             <Text style={{fontWeight: 'bold',color: '#000'}}>{item.service.toUpperCase()}</Text>
             <Text>{item.cost[0].etd} Days</Text>
-            <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. {item.cost[0].value},-</Text>
+            <Text style={{fontWeight: 'bold',color: '#000'}}>Rp. {item.cost[0].value.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")},-</Text>
           </View>
         </TouchableOpacity>
       )}

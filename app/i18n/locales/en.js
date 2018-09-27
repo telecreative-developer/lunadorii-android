@@ -148,6 +148,7 @@ export default {
   detail_transaction_tracking_code:'Tracking Code',
   detail_transaction_order_status:'Order Status',
   detail_transaction_waiting_for_payment:'Waiting for Payment',
+  detail_transaction_deal: 'Accepted',
   detail_transaction_waiting_for_accepted_payment:'Waiting for Accepted Payment',
   detail_transaction_packing_your_product:'Packing Your Product',
   detail_transaction_products_in_shipping:'Products in Shipping',
