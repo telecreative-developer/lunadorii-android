@@ -5,8 +5,8 @@ import { View, Text } from 'native-base'
 
 const Categories = (props) => (
   <View style={styles.flexOnly2}>
-    <TouchableOpacity onPress={props.action}>
-      <View style={styles.viewCategories}>
+    <TouchableOpacity style={styles.viewCategories} onPress={props.action}>
+      <View>
         <Image source={{uri: props.icon}} style={styles.imageCategories} />
       </View>
     </TouchableOpacity>
@@ -27,6 +27,7 @@ const styles = StyleSheet.create({
     alignItems: 'center'
   },
   viewCategories: {
+    alignItems:'center',
     borderWidth: 1,
     borderColor: '#e2e2e2',
     height: 60,

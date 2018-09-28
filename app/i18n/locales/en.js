@@ -195,10 +195,11 @@ export default {
   address_modal_example_addresslabel:'e.g House, Office, Apartment',
   address_modal_address: 'Address',
   address_modal_province: 'Province',
-  address_modal_province_placeholder: 'Silahkan isi alamat terlebih dahulu',
+  address_modal_province_placeholder: 'Fill your address first',
   address_modal_city: 'City',
-  address_modal_city_placeholder: 'Silahkan pilih provinsi terlebih dahulu',
+  address_modal_city_placeholder: 'Choose province first',
   address_modal_numberphone: 'Number Phone',
+  address_modal_postalcode: 'Postal Code',
   address_modal_save: 'Save',
 
   // Setting
