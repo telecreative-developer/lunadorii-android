@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import { Alert, AsyncStorage, StyleSheet, Text, BackAndroid, Platform, BackHandler, View, TouchableOpacity } from 'react-native'
 import { isEmpty, isEmail } from 'validator'
+import { Icon } from 'native-base'
 import { connect } from 'react-redux'
 import { StackActions, NavigationActions } from 'react-navigation';
 import { Button, Spinner } from 'native-base'
@@ -147,12 +148,19 @@ class LoginContainer extends Component {
   googleButton(){
     return (
       <View>
-        <GoogleSigninButton
-          style={{ width: 212, height: 48 }}
-          size={GoogleSigninButton.Size.Standard}
-          color={GoogleSigninButton.Color.Auto}
-          onPress={this._signIn}
-        />
+        <TouchableOpacity style={{
+          padding:5,
+          borderWidth: 1,
+          borderColor: "#db3236",
+          borderRadius: 5,
+          marginHorizontal: 5,
+          marginVertical: 5,
+          alignItems: 'center',
+          flexDirection: 'row', 
+          justifyContent: 'center'
+        }} onPress={this._signIn}>
+          <Icon type="FontAwesome" name="google" style={{color:"#db3236", paddingRight: 5}}/><Text style={{color:"#db3236"}}>Log in With Google</Text>
+        </TouchableOpacity>
       </View>
     )
   }
