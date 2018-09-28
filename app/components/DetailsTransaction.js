@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { View,Text, StyleSheet, Dimensions, StatusBar, FlatList, TouchableOpacity } from 'react-native'
 import { Container, Content, Spinner, Button, CheckBox, ListItem, Body, Item } from 'native-base'
 import Navbar from '../particles/Navbar'
-import moment from 'moment'
+import moment, { ISO_8601 } from 'moment'
 import FontAwesome from 'react-native-vector-icons/FontAwesome'
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons'
 import Feather from 'react-native-vector-icons/Feather'
@@ -78,9 +78,9 @@ const DetailsTransaction = (props) => (
               {props.status === 'Shipping' ? (
                 <View style={{flexDirection: "row", justifyContent: 'space-between', alignItems:'center', padding:10, borderRadius:5, borderColor:"#ccc"}}>
                   <CheckBox checked={props.isSure} style={{backgroundColor:  props.isSure ? "#d11e48" : "#fff", borderColor: '#d11e48', paddingRight:5}} onPress={props.onChangeSure}/>
-                  <Text>I have receive my order and</Text>
+                  <Text>{I18n.t('detail_transaction_received_sure')}</Text>
                   <Button disabled={!props.isSure} style={{backgroundColor: props.isSure ? "#d11e48" : "#f6f6f6", width: 100, height: 30, alignItems:'center', justifyContent:'center'}} onPress={props.acceptOrder}>
-                    <Text style={{color: props.isSure ? "#fff" : "#ccc"}}>Yes I'm Sure</Text>
+                    <Text style={{color: props.isSure ? "#fff" : "#ccc"}}>{I18n.t('detail_transaction_received_confirm')}</Text>
                   </Button>
                 </View>
               ) : (
@@ -163,23 +163,39 @@ const DetailsTransaction = (props) => (
           </View>
 
           {props.status === 'Checkout' ? (
-          <View>
-            <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-              <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-                <Text style={{fontWeight: 'bold',fontSize: 18}}>Virtual Account</Text>
-                <Text style={{color: '#d11e48'}}>{props.va_number}</Text>
+            <View>
+              <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+                <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+                  <Text style={{fontWeight: 'bold',fontSize: 18}}>Virtual Account</Text>
+                  <Text style={{color: '#d11e48'}}>{props.va_number}</Text>
+                </View>
+              </View>
+            
+              <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+                <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+                  <Text style={{fontWeight: 'bold',fontSize: 18}}>{I18n.t('detail_transaction_expired_payment')}</Text>
+                  <Text style={{color: '#d11e48'}}>{moment(props.midtransResponse.transaction_time).add(12, 'hours').format('LLLL')}</Text>
+                </View>
               </View>
             </View>
-          
-            <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
-              <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
-                <Text style={{fontWeight: 'bold',fontSize: 18}}>{I18n.t('detail_transaction_expired_payment')}</Text>
-                <Text style={{color: '#d11e48'}}>{moment(props.midtransResponse.transaction_time).add(12, 'hours').format('LLLL')}</Text>
-              </View>
-            </View>
-          </View>
           ) : (
-            <View/>
+            <View>
+              <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+                <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+                  <Text style={{fontWeight: 'bold',fontSize: 18}}>Virtual Account</Text>
+                  <Text style={{color: '#d11e48', fontSize: 12}}>{I18n.t('detail_transaction_nova')}</Text>
+                  <Text style={{color: '#d11e48', fontSize: 12}}>{I18n.t('detail_transaction_youusecc')}</Text>
+                </View>
+              </View>
+            
+              <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
+                <View style={{paddingVertical: 10, paddingHorizontal: 5, marginVertical: 5, marginHorizontal: 5}}>
+                  <Text style={{fontWeight: 'bold',fontSize: 18}}>{I18n.t('detail_transaction_expired_payment')}</Text>
+                  <Text style={{color: '#d11e48', fontSize: 12}}>{I18n.t('detail_transaction_expay')}</Text>
+                  <Text style={{color: '#d11e48', fontSize: 12}}>{I18n.t('detail_transaction_youusecc')}</Text>
+                </View>
+              </View>
+            </View>
           )}
           
           <View style={{borderBottomColor: '#e2e2e2', borderBottomWidth: 1}}>
