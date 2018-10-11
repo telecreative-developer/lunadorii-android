@@ -23,6 +23,14 @@
           }
         },
         {
+          "client_id": "87885804671-8mtr6bube0ml7edmehkbbpglhpq0627h.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lunadorii",
+            "certificate_hash": "fdc70f127c3d91db1fbb7730abcf2d63f39176cc"
+          }
+        },
+        {
           "client_id": "87885804671-4spoagki6vvi6fc1l5pcm5an32lth8u8.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -40,8 +48,15 @@
           "status": 2,
           "other_platform_oauth_client": [
             {
-              "client_id": "87885804671-4spoagki6vvi6fc1l5pcm5an32lth8u8.apps.googleusercontent.com",
+              "client_id": "87885804671-p3lsvpp7kocogvgtqeqesvaql9ln3fdd.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "87885804671-1o0q5ckh1m05klqem64s5t4cira9dgm8.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.lunadorii"
+              }
             }
           ]
         },
