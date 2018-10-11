@@ -125,7 +125,7 @@ export default {
   wishlist_validation_title: 'Anda tidak mempunyai harapan',
   wishlist_validation_message1:"Pergi belanja untuk menemukan yang anda butuh ",
   wishlist_validation_message2:"dan tambahkan ke wishlist",
-  wishlist_validation_button:"Lanjur Berbelanja",
+  wishlist_validation_button:"Lanjut Berbelanja",
 
   // Credit Card
   credit_card_title: 'Kartu Kredit',
