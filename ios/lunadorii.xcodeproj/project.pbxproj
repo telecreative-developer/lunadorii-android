@@ -55,6 +55,7 @@
 		53B2D74B7FAD4AC1B0D402FB /* libRNI18n.a in Frameworks */ = {isa = PBXBuildFile; fileRef = A594D7C867794FBD8CD41A46 /* libRNI18n.a */; };
 		5AC623739D4C46BAA1F74847 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 1BEC356D28184E6C880062A1 /* Entypo.ttf */; };
 		5E9157361DD0AC6A00FF2AA8 /* libRCTAnimation.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5E9157331DD0AC6500FF2AA8 /* libRCTAnimation.a */; };
+		633AC164E1B7DA80177F8A9A /* libPods-lunadorii-tvOS.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EB189C7B9A5ACE84C1C141A3 /* libPods-lunadorii-tvOS.a */; };
 		66E5A72DAC7346EB9F5EDF95 /* libRNGoogleSignin.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 228EB7F8618E4B69A9D1C5B7 /* libRNGoogleSignin.a */; };
 		692F6B41877844FA80CD8F89 /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = CB30C708B43F424DABD154F7 /* EvilIcons.ttf */; };
 		6A28820244F1487A99698DE9 /* SafariServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1D09771EB30749EB833B2514 /* SafariServices.framework */; };
@@ -465,6 +466,7 @@
 		ADBDB91F1DFEBF0600ED6528 /* RCTBlob.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = RCTBlob.xcodeproj; path = "../node_modules/react-native/Libraries/Blob/RCTBlob.xcodeproj"; sourceTree = "<group>"; };
 		B4113F6366B44880A9F4DC36 /* Zocial.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Zocial.ttf; path = "../node_modules/native-base/Fonts/Zocial.ttf"; sourceTree = "<group>"; };
 		B94AF09AEAB24C43BD4FFD85 /* RNVectorIcons.xcodeproj */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = "wrapper.pb-project"; name = RNVectorIcons.xcodeproj; path = "../node_modules/react-native-vector-icons/RNVectorIcons.xcodeproj"; sourceTree = "<group>"; };
+		BFFD9F2B4CFE2D0FD4A3942B /* Pods-lunadorii-tvOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lunadorii-tvOS.debug.xcconfig"; path = "Pods/Target Support Files/Pods-lunadorii-tvOS/Pods-lunadorii-tvOS.debug.xcconfig"; sourceTree = "<group>"; };
 		C2DB91D64695E0ECD1D68964 /* Pods-lunadoriiTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lunadoriiTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-lunadoriiTests/Pods-lunadoriiTests.release.xcconfig"; sourceTree = "<group>"; };
 		C39C93EE7C4241F49919AE8C /* EvilIcons.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = EvilIcons.ttf; path = "../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf"; sourceTree = "<group>"; };
 		C4F689ACA15C400FAD5788C9 /* libRCTFBSDK.a */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = archive.ar; path = libRCTFBSDK.a; sourceTree = "<group>"; };
@@ -488,7 +490,9 @@
 		E5BFEBAD212AC1C200C94F19 /* FBSDKLoginKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKLoginKit.framework; path = ../../../FacebookSDK/FBSDKLoginKit.framework; sourceTree = "<group>"; };
 		E5BFEBAE212AC1C200C94F19 /* FBSDKShareKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKShareKit.framework; path = ../../../FacebookSDK/FBSDKShareKit.framework; sourceTree = "<group>"; };
 		E5BFEBAF212AC1C200C94F19 /* Bolts.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Bolts.framework; path = ../../../FacebookSDK/Bolts.framework; sourceTree = "<group>"; };
+		EB189C7B9A5ACE84C1C141A3 /* libPods-lunadorii-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lunadorii-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		F66EAD2855BF9C2BFBA1063A /* libPods-lunadorii.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-lunadorii.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		F995B3BC6D0ABD947BE4BEFE /* Pods-lunadorii-tvOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-lunadorii-tvOS.release.xcconfig"; path = "Pods/Target Support Files/Pods-lunadorii-tvOS/Pods-lunadorii-tvOS.release.xcconfig"; sourceTree = "<group>"; };
 		FA91F74389A0419A9A1B695B /* Feather.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = Feather.ttf; path = "../node_modules/react-native-vector-icons/Fonts/Feather.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -555,6 +559,7 @@
 				2D02E4C71E0B4AEC006451C7 /* libRCTText-tvOS.a in Frameworks */,
 				2D02E4C81E0B4AEC006451C7 /* libRCTWebSocket-tvOS.a in Frameworks */,
 				8ADA52F223354B47889576B7 /* libRNI18n-tvOS.a in Frameworks */,
+				633AC164E1B7DA80177F8A9A /* libPods-lunadorii-tvOS.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -708,6 +713,7 @@
 				F66EAD2855BF9C2BFBA1063A /* libPods-lunadorii.a */,
 				25C8086CF5F0B3E567B43F5F /* libPods-lunadorii-tvOSTests.a */,
 				DC538EEA5378737AA69EE507 /* libPods-lunadoriiTests.a */,
+				EB189C7B9A5ACE84C1C141A3 /* libPods-lunadorii-tvOS.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -893,6 +899,8 @@
 				AB11EA5CA1076F21F52FF11C /* Pods-lunadorii-tvOSTests.release.xcconfig */,
 				32C289AA363837F2CBE9279D /* Pods-lunadoriiTests.debug.xcconfig */,
 				C2DB91D64695E0ECD1D68964 /* Pods-lunadoriiTests.release.xcconfig */,
+				BFFD9F2B4CFE2D0FD4A3942B /* Pods-lunadorii-tvOS.debug.xcconfig */,
+				F995B3BC6D0ABD947BE4BEFE /* Pods-lunadorii-tvOS.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -928,7 +936,6 @@
 				13B07F8C1A680F5B00A75B9A /* Frameworks */,
 				13B07F8E1A680F5B00A75B9A /* Resources */,
 				00DD1BFF1BD5951E006B06BC /* Bundle React Native code and images */,
-				D1C8341D2325BB05FD09C2FD /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -943,6 +950,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 2D02E4BA1E0B4A5E006451C7 /* Build configuration list for PBXNativeTarget "lunadorii-tvOS" */;
 			buildPhases = (
+				54FBDF4B094E59D9B97054F7 /* [CP] Check Pods Manifest.lock */,
 				2D02E4771E0B4A5D006451C7 /* Sources */,
 				2D02E4781E0B4A5D006451C7 /* Frameworks */,
 				2D02E4791E0B4A5D006451C7 /* Resources */,
@@ -987,10 +995,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
+						DevelopmentTeam = TXJ534LQ6U;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = TXJ534LQ6U;
+						DevelopmentTeam = N38G864H68;
 					};
 					2D02E47A1E0B4A5D006451C7 = {
 						CreatedOnToolsVersion = 8.2.1;
@@ -1521,6 +1530,24 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		54FBDF4B094E59D9B97054F7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-lunadorii-tvOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		9662A94E7D6BD279E2B5F407 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -1537,26 +1564,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
-			showEnvVarsInLog = 0;
-		};
-		D1C8341D2325BB05FD09C2FD /* [CP] Copy Pods Resources */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${SRCROOT}/Pods/Target Support Files/Pods-lunadorii/Pods-lunadorii-resources.sh",
-				"${PODS_ROOT}/GTMOAuth2/Source/Touch/GTMOAuth2ViewTouch.xib",
-				"${PODS_ROOT}/GoogleSignIn/Resources/GoogleSignIn.bundle",
-			);
-			name = "[CP] Copy Pods Resources";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GTMOAuth2ViewTouch.nib",
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleSignIn.bundle",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-lunadorii/Pods-lunadorii-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
@@ -1629,6 +1636,8 @@
 			baseConfigurationReference = 32C289AA363837F2CBE9279D /* Pods-lunadoriiTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = TXJ534LQ6U;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -1665,7 +1674,9 @@
 			baseConfigurationReference = C2DB91D64695E0ECD1D68964 /* Pods-lunadoriiTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
+				DEVELOPMENT_TEAM = TXJ534LQ6U;
 				HEADER_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(SRCROOT)/../node_modules/react-native-vector-icons/RNVectorIconsManager",
@@ -1698,9 +1709,10 @@
 			baseConfigurationReference = CD007FFF9EDC2F4850DF765D /* Pods-lunadorii.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = TXJ534LQ6U;
+				DEVELOPMENT_TEAM = N38G864H68;
 				FRAMEWORK_SEARCH_PATHS = (
 					/Users/telecreative/Documents/FacebookSDK,
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/GoogleSdk",
@@ -1720,7 +1732,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lunadorii;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lunadorii.mobile;
 				PRODUCT_NAME = lunadorii;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1731,9 +1743,10 @@
 			baseConfigurationReference = C9ACED7D1F89306E5160CF41 /* Pods-lunadorii.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = TXJ534LQ6U;
+				DEVELOPMENT_TEAM = N38G864H68;
 				FRAMEWORK_SEARCH_PATHS = (
 					/Users/telecreative/Documents/FacebookSDK,
 					"$(SRCROOT)/../node_modules/react-native-google-signin/ios/GoogleSdk",
@@ -1753,7 +1766,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.lunadorii;
+				PRODUCT_BUNDLE_IDENTIFIER = com.lunadorii.mobile;
 				PRODUCT_NAME = lunadorii;
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -1761,6 +1774,7 @@
 		};
 		2D02E4971E0B4A5E006451C7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BFFD9F2B4CFE2D0FD4A3942B /* Pods-lunadorii-tvOS.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
@@ -1802,6 +1816,7 @@
 		};
 		2D02E4981E0B4A5E006451C7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F995B3BC6D0ABD947BE4BEFE /* Pods-lunadorii-tvOS.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "App Icon & Top Shelf Image";
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
