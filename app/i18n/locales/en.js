@@ -227,7 +227,7 @@ export default {
   // Add or Edit Credit Card
   creditcard_modal_title_add: "Add Credit Card",
   creditcard_modal_title_edit: "Edit Credit Card",
-  creditcard_modal_card_number: "Nomor Kartu",
+  creditcard_modal_card_number: "Card Number",
   creditcard_modal_validation: "Invalid Credit Card",
   creditcard_modal_month: "Month",
   creditcard_modal_year: "Year",

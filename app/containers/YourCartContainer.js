@@ -632,7 +632,7 @@ render() {
           title={item.product.length == 20 ? item.product : item.product.slice(0,18) + "..."}
           categories={item.brands[0].brand}
           quantity={item.qty} 
-          price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
+          price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage) * item.qty)} 
           image={item.thumbnails[0].thumbnail_url}
           actionEdit={() => this.toggleModalEditQuantity(item)}
           actionRemove={() => this.removeCart(item)}

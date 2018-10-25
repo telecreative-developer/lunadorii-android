@@ -321,7 +321,9 @@ class HomeContainer extends Component {
             image={item.thumbnails[0].thumbnail_url} 
             title={item.title <= 17 ? this.capitalize(item.title) : this.capitalize(item.product).slice(0,18)} 
             categories={item.brands[0].brand} 
-            price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
+            discount_percentage={item.discount_percentage}
+            priceDisc={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
+            price={this.formatPrice(item.price)} 
             star={item.product_rate} 
             action={() => this.state.isConnected ? this.props.navigation.navigate("ProductShowContainer", { data: item }): null}
             toggleModalAddToCart={() => this.toggleModalAddToCart(item)}
@@ -349,7 +351,9 @@ class HomeContainer extends Component {
             // title={this.capitalize(item.product).slice(0,Platform.OS==="android"?24:100) + '...'} 
             title={this.capitalize(item.product).slice(0,20)}
             categories={item.brands[0].brand} 
-            price={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
+            discount_percentage={item.discount_percentage}
+            priceDisc={this.formatPrice(this.discountPrice(item.price, item.discount_percentage))} 
+            price={this.formatPrice(item.price)} 
             star={item.product_rate} 
             reviews={item.product_rate}
             action={() => this.state.isConnected ? this.props.navigation.navigate("ProductShowContainer", { data: item }) : null}

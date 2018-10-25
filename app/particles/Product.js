@@ -40,8 +40,15 @@ const Product = (props) => (
         </View>
       </View>
       <View style={{flexDirection: 'row', justifyContent: 'flex-start', marginVertical: 5, alignItems:'center'}}>
-        <Text style={styles.txtPrice}>Rp. {props.price}</Text>
-        {/* <Text style={styles.txtDiscount}>Rp. {props.price}</Text> */}
+        {props.discount_percentage == 0 ? (
+          <Text style={styles.txtPrice}>Rp. {props.price}</Text>
+          // <Text style={styles.txtDiscount}>Rp. {props.priceDisc}</Text>
+        ):(
+          <View>
+          <Text style={styles.txtPriceDisc}>Rp. {props.price}</Text>
+          <Text style={styles.txtDiscount}>Rp. {props.priceDisc}</Text>
+          </View>
+        )}
       </View>
     </View>
   </View>
@@ -77,8 +84,13 @@ const styles = StyleSheet.create({
     fontSize: 16,
     maxWidth: width / 2.6
   },
-  txtDiscount: {
+  txtPriceDisc: {
+    fontWeight: 'bold',
     textDecorationLine: 'line-through',
+    fontSize: 16,
+    maxWidth: width / 2.6
+  },
+  txtDiscount: {
     justifyContent: 'center',
     paddingLeft: 5,
     fontSize: 12,
