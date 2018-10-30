@@ -58,7 +58,11 @@ const RecommendProduct = (props) => {
         }} onPress={props.toggleModalAddToCart}>
           <Text style={{padding: Platform.OS === 'android' ? 5 : 0, fontWeight: 'bold', fontSize: rfs(1.5)}}><MaterialCommunityIcons name='cart' /> {I18n.t('add_to_cart_modal')}</Text>
         </TouchableOpacity>
-        <Text style={{fontSize:rfs(1.5), fontWeight:'bold',marginRight:10}}>{props.price}</Text>
+        {props.discount_percentage == 0 ? (
+          <Text style={{fontSize:rfs(1.5), fontWeight:'bold',marginRight:10 }}>{props.price}</Text>
+        ):(
+          <Text style={{fontSize:rfs(1.5), fontWeight:'bold',marginRight:10, textDecorationLine: "line-through" }}>{props.price}</Text>
+        )}
       </View>
     </View>
   )

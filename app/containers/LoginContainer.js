@@ -134,7 +134,9 @@ class LoginContainer extends Component {
         ios: {
           iosClientId: "87885804671-1o0q5ckh1m05klqem64s5t4cira9dgm8.apps.googleusercontent.com",
         },
-        android: {},
+        android: {
+          androidClientId: "87885804671-n4iihjgh90vtks4cp2229fbd5r975n0f.apps.googleusercontent.com"
+        },
       }),
     };
 
@@ -158,7 +160,7 @@ class LoginContainer extends Component {
           alignItems: 'center',
           flexDirection: 'row', 
           justifyContent: 'center'
-        }} onPress={this._signIn}>
+        }} onPress={() => this._signIn()}>
           <Icon type="FontAwesome" name="google" style={{color:"#db3236", paddingRight: 5}}/><Text style={{color:"#db3236"}}>Log in With Google</Text>
         </TouchableOpacity>
       </View>
@@ -181,7 +183,7 @@ class LoginContainer extends Component {
       } else if (error.code === statusCodes.PLAY_SERVICES_NOT_AVAILABLE) {
         alert('play services not available or outdated');
       } else {
-        Alert.alert('Something went wrong', error.toString());
+        Alert.alert('Something went wrong', JSON.stringify(statusCodes));
         this.setState({
           error,
         });

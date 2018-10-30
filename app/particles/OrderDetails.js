@@ -22,7 +22,7 @@ const OrderDetails = (props) => (
       </View>
       <View style={styles.wrapRight}>
         <TouchableOpacity onPress={props.action}>
-          <Text style={styles.txtHeader}>Rp {props.price}</Text>
+          <Text style={styles.txtHeader}>Rp {props.priceDisc}</Text>
         </TouchableOpacity>
         <View style={{flexDirection: 'row'}}>
           <Text>Quantity : </Text>

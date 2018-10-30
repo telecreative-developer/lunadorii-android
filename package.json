@@ -17,7 +17,7 @@
     "react-native-banner-carousel": "^1.0.3",
     "react-native-countdown-component": "^1.7.1",
     "react-native-datepicker": "^1.7.2",
-    "react-native-fbsdk": "^0.7.0",
+    "react-native-fbsdk": "^0.8.0",
     "react-native-google-signin": "^1.0.0-rc3",
     "react-native-i18n": "^2.0.15",
     "react-native-image-gallery": "^2.1.5",

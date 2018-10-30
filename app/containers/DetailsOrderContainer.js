@@ -97,8 +97,8 @@ class DetailsOrderContainer extends Component{
         modalVisibleImageView={this.state.modalVisibleImageView}
         brandTitle={data.product}
         qty={data.qty}
-        priceDisc={this.formatPrice(this.discountPrice(data.price, data.discount_percentage))}
-        price={this.formatPrice(data.price)}
+        priceDisc={this.formatPrice(this.discountPrice(data.price, data.discount_percentage)* data.qty)}
+        price={this.formatPrice(data.price * data.qty)}
         category={data.subcategories[0].subcategory}
 
         showToast={() => Platform.OS==='android'?ToastAndroid.showWithGravity("Your order not yet arrived", ToastAndroid.SHORT, ToastAndroid.CENTER):alert('Your order not yet arrived')}
