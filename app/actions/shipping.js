@@ -3,8 +3,7 @@ import { RECEIVE_COURIER } from '../constants'
 import { API_SERVER } from '../env'
 
 //<---- GET COURIER ---->
-export const fetchCourier = (weight_gram, province_id) => {
-	console.log('bla bla ' ,weight_gram, province_id)
+export const fetchCourier = (weight_gram, city_id) => {
 	return async dispatch => {
 		await dispatch(setLoading(true, 'LOADING_FETCH_COURIER'))
 		try {
@@ -15,7 +14,7 @@ export const fetchCourier = (weight_gram, province_id) => {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({					
-                  province_id:province_id,
+                  province_id:city_id,
                   weight_gram:weight_gram
                 })
 			})

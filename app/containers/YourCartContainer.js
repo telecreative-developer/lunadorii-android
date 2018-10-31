@@ -116,7 +116,7 @@ class YourCartContainer extends Component {
     const dataUser = await this.props.usershipping.filter(shp => shp.address_default === true)
     const data = await dataUser.length && dataUser[0]
     if(this.props.cartuser.length && data ){
-      await this.props.fetchCourier(this.totalWeight(),data.province_id)
+      await this.props.fetchCourier(this.totalWeight(),data.city_id)
     }
   }
 
@@ -686,7 +686,7 @@ const mapDispatchToProps = (dispatch) =>{
     fetchUserShipping: (id, accessToken) => dispatch(fetchUserShipping(id, accessToken)),
     removeCart: (id, product_id, accessToken) => dispatch(removeCart(id, product_id, accessToken)),
     editQty: (id, product_id, qty, cart_id, accessToken) => dispatch(editQty(id, product_id, qty, cart_id, accessToken)),
-    fetchCourier: (weight_gram, province_id) => dispatch(fetchCourier(weight_gram, province_id)),
+    fetchCourier: (weight_gram, city_id) => dispatch(fetchCourier(weight_gram, city_id)),
     postCheckout: ( dataUser, accessToken) => dispatch(postCheckout( dataUser, accessToken)),
     fetchUserCredit: (id, accessToken) => dispatch(fetchUserCredit(id,accessToken)),
 
