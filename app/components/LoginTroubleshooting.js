@@ -36,11 +36,11 @@ const LoginTroubleshooting = (props) => (
               <Text style={styles.buttonSendLinkStyleText}>Send Login Link</Text>
             </Button>
           </View>
-          <View style={{marginBottom: 25, paddingTop: 10}}>
+          {/* <View style={{marginBottom: 25, paddingTop: 10}}>
             <TouchableOpacity onPress={props.navigateToMoreHelp}>
               <Text style={{alignSelf: 'center', color:'#d11e48'}}>Need more help?</Text>
             </TouchableOpacity>
-          </View>
+          </View> */}
         </View>
         {/* <View style={{borderTopColor: '#979797', borderTopWidth: 1.2, borderBottomColor: '#979797', borderBottomWidth: 1.2, marginHorizontal: 45, alignItems:'center'}}>
           <TouchableOpacity style={{flexDirection:'row', alignItems: 'center', paddingVertical: convertHeightPercentToDP('5%')}} onPress={props.loginFB}>

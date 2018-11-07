@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-
+import { Alert } from 'react-native'
 import LoginTroubleshooting from '../components/LoginTroubleshooting'
 import { forgotpassword } from '../actions/getSingleUser';
 
@@ -17,10 +17,10 @@ class LoginTroubleshootingContainer extends Component{
     const {email} = await this.state
     await this.props.forgotpassword(email)
     await Alert.alert('Success', 'Please Check Your Email')
+    await this.props.navigation.navigate("LoginContainer")
   }
   
   render(){
-    console.log(this.state)
     return(
       <LoginTroubleshooting
         navigateToLogin={() => this.props.navigation.navigate('LoginContainer')}
