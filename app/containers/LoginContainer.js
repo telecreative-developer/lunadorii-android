@@ -142,7 +142,7 @@ class LoginContainer extends Component {
 
     GoogleSignin.configure({
       ...configPlatform,
-      webClientId: "87885804671-1o0q5ckh1m05klqem64s5t4cira9dgm8.apps.googleusercontent.com",
+      webClientId: "87885804671-4spoagki6vvi6fc1l5pcm5an32lth8u8.apps.googleusercontent.com",
       offlineAccess: false,
     });
   }
